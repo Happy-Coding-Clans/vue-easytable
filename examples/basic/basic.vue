@@ -27,19 +27,19 @@
         data(){
             return {
                 tables: {
-                    width:600,
+                    width:900,
                     minWidth:300,
-                    height:200,
+                    height:300,
                     minHeight:150,
                     titleHeight:25,
                     columns: [
-                        {fileld: 'id', title: '编号', width: 100, align: 'left',isFrozen:true},
-                        {fileld: 'name', title: '名称', width: 100, align: 'center',isFrozen:false},
+                        {fileld: 'id', title: '编号', width: 150, align: 'left',isFrozen:true},
+                        {fileld: 'name', title: '名称', width: 150, align: 'center',isFrozen:false},
                         {fileld: 'cost', title: '成本价', width: 150, align: 'center',isFrozen:false},
-                        {fileld: 'status', title: '状态', width: 150, align: 'center',isFrozen:true},
-                        {fileld: 'price', title: '价格', width: 100, align: 'center',isFrozen:false},
-                        {fileld: 'attr1', title: '属性', width: 100, align: 'center',isFrozen:false},
-                        {fileld: 'color', title: '颜色', width: 100, align: 'center',isFrozen:true}
+                        {fileld: 'status', title: '状态', width: 150, align: 'center',isFrozen:false},
+                        {fileld: 'price', title: '价格', width: 150, align: 'center',isFrozen:false},
+                        {fileld: 'attr1', title: '属性', width: 150, align: 'center',isFrozen:false},
+                        {fileld: 'color', title: '颜色', width: 150, align: 'center',isFrozen:false}
 
                     ],
 

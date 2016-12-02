@@ -152,6 +152,7 @@
             },
             titleHeight: {
                 type: Number,
+                require: false
             },
             columns: {
                 type: Array,
@@ -163,12 +164,12 @@
             }
         },
         computed: {
-            // 冻结的列
+            // 冻结的列集合
             frozenCols(){
                 return this.columns.filter(x => x.isFrozen === true)
             },
 
-            // 非冻结列
+            // 非冻结列集合
             noFrozenCols(){
                 return this.columns.filter(x => x.isFrozen !== true)
             },
@@ -190,23 +191,23 @@
         methods: {
             // 列宽 9=左右间距+border宽
             tdWidth(val){
-                return val-9
+                return val - 9
+            },
+
+            // 随着窗口改变表格自适应
+            tableResize(){
+                /*  console.log('changes')
+
+                 var sl = $(".panel-body").scrollLeft()
+                 console.log(sl)*/
             }
         },
         mounted(){
+            var vm = this;
 
-          /*  console.log('leftViewWidth')
-            console.log(this.leftViewWidth)*/
+            /*  console.log('leftViewWidth')
+             console.log(this.leftViewWidth)*/
 
-            $.fn._scrollLeft = function (_1d) {
-                if (_1d == undefined) {
-                    return this.scrollLeft();
-                } else {
-                    return this.each(function () {
-                        $(this).scrollLeft(_1d);
-                    });
-                }
-            };
 
             var $view1 = $(".datagrid-view1");
             var $view2 = $('.datagrid-view2');
@@ -228,9 +229,18 @@
                     }
                 }
 
-                $view2.children("div.datagrid-header,div.datagrid-footer")._scrollLeft($(this)._scrollLeft());
-                $body2.children("table.datagrid-btable-frozen").css("left", -$(this)._scrollLeft());
+                //$view2.children("div.datagrid-header")._scrollLeft($(this)._scrollLeft());
+                $view2.children("div.datagrid-header").scrollLeft($(this).scrollLeft())
             })
+
+
+            window.onresize = function (event) {
+                /* vm.tableResize()*/
+                console.log('changes')
+
+                var b2 = $body2.scrollLeft()
+                console.log(b2)
+            };
         }
     }
 </script>
