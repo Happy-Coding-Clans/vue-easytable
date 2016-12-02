@@ -1,7 +1,14 @@
 <template>
     <div>
         基本的表格功能展示<br /><br />
-        <Easytable :columns="tables.columns" :tableData="tables.tableData"></Easytable>
+        <Easytable :width="tables.width"
+                   :minWidth="tables.minWidth"
+                   :height="tables.height"
+                   :minHeight="tables.minHeight"
+                   :titleHeight="tables.titleHeight"
+                   :columns="tables.columns"
+                   :tableData="tables.tableData"
+                   ></Easytable>
     </div>
 </template>
 
@@ -26,12 +33,12 @@
                     minHeight:150,
                     titleHeight:25,
                     columns: [
-                        {fileld: 'id', title: '编号', width: 100, align: 'center',isFrozen:true},
-                        {fileld: 'name', title: '名称', width: 100, align: 'center'},
-                        {fileld: 'cost', title: '成本价', width: 150, align: 'center'},
-                        {fileld: 'status', title: '状态', width: 150, align: 'center'},
-                        {fileld: 'price', title: '价格', width: 100, align: 'center'},
-                        {fileld: 'attr1', title: '属性', width: 100, align: 'center'},
+                        {fileld: 'id', title: '编号', width: 100, align: 'left',isFrozen:true},
+                        {fileld: 'name', title: '名称', width: 100, align: 'center',isFrozen:false},
+                        {fileld: 'cost', title: '成本价', width: 150, align: 'center',isFrozen:false},
+                        {fileld: 'status', title: '状态', width: 150, align: 'center',isFrozen:true},
+                        {fileld: 'price', title: '价格', width: 100, align: 'center',isFrozen:false},
+                        {fileld: 'attr1', title: '属性', width: 100, align: 'center',isFrozen:false},
                         {fileld: 'color', title: '颜色', width: 100, align: 'center',isFrozen:true}
 
                     ],

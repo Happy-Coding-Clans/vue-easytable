@@ -2,99 +2,112 @@
 
     <div class="panel datagrid" :style="{'width':width+'px'}">
         <div class="datagrid-wrap panel-body" title="" :style="{'width':(width-2)+'px'}">
-            <div class="datagrid-view" style="width: 598px; height: 200px;">
+            <div class="datagrid-view" :style="{'width': (width-2)+'px', 'height': height+'px'}">
                 <!--左列-->
-                <div class="datagrid-view1" style="width: 220px;">
-                    <!--左列头-->
-                    <div class="datagrid-header" style="width: 220px; height: 24px;">
-                        <div class="datagrid-header-inner" style="display: block;">
-                            <table class="datagrid-htable" border="0" cellspacing="0" cellpadding="0"
-                                   style="height: 25px;">
-                                <tbody>
-                                <tr class="datagrid-header-row">
-                                    <td v-for="col in frozenCols" :field="col.fileld">
-                                        <div class="datagrid-cell" :style="{'width':col.width+'px','text-align':col.align}">
-                                            <span>{{col.title}} </span>
-                                            <span class="datagrid-sort-icon"></span>
-                                        </div>
-                                    </td>
+                <template v-if="frozenCols.length > 0">
+                    <div class="datagrid-view1" :style="{'width':leftViewWidth+'px'}">
+                        <!--左列头-->
+                        <div class="datagrid-header"
+                             :style="{'width': leftViewWidth+'px', 'height':(titleHeight-1)+'px'}">
+                            <div class="datagrid-header-inner" style="display: block;">
+                                <table class="datagrid-htable" border="0" cellspacing="0" cellpadding="0"
+                                       style="height: 25px;">
+                                    <tbody>
+                                    <tr class="datagrid-header-row">
+                                        <td v-for="col in frozenCols" :field="col.fileld">
+                                            <div class="datagrid-cell"
+                                                 :style="{'width':tdWidth(col.width)+'px','text-align':col.align}">
+                                                <span>{{col.title}} </span>
+                                                <span class="datagrid-sort-icon"></span>
+                                            </div>
+                                        </td>
 
-                                   <!-- <td field="productid" class="">
-                                        <div class="datagrid-cell datagrid-cell-c1-productid"><span>ID</span><span
-                                                class="datagrid-sort-icon"></span></div>
-                                    </td>
-                                   -->
-                                </tr>
-                                </tbody>
-                            </table>
+                                        <!-- <td field="productid" class="">
+                                             <div class="datagrid-cell datagrid-cell-c1-productid"><span>ID</span><span
+                                                     class="datagrid-sort-icon"></span></div>
+                                         </td>
+                                        -->
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--左列内容-->
+                        <div class="datagrid-body"
+                             :style="{'width': leftViewWidth+'px', 'margin-top': '0px', 'height': (height-titleHeight)+'px'}">
+                            <div class="datagrid-body-inner">
+                                <table class="datagrid-btable" cellspacing="0" cellpadding="0" border="0">
+                                    <tbody>
+                                    <tr v-for="(item,index) in tableData" class="datagrid-row"
+                                        :style="{'height': titleHeight+'px'}">
+                                        <td v-for="col in frozenCols" :field="col.fileld">
+                                            <div style="height:auto;" class="datagrid-cell"
+                                                 :style="{'width':tdWidth(col.width)+'px','text-align':col.align}">
+                                                {{item[col.fileld]}}
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!--
+                                    <tr id="datagrid-row-r1-1-0" datagrid-row-index="0" class="datagrid-row"
+                                        style="height: 25px;">
+                                        <td field="productid">
+                                            <div style="height:auto;" class="datagrid-cell datagrid-cell-c1-productid">11
+                                            </div>
+                                        </td>
+                                        <td field="itemid">
+                                            <div style="height:auto;" class="datagrid-cell datagrid-cell-c1-itemid">aa</div>
+                                        </td>
+                                    </tr>
+                                    -->
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <!--左列内容-->
-                    <div class="datagrid-body" style="width: 220px; margin-top: 0px; height: 176px;">
-                        <div class="datagrid-body-inner">
-                            <table class="datagrid-btable" cellspacing="0" cellpadding="0" border="0">
-                                <tbody>
-                                <tr v-for="(item,index) in tableData" class="datagrid-row" style="height: 25px;">
-                                    <td v-for="col in frozenCols" :field="col.fileld">
-                                        <div style="height:auto;" class="datagrid-cell" :style="{'width':col.width+'px','text-align':col.align}">
-                                            {{item[col.fileld]}}
-                                        </div>
-                                    </td>
-                                </tr>
+                </template>
 
-                                <!--
-                                <tr id="datagrid-row-r1-1-0" datagrid-row-index="0" class="datagrid-row"
-                                    style="height: 25px;">
-                                    <td field="productid">
-                                        <div style="height:auto;" class="datagrid-cell datagrid-cell-c1-productid">11
-                                        </div>
-                                    </td>
-                                    <td field="itemid">
-                                        <div style="height:auto;" class="datagrid-cell datagrid-cell-c1-itemid">aa</div>
-                                    </td>
-                                </tr>
-                                -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
 
                 <!--右列-->
-                <div class="datagrid-view2" style="width: 378px;">
+                <div class="datagrid-view2" :style="{'width': rightViewWidth+'px'}">
                     <!--右列头-->
-                    <div class="datagrid-header" style="width: 378px; height: 24px;">
+                    <div class="datagrid-header"
+                         :style="{'width': rightViewWidth+'px', 'height':(titleHeight-1)+'px'}">
                         <div class="datagrid-header-inner" style="display: block;">
                             <table class="datagrid-htable" border="0" cellspacing="0" cellpadding="0"
-                                   style="height: 25px;">
+                                   :style="{'height':titleHeight+'px'}">
                                 <tbody>
                                 <tr class="datagrid-header-row">
                                     <td v-for="col in noFrozenCols" :field="col.fileld">
-                                        <div class="datagrid-cell" :style="{'width':col.width+'px','text-align':col.align}">
+                                        <div class="datagrid-cell"
+                                             :style="{'width':tdWidth(col.width)+'px','text-align':col.align}">
                                             <span>{{col.title}} </span>
                                             <span class="datagrid-sort-icon"></span>
                                         </div>
                                     </td>
 
-                                   <!--
-                                   <td field="listprice" class="">
-                                        <div class="datagrid-cell datagrid-cell-c1-listprice"
-                                             style="text-align: right;">
-                                            <span>价格</span><span class="datagrid-sort-icon"></span></div>
-                                    </td>
-                                    -->
+                                    <!--
+                                    <td field="listprice" class="">
+                                         <div class="datagrid-cell datagrid-cell-c1-listprice"
+                                              style="text-align: right;">
+                                             <span>价格</span><span class="datagrid-sort-icon"></span></div>
+                                     </td>
+                                     -->
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <!--右列内容-->
-                    <div class="datagrid-body" style="width: 378px; margin-top: 0px; height: 176px;">
+                    <div class="datagrid-body"
+                         :style="{'width': rightViewWidth+'px', 'margin-top': '0px', 'height': (height-titleHeight)+'px'}">
                         <table class="datagrid-btable" cellspacing="0" cellpadding="0" border="0">
                             <tbody>
-                            <tr v-for="(item,index) in tableData" class="datagrid-row" style="height: 25px;">
+                            <tr v-for="(item,index) in tableData" class="datagrid-row"
+                                :style="{'height':titleHeight+'px'}">
                                 <td v-for="col in noFrozenCols" :field="col.fileld">
-                                    <div style="height:auto;" class="datagrid-cell" :style="{'width':col.width+'px','text-align':col.align}">
+                                    <div style="height:auto;" class="datagrid-cell"
+                                         :style="{'width':tdWidth(col.width)+'px','text-align':col.align}">
                                         {{item[col.fileld]}}
                                     </div>
                                 </td>
@@ -121,23 +134,23 @@
 <script>
     export default {
         props: {
-            width:{
+            width: {
                 type: Number,
                 require: true
             },
-            minWidth:{
+            minWidth: {
                 type: Number,
                 require: false
             },
-            height:{
+            height: {
                 type: Number,
                 require: true
             },
-            minHeight:{
+            minHeight: {
                 type: Number,
                 require: false
             },
-            titleHeight:{
+            titleHeight: {
                 type: Number,
             },
             columns: {
@@ -150,20 +163,41 @@
             }
         },
         computed: {
+            // 冻结的列
             frozenCols(){
                 return this.columns.filter(x => x.isFrozen === true)
             },
 
+            // 非冻结列
             noFrozenCols(){
                 return this.columns.filter(x => x.isFrozen !== true)
             },
 
-            leftHeaderTdClass(id){
-                console.log(id)
+            // 左侧区域宽度
+            leftViewWidth(){
+                var result = 0
+                if (this.frozenCols && this.frozenCols.length > 0) {
+                    result = this.frozenCols.reduce((total, curr) => total + curr.width, 0)
+                }
+                return result
+            },
+
+            // 右侧区域宽度
+            rightViewWidth(){
+                return this.width - this.leftViewWidth - 2
             }
         },
-        methods: {},
+        methods: {
+            // 列宽 9=左右间距+border宽
+            tdWidth(val){
+                return val-9
+            }
+        },
         mounted(){
+
+          /*  console.log('leftViewWidth')
+            console.log(this.leftViewWidth)*/
+
             $.fn._scrollLeft = function (_1d) {
                 if (_1d == undefined) {
                     return this.scrollLeft();
