@@ -1,8 +1,8 @@
 <template>
 
-    <div class="panel datagrid" :style="{'width':width+'px'}">
-        <div class="datagrid-wrap panel-body" title="" :style="{'width':(width-2)+'px'}">
-            <div class="datagrid-view" :style="{'width': (width-2)+'px', 'height': height+'px'}">
+    <div class="panel datagrid" :style="{'width':newWidth+'px'}">
+        <div class="datagrid-wrap panel-body" title="" :style="{'width':(newWidth-2)+'px'}">
+            <div class="datagrid-view" :style="{'width': (newWidth-2)+'px', 'height': newHeight+'px'}">
                 <!--左列-->
                 <template v-if="frozenCols.length > 0">
                     <div class="datagrid-view1" :style="{'width':leftViewWidth+'px'}">
@@ -11,7 +11,7 @@
                              :style="{'width': leftViewWidth+'px', 'height':(titleHeight-1)+'px'}">
                             <div class="datagrid-header-inner" style="display: block;">
                                 <table class="datagrid-htable" border="0" cellspacing="0" cellpadding="0"
-                                       style="height: 25px;">
+                                       :style="{'height':titleHeight}">
                                     <tbody>
                                     <tr class="datagrid-header-row">
                                         <td v-for="col in frozenCols" :field="col.fileld">
@@ -34,7 +34,7 @@
                         </div>
                         <!--左列内容-->
                         <div class="datagrid-body"
-                             :style="{'width': leftViewWidth+'px', 'margin-top': '0px', 'height': (height-titleHeight)+'px'}">
+                             :style="{'width': leftViewWidth+'px', 'margin-top': '0px', 'height': (newHeight-titleHeight)+'px'}">
                             <div class="datagrid-body-inner">
                                 <table class="datagrid-btable" cellspacing="0" cellpadding="0" border="0">
                                     <tbody>
@@ -100,7 +100,7 @@
                     </div>
                     <!--右列内容-->
                     <div class="datagrid-body"
-                         :style="{'width': rightViewWidth+'px', 'margin-top': '0px', 'height': (height-titleHeight)+'px'}">
+                         :style="{'width': rightViewWidth+'px', 'margin-top': '0px', 'height': (newHeight-titleHeight)+'px'}">
                         <table class="datagrid-btable" cellspacing="0" cellpadding="0" border="0">
                             <tbody>
                             <tr v-for="(item,index) in tableData" class="datagrid-row"
@@ -136,8 +136,10 @@
         name:'vue-easyTable',
         data(){
           return {
-              tableWidth:this.width,
-              tableHeight:this.height
+              // 本地宽度
+              newWidth:this.width,
+              // 本地高度
+              newHeight:this.height
           }
         },
         props: {
@@ -192,7 +194,7 @@
 
             // 右侧区域宽度
             rightViewWidth(){
-                return this.width - this.leftViewWidth - 2
+                return this.newWidth - this.leftViewWidth - 2
             }
         },
         methods: {
@@ -244,11 +246,8 @@
             tableResize(){
                 var vm = this;
 
-               /* var width = vm.width
-                var height = vm.height*/
-
-                var width = vm.tableWidth
-                var height = vm.tableHeight
+                var width = vm.width
+                var height = vm.height
 
                 var minWidth = vm.minWidth
                 var minHeight = vm.minHeight
@@ -269,11 +268,7 @@
                     currentWidth = currentWidth < minWidth ? minWidth:currentWidth;
 
 
-
-                    setTimeout(function () {
-                        alert(currentWidth)
-                        vm.width=currentWidth
-                    },300)
+                    vm.newWidth=currentWidth
                 }
 
                 // （窗口高度缩小 && 当前高度大于最小高度） || （窗口高度扩大 && 当前高度小于最大高度）
@@ -283,7 +278,7 @@
                     currentHeight = currentHeight > height ? height : currentHeight;
                     currentHeight = currentHeight < minHeight ? minHeight : currentHeight;
 
-                    vm.height = currentHeight
+                    vm.newHeight = currentHeight
                 }
             },
         },
@@ -297,8 +292,6 @@
             window.onresize = function (event) {
                  vm.tableResize()
             }
-
-
         }
     }
 </script>
