@@ -28,7 +28,7 @@
             return {
                 tables: {
                     width:900,
-                    minWidth:300,
+                    minWidth:600,
                     height:300,
                     minHeight:150,
                     titleHeight:25,

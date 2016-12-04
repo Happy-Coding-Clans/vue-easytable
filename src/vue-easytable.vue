@@ -133,6 +133,13 @@
 
 <script>
     export default {
+        name:'vue-easyTable',
+        data(){
+          return {
+              tableWidth:this.width,
+              tableHeight:this.height
+          }
+        },
         props: {
             width: {
                 type: Number,
@@ -194,53 +201,104 @@
                 return val - 9
             },
 
+            // 列表中滚动条控制
+            scrollControl(){
+                var $view1 = $(".datagrid-view1");
+                var $view2 = $('.datagrid-view2');
+
+                var $body1 = $view1.children("div.datagrid-body");
+                var $body2 = $view2.children("div.datagrid-body");
+
+                $body2.bind("scroll", function () {
+                    $body1.scrollTop($(this).scrollTop());
+
+                    var c1 = $body1.children(":first");
+                    var c2 = $body2.children(":first");
+
+                    if (c1.length && c2.length) {
+                        var top1 = c1.offset().top;
+                        var top2 = c2.offset().top;
+                        if (top1 != top2) {
+                            $body1.scrollTop($body1.scrollTop() + top1 - top2);
+                        }
+                    }
+
+                    $view2.children("div.datagrid-header").scrollLeft($(this).scrollLeft())
+                })
+            },
+
+            // 获取当前元素的left、top偏移
+            getViewportOffset(){
+                var $window = $(window),
+                    scrollLeft = $window.scrollLeft(),
+                    scrollTop = $window.scrollTop(),
+                    offset = $('.datagrid').offset();
+                return {
+                    left: offset.left - scrollLeft,
+                    top: offset.top - scrollTop
+                }
+            },
+
+
             // 随着窗口改变表格自适应
             tableResize(){
-                /*  console.log('changes')
+                var vm = this;
 
-                 var sl = $(".panel-body").scrollLeft()
-                 console.log(sl)*/
-            }
+               /* var width = vm.width
+                var height = vm.height*/
+
+                var width = vm.tableWidth
+                var height = vm.tableHeight
+
+                var minWidth = vm.minWidth
+                var minHeight = vm.minHeight
+
+                var viewOffset = vm.getViewportOffset();
+
+                var currentWidth = $('.datagrid').outerWidth();
+                var currentHeight = $('.datagrid').outerHeight();
+
+                var right = $(window).width() - currentWidth - viewOffset.left;
+                var bottom = $(window).height() - currentHeight - viewOffset.top;
+
+                // （窗口宽度缩小 && 当前宽度大于最小宽度） ||（窗口宽度扩大 && 当前宽度小于最大宽度）
+                if ((right < 0 && currentWidth > minWidth) || (right > 0 && currentWidth < width)) {
+                    currentWidth = currentWidth + right;
+
+                    currentWidth = currentWidth > width ? width : currentWidth;
+                    currentWidth = currentWidth < minWidth ? minWidth:currentWidth;
+
+
+
+                    setTimeout(function () {
+                        alert(currentWidth)
+                        vm.width=currentWidth
+                    },300)
+                }
+
+                // （窗口高度缩小 && 当前高度大于最小高度） || （窗口高度扩大 && 当前高度小于最大高度）
+                if ((bottom < 0 && currentHeight > minHeight) || (bottom > 0 && currentHeight < height)) {
+                    var currentHeight = currentHeight + bottom;
+
+                    currentHeight = currentHeight > height ? height : currentHeight;
+                    currentHeight = currentHeight < minHeight ? minHeight : currentHeight;
+
+                    vm.height = currentHeight
+                }
+            },
         },
         mounted(){
             var vm = this;
 
-            /*  console.log('leftViewWidth')
-             console.log(this.leftViewWidth)*/
+            vm.tableResize()
 
-
-            var $view1 = $(".datagrid-view1");
-            var $view2 = $('.datagrid-view2');
-
-            var $body1 = $view1.children("div.datagrid-body");
-            var $body2 = $view2.children("div.datagrid-body");
-
-            $body2.bind("scroll", function () {
-                $body1.scrollTop($(this).scrollTop());
-
-                var c1 = $body1.children(":first");
-                var c2 = $body2.children(":first");
-
-                if (c1.length && c2.length) {
-                    var top1 = c1.offset().top;
-                    var top2 = c2.offset().top;
-                    if (top1 != top2) {
-                        $body1.scrollTop($body1.scrollTop() + top1 - top2);
-                    }
-                }
-
-                //$view2.children("div.datagrid-header")._scrollLeft($(this)._scrollLeft());
-                $view2.children("div.datagrid-header").scrollLeft($(this).scrollLeft())
-            })
-
+            vm.scrollControl()
 
             window.onresize = function (event) {
-                /* vm.tableResize()*/
-                console.log('changes')
+                 vm.tableResize()
+            }
 
-                var b2 = $body2.scrollLeft()
-                console.log(b2)
-            };
+
         }
     }
 </script>

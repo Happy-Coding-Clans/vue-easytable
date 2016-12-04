@@ -10,3 +10,5 @@ node_modules
 dist
 
 参考
+
+npm-debug.log
