@@ -1,30 +1,30 @@
 <template>
 
-    <div class="panel datagrid" :style="{'width':newWidth+'px'}">
-        <div class="datagrid-wrap panel-body" title="" :style="{'width':(newWidth-2)+'px'}">
-            <div class="datagrid-view" :style="{'width': (newWidth-2)+'px', 'height': newHeight+'px'}">
+    <div class="panel easytable" :style="{'width':newWidth+'px'}">
+        <div class="easytable-wrap panel-body" title="" :style="{'width':(newWidth-2)+'px'}">
+            <div class="easytable-views" :style="{'width': (newWidth-2)+'px', 'height': newHeight+'px'}">
                 <!--左列-->
                 <template v-if="frozenCols.length > 0">
-                    <div class="datagrid-view1" :style="{'width':leftViewWidth+'px'}">
+                    <div class="easytable-leftview" :style="{'width':leftViewWidth+'px'}">
                         <!--左列头-->
-                        <div class="datagrid-header"
+                        <div class="easytable-header"
                              :style="{'width': leftViewWidth+'px', 'height':(titleHeight-1)+'px'}">
-                            <div class="datagrid-header-inner" style="display: block;">
-                                <table class="datagrid-htable" border="0" cellspacing="0" cellpadding="0"
-                                       :style="{'height':titleHeight}">
+                            <div class="easytable-header-inner" style="display: block;">
+                                <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0"
+                                       :style="{'height':titleHeight+'px'}">
                                     <tbody>
-                                    <tr class="datagrid-header-row">
+                                    <tr class="easytable-header-row">
                                         <td v-for="col in frozenCols" :field="col.fileld">
-                                            <div class="datagrid-cell"
+                                            <div class="easytable-cell"
                                                  :style="{'width':tdWidth(col.width)+'px','text-align':col.align}">
                                                 <span>{{col.title}} </span>
-                                                <span class="datagrid-sort-icon"></span>
+                                                <span class="easytable-sort-icon"></span>
                                             </div>
                                         </td>
 
                                         <!-- <td field="productid" class="">
-                                             <div class="datagrid-cell datagrid-cell-c1-productid"><span>ID</span><span
-                                                     class="datagrid-sort-icon"></span></div>
+                                             <div class="easytable-cell easytable-cell-c1-productid"><span>ID</span><span
+                                                     class="easytable-sort-icon"></span></div>
                                          </td>
                                         -->
                                     </tr>
@@ -33,15 +33,15 @@
                             </div>
                         </div>
                         <!--左列内容-->
-                        <div class="datagrid-body"
+                        <div class="easytable-body"
                              :style="{'width': leftViewWidth+'px', 'margin-top': '0px', 'height': (newHeight-titleHeight)+'px'}">
-                            <div class="datagrid-body-inner">
-                                <table class="datagrid-btable" cellspacing="0" cellpadding="0" border="0">
+                            <div class="easytable-body-inner">
+                                <table class="easytable-btable" cellspacing="0" cellpadding="0" border="0">
                                     <tbody>
-                                    <tr v-for="(item,index) in tableData" class="datagrid-row"
-                                        :style="{'height': titleHeight+'px'}">
+                                    <tr v-for="(item,index) in tableData" class="easytable-row"
+                                        :style="{'height': rowHeight+'px'}">
                                         <td v-for="col in frozenCols" :field="col.fileld">
-                                            <div style="height:auto;" class="datagrid-cell"
+                                            <div style="height:auto;" class="easytable-cell"
                                                  :style="{'width':tdWidth(col.width)+'px','text-align':col.align}">
                                                 {{item[col.fileld]}}
                                             </div>
@@ -49,14 +49,14 @@
                                     </tr>
 
                                     <!--
-                                    <tr id="datagrid-row-r1-1-0" datagrid-row-index="0" class="datagrid-row"
+                                    <tr id="easytable-row-r1-1-0" easytable-row-index="0" class="easytable-row"
                                         style="height: 25px;">
                                         <td field="productid">
-                                            <div style="height:auto;" class="datagrid-cell datagrid-cell-c1-productid">11
+                                            <div style="height:auto;" class="easytable-cell easytable-cell-c1-productid">11
                                             </div>
                                         </td>
                                         <td field="itemid">
-                                            <div style="height:auto;" class="datagrid-cell datagrid-cell-c1-itemid">aa</div>
+                                            <div style="height:auto;" class="easytable-cell easytable-cell-c1-itemid">aa</div>
                                         </td>
                                     </tr>
                                     -->
@@ -69,28 +69,28 @@
 
 
                 <!--右列-->
-                <div class="datagrid-view2" :style="{'width': rightViewWidth+'px'}">
+                <div class="easytable-rightview" :style="{'width': rightViewWidth+'px'}">
                     <!--右列头-->
-                    <div class="datagrid-header"
+                    <div class="easytable-header"
                          :style="{'width': rightViewWidth+'px', 'height':(titleHeight-1)+'px'}">
-                        <div class="datagrid-header-inner" style="display: block;">
-                            <table class="datagrid-htable" border="0" cellspacing="0" cellpadding="0"
+                        <div class="easytable-header-inner" style="display: block;">
+                            <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0"
                                    :style="{'height':titleHeight+'px'}">
                                 <tbody>
-                                <tr class="datagrid-header-row">
+                                <tr class="easytable-header-row">
                                     <td v-for="col in noFrozenCols" :field="col.fileld">
-                                        <div class="datagrid-cell"
+                                        <div class="easytable-cell"
                                              :style="{'width':tdWidth(col.width)+'px','text-align':col.align}">
                                             <span>{{col.title}} </span>
-                                            <span class="datagrid-sort-icon"></span>
+                                            <span class="easytable-sort-icon"></span>
                                         </div>
                                     </td>
 
                                     <!--
                                     <td field="listprice" class="">
-                                         <div class="datagrid-cell datagrid-cell-c1-listprice"
+                                         <div class="easytable-cell easytable-cell-c1-listprice"
                                               style="text-align: right;">
-                                             <span>价格</span><span class="datagrid-sort-icon"></span></div>
+                                             <span>价格</span><span class="easytable-sort-icon"></span></div>
                                      </td>
                                      -->
                                 </tr>
@@ -99,14 +99,14 @@
                         </div>
                     </div>
                     <!--右列内容-->
-                    <div class="datagrid-body"
+                    <div class="easytable-body"
                          :style="{'width': rightViewWidth+'px', 'margin-top': '0px', 'height': (newHeight-titleHeight)+'px'}">
-                        <table class="datagrid-btable" cellspacing="0" cellpadding="0" border="0">
+                        <table class="easytable-btable" cellspacing="0" cellpadding="0" border="0">
                             <tbody>
-                            <tr v-for="(item,index) in tableData" class="datagrid-row"
-                                :style="{'height':titleHeight+'px'}">
+                            <tr v-for="(item,index) in tableData" class="easytable-row"
+                                :style="{'height':rowHeight+'px'}">
                                 <td v-for="col in noFrozenCols" :field="col.fileld">
-                                    <div style="height:auto;" class="datagrid-cell"
+                                    <div style="height:auto;" class="easytable-cell"
                                          :style="{'width':tdWidth(col.width)+'px','text-align':col.align}">
                                         {{item[col.fileld]}}
                                     </div>
@@ -114,11 +114,11 @@
                             </tr>
 
                             <!--
-                            <tr id="datagrid-row-r1-2-0" datagrid-row-index="0" class="datagrid-row"
+                            <tr id="easytable-row-r1-2-0" easytable-row-index="0" class="easytable-row"
                                 style="height: 25px;">
                                 <td field="listprice">
                                     <div style="text-align:right;height:auto;"
-                                         class="datagrid-cell datagrid-cell-c1-listprice">36.5
+                                         class="easytable-cell easytable-cell-c1-listprice">36.5
                                     </div>
                                 </td>
                              -->
@@ -133,14 +133,14 @@
 
 <script>
     export default {
-        name:'vue-easyTable',
+        name: 'vue-easyTable',
         data(){
-          return {
-              // 本地宽度
-              newWidth:this.width,
-              // 本地高度
-              newHeight:this.height
-          }
+            return {
+                // 本地宽度
+                newWidth: this.width,
+                // 本地高度
+                newHeight: this.height
+            }
         },
         props: {
             width: {
@@ -159,7 +159,13 @@
                 type: Number,
                 require: false
             },
+
             titleHeight: {
+                type: Number,
+                require: false
+            },
+            // 行高
+            rowHeight: {
                 type: Number,
                 require: false
             },
@@ -205,11 +211,11 @@
 
             // 列表中滚动条控制
             scrollControl(){
-                var $view1 = $(".datagrid-view1");
-                var $view2 = $('.datagrid-view2');
+                var $view1 = $(".easytable-leftview");
+                var $view2 = $('.easytable-rightview');
 
-                var $body1 = $view1.children("div.datagrid-body");
-                var $body2 = $view2.children("div.datagrid-body");
+                var $body1 = $view1.children("div.easytable-body");
+                var $body2 = $view2.children("div.easytable-body");
 
                 $body2.bind("scroll", function () {
                     $body1.scrollTop($(this).scrollTop());
@@ -225,7 +231,7 @@
                         }
                     }
 
-                    $view2.children("div.datagrid-header").scrollLeft($(this).scrollLeft())
+                    $view2.children("div.easytable-header").scrollLeft($(this).scrollLeft())
                 })
             },
 
@@ -234,7 +240,7 @@
                 var $window = $(window),
                     scrollLeft = $window.scrollLeft(),
                     scrollTop = $window.scrollTop(),
-                    offset = $('.datagrid').offset();
+                    offset = $('.easytable').offset();
                 return {
                     left: offset.left - scrollLeft,
                     top: offset.top - scrollTop
@@ -254,8 +260,8 @@
 
                 var viewOffset = vm.getViewportOffset();
 
-                var currentWidth = $('.datagrid').outerWidth();
-                var currentHeight = $('.datagrid').outerHeight();
+                var currentWidth = $('.easytable').outerWidth();
+                var currentHeight = $('.easytable').outerHeight();
 
                 var right = $(window).width() - currentWidth - viewOffset.left;
                 var bottom = $(window).height() - currentHeight - viewOffset.top;
@@ -265,10 +271,10 @@
                     currentWidth = currentWidth + right;
 
                     currentWidth = currentWidth > width ? width : currentWidth;
-                    currentWidth = currentWidth < minWidth ? minWidth:currentWidth;
+                    currentWidth = currentWidth < minWidth ? minWidth : currentWidth;
 
 
-                    vm.newWidth=currentWidth
+                    vm.newWidth = currentWidth
                 }
 
                 // （窗口高度缩小 && 当前高度大于最小高度） || （窗口高度扩大 && 当前高度小于最大高度）
@@ -290,7 +296,7 @@
             vm.scrollControl()
 
             window.onresize = function (event) {
-                 vm.tableResize()
+                vm.tableResize()
             }
         }
     }
@@ -356,30 +362,30 @@
         font-size: 12px;
     }
 
-    .datagrid .panel-body {
+    .easytable .panel-body {
         overflow-x: hidden;
         overflow-y: hidden;
         position: relative;
     }
 
-    .datagrid-view {
+    .easytable-views {
         position: relative;
         overflow-x: hidden;
         overflow-y: hidden;
     }
 
-    .datagrid-view1, .datagrid-view2 {
+    .easytable-leftview, .easytable-rightview {
         position: absolute;
         overflow-x: hidden;
         overflow-y: hidden;
         top: 0px;
     }
 
-    .datagrid-view1 {
+    .easytable-leftview {
         left: 0px;
     }
 
-    .datagrid-header {
+    .easytable-header {
         overflow-x: hidden;
         overflow-y: hidden;
         cursor: default;
@@ -393,7 +399,7 @@
         border-left-style: solid;
     }
 
-    .datagrid-header, .datagrid-td-rownumber {
+    .easytable-header, .easytable-td-rownumber {
         background-image: linear-gradient(rgb(249, 249, 249) 0px, rgb(239, 239, 239) 100%);
         background-position-x: initial;
         background-position-y: initial;
@@ -406,28 +412,28 @@
         background-repeat-y: no-repeat;
     }
 
-    .datagrid-header, .datagrid-toolbar, .datagrid-pager, .datagrid-footer-inner {
+    .easytable-header, .easytable-toolbar, .easytable-pager, .easytable-footer-inner {
         border-top-color: rgb(221, 221, 221);
         border-right-color: rgb(221, 221, 221);
         border-bottom-color: rgb(221, 221, 221);
         border-left-color: rgb(221, 221, 221);
     }
 
-    .datagrid-header-inner {
+    .easytable-header-inner {
         float: left;
         width: 10000px;
     }
 
-    .datagrid-htable, .datagrid-btable, .datagrid-ftable {
+    .easytable-htable, .easytable-btable, .easytable-ftable {
         color: rgb(0, 0, 0);
         border-collapse: separate;
     }
 
-    .datagrid-header-row, .datagrid-row {
+    .easytable-header-row, .easytable-row {
         height: 25px;
     }
 
-    .datagrid-header td, .datagrid-body td, .datagrid-footer td {
+    .easytable-header td, .easytable-body td, .easytable-footer td {
         border-top-width: 0px;
         border-right-width: 1px;
         border-bottom-width: 1px;
@@ -450,7 +456,7 @@
         border-left-color: rgb(204, 204, 204);
     }
 
-    .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {
+    .easytable-cell, .easytable-cell-group, .easytable-header-rownumber, .easytable-cell-rownumber {
         margin-top: 0px;
         margin-right: 0px;
         margin-bottom: 0px;
@@ -468,7 +474,7 @@
         font-size: 12px;
     }
 
-    .datagrid-header-rownumber, .datagrid-cell-rownumber {
+    .easytable-header-rownumber, .easytable-cell-rownumber {
         width: 30px;
         text-align: center;
         margin-top: 0px;
@@ -481,19 +487,19 @@
         padding-left: 0px;
     }
 
-    .datagrid-header-rownumber {
+    .easytable-header-rownumber {
         width: 29px;
     }
 
-    .datagrid-header .datagrid-cell {
+    .easytable-header .easytable-cell {
         height: auto;
     }
 
-    .datagrid-header .datagrid-cell span {
+    .easytable-header .easytable-cell span {
         font-size: 12px;
     }
 
-    .datagrid-sort-icon {
+    .easytable-sort-icon {
         padding-top: 0px;
         padding-right: 0px;
         padding-bottom: 0px;
@@ -501,7 +507,7 @@
         display: none;
     }
 
-    .datagrid-body {
+    .easytable-body {
         margin-top: 0px;
         margin-right: 0px;
         margin-bottom: 0px;
@@ -515,21 +521,21 @@
         zoom: 1;
     }
 
-    .datagrid-view1 .datagrid-body {
+    .easytable-leftview .easytable-body {
         overflow-x: hidden;
         overflow-y: hidden;
     }
 
-    .datagrid-view1 .datagrid-body-inner {
+    .easytable-leftview .easytable-body-inner {
         padding-bottom: 20px;
     }
 
-    .datagrid-cell-rownumber {
+    .easytable-cell-rownumber {
         color: rgb(0, 0, 0);
         width: 29px;
     }
 
-    .datagrid-view2 {
+    .easytable-rightview {
         right: 0px;
     }
 </style>
