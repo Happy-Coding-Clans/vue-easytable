@@ -259,6 +259,8 @@
                             }
                         })
                     }
+
+                    vm.$emit('actionCallBack',1)
                 }
 
             },
@@ -347,6 +349,7 @@
             },
         },
         mounted(){
+
             var vm = this;
 
             vm.tableResize()

@@ -11,6 +11,7 @@
                    :multipleSort="tables.multipleSort"
                    :columns="tables.columns"
                    :tableData="tables.tableData"
+                   @actionCallBack="actionCallBack"
         ></Easytable>
         <hr>
         <input type="button" @click="changeColunsTest" value="父组件数据改变测试" />
@@ -39,7 +40,7 @@
                     /*titleHeight: 35,*/
                     titleBgColor:'#eee',
                     /*rowHeight:30,*/
-                    tableData: mockData,
+                    tableData: [],
                     multipleSort:false,
                     columns: [
                         {fileld: 'ENDDATE', title: '截至日期', width: 180, align: 'center', isFrozen: true,orderBy:''},
@@ -53,6 +54,7 @@
                         {fileld: 'DIFFER', title: '较上期变动(总户数)(户)', width: 180, align: 'center', isFrozen: false},
                         {fileld: 'RATE', title: '增长率(%)', width: 150, align: 'center', isFrozen: false}
                     ]
+
                     /*  columns: [
                      {fileld: 'id', title: '编号', width: 150, align: 'left',isFrozen:true},
                      {fileld: 'name', title: '名称', width: 150, align: 'center',isFrozen:true},
@@ -67,6 +69,20 @@
             }
         },
         methods:{
+            getTableData(){
+                var vm = this
+
+                setTimeout(function () {
+                    vm.tables.tableData = mockData
+                },10)
+
+            },
+
+            // 获取 table 组件每次操作后的参数
+            actionCallBack(args){
+                alert(args)
+            },
+
             changeColunsTest(){
                 this.tables.columns=[
                     {fileld: 'ENDDATE', title: '截至日期', width: 180, align: 'center', isFrozen: true,isSort:true,orderBy:'desc'},
@@ -80,10 +96,10 @@
                     {fileld: 'DIFFER', title: '较上期变动(总户数)(户)', width: 180, align: 'center', isFrozen: false},
                     {fileld: 'RATE', title: '增长率(%)', width: 150, align: 'center', isFrozen: false}
                 ]
-
-                this.test=false
-                /*console.log(this.tables.columns)*/
             }
+        },
+        created(){
+            this.getTableData()
         }
     }
 </script>
