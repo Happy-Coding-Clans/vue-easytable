@@ -8,17 +8,20 @@
                     <div class="easytable-leftview" :style="{'width':leftViewWidth+'px'}">
                         <!--左列头-->
                         <div class="easytable-header"
-                             :style="{'width': leftViewWidth+'px', 'height':(titleHeight-1)+'px'}">
+                             :style="{'width': leftViewWidth+'px', 'height':(titleHeight-1)+'px','background-color':titleBgColor}">
                             <div class="easytable-header-inner" style="display: block;">
                                 <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0"
                                        :style="{'height':titleHeight+'px'}">
                                     <tbody>
                                     <tr class="easytable-header-row">
-                                        <td v-for="col in frozenCols" :field="col.fileld">
+                                        <td v-for="col in frozenCols" :field="col.fileld"
+                                            :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
+                                            @click.stop="sortControl(col.fileld)">
                                             <div class="easytable-cell"
                                                  :style="{'width':tdWidth(col.width)+'px','text-align':col.align}">
                                                 <span>{{col.title}} </span>
-                                                <span class="easytable-sort-icon"></span>
+                                                <span v-if="enableSort(col.orderBy)"
+                                                      :class="['easytable-sort-icon', col.orderBy]"></span>
                                             </div>
                                         </td>
 
@@ -72,17 +75,20 @@
                 <div class="easytable-rightview" :style="{'width': rightViewWidth+'px'}">
                     <!--右列头-->
                     <div class="easytable-header"
-                         :style="{'width': rightViewWidth+'px', 'height':(titleHeight-1)+'px'}">
+                         :style="{'width': rightViewWidth+'px', 'height':(titleHeight-1)+'px','background-color':titleBgColor}">
                         <div class="easytable-header-inner" style="display: block;">
                             <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0"
                                    :style="{'height':titleHeight+'px'}">
                                 <tbody>
                                 <tr class="easytable-header-row">
-                                    <td v-for="col in noFrozenCols" :field="col.fileld">
+                                    <td v-for="col in noFrozenCols" :field="col.fileld"
+                                        :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
+                                        @click.stop="sortControl(col.fileld)">
                                         <div class="easytable-cell"
                                              :style="{'width':tdWidth(col.width)+'px','text-align':col.align}">
                                             <span>{{col.title}} </span>
-                                            <span class="easytable-sort-icon"></span>
+                                            <span v-if="enableSort(col.orderBy)"
+                                                  :class="['easytable-sort-icon', col.orderBy]"></span>
                                         </div>
                                     </td>
 
@@ -122,6 +128,7 @@
                                     </div>
                                 </td>
                              -->
+
                             </tbody>
                         </table>
                     </div>
@@ -132,6 +139,9 @@
 </template>
 
 <script>
+
+    import './css/main.css'
+
     export default {
         name: 'vue-easyTable',
         data(){
@@ -139,10 +149,16 @@
                 // 本地宽度
                 newWidth: this.width,
                 // 本地高度
-                newHeight: this.height
+                newHeight: this.height,
+
+                // 本地列数据
+                newColumns: Object.assign([], this.columns)
             }
         },
         props: {
+            test: {
+                type: Boolean
+            },
             width: {
                 type: Number,
                 require: true
@@ -162,13 +178,30 @@
 
             titleHeight: {
                 type: Number,
-                require: false
+                require: false,
+                default: 35
             },
+
+            titleBgColor: {
+                type: String,
+                require: false,
+                default: '#fff'
+            },
+
             // 行高
             rowHeight: {
                 type: Number,
-                require: false
+                require: false,
+                default: 30
             },
+
+            // 多列排序
+            multipleSort: {
+                type: Boolean,
+                require: false,
+                default: true
+            },
+
             columns: {
                 type: Array,
                 require: true
@@ -181,12 +214,12 @@
         computed: {
             // 冻结的列集合
             frozenCols(){
-                return this.columns.filter(x => x.isFrozen === true)
+                return this.newColumns.filter(x => x.isFrozen === true)
             },
 
             // 非冻结列集合
             noFrozenCols(){
-                return this.columns.filter(x => x.isFrozen !== true)
+                return this.newColumns.filter(x => x.isFrozen !== true)
             },
 
             // 左侧区域宽度
@@ -202,8 +235,34 @@
             rightViewWidth(){
                 return this.newWidth - this.leftViewWidth - 2
             }
+
         },
         methods: {
+            enableSort(val){
+                return typeof val === 'string' ? true : false
+            },
+
+            sortControl(filed){
+                var vm = this
+
+                var column = vm.newColumns.find(c => c.fileld === filed)
+
+                if (vm.enableSort(column.orderBy)) {
+
+                    column.orderBy = column.orderBy === 'asc' ? 'desc' :
+                        (column.orderBy === 'desc' ? '' : 'asc')
+
+                    if (!vm.multipleSort) { // 单列排序时还原其他列状态
+                        this.newColumns.filter(function (val, index) {
+                            if (val.fileld !== filed && vm.enableSort(val.orderBy)) {
+                                val.orderBy = ''
+                            }
+                        })
+                    }
+                }
+
+            },
+
             // 列宽 9=左右间距+border宽
             tdWidth(val){
                 return val - 9
@@ -246,7 +305,6 @@
                     top: offset.top - scrollTop
                 }
             },
-
 
             // 随着窗口改变表格自适应
             tableResize(){
@@ -298,244 +356,13 @@
             window.onresize = function (event) {
                 vm.tableResize()
             }
+
+        },
+        watch: {
+            // 重新跟新列信息
+            'columns': function (newVal) {
+                this.newColumns = Object.assign([], newVal)
+            }
         }
     }
 </script>
-
-
-<style>
-    .panel {
-        overflow-x: hidden;
-        overflow-y: hidden;
-        text-align: left;
-        margin-top: 0px;
-        margin-right: 0px;
-        margin-bottom: 0px;
-        margin-left: 0px;
-        border-top-width: 0px;
-        border-right-width: 0px;
-        border-bottom-width: 0px;
-        border-left-width: 0px;
-        border-top-style: initial;
-        border-right-style: initial;
-        border-bottom-style: initial;
-        border-left-style: initial;
-        border-top-color: initial;
-        border-right-color: initial;
-        border-bottom-color: initial;
-        border-left-color: initial;
-        border-image-source: initial;
-        border-image-slice: initial;
-        border-image-width: initial;
-        border-image-outset: initial;
-        border-image-repeat: initial;
-        border-top-left-radius: 0px;
-        border-top-right-radius: 0px;
-        border-bottom-right-radius: 0px;
-        border-bottom-left-radius: 0px;
-    }
-
-    .panel-header, .panel-body {
-        border-top-width: 1px;
-        border-right-width: 1px;
-        border-bottom-width: 1px;
-        border-left-width: 1px;
-        border-top-style: solid;
-        border-right-style: solid;
-        border-bottom-style: solid;
-        border-left-style: solid;
-        border-top-color: rgb(149, 184, 231);
-        border-right-color: rgb(149, 184, 231);
-        border-bottom-color: rgb(149, 184, 231);
-        border-left-color: rgb(149, 184, 231);
-    }
-
-    .panel-body {
-        overflow-x: auto;
-        overflow-y: auto;
-        padding-top: 0px;
-        padding-right: 0px;
-        padding-bottom: 0px;
-        padding-left: 0px;
-        background-color: rgb(255, 255, 255);
-        color: rgb(0, 0, 0);
-        font-size: 12px;
-    }
-
-    .easytable .panel-body {
-        overflow-x: hidden;
-        overflow-y: hidden;
-        position: relative;
-    }
-
-    .easytable-views {
-        position: relative;
-        overflow-x: hidden;
-        overflow-y: hidden;
-    }
-
-    .easytable-leftview, .easytable-rightview {
-        position: absolute;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        top: 0px;
-    }
-
-    .easytable-leftview {
-        left: 0px;
-    }
-
-    .easytable-header {
-        overflow-x: hidden;
-        overflow-y: hidden;
-        cursor: default;
-        border-top-width: 0px;
-        border-right-width: 0px;
-        border-bottom-width: 1px;
-        border-left-width: 0px;
-        border-top-style: solid;
-        border-right-style: solid;
-        border-bottom-style: solid;
-        border-left-style: solid;
-    }
-
-    .easytable-header, .easytable-td-rownumber {
-        background-image: linear-gradient(rgb(249, 249, 249) 0px, rgb(239, 239, 239) 100%);
-        background-position-x: initial;
-        background-position-y: initial;
-        background-size: initial;
-        background-attachment: initial;
-        background-origin: initial;
-        background-clip: initial;
-        background-color: initial;
-        background-repeat-x: repeat;
-        background-repeat-y: no-repeat;
-    }
-
-    .easytable-header, .easytable-toolbar, .easytable-pager, .easytable-footer-inner {
-        border-top-color: rgb(221, 221, 221);
-        border-right-color: rgb(221, 221, 221);
-        border-bottom-color: rgb(221, 221, 221);
-        border-left-color: rgb(221, 221, 221);
-    }
-
-    .easytable-header-inner {
-        float: left;
-        width: 10000px;
-    }
-
-    .easytable-htable, .easytable-btable, .easytable-ftable {
-        color: rgb(0, 0, 0);
-        border-collapse: separate;
-    }
-
-    .easytable-header-row, .easytable-row {
-        height: 25px;
-    }
-
-    .easytable-header td, .easytable-body td, .easytable-footer td {
-        border-top-width: 0px;
-        border-right-width: 1px;
-        border-bottom-width: 1px;
-        border-left-width: 0px;
-        border-top-style: dotted;
-        border-right-style: dotted;
-        border-bottom-style: dotted;
-        border-left-style: dotted;
-        margin-top: 0px;
-        margin-right: 0px;
-        margin-bottom: 0px;
-        margin-left: 0px;
-        padding-top: 0px;
-        padding-right: 0px;
-        padding-bottom: 0px;
-        padding-left: 0px;
-        border-top-color: rgb(204, 204, 204);
-        border-right-color: rgb(204, 204, 204);
-        border-bottom-color: rgb(204, 204, 204);
-        border-left-color: rgb(204, 204, 204);
-    }
-
-    .easytable-cell, .easytable-cell-group, .easytable-header-rownumber, .easytable-cell-rownumber {
-        margin-top: 0px;
-        margin-right: 0px;
-        margin-bottom: 0px;
-        margin-left: 0px;
-        padding-top: 0px;
-        padding-right: 4px;
-        padding-bottom: 0px;
-        padding-left: 4px;
-        white-space: nowrap;
-        word-wrap: normal;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        height: 18px;
-        line-height: 18px;
-        font-size: 12px;
-    }
-
-    .easytable-header-rownumber, .easytable-cell-rownumber {
-        width: 30px;
-        text-align: center;
-        margin-top: 0px;
-        margin-right: 0px;
-        margin-bottom: 0px;
-        margin-left: 0px;
-        padding-top: 0px;
-        padding-right: 0px;
-        padding-bottom: 0px;
-        padding-left: 0px;
-    }
-
-    .easytable-header-rownumber {
-        width: 29px;
-    }
-
-    .easytable-header .easytable-cell {
-        height: auto;
-    }
-
-    .easytable-header .easytable-cell span {
-        font-size: 12px;
-    }
-
-    .easytable-sort-icon {
-        padding-top: 0px;
-        padding-right: 0px;
-        padding-bottom: 0px;
-        padding-left: 0px;
-        display: none;
-    }
-
-    .easytable-body {
-        margin-top: 0px;
-        margin-right: 0px;
-        margin-bottom: 0px;
-        margin-left: 0px;
-        padding-top: 0px;
-        padding-right: 0px;
-        padding-bottom: 0px;
-        padding-left: 0px;
-        overflow-x: auto;
-        overflow-y: auto;
-        zoom: 1;
-    }
-
-    .easytable-leftview .easytable-body {
-        overflow-x: hidden;
-        overflow-y: hidden;
-    }
-
-    .easytable-leftview .easytable-body-inner {
-        padding-bottom: 20px;
-    }
-
-    .easytable-cell-rownumber {
-        color: rgb(0, 0, 0);
-        width: 29px;
-    }
-
-    .easytable-rightview {
-        right: 0px;
-    }
-</style>

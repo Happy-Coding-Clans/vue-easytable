@@ -6,10 +6,14 @@
                    :height="tables.height"
                    :minHeight="tables.minHeight"
                    :titleHeight="tables.titleHeight"
+                   :titleBgColor="tables.titleBgColor"
                    :rowHeight="tables.rowHeight"
+                   :multipleSort="tables.multipleSort"
                    :columns="tables.columns"
                    :tableData="tables.tableData"
         ></Easytable>
+        <hr>
+        <input type="button" @click="changeColunsTest" value="父组件数据改变测试" />
     </div>
 </template>
 
@@ -32,20 +36,22 @@
                     minWidth: 600,
                     height: 450,
                     minHeight: 300,
-                    titleHeight: 35,
-                    rowHeight:25,
+                    /*titleHeight: 35,*/
+                    titleBgColor:'#eee',
+                    /*rowHeight:30,*/
                     tableData: mockData,
+                    multipleSort:false,
                     columns: [
-                        {fileld: 'ENDDATE', title: '截至日期', width: 180, align: 'center', isFrozen: true},
-                        {fileld: 'TOTALSH', title: '股东户数(总户数)(户)', width: 200, align: 'center', isFrozen: true},
-                        {fileld: 'DEC_HJCGSLZGB', title: '平均每户持股数(总股本)(股)', width: 230, align: 'center'},
-                        {fileld: 'TOTALASH', title: '股东户数(A股户数)(户)', width: 230, align: 'center'},
-                        {fileld: 'DEC_HJCGSLTA', title: '平均每户持股数(流通A股)(股)', width: 240, align: 'center'},
-                        {fileld: 'DEC_QSMGDCGBLHJS', title: '前十名大股东持股比例合计数(%)', width: 250, align: 'center'},
-                        {fileld: 'DEC_QSMGDCGBLHJS_LTGGD', title: '前十名流通股东持股比例合计数(%)', width: 250, align: 'center'},
-                        {fileld: 'NOTICEDATE', title: '公告日期', width: 200, align: 'center'},
-                        {fileld: 'DIFFER', title: '较上期变动(总户数)(户)', width: 180, align: 'center'},
-                        {fileld: 'RATE', title: '增长率(%)', width: 150, align: 'center'}
+                        {fileld: 'ENDDATE', title: '截至日期', width: 180, align: 'center', isFrozen: true,orderBy:''},
+                        {fileld: 'TOTALSH', title: '股东户数(总户数)(户)', width: 200, align: 'center', isFrozen: true,isSort:true},
+                        {fileld: 'DEC_HJCGSLZGB', title: '平均每户持股数(总股本)(股)', width: 230, align: 'center', isFrozen: false,isSort:false,orderBy:''},
+                        {fileld: 'TOTALASH', title: '股东户数(A股户数)(户)', width: 230, align: 'center', isFrozen: false},
+                        {fileld: 'DEC_HJCGSLTA', title: '平均每户持股数(流通A股)(股)', width: 240, align: 'center', isFrozen: false,orderBy:''},
+                        {fileld: 'DEC_QSMGDCGBLHJS', title: '前十名大股东持股比例合计数(%)', width: 250, align: 'center', isFrozen: false},
+                        {fileld: 'DEC_QSMGDCGBLHJS_LTGGD', title: '前十名流通股东持股比例合计数(%)', width: 250, align: 'center', isFrozen: false},
+                        {fileld: 'NOTICEDATE', title: '公告日期', width: 200, align: 'center', isFrozen: false},
+                        {fileld: 'DIFFER', title: '较上期变动(总户数)(户)', width: 180, align: 'center', isFrozen: false},
+                        {fileld: 'RATE', title: '增长率(%)', width: 150, align: 'center', isFrozen: false}
                     ]
                     /*  columns: [
                      {fileld: 'id', title: '编号', width: 150, align: 'left',isFrozen:true},
@@ -58,6 +64,25 @@
 
                      ]*/
                 }
+            }
+        },
+        methods:{
+            changeColunsTest(){
+                this.tables.columns=[
+                    {fileld: 'ENDDATE', title: '截至日期', width: 180, align: 'center', isFrozen: true,isSort:true,orderBy:'desc'},
+                    {fileld: 'TOTALSH', title: '股东户数(总户数)(户)', width: 200, align: 'center', isFrozen: true,isSort:false},
+                    {fileld: 'DEC_HJCGSLZGB', title: '平均每户持股数(总股本)(股)', width: 230, align: 'center', isFrozen: true,isSort:false},
+                    {fileld: 'TOTALASH', title: '股东户数(A股户数)(户)', width: 230, align: 'center', isFrozen: false},
+                    {fileld: 'DEC_HJCGSLTA', title: '平均每户持股数(流通A股)(股)', width: 240, align: 'center', isFrozen: false},
+                    {fileld: 'DEC_QSMGDCGBLHJS', title: '前十名大股东持股比例合计数(%)', width: 250, align: 'center', isFrozen: false},
+                    {fileld: 'DEC_QSMGDCGBLHJS_LTGGD', title: '前十名流通股东持股比例合计数(%)', width: 250, align: 'center', isFrozen: false},
+                    {fileld: 'NOTICEDATE', title: '公告日期', width: 200, align: 'center', isFrozen: false},
+                    {fileld: 'DIFFER', title: '较上期变动(总户数)(户)', width: 180, align: 'center', isFrozen: false},
+                    {fileld: 'RATE', title: '增长率(%)', width: 150, align: 'center', isFrozen: false}
+                ]
+
+                this.test=false
+                /*console.log(this.tables.columns)*/
             }
         }
     }

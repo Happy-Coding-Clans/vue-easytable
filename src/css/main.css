@@ -1,0 +1,170 @@
+.panel {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-align: left;
+    margin: 0;
+    border-width: 0;
+}
+
+.panel-header, .panel-body {
+    border:1px solid #bbb;
+}
+
+.panel-body {
+    overflow-x: auto;
+    overflow-y: auto;
+    padding: 0;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    font-size: 12px;
+}
+
+.easytable .panel-body {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: relative;
+}
+
+.easytable-views {
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.easytable-leftview, .easytable-rightview {
+    position: absolute;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    top: 0px;
+}
+
+.easytable-leftview {
+    left: 0px;
+}
+
+.easytable-header {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    cursor: default;
+    border-width:0 0 1px 0 ;
+    border-style: solid;
+}
+
+.easytable-header, .easytable-td-rownumber {
+    /*   background-image: linear-gradient(rgb(249, 249, 249) 0px, rgb(239, 239, 239) 100%);*/
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: initial;
+    background-repeat-x: repeat;
+    background-repeat-y: no-repeat;
+}
+
+.easytable-header, .easytable-toolbar, .easytable-pager, .easytable-footer-inner {
+    border-color: rgba(221, 221, 221, 1);
+}
+
+.easytable-header-inner {
+    float: left;
+    width: 10000px;
+}
+
+.easytable-htable, .easytable-btable, .easytable-ftable {
+    color: rgb(0, 0, 0);
+    border-collapse: separate;
+}
+
+.easytable-header-row, .easytable-row {
+    height: 25px;
+}
+
+.easytable-header td, .easytable-body td, .easytable-footer td {
+    border-width: 0 1px 1px 0;
+    border-style: solid;
+    margin: 0;
+    padding: 0;
+    border-color: rgba(221, 221, 221, 1);
+}
+
+.easytable-cell, .easytable-cell-group, .easytable-header-rownumber, .easytable-cell-rownumber {
+    margin: 0;
+    padding: 0 4px 0 4px;
+    white-space: nowrap;
+    word-wrap: normal;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    height: 18px;
+    line-height: 18px;
+    font-size: 12px;
+}
+
+.easytable-header-rownumber, .easytable-cell-rownumber {
+    width: 30px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.easytable-header-rownumber {
+    width: 29px;
+}
+
+.easytable-header .easytable-cell {
+    height: auto;
+}
+
+.easytable-header .easytable-cell span {
+    font-size: 12px;
+}
+
+.easytable-sort-icon {
+    padding:0;
+    display: none;
+}
+
+.easytable-body {
+    margin:0;
+    padding:0;
+    overflow-x: auto;
+    overflow-y: auto;
+    zoom: 1;
+}
+
+.easytable-leftview .easytable-body {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.easytable-leftview .easytable-body-inner {
+    padding-bottom: 20px;
+}
+
+.easytable-cell-rownumber {
+    color: rgb(0, 0, 0);
+    width: 29px;
+}
+
+.easytable-rightview {
+    right: 0px;
+}
+
+.easytable-sort-icon {
+    display: inline;
+    padding: 0 13px 0 0;
+    background: url(../images/tableSort_icons.png) no-repeat -64px center;
+}
+
+.asc{
+    background: url(../images/tableSort_icons.png) no-repeat 0 center;
+}
+
+.desc{
+    background: url(../images/tableSort_icons.png) no-repeat -16px center;
+}
+
+.cursorPointer{
+    cursor: pointer;
+}
