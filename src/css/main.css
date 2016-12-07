@@ -168,3 +168,8 @@
 .cursorPointer{
     cursor: pointer;
 }
+
+.table-title{
+    font-weight: bold;
+    color:#444;
+}

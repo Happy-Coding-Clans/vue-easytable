@@ -13,7 +13,7 @@
                    :tableData="tables.tableData"
                    @actionCallBack="actionCallBack"
         ></Easytable>
-        <hr>
+        <br>
         <input type="button" @click="changeColunsTest" value="父组件数据改变测试" />
     </div>
 </template>
@@ -38,7 +38,7 @@
                     height: 450,
                     minHeight: 300,
                     /*titleHeight: 35,*/
-                    titleBgColor:'#eee',
+                  /*  titleBgColor:'#eee',*/
                     /*rowHeight:30,*/
                     tableData: [],
                     multipleSort:false,

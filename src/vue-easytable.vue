@@ -19,7 +19,7 @@
                                             @click.stop="sortControl(col.fileld)">
                                             <div class="easytable-cell"
                                                  :style="{'width':tdWidth(col.width)+'px','text-align':col.align}">
-                                                <span>{{col.title}} </span>
+                                                <span class="table-title">{{col.title}} </span>
                                                 <span v-if="enableSort(col.orderBy)"
                                                       :class="['easytable-sort-icon', col.orderBy]"></span>
                                             </div>
@@ -86,7 +86,7 @@
                                         @click.stop="sortControl(col.fileld)">
                                         <div class="easytable-cell"
                                              :style="{'width':tdWidth(col.width)+'px','text-align':col.align}">
-                                            <span>{{col.title}} </span>
+                                            <span class="table-title">{{col.title}} </span>
                                             <span v-if="enableSort(col.orderBy)"
                                                   :class="['easytable-sort-icon', col.orderBy]"></span>
                                         </div>
