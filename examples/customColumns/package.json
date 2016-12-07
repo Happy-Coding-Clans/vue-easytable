@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "build": "webpack  --profile --progress --colors --display-error-details",
+    "dev": "webpack-dev-server"
+  }
+}
