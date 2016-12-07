@@ -238,8 +238,24 @@
 
         },
         methods: {
+            // 是否允许排序
             enableSort(val){
                 return typeof val === 'string' ? true : false
+            },
+
+            // 允许排序的列集合
+            sortColumns(){
+                var vm = this
+
+                var sortColumns = {}
+
+                vm.newColumns.filter(function (item, index) {
+                    if (vm.enableSort(item.orderBy)) {
+                        sortColumns[item.fileld] = item.orderBy
+                    }
+                })
+
+                return sortColumns
             },
 
             sortControl(filed){
@@ -253,14 +269,14 @@
                         (column.orderBy === 'desc' ? '' : 'asc')
 
                     if (!vm.multipleSort) { // 单列排序时还原其他列状态
-                        this.newColumns.filter(function (val, index) {
-                            if (val.fileld !== filed && vm.enableSort(val.orderBy)) {
-                                val.orderBy = ''
+                        this.newColumns.filter(function (item, index) {
+                            if (item.fileld !== filed && vm.enableSort(item.orderBy)) {
+                                item.orderBy = ''
                             }
                         })
                     }
 
-                    vm.$emit('actionCallBack',1)
+                    vm.$emit('actionCallBack', vm.sortColumns())
                 }
 
             },

@@ -78,9 +78,9 @@
 
             },
 
-            // 获取 table 组件每次操作后的参数
-            actionCallBack(args){
-                alert(args)
+            // 获取 table 组件每次操作后的参数（重新去请求数据）
+            actionCallBack(params){
+                console.log(params)
             },
 
             changeColunsTest(){
