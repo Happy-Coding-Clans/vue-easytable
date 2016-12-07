@@ -66,7 +66,7 @@ var PATHS = {
      * publish path
      * （发布目录）
      * */
-    publicPath: debug ? '/example/basic' : './',
+    publicPath: debug ? '/example/basic/' : './',
 
     /*
      * node_modules path
@@ -386,5 +386,6 @@ if (debug) {
         }
     );
 }
+
 
 module.exports = config;

@@ -60,13 +60,12 @@ if (currentTarget == "build") { // online mode （线上模式）
  * */
 var proxyTarget = '';
 
-
 var PATHS = {
     /*
      * publish path
      * （发布目录）
      * */
-    publicPath: debug ? '/example/customColumns' : './',
+    publicPath: debug ? '/example/customColumns/' : './',
 
     /*
      * node_modules path

@@ -24,12 +24,6 @@
                                                       :class="['easytable-sort-icon', col.orderBy]"></span>
                                             </div>
                                         </td>
-
-                                        <!-- <td field="productid" class="">
-                                             <div class="easytable-cell easytable-cell-c1-productid"><span>ID</span><span
-                                                     class="easytable-sort-icon"></span></div>
-                                         </td>
-                                        -->
                                     </tr>
                                     </tbody>
                                 </table>
@@ -41,36 +35,27 @@
                             <div class="easytable-body-inner">
                                 <table class="easytable-btable" cellspacing="0" cellpadding="0" border="0">
                                     <tbody>
-                                    <tr v-for="(item,index) in tableData" class="easytable-row"
-                                        :style="{'height': rowHeight+'px'}">
+                                    <tr v-for="(item,index) in tableData" class="easytable-row">
                                         <td v-for="col in frozenCols" :field="col.fileld">
-                                            <div style="height:auto;" class="easytable-cell"
-                                                 :style="{'width':tdWidth(col.width)+'px','text-align':col.align}">
-                                                {{item[col.fileld]}}
+                                            <div class="easytable-cell"
+                                                 :style="{'width':tdWidth(col.width)+'px','height': rowHeight-2+'px','line-height':rowHeight-2+'px','text-align':col.align}">
+                                                <template>
+                                                    <span v-if="typeof col.customColumn==='function'"
+                                                          v-html="col.customColumn(item)">
+                                                    </span>
+                                                    <span v-else>
+                                                        {{item[col.fileld]}}
+                                                    </span>
+                                                </template>
                                             </div>
                                         </td>
                                     </tr>
-
-                                    <!--
-                                    <tr id="easytable-row-r1-1-0" easytable-row-index="0" class="easytable-row"
-                                        style="height: 25px;">
-                                        <td field="productid">
-                                            <div style="height:auto;" class="easytable-cell easytable-cell-c1-productid">11
-                                            </div>
-                                        </td>
-                                        <td field="itemid">
-                                            <div style="height:auto;" class="easytable-cell easytable-cell-c1-itemid">aa</div>
-                                        </td>
-                                    </tr>
-                                    -->
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </template>
-
-
                 <!--右列-->
                 <div class="easytable-rightview" :style="{'width': rightViewWidth+'px'}">
                     <!--右列头-->
@@ -91,14 +76,6 @@
                                                   :class="['easytable-sort-icon', col.orderBy]"></span>
                                         </div>
                                     </td>
-
-                                    <!--
-                                    <td field="listprice" class="">
-                                         <div class="easytable-cell easytable-cell-c1-listprice"
-                                              style="text-align: right;">
-                                             <span>价格</span><span class="easytable-sort-icon"></span></div>
-                                     </td>
-                                     -->
                                 </tr>
                                 </tbody>
                             </table>
@@ -109,26 +86,21 @@
                          :style="{'width': rightViewWidth+'px', 'margin-top': '0px', 'height': (newHeight-titleHeight)+'px'}">
                         <table class="easytable-btable" cellspacing="0" cellpadding="0" border="0">
                             <tbody>
-                            <tr v-for="(item,index) in tableData" class="easytable-row"
-                                :style="{'height':rowHeight+'px'}">
+                            <tr v-for="(item,index) in tableData" class="easytable-row">
                                 <td v-for="col in noFrozenCols" :field="col.fileld">
-                                    <div style="height:auto;" class="easytable-cell"
-                                         :style="{'width':tdWidth(col.width)+'px','text-align':col.align}">
-                                        {{item[col.fileld]}}
+                                    <div class="easytable-cell"
+                                         :style="{'width':tdWidth(col.width)+'px','height': rowHeight-2+'px','line-height':rowHeight-2+'px','text-align':col.align}">
+                                        <template>
+                                            <span v-if="typeof col.customColumn==='function'"
+                                                  v-html="col.customColumn(item)">
+                                            </span>
+                                            <span v-else>
+                                                {{item[col.fileld]}}
+                                            </span>
+                                        </template>
                                     </div>
                                 </td>
                             </tr>
-
-                            <!--
-                            <tr id="easytable-row-r1-2-0" easytable-row-index="0" class="easytable-row"
-                                style="height: 25px;">
-                                <td field="listprice">
-                                    <div style="text-align:right;height:auto;"
-                                         class="easytable-cell easytable-cell-c1-listprice">36.5
-                                    </div>
-                                </td>
-                             -->
-
                             </tbody>
                         </table>
                     </div>
@@ -146,6 +118,7 @@
         name: 'vue-easyTable',
         data(){
             return {
+                src2: '../libs/imgs/mouse.jpg',
                 // 本地宽度
                 newWidth: this.width,
                 // 本地高度
@@ -156,9 +129,6 @@
             }
         },
         props: {
-            test: {
-                type: Boolean
-            },
             width: {
                 type: Number,
                 require: true
@@ -365,7 +335,6 @@
             },
         },
         mounted(){
-
             var vm = this;
 
             vm.tableResize()

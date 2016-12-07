@@ -94,10 +94,7 @@
     padding: 0 4px 0 4px;
     white-space: nowrap;
     word-wrap: normal;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    height: 18px;
-    line-height: 18px;
+    overflow:hidden;
     font-size: 12px;
 }
 
