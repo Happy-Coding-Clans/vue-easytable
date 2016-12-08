@@ -1,6 +1,6 @@
 import "babel-polyfill"
 import Vue from "vue"
-import APP from "./customColumns.vue"
+import APP from "./sort-by-multiple-columns.vue"
 
 
 new Vue({

@@ -5,6 +5,7 @@
                    :minWidth="tables.minWidth"
                    :height="tables.height"
                    :minHeight="tables.minHeight"
+                   :rowHeight="tables.rowHeight"
                    :multipleSort="tables.multipleSort"
                    :columns="tables.columns"
                    :tableData="tables.tableData"
@@ -18,12 +19,10 @@
     import Easytable from '../../src/vue-easytable.vue'
     import mockData from '../../mockServer/simpleData'
 
-
     export default{
         name: 'basic',
         components: {
-            Easytable,
-
+            Easytable
         },
         data(){
             return {
@@ -32,15 +31,30 @@
                     minWidth: 600,
                     height: 450,
                     minHeight: 300,
+                    rowHeight:35,
                     tableData: [],
+                    multipleSort: true,
                     columns: [
-                        {fileld: 'name', title: '姓名', width: 150, align: 'center', isFrozen: true},
-                        {fileld: 'gender', title: '性别', width: 150, align: 'center', isFrozen: true},
+                        {fileld: 'img', title: '头像', width: 50, align: 'center', isFrozen: true,
+                            customColumn: function (rowData) {
+                                var src = require('../../libs/imgs/'+rowData.img)
+                                return '<img height="33px" width="35px" src="'+src+'" />'
+                            }
+                        },
+                        {fileld: 'name', title: '姓名', width: 150, align: 'center', isFrozen: true,orderBy:''},
+                        {fileld: 'gender', title: '性别', width: 150, align: 'center', isFrozen: true,orderBy:''},
                         {fileld: 'nickname', title: '昵称', width: 150, align: 'center', isFrozen: false},
-                        {fileld: 'birthday', title: '出生日期', width: 150, align: 'center', isFrozen: false},
+                        {fileld: 'birthday', title: '出生日期', width: 150, align: 'center', isFrozen: false,orderBy:''},
                         {fileld: 'height', title: '身高', width: 150, align: 'center', isFrozen: false},
                         {fileld: 'tel', title: '手机号码', width: 150, align: 'center', isFrozen: false},
-                        {fileld: 'email', title: '邮箱', width: 150, align: 'center', isFrozen: false},
+                        {fileld: 'email', title: '邮箱', width: 150, align: 'center', isFrozen: false,
+                            customColumn:function (rowData) {
+                                if (rowData.email.length>1){
+                                    return '<a href="https://github.com/huangshuwei/vue-easytable" target="_blank">'+rowData.email+'</a>'
+                                }
+                                return rowData.email
+                            }
+                        },
                         {fileld: 'hobby', title: '爱好', width: 300, align: 'center', isFrozen: false},
                         {fileld: 'address', title: '家庭地址', width: 300, align: 'center', isFrozen: false},
                         {fileld: 'job', title: '职业', width: 150, align: 'center', isFrozen: false}
@@ -49,6 +63,7 @@
             }
         },
         methods: {
+
             getTableData(){
                 var vm = this
 

@@ -47,6 +47,7 @@
                                                         {{item[col.fileld]}}
                                                     </span>
                                                 </template>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -90,9 +91,21 @@
                                 <td v-for="col in noFrozenCols" :field="col.fileld">
                                     <div class="easytable-cell"
                                          :style="{'width':tdWidth(col.width)+'px','height': rowHeight-2+'px','line-height':rowHeight-2+'px','text-align':col.align}">
-                                        <template>
-                                            <span v-if="typeof col.customColumn==='function'"
-                                                  v-html="col.customColumn(item)">
+                                        <!--  <template>
+                                              <span v-if="typeof col.customColumn==='function'"
+                                                    v-html="col.customColumn(item)">
+                                              </span>
+                                              <span v-else>
+                                                  {{item[col.fileld]}}
+                                              </span>
+                                          </template>-->
+
+                                        <template v-if="typeof col.componentName ==='string'">
+                                            <component :rowData="item" :is="col.componentName"></component>
+                                        </template>
+                                        <template v-else>
+                                           <span v-if="typeof col.customColumn==='function'"
+                                                 v-html="col.customColumn(item)">
                                             </span>
                                             <span v-else>
                                                 {{item[col.fileld]}}
@@ -251,6 +264,23 @@
 
             },
 
+            // 只允许保留第一个排序规则（‘asc’或者‘desc’）
+            singelSortInit(){
+                var vm = this,
+                    result = false
+
+                if (!vm.multipleSort){
+                    this.newColumns.filter(function (item, index) {
+                        if (vm.enableSort(item.orderBy) && item.orderBy !== '') {
+                            if (result) {
+                                item.orderBy = ''
+                            }
+                            result = true
+                        }
+                    })
+                }
+            },
+
             // 列宽 9=左右间距+border宽
             tdWidth(val){
                 return val - 9
@@ -340,6 +370,8 @@
             vm.tableResize()
 
             vm.scrollControl()
+
+            vm.singelSortInit()
 
             window.onresize = function (event) {
                 vm.tableResize()

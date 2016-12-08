@@ -50,7 +50,7 @@ if (currentTarget == "build") { // online mode （线上模式）
 
 } else if (currentTarget == "dev") { // dev mode （开发模式）
 
-    debug = true, minimize = false;
+   debug = true, minimize = false;
 
 }
 
@@ -60,12 +60,13 @@ if (currentTarget == "build") { // online mode （线上模式）
  * */
 var proxyTarget = '';
 
+
 var PATHS = {
     /*
      * publish path
      * （发布目录）
      * */
-    publicPath: debug ? '/example/customColumns/' : './',
+    publicPath: debug ? '/example/sort-by-multiple-columns/' : './',
 
     /*
      * node_modules path
@@ -235,7 +236,7 @@ var plugins = [
          * */
         'process.env': debug ? {
             NODE_ENV: '"production"'
-        } : {}
+        }:{}
     }),
 
     /*
@@ -244,8 +245,8 @@ var plugins = [
      * */
     new webpack.optimize.CommonsChunkPlugin(
         debug ?
-            {name: "vendors", filename: "js/vendors.js"} :
-            {names: ["vendors", "webpackAssets"]}
+        {name: "vendors", filename: "js/vendors.js"}:
+        {names: ["vendors", "webpackAssets"]}
     ),
 
     /*
@@ -326,12 +327,12 @@ var config = {
      *  Like resolve but for loaders.
      *  （查找loader 的位置）
      * */
-    resolveLoader: {root: PATHS.node_modulesPath},
+    resolveLoader: { root: PATHS.node_modulesPath },
     output: output,
     module: {
         loaders: loaders
     },
-    vue: { // 将 vue 组件里的css提到单独文件中
+    vue:{ // 将 vue 组件里的css提到单独文件中
         loaders: {
             css: ExtractTextPlugin.extract("css"),
             // you can also include <style lang="less"> or other langauges
@@ -378,12 +379,13 @@ if (debug) {
                         /*
                          * rewrite 的方式扩展性更强，不限制服务的名称
                          * */
-                        pathRewrite: {'^/devApi': ''}
+                        pathRewrite: { '^/devApi': '' }
                     }
                 }
             }
         }
     );
 }
+
 
 module.exports = config;
