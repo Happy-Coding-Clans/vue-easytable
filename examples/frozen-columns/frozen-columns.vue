@@ -1,6 +1,6 @@
 <template>
     <div>
-        基本的表格功能展示<br/><br/>
+        固定表格<br/><br/>
         <easyTable :width="tables.width"
                    :minWidth="tables.minWidth"
                    :height="tables.height"
@@ -19,28 +19,28 @@
 
 
     export default{
-        name: 'basic',
+        name: 'frozen-columns',
         components: {
             easyTable
         },
         data(){
             return {
                 tables: {
-                    width: 1100,
+                    width: 1300,
                     minWidth: 600,
                     height: 700,
                     minHeight: 300,
                     tableData: [],
                     columns: [
-                        {fileld: 'name', title: '姓名', width: 80, align: 'center'},
-                        {fileld: 'gender', title: '性别', width: 80, align: 'center'},
-                        {fileld: 'nickname', title: '昵称', width: 80, align: 'center'},
-                        {fileld: 'birthday', title: '出生日期', width: 100, align: 'center'},
-                        {fileld: 'height', title: '身高', width: 80, align: 'center', isFrozen: false},
-                        {fileld: 'tel', title: '手机号码', width: 100, align: 'center', isFrozen: false},
-                        {fileld: 'email', title: '邮箱', width: 100, align: 'center', isFrozen: false},
-                        {fileld: 'hobby', title: '爱好', width: 200, align: 'center', isFrozen: false},
-                        {fileld: 'address', title: '家庭地址', width: 260, align: 'center', isFrozen: false},
+                        {fileld: 'name', title: '姓名', width: 150, align: 'center', isFrozen: true},
+                        {fileld: 'gender', title: '性别', width: 150, align: 'center', isFrozen: true},
+                        {fileld: 'nickname', title: '昵称', width: 150, align: 'center', isFrozen: false},
+                        {fileld: 'birthday', title: '出生日期', width: 150, align: 'center', isFrozen: false},
+                        {fileld: 'height', title: '身高', width: 150, align: 'center', isFrozen: false},
+                        {fileld: 'tel', title: '手机号码', width: 150, align: 'center', isFrozen: false},
+                        {fileld: 'email', title: '邮箱', width: 150, align: 'center', isFrozen: false},
+                        {fileld: 'hobby', title: '爱好', width: 300, align: 'center', isFrozen: false},
+                        {fileld: 'address', title: '家庭地址', width: 300, align: 'center', isFrozen: false},
                         {fileld: 'job', title: '职业', width: 150, align: 'center', isFrozen: false}
                     ]
                 }

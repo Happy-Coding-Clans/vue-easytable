@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 1200px;margin: 0 auto;">
+    <div>
         基本的表格功能展示<br/><br/>
         <Easytable :width="tables.width"
                    :minWidth="tables.minWidth"
@@ -21,10 +21,10 @@
     import Vue from 'vue'
 
 
-    Vue.component('emailcomp',{
+    Vue.component('table-operation',{
         template:`<span>`
-        +`<input type="button" value="测试点击" @click="testClcik()" />`
-        +`<a href="https://github.com/huangshuwei/vue-easytable" target="_blank">{{rowData.email}}</a>`
+        +`<a href="" @click.stop.prevent="update(rowData)">编辑</a>&nbsp;`
+        +`<a href="" @click.stop.prevent="deleteRow(rowData)">删除</a>`
         +`</span>`,
         props:{
             rowData:{
@@ -33,10 +33,15 @@
             }
         },
         methods:{
-            testClcik(){
-                alert(1)
+            update(){
+                alert('编辑')
+                console.log(this.rowData)
             },
 
+            deleteRow(){
+                alert('删除')
+                console.log(this.rowData)
+            }
         }
     })
 
@@ -48,38 +53,38 @@
         data(){
             return {
                 tables: {
-                    width: 1100,
+                    width: 1300,
                     minWidth: 600,
-                    height: 450,
+                    height: 700,
                     minHeight: 300,
                     rowHeight:35,
                     tableData: [],
                     multipleSort: true,
                     columns: [
-                        {fileld: 'img', title: '头像', width: 50, align: 'center', isFrozen: true,
-                            customColumn: function (rowData) {
+                        {title: '头像', width: 50, align: 'center', isFrozen: true,
+                            format: function (rowData) {
                                 var src = require('../../libs/imgs/'+rowData.img)
                                 return '<img height="33px" width="35px" src="'+src+'" />'
-                            }},
-                         {fileld: 'name', title: '姓名', width: 150, align: 'center', isFrozen: true,orderBy:''},
-                        {fileld: 'gender', title: '性别', width: 150, align: 'center', isFrozen: true,orderBy:''},
+                            }
+                        },
+                        {fileld: 'name', title: '姓名', width: 150, align: 'center', isFrozen: true,orderBy:''},
+                        {fileld: 'gender', title: '性别', width: 100, align: 'center', isFrozen: true,orderBy:''},
                         {fileld: 'nickname', title: '昵称', width: 150, align: 'center', isFrozen: false},
                         {fileld: 'birthday', title: '出生日期', width: 150, align: 'center', isFrozen: false,orderBy:''},
-                        {fileld: 'height', title: '身高', width: 150, align: 'center', isFrozen: false},
+                        {fileld: 'height', title: '身高', width: 100, align: 'center', isFrozen: false},
                         {fileld: 'tel', title: '手机号码', width: 150, align: 'center', isFrozen: false},
-                        {fileld: 'email', title: '邮箱', width: 350, align: 'center', isFrozen: false,
-                            customColumn:function (rowData) {
+                        {title: '邮箱', width: 200, align: 'center', isFrozen: true,
+                            format:function (rowData) {
                                 if (rowData.email.length>1){
-                                    return '<input type="button" value="测试点击" @click="testClcik()" />'
-                                                +'<a href="https://github.com/huangshuwei/vue-easytable" target="_blank">'+rowData.email+'</a>'
+                                    return '<a href="https://github.com/huangshuwei/vue-easytable" target="_blank">'+rowData.email+'</a>'
                                 }
                                 return rowData.email
-                            },
-                            componentName:'emailcomp'
+                            }
                         },
-                        {fileld: 'hobby', title: '爱好', width: 300, align: 'center', isFrozen: false},
+                        {fileld: 'hobby', title: '爱好', width: 230, align: 'center', isFrozen: false},
                         {fileld: 'address', title: '家庭地址', width: 300, align: 'center', isFrozen: false},
-                        {fileld: 'job', title: '职业', width: 150, align: 'center', isFrozen: false}
+                        {fileld: 'job', title: '职业', width: 150, align: 'center', isFrozen: false},
+                        {componentName: 'table-operation', title: '操作', width: 180, align: 'center', isFrozen: false}
                     ]
                 }
             }

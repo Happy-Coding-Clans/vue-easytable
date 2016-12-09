@@ -39,15 +39,18 @@
                                         <td v-for="col in frozenCols" :field="col.fileld">
                                             <div class="easytable-cell"
                                                  :style="{'width':tdWidth(col.width)+'px','height': rowHeight-2+'px','line-height':rowHeight-2+'px','text-align':col.align}">
-                                                <template>
-                                                    <span v-if="typeof col.customColumn==='function'"
-                                                          v-html="col.customColumn(item)">
+
+                                                <template v-if="typeof col.componentName ==='string'">
+                                                    <component :rowData="item" :is="col.componentName"></component>
+                                                </template>
+                                                <template v-else>
+                                                   <span v-if="typeof col.format==='function'"
+                                                         v-html="col.format(item)">
                                                     </span>
                                                     <span v-else>
                                                         {{item[col.fileld]}}
                                                     </span>
                                                 </template>
-
                                             </div>
                                         </td>
                                     </tr>
@@ -91,21 +94,13 @@
                                 <td v-for="col in noFrozenCols" :field="col.fileld">
                                     <div class="easytable-cell"
                                          :style="{'width':tdWidth(col.width)+'px','height': rowHeight-2+'px','line-height':rowHeight-2+'px','text-align':col.align}">
-                                        <!--  <template>
-                                              <span v-if="typeof col.customColumn==='function'"
-                                                    v-html="col.customColumn(item)">
-                                              </span>
-                                              <span v-else>
-                                                  {{item[col.fileld]}}
-                                              </span>
-                                          </template>-->
 
                                         <template v-if="typeof col.componentName ==='string'">
                                             <component :rowData="item" :is="col.componentName"></component>
                                         </template>
                                         <template v-else>
-                                           <span v-if="typeof col.customColumn==='function'"
-                                                 v-html="col.customColumn(item)">
+                                           <span v-if="typeof col.format==='function'"
+                                                 v-html="col.format(item)">
                                             </span>
                                             <span v-else>
                                                 {{item[col.fileld]}}
@@ -340,7 +335,7 @@
                 var currentHeight = $('.easytable').outerHeight();
 
                 var right = $(window).width() - currentWidth - viewOffset.left;
-                var bottom = $(window).height() - currentHeight - viewOffset.top;
+                var bottom = $(window).height() - currentHeight - viewOffset.top-10; // -10 防止浏览器出垂直滚动条
 
                 // （窗口宽度缩小 && 当前宽度大于最小宽度） ||（窗口宽度扩大 && 当前宽度小于最大宽度）
                 if ((right < 0 && currentWidth > minWidth) || (right > 0 && currentWidth < width)) {
@@ -355,6 +350,9 @@
 
                 // （窗口高度缩小 && 当前高度大于最小高度） || （窗口高度扩大 && 当前高度小于最大高度）
                 if ((bottom < 0 && currentHeight > minHeight) || (bottom > 0 && currentHeight < height)) {
+                    console.log(currentHeight);
+                    console.log(bottom);
+
                     var currentHeight = currentHeight + bottom;
 
                     currentHeight = currentHeight > height ? height : currentHeight;

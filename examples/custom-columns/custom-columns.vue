@@ -1,7 +1,7 @@
 <template>
-    <div style="width: 1200px;margin: 0 auto;">
+    <div>
         基本的表格功能展示<br/><br/>
-        <Easytable :width="tables.width"
+        <easytable :width="tables.width"
                    :minWidth="tables.minWidth"
                    :height="tables.height"
                    :minHeight="tables.minHeight"
@@ -10,33 +10,33 @@
                    :columns="tables.columns"
                    :tableData="tables.tableData"
                    @actionCallBack="actionCallBack"
-        ></Easytable>
+        ></easytable>
     </div>
 </template>
 
 <script>
 
-    import Easytable from '../../src/vue-easytable.vue'
+    import easytable from '../../src/vue-easytable.vue'
     import mockData from '../../mockServer/simpleData'
 
     export default{
         name: 'basic',
         components: {
-            Easytable
+            easytable
         },
         data(){
             return {
                 tables: {
-                    width: 1100,
+                    width: 1300,
                     minWidth: 600,
-                    height: 450,
+                    height: 700,
                     minHeight: 300,
                     rowHeight:35,
                     tableData: [],
                     multipleSort: true,
                     columns: [
                         {fileld: 'img', title: '头像', width: 50, align: 'center', isFrozen: true,
-                            customColumn: function (rowData) {
+                            format: function (rowData) {
                                 var src = require('../../libs/imgs/'+rowData.img)
                                 return '<img height="33px" width="35px" src="'+src+'" />'
                             }
@@ -48,7 +48,7 @@
                         {fileld: 'height', title: '身高', width: 150, align: 'center', isFrozen: false},
                         {fileld: 'tel', title: '手机号码', width: 150, align: 'center', isFrozen: false},
                         {fileld: 'email', title: '邮箱', width: 150, align: 'center', isFrozen: false,
-                            customColumn:function (rowData) {
+                            format:function (rowData) {
                                 if (rowData.email.length>1){
                                     return '<a href="https://github.com/huangshuwei/vue-easytable" target="_blank">'+rowData.email+'</a>'
                                 }
