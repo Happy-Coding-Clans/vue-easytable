@@ -51,7 +51,6 @@
 }
 
 .easytable-header, .easytable-td-rownumber {
-    /*   background-image: linear-gradient(rgb(249, 249, 249) 0px, rgb(239, 239, 239) 100%);*/
     background-position-x: initial;
     background-position-y: initial;
     background-size: initial;
@@ -91,7 +90,7 @@
 
 .easytable-cell, .easytable-cell-group, .easytable-header-rownumber, .easytable-cell-rownumber {
     margin: 0;
-    padding: 0 4px 0 4px;
+    /*padding: 0 4px 0 4px;*/
     white-space: nowrap;
     word-wrap: normal;
     overflow:hidden;
@@ -146,6 +145,7 @@
 
 .easytable-rightview {
     right: 0px;
+    border-left:1px solid rgba(221, 221, 221, 1);
 }
 
 .easytable-sort-icon {

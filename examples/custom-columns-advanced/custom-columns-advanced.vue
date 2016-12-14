@@ -67,12 +67,12 @@
                                 return '<img height="33px" width="35px" src="'+src+'" />'
                             }
                         },
-                        {fileld: 'name', title: '姓名', width: 150, align: 'center', isFrozen: true,orderBy:''},
-                        {fileld: 'gender', title: '性别', width: 100, align: 'center', isFrozen: true,orderBy:''},
-                        {fileld: 'nickname', title: '昵称', width: 150, align: 'center', isFrozen: false},
-                        {fileld: 'birthday', title: '出生日期', width: 150, align: 'center', isFrozen: false,orderBy:''},
-                        {fileld: 'height', title: '身高', width: 100, align: 'center', isFrozen: false},
-                        {fileld: 'tel', title: '手机号码', width: 150, align: 'center', isFrozen: false},
+                        {field: 'name', title: '姓名', width: 150, align: 'center', isFrozen: true,orderBy:''},
+                        {field: 'gender', title: '性别', width: 100, align: 'center', isFrozen: true,orderBy:''},
+                        {field: 'nickname', title: '昵称', width: 150, align: 'center', isFrozen: false},
+                        {field: 'birthday', title: '出生日期', width: 150, align: 'center', isFrozen: false,orderBy:''},
+                        {field: 'height', title: '身高', width: 100, align: 'center', isFrozen: false},
+                        {field: 'tel', title: '手机号码', width: 150, align: 'center', isFrozen: false},
                         {title: '邮箱', width: 200, align: 'center', isFrozen: true,
                             format:function (rowData) {
                                 if (rowData.email.length>1){
@@ -81,9 +81,9 @@
                                 return rowData.email
                             }
                         },
-                        {fileld: 'hobby', title: '爱好', width: 230, align: 'center', isFrozen: false},
-                        {fileld: 'address', title: '家庭地址', width: 300, align: 'center', isFrozen: false},
-                        {fileld: 'job', title: '职业', width: 150, align: 'center', isFrozen: false},
+                        {field: 'hobby', title: '爱好', width: 230, align: 'center', isFrozen: false},
+                        {field: 'address', title: '家庭地址', width: 300, align: 'center', isFrozen: false},
+                        {field: 'job', title: '职业', width: 150, align: 'center', isFrozen: false},
                         {componentName: 'table-operation', title: '操作', width: 180, align: 'center', isFrozen: false}
                     ]
                 }

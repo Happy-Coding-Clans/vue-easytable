@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        table {
+            border: 1px solid #666;
+        }
+
+        th, td {
+            border: 1px solid #666;
+        }
+    </style>
+
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th colspan="3">汇总</th>
+    </tr>
+    <tr>
+        <th colspan="2">基础信息</th>
+        <th rowspan="2">公司</th>
+    </tr>
+    <tr>
+        <th>姓名</th>
+        <th>年龄</th>
+    </tr>
+
+    </thead>
+</table>
+</body>
+</html>
+<script src="../../libs/jquery1.7.2/jquery.js"></script>
+<script type="text/javascript">
+    var rowGroups =[
+        [
+            {title:'汇总',colspan:3}
+        ],
+        [
+            {title:'基础信息',colspan:2},
+            {title:'公司',filed:'company',rowspan:2}
+        ],
+        [
+            {title:'姓名',filed:'name'},
+            {title:'年龄',filed:'age'}
+        ]
+    ]
+
+
+
+
+</script>

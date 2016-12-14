@@ -35,16 +35,16 @@
                     tableData: [],
                     multipleSort:false,
                     columns: [
-                        {fileld: 'name', title: '姓名', width: 150, align: 'center', isFrozen: true},
-                        {fileld: 'gender', title: '性别', width: 150, align: 'center', isFrozen: true,orderBy:'asc'},
-                        {fileld: 'nickname', title: '昵称', width: 150, align: 'center', isFrozen: false},
-                        {fileld: 'birthday', title: '出生日期', width: 150, align: 'center', isFrozen: false},
-                        {fileld: 'height', title: '身高', width: 150, align: 'center', isFrozen: false,orderBy:''},
-                        {fileld: 'tel', title: '手机号码', width: 150, align: 'center', isFrozen: false},
-                        {fileld: 'email', title: '邮箱', width: 150, align: 'center', isFrozen: false},
-                        {fileld: 'hobby', title: '爱好', width: 300, align: 'center', isFrozen: false},
-                        {fileld: 'address', title: '家庭地址', width: 300, align: 'center', isFrozen: false},
-                        {fileld: 'job', title: '职业', width: 150, align: 'center', isFrozen: false}
+                        {field: 'name', title: '姓名', width: 150, align: 'center', isFrozen: true},
+                        {field: 'gender', title: '性别', width: 150, align: 'center', isFrozen: true,orderBy:'asc'},
+                        {field: 'nickname', title: '昵称', width: 150, align: 'center', isFrozen: false},
+                        {field: 'birthday', title: '出生日期', width: 150, align: 'center', isFrozen: false},
+                        {field: 'height', title: '身高', width: 150, align: 'center', isFrozen: false,orderBy:''},
+                        {field: 'tel', title: '手机号码', width: 150, align: 'center', isFrozen: false},
+                        {field: 'email', title: '邮箱', width: 150, align: 'center', isFrozen: false},
+                        {field: 'hobby', title: '爱好', width: 300, align: 'center', isFrozen: false},
+                        {field: 'address', title: '家庭地址', width: 300, align: 'center', isFrozen: false},
+                        {field: 'job', title: '职业', width: 150, align: 'center', isFrozen: false}
                     ]
                 }
             }
