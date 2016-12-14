@@ -1,3 +1,9 @@
+*,*:before,*:after{
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+}
+
 .panel {
     overflow-x: hidden;
     overflow-y: hidden;
@@ -145,7 +151,7 @@
 
 .easytable-rightview {
     right: 0px;
-    border-left:1px solid rgba(221, 221, 221, 1);
+   /* border-left:1px solid rgba(221, 221, 221, 1);*/
 }
 
 .easytable-sort-icon {

@@ -16,9 +16,8 @@
                                     <tr class="easytable-header-row">
                                         <td v-for="col in frozenCols" :field="col.field"
                                             :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
-                                            :style="{'width':col.width+'px','text-align':col.align}"
                                             @click.stop="sortControl(col.field)">
-                                            <div class="easytable-cell">
+                                            <div class="easytable-cell" :style="{'width':col.width+'px','text-align':col.align}">
                                                 <span class="table-title">{{col.title}} </span>
                                                 <span v-if="enableSort(col.orderBy)"
                                                       :class="['easytable-sort-icon', col.orderBy]"></span>
@@ -71,9 +70,8 @@
                                 <tr class="easytable-header-row">
                                     <td v-for="col in noFrozenCols" :field="col.field"
                                         :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
-                                        :style="{'width':col.width+'px','text-align':col.align}"
                                         @click.stop="sortControl(col.field)">
-                                        <div class="easytable-cell">
+                                        <div class="easytable-cell" :style="{'width':col.width+'px','text-align':col.align}">
                                             <span class="table-title">{{col.title}} </span>
                                             <span v-if="enableSort(col.orderBy)"
                                                   :class="['easytable-sort-icon', col.orderBy]"></span>
