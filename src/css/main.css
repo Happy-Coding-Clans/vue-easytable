@@ -85,30 +85,22 @@
 }
 
 .easytable-header td, .easytable-body td, .easytable-footer td {
-    border-width: 0 1px 1px 0;
-    border-style: solid;
+/*    border-width: 0 1px 1px 0;
+    border-style: solid;*/
     margin: 0;
     padding: 0;
-    border-color: rgba(221, 221, 221, 1);
+    /*border-color: rgba(221, 221, 221, 1);*/
 }
 
-.easytable-cell, .easytable-cell-group, .easytable-header-rownumber, .easytable-cell-rownumber {
+.easytable-cell{
     margin: 0;
     white-space: nowrap;
     word-wrap: normal;
     overflow:hidden;
     font-size: 12px;
-}
-
-.easytable-header-rownumber, .easytable-cell-rownumber {
-    width: 30px;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-}
-
-.easytable-header-rownumber {
-    width: 29px;
+    border-width: 0 1px 1px 0;
+    border-style: solid;
+    border-color: rgba(221, 221, 221, 1);
 }
 
 .easytable-header .easytable-cell {
@@ -141,14 +133,8 @@
     padding-bottom: 20px;
 }
 
-.easytable-cell-rownumber {
-    color: rgb(0, 0, 0);
-    width: 29px;
-}
-
 .easytable-rightview {
     right: 0px;
-   /* border-left:1px solid rgba(221, 221, 221, 1);*/
 }
 
 .easytable-sort-icon {

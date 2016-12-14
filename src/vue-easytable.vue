@@ -10,14 +10,13 @@
                         <div class="easytable-header"
                              :style="{'width': leftViewWidth+'px', 'height':titleHeight+'px','background-color':titleBgColor}">
                             <div class="easytable-header-inner" style="display: block;">
-                                <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0"
-                                       :style="{'height':titleHeight+'px'}">
+                                <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0">
                                     <tbody>
                                     <tr class="easytable-header-row">
                                         <td v-for="col in frozenCols" :field="col.field"
                                             :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
                                             @click.stop="sortControl(col.field)">
-                                            <div class="easytable-cell" :style="{'width':col.width+'px','text-align':col.align}">
+                                            <div class="easytable-cell" :style="{'width':col.width+'px','height':titleHeight+'px','line-height':titleHeight+'px','text-align':col.align}">
                                                 <span class="table-title">{{col.title}} </span>
                                                 <span v-if="enableSort(col.orderBy)"
                                                       :class="['easytable-sort-icon', col.orderBy]"></span>
@@ -64,14 +63,13 @@
                     <div class="easytable-header"
                          :style="{'width': rightViewWidth+'px', 'height':titleHeight+'px','background-color':titleBgColor}">
                         <div class="easytable-header-inner" style="display: block;">
-                            <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0"
-                                   :style="{'height':titleHeight+'px'}">
+                            <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0">
                                 <tbody>
                                 <tr class="easytable-header-row">
                                     <td v-for="col in noFrozenCols" :field="col.field"
                                         :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
                                         @click.stop="sortControl(col.field)">
-                                        <div class="easytable-cell" :style="{'width':col.width+'px','text-align':col.align}">
+                                        <div class="easytable-cell" :style="{'width':col.width+'px','height':titleHeight+'px','line-height':titleHeight+'px','text-align':col.align}">
                                             <span class="table-title">{{col.title}} </span>
                                             <span v-if="enableSort(col.orderBy)"
                                                   :class="['easytable-sort-icon', col.orderBy]"></span>
