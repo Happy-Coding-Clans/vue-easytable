@@ -52,8 +52,6 @@
     overflow-x: hidden;
     overflow-y: hidden;
     cursor: default;
-    border-width:0 0 1px 0 ;
-    border-style: solid;
 }
 
 .easytable-header, .easytable-td-rownumber {
@@ -96,7 +94,6 @@
 
 .easytable-cell, .easytable-cell-group, .easytable-header-rownumber, .easytable-cell-rownumber {
     margin: 0;
-    /*padding: 0 4px 0 4px;*/
     white-space: nowrap;
     word-wrap: normal;
     overflow:hidden;

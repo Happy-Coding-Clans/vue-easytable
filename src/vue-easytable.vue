@@ -8,7 +8,7 @@
                     <div class="easytable-leftview" :style="{'width':leftViewWidth+'px'}">
                         <!--左列头-->
                         <div class="easytable-header"
-                             :style="{'width': leftViewWidth+'px', 'height':(titleHeight-1)+'px','background-color':titleBgColor}">
+                             :style="{'width': leftViewWidth+'px', 'height':titleHeight+'px','background-color':titleBgColor}">
                             <div class="easytable-header-inner" style="display: block;">
                                 <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0"
                                        :style="{'height':titleHeight+'px'}">
@@ -62,7 +62,7 @@
                 <div class="easytable-rightview" :style="{'width': rightViewWidth+'px'}">
                     <!--右列头-->
                     <div class="easytable-header"
-                         :style="{'width': rightViewWidth+'px', 'height':(titleHeight-1)+'px','background-color':titleBgColor}">
+                         :style="{'width': rightViewWidth+'px', 'height':titleHeight+'px','background-color':titleBgColor}">
                         <div class="easytable-header-inner" style="display: block;">
                             <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0"
                                    :style="{'height':titleHeight+'px'}">
@@ -256,6 +256,14 @@
                 var $view2 = $('.easytable-rightview');
                 var $body1 = $view1.children("div.easytable-body");
                 var $body2 = $view2.children("div.easytable-body");
+
+                $body1.bind("mousewheel DOMMouseScroll", function (e) {
+                    e.preventDefault();
+                    var e1 = e.originalEvent || window.event;
+                    var scrollHeight = e1.wheelDelta || e1.detail * (-1);
+                    $body2.scrollTop($body2.scrollTop() - scrollHeight);
+                });
+
                 $body2.bind("scroll", function () {
                     $body1.scrollTop($(this).scrollTop());
                     var c1 = $body1.children(":first");
