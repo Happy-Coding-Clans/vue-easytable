@@ -9,15 +9,17 @@
                    :titleRows="tables.titleRows"
                    :columns="tables.columns"
                    :tableData="tables.tableData"
+                   @actionCallBack="actionCallBack"
         ></easyTable>
     </div>
+
 
 
 </template>
 
 <script>
 
-    import easyTable from '../../参考/vue-easytable_new.vue'
+    import easyTable from '../../src/vue-easytable.vue'
     import mockData from '../../mockServer/simpleData'
 
     export default{
@@ -28,6 +30,7 @@
         data(){
             return {
                 tables: {
+                    multipleSort:false,
                     width: 1300,
                     minWidth: 600,
                     height: 600,
@@ -35,29 +38,71 @@
                     tableData: [],
                     titleRows:[
                         [
-                            {fields: ['name','gender'], title: '姓名、性别', width: 300, align: 'center', isFrozen: false,colspan:2,rowspan:2},
-                            /*{field: 'gender', title: '性别', width: 150, align: 'center', isFrozen: false},*/
-                            {fields: ['nickname'], title: '昵称', width: 150, align: 'center', isFrozen: false},
-                            {fields: ['birthday'], title: '出生日期', width: 150, align: 'center', isFrozen: false},
-                            {fields: ['height'], title: '身高', width: 150, align: 'center', isFrozen: false},
-                            {fields: ['tel'], title: '手机号码', width: 150, align: 'center', isFrozen: false},
-                            {fields: ['email'], title: '邮箱', width: 150, align: 'center', isFrozen: false},
-                            {fields: ['hobby'], title: '爱好', width: 300, align: 'center', isFrozen: false},
-                            {fields: ['address'], title: '家庭地址', width: 300, align: 'center', isFrozen: false},
-                            {fields: ['job'], title: '职业', width: 150, align: 'center', isFrozen: false}
+                            {fields: ['name'], title: '姓名', align: 'center'},
+                            {fields: ['gender','nickname','birthday','height'], title: '基本信息', align: 'center',colspan:4},
+                            /*{field: 'gender', title: '性别', width: 150, align: 'center'},*/
+                            {fields: ['tel','email','hobby','address','job'], title: '其他', align: 'center',colspan:5},
+                        ],
+                        [
+                            {fields: ['name'], title: '姓名', align: 'center',orderBy:'desc'},
+                            {fields: ['gender'], title: '性别', align: 'center',orderBy:'asc',rowspan:2,},
+                            {fields: ['nickname'], title: '昵称', align: 'center',orderBy:'desc'},
+                            {fields: ['birthday'], title: '出生日期', align: 'center'},
+                            {fields: ['height'], title: '身高', align: 'center'},
+                            {fields: ['tel'], title: '手机号码', align: 'center'},
+                            {fields: ['email'], title: '邮箱', align: 'center'},
+                            {fields: ['hobby'], title: '爱好', align: 'center'},
+                            {fields: ['address'], title: '家庭地址', align: 'center'},
+                            {fields: ['job'], title: '职业', align: 'center'}
+                        ],
+                        [
+                            {fields: ['name'], title: '姓名', align: 'center'},
+                           /* {fields: ['gender'], title: '性别', align: 'center',rowspan:2},*/
+                            {fields: ['nickname'], title: '昵称', align: 'center',orderBy:'desc'},
+                            {fields: ['birthday'], title: '出生日期', align: 'center'},
+                            {fields: ['height'], title: '身高', align: 'center'},
+                            {fields: ['tel'], title: '手机号码', align: 'center'},
+                            {fields: ['email'], title: '邮箱', align: 'center'},
+                            {fields: ['hobby'], title: '爱好', align: 'center'},
+                            {fields: ['address'], title: '家庭地址', align: 'center'},
+                            {fields: ['job'], title: '职业', align: 'center'}
+                        ],
+                        [
+                            {fields: ['name'], title: '姓名', align: 'center'},
+                            {fields: ['gender'], title: '性别', align: 'center'},
+                            {fields: ['nickname'], title: '昵称', align: 'center'},
+                            {fields: ['birthday'], title: '出生日期', align: 'center'},
+                            {fields: ['height'], title: '身高', align: 'center'},
+                            {fields: ['tel'], title: '手机号码', align: 'center'},
+                            {fields: ['email'], title: '邮箱', align: 'center'},
+                            {fields: ['hobby'], title: '爱好', align: 'center'},
+                            {fields: ['address'], title: '家庭地址', align: 'center'},
+                            {fields: ['job'], title: '职业', align: 'center'}
+                        ],
+                        [
+                            {fields: ['name'], title: '姓名', align: 'center'},
+                            {fields: ['gender'], title: '性别', align: 'center'},
+                            {fields: ['nickname'], title: '昵称', align: 'center'},
+                            {fields: ['birthday'], title: '出生日期', align: 'center'},
+                            {fields: ['height'], title: '身高', align: 'center'},
+                            {fields: ['tel'], title: '手机号码', align: 'center'},
+                            {fields: ['email'], title: '邮箱', align: 'center'},
+                            {fields: ['hobby'], title: '爱好', align: 'center'},
+                            {fields: ['address'], title: '家庭地址', align: 'center'},
+                            {fields: ['job'], title: '职业', align: 'center'}
                         ]
                     ],
                     columns: [
-                        {field: 'name', title: '姓名', width: 150, align: 'center', isFrozen: true},
-                        {field: 'gender', title: '性别', width: 150, align: 'center', isFrozen: true},
-                        {field: 'nickname', title: '昵称', width: 150, align: 'center', isFrozen: false},
-                        {field: 'birthday', title: '出生日期', width: 150, align: 'center', isFrozen: false},
-                        {field: 'height', title: '身高', width: 150, align: 'center', isFrozen: false},
-                        {field: 'tel', title: '手机号码', width: 150, align: 'center', isFrozen: false},
-                        {field: 'email', title: '邮箱', width: 150, align: 'center', isFrozen: false},
-                        {field: 'hobby', title: '爱好', width: 300, align: 'center', isFrozen: false},
-                        {field: 'address', title: '家庭地址', width: 300, align: 'center', isFrozen: false},
-                        {field: 'job', title: '职业', width: 150, align: 'center', isFrozen: false}
+                        {field: 'name', width: 150, align: 'center', isFrozen: false},
+                        {field: 'gender', width: 150, align: 'center', isFrozen: false},
+                        {field: 'nickname', width: 150, align: 'center', isFrozen: false},
+                        {field: 'birthday', width: 150, align: 'center', isFrozen: false},
+                        {field: 'height', width: 150, align: 'center', isFrozen: false},
+                        {field: 'tel', width: 150, align: 'center', isFrozen: false},
+                        {field: 'email', width: 150, align: 'center', isFrozen: false},
+                        {field: 'hobby', width: 300, align: 'center', isFrozen: false},
+                        {field: 'address', width: 300, align: 'center', isFrozen: false},
+                        {field: 'job', width: 150, align: 'center', isFrozen: false}
                     ]
                 }
             }
@@ -71,6 +116,10 @@
                     vm.tables.tableData = mockData
                 }, 10)
 
+            },
+
+            actionCallBack(params){
+                console.log(params)
             }
         },
         created(){

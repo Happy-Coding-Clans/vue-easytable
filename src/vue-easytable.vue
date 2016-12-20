@@ -139,7 +139,6 @@
         name: 'vue-easyTable',
         data(){
             return {
-                src2: '../libs/imgs/mouse.jpg',
                 // 本地宽度
                 newWidth: this.width,
                 // 本地高度
@@ -213,6 +212,10 @@
             noFrozenCols(){
                 return this.newColumns.filter(x => x.isFrozen !== true)
             },
+            // 冻结的表头列集合
+            frozenTitleCols(){
+                //this.newTitleRows
+            },
             // 左侧区域宽度
             leftViewWidth(){
                 var result = 0
@@ -221,7 +224,7 @@
                 }
                 return result
             },
-            // 右侧区域宽度
+            // 右侧区域宽度(2:外边框的宽度)
             rightViewWidth(){
                 return this.newWidth - this.leftViewWidth - 2
             },
