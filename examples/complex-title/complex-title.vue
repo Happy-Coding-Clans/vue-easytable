@@ -93,7 +93,7 @@
                         ]
                     ],
                     columns: [
-                        {field: 'name', width: 150, align: 'center', isFrozen: false},
+                        {field: 'name', width: 150, align: 'center', isFrozen: true},
                         {field: 'gender', width: 150, align: 'center', isFrozen: false},
                         {field: 'nickname', width: 150, align: 'center', isFrozen: false},
                         {field: 'birthday', width: 150, align: 'center', isFrozen: false},

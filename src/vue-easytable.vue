@@ -8,22 +8,41 @@
                     <div class="easytable-leftview" :style="{'width':leftViewWidth+'px'}">
                         <!--左列头-->
                         <div class="easytable-header"
-                             :style="{'width': leftViewWidth+'px', 'height':titleRowHeight+'px','background-color':titleBgColor}">
+                             :style="{'width': leftViewWidth+'px','background-color':titleBgColor}">
                             <div class="easytable-header-inner" style="display: block;">
                                 <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0">
                                     <tbody>
-                                    <tr class="easytable-header-row">
-                                        <td v-for="col in frozenCols"
-                                            :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
-                                            @click.stop="sortControl(col.field,col.orderBy)">
-                                            <div class="easytable-cell"
-                                                 :style="{'width':col.width+'px','height':titleRowHeight+'px','line-height':titleRowHeight+'px','text-align':col.align}">
-                                                <span class="table-title">{{col.title}} </span>
-                                                <span v-if="enableSort(col.orderBy)"
-                                                      :class="['easytable-sort-icon', col.orderBy]"></span>
-                                            </div>
-                                        </td>
-                                    </tr>
+
+                                    <template v-if="frozenTitleCols.length > 0">
+                                        <tr v-for="row in frozenTitleCols">
+                                            <td v-for="col in row"
+                                                :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
+                                                :colspan="col.colspan" :rowspan="col.rowspan"
+                                                @click.stop="sortControl(col.fields[0],col.orderBy)">
+                                                <div class="easytable-cell"
+                                                     :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','line-height':titleColumnHeight(col.rowspan)+'px','text-align':col.align}">
+                                                    <span class="table-title">{{col.title}} </span>
+                                                    <span v-if="enableSort(col.orderBy)"
+                                                          :class="['easytable-sort-icon', col.orderBy]"></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </template>
+
+                                    <template v-else>
+                                        <tr class="easytable-header-row">
+                                            <td v-for="col in frozenCols"
+                                                :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
+                                                @click.stop="sortControl(col.field,col.orderBy)">
+                                                <div class="easytable-cell"
+                                                     :style="{'width':col.width+'px','height':titleRowHeight+'px','line-height':titleRowHeight+'px','text-align':col.align}">
+                                                    <span class="table-title">{{col.title}} </span>
+                                                    <span v-if="enableSort(col.orderBy)"
+                                                          :class="['easytable-sort-icon', col.orderBy]"></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </template>
                                     </tbody>
                                 </table>
                             </div>
@@ -67,8 +86,8 @@
                             <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0">
                                 <tbody>
 
-                                <template v-if="newTitleRows.length > 0">
-                                    <tr v-for="row in newTitleRows">
+                                <template v-if="noFrozenTitleCols.length > 0">
+                                    <tr v-for="row in noFrozenTitleCols">
                                         <td v-for="col in row" :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
                                             :colspan="col.colspan" :rowspan="col.rowspan"
                                             @click.stop="sortControl(col.fields[0],col.orderBy)">
@@ -214,7 +233,55 @@
             },
             // 冻结的表头列集合
             frozenTitleCols(){
-                //this.newTitleRows
+                var frozenTitleCols = []
+
+                if (this.newTitleRows.length > 0) {
+
+                    // 获取当前锁定的字段集合
+                    var frozenFields = this.frozenCols.map(x => x.field)
+
+                    this.newTitleRows.forEach(function (rows) {
+
+                        var frozenTitleRows = rows.filter(function (row) {
+                            if (Array.isArray(row.fields)) {
+                                if (row.fields.every(field => frozenFields.indexOf(field) !== -1)) {
+                                    return true
+                                }
+                            }
+                        })
+                        if (frozenTitleRows.length > 0) {
+                            frozenTitleCols.push(frozenTitleRows)
+                        }
+                    })
+                }
+                console.log(frozenTitleCols)
+                return frozenTitleCols
+            },
+            // 未的表头列集合
+            noFrozenTitleCols(){
+                var noFrozenTitleCols = []
+
+                if (this.newTitleRows.length > 0) {
+
+                    // 获取当前未锁定的字段集合
+                    var noFrozenFields = this.noFrozenCols.map(x => x.field)
+
+                    this.newTitleRows.forEach(function (rows) {
+
+                        var noFrozenTitleRows = rows.filter(function (row) {
+                            if (Array.isArray(row.fields)) {
+                                return row.fields.every(field => noFrozenFields.indexOf(field) !== -1)
+                            }
+                        })
+
+                        if (noFrozenTitleRows.length > 0) {
+                            noFrozenTitleCols.push(noFrozenTitleRows)
+                        }
+                    })
+
+                    console.log(noFrozenTitleCols)
+                    return noFrozenTitleCols
+                }
             },
             // 左侧区域宽度
             leftViewWidth(){
@@ -411,6 +478,8 @@
             window.onresize = function (event) {
                 vm.tableResize()
             }
+
+            vm.noFrozenTitleCols
         },
         watch: {
             // 重新跟新列信息
