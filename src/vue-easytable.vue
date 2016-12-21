@@ -215,7 +215,10 @@
             // 特殊表头
             titleRows: {
                 type: Array,
-                require: true
+                require: true,
+                default:function(){
+                    return []
+                }
             },
             tableData: {
                 type: Array,
@@ -254,7 +257,6 @@
                         }
                     })
                 }
-                console.log(frozenTitleCols)
                 return frozenTitleCols
             },
             // 未的表头列集合
@@ -278,10 +280,8 @@
                             noFrozenTitleCols.push(noFrozenTitleRows)
                         }
                     })
-
-                    console.log(noFrozenTitleCols)
-                    return noFrozenTitleCols
                 }
+                return noFrozenTitleCols
             },
             // 左侧区域宽度
             leftViewWidth(){
@@ -479,7 +479,6 @@
                 vm.tableResize()
             }
 
-            vm.noFrozenTitleCols
         },
         watch: {
             // 重新跟新列信息

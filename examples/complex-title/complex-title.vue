@@ -18,7 +18,6 @@
 </template>
 
 <script>
-
     import easyTable from '../../src/vue-easytable.vue'
     import mockData from '../../mockServer/simpleData'
 
@@ -37,12 +36,12 @@
                     minHeight: 300,
                     tableData: [],
                     titleRows:[
-                        [
+                     /*   [
                             {fields: ['name'], title: '姓名', align: 'center'},
                             {fields: ['gender','nickname','birthday','height'], title: '基本信息', align: 'center',colspan:4},
-                            /*{field: 'gender', title: '性别', width: 150, align: 'center'},*/
+                            /!*{field: 'gender', title: '性别', width: 150, align: 'center'},*!/
                             {fields: ['tel','email','hobby','address','job'], title: '其他', align: 'center',colspan:5},
-                        ],
+                        ],*/
                         [
                             {fields: ['name'], title: '姓名', align: 'center',orderBy:'desc'},
                             {fields: ['gender'], title: '性别', align: 'center',orderBy:'asc',rowspan:2,},
@@ -94,7 +93,7 @@
                     ],
                     columns: [
                         {field: 'name', width: 150, align: 'center', isFrozen: true},
-                        {field: 'gender', width: 150, align: 'center', isFrozen: false},
+                        {field: 'gender', width: 150, align: 'center', isFrozen: true},
                         {field: 'nickname', width: 150, align: 'center', isFrozen: false},
                         {field: 'birthday', width: 150, align: 'center', isFrozen: false},
                         {field: 'height', width: 150, align: 'center', isFrozen: false},
