@@ -32,7 +32,7 @@
                     minHeight: 300,
                     tableData: [],
                     columns: [
-                        {field: 'name', title: '姓名', width: 150, align: 'center', isFrozen: true},
+                        {field: 'name', title: '姓名', width: 150, align: 'center', isFrozen: false},
                         {field: 'gender', title: '性别', width: 150, align: 'center', isFrozen: true},
                         {field: 'nickname', title: '昵称', width: 150, align: 'center', isFrozen: true},
                         {field: 'birthday', title: '出生日期', width: 150, align: 'center', isFrozen: true},

@@ -49,7 +49,7 @@
                         </div>
                         <!--左列内容-->
                         <div class="easytable-body"
-                             :style="{'width': leftViewWidth+'px', 'margin-top': '0px', 'height': (newHeight-titleRowHeight)+'px'}">
+                             :style="{'width': leftViewWidth+'px', 'margin-top': '0px', 'height': bodyViewHeight+'px'}">
                             <div class="easytable-body-inner">
                                 <table class="easytable-btable" cellspacing="0" cellpadding="0" border="0">
                                     <tbody>
@@ -121,7 +121,7 @@
                     </div>
                     <!--右列内容-->
                     <div class="easytable-body"
-                         :style="{'width': rightViewWidth+'px', 'margin-top': '0px', 'height': rightViewHeight+'px'}">
+                         :style="{'width': rightViewWidth+'px', 'margin-top': '0px', 'height': bodyViewHeight+'px'}">
                         <table class="easytable-btable" cellspacing="0" cellpadding="0" border="0">
                             <tbody>
                             <tr v-for="(item,index) in tableData" class="easytable-row">
@@ -296,8 +296,8 @@
                 return this.newWidth - this.leftViewWidth - 2
             },
 
-            // 右侧区域高度
-            rightViewHeight(){
+            // 左侧、右侧区域高度
+            bodyViewHeight(){
                 if (this.newTitleRows.length > 0) {
                     return this.newHeight - this.titleRowHeight * this.newTitleRows.length
                 } else {
@@ -425,6 +425,10 @@
                         var top1 = c1.offset().top;
                         var top2 = c2.offset().top;
                         if (top1 != top2) {
+                            console.log($body1.scrollTop())
+                            console.log(top1)
+                            console.log(top2)
+
                             $body1.scrollTop($body1.scrollTop() + top1 - top2);
                         }
                     }

@@ -26,9 +26,9 @@
         data(){
             return {
                 tables: {
-                    width: 1100,
+                    width: 1300,
                     minWidth: 600,
-                    height: 700,
+                    height: 1000,
                     minHeight: 300,
                     tableData: [],
                     columns: [
