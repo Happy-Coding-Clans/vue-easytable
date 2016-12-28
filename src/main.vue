@@ -1,141 +1,69 @@
 <template>
-        <div class="easytable-wrap panel-body" title="" :style="{'width':(newWidth)+'px'}">
-            <div class="easytable-views" :style="{'width': (newWidth-2)+'px', 'height': newHeight+'px'}">
-                <!--左列-->
-                <template v-if="frozenCols.length > 0">
-                    <div class="easytable-leftview" :style="{'width':leftViewWidth+'px'}">
-                        <!--左列头-->
-                        <div class="easytable-header"
-                             :style="{'width': leftViewWidth+'px','background-color':titleBgColor}">
-                            <div class="easytable-header-inner" style="display: block;">
-                                <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0">
-                                    <tbody>
+    <div class="easytable-views" :style="{'width': newWidth+'px', 'height': newHeight+'px'}">
+        <!--左列-->
+        <template v-if="frozenCols.length > 0">
+            <div class="easytable-leftview" :style="{'width':leftViewWidth+'px'}">
+                <!--左列头-->
+                <div class="easytable-header"
+                     :style="{'width': leftViewWidth+'px','background-color':titleBgColor}">
+                    <div class="easytable-header-inner" style="display: block;">
+                        <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
 
-                                    <template v-if="frozenTitleCols.length > 0">
-                                        <tr v-for="row in frozenTitleCols">
-                                            <td v-for="col in row"
-                                                :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
-                                                :colspan="col.colspan" :rowspan="col.rowspan"
-                                                @click.stop="sortControl(col.fields[0],col.orderBy)">
-                                                <div class="easytable-cell"
-                                                     :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','line-height':titleColumnHeight(col.rowspan)+'px','text-align':col.align}">
-                                                    <span class="table-title">{{col.title}} </span>
-                                                    <span v-if="enableSort(col.orderBy)"
-                                                          :class="['easytable-sort-icon', col.orderBy]"></span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </template>
+                            <template v-if="frozenTitleCols.length > 0">
+                                <tr v-for="row in frozenTitleCols">
+                                    <td v-for="col in row"
+                                        :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
+                                        :colspan="col.colspan" :rowspan="col.rowspan"
+                                        @click.stop="sortControl(col.fields[0],col.orderBy)">
+                                        <div class="easytable-cell"
+                                             :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','line-height':titleColumnHeight(col.rowspan)+'px','text-align':col.align}">
+                                            <span class="table-title">{{col.title}} </span>
+                                            <span v-if="enableSort(col.orderBy)"
+                                                  :class="['easytable-sort-icon', col.orderBy]"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
 
-                                    <template v-else>
-                                        <tr class="easytable-header-row">
-                                            <td v-for="col in frozenCols"
-                                                :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
-                                                @click.stop="sortControl(col.field,col.orderBy)">
-                                                <div class="easytable-cell"
-                                                     :style="{'width':col.width+'px','height':titleRowHeight+'px','line-height':titleRowHeight+'px','text-align':col.align}">
-                                                    <span class="table-title">{{col.title}} </span>
-                                                    <span v-if="enableSort(col.orderBy)"
-                                                          :class="['easytable-sort-icon', col.orderBy]"></span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </template>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <!--左列内容-->
-                        <div class="easytable-body"
-                             :style="{'width': leftViewWidth+'px', 'margin-top': '0px', 'height': bodyViewHeight+'px'}">
-                            <div class="easytable-body-inner">
-                                <table class="easytable-btable" cellspacing="0" cellpadding="0" border="0">
-                                    <tbody>
-                                    <tr v-for="(item,index) in tableData" class="easytable-row">
-                                        <td v-for="col in frozenCols">
-                                            <div class="easytable-cell"
-                                                 :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.align}">
-                                                <template v-if="typeof col.componentName ==='string'">
-                                                    <component :rowData="item" :is="col.componentName"></component>
-                                                </template>
-                                                <template v-else>
-                                                   <span v-if="typeof col.format==='function'"
-                                                         v-html="col.format(item)">
-                                                    </span>
-                                                    <span v-else>
-                                                        {{item[col.field]}}
-                                                    </span>
-                                                </template>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                            <template v-else>
+                                <tr class="easytable-header-row">
+                                    <td v-for="col in frozenCols"
+                                        :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
+                                        @click.stop="sortControl(col.field,col.orderBy)">
+                                        <div class="easytable-cell"
+                                             :style="{'width':col.width+'px','height':titleRowHeight+'px','line-height':titleRowHeight+'px','text-align':col.align}">
+                                            <span class="table-title">{{col.title}} </span>
+                                            <span v-if="enableSort(col.orderBy)"
+                                                  :class="['easytable-sort-icon', col.orderBy]"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                            </tbody>
+                        </table>
                     </div>
-                </template>
-                <!--右列-->
-                <div class="easytable-rightview" :style="{'width': rightViewWidth+'px'}">
-                    <!--右列头-->
-                    <div class="easytable-header"
-                         :style="{'width': rightViewWidth+'px','background-color':titleBgColor}">
-                        <div class="easytable-header-inner" style="display: block;">
-                            <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-
-                                <template v-if="noFrozenTitleCols.length > 0">
-                                    <tr v-for="row in noFrozenTitleCols">
-                                        <td v-for="col in row" :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
-                                            :colspan="col.colspan" :rowspan="col.rowspan"
-                                            @click.stop="sortControl(col.fields[0],col.orderBy)">
-                                            <div class="easytable-cell"
-                                                 :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','line-height':titleColumnHeight(col.rowspan)+'px','text-align':col.align}">
-                                                <span class="table-title">{{col.title}} </span>
-                                                <span v-if="enableSort(col.orderBy)"
-                                                      :class="['easytable-sort-icon', col.orderBy]"></span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </template>
-
-                                <template v-else>
-                                    <tr class="easytable-header-row">
-                                        <td v-for="col in noFrozenCols"
-                                            :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
-                                            @click.stop="sortControl(col.field,col.orderBy)">
-                                            <div class="easytable-cell"
-                                                 :style="{'width':col.width+'px','height':titleRowHeight+'px','line-height':titleRowHeight+'px','text-align':col.align}">
-                                                <span class="table-title">{{col.title}} </span>
-                                                <span v-if="enableSort(col.orderBy)"
-                                                      :class="['easytable-sort-icon', col.orderBy]"></span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </template>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!--右列内容-->
-                    <div class="easytable-body"
-                         :style="{'width': rightViewWidth+'px', 'margin-top': '0px', 'height': bodyViewHeight+'px'}">
+                </div>
+                <!--左列内容-->
+                <div class="easytable-body"
+                     :style="{'width': leftViewWidth+'px', 'margin-top': '0px', 'height': bodyViewHeight+'px'}">
+                    <div class="easytable-body-inner">
                         <table class="easytable-btable" cellspacing="0" cellpadding="0" border="0">
                             <tbody>
                             <tr v-for="(item,index) in tableData" class="easytable-row">
-                                <td v-for="col in noFrozenCols">
+                                <td v-for="col in frozenCols">
                                     <div class="easytable-cell"
                                          :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.align}">
                                         <template v-if="typeof col.componentName ==='string'">
                                             <component :rowData="item" :is="col.componentName"></component>
                                         </template>
                                         <template v-else>
-                                           <span v-if="typeof col.format==='function'"
-                                                 v-html="col.format(item)">
-                                            </span>
+                                                   <span v-if="typeof col.format==='function'"
+                                                         v-html="col.format(item)">
+                                                    </span>
                                             <span v-else>
-                                                {{item[col.field]}}
-                                            </span>
+                                                        {{item[col.field]}}
+                                                    </span>
                                         </template>
                                     </div>
                                 </td>
@@ -145,7 +73,77 @@
                     </div>
                 </div>
             </div>
+        </template>
+        <!--右列-->
+        <div class="easytable-rightview" :style="{'width': rightViewWidth+'px'}">
+            <!--右列头-->
+            <div class="easytable-header"
+                 :style="{'width': rightViewWidth+'px','background-color':titleBgColor}">
+                <div class="easytable-header-inner" style="display: block;">
+                    <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+
+                        <template v-if="noFrozenTitleCols.length > 0">
+                            <tr v-for="row in noFrozenTitleCols">
+                                <td v-for="col in row" :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
+                                    :colspan="col.colspan" :rowspan="col.rowspan"
+                                    @click.stop="sortControl(col.fields[0],col.orderBy)">
+                                    <div class="easytable-cell"
+                                         :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','line-height':titleColumnHeight(col.rowspan)+'px','text-align':col.align}">
+                                        <span class="table-title">{{col.title}} </span>
+                                        <span v-if="enableSort(col.orderBy)"
+                                              :class="['easytable-sort-icon', col.orderBy]"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+
+                        <template v-else>
+                            <tr class="easytable-header-row">
+                                <td v-for="col in noFrozenCols"
+                                    :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
+                                    @click.stop="sortControl(col.field,col.orderBy)">
+                                    <div class="easytable-cell"
+                                         :style="{'width':col.width+'px','height':titleRowHeight+'px','line-height':titleRowHeight+'px','text-align':col.align}">
+                                        <span class="table-title">{{col.title}} </span>
+                                        <span v-if="enableSort(col.orderBy)"
+                                              :class="['easytable-sort-icon', col.orderBy]"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--右列内容-->
+            <div class="easytable-body"
+                 :style="{'width': rightViewWidth+'px', 'margin-top': '0px', 'height': bodyViewHeight+'px'}">
+                <table class="easytable-btable" cellspacing="0" cellpadding="0" border="0">
+                    <tbody>
+                    <tr v-for="(item,index) in tableData" class="easytable-row">
+                        <td v-for="col in noFrozenCols">
+                            <div class="easytable-cell"
+                                 :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.align}">
+                                <template v-if="typeof col.componentName ==='string'">
+                                    <component :rowData="item" :is="col.componentName"></component>
+                                </template>
+                                <template v-else>
+                                           <span v-if="typeof col.format==='function'"
+                                                 v-html="col.format(item)">
+                                            </span>
+                                    <span v-else>
+                                                {{item[col.field]}}
+                                            </span>
+                                </template>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+    </div>
 
 </template>
 
@@ -166,9 +164,7 @@
             }
         },
         props: {
-            isFrozenTitle:{
-
-            },
+            isFrozenTitle: {},
             width: {
                 type: Number,
                 require: true
@@ -216,7 +212,7 @@
             titleRows: {
                 type: Array,
                 require: true,
-                default:function(){
+                default: function () {
                     return []
                 }
             },

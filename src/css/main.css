@@ -4,35 +4,21 @@
     box-sizing:border-box;
 }
 
-.panel-header, .panel-body {
-    border:1px solid rgba(221, 221, 221, 1);
-}
+.easytable-views {
+    position: relative;
+    overflow: hidden;
 
-.panel-body {
-    overflow-x: auto;
-    overflow-y: auto;
+    border:1px solid rgba(221, 221, 221, 1);
+
     padding: 0;
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
     font-size: 12px;
 }
 
-.easytable .panel-body {
-    overflow-x: hidden;
-    overflow-y: hidden;
-    position: relative;
-}
-
-.easytable-views {
-    position: relative;
-    overflow-x: hidden;
-    overflow-y: hidden;
-}
-
 .easytable-leftview, .easytable-rightview {
     position: absolute;
-    overflow-x: hidden;
-    overflow-y: hidden;
+    overflow: hidden;
     top: 0px;
 }
 
@@ -41,14 +27,12 @@
 }
 
 .easytable-header {
-    overflow-x: hidden;
-    overflow-y: hidden;
+    overflow: hidden;
     cursor: default;
 }
 
 .easytable-header, .easytable-td-rownumber {
-    background-position-x: initial;
-    background-position-y: initial;
+    background-position: initial;
     background-size: initial;
     background-attachment: initial;
     background-origin: initial;
