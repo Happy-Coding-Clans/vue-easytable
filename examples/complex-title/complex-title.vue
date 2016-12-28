@@ -18,7 +18,7 @@
 </template>
 
 <script>
-    import easyTable from '../../src/vue-easytable.vue'
+    import easyTable from '../../src/main.vue'
     import mockData from '../../mockServer/simpleData'
 
     export default{

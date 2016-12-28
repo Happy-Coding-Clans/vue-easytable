@@ -13,7 +13,7 @@
 }
 
 .panel-header, .panel-body {
-    border:1px solid #bbb;
+    border:1px solid rgba(221, 221, 221, 1);
 }
 
 .panel-body {
@@ -85,11 +85,8 @@
 }
 
 .easytable-header td, .easytable-body td, .easytable-footer td {
-/*    border-width: 0 1px 1px 0;
-    border-style: solid;*/
     margin: 0;
     padding: 0;
-    /*border-color: rgba(221, 221, 221, 1);*/
 }
 
 .easytable-cell{

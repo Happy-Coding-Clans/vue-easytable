@@ -14,7 +14,7 @@
 
 <script>
 
-    import easyTable from '../../src/vue-easytable.vue'
+    import easyTable from '../../src/main.vue'
     import mockData from '../../mockServer/simpleData'
 
 
@@ -26,7 +26,7 @@
         data(){
             return {
                 tables: {
-                    width: 1300,
+                    width: 1000,
                     minWidth: 600,
                     height: 1000,
                     minHeight: 300,
