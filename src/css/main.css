@@ -4,14 +4,6 @@
     box-sizing:border-box;
 }
 
-.panel {
-    overflow-x: hidden;
-    overflow-y: hidden;
-    text-align: left;
-    margin: 0;
-    border-width: 0;
-}
-
 .panel-header, .panel-body {
     border:1px solid rgba(221, 221, 221, 1);
 }

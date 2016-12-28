@@ -1,7 +1,5 @@
 <template>
-
-    <div class="panel easytable" :style="{'width':newWidth+'px'}">
-        <div class="easytable-wrap panel-body" title="" :style="{'width':(newWidth-2)+'px'}">
+        <div class="easytable-wrap panel-body" title="" :style="{'width':(newWidth)+'px'}">
             <div class="easytable-views" :style="{'width': (newWidth-2)+'px', 'height': newHeight+'px'}">
                 <!--左列-->
                 <template v-if="frozenCols.length > 0">
@@ -148,7 +146,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
 </template>
 
@@ -169,6 +166,9 @@
             }
         },
         props: {
+            isFrozenTitle:{
+
+            },
             width: {
                 type: Number,
                 require: true
@@ -476,11 +476,11 @@
         },
         mounted(){
             var vm = this;
-            vm.tableResize()
+            //vm.tableResize()
             vm.scrollControl()
             vm.singelSortInit()
             window.onresize = function (event) {
-                vm.tableResize()
+                //vm.tableResize()
             }
 
         },

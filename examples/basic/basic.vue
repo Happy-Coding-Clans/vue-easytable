@@ -28,7 +28,7 @@
                 tables: {
                     width: 1000,
                     minWidth: 600,
-                    height: 1000,
+                    height: 500,
                     minHeight: 300,
                     tableData: [],
                     columns: [
