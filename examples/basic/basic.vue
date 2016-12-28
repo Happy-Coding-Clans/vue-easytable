@@ -28,8 +28,8 @@
                 tables: {
                     width: 1000,
                     minWidth: 600,
-                    height: 500,
-                    minHeight: 300,
+                /*    height: 500,
+                    minHeight: 300,*/
                     tableData: [],
                     columns: [
                         {field: 'name', title: '姓名', width: 80, align: 'center'},

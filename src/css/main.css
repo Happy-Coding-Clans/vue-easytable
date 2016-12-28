@@ -5,7 +5,7 @@
 }
 
 .easytable-views {
-    position: relative;
+/*    position: relative;*/
     overflow: hidden;
 
     border:1px solid rgba(221, 221, 221, 1);
@@ -17,12 +17,13 @@
 }
 
 .easytable-leftview, .easytable-rightview {
-    position: absolute;
+   /* position: absolute;*/
     overflow: hidden;
     top: 0px;
 }
 
 .easytable-leftview {
+    float: left;
     left: 0px;
 }
 

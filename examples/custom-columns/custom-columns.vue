@@ -27,10 +27,10 @@
         data(){
             return {
                 tables: {
-                    width: 1300,
+                    width: 1000,
                     minWidth: 600,
-                    height: 700,
-                    minHeight: 300,
+                   /* height: 700,
+                    minHeight: 300,*/
                     rowHeight:35,
                     tableData: [],
                     multipleSort: true,

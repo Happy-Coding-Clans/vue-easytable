@@ -144,7 +144,6 @@
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -175,7 +174,7 @@
             },
             height: {
                 type: Number,
-                require: true
+                require: false
             },
             minHeight: {
                 type: Number,
@@ -469,6 +468,19 @@
                     vm.newHeight = currentHeight
                 }
             },
+        },
+        created(){
+            // 不固定表头
+            /*       if (!this.newHeight){
+             this.newHeight =
+             }
+
+             if (this.newTitleRows.length > 0) {
+             return this.newHeight - this.titleRowHeight * this.newTitleRows.length
+             } else {
+             return this.newHeight - this.titleRowHeight
+             }
+             console.log(this.newHeight)*/
         },
         mounted(){
             var vm = this;

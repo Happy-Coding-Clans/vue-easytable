@@ -22,8 +22,6 @@ module.exports = [
     {"name":"张文15","img":"defaultPic.jpg","gender":"女","nickname":"文","birthday":'1993-12-7',"height":"168cm","email":"wqdwq@sda.com","tel":"18123456xxx","hobby":"琴、棋、书、画无所不能","address":"上海市徐汇区xx弄xx号，3号楼1306室","job":"芭蕾舞老师"},
     {"name":"张文16","img":"defaultPic.jpg","gender":"女","nickname":"文","birthday":'1993-12-7',"height":"168cm","email":"wqdwq@sda.com","tel":"18123456xxx","hobby":"琴、棋、书、画无所不能","address":"上海市徐汇区xx弄xx号，3号楼1306室","job":"芭蕾舞老师"},
     {"name":"张文17","img":"defaultPic.jpg","gender":"女","nickname":"文","birthday":'1993-12-7',"height":"168cm","email":"wqdwq@sda.com","tel":"18123456xxx","hobby":"琴、棋、书、画无所不能","address":"上海市徐汇区xx弄xx号，3号楼1306室","job":"芭蕾舞老师"},
-    {"name":"张文18","img":"defaultPic.jpg","gender":"女","nickname":"文","birthday":'1993-12-7',"height":"168cm","email":"wqdwq@sda.com","tel":"18123456xxx","hobby":"琴、棋、书、画无所不能","address":"上海市徐汇区xx弄xx号，3号楼1306室","job":"芭蕾舞老师"},
-    {"name":"张文19","img":"defaultPic.jpg","gender":"女","nickname":"文","birthday":'1993-12-7',"height":"168cm","email":"wqdwq@sda.com","tel":"18123456xxx","hobby":"琴、棋、书、画无所不能","address":"上海市徐汇区xx弄xx号，3号楼1306室","job":"芭蕾舞老师"},
-    {"name":"张文20","img":"defaultPic.jpg","gender":"女","nickname":"文","birthday":'1993-12-7',"height":"168cm","email":"wqdwq@sda.com","tel":"18123456xxx","hobby":"琴、棋、书、画无所不能","address":"上海市徐汇区xx弄xx号，3号楼1306室","job":"芭蕾舞老师"}
+    {"name":"张文18","img":"defaultPic.jpg","gender":"女","nickname":"文","birthday":'1993-12-7',"height":"168cm","email":"wqdwq@sda.com","tel":"18123456xxx","hobby":"琴、棋、书、画无所不能","address":"上海市徐汇区xx弄xx号，3号楼1306室","job":"芭蕾舞老师"}
 
 ]
