@@ -154,7 +154,6 @@
 </template>
 
 <script>
-    import './css/main.css'
     export default {
         name: 'vue-easyTable',
         data(){
