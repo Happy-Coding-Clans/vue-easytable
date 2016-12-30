@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="width:1350px">
         基本的表格功能展示<br/><br/>
         <easyTable :width="tables.width"
                    :minWidth="tables.minWidth"
@@ -8,6 +8,8 @@
                    :multipleSort="tables.multipleSort"
                    :columns="tables.columns"
                    :tableData="tables.tableData"
+                   :isHorizontalResize = "tables.isHorizontalResize"
+                   :isVerticalResize = "tables.isVerticalResize"
         ></easyTable>
     </div>
 </template>
@@ -26,18 +28,20 @@
         data(){
             return {
                 tables: {
-                    width: 1000,
-                    minWidth: 600,
-                /*    height: 500,
-                    minHeight: 300,*/
+                   /* isHorizontalResize:false,
+                    isVerticalResize:false,
+                    width:1200,
+                    height:600,*/
+                 /*   minWidth:1000,
+                    minHeight:500,*/
                     tableData: [],
                     columns: [
                         {field: 'name', title: '姓名', width: 80, align: 'center'},
                         {field: 'gender', title: '性别', width: 80, align: 'center'},
                         {field: 'nickname', title: '昵称', width: 80, align: 'center'},
                         {field: 'birthday', title: '出生日期', width: 100, align: 'center'},
-                        {field: 'height', title: '身高', width: 80, align: 'center', isFrozen: false},
-                        {field: 'tel', title: '手机号码', width: 100, align: 'center', isFrozen: false},
+                        {field: 'height', title: '身高', width: 80, align: 'center', isFrozen: true},
+                        {field: 'tel', title: '手机号码', width: 100, align: 'center', isFrozen: true},
                         {field: 'email', title: '邮箱', width: 100, align: 'center', isFrozen: false},
                         {field: 'hobby', title: '爱好', width: 200, align: 'center', isFrozen: false},
                         {field: 'address', title: '家庭地址', width: 260, align: 'center', isFrozen: false},

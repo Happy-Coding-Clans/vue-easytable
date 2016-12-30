@@ -5,11 +5,10 @@
 }
 
 .easytable-views {
-/*    position: relative;*/
+    position: relative;
     overflow: hidden;
 
     border:1px solid rgba(221, 221, 221, 1);
-
     padding: 0;
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
@@ -17,13 +16,13 @@
 }
 
 .easytable-leftview, .easytable-rightview {
-   /* position: absolute;*/
+    position: absolute;
     overflow: hidden;
     top: 0px;
 }
 
 .easytable-leftview {
-    float: left;
+  /*  float: left;*/
     left: 0px;
 }
 

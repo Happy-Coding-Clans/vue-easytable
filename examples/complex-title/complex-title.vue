@@ -30,10 +30,10 @@
             return {
                 tables: {
                     multipleSort:false,
-                    width: 1300,
+                    /*width: 1500,*/
                     minWidth: 600,
-                    height: 600,
-                    minHeight: 300,
+                   /* height: 650,*/
+                    minHeight: 600,
                     tableData: [],
                     titleRows:[
                      /*   [
@@ -92,10 +92,10 @@
                         ]
                     ],
                     columns: [
-                        {field: 'name', width: 150, align: 'center', isFrozen: true},
-                        {field: 'gender', width: 150, align: 'center', isFrozen: true},
-                        {field: 'nickname', width: 150, align: 'center', isFrozen: false},
-                        {field: 'birthday', width: 150, align: 'center', isFrozen: false},
+                        {field: 'name', width: 100, align: 'center', isFrozen: true},
+                        {field: 'gender', width: 100, align: 'center', isFrozen: true},
+                        {field: 'nickname', width: 100, align: 'center', isFrozen: false},
+                        {field: 'birthday', width: 100, align: 'center', isFrozen: false},
                         {field: 'height', width: 150, align: 'center', isFrozen: false},
                         {field: 'tel', width: 150, align: 'center', isFrozen: false},
                         {field: 'email', width: 150, align: 'center', isFrozen: false},

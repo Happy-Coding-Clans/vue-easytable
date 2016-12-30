@@ -154,23 +154,33 @@
             return {
                 // 本地宽度
                 newWidth: this.width,
+
+                // 计算的宽度（用户未输入宽度时）
+                viewWidth: 0,
+
+
                 // 本地高度
                 newHeight: this.height,
+
+                // 计算的高度（用户未输入高度时）
+                viewHeight: 0,
+
+
                 // 本地列数据
                 newColumns: Object.assign([], this.columns),
                 // 本地复杂表头数据
-                newTitleRows: Object.assign([], this.titleRows),
+                newTitleRows: Object.assign([], this.titleRows)
             }
         },
         props: {
-            isFrozenTitle: {},
             width: {
                 type: Number,
-                require: true
+                require: false
             },
             minWidth: {
                 type: Number,
-                require: false
+                require: false,
+                default:10
             },
             height: {
                 type: Number,
@@ -178,12 +188,26 @@
             },
             minHeight: {
                 type: Number,
-                require: false
+                require: false,
+                default:10
             },
             titleRowHeight: {
                 type: Number,
                 require: false,
                 default: 38
+            },
+
+            // 随着浏览器窗口改变，横向自适应
+            isHorizontalResize: {
+                type: Boolean,
+                require: false,
+                default: true
+            },
+            // 随着浏览器窗口改变，垂直自适应
+            isVerticalResize: {
+                type: Boolean,
+                require: false,
+                default: true
             },
             titleBgColor: {
                 type: String,
@@ -398,6 +422,26 @@
                 }
             },
 
+            /* // 是否有横向滚动条
+             judgeHorizontalScrollBar(){
+             var ele = document.querySelector(".easytable-rightview .easytable-body")
+
+             if (ele.clientWidth < ele.scrollWidth) {
+             this.hasHorizontalScrollBar = true
+             }else{
+             this.hasHorizontalScrollBar = false
+             }
+             },
+
+             // 是否有纵向滚动条
+             hasVerticalScrollBar(){
+             var ele = document.querySelector(".easytable-rightview .easytable-body")
+             if (ele.clientHeight < ele.scrollHeight) {
+             return true
+             }
+             return false
+             },*/
+
             // 列表中滚动条控制
             scrollControl(){
                 var $view1 = $(".easytable-leftview");
@@ -420,10 +464,6 @@
                         var top1 = c1.offset().top;
                         var top2 = c2.offset().top;
                         if (top1 != top2) {
-                            console.log($body1.scrollTop())
-                            console.log(top1)
-                            console.log(top2)
-
                             $body1.scrollTop($body1.scrollTop() + top1 - top2);
                         }
                     }
@@ -435,7 +475,7 @@
                 var $window = $(window),
                     scrollLeft = $window.scrollLeft(),
                     scrollTop = $window.scrollTop(),
-                    offset = $('.easytable').offset();
+                    offset = $('.easytable-views').offset();
                 return {
                     left: offset.left - scrollLeft,
                     top: offset.top - scrollTop
@@ -444,53 +484,66 @@
             // 随着窗口改变表格自适应
             tableResize(){
                 var vm = this;
-                var width = vm.width
-                var height = vm.height
+                var width = (vm.width && vm.width > 0) ? vm.width : vm.viewWidth
+                var height = (vm.height && vm.height > 0) ? vm.height : vm.viewHeight
                 var minWidth = vm.minWidth
                 var minHeight = vm.minHeight
                 var viewOffset = vm.getViewportOffset();
-                var currentWidth = $('.easytable').outerWidth();
-                var currentHeight = $('.easytable').outerHeight();
+                var currentWidth = $('.easytable-views').outerWidth();
+                var currentHeight = $('.easytable-views').outerHeight();
                 var right = $(window).width() - currentWidth - viewOffset.left;
                 var bottom = $(window).height() - currentHeight - viewOffset.top - 10; // -10 防止浏览器出垂直滚动条
-                // （窗口宽度缩小 && 当前宽度大于最小宽度） ||（窗口宽度扩大 && 当前宽度小于最大宽度）
-                if ((right < 0 && currentWidth > minWidth) || (right > 0 && currentWidth < width)) {
-                    currentWidth = currentWidth + right;
-                    currentWidth = currentWidth > width ? width : currentWidth;
-                    currentWidth = currentWidth < minWidth ? minWidth : currentWidth;
-                    vm.newWidth = currentWidth
+
+
+                if (vm.isHorizontalResize && vm.newWidth && vm.newWidth > 0) {
+                    // （窗口宽度缩小 && 当前宽度大于最小宽度） ||（窗口宽度扩大 && 当前宽度小于最大宽度）
+                    if ((right < 0 && currentWidth > minWidth) || (right > 0 && currentWidth < width)) {
+                        currentWidth = currentWidth + right;
+                        currentWidth = currentWidth > width ? width : currentWidth;
+                        currentWidth = currentWidth < minWidth ? minWidth : currentWidth;
+                        vm.newWidth = currentWidth
+                    }
                 }
-                // （窗口高度缩小 && 当前高度大于最小高度） || （窗口高度扩大 && 当前高度小于最大高度）
-                if ((bottom < 0 && currentHeight > minHeight) || (bottom > 0 && currentHeight < height)) {
-                    var currentHeight = currentHeight + bottom;
-                    currentHeight = currentHeight > height ? height : currentHeight;
-                    currentHeight = currentHeight < minHeight ? minHeight : currentHeight;
-                    vm.newHeight = currentHeight
+
+                if (vm.isVerticalResize && vm.newHeight && vm.newHeight > 0) {
+                    // （窗口高度缩小 && 当前高度大于最小高度） || （窗口高度扩大 && 当前高度小于最大高度）
+                    if ((bottom < 0 && currentHeight > minHeight) || (bottom > 0 && currentHeight < height)) {
+                        var currentHeight = currentHeight + bottom;
+                        currentHeight = currentHeight > height ? height : currentHeight;
+                        currentHeight = currentHeight < minHeight ? minHeight : currentHeight;
+                        vm.newHeight = currentHeight
+                    }
                 }
+
             },
+
+            init(){
+                var vm = this
+                // 当没有设置宽度计算总宽度
+                if (!(vm.width && vm.width > 0)) {
+                    if (vm.columns && vm.columns.length > 0) {
+                        vm.viewWidth = vm.newWidth = vm.columns.reduce((total, curr) => total + curr.width, 0) + 2
+                    }
+                }
+
+                // 当没有设置高度时计算总高度
+                if (!(vm.height && vm.height > 0)) {
+                    var titleTotalHeight = (vm.newTitleRows && vm.newTitleRows.length > 0) ? vm.titleRowHeight * vm.newTitleRows.length : vm.titleRowHeight
+                    vm.viewHeight = vm.newHeight = titleTotalHeight + vm.tableData.length * vm.rowHeight + 2
+                }
+            }
         },
         created(){
-            // 不固定表头
-            /*       if (!this.newHeight){
-             this.newHeight =
-             }
 
-             if (this.newTitleRows.length > 0) {
-             return this.newHeight - this.titleRowHeight * this.newTitleRows.length
-             } else {
-             return this.newHeight - this.titleRowHeight
-             }
-             console.log(this.newHeight)*/
         },
         mounted(){
             var vm = this;
-            //vm.tableResize()
+            vm.tableResize()
             vm.scrollControl()
             vm.singelSortInit()
             window.onresize = function (event) {
-                //vm.tableResize()
+                vm.tableResize()
             }
-
         },
         watch: {
             // 重新跟新列信息
@@ -500,6 +553,11 @@
             // 重新覆盖复杂表头信息
             'titleRows': function (newVal) {
                 this.newTitleRows = Object.assign([], newVal)
+            },
+
+            'tableData': function (newVal) {
+                this.init()
+                console.log(this.viewHeight)
             }
         }
     }
