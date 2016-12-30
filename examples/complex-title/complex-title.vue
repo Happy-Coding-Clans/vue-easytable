@@ -20,6 +20,31 @@
 <script>
     import easyTable from '../../src/main.vue'
     import mockData from '../../mockServer/simpleData'
+    import Vue from 'vue'
+
+    Vue.component('table-operation',{
+        template:`<span>
+        <a href="" @click.stop.prevent="update(rowData)">编辑</a>&nbsp;
+        <a href="" @click.stop.prevent="deleteRow(rowData)">删除</a>
+        </span>`,
+        props:{
+            rowData:{
+                type:Object,
+                require:true
+            }
+        },
+        methods:{
+            update(){
+                alert('编辑')
+                console.log(this.rowData)
+            },
+
+            deleteRow(){
+                alert('删除')
+                console.log(this.rowData)
+            }
+        }
+    })
 
     export default{
         name: 'frozen-columns',
@@ -52,7 +77,8 @@
                             {fields: ['email'], title: '邮箱', align: 'center'},
                             {fields: ['hobby'], title: '爱好', align: 'center'},
                             {fields: ['address'], title: '家庭地址', align: 'center'},
-                            {fields: ['job'], title: '职业', align: 'center'}
+                            {fields: ['job'], title: '职业', align: 'center'},
+                            {fields: ['job'], title: '操作', align: 'center'},
                         ],
                         [
                             {fields: ['name'], title: '姓名', align: 'center'},
@@ -101,7 +127,8 @@
                         {field: 'email', width: 150, align: 'center', isFrozen: false},
                         {field: 'hobby', width: 300, align: 'center', isFrozen: false},
                         {field: 'address', width: 300, align: 'center', isFrozen: false},
-                        {field: 'job', width: 150, align: 'center', isFrozen: false}
+                        {field: 'job', width: 150, align: 'center', isFrozen: false},
+                        /*{componentName: 'table-operation', title: '操作', width: 180, align: 'center', isFrozen: false}*/
                     ]
                 }
             }

@@ -65,6 +65,24 @@
     padding: 0;
 }
 
+.easytable-title-cell{
+    display:table;
+    margin: 0;
+    font-size: 12px;
+    border-width: 0 1px 1px 0;
+    border-style: solid;
+    border-color: rgba(221, 221, 221, 1);
+}
+
+.table-title{
+    padding: 2px;
+    display: table-cell;
+    vertical-align: middle;
+    font-weight: bold;
+    color:#444;
+    word-break: break-all;
+}
+
 .easytable-cell{
     margin: 0;
     white-space: nowrap;
@@ -76,12 +94,18 @@
     border-color: rgba(221, 221, 221, 1);
 }
 
+
 .easytable-header .easytable-cell {
     height: auto;
 }
 
 .easytable-header .easytable-cell span {
     font-size: 12px;
+}
+
+.easytable-sort{
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .easytable-sort-icon {
@@ -128,7 +152,3 @@
     cursor: pointer;
 }
 
-.table-title{
-    font-weight: bold;
-    color:#444;
-}

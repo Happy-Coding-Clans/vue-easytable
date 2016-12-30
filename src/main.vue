@@ -16,11 +16,12 @@
                                         :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
                                         :colspan="col.colspan" :rowspan="col.rowspan"
                                         @click.stop="sortControl(col.fields[0],col.orderBy)">
-                                        <div class="easytable-cell"
-                                             :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','line-height':titleColumnHeight(col.rowspan)+'px','text-align':col.align}">
-                                            <span class="table-title">{{col.title}} </span>
-                                            <span v-if="enableSort(col.orderBy)"
-                                                  :class="['easytable-sort-icon', col.orderBy]"></span>
+                                        <div class="easytable-title-cell"
+                                             :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.align}">
+                                            <span class="table-title" v-html="col.title"></span>
+                                            <div class="easytable-sort" v-if="enableSort(col.orderBy)">
+                                                <span :class="['easytable-sort-icon', col.orderBy]"></span>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -31,11 +32,12 @@
                                     <td v-for="col in frozenCols"
                                         :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
                                         @click.stop="sortControl(col.field,col.orderBy)">
-                                        <div class="easytable-cell"
-                                             :style="{'width':col.width+'px','height':titleRowHeight+'px','line-height':titleRowHeight+'px','text-align':col.align}">
-                                            <span class="table-title">{{col.title}} </span>
-                                            <span v-if="enableSort(col.orderBy)"
-                                                  :class="['easytable-sort-icon', col.orderBy]"></span>
+                                        <div class="easytable-title-cell"
+                                             :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.align}">
+                                            <span class="table-title" v-html="col.title"></span>
+                                            <div class="easytable-sort" v-if="enableSort(col.orderBy)">
+                                                <span :class="['easytable-sort-icon', col.orderBy]"></span>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -88,11 +90,14 @@
                                 <td v-for="col in row" :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
                                     :colspan="col.colspan" :rowspan="col.rowspan"
                                     @click.stop="sortControl(col.fields[0],col.orderBy)">
-                                    <div class="easytable-cell"
-                                         :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','line-height':titleColumnHeight(col.rowspan)+'px','text-align':col.align}">
-                                        <span class="table-title">{{col.title}} </span>
-                                        <span v-if="enableSort(col.orderBy)"
-                                              :class="['easytable-sort-icon', col.orderBy]"></span>
+                                    <div class="easytable-title-cell"
+                                         :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.align}">
+                                        <span class="table-title" v-html="col.title"></span>
+                                        <div class="easytable-sort" v-if="enableSort(col.orderBy)">
+                                            <span
+                                                    :class="['easytable-sort-icon', col.orderBy]"></span>
+                                        </div>
+
                                     </div>
                                 </td>
                             </tr>
@@ -103,11 +108,13 @@
                                 <td v-for="col in noFrozenCols"
                                     :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
                                     @click.stop="sortControl(col.field,col.orderBy)">
-                                    <div class="easytable-cell"
-                                         :style="{'width':col.width+'px','height':titleRowHeight+'px','line-height':titleRowHeight+'px','text-align':col.align}">
-                                        <span class="table-title">{{col.title}} </span>
-                                        <span v-if="enableSort(col.orderBy)"
-                                              :class="['easytable-sort-icon', col.orderBy]"></span>
+                                    <div class="easytable-title-cell"
+                                         :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.align}">
+                                        <span class="table-title" v-html="col.title"></span>
+                                        <div class="easytable-sort" v-if="enableSort(col.orderBy)">
+                                            <span
+                                                    :class="['easytable-sort-icon', col.orderBy]"></span>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -180,7 +187,7 @@
             minWidth: {
                 type: Number,
                 require: false,
-                default:10
+                default: 10
             },
             height: {
                 type: Number,
@@ -189,7 +196,7 @@
             minHeight: {
                 type: Number,
                 require: false,
-                default:10
+                default: 10
             },
             titleRowHeight: {
                 type: Number,

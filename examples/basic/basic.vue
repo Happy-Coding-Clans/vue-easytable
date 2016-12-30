@@ -10,6 +10,7 @@
                    :tableData="tables.tableData"
                    :isHorizontalResize = "tables.isHorizontalResize"
                    :isVerticalResize = "tables.isVerticalResize"
+                   :titleRowHeight="tables.titleRowHeight"
         ></easyTable>
     </div>
 </template>
@@ -34,14 +35,16 @@
                     height:600,*/
                  /*   minWidth:1000,
                     minHeight:500,*/
+                    titleRowHeight:50,
+                    width:1250,
                     tableData: [],
                     columns: [
-                        {field: 'name', title: '姓名', width: 80, align: 'center'},
+                        {field: 'name', title:'<span style="color:red;">姓名</span>', width: 80, align: 'center'},
                         {field: 'gender', title: '性别', width: 80, align: 'center'},
                         {field: 'nickname', title: '昵称', width: 80, align: 'center'},
                         {field: 'birthday', title: '出生日期', width: 100, align: 'center'},
-                        {field: 'height', title: '身高', width: 80, align: 'center', isFrozen: true},
-                        {field: 'tel', title: '手机号码', width: 100, align: 'center', isFrozen: true},
+                        {field: 'height', title: '身高', width: 80, align: 'center', isFrozen: false},
+                        {field: 'tel', title: '手机号码', width: 100, align: 'center', isFrozen: false},
                         {field: 'email', title: '邮箱', width: 100, align: 'center', isFrozen: false},
                         {field: 'hobby', title: '爱好', width: 200, align: 'center', isFrozen: false},
                         {field: 'address', title: '家庭地址', width: 260, align: 'center', isFrozen: false},

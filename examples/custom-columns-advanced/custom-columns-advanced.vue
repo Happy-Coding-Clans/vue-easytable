@@ -22,10 +22,10 @@
 
 
     Vue.component('table-operation',{
-        template:`<span>`
-        +`<a href="" @click.stop.prevent="update(rowData)">编辑</a>&nbsp;`
-        +`<a href="" @click.stop.prevent="deleteRow(rowData)">删除</a>`
-        +`</span>`,
+        template:`<span>
+        <a href="" @click.stop.prevent="update(rowData)">编辑</a>&nbsp;
+        <a href="" @click.stop.prevent="deleteRow(rowData)">删除</a>
+        </span>`,
         props:{
             rowData:{
                 type:Object,
