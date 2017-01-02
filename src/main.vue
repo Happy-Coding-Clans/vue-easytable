@@ -17,7 +17,7 @@
                                         :colspan="col.colspan" :rowspan="col.rowspan"
                                         @click.stop="sortControl(col.fields[0],col.orderBy)">
                                         <div class="easytable-title-cell"
-                                             :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.align}">
+                                             :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                             <span class="table-title" v-html="col.title"></span>
                                             <div class="easytable-sort" v-if="enableSort(col.orderBy)">
                                                 <span :class="['easytable-sort-icon', col.orderBy]"></span>
@@ -33,7 +33,7 @@
                                         :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
                                         @click.stop="sortControl(col.field,col.orderBy)">
                                         <div class="easytable-title-cell"
-                                             :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.align}">
+                                             :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
                                             <span class="table-title" v-html="col.title"></span>
                                             <div class="easytable-sort" v-if="enableSort(col.orderBy)">
                                                 <span :class="['easytable-sort-icon', col.orderBy]"></span>
@@ -54,8 +54,8 @@
                             <tbody>
                             <tr v-for="(item,index) in tableData" class="easytable-row">
                                 <td v-for="col in frozenCols">
-                                    <div class="easytable-cell"
-                                         :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.align}">
+                                    <div class="easytable-body-cell"
+                                         :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}">
                                         <template v-if="typeof col.componentName ==='string'">
                                             <component :rowData="item" :index="index" :is="col.componentName"></component>
                                         </template>
@@ -91,7 +91,7 @@
                                     :colspan="col.colspan" :rowspan="col.rowspan"
                                     @click.stop="sortControl(col.fields[0],col.orderBy)">
                                     <div class="easytable-title-cell"
-                                         :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.align}">
+                                         :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                         <span class="table-title" v-html="col.title"></span>
                                         <div class="easytable-sort" v-if="enableSort(col.orderBy)">
                                             <span
@@ -109,7 +109,7 @@
                                     :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
                                     @click.stop="sortControl(col.field,col.orderBy)">
                                     <div class="easytable-title-cell"
-                                         :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.align}">
+                                         :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
                                         <span class="table-title" v-html="col.title"></span>
                                         <div class="easytable-sort" v-if="enableSort(col.orderBy)">
                                             <span
@@ -130,8 +130,8 @@
                     <tbody>
                     <tr v-for="(item,index) in tableData" class="easytable-row">
                         <td v-for="col in noFrozenCols">
-                            <div class="easytable-cell"
-                                 :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.align}">
+                            <div class="easytable-body-cell"
+                                 :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}">
                                 <template v-if="typeof col.componentName ==='string'">
                                     <component :rowData="item" :index="index" :is="col.componentName"></component>
                                 </template>
@@ -544,7 +544,7 @@
         },
         mounted(){
             var vm = this;
-            vm.tableResize()
+       /*     vm.tableResize()*/
             vm.scrollControl()
             vm.singelSortInit()
             window.onresize = function (event) {
@@ -563,6 +563,7 @@
 
             'tableData': function (newVal) {
                 this.init()
+                this.tableResize()
                 console.log(this.viewHeight)
             }
         }

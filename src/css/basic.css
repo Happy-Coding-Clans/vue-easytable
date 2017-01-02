@@ -75,7 +75,7 @@
 }
 
 .table-title{
-    padding: 2px;
+    padding:0 3px;
     display: table-cell;
     vertical-align: middle;
     font-weight: bold;
@@ -83,7 +83,8 @@
     word-break: break-all;
 }
 
-.easytable-cell{
+.easytable-body-cell{
+    padding:0 3px;
     margin: 0;
     white-space: nowrap;
     word-wrap: normal;
@@ -95,15 +96,9 @@
 }
 
 
-.easytable-header .easytable-cell {
-    height: auto;
-}
-
-.easytable-header .easytable-cell span {
-    font-size: 12px;
-}
-
 .easytable-sort{
+    width: 13px;
+    padding-right: 5px;
     display: table-cell;
     vertical-align: middle;
 }

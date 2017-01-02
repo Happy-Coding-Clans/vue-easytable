@@ -37,16 +37,16 @@
                     tableData: [],
                     multipleSort:true,
                     columns: [
-                        {field: 'name', title: '姓名', width: 150, align: 'center', isFrozen: true},
-                        {field: 'gender', title: '性别', width: 150, align: 'center', isFrozen: true,orderBy:'asc'},
-                        {field: 'nickname', title: '昵称', width: 150, align: 'center', isFrozen: false},
-                        {field: 'birthday', title: '出生日期', width: 150, align: 'center', isFrozen: false},
-                        {field: 'height', title: '身高', width: 150, align: 'center', isFrozen: false,orderBy:'asc'},
-                        {field: 'tel', title: '手机号码', width: 150, align: 'center', isFrozen: false},
-                        {field: 'email', title: '邮箱', width: 150, align: 'center', isFrozen: false},
-                        {field: 'hobby', title: '爱好', width: 300, align: 'center', isFrozen: false},
-                        {field: 'address', title: '家庭地址', width: 300, align: 'center', isFrozen: false},
-                        {field: 'job', title: '职业', width: 150, align: 'center', isFrozen: false}
+                        {field: 'name', title: '姓名', width: 150, titleAlign: 'center',columnAlign:'center', isFrozen: true},
+                        {field: 'gender', title: '性别', width: 150, titleAlign: 'center',columnAlign:'center', isFrozen: true,orderBy:'asc'},
+                        {field: 'nickname', title: '昵称', width: 150, titleAlign: 'center',columnAlign:'center', isFrozen: false},
+                        {field: 'birthday', title: '出生日期', width: 150, titleAlign: 'center',columnAlign:'center', isFrozen: false},
+                        {field: 'height', title: '身高', width: 150, titleAlign: 'center',columnAlign:'center', isFrozen: false,orderBy:'asc'},
+                        {field: 'tel', title: '手机号码', width: 150, titleAlign: 'center',columnAlign:'center', isFrozen: false},
+                        {field: 'email', title: '邮箱', width: 150, titleAlign: 'center',columnAlign:'center', isFrozen: false},
+                        {field: 'hobby', title: '爱好', width: 300, titleAlign: 'center',columnAlign:'center', isFrozen: false},
+                        {field: 'address', title: '家庭地址', width: 300, titleAlign: 'center',columnAlign:'center', isFrozen: false},
+                        {field: 'job', title: '职业', width: 150, titleAlign: 'center',columnAlign:'center', isFrozen: false}
                     ]
                 }
             }
