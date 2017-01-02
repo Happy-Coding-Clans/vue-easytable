@@ -25,23 +25,27 @@
 
     Vue.component('table-operation',{
         template:`<span>
-        <a href="" @click.stop.prevent="update(rowData)">编辑</a>&nbsp;
-        <a href="" @click.stop.prevent="deleteRow(rowData)">删除</a>
+        <a href="" @click.stop.prevent="update(rowData,index)">编辑</a>&nbsp;
+        <a href="" @click.stop.prevent="deleteRow(rowData,index)">删除</a>
         </span>`,
         props:{
             rowData:{
-                type:Object,
-                require:true
+                type:Object
+            },
+            index:{
+                type:Number
             }
         },
         methods:{
             update(){
                 alert('编辑')
+                console.log(this.index)
                 console.log(this.rowData)
             },
 
             deleteRow(){
                 alert('删除')
+                console.log(this.index)
                 console.log(this.rowData)
             }
         }

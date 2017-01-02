@@ -31,28 +31,36 @@
                 tables: {
                     width: 1000,
                     minWidth: 600,
-                   /* height: 700,
-                    minHeight: 300,*/
-                    rowHeight:35,
+                    /* height: 700,
+                     minHeight: 300,*/
+                    rowHeight: 35,
                     tableData: [],
                     multipleSort: true,
                     columns: [
-                        {field: 'img', title: '头像', width: 50, align: 'center', isFrozen: true,
-                            format: function (rowData) {
-                                var src = require('../../libs/imgs/'+rowData.img)
-                                return '<img height="33px" width="35px" src="'+src+'" />'
+                        {
+                            title: '排序', width: 50, align: 'center', isFrozen: true,
+                            format: function (rowData, index) {
+                                return index < 3 ? '<span style="color:red;font-weight: bold;">' + (index + 1) + '</span>' : index + 1
                             }
                         },
-                        {field: 'name', title: '姓名', width: 150, align: 'center', isFrozen: true,orderBy:''},
-                        {field: 'gender', title: '性别', width: 150, align: 'center', isFrozen: true,orderBy:''},
+                        {
+                            field: 'img', title: '头像', width: 50, align: 'center', isFrozen: true,
+                            format: function (rowData) {
+                                var src = require('../../libs/imgs/' + rowData.img)
+                                return '<img height="33px" width="35px" src="' + src + '" />'
+                            }
+                        },
+                        {field: 'name', title: '姓名', width: 150, align: 'center', isFrozen: true, orderBy: ''},
+                        {field: 'gender', title: '性别', width: 150, align: 'center', isFrozen: true, orderBy: ''},
                         {field: 'nickname', title: '昵称', width: 150, align: 'center', isFrozen: false},
-                        {field: 'birthday', title: '出生日期', width: 150, align: 'center', isFrozen: false,orderBy:''},
+                        {field: 'birthday', title: '出生日期', width: 150, align: 'center', isFrozen: false, orderBy: ''},
                         {field: 'height', title: '身高', width: 150, align: 'center', isFrozen: false},
                         {field: 'tel', title: '手机号码', width: 150, align: 'center', isFrozen: false},
-                        {field: 'email', title: '邮箱', width: 150, align: 'center', isFrozen: false,
-                            format:function (rowData) {
-                                if (rowData.email.length>1){
-                                    return '<a href="https://github.com/huangshuwei/vue-easytable" target="_blank">'+rowData.email+'</a>'
+                        {
+                            field: 'email', title: '邮箱', width: 150, align: 'center', isFrozen: false,
+                            format: function (rowData) {
+                                if (rowData.email.length > 1) {
+                                    return '<a href="https://github.com/huangshuwei/vue-easytable" target="_blank">' + rowData.email + '</a>'
                                 }
                                 return rowData.email
                             }

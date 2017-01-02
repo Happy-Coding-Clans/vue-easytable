@@ -57,11 +57,11 @@
                                     <div class="easytable-cell"
                                          :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.align}">
                                         <template v-if="typeof col.componentName ==='string'">
-                                            <component :rowData="item" :is="col.componentName"></component>
+                                            <component :rowData="item" :index="index" :is="col.componentName"></component>
                                         </template>
                                         <template v-else>
                                                    <span v-if="typeof col.format==='function'"
-                                                         v-html="col.format(item)">
+                                                         v-html="col.format(item,index)">
                                                     </span>
                                             <span v-else>
                                                         {{item[col.field]}}
@@ -133,11 +133,11 @@
                             <div class="easytable-cell"
                                  :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.align}">
                                 <template v-if="typeof col.componentName ==='string'">
-                                    <component :rowData="item" :is="col.componentName"></component>
+                                    <component :rowData="item" :index="index" :is="col.componentName"></component>
                                 </template>
                                 <template v-else>
                                            <span v-if="typeof col.format==='function'"
-                                                 v-html="col.format(item)">
+                                                 v-html="col.format(item,index)">
                                             </span>
                                     <span v-else>
                                                 {{item[col.field]}}
