@@ -1,10 +1,10 @@
 <template>
-    <div class="easytable-views" :style="{'width': newWidth+'px', 'height': newHeight+'px'}">
+    <div class="easytable-views easytable-class" :style="{'width': newWidth+'px', 'height': newHeight+'px'}">
         <!--左列-->
         <template v-if="frozenCols.length > 0">
             <div class="easytable-leftview" :style="{'width':leftViewWidth+'px'}">
                 <!--左列头-->
-                <div class="easytable-header"
+                <div class="easytable-header easytable-title-class"
                      :style="{'width': leftViewWidth+'px','background-color':titleBgColor}">
                     <div class="easytable-header-inner" style="display: block;">
                         <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0">
@@ -47,7 +47,7 @@
                     </div>
                 </div>
                 <!--左列内容-->
-                <div class="easytable-body"
+                <div class="easytable-body easytable-body-class"
                      :style="{'width': leftViewWidth+'px', 'margin-top': '0px', 'height': bodyViewHeight+'px'}">
                     <div class="easytable-body-inner">
                         <table class="easytable-btable" cellspacing="0" cellpadding="0" border="0">
@@ -57,13 +57,16 @@
                                     <div class="easytable-body-cell"
                                          :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}">
                                         <template v-if="typeof col.componentName ==='string'">
-                                            <component :rowData="item" :index="index" :is="col.componentName"></component>
+                                            <component :rowData="item" :index="index"
+                                                       :is="col.componentName"></component>
                                         </template>
                                         <template v-else>
                                                    <span v-if="typeof col.format==='function'"
-                                                         v-html="col.format(item,index)">
+                                                         v-html="col.format(item,index)"
+                                                         :title="col.overflowTitle ? overflowTitle(col.format(item,rowIndex)) :''"
+                                                   >
                                                     </span>
-                                            <span v-else>
+                                            <span v-else :title="col.overflowTitle ? item[col.field] :''">
                                                         {{item[col.field]}}
                                                     </span>
                                         </template>
@@ -79,7 +82,7 @@
         <!--右列-->
         <div class="easytable-rightview" :style="{'width': rightViewWidth+'px'}">
             <!--右列头-->
-            <div class="easytable-header"
+            <div class="easytable-header easytable-title-class"
                  :style="{'width': rightViewWidth+'px','background-color':titleBgColor}">
                 <div class="easytable-header-inner" style="display: block;">
                     <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0">
@@ -105,11 +108,11 @@
 
                         <template v-else>
                             <tr class="easytable-header-row">
-                                <td v-for="col in noFrozenCols"
+                                <td v-for="(col,colIndex) in noFrozenCols"
                                     :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
                                     @click.stop="sortControl(col.field,col.orderBy)">
                                     <div class="easytable-title-cell"
-                                         :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
+                                         :style="{'width':bodyColumnWidth(col.width,0,colIndex),'height':titleRowHeight+'px','text-align':col.titleAlign}">
                                         <span class="table-title" v-html="col.title"></span>
                                         <div class="easytable-sort" v-if="enableSort(col.orderBy)">
                                             <span
@@ -124,22 +127,24 @@
                 </div>
             </div>
             <!--右列内容-->
-            <div class="easytable-body"
+            <div class="easytable-body easytable-body-class"
                  :style="{'width': rightViewWidth+'px', 'margin-top': '0px', 'height': bodyViewHeight+'px'}">
                 <table class="easytable-btable" cellspacing="0" cellpadding="0" border="0">
                     <tbody>
-                    <tr v-for="(item,index) in tableData" class="easytable-row">
-                        <td v-for="col in noFrozenCols">
+                    <tr v-for="(item,rowIndex) in tableData" class="easytable-row">
+                        <td v-for="(col,colIndex) in noFrozenCols">
                             <div class="easytable-body-cell"
-                                 :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}">
+                                 :style="{'width':bodyColumnWidth(col.width,rowIndex,colIndex),'height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}">
                                 <template v-if="typeof col.componentName ==='string'">
-                                    <component :rowData="item" :index="index" :is="col.componentName"></component>
+                                    <component :rowData="item" :index="rowIndex" :is="col.componentName"></component>
                                 </template>
                                 <template v-else>
                                            <span v-if="typeof col.format==='function'"
-                                                 v-html="col.format(item,index)">
+                                                 v-html="col.format(item,rowIndex)"
+                                                 :title="col.overflowTitle ?  overflowTitle(col.format(item,rowIndex)) :''"
+                                           >
                                             </span>
-                                    <span v-else>
+                                    <span v-else :title="col.overflowTitle ? item[col.field] :''">
                                                 {{item[col.field]}}
                                             </span>
                                 </template>
@@ -247,7 +252,10 @@
             },
             tableData: {
                 type: Array,
-                require: true
+                require: true,
+                default:function () {
+                    return []
+                }
             }
         },
         computed: {
@@ -345,7 +353,16 @@
                     })
                 }
                 return result
+            },
+
+
+            // 所有列的总宽度
+            totalColumnsWidth(){
+                return this.newColumns.reduce(function (total, curr) {
+                    return curr.width ? (total + curr.width) : total
+                }, 0)
             }
+
         },
         methods: {
             // 是否允许排序
@@ -426,6 +443,37 @@
                 } else {
                     return this.titleRowHeight
                 }
+            },
+
+            // 获取表体每一列的宽度
+            bodyColumnWidth(width, rowIndex, ColIndex){
+                var vm = this, result
+
+                if (width && width > 0) {
+                    result = width + 'px'
+                } else {
+                    // 自动计算未设置的列宽度
+                    if (vm.width && this.width > 0) {
+                        result = (vm.width - vm.totalColumnsWidth - 2) + 'px'
+                    } else {
+                        result = 'auto'
+                    }
+                }
+
+                // 表格渲染完成
+                if (rowIndex === this.tableData.length - 1 && ColIndex === this.newColumns.length - 1) {
+                    console.log('渲染完成')
+                }
+
+                return result
+            },
+
+            // 超出的title提示(如果是html 不处理)
+            overflowTitle(val){
+                if (/<[a-z][\s\S]*>/i.test(val)){
+                   return ''
+                }
+                return val
             },
 
             /* // 是否有横向滚动条
@@ -535,7 +583,7 @@
                 // 当没有设置高度时计算总高度
                 if (!(vm.height && vm.height > 0)) {
                     var titleTotalHeight = (vm.newTitleRows && vm.newTitleRows.length > 0) ? vm.titleRowHeight * vm.newTitleRows.length : vm.titleRowHeight
-                    vm.viewHeight = vm.newHeight = titleTotalHeight + vm.tableData.length * vm.rowHeight + 2
+                    vm.viewHeight = vm.newHeight = titleTotalHeight + vm.tableData.length * vm.rowHeight + 1
                 }
             }
         },
@@ -544,7 +592,7 @@
         },
         mounted(){
             var vm = this;
-       /*     vm.tableResize()*/
+            /* vm.tableResize()*/
             vm.scrollControl()
             vm.singelSortInit()
             window.onresize = function (event) {
@@ -564,7 +612,6 @@
             'tableData': function (newVal) {
                 this.init()
                 this.tableResize()
-                console.log(this.viewHeight)
             }
         }
     }

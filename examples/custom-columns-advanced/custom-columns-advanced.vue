@@ -14,6 +14,25 @@
     </div>
 </template>
 
+
+<style>
+    .easytable-class{
+        font-size: 14px;
+        font-family:  "Helvetica Neue",Helvetica,Arial,sans-serif;;
+    }
+
+    .easytable-title-class{
+
+        font-weight: bold;
+        color: rgb(31, 45, 61);
+    }
+
+    .easytable-body-class{
+
+        color: rgb(31, 45, 61);
+    }
+</style>
+
 <script>
 
     import Easytable from '../../src/main.vue'
@@ -79,7 +98,7 @@
                         {field: 'birthday', title: '出生日期', width: 150, align: 'center', isFrozen: false,orderBy:''},
                         {field: 'height', title: '身高', width: 100, align: 'center', isFrozen: false},
                         {field: 'tel', title: '手机号码', width: 150, align: 'center', isFrozen: false},
-                        {title: '邮箱', width: 200, align: 'center', isFrozen: true,
+                        {title: '邮箱', width: 100, align: 'center', isFrozen: true,
                             format:function (rowData) {
                                 if (rowData.email.length>1){
                                     return '<a href="https://github.com/huangshuwei/vue-easytable" target="_blank">'+rowData.email+'</a>'
@@ -87,7 +106,7 @@
                                 return rowData.email
                             }
                         },
-                        {field: 'hobby', title: '爱好', width: 230, align: 'center', isFrozen: false},
+                        {field: 'hobby', title: '爱好', width: 160, align: 'center', isFrozen: false},
                         {field: 'address', title: '家庭地址', width: 300, align: 'center', isFrozen: false},
                         {field: 'job', title: '职业', width: 150, align: 'center', isFrozen: false},
                         {componentName: 'table-operation', title: '操作', width: 180, align: 'center', isFrozen: false}

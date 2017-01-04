@@ -15,6 +15,24 @@
     </div>
 </template>
 
+<style>
+    .easytable-class{
+        font-size: 14px;
+        font-family:  "Helvetica Neue",Helvetica,Arial,sans-serif;;
+    }
+
+    .easytable-title-class{
+
+        font-weight: bold;
+        color: rgb(31, 45, 61);
+    }
+
+    .easytable-body-class{
+
+        color: rgb(31, 45, 61);
+    }
+</style>
+
 <script>
 
     import easyTable from '../../src/main.vue'
@@ -37,10 +55,9 @@
                     height:600,*/
                  /*   minWidth:1000,
                     minHeight:500,*/
-                    width:1200,
-                    height:300,
+                    width:1500,
+               /*     height:300,*/
                     titleRowHeight:50,
-                    width:1250,
                     tableData: [],
                     columns: [
                         {field: 'name', title:'<span style="color:red;">姓名</span>', width: 80, titleAlign: 'center',columnAlign:'center'},
@@ -51,8 +68,8 @@
                         {field: 'tel', title: '手机号码', width: 100, titleAlign: 'center',columnAlign:'center'},
                         {field: 'email', title: '邮箱', width: 100, titleAlign: 'center',columnAlign:'center'},
                         {field: 'hobby', title: '爱好', width: 200, titleAlign: 'center',columnAlign:'left'},
-                        {field: 'address', title: '家庭地址', width: 260, titleAlign: 'center',columnAlign:'left'},
-                        {field: 'job', title: '职业', width: 150, titleAlign: 'center',columnAlign:'center'}
+                        {field: 'address', title: '家庭地址', width: 230, titleAlign: 'center',columnAlign:'left',overflowTitle:true},
+                        {field: 'job', title: '职业', width: 0, titleAlign: 'center',columnAlign:'center'}
                     ]
                 }
             }
@@ -64,7 +81,7 @@
 
                 setTimeout(function () {
                     vm.tables.tableData = mockData
-                }, 10)
+                }, 600)
 
             }
         },

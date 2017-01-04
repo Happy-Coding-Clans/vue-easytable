@@ -7,12 +7,9 @@
 .easytable-views {
     position: relative;
     overflow: hidden;
-
     border:1px solid rgba(221, 221, 221, 1);
     padding: 0;
     background-color: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-    font-size: 12px;
 }
 
 .easytable-leftview, .easytable-rightview {
@@ -51,7 +48,6 @@
 }
 
 .easytable-htable, .easytable-btable, .easytable-ftable {
-    color: rgb(0, 0, 0);
     border-collapse: separate;
 }
 
@@ -64,10 +60,11 @@
     padding: 0;
 }
 
+
+
 .easytable-title-cell{
     display:table;
     margin: 0;
-    font-size: 12px;
     border-width: 0 1px 1px 0;
     border-style: solid;
     border-color: rgba(221, 221, 221, 1);
@@ -77,8 +74,6 @@
     padding:0 3px;
     display: table-cell;
     vertical-align: middle;
-    font-weight: bold;
-    color:#444;
     word-break: break-all;
 }
 
@@ -88,10 +83,10 @@
     white-space: nowrap;
     word-wrap: normal;
     overflow:hidden;
-    font-size: 12px;
     border-width: 0 1px 1px 0;
     border-style: solid;
     border-color: rgba(221, 221, 221, 1);
+    text-overflow: ellipsis;
 }
 
 
@@ -145,4 +140,13 @@
 .cursorPointer{
     cursor: pointer;
 }
+
+/*
+**预留给用户的**
+.easytable-class{}
+
+.easytable-title-class{}
+
+.easytable-body-class{}
+*/
 
