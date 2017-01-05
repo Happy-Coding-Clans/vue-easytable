@@ -55,18 +55,18 @@
                             <tr v-for="(item,index) in tableData" class="easytable-row">
                                 <td v-for="col in frozenCols">
                                     <div class="easytable-body-cell"
-                                         :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}">
+                                         :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
+                                         :title="col.overflowTitle ?  overflowTitle(item,col) :''"
+                                    >
                                         <template v-if="typeof col.componentName ==='string'">
                                             <component :rowData="item" :index="index"
                                                        :is="col.componentName"></component>
                                         </template>
                                         <template v-else>
                                                    <span v-if="typeof col.format==='function'"
-                                                         v-html="col.format(item,index)"
-                                                         :title="col.overflowTitle ? overflowTitle(col.format(item,rowIndex)) :''"
-                                                   >
+                                                         v-html="col.format(item,index)">
                                                     </span>
-                                            <span v-else :title="col.overflowTitle ? item[col.field] :''">
+                                            <span v-else>
                                                         {{item[col.field]}}
                                                     </span>
                                         </template>
@@ -134,17 +134,17 @@
                     <tr v-for="(item,rowIndex) in tableData" class="easytable-row">
                         <td v-for="(col,colIndex) in noFrozenCols">
                             <div class="easytable-body-cell"
-                                 :style="{'width':bodyColumnWidth(col.width,rowIndex,colIndex),'height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}">
+                                 :style="{'width':bodyColumnWidth(col.width,rowIndex,colIndex),'height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
+                                 :title="col.overflowTitle ?  overflowTitle(item,col) :''"
+                            >
                                 <template v-if="typeof col.componentName ==='string'">
                                     <component :rowData="item" :index="rowIndex" :is="col.componentName"></component>
                                 </template>
                                 <template v-else>
                                            <span v-if="typeof col.format==='function'"
-                                                 v-html="col.format(item,rowIndex)"
-                                                 :title="col.overflowTitle ?  overflowTitle(col.format(item,rowIndex)) :''"
-                                           >
+                                                 v-html="col.format(item,rowIndex)">
                                             </span>
-                                    <span v-else :title="col.overflowTitle ? item[col.field] :''">
+                                    <span v-else>
                                                 {{item[col.field]}}
                                             </span>
                                 </template>
@@ -253,7 +253,7 @@
             tableData: {
                 type: Array,
                 require: true,
-                default:function () {
+                default: function () {
                     return []
                 }
             }
@@ -468,12 +468,21 @@
                 return result
             },
 
-            // 超出的title提示(如果是html 不处理)
-            overflowTitle(val){
-                if (/<[a-z][\s\S]*>/i.test(val)){
-                   return ''
+            // 超出的title提示
+            overflowTitle(row, col){
+                var result =''
+                if (typeof col.format === 'function') {
+                    var val = col.format(row, -1)
+                    // 如果是html 不处理
+                    if (/<[a-z][\s\S]*>/i.test(val)) {
+                        result = ''
+                    }else{
+                        result = val
+                    }
+                }else{
+                    result = row[col.field]
                 }
-                return val
+                return result
             },
 
             /* // 是否有横向滚动条
