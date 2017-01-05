@@ -27,7 +27,7 @@
     cursor: default;
 }
 
-.easytable-header, .easytable-td-rownumber {
+.easytable-header {
     background-position: initial;
     background-size: initial;
     background-attachment: initial;
@@ -121,6 +121,14 @@
 
 .easytable-rightview {
     right: 0px;
+}
+
+/*.easytable-rightview td:last-child .easytable-title-cell{
+    border-width: 0 0 1px 0;
+}*/
+
+.easytable-rightview td:last-child .easytable-body-cell{
+    border-width: 0 0 1px 0;
 }
 
 .easytable-sort-icon {
