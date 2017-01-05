@@ -83,7 +83,7 @@
         <div class="easytable-rightview" :style="{'width': rightViewWidth+'px'}">
             <!--右列头-->
             <div class="easytable-header easytable-title-class"
-                 :style="{'width': rightViewWidth+'px','background-color':titleBgColor}">
+                 :style="{'width': (rightViewWidth-1)+'px','background-color':titleBgColor}">
                 <div class="easytable-header-inner" style="display: block;">
                     <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0">
                         <tbody>
@@ -324,9 +324,9 @@
                 }
                 return result
             },
-            // 右侧区域宽度(2:外边框的宽度)
+            // 右侧区域宽度
             rightViewWidth(){
-                return this.newWidth - this.leftViewWidth - 1
+                return this.newWidth - this.leftViewWidth - 2
             },
 
             // 左侧、右侧区域高度
@@ -382,6 +382,8 @@
 
                 return sortColumns
             },
+
+            // 排序控制
             sortControl(field, orderBy){
                 var vm = this,
                     collection = vm.titleRowsToSortInfo.length > 0 ? vm.titleRowsToSortInfo : vm.newColumns
@@ -403,6 +405,7 @@
                     vm.$emit('actionCallBack', vm.sortColumns())
                 }
             },
+
             // 只允许保留第一个排序规则（‘asc’或者‘desc’）
             singelSortInit(){
                 var vm = this,
@@ -446,41 +449,41 @@
             },
 
             // 获取表体每一列的宽度
-           /* bodyColumnWidth(width, rowIndex, ColIndex){
-                var vm = this, result
+            /* bodyColumnWidth(width, rowIndex, ColIndex){
+             var vm = this, result
 
-                if (width && width > 0) {
-                    result = width + 'px'
-                } else {
-                    // 自动计算未设置的列宽度
-                    if (vm.width && this.width > 0) {
-                        alert(1)
-                        result = (vm.width - vm.totalColumnsWidth - 2) + 'px'
-                    } else {
-                        result = 'auto'
-                    }
-                }
+             if (width && width > 0) {
+             result = width + 'px'
+             } else {
+             // 自动计算未设置的列宽度
+             if (vm.width && this.width > 0) {
+             alert(1)
+             result = (vm.width - vm.totalColumnsWidth - 2) + 'px'
+             } else {
+             result = 'auto'
+             }
+             }
 
-                // 表格渲染完成
-                if (rowIndex === this.tableData.length - 1 && ColIndex === this.newColumns.length - 1) {
-                    console.log('渲染完成')
-                }
+             // 表格渲染完成
+             if (rowIndex === this.tableData.length - 1 && ColIndex === this.newColumns.length - 1) {
+             console.log('渲染完成')
+             }
 
-                return result
-            },*/
+             return result
+             },*/
 
             // 超出的title提示
             overflowTitle(row, col){
-                var result =''
+                var result = ''
                 if (typeof col.format === 'function') {
                     var val = col.format(row, -1)
                     // 如果是html 不处理
                     if (/<[a-z][\s\S]*>/i.test(val)) {
                         result = ''
-                    }else{
+                    } else {
                         result = val
                     }
-                }else{
+                } else {
                     result = row[col.field]
                 }
                 return result
@@ -584,10 +587,10 @@
             // 当宽度设置 && 非固定列未设置宽度时（列自适应）初始化列集合
             initColumns(){
                 var vm = this
-                if (vm.width && vm.width > 0){
+                if (vm.width && vm.width > 0) {
                     vm.newColumns.map(function (item) {
-                        if (!(item.width && item.width > 0)){
-                            item.width =  vm.width - vm.totalColumnsWidth-1
+                        if (!(item.width && item.width > 0)) {
+                            item.width = vm.width - vm.totalColumnsWidth - 2
                         }
                     })
                 }
@@ -601,7 +604,7 @@
                 // 当没有设置宽度计算总宽度
                 if (!(vm.width && vm.width > 0)) {
                     if (vm.columns && vm.columns.length > 0) {
-                        vm.viewWidth = vm.newWidth = vm.columns.reduce((total, curr) => total + curr.width, 0) + 1
+                        vm.viewWidth = vm.newWidth = vm.columns.reduce((total, curr) => total + curr.width, 0) + 2
                     }
                 }
 
