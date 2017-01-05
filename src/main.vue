@@ -180,7 +180,9 @@
                 // 本地列数据
                 newColumns: Object.assign([], this.columns),
                 // 本地复杂表头数据
-                newTitleRows: Object.assign([], this.titleRows)
+                newTitleRows: Object.assign([], this.titleRows),
+
+                errorMsg: ' vue-easyTable error: '
             }
         },
         props: {
@@ -212,13 +214,13 @@
             isHorizontalResize: {
                 type: Boolean,
                 require: false,
-                default: true
+                default: false
             },
             // 随着浏览器窗口改变，垂直自适应
             isVerticalResize: {
                 type: Boolean,
                 require: false,
-                default: true
+                default: false
             },
             titleBgColor: {
                 type: String,
@@ -434,7 +436,7 @@
 
                     result = matchItems.reduce((total, curr) => total + curr.width, 0)
                 } else {
-                    console.error('the fields attribute must be a array in titleRows')
+                    console.error(this.errorMsg + 'the fields attribute must be a array in titleRows')
                 }
                 return result
             },
@@ -447,30 +449,6 @@
                     return this.titleRowHeight
                 }
             },
-
-            // 获取表体每一列的宽度
-            /* bodyColumnWidth(width, rowIndex, ColIndex){
-             var vm = this, result
-
-             if (width && width > 0) {
-             result = width + 'px'
-             } else {
-             // 自动计算未设置的列宽度
-             if (vm.width && this.width > 0) {
-             alert(1)
-             result = (vm.width - vm.totalColumnsWidth - 2) + 'px'
-             } else {
-             result = 'auto'
-             }
-             }
-
-             // 表格渲染完成
-             if (rowIndex === this.tableData.length - 1 && ColIndex === this.newColumns.length - 1) {
-             console.log('渲染完成')
-             }
-
-             return result
-             },*/
 
             // 超出的title提示
             overflowTitle(row, col){
@@ -488,26 +466,6 @@
                 }
                 return result
             },
-
-            /* // 是否有横向滚动条
-             judgeHorizontalScrollBar(){
-             var ele = document.querySelector(".easytable-rightview .easytable-body")
-
-             if (ele.clientWidth < ele.scrollWidth) {
-             this.hasHorizontalScrollBar = true
-             }else{
-             this.hasHorizontalScrollBar = false
-             }
-             },
-
-             // 是否有纵向滚动条
-             hasVerticalScrollBar(){
-             var ele = document.querySelector(".easytable-rightview .easytable-body")
-             if (ele.clientHeight < ele.scrollHeight) {
-             return true
-             }
-             return false
-             },*/
 
             // 列表中滚动条控制
             scrollControl(){
@@ -586,13 +544,19 @@
 
             // 当宽度设置 && 非固定列未设置宽度时（列自适应）初始化列集合
             initColumns(){
-                var vm = this
+                var vm = this, widthCountCheck = 0
+
                 if (vm.width && vm.width > 0) {
                     vm.newColumns.map(function (item) {
                         if (!(item.width && item.width > 0)) {
+                            widthCountCheck++
                             item.width = vm.width - vm.totalColumnsWidth - 2
                         }
                     })
+                }
+
+                if (widthCountCheck > 1) {
+                    console.error(this.errorMsg + 'Only allow one column is not set width')
                 }
 
             },
