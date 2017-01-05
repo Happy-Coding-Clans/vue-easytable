@@ -112,7 +112,7 @@
                                     :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
                                     @click.stop="sortControl(col.field,col.orderBy)">
                                     <div class="easytable-title-cell"
-                                         :style="{'width':bodyColumnWidth(col.width,0,colIndex),'height':titleRowHeight+'px','text-align':col.titleAlign}">
+                                         :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
                                         <span class="table-title" v-html="col.title"></span>
                                         <div class="easytable-sort" v-if="enableSort(col.orderBy)">
                                             <span
@@ -134,7 +134,7 @@
                     <tr v-for="(item,rowIndex) in tableData" class="easytable-row">
                         <td v-for="(col,colIndex) in noFrozenCols">
                             <div class="easytable-body-cell"
-                                 :style="{'width':bodyColumnWidth(col.width,rowIndex,colIndex),'height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
+                                 :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
                                  :title="col.overflowTitle ?  overflowTitle(item,col) :''"
                             >
                                 <template v-if="typeof col.componentName ==='string'">
@@ -326,7 +326,7 @@
             },
             // 右侧区域宽度(2:外边框的宽度)
             rightViewWidth(){
-                return this.newWidth - this.leftViewWidth - 2
+                return this.newWidth - this.leftViewWidth - 1
             },
 
             // 左侧、右侧区域高度
@@ -446,7 +446,7 @@
             },
 
             // 获取表体每一列的宽度
-            bodyColumnWidth(width, rowIndex, ColIndex){
+           /* bodyColumnWidth(width, rowIndex, ColIndex){
                 var vm = this, result
 
                 if (width && width > 0) {
@@ -454,6 +454,7 @@
                 } else {
                     // 自动计算未设置的列宽度
                     if (vm.width && this.width > 0) {
+                        alert(1)
                         result = (vm.width - vm.totalColumnsWidth - 2) + 'px'
                     } else {
                         result = 'auto'
@@ -466,7 +467,7 @@
                 }
 
                 return result
-            },
+            },*/
 
             // 超出的title提示
             overflowTitle(row, col){
@@ -580,12 +581,27 @@
 
             },
 
-            init(){
+            // 当宽度设置 && 非固定列未设置宽度时（列自适应）初始化列集合
+            initColumns(){
+                var vm = this
+                if (vm.width && vm.width > 0){
+                    vm.newColumns.map(function (item) {
+                        if (!(item.width && item.width > 0)){
+                            item.width =  vm.width - vm.totalColumnsWidth-1
+                        }
+                    })
+                }
+
+            },
+
+
+            // 当没设置宽度和高度时动态计算
+            initView(){
                 var vm = this
                 // 当没有设置宽度计算总宽度
                 if (!(vm.width && vm.width > 0)) {
                     if (vm.columns && vm.columns.length > 0) {
-                        vm.viewWidth = vm.newWidth = vm.columns.reduce((total, curr) => total + curr.width, 0) + 2
+                        vm.viewWidth = vm.newWidth = vm.columns.reduce((total, curr) => total + curr.width, 0) + 1
                     }
                 }
 
@@ -598,6 +614,9 @@
         },
         created(){
 
+            this.initColumns()
+
+            this.initView()
         },
         mounted(){
             var vm = this;
@@ -619,7 +638,7 @@
             },
 
             'tableData': function (newVal) {
-                this.init()
+                this.initView()
                 this.tableResize()
             }
         }
