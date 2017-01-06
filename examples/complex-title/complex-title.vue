@@ -75,58 +75,23 @@
             return {
                 tables: {
                     multipleSort:false,
-                    /*width: 1500,*/
-                    minWidth: 600,
-                   /* height: 650,*/
-                    minHeight: 600,
+                    width: 1300,
                     tableData: [],
                     titleRows:[
-                     /*   [
-                            {fields: ['name'], title: '姓名', align: 'center'},
-                            {fields: ['gender','nickname','birthday','height'], title: '基本信息', align: 'center',colspan:4},
-                            /!*{field: 'gender', title: '性别', width: 150, align: 'center'},*!/
-                            {fields: ['tel','email','hobby','address','job'], title: '其他', align: 'center',colspan:5},
-                        ],*/
                         [
                             {fields: ['name'], title: '姓名', titleAlign: 'center',orderBy:'desc'},
                             {fields: ['gender'], title: '性别', titleAlign: 'center',orderBy:'asc',rowspan:2,},
                             {fields: ['nickname'], title: '昵称', titleAlign: 'center',orderBy:'desc'},
-                            {fields: ['birthday'], title: '出生日期', titleAlign: 'center'},
-                            {fields: ['height'], title: '身高', titleAlign: 'center'},
+                            {fields: ['birthday','height'], title: '出生日期、身高', titleAlign: 'center',colspan:2},
                             {fields: ['tel'], title: '手机号码', titleAlign: 'center'},
                             {fields: ['email'], title: '邮箱', titleAlign: 'center'},
                             {fields: ['hobby'], title: '爱好', titleAlign: 'center'},
                             {fields: ['address'], title: '家庭地址', titleAlign: 'center'},
-                            {fields: ['job'], title: '职业', titleAlign: 'center'},
-                            {fields: ['job'], title: '操作', titleAlign: 'center'},
+                            {fields: ['job'], title: '职业', titleAlign: 'center'}
                         ],
                         [
                             {fields: ['name'], title: '姓名', titleAlign: 'center'},
                            /* {fields: ['gender'], title: '性别', align: 'center',rowspan:2},*/
-                            {fields: ['nickname'], title: '昵称', titleAlign: 'center',orderBy:'desc'},
-                            {fields: ['birthday'], title: '出生日期', titleAlign: 'center'},
-                            {fields: ['height'], title: '身高', titleAlign: 'center'},
-                            {fields: ['tel'], title: '手机号码', titleAlign: 'center'},
-                            {fields: ['email'], title: '邮箱', titleAlign: 'center'},
-                            {fields: ['hobby'], title: '爱好', titleAlign: 'center'},
-                            {fields: ['address'], title: '家庭地址', titleAlign: 'center'},
-                            {fields: ['job'], title: '职业', titleAlign: 'center'}
-                        ],
-                        [
-                            {fields: ['name'], title: '姓名', titleAlign: 'center'},
-                            {fields: ['gender'], title: '性别', titleAlign: 'center'},
-                            {fields: ['nickname'], title: '昵称', titleAlign: 'center'},
-                            {fields: ['birthday'], title: '出生日期', titleAlign: 'center'},
-                            {fields: ['height'], title: '身高', titleAlign: 'center'},
-                            {fields: ['tel'], title: '手机号码', titleAlign: 'center'},
-                            {fields: ['email'], title: '邮箱', titleAlign: 'center'},
-                            {fields: ['hobby'], title: '爱好', titleAlign: 'center'},
-                            {fields: ['address'], title: '家庭地址', titleAlign: 'center'},
-                            {fields: ['job'], title: '职业', titleAlign: 'center'}
-                        ],
-                        [
-                            {fields: ['name'], title: '姓名', titleAlign: 'center'},
-                            {fields: ['gender'], title: '性别', titleAlign: 'center'},
                             {fields: ['nickname'], title: '昵称', titleAlign: 'center'},
                             {fields: ['birthday'], title: '出生日期', titleAlign: 'center'},
                             {fields: ['height'], title: '身高', titleAlign: 'center'},
@@ -138,16 +103,16 @@
                         ]
                     ],
                     columns: [
-                        {field: 'name', width: 100, columnAlign:'center', isFrozen: true},
+                        {field: 'name',  width: 100,columnAlign:'center', isFrozen: true},
                         {field: 'gender', width: 100, align: 'center', isFrozen: true},
                         {field: 'nickname', width: 100, align: 'center', isFrozen: false},
                         {field: 'birthday', width: 100, align: 'center', isFrozen: false},
-                        {field: 'height', width: 150, align: 'center', isFrozen: false},
-                        {field: 'tel', width: 150, align: 'center', isFrozen: false},
-                        {field: 'email', width: 150, align: 'center', isFrozen: false},
-                        {field: 'hobby', width: 300, align: 'center', isFrozen: false},
-                        {field: 'address', width: 300, align: 'center', isFrozen: false},
-                        {field: 'job', width: 150, align: 'center', isFrozen: false},
+                        {field: 'height', width: 100, align: 'center', isFrozen: false},
+                        {field: 'tel', width: 100, align: 'center', isFrozen: false},
+                        {field: 'email', width: 100, align: 'center', isFrozen: false},
+                        {field: 'hobby', width: 100, align: 'center', isFrozen: false},
+                        {field: 'address', width: 100, align: 'center', isFrozen: false},
+                        {field: 'job', width: 0, align: 'center', isFrozen: false},
                         /*{componentName: 'table-operation', title: '操作', width: 180, align: 'center', isFrozen: false}*/
                     ]
                 }

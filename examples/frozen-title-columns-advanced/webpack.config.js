@@ -66,7 +66,7 @@ var PATHS = {
      * publish path
      * （发布目录）
      * */
-    publicPath: debug ? '/example/frozen-columns/' : './',
+    publicPath: debug ? '/example/frozen-title-columns-advanced/' : './',
 
     /*
      * node_modules path

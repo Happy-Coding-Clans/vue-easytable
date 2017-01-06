@@ -47,45 +47,41 @@
         data(){
             return {
                 tables: {
-                    width: 1000,
-                    minWidth: 600,
-                    /* height: 700,
-                     minHeight: 300,*/
-                    rowHeight: 35,
+                    width: 1300,
                     tableData: [],
                     multipleSort: true,
                     columns: [
                         {
-                            title: '排序', width: 50, align: 'center', isFrozen: true,
+                            title: '排序', width: 50, titleAlign: 'center',columnAlign:'center', isFrozen: true,
                             format: function (rowData, index) {
                                 return index < 3 ? '<span style="color:red;font-weight: bold;">' + (index + 1) + '</span>' : index + 1
                             }
                         },
                         {
-                            field: 'img', title: '头像', width: 50, align: 'center', isFrozen: true,
+                            field: 'img', title: '头像', width: 50, titleAlign: 'center',columnAlign:'center', isFrozen: true,
                             format: function (rowData) {
                                 var src = require('../../libs/imgs/' + rowData.img)
-                                return '<img height="33px" width="35px" src="' + src + '" />'
+                                return '<img height="33px" width="33px" src="' + src + '" />'
                             }
                         },
-                        {field: 'name', title: '姓名', width: 150, align: 'center', isFrozen: true, orderBy: ''},
-                        {field: 'gender', title: '性别', width: 150, align: 'center', isFrozen: true, orderBy: ''},
-                        {field: 'nickname', title: '昵称', width: 150, align: 'center', isFrozen: false},
-                        {field: 'birthday', title: '出生日期', width: 150, align: 'center', isFrozen: false, orderBy: ''},
-                        {field: 'height', title: '身高', width: 150, align: 'center', isFrozen: false},
-                        {field: 'tel', title: '手机号码', width: 150, align: 'center', isFrozen: false},
+                        {field: 'name', title: '姓名', width: 80, titleAlign: 'center',columnAlign:'center', isFrozen: true, orderBy: ''},
+                        {field: 'gender', title: '性别', width: 80, titleAlign: 'center',columnAlign:'center', isFrozen: true, orderBy: ''},
+                        {field: 'nickname', title: '昵称', width: 100, titleAlign: 'center',columnAlign:'center', isFrozen: false},
+                        {field: 'birthday', title: '出生日期', width: 100, titleAlign: 'center',columnAlign:'center', isFrozen: false, orderBy: ''},
+                        {field: 'height', title: '身高', width: 80, titleAlign: 'center',columnAlign:'center', isFrozen: false},
+                        {field: 'tel', title: '手机号码', width: 100, titleAlign: 'center',columnAlign:'center', isFrozen: false},
                         {
-                            field: 'email', title: '邮箱', width: 150, align: 'center', isFrozen: false,
+                            field: 'email', title: '邮箱', width: 150, titleAlign: 'center',columnAlign:'center', isFrozen: false,
                             format: function (rowData) {
                                 if (rowData.email.length > 1) {
                                     return '<a href="https://github.com/huangshuwei/vue-easytable" target="_blank">' + rowData.email + '</a>'
                                 }
-                                return rowData.email
+                                return "-"
                             }
                         },
-                        {field: 'hobby', title: '爱好', width: 300, align: 'center', isFrozen: false},
-                        {field: 'address', title: '家庭地址', width: 300, align: 'center', isFrozen: false},
-                        {field: 'job', title: '职业', width: 150, align: 'center', isFrozen: false}
+                        {field: 'hobby', title: '爱好', width: 200, titleAlign: 'center',columnAlign:'left', isFrozen: false},
+                        {field: 'address', title: '家庭地址', titleAlign: 'center',columnAlign:'left', isFrozen: false},
+                        {field: 'job', title: '职业', width: 130, titleAlign: 'center',columnAlign:'left', isFrozen: false}
                     ]
                 }
             }

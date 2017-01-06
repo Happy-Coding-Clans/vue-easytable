@@ -519,8 +519,8 @@
                 var right = $(window).width() - currentWidth - viewOffset.left;
                 var bottom = $(window).height() - currentHeight - viewOffset.top - 10; // -10 防止浏览器出垂直滚动条
 
-
                 if (vm.isHorizontalResize && vm.newWidth && vm.newWidth > 0) {
+
                     // （窗口宽度缩小 && 当前宽度大于最小宽度） ||（窗口宽度扩大 && 当前宽度小于最大宽度）
                     if ((right < 0 && currentWidth > minWidth) || (right > 0 && currentWidth < width)) {
                         currentWidth = currentWidth + right;

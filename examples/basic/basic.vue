@@ -1,5 +1,5 @@
 <template>
-    <div style="width:1350px">
+    <div>
         基本的表格功能展示<br/><br/>
         <easyTable :width="tables.width"
                    :minWidth="tables.minWidth"
@@ -49,27 +49,19 @@
         data(){
             return {
                 tables: {
-                   /* isHorizontalResize:false,
-                    isVerticalResize:false,
-                    width:1200,
-                    height:600,*/
-                 /*   minWidth:1000,
-                    minHeight:500,*/
-                    width:1500,
-               /*     height:300,*/
-                    titleRowHeight:50,
+                    width:1300,
                     tableData: [],
                     columns: [
-                        {field: 'name', title:'<span style="color:red;">姓名</span>', width: 80, titleAlign: 'center',columnAlign:'center'},
+                        {field: 'name', title:'姓名', width: 80, titleAlign: 'center',columnAlign:'center'},
                         {field: 'gender', title: '性别', width: 80, titleAlign: 'center',columnAlign:'center'},
                         {field: 'nickname', title: '昵称', width: 80, titleAlign: 'center',columnAlign:'center'},
                         {field: 'birthday', title: '出生日期', width: 100, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'height', title: '身高', width: 80, titleAlign: 'center',columnAlign:'right'},
-                        {field: 'tel', title: '手机号码', width: 100, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'email', title: '邮箱', width: 100, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'hobby', title: '爱好', width: 200, titleAlign: 'center',columnAlign:'left'},
-                        {field: 'address', title: '家庭地址', width: 230, titleAlign: 'center',columnAlign:'left',overflowTitle:true},
-                        {field: 'job', title: '职业', width: 0, titleAlign: 'center',columnAlign:'center'}
+                        {field: 'height', title: '身高', width: 100, titleAlign: 'center',columnAlign:'right'},
+                        {field: 'tel', title: '手机号码', width: 150, titleAlign: 'center',columnAlign:'center'},
+                        {field: 'email', title: '邮箱', width: 150, titleAlign: 'center',columnAlign:'center'},
+                        {field: 'hobby', title: '爱好', width: 180, titleAlign: 'center',columnAlign:'left'},
+                        {field: 'address', title: '家庭地址', width: 220, titleAlign: 'center',columnAlign:'left'},
+                        {field: 'job', title: '职业', titleAlign: 'center',columnAlign:'left'}
                     ]
                 }
             }
@@ -81,7 +73,7 @@
 
                 setTimeout(function () {
                     vm.tables.tableData = mockData
-                }, 600)
+                }, 0)
 
             }
         },
