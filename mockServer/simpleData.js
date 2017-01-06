@@ -8,7 +8,7 @@ module.exports = [
     {"name":"王二喜","img":"defaultPic.jpg","gender":"女","nickname":"xi","birthday":'1995-12-7',"height":"179","email":"wqdwq@sda.com","tel":"181235676xxx","hobby":"随便玩","address":"上海徐汇区","job":"工作不详"},
     {"name":"张飞","img":"zhangfei.jpg","gender":"女","nickname":"益德","birthday":'1993-12-7',"height":"186","email":"wqdwq@sda.com","tel":"18123456xxx","hobby":"-","address":"上海徐汇区","job":"勇而有义，皆万人之敌，而为之将"},
     {"name":"关羽","img":"guanyu.jpg","gender":"女","nickname":"yu","birthday":'1993-12-7',"height":"188","email":"wqdwq@sda.com","tel":"18123456xxx","hobby":"耍大刀","address":"上海徐汇区","job":"耍大刀"},
-    {"name":"张全蛋","img":"zhangquandan.jpg","gender":"男","nickname":"dan","birthday":'1993-12-7',"height":"160","email":"dan@163.com","tel":"18123456xxx","hobby":"一本正将的胡说八道","address":"上海徐汇区","job":"富土康赵铁柱同事"},
+    {"name":"张全蛋","img":"zhangquandan.jpg","gender":"男","nickname":"dan","birthday":'1993-12-7',"height":"160","email":"dan@163.com","tel":"18123456xxx","hobby":"一本正经的胡说八道","address":"上海徐汇区","job":"富土康赵铁柱同事"},
     {"name":"某网红","img":"defaultPic.jpg","gender":"女","nickname":"hong","birthday":'1993-12-7',"height":"168","email":"wanghong@qq.com","tel":"18123456xxx","hobby":"视频直播","address":"上海徐汇区","job":"网红"},
     {"name":"司马","img":"sima.jpg","gender":"男","nickname":"sima","birthday":'1993-12-7',"height":"170","email":"wqdwq@sda.com","tel":"18123456xxx","hobby":"不详","address":"上海徐汇区","job":"不详"},
     {"name":"张衡","img":"defaultPic.jpg","gender":"女","nickname":"衡","birthday":'1993-12-7',"height":"178","email":"wqdwq@sda.com","tel":"18123456xxx","hobby":"汉赋四大家","address":"上海徐汇区","job":"汉赋四大家"},

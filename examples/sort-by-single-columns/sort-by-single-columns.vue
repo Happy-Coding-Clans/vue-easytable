@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 1200px;margin: 0 auto;">
+    <div>
         表格单条件排序<br/><br/>
         <Easytable :width="tables.width"
                    :multipleSort="tables.multipleSort"
