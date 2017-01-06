@@ -63,8 +63,8 @@
                                                        :is="col.componentName"></component>
                                         </template>
                                         <template v-else>
-                                                   <span v-if="typeof col.format==='function'"
-                                                         v-html="col.format(item,index)">
+                                                   <span v-if="typeof col.formatter==='function'"
+                                                         v-html="col.formatter(item,index)">
                                                     </span>
                                             <span v-else>
                                                         {{item[col.field]}}
@@ -141,8 +141,8 @@
                                     <component :rowData="item" :index="rowIndex" :is="col.componentName"></component>
                                 </template>
                                 <template v-else>
-                                           <span v-if="typeof col.format==='function'"
-                                                 v-html="col.format(item,rowIndex)">
+                                           <span v-if="typeof col.formatter==='function'"
+                                                 v-html="col.formatter(item,rowIndex)">
                                             </span>
                                     <span v-else>
                                                 {{item[col.field]}}
@@ -453,8 +453,8 @@
             // 超出的title提示
             overflowTitle(row, col){
                 var result = ''
-                if (typeof col.format === 'function') {
-                    var val = col.format(row, -1)
+                if (typeof col.formatter === 'function') {
+                    var val = col.formatter(row, -1)
                     // 如果是html 不处理
                     if (/<[a-z][\s\S]*>/i.test(val)) {
                         result = ''
