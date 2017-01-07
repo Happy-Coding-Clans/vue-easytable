@@ -10,7 +10,8 @@
     "url": "git+https://github.com/huangshuwei/vue-easytable.git"
   },
   "dependencies": {
-    "vue": "^2.0.7"
+    "vue": "^2.0.7",
+    "vue-router": "^2.1.1"
   },
   "devDependencies": {
     "babel-core": "^6.9.0",
@@ -36,6 +37,10 @@
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1",
     "webpack-merge": "^0.14.0"
+  },
+  "scripts": {
+    "build": "webpack  --profile --progress --colors --display-error-details",
+    "dev": "webpack-dev-server"
   },
   "bugs": {
     "url": "https://github.com/huangshuwei/vue-easytable/issues"

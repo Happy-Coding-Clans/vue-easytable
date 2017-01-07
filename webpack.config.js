@@ -66,12 +66,12 @@ var PATHS = {
      * publish path
      * （发布目录）
      * */
-    publicPath: debug ? '/example/sort-by-multiple-columns/' : './',
+    publicPath: debug ? '/example/' : './',
 
     /*
      * node_modules path
      */
-    node_modulesPath: path.resolve('../../node_modules'),
+    node_modulesPath: path.resolve('./node_modules'),
 }
 
 
@@ -105,11 +105,11 @@ var resolve = {
  * （入口）
  * */
 var entry = {
-    index: './index.js',
+    app: './examples/app.js',
     vendors: [
         'babel-polyfill',
         'vue',
-        path.join(__dirname, '../../libs/jquery1.7.2/jquery.js'),
+        path.join(__dirname, './examples/js/jquery.js'),
     ],
 };
 
@@ -286,12 +286,12 @@ var plugins = [
      * （创建html文件）
      * */
     new HtmlWebpackPlugin({
-        filename: 'index.html',
-        template: __dirname + '/index.html',
+        filename: 'app.html',
+        template: __dirname + '/examples/app.html',
         inject: 'true',
 
         // 需要依赖的模块
-        chunks: ['vendors', 'index', 'webpackAssets'],
+        chunks: ['vendors', 'app', 'webpackAssets'],
 
         // 根据依赖自动排序
         chunksSortMode: 'dependency'
@@ -360,7 +360,7 @@ if (debug) {
                 new webpack.HotModuleReplacementPlugin({
                     multiStep: true
                 }),
-                new OpenBrowserPlugin({url: 'http://localhost:8070' + PATHS.publicPath + 'index.html'})
+                new OpenBrowserPlugin({url: 'http://localhost:8070' + PATHS.publicPath + 'app.html'})
             ],
             devServer: {
                 historyApiFallback: true,

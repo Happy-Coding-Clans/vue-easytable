@@ -1,15 +1,12 @@
 <template>
     <div>
-        表格多条件排序<br/><br/>
-        <Easytable :width="tables.width"
-                   :minWidth="tables.minWidth"
-                   :height="tables.height"
-                   :minHeight="tables.minHeight"
+        表格单条件排序<br/><br/>
+        <easyTable :width="tables.width"
                    :multipleSort="tables.multipleSort"
                    :columns="tables.columns"
                    :tableData="tables.tableData"
                    @actionCallBack="actionCallBack"
-        ></Easytable>
+        ></easyTable>
     </div>
 </template>
 
@@ -33,33 +30,30 @@
 
 <script>
 
-    import Easytable from '../../src/main.vue'
-    import '../../src/css/basic.css'
+    import easyTable from '../src/main.vue'
+    import '../src/css/basic.css'
 
-    import mockData from '../../mockServer/simpleData'
+    import mockData from './mockServer/simpleData'
 
 
     export default{
-        name: 'basic',
+        name: 'sort-by-single-columns',
         components: {
-            Easytable,
+            easyTable
         },
         data(){
             return {
                 tables: {
-                    width: 1300,
+                    width: 1100,
                     tableData: [],
-                    multipleSort:true,
+                    multipleSort:false,
                     columns: [
                         {field: 'name', title: '姓名', width: 80, titleAlign: 'center',columnAlign:'center', isFrozen: true},
                         {field: 'gender', title: '性别', width: 80, titleAlign: 'center',columnAlign:'center', isFrozen: true,orderBy:'asc'},
-                        {field: 'nickname', title: '昵称', width: 80, titleAlign: 'center',columnAlign:'center', isFrozen: false},
-                        {field: 'birthday', title: '出生日期', width: 80, titleAlign: 'center',columnAlign:'center', isFrozen: false},
                         {field: 'height', title: '身高', width: 100, titleAlign: 'center',columnAlign:'center', isFrozen: false,orderBy:'asc'},
                         {field: 'tel', title: '手机号码', width: 130, titleAlign: 'center',columnAlign:'center', isFrozen: false},
                         {field: 'email', title: '邮箱', width: 130, titleAlign: 'center',columnAlign:'center', isFrozen: false},
                         {field: 'hobby', title: '爱好', width: 230, titleAlign: 'center',columnAlign:'left', isFrozen: false},
-                        {field: 'address', title: '家庭地址', width: 230, titleAlign: 'center',columnAlign:'left', isFrozen: false},
                         {field: 'job', title: '职业', titleAlign: 'center',columnAlign:'left', isFrozen: false}
                     ]
                 }

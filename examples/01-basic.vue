@@ -2,15 +2,8 @@
     <div>
         基本的表格功能展示<br/><br/>
         <easyTable :width="tables.width"
-                   :minWidth="tables.minWidth"
-                   :height="tables.height"
-                   :minHeight="tables.minHeight"
-                   :multipleSort="tables.multipleSort"
                    :columns="tables.columns"
                    :tableData="tables.tableData"
-                   :isHorizontalResize = "tables.isHorizontalResize"
-                   :isVerticalResize = "tables.isVerticalResize"
-                   :titleRowHeight="tables.titleRowHeight"
         ></easyTable>
     </div>
 </template>
@@ -18,7 +11,7 @@
 <style>
     .easytable-class{
         font-size: 14px;
-        font-family:  "Helvetica Neue",Helvetica,Arial,sans-serif;;
+        font-family:  "Helvetica Neue",Helvetica,Arial,sans-serif;
     }
 
     .easytable-title-class{
@@ -35,10 +28,10 @@
 
 <script>
 
-    import easyTable from '../../src/main.vue'
-    import '../../src/css/basic.css'
+    import easyTable from '../src/main.vue'
+    import '../src/css/basic.css'
 
-    import mockData from '../../mockServer/simpleData'
+    import mockData from './mockServer/simpleData'
 
 
     export default{
@@ -49,18 +42,15 @@
         data(){
             return {
                 tables: {
-                    width:1300,
+                    width:1100,
                     tableData: [],
                     columns: [
                         {field: 'name', title:'姓名', width: 80, titleAlign: 'center',columnAlign:'center'},
                         {field: 'gender', title: '性别', width: 80, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'nickname', title: '昵称', width: 80, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'birthday', title: '出生日期', width: 100, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'height', title: '身高', width: 100, titleAlign: 'center',columnAlign:'right'},
+                        {field: 'height', title: '身高', width: 80, titleAlign: 'center',columnAlign:'right'},
                         {field: 'tel', title: '手机号码', width: 150, titleAlign: 'center',columnAlign:'center'},
                         {field: 'email', title: '邮箱', width: 150, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'hobby', title: '爱好', width: 180, titleAlign: 'center',columnAlign:'left'},
-                        {field: 'address', title: '家庭地址', width: 220, titleAlign: 'center',columnAlign:'left'},
+                        {field: 'hobby', title: '爱好', width: 280, titleAlign: 'center',columnAlign:'left'},
                         {field: 'job', title: '职业', titleAlign: 'center',columnAlign:'left'}
                     ]
                 }

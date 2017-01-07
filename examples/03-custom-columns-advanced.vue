@@ -1,16 +1,10 @@
 <template>
     <div>
-        基本的表格功能展示<br/><br/>
-        <Easytable :width="tables.width"
-                   :minWidth="tables.minWidth"
-                   :height="tables.height"
-                   :minHeight="tables.minHeight"
-                   :rowHeight="tables.rowHeight"
-                   :multipleSort="tables.multipleSort"
+        自定义列-高级用法<br/><br/>
+        <easyTable :width="tables.width"
                    :columns="tables.columns"
                    :tableData="tables.tableData"
-                   @actionCallBack="actionCallBack"
-        ></Easytable>
+        ></easyTable>
     </div>
 </template>
 
@@ -34,12 +28,12 @@
 </style>
 
 <script>
-
-    import Easytable from '../../src/main.vue'
-    import '../../src/css/basic.css'
-
-    import mockData from '../../mockServer/simpleData'
     import Vue from 'vue'
+
+    import easyTable from '../src/main.vue'
+    import '../src/css/basic.css'
+
+    import mockData from './mockServer/simpleData'
 
 
     Vue.component('table-operation',{
@@ -71,14 +65,14 @@
     })
 
     export default{
-        name: 'basic',
+        name: 'custom-columns-advanced',
         components: {
-            Easytable
+            easyTable
         },
         data(){
             return {
                 tables: {
-                    width: 1300,
+                    width: 1100,
                     tableData: [],
                     multipleSort: true,
                     columns: [
@@ -91,14 +85,12 @@
                         {
                             field: 'img', title: '头像', width: 50, titleAlign: 'center',columnAlign:'center', isFrozen: true,
                             formatter: function (rowData) {
-                                var src = require('../../libs/imgs/' + rowData.img)
+                                var src = require('./imgs/' + rowData.img)
                                 return '<img height="33px" width="33px" src="' + src + '" />'
                             }
                         },
                         {field: 'name', title: '姓名', width: 80, titleAlign: 'center',columnAlign:'center', isFrozen: true, orderBy: ''},
                         {field: 'gender', title: '性别', width: 80, titleAlign: 'center',columnAlign:'center', isFrozen: true, orderBy: ''},
-                        {field: 'nickname', title: '昵称', width: 100, titleAlign: 'center',columnAlign:'center', isFrozen: false},
-                        {field: 'birthday', title: '出生日期', width: 100, titleAlign: 'center',columnAlign:'center', isFrozen: false, orderBy: ''},
                         {field: 'height', title: '身高', width: 80, titleAlign: 'center',columnAlign:'center', isFrozen: false},
                         {field: 'tel', title: '手机号码', width: 100, titleAlign: 'center',columnAlign:'center', isFrozen: false},
                         {
@@ -111,8 +103,8 @@
                             }
                         },
                         {field: 'hobby', title: '爱好', width: 200, titleAlign: 'center',columnAlign:'left', isFrozen: false},
-                        {field: 'address', title: '家庭地址', width: 200, titleAlign: 'center',columnAlign:'left', isFrozen: false},
-                        {componentName: 'table-operation', title: '操作', titleAlign: 'center',columnAlign:'center', isFrozen: false}
+                        {field: 'job', title: '职业', titleAlign: 'center',columnAlign:'left', isFrozen: false},
+                        {componentName: 'table-operation', title: '操作', width: 100, titleAlign: 'center',columnAlign:'center', isFrozen: false}
                     ]
                 }
             }
