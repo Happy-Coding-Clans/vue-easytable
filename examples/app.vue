@@ -1,32 +1,40 @@
 <template>
-    <div>
+    <div class="wrapper">
+
         <section class="leftMenu">
-            <ul>
-                <li>
-                    <router-link to="/basic">基本表格</router-link>
-                </li>
-                <li>
-                    <router-link to="/custom_columns">自定义列</router-link>
-                </li>
-                <li>
-                    <router-link to="/custom_columns_advanced">自定义列-高级</router-link>
-                </li>
-                <li>
-                    <router-link to="/sort_by_multiple_columns">多条件排序</router-link>
-                </li>
-                <li>
-                    <router-link to="/sort_by_single_columns">单条件排序</router-link>
-                </li>
-                <li>
-                    <router-link to="/frozen_title_columns">固定表列、表头</router-link>
-                </li>
-                <li>
-                    <router-link to="/frozen_title_columns_advanced">列表头、列固定高级用法</router-link>
-                </li>
-                <li>
-                    <router-link to="/complex_title">复杂表头</router-link>
-                </li>
-            </ul>
+            <div class="sidebar">
+                <ul class="nav">
+                    <li class="has-sub">
+                        <a href="javascript:javascript:void(0);">表格组件</a>
+                        <ul class="sub-menu">
+                            <li>
+                                <router-link to="/basic">基本表格</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/custom_columns">自定义列</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/custom_columns_advanced">自定义列-高级</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/sort_by_multiple_columns">多条件排序</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/sort_by_single_columns">单条件排序</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/frozen_title_columns">固定表列、表头</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/frozen_title_columns_advanced">列表头、列固定高级用法</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/complex_title">复杂表头</router-link>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </section>
 
         <!--主体内容 Start-->

@@ -1,4 +1,4 @@
-body {
+body, html {
     font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
     font-size: 15px;
     -webkit-font-smoothing: antialiased;
@@ -8,14 +8,110 @@ body {
     margin: 0;
 }
 
-.leftMenu{
-    float: left;
-    list-style-type: none;
-    margin: 0;
-    line-height: 1.8em;
+.wrapper {
+    position: relative;
+    width: 1500px;
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+
+
+.sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 200px;
+    overflow: hidden;
+    height: calc(100% - 210px);
+    border-right: solid 1px #c4c4c4;
+/*    background-color: #f5f5f5;*/
+}
+
+.sidebar .nav .has-sub {
+    position: relative;
+    padding: 10px 0 10px 30px;
+    line-height: 25px;
+    text-align: left;
+    border-bottom: solid 1px #ffffff;
+}
+
+/*.sidebar .nav .has-sub:after {
+    content: '';
+    position: absolute;
+    margin-top: 9px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #dcdcdc;
+}
+
+.sidebar .nav .has-sub:before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 12px;
+    width: 4px;
+    height: 20px;
+    background: #e94709;
+}*/
+
+.sidebar .nav .has-sub a {
+    padding: 0;
+    display: block;
+    color: #333333;
+    font-weight: normal;
+    font-size: 16px;
+    text-decoration: none;
+    text-align: left;
+}
+
+.sidebar .nav .has-sub a:focus {
+    background: transparent;
+}
+
+.sidebar .nav .has-sub .sub-menu {
+    /*display: none;*/
+}
+
+.sidebar .nav .has-sub .sub-menu li {
+    padding: 3px 0;
+}
+
+.sidebar .nav .has-sub .sub-menu a {
+    color: #6b6b6b;
+    font-size: 14px;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.sidebar .nav .has-sub .sub-menu a.active {
+    color: #ff6600;
+}
+
+.sidebar .nav .has-sub.active .sub-menu {
+    display: block;
+}
+
+/*
 .container{
     float:left;
 }
+*/
 
+.container {
+    margin: 5px 0 10px 210px;
+    min-height: 500px;
+    height: auto;
+    overflow: hidden;
+    background: #ffffff;
+}
