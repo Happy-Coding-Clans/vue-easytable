@@ -8,28 +8,10 @@
     </div>
 </template>
 
-<style>
-    .easytable-class{
-        font-size: 14px;
-        font-family:  "Helvetica Neue",Helvetica,Arial,sans-serif;
-    }
-
-    .easytable-title-class{
-
-        font-weight: bold;
-        color: rgb(31, 45, 61);
-    }
-
-    .easytable-body-class{
-
-        color: rgb(31, 45, 61);
-    }
-</style>
 
 <script>
 
-    import easyTable from '../src/main.vue'
-    import '../src/css/basic.css'
+    import easyTable from 'easyTable'
 
     import mockData from './mockServer/simpleData'
 

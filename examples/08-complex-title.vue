@@ -12,32 +12,13 @@
 
 </template>
 
-<style>
-    .easytable-class{
-        font-size: 14px;
-        font-family:  "Helvetica Neue",Helvetica,Arial,sans-serif;;
-    }
-
-    .easytable-title-class{
-
-        font-weight: bold;
-        color: rgb(31, 45, 61);
-    }
-
-    .easytable-body-class{
-
-        color: rgb(31, 45, 61);
-    }
-</style>
-
 <script>
     import Vue from 'vue'
-    import easyTable from '../src/main.vue'
-    import '../src/css/basic.css'
+    import easyTable from 'easyTable'
 
     import mockData from './mockServer/simpleData'
 
-    Vue.component('table-operation',{
+  /*  Vue.component('table-operation',{
         template:`<span>
         <a href="" @click.stop.prevent="update(rowData)">编辑</a>&nbsp;
         <a href="" @click.stop.prevent="deleteRow(rowData)">删除</a>
@@ -59,7 +40,7 @@
                 console.log(this.rowData)
             }
         }
-    })
+    })*/
 
     export default{
         name: 'complex-title',

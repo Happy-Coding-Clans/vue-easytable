@@ -96,7 +96,8 @@ var resolve = {
      * （别名，引用时直接可以通过别名引用）
      * */
     alias: {
-        'vue$': 'vue/dist/vue'
+        'vue$': 'vue/dist/vue',
+        'easyTable':path.join(__dirname, './src/main.vue'),
     }
 }
 
@@ -109,7 +110,8 @@ var entry = {
     vendors: [
         'babel-polyfill',
         'vue',
-        path.join(__dirname, './examples/js/jquery.js'),
+         path.join(__dirname, './examples/js/jquery.js'),
+        'easyTable'
     ],
 };
 
