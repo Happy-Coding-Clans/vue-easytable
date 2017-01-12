@@ -51,6 +51,10 @@
     border-collapse: separate;
 }
 
+/*.easytable-btable tr:nth-child(even) {
+    background:#f4f4f4;
+}*/
+
 .easytable-header-row, .easytable-row {
     height: 25px;
 }

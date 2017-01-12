@@ -48,11 +48,11 @@
                 </div>
                 <!--左列内容-->
                 <div class="easytable-body easytable-body-class"
-                     :style="{'width': leftViewWidth+'px', 'margin-top': '0px', 'height': bodyViewHeight+'px'}">
+                     :style="{'width': leftViewWidth+'px', 'height': bodyViewHeight+'px'}">
                     <div class="easytable-body-inner">
                         <table class="easytable-btable" cellspacing="0" cellpadding="0" border="0">
                             <tbody>
-                            <tr v-for="(item,index) in tableData" class="easytable-row">
+                            <tr v-for="(item,index) in tableData" class="easytable-row" :style="[trBgColor(index+1)]">
                                 <td v-for="col in frozenCols">
                                     <div class="easytable-body-cell"
                                          :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
@@ -128,10 +128,10 @@
             </div>
             <!--右列内容-->
             <div class="easytable-body easytable-body-class"
-                 :style="{'width': rightViewWidth+'px', 'margin-top': '0px', 'height': bodyViewHeight+'px'}">
+                 :style="{'width': rightViewWidth+'px', 'height': bodyViewHeight+'px'}">
                 <table class="easytable-btable" cellspacing="0" cellpadding="0" border="0">
                     <tbody>
-                    <tr v-for="(item,rowIndex) in tableData" class="easytable-row">
+                    <tr v-for="(item,rowIndex) in tableData" class="easytable-row" :style="[trBgColor(rowIndex+1)]">
                         <td v-for="(col,colIndex) in noFrozenCols">
                             <div class="easytable-body-cell"
                                  :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
@@ -227,6 +227,18 @@
                 require: false,
                 default: '#fff'
             },
+
+            // 奇数行颜色
+            oddBgColor:{
+                type: String,
+                default: '#fff'
+            },
+            // 偶数行颜色
+            evenBgColor:{
+                type: String,
+                default: '#fff'
+            },
+
             // 内容行高
             rowHeight: {
                 type: Number,
@@ -465,6 +477,11 @@
                     result = row[col.field]
                 }
                 return result
+            },
+
+            // 行颜色
+            trBgColor(num){
+               return num%2 === 0 ? {'background-color':this.evenBgColor}:{'background-color':this.oddBgColor}
             },
 
             // 列表中滚动条控制

@@ -1,71 +1,75 @@
 <template>
-    <div class="wrapper">
+    <div class="main">
+        <div class="banner">
 
-        <section class="leftMenu">
-            <div class="sidebar">
-                <ul class="nav">
-                    <li class="has-sub">
-                        <a href="javascript:javascript:void(0);">表格组件</a>
-                        <ul class="sub-menu">
-                            <li>
-                                <router-link to="/basic">基本表格</router-link>
-                            </li>
-                            <li>
-                                <router-link to="/custom_columns">自定义列</router-link>
-                            </li>
-                            <li>
-                                <router-link to="/custom_columns_advanced">自定义列-高级</router-link>
-                            </li>
-                            <li>
-                                <router-link to="/sort_by_multiple_columns">多条件排序</router-link>
-                            </li>
-                            <li>
-                                <router-link to="/sort_by_single_columns">单条件排序</router-link>
-                            </li>
-                            <li>
-                                <router-link to="/frozen_title_columns">固定表列、表头</router-link>
-                            </li>
-                            <li>
-                                <router-link to="/frozen_title_columns_advanced">列表头、列固定高级用法</router-link>
-                            </li>
-                            <li>
-                                <router-link to="/complex_title">复杂表头</router-link>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </section>
+        </div>
+
+        <!--左侧菜单-->
+        <div class="sidebar">
+            <ul class="menu-root">
+                <li>
+                    <a class="sidebar-link" href="javascript:javascript:void(0);">表格组件</a>
+                    <ul class="menu-sub">
+                        <li>
+                            <router-link to="/basic" exact>基本表格</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/custom_columns" exact>自定义列</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/custom_columns_advanced" exact>自定义列-高级</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/sort_by_multiple_columns" exact>多条件排序</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/sort_by_single_columns" exact>单条件排序</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/frozen_title_columns" exact>固定表列、表头</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/frozen_title_columns_advanced" exact>列表头、列固定高级用法</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/complex_title" exact>复杂表头</router-link>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="sidebar-link" href="javascript:javascript:void(0);">分页组件</a>
+
+                </li>
+            </ul>
+        </div>
 
         <!--主体内容 Start-->
-        <main class="container">
+        <div class="container">
             <router-view></router-view>
-        </main>
+        </div>
         <!--主体内容 End-->
     </div>
 </template>
 
 <style>
 
-    .easytable-class{
+    .easytable-class {
         font-size: 14px;
-        font-family:  "Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 
-    .easytable-title-class{
+    .easytable-title-class {
 
         font-weight: bold;
         color: rgb(31, 45, 61);
     }
 
-    .easytable-body-class{
+    .easytable-body-class {
 
         color: rgb(31, 45, 61);
     }
 </style>
 
 <script>
-    export default{
-
-    }
+    export default{}
 </script>
