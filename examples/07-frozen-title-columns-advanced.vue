@@ -1,7 +1,7 @@
 <template>
     <div>
         列表头、列固定高级用法&nbsp;<span style="color:red;font-size:10px;">试试改变浏览器窗口大小看看变化...</span><br/><br/>
-        <easyTable
+        <easy-table
                 :isHorizontalResize="tables.isHorizontalResize"
                 :isVerticalResize="tables.isVerticalResize"
                 :width="tables.width"
@@ -10,22 +10,17 @@
                 :minHeight="tables.minHeight"
                 :columns="tables.columns"
                 :tableData="tables.tableData"
-        ></easyTable>
+        ></easy-table>
     </div>
 </template>
 
 <script>
-
-    import easyTable from 'easyTable'
 
     import mockData from './mockServer/simpleData'
 
 
     export default{
         name: 'frozen-title-columns-advanced',
-        components: {
-            easyTable
-        },
         data(){
             return {
                 tables: {

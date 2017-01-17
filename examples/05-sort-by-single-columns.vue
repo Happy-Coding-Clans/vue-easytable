@@ -1,27 +1,23 @@
 <template>
     <div>
         表格单条件排序<br/><br/>
-        <easyTable :width="tables.width"
+        <easy-table :width="tables.width"
                    :multipleSort="tables.multipleSort"
                    :columns="tables.columns"
                    :tableData="tables.tableData"
                    @actionCallBack="actionCallBack"
-        ></easyTable>
+        ></easy-table>
     </div>
 </template>
 
 <script>
 
-    import easyTable from 'easyTable'
 
     import mockData from './mockServer/simpleData'
 
 
     export default{
         name: 'sort-by-single-columns',
-        components: {
-            easyTable
-        },
         data(){
             return {
                 tables: {

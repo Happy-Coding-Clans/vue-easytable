@@ -160,7 +160,7 @@
 
 <script>
     export default {
-        name: 'vue-easyTable',
+        name: 'easy-table',
         data(){
             return {
                 // 本地宽度

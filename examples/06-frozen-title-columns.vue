@@ -1,27 +1,22 @@
 <template>
     <div>
         固定表列、表头<br/><br/>
-        <easyTable :width="tables.width"
+        <easy-table :width="tables.width"
                    :height="tables.height"
                    :columns="tables.columns"
                    :tableData="tables.tableData"
                    evenBgColor="#f4f4f4"
-        ></easyTable>
+        ></easy-table>
     </div>
 </template>
 
 <script>
-
-    import easyTable from 'easyTable'
 
     import mockData from './mockServer/simpleData'
 
 
     export default{
         name: 'frozen-title-columns',
-        components: {
-            easyTable
-        },
         data(){
             return {
                 tables: {

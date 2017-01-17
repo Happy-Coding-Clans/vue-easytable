@@ -1,11 +1,11 @@
 <template>
     <div>
         复杂表头<br/><br/>
-        <easyTable :width="tables.width"
+        <easy-table :width="tables.width"
                    :titleRows="tables.titleRows"
                    :columns="tables.columns"
                    :tableData="tables.tableData"
-        ></easyTable>
+        ></easy-table>
     </div>
 
 
@@ -14,7 +14,6 @@
 
 <script>
     import Vue from 'vue'
-    import easyTable from 'easyTable'
 
     import mockData from './mockServer/simpleData'
 
@@ -44,9 +43,6 @@
 
     export default{
         name: 'complex-title',
-        components: {
-            easyTable
-        },
         data(){
             return {
                 tables: {

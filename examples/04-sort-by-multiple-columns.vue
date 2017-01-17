@@ -1,27 +1,22 @@
 <template>
     <div>
         表格多条件排序<br/><br/>
-        <easytable :width="tables.width"
+        <easy-table :width="tables.width"
                    :multipleSort="tables.multipleSort"
                    :columns="tables.columns"
                    :tableData="tables.tableData"
                    @actionCallBack="actionCallBack"
-        ></easytable>
+        ></easy-table>
     </div>
 </template>
 
 <script>
-
-    import easytable from 'easyTable'
 
     import mockData from './mockServer/simpleData'
 
 
     export default{
         name: 'sort-by-multiple-columns',
-        components: {
-            easytable,
-        },
         data(){
             return {
                 tables: {

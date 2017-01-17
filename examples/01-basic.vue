@@ -1,26 +1,23 @@
 <template>
     <div>
         基本的表格功能展示<br/><br/>
-        <easyTable :width="tables.width"
+        <easy-table :width="tables.width"
                    :columns="tables.columns"
                    :tableData="tables.tableData"
-        ></easyTable>
+        ></easy-table>
     </div>
 </template>
 
 
 <script>
 
-    import easyTable from 'easyTable'
+
 
     import mockData from './mockServer/simpleData'
 
 
     export default{
         name: 'basic',
-        components: {
-            easyTable
-        },
         data(){
             return {
                 tables: {

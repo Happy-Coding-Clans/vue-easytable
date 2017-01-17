@@ -1,18 +1,16 @@
 <template>
     <div>
         自定义列-高级用法<br/><br/>
-        <easyTable :width="tables.width"
+        <easy-table :width="tables.width"
                    :columns="tables.columns"
                    :tableData="tables.tableData"
-        ></easyTable>
+        ></easy-table>
     </div>
 </template>
 
 
 <script>
     import Vue from 'vue'
-
-    import easyTable from 'easyTable'
 
     import mockData from './mockServer/simpleData'
 
@@ -47,9 +45,6 @@
 
     export default{
         name: 'custom-columns-advanced',
-        components: {
-            easyTable
-        },
         data(){
             return {
                 tables: {
