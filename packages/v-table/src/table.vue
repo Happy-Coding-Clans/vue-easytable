@@ -39,7 +39,7 @@
                                                 <span :class="['easytable-sort-icon', col.orderBy]"></span>
                                             </div>
                                         </div>
-                                    </td>
+                                    </td>5
                                 </tr>
                             </template>
                             </tbody>
@@ -159,6 +159,9 @@
 </template>
 
 <script>
+
+    import utils from '../../../src/utils/utils.js'
+
     export default {
         name: 'v-table',
         data(){
@@ -512,17 +515,6 @@
                     $view2.children("div.easytable-header").scrollLeft($(this).scrollLeft())
                 })
             },
-            // 获取当前元素的left、top偏移
-            getViewportOffset(){
-                var $window = $(window),
-                    scrollLeft = $window.scrollLeft(),
-                    scrollTop = $window.scrollTop(),
-                    offset = $('.easytable-views').offset();
-                return {
-                    left: offset.left - scrollLeft,
-                    top: offset.top - scrollTop
-                }
-            },
             // 随着窗口改变表格自适应
             tableResize(){
                 var vm = this;
@@ -530,7 +522,7 @@
                 var height = (vm.height && vm.height > 0) ? vm.height : vm.viewHeight
                 var minWidth = vm.minWidth
                 var minHeight = vm.minHeight
-                var viewOffset = vm.getViewportOffset();
+                var viewOffset = utils.getViewportOffset(document.querySelector('.easytable-views'));
                 var currentWidth = $('.easytable-views').outerWidth();
                 var currentHeight = $('.easytable-views').outerHeight();
                 var right = $(window).width() - currentWidth - viewOffset.left;
