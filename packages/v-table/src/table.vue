@@ -160,7 +160,7 @@
 
 <script>
     export default {
-        name: 'easy-table',
+        name: 'v-table',
         data(){
             return {
                 // 本地宽度
@@ -481,7 +481,7 @@
 
             // 行颜色
             trBgColor(num){
-               return num%2 === 0 ? {'background-color':this.evenBgColor}:{'background-color':this.oddBgColor}
+                return num%2 === 0 ? {'background-color':this.evenBgColor}:{'background-color':this.oddBgColor}
             },
 
             // 列表中滚动条控制

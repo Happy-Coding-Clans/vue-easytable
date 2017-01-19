@@ -4,10 +4,22 @@ import APP from "./app.vue"
 import router from './router.js'
 
 import './css/app.css'
-import '../src/css/basic.css'
 
-import EasyTable from 'easyTable'
-Vue.component(EasyTable.name, EasyTable)
+
+import '../packages/themes/default.css'
+
+/*引用table和分页*/
+
+/*import {VTable} from '../src/index.js'*/
+import {VTable} from 'vue-EasyTable'
+
+
+/*只引用table*/
+/*import VTable from '../packages/v-table'*/
+/*import VTable from 'VTable'*/
+
+
+Vue.component(VTable.name, VTable)
 
 new Vue({
     el: '#app',

@@ -1,10 +1,10 @@
 <template>
     <div>
         基本的表格功能展示<br/><br/>
-        <easy-table :width="tables.width"
+        <v-table :width="tables.width"
                    :columns="tables.columns"
                    :tableData="tables.tableData"
-        ></easy-table>
+        ></v-table>
     </div>
 </template>
 

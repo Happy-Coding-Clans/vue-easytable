@@ -1,12 +1,12 @@
 <template>
     <div>
         表格单条件排序<br/><br/>
-        <easy-table :width="tables.width"
+        <v-table :width="tables.width"
                    :multipleSort="tables.multipleSort"
                    :columns="tables.columns"
                    :tableData="tables.tableData"
                    @actionCallBack="actionCallBack"
-        ></easy-table>
+        ></v-table>
     </div>
 </template>
 
@@ -25,13 +25,13 @@
                     tableData: [],
                     multipleSort:false,
                     columns: [
-                        {field: 'name', title: '姓名', width: 80, titleAlign: 'center',columnAlign:'center', isFrozen: true},
-                        {field: 'gender', title: '性别', width: 80, titleAlign: 'center',columnAlign:'center', isFrozen: true,orderBy:'asc'},
-                        {field: 'height', title: '身高', width: 100, titleAlign: 'center',columnAlign:'center', isFrozen: false,orderBy:'asc'},
-                        {field: 'tel', title: '手机号码', width: 130, titleAlign: 'center',columnAlign:'center', isFrozen: false},
-                        {field: 'email', title: '邮箱', width: 130, titleAlign: 'center',columnAlign:'center', isFrozen: false},
-                        {field: 'hobby', title: '爱好', width: 230, titleAlign: 'center',columnAlign:'left', isFrozen: false},
-                        {field: 'job', title: '职业', titleAlign: 'center',columnAlign:'left', isFrozen: false}
+                        {field: 'name', title: '姓名', width: 80, titleAlign: 'center',columnAlign:'center'},
+                        {field: 'gender', title: '性别', width: 80, titleAlign: 'center',columnAlign:'center',orderBy:'asc'},
+                        {field: 'height', title: '身高', width: 100, titleAlign: 'center',columnAlign:'center',orderBy:'asc'},
+                        {field: 'tel', title: '手机号码', width: 130, titleAlign: 'center',columnAlign:'center'},
+                        {field: 'email', title: '邮箱', width: 130, titleAlign: 'center',columnAlign:'center'},
+                        {field: 'hobby', title: '爱好', width: 230, titleAlign: 'center',columnAlign:'left'},
+                        {field: 'job', title: '职业', titleAlign: 'center',columnAlign:'left'}
                     ]
                 }
             }

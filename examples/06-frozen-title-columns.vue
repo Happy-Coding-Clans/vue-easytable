@@ -1,12 +1,12 @@
 <template>
     <div>
         固定表列、表头<br/><br/>
-        <easy-table :width="tables.width"
+        <v-table :width="tables.width"
                    :height="tables.height"
                    :columns="tables.columns"
                    :tableData="tables.tableData"
                    evenBgColor="#f4f4f4"
-        ></easy-table>
+        ></v-table>
     </div>
 </template>
 

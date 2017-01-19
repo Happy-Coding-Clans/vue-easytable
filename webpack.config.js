@@ -97,7 +97,8 @@ var resolve = {
      * */
     alias: {
         'vue$': 'vue/dist/vue',
-        'easyTable':path.join(__dirname, './src/main.vue'),
+        'vue-EasyTable':path.join(__dirname, './src/index.js'),
+        'VTable':path.join(__dirname, './packages/v-table/index.js')
     }
 }
 
@@ -111,7 +112,8 @@ var entry = {
         'babel-polyfill',
         'vue',
          path.join(__dirname, './examples/js/jquery.js'),
-        'easyTable'
+        'vue-EasyTable',
+        'VTable'
     ],
 };
 

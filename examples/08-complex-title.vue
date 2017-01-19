@@ -1,11 +1,11 @@
 <template>
     <div>
         复杂表头<br/><br/>
-        <easy-table :width="tables.width"
+        <v-table :width="tables.width"
                    :titleRows="tables.titleRows"
                    :columns="tables.columns"
                    :tableData="tables.tableData"
-        ></easy-table>
+        ></v-table>
     </div>
 
 
