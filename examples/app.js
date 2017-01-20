@@ -6,7 +6,7 @@ import router from './router.js'
 import './css/app.css'
 
 
-import '../packages/themes/default.css'
+import '../packages/themes/default/index.css'
 
 /*引用table和分页*/
 

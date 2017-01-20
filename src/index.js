@@ -1,13 +1,16 @@
-/*import EasyPagination from '../packages/easy-pagination';*/
-import VTable from '../packages/v-table';
+import VTable from "../packages/v-table";
+import VPagination from "../packages/v-pagination";
 
-const install = function(Vue, opts = {}) {
-/*    Vue.component(EasyPagination.name, EasyPagination);*/
+
+const install = function (Vue, opts = {}) {
+
     Vue.component(VTable.name, VTable);
+    Vue.component(VPagination.name, VPagination);
+
 }
 
 module.exports = {
     version: '0.0.1',
-/*    EasyPagination,*/
+    VPagination,
     VTable
 };
