@@ -39,7 +39,8 @@
                                                 <span :class="['easytable-sort-icon', col.orderBy]"></span>
                                             </div>
                                         </div>
-                                    </td>5
+                                    </td>
+                                    5
                                 </tr>
                             </template>
                             </tbody>
@@ -232,12 +233,12 @@
             },
 
             // 奇数行颜色
-            oddBgColor:{
+            oddBgColor: {
                 type: String,
                 default: '#fff'
             },
             // 偶数行颜色
-            evenBgColor:{
+            evenBgColor: {
                 type: String,
                 default: '#fff'
             },
@@ -471,7 +472,7 @@
                 if (typeof col.formatter === 'function') {
                     var val = col.formatter(row, -1)
                     // 如果是html 不处理
-                    if (/<[a-z][\s\S]*>/i.test(val)) {
+                    if (utils.isHtml(val)) {
                         result = ''
                     } else {
                         result = val
@@ -484,49 +485,42 @@
 
             // 行颜色
             trBgColor(num){
-                return num%2 === 0 ? {'background-color':this.evenBgColor}:{'background-color':this.oddBgColor}
+                return num % 2 === 0 ? {'background-color': this.evenBgColor} : {'background-color': this.oddBgColor}
             },
 
             // 列表中滚动条控制
             scrollControl(){
-                var $view1 = $(".easytable-leftview");
-                var $view2 = $('.easytable-rightview');
-                var $body1 = $view1.children("div.easytable-body");
-                var $body2 = $view2.children("div.easytable-body");
+                var view1 = document.querySelector(".easytable-leftview");
+                var view2 = document.querySelector('.easytable-rightview');
 
-                $body1.bind("mousewheel DOMMouseScroll", function (e) {
-                    e.preventDefault();
+                var body1 = document.querySelector('.easytable-leftview .easytable-body');
+                var body2 = document.querySelector('.easytable-rightview .easytable-body');
+
+                utils.addWheelListener(body1, function (e) {
                     var e1 = e.originalEvent || window.event;
                     var scrollHeight = e1.wheelDelta || e1.detail * (-1);
-                    $body2.scrollTop($body2.scrollTop() - scrollHeight);
-                });
+                    body2.scrollTop = (body2.scrollTop - scrollHeight);
+                })
 
-                $body2.bind("scroll", function () {
-                    $body1.scrollTop($(this).scrollTop());
-                    var c1 = $body1.children(":first");
-                    var c2 = $body2.children(":first");
-                    if (c1.length && c2.length) {
-                        var top1 = c1.offset().top;
-                        var top2 = c2.offset().top;
-                        if (top1 != top2) {
-                            $body1.scrollTop($body1.scrollTop() + top1 - top2);
-                        }
-                    }
-                    $view2.children("div.easytable-header").scrollLeft($(this).scrollLeft())
+                utils.addScrollListener(body2, function (e) {
+                    body1.scrollTop = body2.scrollTop;
+
+                    view2.querySelector('.easytable-header').scrollLeft = body2.scrollLeft;
                 })
             },
             // 随着窗口改变表格自适应
             tableResize(){
-                var vm = this;
-                var width = (vm.width && vm.width > 0) ? vm.width : vm.viewWidth
-                var height = (vm.height && vm.height > 0) ? vm.height : vm.viewHeight
-                var minWidth = vm.minWidth
-                var minHeight = vm.minHeight
-                var viewOffset = utils.getViewportOffset(document.querySelector('.easytable-views'));
-                var currentWidth = $('.easytable-views').outerWidth();
-                var currentHeight = $('.easytable-views').outerHeight();
-                var right = $(window).width() - currentWidth - viewOffset.left;
-                var bottom = $(window).height() - currentHeight - viewOffset.top - 10; // -10 防止浏览器出垂直滚动条
+                var vm = this,
+                    width = (vm.width && vm.width > 0) ? vm.width : vm.viewWidth,
+                    height = (vm.height && vm.height > 0) ? vm.height : vm.viewHeight,
+                    minWidth = vm.minWidth,
+                    minHeight = vm.minHeight,
+                    view = document.querySelector('.easytable-views'),
+                    viewOffset = utils.getViewportOffset(view),
+                    currentWidth = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().width : (view.clientWidth + 2),
+                    currentHeight = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().height : (view.clientHeight + 2),
+                    right = window.document.documentElement.clientWidth - currentWidth - viewOffset.left,
+                    bottom = window.document.documentElement.clientHeight - currentHeight - viewOffset.top - 10; // -10 防止浏览器出垂直滚动条
 
                 if (vm.isHorizontalResize && vm.newWidth && vm.newWidth > 0) {
 

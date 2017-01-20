@@ -111,7 +111,6 @@ var entry = {
     vendors: [
         'babel-polyfill',
         'vue',
-         path.join(__dirname, './examples/js/jquery.js'),
         'vue-EasyTable',
         'VTable'
     ],
