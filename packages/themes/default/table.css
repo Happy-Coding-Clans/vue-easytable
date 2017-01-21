@@ -129,10 +129,6 @@
     right: 0px;
 }
 
-/*.easytable-rightview td:last-child .easytable-title-cell{
-    border-width: 0 0 1px 0;
-}*/
-
 .easytable-rightview td:last-child .easytable-body-cell{
     border-width: 0 0 1px 0;
 }
@@ -143,15 +139,15 @@
     background: url(./../images/sort_icons.png) no-repeat -64px center;
 }
 
-.asc{
+.easytable-header .asc{
     background: url(./../images/sort_icons.png) no-repeat 0 center;
 }
 
-.desc{
+.easytable-header .desc{
     background: url(./../images/sort_icons.png) no-repeat -16px center;
 }
 
-.cursorPointer{
+.easytable-header .cursorPointer{
     cursor: pointer;
 }
 
