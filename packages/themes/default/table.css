@@ -168,7 +168,7 @@
     height: 12px;
     line-height: 12px;
     overflow: hidden;
-    color: #c3cbd6;
+    color: #97a8be;
     transition: color .2s ease-in-out;
 }
 
@@ -185,7 +185,7 @@
 }
 
 .easytable-sort-icon .checked{
-    color:#39f;
+    color:#48576a;
 }
 
 
