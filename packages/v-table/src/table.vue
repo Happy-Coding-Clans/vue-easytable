@@ -19,9 +19,13 @@
                                         <div class="easytable-title-cell"
                                              :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                             <span class="table-title" v-html="col.title"></span>
-                                            <div class="easytable-sort" v-if="enableSort(col.orderBy)">
+                                            <!--<div class="easytable-sort" v-if="enableSort(col.orderBy)">
                                                 <span :class="['easytable-sort-icon', col.orderBy]"></span>
-                                            </div>
+                                            </div>-->
+                                            <span class="easytable-sort-icon" v-if="enableSort(col.orderBy)">
+                                                    <i :class='["easytable-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
+                                                    <i :class='["easytable-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                            </span>
                                         </div>
                                     </td>
                                 </tr>
@@ -35,9 +39,13 @@
                                         <div class="easytable-title-cell"
                                              :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
                                             <span class="table-title" v-html="col.title"></span>
-                                            <div class="easytable-sort" v-if="enableSort(col.orderBy)">
+                                           <!-- <div class="easytable-sort" v-if="enableSort(col.orderBy)">
                                                 <span :class="['easytable-sort-icon', col.orderBy]"></span>
-                                            </div>
+                                            </div>-->
+                                            <span class="easytable-sort-icon" v-if="enableSort(col.orderBy)">
+                                                    <i :class='["easytable-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
+                                                    <i :class='["easytable-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                        </span>
                                         </div>
                                     </td>
                                     5
@@ -97,10 +105,14 @@
                                     <div class="easytable-title-cell"
                                          :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                         <span class="table-title" v-html="col.title"></span>
-                                        <div class="easytable-sort" v-if="enableSort(col.orderBy)">
+                                        <!--<div class="easytable-sort" v-if="enableSort(col.orderBy)">
                                             <span
                                                     :class="['easytable-sort-icon', col.orderBy]"></span>
-                                        </div>
+                                        </div>-->
+                                        <span class="easytable-sort-icon" v-if="enableSort(col.orderBy)">
+                                                    <i :class='["easytable-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
+                                                    <i :class='["easytable-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                        </span>
 
                                     </div>
                                 </td>
@@ -115,10 +127,14 @@
                                     <div class="easytable-title-cell"
                                          :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
                                         <span class="table-title" v-html="col.title"></span>
-                                        <div class="easytable-sort" v-if="enableSort(col.orderBy)">
+                                       <!-- <div class="easytable-sort" v-if="enableSort(col.orderBy)">
                                             <span
                                                     :class="['easytable-sort-icon', col.orderBy]"></span>
-                                        </div>
+                                        </div>-->
+                                        <span class="easytable-sort-icon" v-if="enableSort(col.orderBy)">
+                                                    <i :class='["easytable-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
+                                                    <i :class='["easytable-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                        </span>
                                     </div>
                                 </td>
                             </tr>

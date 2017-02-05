@@ -176,7 +176,7 @@ var loaders = [
      * img loader
      * */
     {
-        test: /\.(png|gif|jpe?g)$/,
+        test: /\.(png|gif|jpe?g)(\?\S*)?$/,
         loader: 'url-loader',
         query: {
             /*
@@ -193,7 +193,7 @@ var loaders = [
      * font loader
      * */
     {
-        test: /\.(eot|woff|woff2|ttf|svg)$/,
+        test: /\.(eot|woff|woff2|ttf|svg)(\?\S*)?$/,
         loader: 'url-loader',
         query: {
             limit: 5000,

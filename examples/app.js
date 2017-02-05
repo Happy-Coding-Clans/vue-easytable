@@ -10,8 +10,8 @@ import '../packages/themes/default/index.css'
 
 /*引用table和分页*/
 
-/*import {VTable} from '../src/index.js'*/
-import {VTable} from 'vue-EasyTable'
+import {VTable,VPagination} from '../src/index.js'
+/*import {VTable} from 'vue-EasyTable'*/
 
 
 /*只引用table*/
@@ -20,6 +20,7 @@ import {VTable} from 'vue-EasyTable'
 
 
 Vue.component(VTable.name, VTable)
+Vue.component(VPagination.name, VPagination)
 
 new Vue({
     el: '#app',
