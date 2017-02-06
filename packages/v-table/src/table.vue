@@ -1,13 +1,13 @@
 <template>
-    <div class="easytable-views easytable-class" :style="{'width': newWidth+'px', 'height': newHeight+'px'}">
+    <div class="et-views et-class" :style="{'width': newWidth+'px', 'height': newHeight+'px'}">
         <!--左列-->
         <template v-if="frozenCols.length > 0">
-            <div class="easytable-leftview" :style="{'width':leftViewWidth+'px'}">
+            <div class="et-leftview" :style="{'width':leftViewWidth+'px'}">
                 <!--左列头-->
-                <div class="easytable-header easytable-title-class"
+                <div class="et-header et-title-class"
                      :style="{'width': leftViewWidth+'px','background-color':titleBgColor}">
-                    <div class="easytable-header-inner" style="display: block;">
-                        <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0">
+                    <div class="et-header-inner" style="display: block;">
+                        <table class="et-htable" border="0" cellspacing="0" cellpadding="0">
                             <tbody>
 
                             <template v-if="frozenTitleCols.length > 0">
@@ -16,12 +16,12 @@
                                         :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
                                         :colspan="col.colspan" :rowspan="col.rowspan"
                                         @click.stop="sortControl(col.fields[0],col.orderBy)">
-                                        <div class="easytable-title-cell"
+                                        <div class="et-title-cell"
                                              :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                             <span class="table-title" v-html="col.title"></span>
-                                            <span class="easytable-sort-icon" v-if="enableSort(col.orderBy)">
-                                                    <i :class='["easytable-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                    <i :class='["easytable-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                            <span class="et-sort-icon" v-if="enableSort(col.orderBy)">
+                                                    <i :class='["et-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
+                                                    <i :class='["et-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
                                             </span>
                                         </div>
                                     </td>
@@ -29,16 +29,16 @@
                             </template>
 
                             <template v-else>
-                                <tr class="easytable-header-row">
+                                <tr class="et-header-row">
                                     <td v-for="col in frozenCols"
                                         :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
                                         @click.stop="sortControl(col.field,col.orderBy)">
-                                        <div class="easytable-title-cell"
+                                        <div class="et-title-cell"
                                              :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
                                             <span class="table-title" v-html="col.title"></span>
-                                            <span class="easytable-sort-icon" v-if="enableSort(col.orderBy)">
-                                                    <i :class='["easytable-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                    <i :class='["easytable-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                            <span class="et-sort-icon" v-if="enableSort(col.orderBy)">
+                                                    <i :class='["et-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
+                                                    <i :class='["et-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
                                         </span>
                                         </div>
                                     </td>
@@ -50,14 +50,14 @@
                     </div>
                 </div>
                 <!--左列内容-->
-                <div class="easytable-body easytable-body-class"
+                <div class="et-body et-body-class"
                      :style="{'width': leftViewWidth+'px', 'height': bodyViewHeight+'px'}">
-                    <div class="easytable-body-inner">
-                        <table class="easytable-btable" cellspacing="0" cellpadding="0" border="0">
+                    <div class="et-body-inner">
+                        <table class="et-btable" cellspacing="0" cellpadding="0" border="0">
                             <tbody>
-                            <tr v-for="(item,index) in tableData" class="easytable-row" :style="[trBgColor(index+1)]">
+                            <tr v-for="(item,index) in tableData" class="et-row" :style="[trBgColor(index+1)]">
                                 <td v-for="col in frozenCols">
-                                    <div class="easytable-body-cell"
+                                    <div class="et-body-cell"
                                          :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
                                          :title="col.overflowTitle ?  overflowTitle(item,col) :''"
                                     >
@@ -83,12 +83,12 @@
             </div>
         </template>
         <!--右列-->
-        <div class="easytable-rightview" :style="{'width': rightViewWidth+'px'}">
+        <div class="et-rightview" :style="{'width': rightViewWidth+'px'}">
             <!--右列头-->
-            <div class="easytable-header easytable-title-class"
+            <div class="et-header et-title-class"
                  :style="{'width': (rightViewWidth-1)+'px','background-color':titleBgColor}">
-                <div class="easytable-header-inner" style="display: block;">
-                    <table class="easytable-htable" border="0" cellspacing="0" cellpadding="0">
+                <div class="et-header-inner" style="display: block;">
+                    <table class="et-htable" border="0" cellspacing="0" cellpadding="0">
                         <tbody>
 
                         <template v-if="noFrozenTitleCols.length > 0">
@@ -96,12 +96,12 @@
                                 <td v-for="col in row" :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
                                     :colspan="col.colspan" :rowspan="col.rowspan"
                                     @click.stop="sortControl(col.fields[0],col.orderBy)">
-                                    <div class="easytable-title-cell"
+                                    <div class="et-title-cell"
                                          :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                         <span class="table-title" v-html="col.title"></span>
-                                        <span class="easytable-sort-icon" v-if="enableSort(col.orderBy)">
-                                                    <i :class='["easytable-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                    <i :class='["easytable-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                        <span class="et-sort-icon" v-if="enableSort(col.orderBy)">
+                                                    <i :class='["et-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
+                                                    <i :class='["et-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
                                         </span>
 
                                     </div>
@@ -110,16 +110,16 @@
                         </template>
 
                         <template v-else>
-                            <tr class="easytable-header-row">
+                            <tr class="et-header-row">
                                 <td v-for="(col,colIndex) in noFrozenCols"
                                     :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
                                     @click.stop="sortControl(col.field,col.orderBy)">
-                                    <div class="easytable-title-cell"
+                                    <div class="et-title-cell"
                                          :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
                                         <span class="table-title" v-html="col.title"></span>
-                                        <span class="easytable-sort-icon" v-if="enableSort(col.orderBy)">
-                                                    <i :class='["easytable-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                    <i :class='["easytable-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                        <span class="et-sort-icon" v-if="enableSort(col.orderBy)">
+                                                    <i :class='["et-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
+                                                    <i :class='["et-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
                                         </span>
                                     </div>
                                 </td>
@@ -130,13 +130,13 @@
                 </div>
             </div>
             <!--右列内容-->
-            <div class="easytable-body easytable-body-class"
+            <div class="et-body et-body-class"
                  :style="{'width': rightViewWidth+'px', 'height': bodyViewHeight+'px'}">
-                <table class="easytable-btable" cellspacing="0" cellpadding="0" border="0">
+                <table class="et-btable" cellspacing="0" cellpadding="0" border="0">
                     <tbody>
-                    <tr v-for="(item,rowIndex) in tableData" class="easytable-row" :style="[trBgColor(rowIndex+1)]">
+                    <tr v-for="(item,rowIndex) in tableData" class="et-row" :style="[trBgColor(rowIndex+1)]">
                         <td v-for="(col,colIndex) in noFrozenCols">
-                            <div class="easytable-body-cell"
+                            <div class="et-body-cell"
                                  :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
                                  :title="col.overflowTitle ?  overflowTitle(item,col) :''"
                             >
@@ -492,11 +492,11 @@
 
             // 列表中滚动条控制
             scrollControl(){
-                var view1 = document.querySelector(".easytable-leftview");
-                var view2 = document.querySelector('.easytable-rightview');
+                var view1 = document.querySelector(".et-leftview");
+                var view2 = document.querySelector('.et-rightview');
 
-                var body1 = document.querySelector('.easytable-leftview .easytable-body');
-                var body2 = document.querySelector('.easytable-rightview .easytable-body');
+                var body1 = document.querySelector('.et-leftview .et-body');
+                var body2 = document.querySelector('.et-rightview .et-body');
 
                 utils.addWheelListener(body1, function (e) {
                     var e1 = e.originalEvent || window.event;
@@ -507,7 +507,7 @@
                 utils.addScrollListener(body2, function (e) {
                     body1.scrollTop = body2.scrollTop;
 
-                    view2.querySelector('.easytable-header').scrollLeft = body2.scrollLeft;
+                    view2.querySelector('.et-header').scrollLeft = body2.scrollLeft;
                 })
             },
             // 随着窗口改变表格自适应
@@ -517,7 +517,7 @@
                     height = (vm.height && vm.height > 0) ? vm.height : vm.viewHeight,
                     minWidth = vm.minWidth,
                     minHeight = vm.minHeight,
-                    view = document.querySelector('.easytable-views'),
+                    view = document.querySelector('.et-views'),
                     viewOffset = utils.getViewportOffset(view),
                     currentWidth = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().width : (view.clientWidth + 2),
                     currentHeight = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().height : (view.clientHeight + 2),

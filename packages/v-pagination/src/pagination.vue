@@ -1,7 +1,7 @@
 <template>
-    <div class="easytable-paging">
-        <span class="paging_total">共 800 条</span>
-        <ul class="paging_numbers">
+    <div class="et-paging">
+        <span class="et-paging-total">共 800 条</span>
+        <ul class="et-paging-numbers">
             <li><a><i class="fa fa-angle-left"></i></a></li>
             <li><a>1</a></li>
             <li class="btn-jumper"><a class="is-primary is-inverted "><i class="fa fa-angle-double-left"></i></a>
@@ -30,24 +30,28 @@
         box-sizing: border-box;
     }
 
-    .easytable-paging {
+    .et-paging {
         margin: 0;
         padding: 0;
     }
 
-    .paging_total {
+    .et-paging-total {
         display: inline-block;
         margin: 0 4px;
+
+        background:lightpink;
     }
 
-    .paging_numbers {
+    .et-paging-numbers {
         display: inline-block;
         margin: 0 4px;
 
         list-style-type: none;
+
+        background:lightgreen;
     }
 
-    .paging_numbers li{
+    .et-paging-numbers li{
         min-width: 32px;
         line-height: 30px;
         cursor: pointer;

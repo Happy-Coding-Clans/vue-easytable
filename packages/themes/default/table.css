@@ -6,7 +6,7 @@
     box-sizing:border-box;
 }
 
-.easytable-views {
+.et-views {
     position: relative;
     overflow: hidden;
     border:1px solid rgba(221, 221, 221, 1);
@@ -14,22 +14,22 @@
     background-color: rgb(255, 255, 255);
 }
 
-.easytable-leftview, .easytable-rightview {
+.et-leftview, .et-rightview {
     position: absolute;
     overflow: hidden;
     top: 0px;
 }
 
-.easytable-leftview {
+.et-leftview {
     left: 0px;
 }
 
-.easytable-header {
+.et-header {
     overflow: hidden;
     cursor: default;
 }
 
-.easytable-header {
+.et-header {
     background-position: initial;
     background-size: initial;
     background-attachment: initial;
@@ -40,33 +40,33 @@
     background-repeat-y: no-repeat;
 }
 
-.easytable-header, .easytable-toolbar, .easytable-pager, .easytable-footer-inner {
+.et-header, .et-toolbar, .et-pager, .et-footer-inner {
     border-color: rgba(221, 221, 221, 1);
 }
 
-.easytable-header-inner {
+.et-header-inner {
     float: left;
     width: 10000px;
 }
 
-.easytable-htable, .easytable-btable, .easytable-ftable {
+.et-htable, .et-btable, .et-ftable {
     border-collapse: separate;
 }
 
-/*.easytable-btable tr:nth-child(even) {
+/*.et-btable tr:nth-child(even) {
     background:#f4f4f4;
 }*/
 
-.easytable-header-row, .easytable-row {
+.et-header-row, .et-row {
     height: 25px;
 }
 
-.easytable-header td, .easytable-body td, .easytable-footer td {
+.et-header td, .et-body td, .et-footer td {
     margin: 0;
     padding: 0;
 }
 
-.easytable-body-cell{
+.et-body-cell{
     padding:0 3px;
     margin: 0;
     white-space: nowrap;
@@ -78,7 +78,7 @@
     text-overflow: ellipsis;
 }
 
-.easytable-body {
+.et-body {
     margin:0;
     padding:0;
     overflow-x: auto;
@@ -86,41 +86,41 @@
     zoom: 1;
 }
 
-.easytable-leftview .easytable-body {
+.et-leftview .et-body {
     overflow-x: hidden;
     overflow-y: hidden;
 }
 
-.easytable-leftview .easytable-body-inner {
+.et-leftview .et-body-inner {
     padding-bottom: 20px;
 }
 
-.easytable-rightview {
+.et-rightview {
     right: 0px;
 }
 
-.easytable-rightview td:last-child .easytable-body-cell{
+.et-rightview td:last-child .et-body-cell{
     border-width: 0 0 1px 0;
 }
 
-/*.easytable-sort{
+/*.et-sort{
     width: 13px;
     padding-right: 5px;
     display: table-cell;
     vertical-align: middle;
 }
 
-.easytable-sort-icon {
+.et-sort-icon {
     display: inline;
     padding: 0 13px 0 0;
     background: url(./../images/sort_icons.png) no-repeat -64px center;
 }
 
-.easytable-header .asc{
+.et-header .asc{
     background: url(./../images/sort_icons.png) no-repeat 0 center;
 }
 
-.easytable-header .desc{
+.et-header .desc{
     background: url(./../images/sort_icons.png) no-repeat -16px center;
 }
 
@@ -128,14 +128,14 @@
 
 
 
-.easytable-title-cell{
+.et-title-cell{
     margin: 0;
     border-width: 0 1px 1px 0;
     border-style: solid;
     border-color: rgba(221, 221, 221, 1);
 }
 
-.easytable-title-cell:before {
+.et-title-cell:before {
     content: '';
     display: inline-block;
     height: 100%;
@@ -150,7 +150,7 @@
     word-break: break-all;
 }
 
-.easytable-sort-icon {
+.et-sort-icon {
     position: relative;
     display: inline-block;
     vertical-align: middle;
@@ -160,7 +160,7 @@
     overflow: hidden;
 }
 
-.easytable-sort-icon i {
+.et-sort-icon i {
 
     position: absolute;
     display: block;
@@ -172,29 +172,29 @@
     transition: color .2s ease-in-out;
 }
 
-.easytable-sort-icon i:first-child {
+.et-sort-icon i:first-child {
     top: -3px;
 }
 
-.easytable-sort-icon i:last-child {
+.et-sort-icon i:last-child {
     bottom: -1px;
 }
 
-.easytable-header .cursorPointer{
+.et-header .cursorPointer{
     cursor: pointer;
 }
 
-.easytable-sort-icon .checked{
+.et-sort-icon .checked{
     color:#48576a;
 }
 
 
 /*
 **预留给用户的**
-.easytable-class{}
+.et-class{}
 
-.easytable-title-class{}
+.et-title-class{}
 
-.easytable-body-class{}
+.et-body-class{}
 */
 

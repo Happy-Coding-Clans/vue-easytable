@@ -57,18 +57,18 @@
 
 <style>
 
-    .easytable-class {
+    .et-class {
         font-size: 14px;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 
-    .easytable-title-class {
+    .et-title-class {
 
         font-weight: bold;
         color: rgb(31, 45, 61);
     }
 
-    .easytable-body-class {
+    .et-body-class {
 
         color: rgb(31, 45, 61);
     }
