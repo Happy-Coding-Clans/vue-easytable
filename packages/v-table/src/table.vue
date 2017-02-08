@@ -498,13 +498,13 @@
                 var body1 = document.querySelector('.et-leftview .et-body');
                 var body2 = document.querySelector('.et-rightview .et-body');
 
-                utils.addWheelListener(body1, function (e) {
+                utils.bind(body1,'mousewheel', function (e) {
                     var e1 = e.originalEvent || window.event || e;
                     var scrollHeight = e1.wheelDelta || e1.detail * (-1);
                     body2.scrollTop = (body2.scrollTop - scrollHeight);
                 })
 
-                utils.addScrollListener(body2, function (e) {
+                utils.bind(body2,'scroll',function (e) {
                     body1.scrollTop = body2.scrollTop;
 
                     view2.querySelector('.et-header').scrollLeft = body2.scrollLeft;
