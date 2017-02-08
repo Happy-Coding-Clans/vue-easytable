@@ -15,37 +15,36 @@ export default {
         }
     },
 
-    // 添加鼠标滚动事件
-    addWheelListener(elem,callback){
-        if (!elem || elem === 'undefined'){return false;}
+    //
+    bind(elem, event, handler){
+        if (elem && elem !== 'undefined' && event && handler) {
 
-        var supportEvent;
+            event = event === 'mousewheel' ? (document.onmousewheel !== undefined ? "mousewheel" : "DOMMouseScroll") : event
 
-        // detect available wheel event
-        supportEvent = document.onmousewheel !== undefined ? "mousewheel" : // Webkit and IE support at least "mousewheel"
-                "DOMMouseScroll"; // let's assume that remaining browsers are older Firefox
+            if (document.attachEvent) { //if IE (and Opera depending on user setting)
 
-        if (document.attachEvent){ //if IE (and Opera depending on user setting)
+                elem.attachEvent("on" + event, handler)
+            }
+            else { //WC3 browsers
 
-            elem.attachEvent("on"+supportEvent,callback)
-        }
-        else if (document.addEventListener){ //WC3 browsers
-
-            elem.addEventListener(supportEvent, callback, false)
+                elem.addEventListener(event, handler, false)
+            }
         }
     },
 
-    // 添加滚动事件
-    addScrollListener(elem,callback){
-        if (!elem || elem === 'undefined'){return false;}
+    unbind(elem, event, handler){
+        if (elem && elem !== 'undefined' && event && handler) {
 
-        if (document.attachEvent){ //if IE (and Opera depending on user setting)
+            event = event === 'mousewheel' ? (document.onmousewheel !== undefined ? "mousewheel" : "DOMMouseScroll") : event
 
-            elem.attachEvent("onscroll",callback)
-        }
-        else if (document.addEventListener){ //WC3 browsers
+            if (document.removeEventListener) {
 
-            elem.addEventListener("scroll", callback, false)
+                elem.removeEventListener(event, handler, false)
+            }
+            else{
+
+                elem.detachEvent('on' + event, handler)
+            }
         }
     },
 
