@@ -8,7 +8,7 @@
         </dt>
         <dd class="et-select-dd">
             <ul class="et-select-items">
-                <li v-for="item in labels" @click.stop="selectOptionClick(item)" :class="[item === currentLabel ? 'active' : '']" :style="{'height':height,'line-height':height}"><a href="javascript:void(0);">{{item}}<span> 条/页</span></a></li>
+                <li v-for="item in labels" @click.stop="selectOptionClick(item)" :class="['et-select-items-li',item === currentLabel ? 'active' : '']" :style="{'height':height,'line-height':height}"><a href="javascript:void(0);">{{item}}<span> 条/页</span></a></li>
             </ul>
         </dd>
     </dl>

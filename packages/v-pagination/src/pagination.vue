@@ -15,7 +15,7 @@
             <li class="et-page-li et-page-next"><a><i class="et-icon icon-angle-right"></i></a></li>
 
             <v-select class="et-page-select"></v-select>
-            <span class="et-page-goto">跳转到 <input type="input" class="input "></span>
+            <span class="et-page-goto">前往 <input class="et-page-goto-input" type="input"></span> 页
         </ul>
 </template>
 

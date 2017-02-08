@@ -62,24 +62,24 @@
     width:auto;
 }
 
-.et-select-items li.active{
+.et-select-items-li.active{
     background-color:#0092dd;
 }
 
-.et-select-items li.active a{
+.et-select-items-li.active a{
     color:#fff;
 }
 
-.et-select-items li a {
+.et-select-items-li a {
     text-align: center;
     display:block;
 }
 
-.et-select-items li:hover {
+.et-select-items-li:hover {
     background-color:#e4e8f1;
     color:#fff;
 }
 
-.et-select-items li.active:hover{
+.et-select-items-li.active:hover{
     background-color:#0092dd;
 }
