@@ -2,13 +2,13 @@
     <dl class="et-select">
         <dt class="et-select-dt">
             <a class="et-select-selected" @click.stop.prevent="toggleItems()" :style="{'height':height,'line-height':height}">
-                <span class="et-select-selected-span">{{currentLabel}}<span> 条/页</span></span>
+                <span class="et-select-selected-span">{{newCurrentLabel}}<span> 条/页</span></span>
                 <i class="et-select-selected-i et-icon icon-down-dir" :style="{'line-height':height+' !important'}"></i>
             </a>
         </dt>
         <dd class="et-select-dd">
             <ul class="et-select-items">
-                <li v-for="item in labels" @click.stop="selectOptionClick(item)" :class="['et-select-items-li',item === currentLabel ? 'active' : '']" :style="{'height':height,'line-height':height}"><a href="javascript:void(0);">{{item}}<span> 条/页</span></a></li>
+                <li v-for="item in labels" @click.stop="selectOptionClick(item)" :class="['et-select-items-li',item == newCurrentLabel ? 'active' : '']" :style="{'height':height,'line-height':height}"><a href="javascript:void(0);">{{item}}<span> 条/页</span></a></li>
             </ul>
         </dd>
     </dl>
@@ -27,7 +27,7 @@
                   'small': 22
               },
 
-              currentLabel:50
+              newCurrentLabel:this.currentLabel
           }
         },
         props:{
@@ -37,9 +37,10 @@
 
             labels:{
                 type:Array,
-                require:true,
-                default:[10,20,50] // 去掉
-            }
+                require:true
+            },
+
+            currentLabel:[String, Number]
 
         },
         computed:{
@@ -57,7 +58,7 @@
             },
 
             selectOptionClick(item){
-                this.currentLabel = item
+                this.newCurrentLabel = item
                 this.toggleItems()
             }
         },

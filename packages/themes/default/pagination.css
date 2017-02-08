@@ -108,3 +108,20 @@
 .et-page-goto-input:hover{
     border-color: #0092dd;
 }
+
+.et-page-disabled{
+    cursor: not-allowed;
+}
+
+.et-page-disabled a {
+    color: #ccc
+}
+
+.et-page-disabled:hover {
+    border-color: #d7dde4
+}
+
+.et-page-disabled:hover a {
+    color: #ccc;
+    cursor: not-allowed
+}
