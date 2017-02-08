@@ -1,3 +1,7 @@
-/**
- * Created by Administrator on 2017/2/7 0007.
- */
+import VSelect from './src/select.vue';
+
+VSelect.install = function(Vue) {
+    Vue.component(VSelect.name, VSelect);
+};
+
+export default VSelect;

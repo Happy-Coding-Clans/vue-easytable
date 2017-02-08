@@ -1,0 +1,85 @@
+.et-select{
+    display: inline-block;
+}
+
+.et-select-dd,.et-select-dt,.et-select-items {
+    margin:0px;
+    padding:0px;
+}
+
+.et-select a, .et-select a:visited {
+    color:#000;
+    text-decoration:none;
+    outline:none;
+}
+
+.et-select-selected {
+    position: relative;
+    display:block;
+    border:1px solid #d1dbe5;
+    border-radius: 2px;
+    width:100px;
+}
+
+.et-select-selected:hover {
+    color:#0092dd;
+    border-color:#0092dd;
+}
+
+.et-select-selected-span {
+    display:block;
+    text-align: center;
+    cursor:pointer;
+}
+
+.et-select-selected-i{
+    display: inline-block;
+    position: absolute;
+    top:0;
+    right:0;
+    font-size: 120%;
+}
+
+.et-select-dd {
+    position:relative;
+    display: none;
+}
+
+.et-select-items {
+    position:absolute;
+    top:2px;
+    /*bottom:35px;*/
+    left:0px;
+    min-width:100px;
+    list-style:none;
+    border-radius: 2px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,.12), 0 0 6px rgba(0,0,0,.04);
+    border:1px solid #d1dbe5;
+    color:#C5C0B0;
+
+    padding:5px 0px;
+    width:auto;
+}
+
+.et-select-items li.active{
+    background-color:#0092dd;
+}
+
+.et-select-items li.active a{
+    color:#fff;
+}
+
+.et-select-items li a {
+    text-align: center;
+    display:block;
+}
+
+.et-select-items li:hover {
+    background-color:#e4e8f1;
+    color:#fff;
+}
+
+.et-select-items li.active:hover{
+    background-color:#0092dd;
+}

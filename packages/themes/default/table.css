@@ -182,6 +182,10 @@
 
 .et-header .cursorPointer{
     cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select: none;
 }
 
 .et-sort-icon .checked{

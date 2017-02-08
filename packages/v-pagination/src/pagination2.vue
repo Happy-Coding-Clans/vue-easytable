@@ -42,6 +42,8 @@
 
 
 <script>
+    import
+
     export default{
         name: 'v-pagination',
         props: {

@@ -1,0 +1,90 @@
+*, :after, :before {
+    box-sizing: border-box;
+}
+
+.et-page-ul {
+    margin: 0;
+    padding: 0;
+    height:32px;
+    display: inline-block;
+    margin: 0 4px;
+    list-style-type: none;
+
+    font-size:14px;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select: none;
+
+}
+
+.et-page-total {
+    float: left;
+    display: inline-block;
+    margin: 0 4px;
+    line-height: 32px;
+
+}
+
+.et-page-select{
+    float: left;
+    margin: 0 4px;
+    height:32px;
+    line-height: 32px;
+}
+
+.et-page-li{
+    float: left;
+    margin-right: 4px;
+    min-width: 32px;
+    line-height: 32px;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+    text-align: center;
+
+    list-style: none;
+
+    background-color: #fff;
+    border: 1px solid #d7dde4;
+    border-radius: 4px;
+}
+
+.et-page-li:hover{
+    color:#333;
+    border-color: #666;
+}
+
+.et-page-prev,.et-page-next{
+    font-size:16px;
+    color:#666;
+}
+
+.et-page-jump-prev:after,.et-page-jump-next:after{
+    content: "•••";
+    display: block;
+    letter-spacing: 1px;
+    color:#666;
+    text-align: center;
+}
+
+.et-page-jump-prev i,.et-page-jump-prev:hover:after,.et-page-jump-next i,.et-page-jump-next:hover:after{
+    display: none;
+}
+
+.et-page-jump-prev:hover i,.et-page-jump-next:hover i {
+    display: inline;
+}
+
+
+.et-page-select {
+    display: inline-block;
+    margin: 0 4px;
+
+}
+
+.et-page-goto {
+    display: inline-block;
+    margin: 0 4px;
+    line-height: 32px;
+}
