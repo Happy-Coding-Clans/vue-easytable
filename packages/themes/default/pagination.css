@@ -52,7 +52,12 @@
 
 .et-page-li:hover{
     color:#333;
-    border-color: #666;
+    border-color: #0092dd;
+}
+
+.et-page-li-active{
+    color:#333;
+    border-color: #0092dd;
 }
 
 .et-page-prev,.et-page-next{
@@ -74,6 +79,7 @@
 
 .et-page-jump-prev:hover i,.et-page-jump-next:hover i {
     display: inline;
+    color:#0092dd;
 }
 
 
