@@ -2,11 +2,9 @@
     <div>
         分页组件展示<br/><br/>
         <v-pagination
-                :page-count="pageCount"
-                :page-index="pageIndex"
-                :page-size="pageSize"
-                :page-size-option="pageSizeOption"
-                @pagingCallBack="pagingCallBack"
+                :total="total"
+                @page-change="pageChange"
+                @page-size-change="pageSizeChange"
         ></v-pagination>
     </div>
 </template>
@@ -14,15 +12,18 @@
     export default{
         data(){
             return {
-                pageCount:32,
-                pageIndex:1,
-                pageSize:100,
-                pageSizeOption:[25,50,100]
+                total:600,
+                /*pageSize:25,*/
+                /*pageSizeOption:[25,50,100]*/
             }
         },
         methods:{
-            pagingCallBack(pageIndex){
-                this.pageIndex = pageIndex
+            pageChange(pageIndex){
+                console.log(pageIndex)
+            },
+
+            pageSizeChange(pageSize){
+                console.log(pageSize)
             }
         }
     }
