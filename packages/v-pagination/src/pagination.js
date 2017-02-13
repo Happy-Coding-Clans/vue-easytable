@@ -7,7 +7,7 @@ export default{
         layout: {
             type: Array,
             default(){
-                return ['total', 'prev', 'pager', 'next', 'sizer']
+                return ['total', 'prev', 'pager', 'next', 'sizer','jumper']
             }
         },
 
@@ -60,14 +60,15 @@ export default{
         let template = <ul class="et-page-ul"></ul>;
 
         var comps = {
-            //'total','prev','pager','next','sizer'
+            //'total','prev','pager','next','sizer','jumper'
             'total': <total></total>,
             'prev': <prev></prev>,
             'pager': <pager pageCount={this.pageCount} pageIndex={this.newPageIndex}
                             showPagingCount={this.showPagingCount}
                             onJumpPageHandler={this.jumpPageHandler}></pager>,
             'next': <next></next>,
-            'sizer': <sizer></sizer>
+            'sizer': <sizer></sizer>,
+            'jumper':<jumper></jumper>
         }
 
         this.layout.forEach(item => {
@@ -121,10 +122,53 @@ export default{
                               currentLabel={this.$parent.pageSize}></v-select>
                 )
             }
+        },
+
+        Jumper:{
+            methods:{
+                jumperEnter(event){
+                    if (event.keyCode !== 13) return
+
+                    var val = this.$parent.getValidNum(event.target.value)
+
+                    this.$parent.newPageIndex = val
+
+                    event.target.value = val
+                }
+            },
+            render(h){
+                return (
+                    <span class="et-page-goto">前往 <input
+                        class="et-page-goto-input"
+                        domProps-value={this.$parent.newPageIndex}
+                        on-keyup={this.jumperEnter}
+                        type="input"
+                        /> 页</span>
+                )
+            }
         }
     },
 
     methods: {
+
+        getValidNum(value){
+            let result=1
+
+            value = parseInt(value, 10);
+
+            if (isNaN(value) || value < 1){
+                result = 1
+            }else{
+                if (value < 1) {
+                    result = 1;
+                } else if (value > this.pageCount) {
+                    result = this.pageCount;
+                }else{
+                    result = value
+                }
+            }
+            return result
+        },
 
         jumpPageHandler(newPageIndex){
             this.newPageIndex = newPageIndex
