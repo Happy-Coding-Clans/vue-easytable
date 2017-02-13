@@ -64,9 +64,12 @@
             selectOptionClick(item){
                 this.newCurrentLabel = item
                 this.toggleItems()
+
+                this.$emit('selectChangeHandler',this.newCurrentLabel)
             }
         },
         mounted(){
+
             utils.bind(document, 'click', function (e) {
                 var ele = document.querySelector(".et-select-dd")
                 if (ele !== null) {
