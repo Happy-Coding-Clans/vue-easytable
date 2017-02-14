@@ -2,49 +2,88 @@
     box-sizing: border-box;
 }
 
+.et-page--large .et-page-total,
+.et-page--large .et-page-li,
+.et-page--large .et-page-select,
+.et-page--large .et-page-goto,
+.et-page--large .et-page-goto .et-page-goto-input{
+    font-size:16px;
+    height:40px;
+    line-height: 40px;
+}
+.et-page--large .et-page-li{
+    min-width: 40px;
+}
+.et-page--large .et-page-li i{
+    font-size:120%;
+}
+
+
+.et-page--middle .et-page-total,
+.et-page--middle .et-page-li,
+.et-page--middle .et-page-select,
+.et-page--middle .et-page-goto,
+.et-page--middle .et-page-goto .et-page-goto-input{
+    font-size:14px;
+    height:32px;
+    line-height: 32px;
+}
+.et-page--middle .et-page-li{
+    min-width: 32px;
+}
+.et-page--middle .et-page-li i{
+    font-size:120%;
+}
+
+
+.et-page--small .et-page-total,
+.et-page--small .et-page-li,
+.et-page--small .et-page-select,
+.et-page--small .et-page-goto,
+.et-page--small .et-page-goto .et-page-goto-input{
+    font-size:12px;
+    height:24px;
+    line-height: 24px;
+}
+
+.et-page--small .et-page-li{
+    min-width: 24px;
+}
+.et-page--small .et-page-li i{
+    font-size:120%;
+}
+
+
 .et-page-ul {
     margin: 0;
     padding: 0;
-    height:32px;
     display: inline-block;
     margin: 0 4px;
     list-style-type: none;
-
-    font-size:14px;
-
     -webkit-user-select: none;
     -moz-user-select: none;
     -khtml-user-select: none;
     -ms-user-select: none;
-
 }
 
 .et-page-total {
     float: left;
     display: inline-block;
     margin: 0 4px;
-    line-height: 32px;
-
 }
 
 .et-page-select{
     float: left;
     margin: 0 4px;
-    height:32px;
-    line-height: 32px;
 }
 
 .et-page-li{
     float: left;
     margin-right: 4px;
-    min-width: 32px;
-    line-height: 32px;
     cursor: pointer;
     transition: all .1s ease-in-out;
     text-align: center;
-
     list-style: none;
-
     background-color: #fff;
     border: 1px solid #d7dde4;
     border-radius: 4px;
@@ -61,7 +100,6 @@
 }
 
 .et-page-prev,.et-page-next{
-    font-size:16px;
     color:#666;
 }
 
@@ -86,7 +124,6 @@
 .et-page-select {
     display: inline-block;
     margin: 0 4px;
-
 }
 
 .et-page-pager{
@@ -94,20 +131,20 @@
 }
 
 .et-page-goto {
+ /*   height:32px;
+    line-height: 32px;*/
     float: left;
     display: inline-block;
     margin: 0 4px;
-    line-height: 32px;
 }
 
 .et-page-goto-input{
+/*    height: 32px;
+    line-height: 32px;*/
+  /*  font-size: 14px;*/
+
     padding: 1px 7px;
-    height: 24px;
-    border-radius: 3px;
     display: inline-block;
-    height: 32px;
-    line-height: 1.5;
-    font-size: 12px;
     border: 1px solid #d7dde4;
     background-color: #fff;
     background-image: none;

@@ -1,3 +1,36 @@
+.et-select--large .et-select-selected,
+.et-select--large .et-select-items-li{
+    font-size:16px;
+    height:40px;
+    line-height: 40px;
+}
+.et-select--large .et-select-selected-i{
+    line-height:40px !important;
+}
+
+
+.et-select--middle .et-select-selected,
+.et-select--middle .et-select-items-li{
+    font-size:14px;
+    height:32px;
+    line-height: 32px;
+}
+.et-select--middle .et-select-selected-i{
+    line-height:32px !important;
+}
+
+
+.et-select--small .et-select-selected,
+.et-select--small .et-select-items-li{
+    font-size:12px;
+    height:24px;
+    line-height: 24px;
+}
+.et-select--small .et-select-selected-i{
+    line-height:24px !important;
+}
+
+
 .et-select{
     display: inline-block;
 }
