@@ -1,18 +1,16 @@
 <template>
-    <dl class="et-select">
+    <dl :class="['et-select',sizeClass]">
         <dt class="et-select-dt">
-            <a class="et-select-selected" @click.stop.prevent="toggleItems()"
-               :style="{'height':height,'line-height':height}">
+            <a class="et-select-selected" @click.stop.prevent="toggleItems()">
                 <span class="et-select-selected-span">{{newCurrentLabel}}<span> 条/页</span></span>
-                <i class="et-select-selected-i et-icon icon-down-dir" :style="{'line-height':height+' !important'}"></i>
+                <i class="et-select-selected-i et-icon icon-down-dir"></i>
             </a>
         </dt>
         <dd class="et-select-dd">
             <ul class="et-select-items">
                 <li v-for="item in labels" @click.stop="selectOptionClick(item)"
-                    :class="['et-select-items-li',item == newCurrentLabel ? 'active' : '']"
-                    :style="{'height':height,'line-height':height}"><a
-                        href="javascript:void(0);">{{item}}<span> 条/页</span></a></li>
+                    :class="['et-select-items-li',item == newCurrentLabel ? 'active' : '']">
+                    <a href="javascript:void(0);">{{item}}<span> 条/页</span></a></li>
             </ul>
         </dd>
     </dl>
@@ -20,17 +18,12 @@
 
 <script>
     import utils from '../../../src/utils/utils.js'
+    import settings from '../../../src/settings/settings.js'
 
     export default{
         name: 'v-select',
         data(){
             return {
-                sizeMaps: {
-                    'large': 42,
-                    'middle': 30,
-                    'small': 22
-                },
-
                 newCurrentLabel: this.currentLabel
             }
         },
@@ -47,9 +40,10 @@
             currentLabel: [String, Number]
 
         },
-        computed: {
-            height(){
-                return (this.sizeMaps[this.size] || 30) + 'px'
+        computed:{
+            sizeClass(){
+                let size = settings.sizeMaps[this.size] || settings.sizeMapDefault
+                return size === settings.sizeMaps['large'] ? ' et-select--large' :(size === settings.sizeMaps['middle'] ? ' et-select--middle' :' et-select--small')
             }
         },
         methods: {
