@@ -25,7 +25,7 @@ export default{
         // 最多显示几个数字按钮
         showPagingCount: {
             type: Number,
-            default: 5
+            default: 11
         },
 
         // 每页大小

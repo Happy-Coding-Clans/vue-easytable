@@ -1,5 +1,5 @@
 <template>
-    <span>
+    <span class="et-page-pager">
         <li @click.stop.prevent="jumpPage(1)" :class='[pageIndex === 1 ? "et-page-li-active":"","et-page-li"]'><a>1</a></li>
 
         <li @click.stop.prevent="jumpPage(pageIndex - showPagingCount)" v-if="showJumpPrev"
