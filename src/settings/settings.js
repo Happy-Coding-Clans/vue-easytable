@@ -1,3 +1,9 @@
-/**
- * Created by Administrator on 2017/2/14 0014.
- */
+export default {
+    sizeMaps: {
+        'large': 40,
+        'middle': 32,
+        'small': 24
+    },
+
+    sizeMapDefault:32
+}
