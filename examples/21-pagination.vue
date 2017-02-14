@@ -3,6 +3,21 @@
         分页组件展示<br/><br/>
         <v-pagination
                 :total="total"
+                size="small"
+                @page-change="pageChange"
+                @page-size-change="pageSizeChange"
+        ></v-pagination>
+        <br /> <br />
+        <v-pagination
+                :total="total"
+                size="middle"
+                @page-change="pageChange"
+                @page-size-change="pageSizeChange"
+        ></v-pagination>
+        <br /> <br />
+        <v-pagination
+                :total="total"
+                size="large"
                 @page-change="pageChange"
                 @page-size-change="pageSizeChange"
         ></v-pagination>
