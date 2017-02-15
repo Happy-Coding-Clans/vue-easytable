@@ -17,6 +17,9 @@
 .et-page--large .et-page-li i{
     font-size:120%;
 }
+.et-page--large .et-page-goto .et-page-goto-input{
+    width:50px;
+}
 
 
 .et-page--middle .et-page-total,
@@ -33,6 +36,9 @@
 }
 .et-page--middle .et-page-li i{
     font-size:120%;
+}
+.et-page--middle .et-page-goto .et-page-goto-input{
+    width:50px;
 }
 
 
@@ -51,6 +57,9 @@
 }
 .et-page--small .et-page-li i{
     font-size:120%;
+}
+.et-page--small .et-page-goto .et-page-goto-input{
+    width:45px;
 }
 
 
@@ -138,17 +147,12 @@
 }
 
 .et-page-goto {
- /*   height:32px;
-    line-height: 32px;*/
     float: left;
     display: inline-block;
     margin: 0 4px;
 }
 
 .et-page-goto-input{
-/*    height: 32px;
-    line-height: 32px;*/
-  /*  font-size: 14px;*/
 
     padding: 1px 7px;
     display: inline-block;
@@ -157,7 +161,6 @@
     background-image: none;
     transition: border .2s ease-in-out,background .2s ease-in-out,box-shadow .2s ease-in-out;
     border-radius: 4px;
-    width: 50px;
 }
 
 .et-page-goto-input:hover{

@@ -7,6 +7,12 @@
 .et-select--large .et-select-selected-i{
     line-height:40px !important;
 }
+.et-select--large .et-select-selected{
+    width:115px;
+}
+.et-select--large .et-select-items{
+    min-width: 115px;
+}
 
 
 .et-select--middle .et-select-selected,
@@ -17,6 +23,12 @@
 }
 .et-select--middle .et-select-selected-i{
     line-height:32px !important;
+}
+.et-select--middle .et-select-selected{
+    width:95px;
+}
+.et-select--middle .et-select-items{
+    min-width: 95px;
 }
 
 
@@ -29,7 +41,12 @@
 .et-select--small .et-select-selected-i{
     line-height:24px !important;
 }
-
+.et-select--small .et-select-selected{
+    width:85px;
+}
+.et-select--small .et-select-items{
+    min-width: 85px;
+}
 
 .et-select{
     display: inline-block;
@@ -57,7 +74,6 @@
     display:block;
     border:1px solid #c8cdd4;
     border-radius: 2px;
-    width:100px;
 }
 
 .et-select-selected:hover {
@@ -66,6 +82,7 @@
 }
 
 .et-select-selected-span {
+    width: 80%;
     display:block;
     text-align: center;
     cursor:pointer;
@@ -86,9 +103,7 @@
 .et-select-items {
     position:absolute;
     top:2px;
-    /*bottom:35px;*/
     left:0px;
-    min-width:100px;
     list-style:none;
     border-radius: 2px;
     background-color: #fff;
@@ -109,6 +124,7 @@
 }
 
 .et-select-items-li a {
+    width: 80%;
     text-align: center;
     display:block;
 }
