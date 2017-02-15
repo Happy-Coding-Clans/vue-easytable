@@ -35,10 +35,16 @@
     display: inline-block;
 }
 
+.et-select-dd,.et-select-dt{
+    z-index: 9999;
+}
+
 .et-select-dd,.et-select-dt,.et-select-items {
     margin:0px;
     padding:0px;
+    background-color: #fff;
 }
+
 
 .et-select a, .et-select a:visited {
     color:#000;
@@ -75,7 +81,6 @@
 
 .et-select-dd {
     position:relative;
-    display: none;
 }
 
 .et-select-items {

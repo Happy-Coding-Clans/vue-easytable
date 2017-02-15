@@ -95,7 +95,7 @@ export default{
         Total: {
             render(h){
                 return (
-                    <span class="et-page-total">共 {this.$parent.total} 条</span>
+                    <span class="et-page-total">&nbsp;共&nbsp;{this.$parent.total}&nbsp;条&nbsp;</span>
                 )
             }
         },
@@ -149,12 +149,12 @@ export default{
             },
             render(h){
                 return (
-                    <span class="et-page-goto">前往 <input
+                    <span class="et-page-goto">&nbsp;前往&nbsp;<input
                         class="et-page-goto-input"
                         domProps-value={this.$parent.newPageIndex}
                         on-keyup={this.jumperEnter}
                         type="input"
-                    /> 页</span>
+                    />&nbsp;页&nbsp;</span>
                 )
             }
         }
