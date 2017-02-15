@@ -1,58 +1,33 @@
-(function (exports) { 'use strict';
-    // @SECTION: implementation
+export default {
+    bind: function (el, binding, vNode) {
+        if (typeof binding.value !== 'function') {
 
-    var HANDLER = '_vue_clickaway_handler';
+            let msg = `in [clickoutside] directives, provided expression '${binding.expression}' is not a function `
 
-    function bind(el, binding) {
-        unbind(el);
+            const compName = vNode.context.name
 
-        var callback = binding.value;
-        if (typeof callback !== 'function') {
-            return;
+            if (compName) {
+                msg += `in ${compName}`
+            }
+            console.error(msg)
         }
 
-        // @NOTE: Vue binds directives in microtasks, while UI events are dispatched
-        //        in macrotasks. This causes the listener to be set up before
-        //        the "origin" click event (the event that lead to the binding of
-        //        the directive) arrives at the document root. To work around that,
-        //        we ignore events until the end of the "initial" macrotask.
-        // @REFERENCE: https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
-        // @REFERENCE: https://github.com/simplesmiler/vue-clickaway/issues/8
-        var initialMacrotaskEnded = false;
-        setTimeout(function() {
-            initialMacrotaskEnded = true;
-        }, 0);
-
-        el[HANDLER] = function(ev) {
-            // @NOTE: IE 5.0+
-            // @REFERENCE: https://developer.mozilla.org/en/docs/Web/API/Node/contains
-            if (initialMacrotaskEnded && !el.contains(ev.target)) {
-                return callback(ev);
+        var handler = (e) => {
+            if (!el.contains(e.target) && el !== e.target) {
+                binding.value(e)
+            } else {
+                return false
             }
-        };
+        }
 
-        document.documentElement.addEventListener('click', el[HANDLER], false);
+        el.__clickOutSide__ = handler
+
+        document.addEventListener('click', handler, true)
+    },
+
+    unbind: function (el) {
+        document.removeEventListener('click', el.__clickOutSide__, true)
+        el.__clickOutSide__ = null
+
     }
-
-    function unbind(el) {
-        document.documentElement.removeEventListener('click', el[HANDLER], false);
-        delete el[HANDLER];
-    }
-
-    var directive = {
-        bind: bind,
-        update: function(el, binding) {
-            if (binding.value === binding.oldValue) return;
-            bind(el, binding);
-        },
-        unbind: unbind,
-    };
-
-    var mixin = {
-        directives: { onClickaway: directive },
-    };
-
-    exports.directive = directive;
-    exports.mixin = mixin;
-
-})(({}));
+};
