@@ -8,6 +8,14 @@
         <div class="sidebar">
             <ul class="menu-root">
                 <li>
+                    <a class="sidebar-link" href="javascript:javascript:void(0);">分页组件</a>
+                    <ul class="menu-sub">
+                        <li>
+                            <router-link to="/pagination" exact>分页</router-link>
+                        </li>
+                    </ul>
+                </li>
+                <li>
                     <a class="sidebar-link" href="javascript:javascript:void(0);">表格组件</a>
                     <ul class="menu-sub">
                         <li>
@@ -36,14 +44,7 @@
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a class="sidebar-link" href="javascript:javascript:void(0);">分页组件</a>
-                    <ul class="menu-sub">
-                        <li>
-                            <router-link to="/pagination" exact>分页</router-link>
-                        </li>
-                    </ul>
-                </li>
+
             </ul>
         </div>
 

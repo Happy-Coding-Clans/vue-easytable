@@ -10,14 +10,14 @@ const frozen_title_columns = r => require.ensure([], () => r(require('./06-froze
 const frozen_title_columns_advanced = r => require.ensure([], () => r(require('./07-frozen-title-columns-advanced.vue')), 'frozen-title-columns-advanced')
 const complex_title = r => require.ensure([], () => r(require('./08-complex-title.vue')), 'complex-title')
 
-const pagination = r => require.ensure([], () => r(require('./21-pagination.vue')), 'pagination')
+const pagination = r => require.ensure([], () => r(require('./00-pagination.vue')), 'pagination')
 
 Vue.use(VueRouter)
 
 export default new VueRouter({
     linkActiveClass: 'active',
     routes: [
-        {path: '/', redirect: '/basic'}, // 默认路由
+        {path: '/', redirect: '/pagination'}, // 默认路由
         {path: '/basic', component: basic},
         {path: '/custom_columns', component: custom_columns},
         {path: '/custom_columns_advanced', component: custom_columns_advanced},
@@ -29,7 +29,7 @@ export default new VueRouter({
 
         {path: '/pagination', component: pagination},
         {
-            path: '*', redirect: '/basic'
+            path: '*', redirect: '/pagination'
         }
        /* {
             path: '*', component: {

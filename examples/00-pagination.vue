@@ -4,6 +4,7 @@
         <v-pagination
                 :total="total"
                 size="small"
+                :layout="layout"
                 @page-change="pageChange"
                 @page-size-change="pageSizeChange"
         ></v-pagination>
@@ -11,6 +12,7 @@
         <v-pagination
                 :total="total"
                 size="middle"
+                :layout="layout"
                 @page-change="pageChange"
                 @page-size-change="pageSizeChange"
         ></v-pagination>
@@ -18,6 +20,7 @@
         <v-pagination
                 :total="total"
                 size="large"
+                :layout="layout"
                 @page-change="pageChange"
                 @page-size-change="pageSizeChange"
         ></v-pagination>
@@ -28,6 +31,8 @@
         data(){
             return {
                 total:600,
+                layout:['total', 'prev', 'pager', 'next', 'sizer', 'jumper']
+                //layout:[ 'prev','pager', 'next']
                 /*pageSize:25,*/
                 /*pageSizeOption:[25,50,100]*/
             }
