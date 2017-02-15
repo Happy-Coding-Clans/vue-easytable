@@ -490,28 +490,35 @@
                 return num % 2 === 0 ? {'background-color': this.evenBgColor} : {'background-color': this.oddBgColor}
             },
 
-            // 列表中滚动条控制
-            scrollControl(){
-                var view1 = document.querySelector(".et-leftview");
-                var view2 = document.querySelector('.et-rightview');
+            body1Mousewheel(e){
+                var body2 = document.querySelector('.et-rightview .et-body');
 
+                var e1 = e.originalEvent || window.event || e;
+                var scrollHeight = e1.wheelDelta || e1.detail * (-1);
+                body2.scrollTop = (body2.scrollTop - scrollHeight);
+            },
+
+            body2Scroll(e){
+                var view2 = document.querySelector('.et-rightview');
                 var body1 = document.querySelector('.et-leftview .et-body');
                 var body2 = document.querySelector('.et-rightview .et-body');
 
-                utils.bind(body1,'mousewheel', function (e) {
-                    var e1 = e.originalEvent || window.event || e;
-                    var scrollHeight = e1.wheelDelta || e1.detail * (-1);
-                    body2.scrollTop = (body2.scrollTop - scrollHeight);
-                })
+                body1.scrollTop = body2.scrollTop;
 
-                utils.bind(body2,'scroll',function (e) {
-                    body1.scrollTop = body2.scrollTop;
+                view2.querySelector('.et-header').scrollLeft = body2.scrollLeft;
+            },
 
-                    view2.querySelector('.et-header').scrollLeft = body2.scrollLeft;
-                })
+            // 列表中滚动条控制
+            scrollControl(){
+                var body1 = document.querySelector('.et-leftview .et-body');
+                var body2 = document.querySelector('.et-rightview .et-body');
+
+                utils.bind(body1,'mousewheel', this.body1Mousewheel)
+                utils.bind(body2,'scroll',this.body2Scroll)
             },
             // 随着窗口改变表格自适应
             tableResize(){
+                console.log('tableResize')
                 var vm = this,
                     width = (vm.width && vm.width > 0) ? vm.width : vm.viewWidth,
                     height = (vm.height && vm.height > 0) ? vm.height : vm.viewHeight,
@@ -613,6 +620,15 @@
                 this.initView()
                 this.tableResize()
             }
+        },
+        destroyed(){
+            window.onresize = null
+
+            var body1 = document.querySelector('.et-leftview .et-body')
+            var body2 = document.querySelector('.et-rightview .et-body')
+
+            utils.unbind(body1,'mousewheel', this.body1Mousewheel)
+            utils.unbind(body2,'scroll',this.body2Scroll)
         }
     }
 </script>
