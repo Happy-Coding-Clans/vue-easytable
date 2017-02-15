@@ -85,18 +85,25 @@
     text-align: center;
     list-style: none;
     background-color: #fff;
-    border: 1px solid #d7dde4;
+    border: 1px solid #c8cdd4;
     border-radius: 4px;
 }
 
 .et-page-li:hover{
-    color:#333;
+    color:#0092dd;
     border-color: #0092dd;
 }
 
 .et-page-li-active{
-    color:#333;
+    color:#fff;
     border-color: #0092dd;
+    background-color:#0092dd;
+}
+
+.et-page-li-active:hover{
+    color:#fff;
+    border-color: #0092dd;
+    background-color:#0092dd;
 }
 
 .et-page-prev,.et-page-next{
@@ -159,10 +166,11 @@
 
 .et-page-disabled{
     cursor: not-allowed;
+    border-color: #d7dde4;
 }
 
 .et-page-disabled a {
-    color: #ccc
+    color: #ccc;
 }
 
 .et-page-disabled:hover {
