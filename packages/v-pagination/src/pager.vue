@@ -15,7 +15,7 @@
             class="et-page-li et-page-jump-next" :title="'向后 '+showPagingCount+' 页'"><a><i
                 class="et-icon icon-angle-double-right"></i></a>
 
-        <li @click.stop.prevent="jumpPage(pageCount)"
+        <li v-if="pageCount >1" @click.stop.prevent="jumpPage(pageCount)"
             :class='[pageIndex === pageCount ? "et-page-li-active":"","et-page-li"]'><a>{{pageCount}}</a></li>
     </span>
 </template>
@@ -23,7 +23,7 @@
 <script>
     export default{
         props: {
-            pageCount:Number,
+            pageCount: Number,
             pageIndex: Number,
             showPagingCount: Number
         },
