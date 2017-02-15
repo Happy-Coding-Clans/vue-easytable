@@ -55,7 +55,7 @@
 .et-select-selected {
     position: relative;
     display:block;
-    border:1px solid #d1dbe5;
+    border:1px solid #c8cdd4;
     border-radius: 2px;
     width:100px;
 }
