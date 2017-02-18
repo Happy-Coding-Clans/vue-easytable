@@ -103,31 +103,6 @@
     border-width: 0 0 1px 0;
 }
 
-/*.et-sort{
-    width: 13px;
-    padding-right: 5px;
-    display: table-cell;
-    vertical-align: middle;
-}
-
-.et-sort-icon {
-    display: inline;
-    padding: 0 13px 0 0;
-    background: url(./../images/sort_icons.png) no-repeat -64px center;
-}
-
-.et-header .asc{
-    background: url(./../images/sort_icons.png) no-repeat 0 center;
-}
-
-.et-header .desc{
-    background: url(./../images/sort_icons.png) no-repeat -16px center;
-}
-
-*/
-
-
-
 .et-title-cell{
     margin: 0;
     border-width: 0 1px 1px 0;
