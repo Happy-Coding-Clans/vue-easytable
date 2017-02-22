@@ -98,24 +98,38 @@
     border-radius: 4px;
 }
 
+.et-page-li a{
+    color:#333;
+}
+
 .et-page-li:hover{
-    color:#0092dd;
     border-color: #0092dd;
+}
+
+.et-page-li:hover a{
+    color:#0092dd;
 }
 
 .et-page-li-active{
-    color:#fff;
+
     border-color: #0092dd;
     background-color:#0092dd;
+}
+
+.et-page-li-active a{
+    color:#fff;
 }
 
 .et-page-li-active:hover{
-    color:#fff;
     border-color: #0092dd;
     background-color:#0092dd;
 }
 
-.et-page-prev,.et-page-next{
+.et-page-li-active:hover a{
+    color:#fff;
+}
+
+.et-page-prev i,.et-page-next i{
     color:#666;
 }
 
@@ -172,7 +186,7 @@
     border-color: #d7dde4;
 }
 
-.et-page-disabled a {
+.et-page-disabled i {
     color: #ccc;
 }
 
@@ -180,7 +194,7 @@
     border-color: #d7dde4
 }
 
-.et-page-disabled:hover a {
+.et-page-disabled:hover i {
     color: #ccc;
     cursor: not-allowed
 }
