@@ -73,7 +73,7 @@ export default{
                             onJumpPageHandler={this.jumpPageHandler}></pager>,
             'next': <next></next>,
             'sizer': <sizer></sizer>,
-            'jumper': <jumper></jumper>
+            'jumper': <jumper onJumpPageHandler={this.jumpPageHandler}></jumper>
         }
 
         this.layout.forEach(item => {
@@ -144,7 +144,7 @@ export default{
 
                     this.$parent.newPageIndex = val
 
-                    event.target.value = val
+                    this.$emit('jumpPageHandler', val)
                 }
             },
             render(h){
