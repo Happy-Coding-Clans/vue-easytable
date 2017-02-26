@@ -211,6 +211,15 @@ export default{
         }
 
     },
+    watch:{
+        pageIndex:function (newVal, oldVal) {
+            this.newPageIndex = newVal;
+        },
+
+        pageSize:function (newVal, oldVal) {
+            this.newPageSize = newVal;
+        }
+    },
     created(){
 
     },
