@@ -98,7 +98,6 @@ var resolve = {
     alias: {
         'vue$': 'vue/dist/vue',
         /*'vue$': 'vue/dist/vue.common.js', // 独立构建*/
-        'vue-EasyTable':path.join(__dirname, './src/index.js'),
         'VTable':path.join(__dirname, './packages/v-table/index.js')
     }
 }
@@ -112,7 +111,6 @@ var entry = {
     vendors: [
         'babel-polyfill',
         'vue',
-        'vue-EasyTable',
         'VTable'
     ],
 };
