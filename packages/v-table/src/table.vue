@@ -67,7 +67,7 @@
                                         </template>
                                         <template v-else>
                                                    <span v-if="typeof col.formatter==='function'"
-                                                         v-html="col.formatter(item,index)">
+                                                         v-html="col.formatter(item,index,pagingIndex)">
                                                     </span>
                                             <span v-else>
                                                         {{item[col.field]}}
@@ -145,7 +145,7 @@
                                 </template>
                                 <template v-else>
                                            <span v-if="typeof col.formatter==='function'"
-                                                 v-html="col.formatter(item,rowIndex)">
+                                                 v-html="col.formatter(item,rowIndex,pagingIndex)">
                                             </span>
                                     <span v-else>
                                                 {{item[col.field]}}
@@ -276,7 +276,10 @@
                 default: function () {
                     return []
                 }
-            }
+            },
+
+            // 分页序号
+            pagingIndex:Number
         },
         computed: {
             // 冻结的列集合
