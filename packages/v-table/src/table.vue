@@ -506,7 +506,10 @@
                 var body1 = document.querySelector('.et-leftview .et-body');
                 var body2 = document.querySelector('.et-rightview .et-body');
 
-                body1.scrollTop = body2.scrollTop;
+                if (body1){
+                    body1.scrollTop = body2.scrollTop;
+                }
+
 
                 view2.querySelector('.et-header').scrollLeft = body2.scrollLeft;
             },
