@@ -42,7 +42,6 @@
                                         </span>
                                         </div>
                                     </td>
-                                    5
                                 </tr>
                             </template>
                             </tbody>
