@@ -43,7 +43,9 @@
 
             showJumpNext(){
                 if (this.pageCount > this.showPagingCount + 2) {
-                    if (this.pageIndex < this.pageCount - this.numOffset) {
+                    //if (this.pageIndex < this.pageCount - this.numOffset) {
+                    if (this.pageIndex <= this.pageCount -this.showPagingCount) {
+
                         return true
                     }
                 }
