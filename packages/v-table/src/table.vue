@@ -523,7 +523,6 @@
             },
             // 随着窗口改变表格自适应
             tableResize(){
-                console.log('tableResize')
                 var vm = this,
                     width = (vm.width && vm.width > 0) ? vm.width : vm.viewWidth,
                     height = (vm.height && vm.height > 0) ? vm.height : vm.viewHeight,
