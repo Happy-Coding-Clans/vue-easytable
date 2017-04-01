@@ -35,17 +35,19 @@
             update(){
                 alert('编辑: '+this.index)
                 console.log(this.index)
+                console.log(this.rowData[this.field])
                 console.log(this.rowData)
             },
 
             deleteRow(){
                 alert('删除: '+this.index)
                 console.log(this.index)
+                console.log(this.rowData[this.field])
                 console.log(this.rowData)
             }
         },
         created(){
-            //console.log(this.rowData[this.field])
+
         }
     })
 
