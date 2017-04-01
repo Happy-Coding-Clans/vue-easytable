@@ -60,7 +60,7 @@
                                          :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
                                          :title="col.overflowTitle ?  overflowTitle(item,col) :''"
                                     >
-                                        <template v-if="typeof col.componentName ==='string'">
+                                        <template v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
                                             <component :rowData="item" :field="col.field ? col.field : ''" :index="index"
                                                        :is="col.componentName"></component>
                                         </template>
@@ -139,7 +139,7 @@
                                  :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
                                  :title="col.overflowTitle ?  overflowTitle(item,col) :''"
                             >
-                                <template v-if="typeof col.componentName ==='string'">
+                                <template v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
                                     <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex" :is="col.componentName"></component>
                                 </template>
                                 <template v-else>
