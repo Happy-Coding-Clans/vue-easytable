@@ -24,6 +24,9 @@
             rowData:{
                 type:Object
             },
+            field:{
+               type:String
+            },
             index:{
                 type:Number
             }
@@ -40,6 +43,9 @@
                 console.log(this.index)
                 console.log(this.rowData)
             }
+        },
+        created(){
+            //console.log(this.rowData[this.field])
         }
     })
 
@@ -80,7 +86,7 @@
                         },
                         {field: 'hobby', title: '爱好', width: 200, titleAlign: 'center',columnAlign:'left'},
                         {field: 'job', title: '职业', titleAlign: 'center',columnAlign:'left'},
-                        {componentName: 'table-operation', title: '操作', width: 100, titleAlign: 'center',columnAlign:'center'}
+                        {field: 'job',componentName: 'table-operation', title: '操作', width: 100, titleAlign: 'center',columnAlign:'center'}
                     ]
                 }
             }

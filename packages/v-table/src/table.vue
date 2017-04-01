@@ -61,7 +61,7 @@
                                          :title="col.overflowTitle ?  overflowTitle(item,col) :''"
                                     >
                                         <template v-if="typeof col.componentName ==='string'">
-                                            <component :rowData="item" :index="index"
+                                            <component :rowData="item" :field="col.field ? col.field : ''" :index="index"
                                                        :is="col.componentName"></component>
                                         </template>
                                         <template v-else>
@@ -140,7 +140,7 @@
                                  :title="col.overflowTitle ?  overflowTitle(item,col) :''"
                             >
                                 <template v-if="typeof col.componentName ==='string'">
-                                    <component :rowData="item" :index="rowIndex" :is="col.componentName"></component>
+                                    <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex" :is="col.componentName"></component>
                                 </template>
                                 <template v-else>
                                            <span v-if="typeof col.formatter==='function'"
