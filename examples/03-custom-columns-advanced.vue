@@ -36,6 +36,7 @@
                 alert('编辑: '+this.index)
                 console.log(this.index)
                 console.log(this.rowData[this.field])
+
                 console.log(this.rowData)
             },
 
@@ -43,6 +44,7 @@
                 alert('删除: '+this.index)
                 console.log(this.index)
                 console.log(this.rowData[this.field])
+
                 console.log(this.rowData)
             }
         },

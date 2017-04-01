@@ -66,7 +66,7 @@
                                         </template>
                                         <template v-else>
                                                    <span v-if="typeof col.formatter==='function'"
-                                                         v-html="col.formatter(item,index,pagingIndex)">
+                                                         v-html="col.formatter(item,index,pagingIndex,col.field)">
                                                     </span>
                                             <span v-else>
                                                         {{item[col.field]}}
@@ -144,7 +144,7 @@
                                 </template>
                                 <template v-else>
                                            <span v-if="typeof col.formatter==='function'"
-                                                 v-html="col.formatter(item,rowIndex,pagingIndex)">
+                                                 v-html="col.formatter(item,rowIndex,pagingIndex,col.field)">
                                             </span>
                                     <span v-else>
                                                 {{item[col.field]}}
