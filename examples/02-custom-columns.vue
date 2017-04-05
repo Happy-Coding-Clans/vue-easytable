@@ -40,7 +40,8 @@
                         {field: 'tel', title: '手机号码', width: 100, titleAlign: 'center', columnAlign: 'center'},
                         {
                             field: 'email', title: '邮箱', width: 150, titleAlign: 'center', columnAlign: 'center',
-                            formatter: function (rowData,index,pagingIndex,field) {
+                            formatter: function (rowData,index,pagingIndex,columnValue) {
+
                                 if (rowData.email.length > 1) {
                                     return '<a href="https://github.com/huangshuwei/vue-easytable" target="_blank">' + rowData.email + '</a>'
                                 }
