@@ -61,12 +61,12 @@
                                          :title="col.overflowTitle ?  overflowTitle(item,col) :''"
                                     >
                                         <template v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
-                                            <component :rowData="item" :columnValue="col.field ? item[col.field] : ''" :index="index"
+                                            <component :rowData="item" :field="col.field ? col.field : ''" :index="index"
                                                        :is="col.componentName"></component>
                                         </template>
                                         <template v-else>
                                                    <span v-if="typeof col.formatter==='function'"
-                                                         v-html="col.formatter(item,index,pagingIndex,item[col.field])">
+                                                         v-html="col.formatter(item,index,pagingIndex,col.field)">
                                                     </span>
                                             <span v-else>
                                                         {{item[col.field]}}
@@ -140,11 +140,11 @@
                                  :title="col.overflowTitle ?  overflowTitle(item,col) :''"
                             >
                                 <template v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
-                                    <component :rowData="item" :columnValue="col.field ? item[col.field] : ''" :index="rowIndex" :is="col.componentName"></component>
+                                    <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex" :is="col.componentName"></component>
                                 </template>
                                 <template v-else>
                                            <span v-if="typeof col.formatter==='function'"
-                                                 v-html="col.formatter(item,rowIndex,pagingIndex,item[col.field])">
+                                                 v-html="col.formatter(item,rowIndex,pagingIndex,col.field)">
                                             </span>
                                     <span v-else>
                                                 {{item[col.field]}}
