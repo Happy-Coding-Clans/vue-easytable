@@ -4,9 +4,7 @@
         <v-table
                 :isHorizontalResize="tables.isHorizontalResize"
                 :isVerticalResize="tables.isVerticalResize"
-                :width="tables.width"
                 :minWidth="tables.minWidth"
-                :height="tables.height"
                 :minHeight="tables.minHeight"
                 :columns="tables.columns"
                 :tableData="tables.tableData"
@@ -26,9 +24,7 @@
                 tables: {
                     isHorizontalResize: true,
                     isVerticalResize: true,
-                    width: 1100,
                     minWidth: 800,
-                    height: 430,
                     minHeight: 250,
                     tableData: [],
                     columns: [
@@ -36,7 +32,7 @@
                         {field: 'gender', title: '性别', width: 180, titleAlign: 'center',columnAlign:'center', isFrozen: false},
                         {field: 'height', title: '身高', width: 180, titleAlign: 'center',columnAlign:'center', isFrozen: false},
                         {field: 'tel', title: '手机号码', width: 180, titleAlign: 'center',columnAlign:'center', isFrozen: false},
-                        {field: 'email', title: '邮箱', width: 190, titleAlign: 'center',columnAlign:'center', isFrozen: false},
+                        {field: 'email', title: '邮箱', width: 590, titleAlign: 'center',columnAlign:'center', isFrozen: false},
                         {field: 'hobby', title: '爱好', width: 230, titleAlign: 'center',columnAlign:'left', isFrozen: false},
                         {field: 'job', title: '职业', width: 230, titleAlign: 'center',columnAlign:'left', isFrozen: false}
                     ]
