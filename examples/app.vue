@@ -58,18 +58,18 @@
 
 <style>
 
-    .et-class {
+    .v-table-class {
         font-size: 14px;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 
-    .et-title-class {
+    .v-table-title-class {
 
         font-weight: bold;
         color: rgb(31, 45, 61);
     }
 
-    .et-body-class {
+    .v-table-body-class {
 
         color: rgb(31, 45, 61);
     }

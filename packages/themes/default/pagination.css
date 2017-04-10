@@ -1,69 +1,71 @@
+@import "./fonts.css";
+
 *, :after, :before {
     box-sizing: border-box;
 }
 
-.et-page--large .et-page-total,
-.et-page--large .et-page-li,
-.et-page--large .et-page-select,
-.et-page--large .et-page-goto,
-.et-page--large .et-page-goto .et-page-goto-input{
+.v-page--large .v-page-total,
+.v-page--large .v-page-li,
+.v-page--large .v-page-select,
+.v-page--large .v-page-goto,
+.v-page--large .v-page-goto .v-page-goto-input{
     font-size:16px;
     height:40px;
     line-height: 40px;
 }
-.et-page--large .et-page-li{
+.v-page--large .v-page-li{
     min-width: 40px;
 }
-.et-page--large .et-page-li i{
+.v-page--large .v-page-li i{
     font-size:120%;
 }
-.et-page--large .et-page-goto .et-page-goto-input{
+.v-page--large .v-page-goto .v-page-goto-input{
     width:50px;
 }
 
 
-.et-page--middle .et-page-total,
-.et-page--middle .et-page-li,
-.et-page--middle .et-page-select,
-.et-page--middle .et-page-goto,
-.et-page--middle .et-page-goto .et-page-goto-input{
+.v-page--middle .v-page-total,
+.v-page--middle .v-page-li,
+.v-page--middle .v-page-select,
+.v-page--middle .v-page-goto,
+.v-page--middle .v-page-goto .v-page-goto-input{
     font-size:14px;
     height:32px;
     line-height: 32px;
 }
-.et-page--middle .et-page-li{
+.v-page--middle .v-page-li{
     min-width: 32px;
 }
-.et-page--middle .et-page-li i{
+.v-page--middle .v-page-li i{
     font-size:120%;
 }
-.et-page--middle .et-page-goto .et-page-goto-input{
+.v-page--middle .v-page-goto .v-page-goto-input{
     width:50px;
 }
 
 
-.et-page--small .et-page-total,
-.et-page--small .et-page-li,
-.et-page--small .et-page-select,
-.et-page--small .et-page-goto,
-.et-page--small .et-page-goto .et-page-goto-input{
+.v-page--small .v-page-total,
+.v-page--small .v-page-li,
+.v-page--small .v-page-select,
+.v-page--small .v-page-goto,
+.v-page--small .v-page-goto .v-page-goto-input{
     font-size:12px;
     height:24px;
     line-height: 24px;
 }
 
-.et-page--small .et-page-li{
+.v-page--small .v-page-li{
     min-width: 24px;
 }
-.et-page--small .et-page-li i{
+.v-page--small .v-page-li i{
     font-size:120%;
 }
-.et-page--small .et-page-goto .et-page-goto-input{
+.v-page--small .v-page-goto .v-page-goto-input{
     width:45px;
 }
 
 
-.et-page-ul {
+.v-page-ul {
     margin: 0;
     padding: 0;
     display: inline-block;
@@ -75,18 +77,18 @@
     -ms-user-select: none;
 }
 
-.et-page-total {
+.v-page-total {
     float: left;
     display: inline-block;
     margin: 0 4px;
 }
 
-.et-page-select{
+.v-page-select{
     float: left;
     margin: 0 4px;
 }
 
-.et-page-li{
+.v-page-li{
     float: left;
     margin-right: 4px;
     cursor: pointer;
@@ -98,42 +100,42 @@
     border-radius: 4px;
 }
 
-.et-page-li a{
+.v-page-li a{
     color:#333;
 }
 
-.et-page-li:hover{
+.v-page-li:hover{
     border-color: #0092dd;
 }
 
-.et-page-li:hover a{
+.v-page-li:hover a{
     color:#0092dd;
 }
 
-.et-page-li-active{
+.v-page-li-active{
 
     border-color: #0092dd;
     background-color:#0092dd;
 }
 
-.et-page-li-active a{
+.v-page-li-active a{
     color:#fff;
 }
 
-.et-page-li-active:hover{
+.v-page-li-active:hover{
     border-color: #0092dd;
     background-color:#0092dd;
 }
 
-.et-page-li-active:hover a{
+.v-page-li-active:hover a{
     color:#fff;
 }
 
-.et-page-prev i,.et-page-next i{
+.v-page-prev i,.v-page-next i{
     color:#666;
 }
 
-.et-page-jump-prev:after,.et-page-jump-next:after{
+.v-page-jump-prev:after,.v-page-jump-next:after{
     content: "•••";
     display: block;
     letter-spacing: 1px;
@@ -141,32 +143,32 @@
     text-align: center;
 }
 
-.et-page-jump-prev i,.et-page-jump-prev:hover:after,.et-page-jump-next i,.et-page-jump-next:hover:after{
+.v-page-jump-prev i,.v-page-jump-prev:hover:after,.v-page-jump-next i,.v-page-jump-next:hover:after{
     display: none;
 }
 
-.et-page-jump-prev:hover i,.et-page-jump-next:hover i {
+.v-page-jump-prev:hover i,.v-page-jump-next:hover i {
     display: inline;
     color:#0092dd;
 }
 
 
-.et-page-select {
+.v-page-select {
     display: inline-block;
     margin: 0 4px;
 }
 
-.et-page-pager{
+.v-page-pager{
     float: left;
 }
 
-.et-page-goto {
+.v-page-goto {
     float: left;
     display: inline-block;
     margin: 0 4px;
 }
 
-.et-page-goto-input{
+.v-page-goto-input{
 
     padding: 1px 7px;
     display: inline-block;
@@ -177,24 +179,24 @@
     border-radius: 4px;
 }
 
-.et-page-goto-input:hover{
+.v-page-goto-input:hover{
     border-color: #0092dd;
 }
 
-.et-page-disabled{
+.v-page-disabled{
     cursor: not-allowed;
     border-color: #d7dde4;
 }
 
-.et-page-disabled i {
+.v-page-disabled i {
     color: #ccc;
 }
 
-.et-page-disabled:hover {
+.v-page-disabled:hover {
     border-color: #d7dde4
 }
 
-.et-page-disabled:hover i {
+.v-page-disabled:hover i {
     color: #ccc;
     cursor: not-allowed
 }

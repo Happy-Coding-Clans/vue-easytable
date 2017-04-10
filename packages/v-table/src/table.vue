@@ -1,13 +1,13 @@
 <template>
-    <div class="et-views et-class" :style="{'width': newWidth+'px', 'height': newHeight+'px'}">
+    <div class="v-table-views v-class" :style="{'width': newWidth+'px', 'height': newHeight+'px'}">
         <!--左列-->
         <template v-if="frozenCols.length > 0">
-            <div class="et-leftview" :style="{'width':leftViewWidth+'px'}">
+            <div class="v-table-leftview" :style="{'width':leftViewWidth+'px'}">
                 <!--左列头-->
-                <div class="et-header et-title-class"
+                <div class="v-table-header v-title-class"
                      :style="{'width': leftViewWidth+'px','background-color':titleBgColor}">
-                    <div class="et-header-inner" style="display: block;">
-                        <table class="et-htable" border="0" cellspacing="0" cellpadding="0">
+                    <div class="v-table-header-inner" style="display: block;">
+                        <table class="v-table-htable" border="0" cellspacing="0" cellpadding="0">
                             <tbody>
 
                             <template v-if="frozenTitleCols.length > 0">
@@ -16,12 +16,12 @@
                                         :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
                                         :colspan="col.colspan" :rowspan="col.rowspan"
                                         @click.stop="sortControl(col.fields[0],col.orderBy)">
-                                        <div class="et-title-cell"
+                                        <div class="v-table-title-cell"
                                              :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                             <span class="table-title" v-html="col.title"></span>
-                                            <span class="et-sort-icon" v-if="enableSort(col.orderBy)">
-                                                    <i :class='["et-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                    <i :class='["et-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                            <span class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
+                                                    <i :class='["v-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
+                                                    <i :class='["v-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
                                             </span>
                                         </div>
                                     </td>
@@ -29,16 +29,16 @@
                             </template>
 
                             <template v-else>
-                                <tr class="et-header-row">
+                                <tr class="v-table-header-row">
                                     <td v-for="col in frozenCols"
                                         :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
                                         @click.stop="sortControl(col.field,col.orderBy)">
-                                        <div class="et-title-cell"
+                                        <div class="v-table-title-cell"
                                              :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
                                             <span class="table-title" v-html="col.title"></span>
-                                            <span class="et-sort-icon" v-if="enableSort(col.orderBy)">
-                                                    <i :class='["et-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                    <i :class='["et-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                            <span class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
+                                                    <i :class='["v-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
+                                                    <i :class='["v-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
                                         </span>
                                         </div>
                                     </td>
@@ -49,14 +49,14 @@
                     </div>
                 </div>
                 <!--左列内容-->
-                <div class="et-body et-body-class"
+                <div class="v-table-body v-body-class"
                      :style="{'width': leftViewWidth+'px', 'height': bodyViewHeight+'px'}">
-                    <div class="et-body-inner">
-                        <table class="et-btable" cellspacing="0" cellpadding="0" border="0">
+                    <div class="v-table-body-inner">
+                        <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">
                             <tbody>
-                            <tr v-for="(item,index) in tableData" class="et-row" :style="[trBgColor(index+1)]">
+                            <tr v-for="(item,index) in tableData" class="v-table-row" :style="[trBgColor(index+1)]">
                                 <td v-for="col in frozenCols">
-                                    <div class="et-body-cell"
+                                    <div class="v-table-body-cell"
                                          :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
                                          :title="col.overflowTitle ?  overflowTitle(item,col) :''"
                                     >
@@ -82,12 +82,12 @@
             </div>
         </template>
         <!--右列-->
-        <div class="et-rightview" :style="{'width': rightViewWidth+'px'}">
+        <div class="v-table-rightview" :style="{'width': rightViewWidth+'px'}">
             <!--右列头-->
-            <div class="et-header et-title-class"
+            <div class="v-table-header v-title-class"
                  :style="{'width': (rightViewWidth-1)+'px','background-color':titleBgColor}">
-                <div class="et-header-inner" style="display: block;">
-                    <table class="et-htable" border="0" cellspacing="0" cellpadding="0">
+                <div class="v-table-header-inner" style="display: block;">
+                    <table class="v-table-htable" border="0" cellspacing="0" cellpadding="0">
                         <tbody>
 
                         <template v-if="noFrozenTitleCols.length > 0">
@@ -95,12 +95,12 @@
                                 <td v-for="col in row" :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
                                     :colspan="col.colspan" :rowspan="col.rowspan"
                                     @click.stop="sortControl(col.fields[0],col.orderBy)">
-                                    <div class="et-title-cell"
+                                    <div class="v-table-title-cell"
                                          :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                         <span class="table-title" v-html="col.title"></span>
-                                        <span class="et-sort-icon" v-if="enableSort(col.orderBy)">
-                                                    <i :class='["et-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                    <i :class='["et-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                        <span class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
+                                                    <i :class='["v-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
+                                                    <i :class='["v-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
                                         </span>
 
                                     </div>
@@ -109,16 +109,16 @@
                         </template>
 
                         <template v-else>
-                            <tr class="et-header-row">
+                            <tr class="v-table-header-row">
                                 <td v-for="(col,colIndex) in noFrozenCols"
                                     :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
                                     @click.stop="sortControl(col.field,col.orderBy)">
-                                    <div class="et-title-cell"
+                                    <div class="v-table-title-cell"
                                          :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
                                         <span class="table-title" v-html="col.title"></span>
-                                        <span class="et-sort-icon" v-if="enableSort(col.orderBy)">
-                                                    <i :class='["et-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                    <i :class='["et-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                        <span class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
+                                                    <i :class='["v-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
+                                                    <i :class='["v-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
                                         </span>
                                     </div>
                                 </td>
@@ -129,13 +129,13 @@
                 </div>
             </div>
             <!--右列内容-->
-            <div class="et-body et-body-class"
+            <div class="v-table-body v-body-class"
                  :style="{'width': rightViewWidth+'px', 'height': bodyViewHeight+'px'}">
-                <table class="et-btable" cellspacing="0" cellpadding="0" border="0">
+                <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">
                     <tbody>
-                    <tr v-for="(item,rowIndex) in tableData" class="et-row" :style="[trBgColor(rowIndex+1)]">
+                    <tr v-for="(item,rowIndex) in tableData" class="v-table-row" :style="[trBgColor(rowIndex+1)]">
                         <td v-for="(col,colIndex) in noFrozenCols">
-                            <div class="et-body-cell"
+                            <div class="v-table-body-cell"
                                  :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
                                  :title="col.overflowTitle ?  overflowTitle(item,col) :''"
                             >
@@ -493,7 +493,7 @@
             },
 
             body1Mousewheel(e){
-                var body2 = document.querySelector('.et-rightview .et-body');
+                var body2 = document.querySelector('.v-table-rightview .v-table-body');
 
                 var e1 = e.originalEvent || window.event || e;
                 var scrollHeight = e1.wheelDelta || e1.detail * (-1);
@@ -501,22 +501,22 @@
             },
 
             body2Scroll(e){
-                var view2 = document.querySelector('.et-rightview');
-                var body1 = document.querySelector('.et-leftview .et-body');
-                var body2 = document.querySelector('.et-rightview .et-body');
+                var view2 = document.querySelector('.v-table-rightview');
+                var body1 = document.querySelector('.v-table-leftview .v-table-body');
+                var body2 = document.querySelector('.v-table-rightview .v-table-body');
 
                 if (body1){
                     body1.scrollTop = body2.scrollTop;
                 }
 
 
-                view2.querySelector('.et-header').scrollLeft = body2.scrollLeft;
+                view2.querySelector('.v-table-header').scrollLeft = body2.scrollLeft;
             },
 
             // 列表中滚动条控制
             scrollControl(){
-                var body1 = document.querySelector('.et-leftview .et-body');
-                var body2 = document.querySelector('.et-rightview .et-body');
+                var body1 = document.querySelector('.v-table-leftview .v-table-body');
+                var body2 = document.querySelector('.v-table-rightview .v-table-body');
 
                 utils.bind(body1,'mousewheel', this.body1Mousewheel)
                 utils.bind(body2,'scroll',this.body2Scroll)
@@ -528,7 +528,7 @@
                     height = (vm.height && vm.height > 0) ? vm.height : vm.viewHeight,
                     minWidth = vm.minWidth,
                     minHeight = vm.minHeight,
-                    view = document.querySelector('.et-views'),
+                    view = document.querySelector('.v-table-views'),
                     viewOffset = utils.getViewportOffset(view),
                     currentWidth = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().width : (view.clientWidth + 2),
                     currentHeight = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().height : (view.clientHeight + 2),
@@ -628,8 +628,8 @@
         destroyed(){
             window.onresize = null
 
-            var body1 = document.querySelector('.et-leftview .et-body')
-            var body2 = document.querySelector('.et-rightview .et-body')
+            var body1 = document.querySelector('.v-table-leftview .v-table-body')
+            var body2 = document.querySelector('.v-table-rightview .v-table-body')
 
             utils.unbind(body1,'mousewheel', this.body1Mousewheel)
             utils.unbind(body2,'scroll',this.body2Scroll)

@@ -62,7 +62,7 @@ export default{
     },
 
     render(h){
-        let template = <ul class="et-page-ul"></ul>;
+        let template = <ul class="v-page-ul"></ul>;
 
         var comps = {
             //'total','prev','pager','next','sizer','jumper'
@@ -81,7 +81,7 @@ export default{
         })
 
         let size = settings.sizeMaps[this.size] || settings.sizeMapDefault
-        let sizeClass = size === settings.sizeMaps['large'] ? ' et-page--large' :(size === settings.sizeMaps['middle'] ? ' et-page--middle' :' et-page--small')
+        let sizeClass = size === settings.sizeMaps['large'] ? ' v-page--large' :(size === settings.sizeMaps['middle'] ? ' v-page--middle' :' v-page--small')
 
         template.data.class += sizeClass;
 
@@ -95,7 +95,7 @@ export default{
         Total: {
             render(h){
                 return (
-                    <span class="et-page-total">&nbsp;共&nbsp;{this.$parent.total}&nbsp;条&nbsp;</span>
+                    <span class="v-page-total">&nbsp;共&nbsp;{this.$parent.total}&nbsp;条&nbsp;</span>
                 )
             }
         },
@@ -103,9 +103,9 @@ export default{
         Prev: {
             render(h){
                 return (<li on-click={ this.$parent.prevPage }
-                            class={[this.$parent.newPageIndex === 1 ? 'et-page-disabled' : '', 'et-page-li', 'et-page-prev']}
+                            class={[this.$parent.newPageIndex === 1 ? 'v-page-disabled' : '', 'v-page-li', 'v-page-prev']}
                 >
-                    <a><i class="et-icon icon-angle-left"></i></a></li>)
+                    <a><i class="v-icon icon-angle-left"></i></a></li>)
             }
         },
 
@@ -115,9 +115,9 @@ export default{
             render(h){
                 return (
                     <li on-click={this.$parent.nextPage}
-                        class={[this.$parent.newPageIndex === this.$parent.pageCount ? 'et-page-disabled' : '', 'et-page-li', 'et-page-next']}
+                        class={[this.$parent.newPageIndex === this.$parent.pageCount ? 'v-page-disabled' : '', 'v-page-li', 'v-page-next']}
                     >
-                        <a><i class="et-icon icon-angle-right"></i></a></li>
+                        <a><i class="v-icon icon-angle-right"></i></a></li>
                 )
             }
         },
@@ -128,7 +128,7 @@ export default{
             },
             render(h){
                 return (
-                    <v-select size={this.$parent.size} onSelectChangeHandler={this.$parent.pageSizeChangeHandler} class="et-page-select"
+                    <v-select size={this.$parent.size} onSelectChangeHandler={this.$parent.pageSizeChangeHandler} class="v-page-select"
                               labels={this.$parent.pageSizeOption}
                               currentLabel={this.$parent.pageSize}></v-select>
                 )
@@ -149,8 +149,8 @@ export default{
             },
             render(h){
                 return (
-                    <span class="et-page-goto">&nbsp;前往&nbsp;<input
-                        class="et-page-goto-input"
+                    <span class="v-page-goto">&nbsp;前往&nbsp;<input
+                        class="v-page-goto-input"
                         domProps-value={this.$parent.newPageIndex}
                         on-keyup={this.jumperEnter}
                         type="input"

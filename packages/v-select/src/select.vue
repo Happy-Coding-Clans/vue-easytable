@@ -1,15 +1,15 @@
 <template>
-    <dl :class="['et-select',sizeClass]" v-click-outside="clickOutside">
-        <dt class="et-select-dt">
-            <a class="et-select-selected" @click.stop.prevent="toggleItems()">
-                <span class="et-select-selected-span">{{newCurrentLabel}}<span> 条/页</span></span>
-                <i class="et-select-selected-i et-icon icon-down-dir"></i>
+    <dl :class="['v-select',sizeClass]" v-click-outside="clickOutside">
+        <dt class="v-select-dt">
+            <a class="v-select-selected" @click.stop.prevent="toggleItems()">
+                <span class="v-select-selected-span">{{newCurrentLabel}}<span> 条/页</span></span>
+                <i class="v-select-selected-i v-icon icon-down-dir"></i>
             </a>
         </dt>
-        <dd v-show="visible" class="et-select-dd">
-            <ul class="et-select-items">
+        <dd v-show="visible" class="v-select-dd">
+            <ul class="v-select-items">
                 <li v-for="item in labels" @click.stop="selectOptionClick(item)"
-                    :class="['et-select-items-li',item == newCurrentLabel ? 'active' : '']">
+                    :class="['v-select-items-li',item == newCurrentLabel ? 'active' : '']">
                     <a href="javascript:void(0);">{{item}}<span> 条/页</span></a></li>
             </ul>
         </dd>
@@ -49,7 +49,7 @@
         computed: {
             sizeClass(){
                 let size = settings.sizeMaps[this.size] || settings.sizeMapDefault
-                return size === settings.sizeMaps['large'] ? ' et-select--large' : (size === settings.sizeMaps['middle'] ? ' et-select--middle' : ' et-select--small')
+                return size === settings.sizeMaps['large'] ? ' v-select--large' : (size === settings.sizeMaps['middle'] ? ' v-select--middle' : ' v-select--small')
             }
         },
         methods: {
