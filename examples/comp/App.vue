@@ -13,7 +13,7 @@
                 <ul class="menu-root">
                     <li>
                         <div>
-                            <router-link style="cursor: pointer;" class="main-wrapper-sidebar-link" to="/updateLog">
+                            <router-link style="cursor: pointer;" class="main-wrapper-sidebar-link" to="/start">
                                 开始
                             </router-link>
                         </div>
