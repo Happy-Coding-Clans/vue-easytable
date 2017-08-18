@@ -19,7 +19,7 @@
 npm install vue-easytable --save-dev
 ```
 
-## 使用
+## 使用（[更多功能](http://doc.huangsw.com/vue-easytable/app.html)）
 
 
 ```
@@ -62,5 +62,7 @@ Vue.component(VPagination.name, VPagination)
     }
 </script>
 ```
+
+
 
 
