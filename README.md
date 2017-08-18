@@ -63,6 +63,8 @@ Vue.component(VPagination.name, VPagination)
 </script>
 ```
 
+### 参考
+[饿了么ui组件](http://element.eleme.io/#/zh-CN/component/quickstart)
 
 
 
