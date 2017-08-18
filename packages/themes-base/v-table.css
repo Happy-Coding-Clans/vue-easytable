@@ -1,0 +1,253 @@
+﻿@charset "UTF-8";
+
+.v-table-views *,.v-table-views *:before,.v-table-views *:after{
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+}
+
+.v-table-views {
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+
+    position: relative;
+    overflow: hidden;
+    border:1px solid rgba(221, 221, 221, 1);
+    padding: 0;
+    background-color: rgb(255, 255, 255);
+}
+
+.v-table-leftview, .v-table-rightview {
+    position: absolute;
+    overflow: hidden;
+    top: 0px;
+}
+
+.v-table-leftview {
+    left: 0px;
+}
+
+.v-table-header {
+    overflow: hidden;
+}
+
+.v-table-header {
+    background-position: initial;
+    background-size: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: initial;
+    background-repeat-x: repeat;
+    background-repeat-y: no-repeat;
+}
+
+.v-table-header, .v-table-toolbar, .v-table-pager, .v-table-footer-inner {
+    border-color: rgba(221, 221, 221, 1);
+}
+
+.v-table-header-inner {
+    float: left;
+    width: 10000px;
+}
+
+.v-table-htable, .v-table-btable, .v-table-ftable {
+    border-collapse: separate;
+}
+
+/*.v-table-btable tr:nth-child(even) {
+    background:#f4f4f4;
+}*/
+
+.v-table-header td, .v-table-body td, .v-table-footer td {
+    margin: 0;
+    padding: 0;
+}
+
+.v-table-body-cell{
+    padding:0 3px;
+    margin: 0;
+    white-space: nowrap;
+    word-wrap: normal;
+    overflow:hidden;
+    border-width: 0;
+    border-style: solid;
+    border-color: rgba(221, 221, 221, 1);
+    text-overflow: ellipsis;
+}
+
+.v-table-body {
+    margin:0;
+    padding:0;
+    zoom: 1;
+}
+
+.v-table-rightview .v-table-body{
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.v-table-leftview .v-table-body {
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}
+
+.v-table-leftview .v-table-body-inner {
+    padding-bottom: 20px;
+}
+
+.v-table-rightview {
+    right: 0px;
+}
+
+.v-table-title-cell{
+    margin: 0;
+    border-width: 0;
+    border-style: solid;
+    border-color: rgba(221, 221, 221, 1);
+}
+
+.v-table-title-cell:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    /* border: 1px solid red;*/ /* so we can see what's going on */
+}
+
+.table-title{
+    display: inline-block;
+    padding:0 3px;
+    vertical-align: middle;
+    word-break: break-all;
+}
+
+.v-table-sort-icon {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    font-size:16px;
+    width:16px;
+    height: 16px;
+    overflow: hidden;
+}
+
+.v-table-sort-icon i {
+
+    position: absolute;
+    display: block;
+    width:16px;
+    height: 12px;
+    line-height: 12px;
+    overflow: hidden;
+    color: #a6a6a6;
+    transition: color .2s ease-in-out;
+}
+
+.v-table-sort-icon i:first-child {
+    top: -3px;
+}
+
+.v-table-sort-icon i:last-child {
+    bottom: -1px;
+}
+
+.v-table-header .cursorPointer{
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select: none;
+}
+
+.v-table-sort-icon .checked{
+    color:#48576a;
+}
+
+
+.vertical-border{
+    border-right-width: 1px !important;
+}
+
+.horizontal-border{
+    border-bottom-width: 1px !important;
+}
+
+
+.v-table-rightview-special-border td:last-child .v-table-body-cell{
+    border-right-width: 0 !important;
+}
+
+/*没数据时的样式 start*/
+.v-table-empty{  }
+
+.v-table-empty-scroll{
+
+    position: absolute;
+    overflow-y: hidden;
+    text-align: center;
+}
+
+.v-table-empty-content{
+    position: absolute;
+    overflow-x: auto;
+    overflow-y: hidden;
+    text-align: center;
+}
+
+.v-table-empty-inner{
+    overflow: hidden;
+}
+/*没数据时的样式 end*/
+
+/*loading start*/
+
+.v-table-loading{
+
+    position: relative;
+    display: block;
+    z-index: 99999;
+    background-color: #fff;
+    height:100%;
+    width:100%;
+    opacity: 0.6;
+}
+
+
+.v-table-loading-content{
+    z-index: 9999999;
+    position: absolute;
+    left:50%;
+}
+
+/*loading end*/
+
+
+
+/*列拖动线 start*/
+.v-table-drag-line{
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    border-left: 2px dashed #ddd;
+    z-index: 10;
+}
+
+/*列拖动线 end*/
+
+
+
+
+/*
+**预留给用户的**
+.v-table-class{}
+
+.v-table-title-class{}
+
+.v-table-body-class{}
+*/
+

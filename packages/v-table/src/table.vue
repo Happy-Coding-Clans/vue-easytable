@@ -1,10 +1,10 @@
 <template>
-    <div class="v-table-views v-class" :style="{'width': newWidth+'px', 'height': newHeight+'px'}">
+    <div class="v-table-views v-table-class" :style="{'width': internalWidth+'px', 'height': getTableHeight+'px'}">
         <!--左列-->
         <template v-if="frozenCols.length > 0">
             <div class="v-table-leftview" :style="{'width':leftViewWidth+'px'}">
                 <!--左列头-->
-                <div class="v-table-header v-title-class"
+                <div class="v-table-header v-table-title-class"
                      :style="{'width': leftViewWidth+'px','background-color':titleBgColor}">
                     <div class="v-table-header-inner" style="display: block;">
                         <table class="v-table-htable" border="0" cellspacing="0" cellpadding="0">
@@ -13,15 +13,18 @@
                             <template v-if="frozenTitleCols.length > 0">
                                 <tr v-for="row in frozenTitleCols">
                                     <td v-for="col in row"
-                                        :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
+                                        :class="[enableSort(col.orderBy) ? 'cursorPointer':'',col.titleCellClassName]"
                                         :colspan="col.colspan" :rowspan="col.rowspan"
-                                        @click.stop="sortControl(col.fields[0],col.orderBy)">
-                                        <div class="v-table-title-cell"
+                                        @click.stop="sortControl(col.fields[0],col.orderBy)"
+                                        @mousemove.stop="handleTitleMouseMove($event,col.fields)"
+                                        @mousedown.stop="handleTitleMouseDown($event)"
+                                        @mouseout.stop="handleTitleMouseOut()">
+                                        <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                              :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                             <span class="table-title" v-html="col.title"></span>
                                             <span class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
-                                                    <i :class='["v-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                    <i :class='["v-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                                    <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
+                                                    <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
                                             </span>
                                         </div>
                                     </td>
@@ -31,14 +34,17 @@
                             <template v-else>
                                 <tr class="v-table-header-row">
                                     <td v-for="col in frozenCols"
-                                        :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
-                                        @click.stop="sortControl(col.field,col.orderBy)">
-                                        <div class="v-table-title-cell"
+                                        :class="[enableSort(col.orderBy) ? 'cursorPointer':'',col.titleCellClassName]"
+                                        @click.stop="sortControl(col.field,col.orderBy)"
+                                        @mousemove.stop="handleTitleMouseMove($event,col.field)"
+                                        @mousedown.stop="handleTitleMouseDown($event)"
+                                        @mouseout.stop="handleTitleMouseOut()">
+                                        <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                              :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
                                             <span class="table-title" v-html="col.title"></span>
                                             <span class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
-                                                    <i :class='["v-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                    <i :class='["v-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                                    <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
+                                                    <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
                                         </span>
                                         </div>
                                     </td>
@@ -49,24 +55,31 @@
                     </div>
                 </div>
                 <!--左列内容-->
-                <div class="v-table-body v-body-class"
+                <div class="v-table-body v-table-body-class"
                      :style="{'width': leftViewWidth+'px', 'height': bodyViewHeight+'px'}">
                     <div class="v-table-body-inner">
                         <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">
                             <tbody>
-                            <tr v-for="(item,index) in tableData" class="v-table-row" :style="[trBgColor(index+1)]">
-                                <td v-for="col in frozenCols">
-                                    <div class="v-table-body-cell"
+                            <tr v-for="(item,rowIndex) in internalTableData" class="v-table-row"
+                                :style="[trBgColor(rowIndex+1),setRowHoverColor(item.__mouseenter__),setRowClickColor(item.__columnCellClick__)]"
+                                @mouseenter.stop="handleMouseEnter(rowIndex)"
+                                @mouseleave.stop="handleMouseOut(rowIndex)">
+                                <td v-for="col in frozenCols"
+                                    :class="[setColumnCellClassName(rowIndex,col.field,item)]">
+                                    <div :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                          :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
                                          :title="col.overflowTitle ?  overflowTitle(item,col) :''"
+                                         @click.stop="onCellClick(rowIndex,item,col)"
                                     >
-                                        <template v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
-                                            <component :rowData="item" :field="col.field ? col.field : ''" :index="index"
+                                        <template
+                                                v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
+                                            <component :rowData="item" :field="col.field ? col.field : ''"
+                                                       :index="rowIndex"
                                                        :is="col.componentName"></component>
                                         </template>
                                         <template v-else>
                                                    <span v-if="typeof col.formatter==='function'"
-                                                         v-html="col.formatter(item,index,pagingIndex,col.field)">
+                                                         v-html="col.formatter(item,rowIndex,pagingIndex,col.field)">
                                                     </span>
                                             <span v-else>
                                                         {{item[col.field]}}
@@ -82,9 +95,10 @@
             </div>
         </template>
         <!--右列-->
-        <div class="v-table-rightview" :style="{'width': rightViewWidth+'px'}">
+        <div class="v-table-rightview"
+             :style="{'width': rightViewWidth+'px'}">
             <!--右列头-->
-            <div class="v-table-header v-title-class"
+            <div class="v-table-header v-table-title-class"
                  :style="{'width': (rightViewWidth-1)+'px','background-color':titleBgColor}">
                 <div class="v-table-header-inner" style="display: block;">
                     <table class="v-table-htable" border="0" cellspacing="0" cellpadding="0">
@@ -92,15 +106,19 @@
 
                         <template v-if="noFrozenTitleCols.length > 0">
                             <tr v-for="row in noFrozenTitleCols">
-                                <td v-for="col in row" :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
+                                <td v-for="col in row"
+                                    :class="[enableSort(col.orderBy) ? 'cursorPointer':'',col.titleCellClassName]"
                                     :colspan="col.colspan" :rowspan="col.rowspan"
-                                    @click.stop="sortControl(col.fields[0],col.orderBy)">
-                                    <div class="v-table-title-cell"
+                                    @click.stop="sortControl(col.fields[0],col.orderBy)"
+                                    @mousemove.stop="handleTitleMouseMove($event,col.fields)"
+                                    @mousedown.stop="handleTitleMouseDown($event)"
+                                    @mouseout.stop="handleTitleMouseOut()">
+                                    <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                          :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                         <span class="table-title" v-html="col.title"></span>
                                         <span class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
-                                                    <i :class='["v-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                    <i :class='["v-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                                    <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
+                                                    <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
                                         </span>
 
                                     </div>
@@ -111,14 +129,17 @@
                         <template v-else>
                             <tr class="v-table-header-row">
                                 <td v-for="(col,colIndex) in noFrozenCols"
-                                    :class="[enableSort(col.orderBy) ? 'cursorPointer':'']"
-                                    @click.stop="sortControl(col.field,col.orderBy)">
-                                    <div class="v-table-title-cell"
+                                    :class="[enableSort(col.orderBy) ? 'cursorPointer':'',col.titleCellClassName]"
+                                    @click.stop="sortControl(col.field,col.orderBy)"
+                                    @mousemove.stop="handleTitleMouseMove($event,col.field)"
+                                    @mousedown.stop="handleTitleMouseDown($event)"
+                                    @mouseout.stop="handleTitleMouseOut()">
+                                    <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                          :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
                                         <span class="table-title" v-html="col.title"></span>
                                         <span class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
-                                                    <i :class='["v-icon","icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                    <i :class='["v-icon","icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                                    <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
+                                                    <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
                                         </span>
                                     </div>
                                 </td>
@@ -129,18 +150,25 @@
                 </div>
             </div>
             <!--右列内容-->
-            <div class="v-table-body v-body-class"
+            <div :class="['v-table-body v-table-body-class',hasFrozenColumn ? '' : 'v-table-rightview-special-border']"
                  :style="{'width': rightViewWidth+'px', 'height': bodyViewHeight+'px'}">
                 <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">
                     <tbody>
-                    <tr v-for="(item,rowIndex) in tableData" class="v-table-row" :style="[trBgColor(rowIndex+1)]">
-                        <td v-for="(col,colIndex) in noFrozenCols">
-                            <div class="v-table-body-cell"
+                    <tr v-for="(item,rowIndex) in internalTableData" class="v-table-row"
+                        :style="[trBgColor(rowIndex+1),setRowHoverColor(item.__mouseenter__),setRowClickColor(item.__columnCellClick__)]"
+                        @mouseenter.stop="handleMouseEnter(rowIndex)"
+                        @mouseleave.stop="handleMouseOut(rowIndex)"
+                    >
+                        <td v-for="(col,colIndex) in noFrozenCols"
+                            :class="[setColumnCellClassName(rowIndex,col.field,item)]">
+                            <div :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                  :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
                                  :title="col.overflowTitle ?  overflowTitle(item,col) :''"
+                                 @click.stop="onCellClick(rowIndex,item,col)"
                             >
                                 <template v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
-                                    <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex" :is="col.componentName"></component>
+                                    <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex"
+                                               :is="col.componentName"></component>
                                 </template>
                                 <template v-else>
                                            <span v-if="typeof col.formatter==='function'"
@@ -157,48 +185,77 @@
                 </table>
             </div>
         </div>
+
+        <table-empty v-if="isTableEmpty"
+                     :width="internalWidth"
+                     :totalColumnsWidth="totalColumnsWidth"
+                     :contentHeight="errorContentHeight"
+                     :titleHeight="getTotalColumnsHeight()"
+                     :errorContent="errorContent"
+                     :isLoading="isLoading"
+        ></table-empty>
+
+        <loading
+                v-if="isLoading"
+                :loadingContent="loadingContent"
+        ></loading>
+
+        <!--列拖动时的线条-->
+        <div v-show="isDragging" class="v-table-drag-line"></div>
     </div>
 </template>
 
 <script>
 
+    import scrollControlMixin from './scrollControlMixin.js'
+    import frozenColumnsMixin from './frozenColumnsMixin.js'
+    import tableResizeMixin from './tableResizeMixin.js'
+    import sortControlMixin from './sortControlMixin.js'
+    import tableEmptyMixin from './tableEmptyMixin.js'
+    import dragWidthMixin from './dragWidthMixin.js'
     import utils from '../../../src/utils/utils.js'
+    import deepClone from '../../../src/utils/deepClone.js'
+
+    import tableEmpty from './tableEmpty.vue'
+    import loading from './loading.vue'
 
     export default {
         name: 'v-table',
+        mixins: [tableResizeMixin, frozenColumnsMixin, scrollControlMixin, sortControlMixin, tableEmptyMixin,dragWidthMixin],
+        components: {tableEmpty, loading},
         data(){
             return {
+                // 本地列表数据
+                internalTableData: [],
+
                 // 本地宽度
-                newWidth: this.width,
-
-                // 计算的宽度（用户未输入宽度时）
-                viewWidth: 0,
-
+                internalWidth: 0,
 
                 // 本地高度
-                newHeight: this.height,
-
-                // 计算的高度（用户未输入高度时）
-                viewHeight: 0,
-
+                internalHeight: 0,
 
                 // 本地列数据
-                newColumns: Object.assign([], this.columns),
+                internalColumns: [],
                 // 本地复杂表头数据
-                newTitleRows: Object.assign([], this.titleRows),
+                internalTitleRows: [],
 
-                errorMsg: ' vue-easyTable error: '
+                errorMsg: ' V-Table error: ',
+
+                // 最大宽度（当width:'max'时）
+                maxWidth: 5000,
+
+                hasFrozenColumn: false,// 是否拥有固定列（false时最后一列的右边border无边框）
+
+                hasBindScrollEvent: false, // 是否绑定了滚动事件（防止多次注册）
+
             }
         },
         props: {
-            width: {
-                type: Number,
-                require: false
-            },
+            width: [Number, String],
             minWidth: {
                 type: Number,
                 require: false,
-                default: 10
+                default: 50
             },
             height: {
                 type: Number,
@@ -207,7 +264,7 @@
             minHeight: {
                 type: Number,
                 require: false,
-                default: 10
+                default: 50
             },
             titleRowHeight: {
                 type: Number,
@@ -227,6 +284,14 @@
                 require: false,
                 default: false
             },
+
+            // 垂直自适应偏移量
+            VerticalResizeOffset:{
+                type:Number,
+                default:0
+            },
+
+            // 表头背景颜色
             titleBgColor: {
                 type: String,
                 require: false,
@@ -240,8 +305,7 @@
             },
             // 偶数行颜色
             evenBgColor: {
-                type: String,
-                default: '#fff'
+                type: String
             },
 
             // 内容行高
@@ -278,301 +342,268 @@
             },
 
             // 分页序号
-            pagingIndex:Number
+            pagingIndex: Number,
+
+            // 没数据时的html
+            errorContent: {
+                type: String,
+                default: '暂无数据'
+            },
+            // 没数据时内容区域高度
+            errorContentHeight: {
+                type: Number,
+                default: 50
+            },
+
+            // 是否正在加载,为false 则会显示错误信息（如果加载时间较长，最好设置为true,数据返回后设置为false）
+            isLoading: {
+                type: Boolean,
+                default: false
+            },
+
+            loadingContent: {
+                type: String,
+                default: '<span><i class="v-icon-spin5 animate-loading-23" style="font-size: 28px;opacity:0.6;"></i></span>'
+            },
+
+            // 不设置则没有hover效果
+            rowHoverColor: {
+                type: String
+            },
+
+            rowClickColor: {
+                type: String
+            },
+
+            showVerticalBorder: {
+                type: Boolean,
+                default: true
+            },
+
+            showHorizontalBorder: {
+                type: Boolean,
+                default: true
+            },
+
+            // 表体单元格样式回调
+            columnCellClassName: Function,
+
+            // 行点击回调
+            onRowClick: Function,
+
+            // 鼠标进入行的回调
+            rowMouseEnter: Function,
+            // 鼠标离开行的回调
+            rowMouseLeave: Function,
+
         },
         computed: {
-            // 冻结的列集合
-            frozenCols(){
-                return this.newColumns.filter(x => x.isFrozen === true)
+
+            // 获取表格高度
+            getTableHeight(){
+
+                return this.isTableEmpty ? this.tableEmptyHeight : this.internalHeight;
             },
-            // 非冻结列集合
-            noFrozenCols(){
-                return this.newColumns.filter(x => x.isFrozen !== true)
-            },
-            // 冻结的表头列集合
-            frozenTitleCols(){
-                var frozenTitleCols = []
 
-                if (this.newTitleRows.length > 0) {
-
-                    // 获取当前锁定的字段集合
-                    var frozenFields = this.frozenCols.map(x => x.field)
-
-                    this.newTitleRows.forEach(function (rows) {
-
-                        var frozenTitleRows = rows.filter(function (row) {
-                            if (Array.isArray(row.fields)) {
-                                if (row.fields.every(field => frozenFields.indexOf(field) !== -1)) {
-                                    return true
-                                }
-                            }
-                        })
-                        if (frozenTitleRows.length > 0) {
-                            frozenTitleCols.push(frozenTitleRows)
-                        }
-                    })
-                }
-                return frozenTitleCols
-            },
-            // 未的表头列集合
-            noFrozenTitleCols(){
-                var noFrozenTitleCols = []
-
-                if (this.newTitleRows.length > 0) {
-
-                    // 获取当前未锁定的字段集合
-                    var noFrozenFields = this.noFrozenCols.map(x => x.field)
-
-                    this.newTitleRows.forEach(function (rows) {
-
-                        var noFrozenTitleRows = rows.filter(function (row) {
-                            if (Array.isArray(row.fields)) {
-                                return row.fields.every(field => noFrozenFields.indexOf(field) !== -1)
-                            }
-                        })
-
-                        if (noFrozenTitleRows.length > 0) {
-                            noFrozenTitleCols.push(noFrozenTitleRows)
-                        }
-                    })
-                }
-                return noFrozenTitleCols
-            },
             // 左侧区域宽度
             leftViewWidth(){
                 var result = 0
                 if (this.frozenCols && this.frozenCols.length > 0) {
-                    result = this.frozenCols.reduce((total, curr) => total + curr.width, 0)
+                    result = this.frozenCols.reduce((total, curr) => total + curr.width, 0);
                 }
                 return result
             },
             // 右侧区域宽度
             rightViewWidth(){
-                return this.newWidth - this.leftViewWidth - 2
+                return this.internalWidth - this.leftViewWidth - 2;
             },
 
             // 左侧、右侧区域高度
             bodyViewHeight(){
-                if (this.newTitleRows.length > 0) {
-                    return this.newHeight - this.titleRowHeight * this.newTitleRows.length
+                if (this.internalTitleRows.length > 0) {
+                    return this.internalHeight - this.titleRowHeight * this.internalTitleRows.length;
                 } else {
-                    return this.newHeight - this.titleRowHeight
+                    return this.internalHeight - this.titleRowHeight;
                 }
             },
 
             // 将复杂表头配置数据简单化
             titleRowsToSortInfo(){
-                var result = [], vm = this
+                var result = [], self = this;
 
-                if (vm.newTitleRows.length > 0) {
-                    vm.newTitleRows.filter(function (row) {
+                if (self.internalTitleRows.length > 0) {
+                    self.internalTitleRows.filter(function (row) {
                         row.filter(function (column, index) {
                             if (typeof column.orderBy === 'string' && column.fields.length === 1) {
-                                column.field = column.fields[0]
-                                result.push(column)
+                                column.field = column.fields[0];
+                                result.push(column);
                             }
                         })
                     })
                 }
-                return result
+                return result;
             },
 
 
             // 所有列的总宽度
             totalColumnsWidth(){
-                return this.newColumns.reduce(function (total, curr) {
-                    return curr.width ? (total + curr.width) : total
+                return this.internalColumns.reduce(function (total, curr) {
+                    return curr.width ? (total + curr.width) : total;
                 }, 0)
             }
 
         },
         methods: {
-            // 是否允许排序
-            enableSort(val){
-                return typeof val === 'string' ? true : false
-            },
-            // 允许排序的列集合
-            sortColumns(){
-                var vm = this, sortColumns = {},
-                    collection = vm.titleRowsToSortInfo.length > 0 ? vm.titleRowsToSortInfo : vm.newColumns
 
-                collection.filter(function (item, index) {
-                    if (vm.enableSort(item.orderBy)) {
-                        sortColumns[item.field] = item.orderBy
+            setRowHoverColor(isMouseenter){
+
+                if (this.rowHoverColor && this.rowHoverColor.length > 0 && isMouseenter) {
+
+                    return {'background-color': this.rowHoverColor};
+                }
+            },
+
+            setRowClickColor(isColumnCellClick){
+
+                if (this.rowClickColor && this.rowClickColor.length > 0 && isColumnCellClick) {
+
+                    return {'background-color': this.rowClickColor};
+                }
+            },
+
+            // 行颜色
+            trBgColor(num){
+                if ((this.evenBgColor && this.evenBgColor.length > 0) || (this.oddBgColor && this.oddBgColor.length > 0)) {
+                    return num % 2 === 0 ? {'background-color': this.evenBgColor} : {'background-color': this.oddBgColor};
+                }
+            },
+
+            handleMouseEnter(rowIndex){
+
+                this.internalTableData[rowIndex].__mouseenter__ = true;
+                this.rowMouseEnter && this.rowMouseEnter(rowIndex);
+            },
+
+            handleMouseOut(rowIndex){
+
+                this.internalTableData[rowIndex].__mouseenter__ = false;
+                this.rowMouseLeave && this.rowMouseLeave(rowIndex);
+            },
+
+            // 设置 column 列的样式
+            setColumnCellClassName(rowIndex, field, rowData){
+
+                return this.columnCellClassName && this.columnCellClassName(rowIndex, field, rowData);
+            },
+
+            //点击数据行时，回调点击事件
+            onCellClick(rowIndex, rowData, column){
+
+                if (Array.isArray(this.internalTableData) && this.internalTableData.length > 0) {
+
+                    var clickCell = this.internalTableData.find(x => x.__columnCellClick__);
+
+                    if (clickCell) {
+                        clickCell.__columnCellClick__ = false;
                     }
-                })
 
-                return sortColumns
-            },
-
-            // 排序控制
-            sortControl(field, orderBy){
-                var vm = this,
-                    collection = vm.titleRowsToSortInfo.length > 0 ? vm.titleRowsToSortInfo : vm.newColumns
-
-                if (vm.enableSort(orderBy)) {
-                    collection.filter(function (column, index) {
-
-                        if (vm.enableSort(column.orderBy) && column.field === field) {
-                            column.orderBy = column.orderBy === 'asc' ? 'desc' :
-                                (column.orderBy === 'desc' ? '' : 'asc')
-                        }
-
-                        if (!vm.multipleSort) {
-                            if (column.field !== field && vm.enableSort(column.orderBy)) {
-                                column.orderBy = ''
-                            }
-                        }
-                    })
-                    vm.$emit('actionCallBack', vm.sortColumns())
+                    this.internalTableData[rowIndex].__columnCellClick__ = true;
                 }
-            },
 
-            // 只允许保留第一个排序规则（‘asc’或者‘desc’）
-            singelSortInit(){
-                var vm = this,
-                    result = false,
-                    collection
-                if (!vm.multipleSort) {
-                    collection = vm.titleRowsToSortInfo.length > 0 ? vm.titleRowsToSortInfo : vm.newColumns
-                    collection.filter(function (item, index) {
-                        if (vm.enableSort(item.orderBy) && item.orderBy !== '') {
-                            if (result) {
-                                item.orderBy = ''
-                            }
-                            result = true
-                        }
-                    })
-                }
+                this.onRowClick && this.onRowClick(rowIndex, rowData, column);
             },
 
             // 获取每个表头列的宽度
             titleColumnWidth(fields){
                 var result = 0;
                 if (Array.isArray(fields)) {
-                    var matchItems = this.newColumns.filter((item, index) => {
-                        return fields.some(x => x === item.field)
+                    var matchItems = this.internalColumns.filter((item, index) => {
+                        return fields.some(x => x === item.field);
                     })
 
-                    result = matchItems.reduce((total, curr) => total + curr.width, 0)
+                    result = matchItems.reduce((total, curr) => total + curr.width, 0);
                 } else {
                     console.error(this.errorMsg + 'the fields attribute must be a array in titleRows')
                 }
-                return result
+                return result;
             },
 
             // 获取每个表头列的高度
             titleColumnHeight(rowspan){
                 if (rowspan && rowspan > 0) {
-                    return this.titleRowHeight * rowspan
+                    return this.titleRowHeight * rowspan;
                 } else {
-                    return this.titleRowHeight
+                    return this.titleRowHeight;
                 }
             },
 
             // 超出的title提示
             overflowTitle(row, col){
-                var result = ''
+                var result = '';
                 if (typeof col.formatter === 'function') {
-                    var val = col.formatter(row, -1)
+                    var val = col.formatter(row, -1);
                     // 如果是html 不处理
                     if (utils.isHtml(val)) {
-                        result = ''
+                        result = '';
                     } else {
-                        result = val
+                        result = val;
                     }
                 } else {
-                    result = row[col.field]
+                    result = row[col.field];
                 }
-                return result
+                return result;
             },
 
-            // 行颜色
-            trBgColor(num){
-                return num % 2 === 0 ? {'background-color': this.evenBgColor} : {'background-color': this.oddBgColor}
+            // 获取所有列的总高度
+            getTotalColumnsHeight(){
+
+                var titleTotalHeight = (this.internalTitleRows && this.internalTitleRows.length > 0) ? this.titleRowHeight * this.internalTitleRows.length : this.titleRowHeight
+                return titleTotalHeight + this.internalTableData.length * this.rowHeight + 1;
             },
 
-            body1Mousewheel(e){
-                var body2 = document.querySelector('.v-table-rightview .v-table-body');
 
-                var e1 = e.originalEvent || window.event || e;
-                var scrollHeight = e1.wheelDelta || e1.detail * (-1);
-                body2.scrollTop = (body2.scrollTop - scrollHeight);
-            },
+            // 初始化width
+            initTableWidth(){
 
-            body2Scroll(e){
-                var view2 = document.querySelector('.v-table-rightview');
-                var body1 = document.querySelector('.v-table-leftview .v-table-body');
-                var body2 = document.querySelector('.v-table-rightview .v-table-body');
-
-                if (body1){
-                    body1.scrollTop = body2.scrollTop;
-                }
-
-
-                view2.querySelector('.v-table-header').scrollLeft = body2.scrollLeft;
-            },
-
-            // 列表中滚动条控制
-            scrollControl(){
-                var body1 = document.querySelector('.v-table-leftview .v-table-body');
-                var body2 = document.querySelector('.v-table-rightview .v-table-body');
-
-                utils.bind(body1,'mousewheel', this.body1Mousewheel)
-                utils.bind(body2,'scroll',this.body2Scroll)
-            },
-            // 随着窗口改变表格自适应
-            tableResize(){
-                var vm = this,
-                    width = (vm.width && vm.width > 0) ? vm.width : vm.viewWidth,
-                    height = (vm.height && vm.height > 0) ? vm.height : vm.viewHeight,
-                    minWidth = vm.minWidth,
-                    minHeight = vm.minHeight,
-                    view = document.querySelector('.v-table-views'),
-                    viewOffset = utils.getViewportOffset(view),
-                    currentWidth = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().width : (view.clientWidth + 2),
-                    currentHeight = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().height : (view.clientHeight + 2),
-                    right = window.document.documentElement.clientWidth - currentWidth - viewOffset.left,
-                    bottom = window.document.documentElement.clientHeight - currentHeight - viewOffset.top - 10; // -10 防止浏览器出垂直滚动条
-
-                if (vm.isHorizontalResize && vm.newWidth && vm.newWidth > 0) {
-
-                    // （窗口宽度缩小 && 当前宽度大于最小宽度） ||（窗口宽度扩大 && 当前宽度小于最大宽度）
-                    if ((right < 0 && currentWidth > minWidth) || (right > 0 && currentWidth < width)) {
-                        currentWidth = currentWidth + right;
-                        currentWidth = currentWidth > width ? width : currentWidth;
-                        currentWidth = currentWidth < minWidth ? minWidth : currentWidth;
-                        vm.newWidth = currentWidth
-                    }
-                }
-
-                if (vm.isVerticalResize && vm.newHeight && vm.newHeight > 0) {
-                    // （窗口高度缩小 && 当前高度大于最小高度） || （窗口高度扩大 && 当前高度小于最大高度）
-                    if ((bottom < 0 && currentHeight > minHeight) || (bottom > 0 && currentHeight < height)) {
-                        var currentHeight = currentHeight + bottom;
-                        currentHeight = currentHeight > height ? height : currentHeight;
-                        currentHeight = currentHeight < minHeight ? minHeight : currentHeight;
-                        vm.newHeight = currentHeight
-                    }
-                }
+                this.internalWidth = this.isHorizontalResize ? this.maxWidth : this.width;
 
             },
 
             // 当宽度设置 && 非固定列未设置宽度时（列自适应）初始化列集合
             initColumns(){
-                var vm = this, widthCountCheck = 0
 
-                if (vm.width && vm.width > 0) {
-                    vm.newColumns.map(function (item) {
+                this.internalHeight = this.height;
+
+                this.internalColumns = Array.isArray(this.columns) ? deepClone(this.columns) : [];
+
+                this.internalTitleRows = Array.isArray(this.titleRows) ? deepClone(this.titleRows) : [];
+
+                this.initResizeColumns();
+
+                this.hasFrozenColumn = this.internalColumns.some(x => x.isFrozen);
+
+                this.initTableWidth();
+
+
+                var self = this, widthCountCheck = 0;
+
+                if (self.internalWidth && self.internalWidth > 0) {
+                    self.internalColumns.map(function (item) {
                         if (!(item.width && item.width > 0)) {
-                            widthCountCheck++
-                            item.width = vm.width - vm.totalColumnsWidth - 2
+
+                            widthCountCheck++;
+                            if (self.isHorizontalResize) {
+                                console.error(self.errorMsg + "If you are using the isHorizontalResize property,Please set the value for each column's width");
+                            } else {
+                                item.width = self.internalWidth - self.totalColumnsWidth - 2;
+                            }
+
                         }
                     })
                 }
 
                 if (widthCountCheck > 1) {
-                    console.error(this.errorMsg + 'Only allow one column is not set width')
+                    console.error(this.errorMsg + 'Only allow one column is not set width');
                 }
 
             },
@@ -580,59 +611,133 @@
 
             // 当没设置宽度和高度时动态计算
             initView(){
-                var vm = this
+
+                var self = this
                 // 当没有设置宽度计算总宽度
-                if (!(vm.width && vm.width > 0)) {
-                    if (vm.columns && vm.columns.length > 0) {
-                        vm.viewWidth = vm.newWidth = vm.columns.reduce((total, curr) => total + curr.width, 0) + 2
+                if (!(self.internalWidth && self.internalWidth > 0)) {
+
+                    if (self.columns && self.columns.length > 0) {
+                        self.internalWidth = self.columns.reduce((total, curr) => total + curr.width, 0) + 2;
+
                     }
                 }
 
+                var totalColumnsHeight = self.getTotalColumnsHeight();
+
                 // 当没有设置高度时计算总高度
-                if (!(vm.height && vm.height > 0)) {
-                    var titleTotalHeight = (vm.newTitleRows && vm.newTitleRows.length > 0) ? vm.titleRowHeight * vm.newTitleRows.length : vm.titleRowHeight
-                    vm.viewHeight = vm.newHeight = titleTotalHeight + vm.tableData.length * vm.rowHeight + 1
+                if (!(self.height && self.height > 0)) {
+
+                    self.internalHeight = totalColumnsHeight;
+
+                } else if (self.height > totalColumnsHeight) {  // 设置的高度小于所有列高度之和时
+
+                    if (self.$el) {
+
+                        self.$nextTick(x => {
+
+                            var rightViewBody = self.$el.querySelector('.v-table-rightview .v-table-body'),
+                                rightViewContent = self.$el.querySelector('.v-table-rightview .v-table-body .v-table-btable'),
+                                hasHorizontalScrollBar = rightViewBody.clientWidth + 2 < rightViewContent.clientWidth,
+                                scrollbarWidth = 0;
+
+                            if (hasHorizontalScrollBar) {
+
+                                scrollbarWidth = utils.getScrollbarWidth();
+                                totalColumnsHeight += scrollbarWidth;
+                            }
+
+                            self.internalHeight = totalColumnsHeight;
+                        })
+                    }
+                } else if (self.height <= totalColumnsHeight) {
+
+                    self.internalHeight = self.height;
                 }
+            },
+
+            initInternalTableData(data){
+
+                var result = Array.isArray(this.tableData) ? deepClone(this.tableData) : [];
+
+                if (result.length > 0) {
+
+                    result.map(x => {
+                        x.__mouseenter__ = false;
+                        x.__columnCellClick__ = false;
+                    })
+                }
+
+                return result;
+            },
+
+            // 对外暴露（隐藏显示切换时）
+            resize(){
+
+                this.$nextTick(x => {
+
+                    this.tableResize();
+
+                })
             }
         },
         created(){
 
-            this.initColumns()
+            this.internalTableData = this.initInternalTableData(this.tableData);
 
-            this.initView()
+            if (Array.isArray(this.columns) && this.columns.length > 0) {
+
+                this.initColumns();
+            }
+
+            this.$nextTick(x => {
+                this.initView();
+            })
+
+            this.resize();
         },
         mounted(){
-            var vm = this;
-            /* vm.tableResize()*/
-            vm.scrollControl()
-            vm.singelSortInit()
-            window.onresize = function (event) {
-                vm.tableResize()
+
+            this.tableEmpty();
+
+            if (Array.isArray(this.tableData) && this.tableData.length > 0) {
+
+                this.scrollControl();
+                this.hasBindScrollEvent = true;
             }
+
+            this.singelSortInit();
+
         },
         watch: {
+
             // 重新跟新列信息
             'columns': function (newVal) {
-                this.newColumns = Object.assign([], newVal)
+
+                this.initColumns();
             },
             // 重新覆盖复杂表头信息
             'titleRows': function (newVal) {
-                this.newTitleRows = Object.assign([], newVal)
+
+                this.initColumns();
             },
 
             'tableData': function (newVal) {
-                this.initView()
-                this.tableResize()
+
+                this.internalTableData = this.initInternalTableData(newVal);
+
+                this.tableEmpty();
+
+                if (Array.isArray(newVal) && newVal.length > 0) {
+
+                    this.initView();
+
+                    if (!this.hasBindScrollEvent) {
+                        this.scrollControl();
+                    }
+                }
+
+                this.resize();
             }
-        },
-        destroyed(){
-            window.onresize = null
-
-            var body1 = document.querySelector('.v-table-leftview .v-table-body')
-            var body2 = document.querySelector('.v-table-rightview .v-table-body')
-
-            utils.unbind(body1,'mousewheel', this.body1Mousewheel)
-            utils.unbind(body2,'scroll',this.body2Scroll)
         }
     }
 </script>

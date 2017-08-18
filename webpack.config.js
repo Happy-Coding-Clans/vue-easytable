@@ -1,393 +1,297 @@
-var path = require('path');
+var path = require("path");
+var webpack = require("webpack");
 
-var webpack = require('webpack');
+// 将 manifest 提取到一个单独的 JSON 文件（类似的插件有 webpack-manifest-plugin、chunk-manifest-webpack-plugin、assets-webpack-plugin）
+var ManifestPlugin = require('webpack-manifest-plugin');
 
-/*
- * clean publishing directory
- * （清空发布目录）
- * */
-var CleanWebpackPlugin = require('clean-webpack-plugin');
+// 基于 'chunk-manifest-webpack-plugin' 的插件，解决 manifest.js 版本号不变化 导致 long-term caching 的问题
+var InlineChunkManifestHtmlWebpackPlugin = require('inline-chunk-manifest-html-webpack-plugin');
 
-/*
- * create html
- * （创建html文件）
- * */
+
+// 根据文件内容生成hash值（同类的插件还有webpack-md5-hash）
+var WebpackChunkHash = require("webpack-chunk-hash");
+
+// 生成包含引用资源的html
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
+// 将css 提取到单独的文件
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-/*
- * extract css
- * （提取css文件）
- * */
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+// 清除发布目录
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 
-
-/*
- *  merge config
- *  （合并config文件）
- * */
-var Merge = require('webpack-merge');
-
-/*
- * auto open browser
- * （自动打开浏览器）
- * */
+// 自动打开浏览器
 var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
-/*
- *  Detect how npm is run and branch based on that
- *  （当前 npm 运行）
- * */
-var currentTarget = process.env.npm_lifecycle_event;
 
-var debug,          // is debug
-    minimize;       // is minimize
+var settings = require('./webpack-sets/webpack.settings.js');
+
+var markdown = require('./webpack-sets/webpack.markdown.js');
 
 
-if (currentTarget == "build") { // online mode （线上模式）
-
-    debug = false, minimize = true;
-
-} else if (currentTarget == "dev") { // dev mode （开发模式）
-
-   debug = true, minimize = false;
-
-}
-
-/*
- * proxy target address
- * （代理访问地址）
- * */
-var proxyTarget = '';
+module.exports = function (env) {
 
 
-var PATHS = {
-    /*
-     * publish path
-     * （发布目录）
-     * */
-    publicPath: debug ? '/example/' : './',
-
-    /*
-     * node_modules path
-     */
-    node_modulesPath: path.resolve('./node_modules'),
-}
+    // 获取配置常量
+    var SETTINGS = settings.getSettings(env);
 
 
-var resolve = {
-    /*
-     * An array of extensions that should be used to resolve modules
-     * （引用时可以忽略后缀）
-     * */
-    extensions: ['', '.js', '.css', '.scss', '.ejs', '.png', '.jpg'],
+    var entry = {
+        app: "./examples/app.js", // application code
+        vendors: [
+            'babel-polyfill',
+            'vue',
+            'vue-router'
+        ]
+    };
 
+    var output = {
+        path: path.join(__dirname, SETTINGS.path.outputPath, SETTINGS.outputFolderName),
+        filename: SETTINGS.isDebug ? "js/[name].js" : "js/[name].[chunkhash:8].js",
+        chunkFilename: SETTINGS.isDebug ? "js/[name].js" : "js/[name].[chunkhash:8].js"
+    };
 
-    /*
-     * The directory (absolute path) that contains your modules
-     * */
-    root: [
-        PATHS.node_modulesPath
-    ],
+    var rules = [
 
-
-    /*
-     * Replace modules with other modules or paths.
-     * （别名，引用时直接可以通过别名引用）
-     * */
-    alias: {
-        'vue$': 'vue/dist/vue',
-        /*'vue$': 'vue/dist/vue.common.js', // 独立构建*/
-        'VTable':path.join(__dirname, './packages/v-table/index.js')
-    }
-}
-
-/*
- * The entry point for the bundle.
- * （入口）
- * */
-var entry = {
-    app: './examples/app.js',
-    vendors: [
-        'babel-polyfill',
-        'vue',
-        'VTable'
-    ],
-};
-
-
-/*
- * output options tell Webpack how to write the compiled files to disk
- * （webpack 编译后输出标识）
- * */
-var output = {
-    /*
-     *  determines the location on disk the files are written to
-     *  （输出目录）
-     * */
-    path: path.join(__dirname, 'dist'),
-
-    /*
-     * The publicPath specifies the public URL address of the output files when referenced in a browser
-     * （发布后，资源的引用目录）
-     * */
-    publicPath: PATHS.publicPath,
-
-    /*
-     * Specifies the name of each output file on disk
-     * （文件名称）
-     * */
-    filename: debug ? 'js/[name].js' : 'js/[name]-[chunkhash:8].js',
-
-    /*
-     * The filename of non-entry chunks as relative path inside the output.path directory.
-     * （按需加载模块时输出的文件名称）
-     * */
-    chunkFilename: debug ? 'js/[name].js' : 'js/[name]-[chunkhash:8].js'
-}
-
-var loaders = [
-
-    /*
-     * vue loader
-     */
-    {
-        test: /\.vue$/, loader: 'vue'
-    },
-
-    /*
-     * babel-loader
-     */
-    {
-        test: /\.js$/, loader: 'babel', exclude: /node_modules/
-    },
-
-    /*
-     * Exports HTML as string, require references to static resources.
-     * （html loader）
-     * */
-    {
-        test: /\.html$/, loader: "html"// loader: "html?-minimize"
-    },
-
-
-    /*
-     * img loader
-     * */
-    {
-        test: /\.(png|gif|jpe?g)(\?\S*)?$/,
-        loader: 'url-loader',
-        query: {
-            /*
-             *  limit=10000 ： 10kb
-             *  图片大小小于10kb 采用内联的形式，否则输出图片
-             * */
-            limit: 10000,
-            name: '/img/[name]-[hash:8].[ext]'
-        }
-    },
-
-
-    /*
-     * font loader
-     * */
-    {
-        test: /\.(eot|woff|woff2|ttf|svg)(\?\S*)?$/,
-        loader: 'url-loader',
-        query: {
-            limit: 5000,
-            name: '/font/[name]-[hash:8].[ext]'
-        }
-    },
-
-
-    /*
-     * Extract css files
-     * （提取css到单独文件loader）
-     */
-    {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader")
-    },
-
-
-];
-
-var plugins = [
-
-    /*
-     * gloabal flag
-     * （全局标识）
-     * */
-    new webpack.DefinePlugin({
-        /*
-         * dev flag
-         * （开发标识）
-         * */
-        __DEV__: debug,
-
-        /*
-         * proxy flag
-         * （代理的标识）
-         * */
-        __DEVAPI__: debug ? "/devApi/" : "''", // 热更新和后端服务结合的标识
-
-
-        /*
-         * 去除vue的所有警告代码：http://vue-loader.vuejs.org/en/workflow/production.html
-         * */
-        'process.env': debug ? {
-            NODE_ENV: '"production"'
-        }:{}
-    }),
-
-    /*
-     * vendors
-     * （公共js）
-     * */
-    new webpack.optimize.CommonsChunkPlugin(
-        debug ?
-        {name: "vendors", filename: "js/vendors.js"}:
-        {names: ["vendors", "webpackAssets"]}
-    ),
-
-    /*
-     * Search for equal or similar files and deduplicate them in the output
-     * （删除重复依赖的文件）
-     */
-    new webpack.optimize.DedupePlugin(),
-
-
-    /*
-     * Using this config the vendor chunk should not be changing its hash unless you change its code or dependencies
-     * （避免在文件不改变的情况下hash值不变化）
-     * */
-    new webpack.optimize.OccurenceOrderPlugin(),
-
-
-    /*
-     * clean publishing directory
-     * （发布前清空发布目录）
-     * */
-    new CleanWebpackPlugin(['dist'], {
-        root: '', // An absolute path for the root  of webpack.config.js
-        verbose: true,// Write logs to console.
-        dry: false // Do not delete anything, good for testing.
-    }),
-
-
-    /*
-     * extract css
-     * （提取css文件到单独的文件中）
-     */
-    new ExtractTextPlugin(debug ? "css/[name].css" : "css/[name]-[chunkhash:8].css", {allChunks: true}),
-
-
-    /*
-     *create html file
-     * （创建html文件）
-     * */
-    new HtmlWebpackPlugin({
-        filename: 'app.html',
-        template: __dirname + '/examples/app.html',
-        inject: 'true',
-
-        // 需要依赖的模块
-        chunks: ['vendors', 'app', 'webpackAssets'],
-
-        // 根据依赖自动排序
-        chunksSortMode: 'dependency'
-    })
-];
-
-
-if (minimize) {
-
-    plugins.push(
-        /*
-         * Uglify
-         * （压缩）
-         * */
-        new webpack.optimize.UglifyJsPlugin({ // js、css都会压缩
-            mangle: {
-                except: ['$super', '$', 'exports', 'require', 'module', '_']
-            },
-            compress: {
-                warnings: false
-            },
-            output: {
-                comments: false,
-            }
-        })
-    )
-}
-
-
-var config = {
-    entry: entry,
-    /*
-     *  Like resolve but for loaders.
-     *  （查找loader 的位置）
-     * */
-    resolveLoader: { root: PATHS.node_modulesPath },
-    output: output,
-    module: {
-        loaders: loaders
-    },
-    vue:{ // 将 vue 组件里的css提到单独文件中
-        loaders: {
-            css: ExtractTextPlugin.extract("css"),
-            // you can also include <style lang="less"> or other langauges
-            less: ExtractTextPlugin.extract("css!less")
-        }
-    },
-    resolve: resolve,
-    plugins: plugins,
-
-}
-
-
-/*
- *  Hrm setting
- * （开启热更新，并自动打开浏览器）
- * */
-if (debug) {
-
-    config = Merge(
-        config,
+        // babel-loader
         {
-            plugins: [
-                // Enable multi-pass compilation for enhanced performance
-                // in larger projects. Good default.
-                new webpack.HotModuleReplacementPlugin({
-                    multiStep: true
-                }),
-                new OpenBrowserPlugin({url: 'http://localhost:8077' + PATHS.publicPath + 'app.html'})
-            ],
-            devServer: {
-                historyApiFallback: true,
-                hot: true,
-                inline: true,
-                stats: 'errors-only',
-                host: "localhost", // Defaults to `localhost`   process.env.HOST
-                port: "8077",  // Defaults to 8080   process.env.PORT
-                /*
-                 *  代理访问
-                 *  1、可以绕过同源策略 和 webpack '热更新'结合使用
-                 */
-                proxy: {
-                    '/devApi': {
-                        target: proxyTarget,
-                        /*
-                         * rewrite 的方式扩展性更强，不限制服务的名称
-                         * */
-                        pathRewrite: { '^/devApi': '' }
+            test: /\.js$/,
+            use: 'babel-loader',
+            exclude: /node_modules/
+        },
+
+        /*markdown 配置*/
+        {
+            test: /\.md$/,
+            use: [
+                {
+                    loader: 'vue-markdown-loader',
+                    options: markdown.getMarkDownSetting()
+                }
+            ]
+        },
+
+        // vue loader
+        {
+            test: /\.vue$/,
+            use: [
+                {
+                    loader: 'vue-loader',
+                    options: {
+                        extractCSS: true
                     }
+                }
+            ]
+
+        },
+
+        // css loader
+        {
+            test: /\.css$/,
+            use: SETTINGS.isDebug ? [
+                'style-loader',
+                'css-loader'
+            ] : ExtractTextPlugin.extract({
+                use: SETTINGS.isMinimize ? 'css-loader?minimize' : 'css-loader',
+                publicPath: '../'
+            })
+        },
+
+        // img loader
+        {
+            test: /\.(png|gif|jpe?g)(\?\S*)?$/,
+            use: [{
+                loader: 'url-loader',
+                options: {
+                    /*
+                     *  limit=10000 ： 10kb
+                     *  图片小于10kb 采用内联的形式，否则输出图片
+                     * */
+                    limit: 10000,
+                    name: 'images/[name]-[hash:8].[ext]'
+                }
+            }]
+        },
+
+        // font loader
+        {
+            test: /\.(eot|woff|woff2|ttf|svg)(\?\S*)?$/,
+            use: [{
+                loader: 'url-loader',
+                options: {
+                    limit: 5000,
+                    name: 'font/[name]-[hash:8].[ext]'
+                }
+            }]
+
+        },
+
+        // csv|tsv loader
+        {
+            test: /\.(csv|tsv)$/,
+            use: [
+                'csv-loader'
+            ]
+        },
+
+        // xml loader
+        {
+            test: /\.xml$/,
+            use: [
+                'xml-loader'
+            ]
+        }
+    ];
+
+    var plugins = [
+        // 将公共库(vendor)和应用程序代码分离开来，并创建一个显式的 vendor chunk 以防止它频繁更改
+        new webpack.optimize.CommonsChunkPlugin({
+            name: ["vendors", "manifest"], // vendor libs   extracted manifest
+            minChunks: Infinity,
+        }),
+
+        // 生成保存在构建中的标识符（开发模式用NamedModulesPlugin）
+        new webpack.HashedModuleIdsPlugin(),
+
+        // 根据文件内容生成hash值
+        new WebpackChunkHash(),
+
+        // 生成文件与版本号映射文件
+        new ManifestPlugin({
+            fileName: 'fileMaps.json',
+            basePath: ''
+        }),
+
+        // 全局标识
+        new webpack.DefinePlugin({
+            // 开发标识
+            __DEV__: SETTINGS.isDebug,
+
+            // 代理的标识
+            __DEVAPI__: SETTINGS.isDebug ? "/devApi/" : "''", // 热更新和后端服务结合的标识
+
+            // 去除vue的所有警告代码：http://vue-loader.vuejs.org/en/workflow/production.html
+            'process.env': SETTINGS.isDebug ? {
+                NODE_ENV: '"production"'
+            } : {}
+        }),
+
+        /*
+         * 1、暴露到全局变量
+         * 2、先找 .resolve.alias 中的属性，若没找到会找 node_modules 下的文件，直到找到为止
+         * */
+        new webpack.ProvidePlugin({}),
+
+        // 清空发布目录
+        new CleanWebpackPlugin([SETTINGS.outputFolderName], {
+            root: path.resolve(__dirname, SETTINGS.path.outputPath), // An absolute path for the root  of webpack.config.js  // path.resolve(__dirname, '..')
+            verbose: true, // Write logs to console.
+            dry: false, // Do not delete anything, good for testing.
+        }),
+
+        // 创建html
+        new HtmlWebpackPlugin({
+            filename: 'app.html',
+            template: __dirname + '/examples/app.html',
+            inject: 'true',
+
+            // 需要依赖的模块
+            chunks: ['app', 'vendors', 'manifest'],
+
+            // 根据依赖自动排序
+            chunksSortMode: 'dependency'
+        }),
+        new InlineChunkManifestHtmlWebpackPlugin({
+            dropAsset: true, // 不产生文件
+        })
+
+    ];
+
+    var resolve = {
+        extensions: ['.js', '.css', '.scss', '.ejs', '.png', '.jpg', '.vue'],
+        modules: [SETTINGS.path.node_modulesPath],
+        alias: {
+            'vue$': 'vue/dist/vue'
+        }
+    }
+
+    var devServer = {};
+
+    if (SETTINGS.isDebug) {
+
+
+        // 启用 HMR
+        plugins.push(new webpack.HotModuleReplacementPlugin());
+
+        // 编译完成自动打开浏览器
+        plugins.push(new OpenBrowserPlugin({url: 'http://localhost:' + SETTINGS.visitPort + SETTINGS.path.publicPath + 'app.html'}));
+
+
+        devServer = {
+            hot: true, // 告诉 dev-server 我们在使用 HMR
+            contentBase: path.join(__dirname, SETTINGS.path.outputPath, SETTINGS.outputFolderName),
+            publicPath: SETTINGS.path.publicPath,
+            port: SETTINGS.visitPort,
+            compress: true,
+            inline: true,
+            stats: "errors-only",
+
+            /*
+             *  设置代理访问
+             */
+            proxy: {
+                '/devApi': {
+                    target: SETTINGS.proxyTarget,
+                    /*
+                     * rewrite 的方式扩展性更强，不限制服务的名称
+                     * */
+                    pathRewrite: {'^/devApi': ''}
                 }
             }
         }
-    );
+
+        plugins.push(new ExtractTextPlugin('css/style.css'))
+    } else {
+
+        // 将css 提取到单独的文件中
+        plugins.push(new ExtractTextPlugin('css/[name]-[contenthash:8].css'))
+
+    }
+
+    if (SETTINGS.isMinimize) {
+        plugins.push(
+            // 启用压缩
+            new webpack.optimize.UglifyJsPlugin({ // js、css都会压缩
+                mangle: {
+                    except: ['$super', '$', 'exports', 'require', 'module', '_']
+                },
+                compress: {
+                    warnings: false
+                },
+                output: {
+                    comments: false,
+                }
+            })
+        )
+    }
+
+
+    var config = {
+        entry: entry,
+
+        output: output,
+
+        resolve: resolve,
+
+        module: {
+            rules: rules
+        },
+
+        plugins: plugins,
+
+        devServer: devServer
+    };
+
+    return config;
 }
 
-
-module.exports = config;

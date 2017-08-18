@@ -1,0 +1,50 @@
+/*
+ * 鼠标滚动，滚动条改变
+ * */
+
+import utils from '../../../src/utils/utils.js'
+export default {
+    methods:{
+        body1Mousewheel(e){
+            var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
+
+            var e1 = e.originalEvent || window.event || e;
+            var scrollHeight = e1.wheelDelta || e1.detail * (-1);
+            body2.scrollTop = (body2.scrollTop - scrollHeight);
+        },
+
+        body2Scroll(e){
+
+            var view2 = this.$el.querySelector('.v-table-rightview');
+            var body1 = this.$el.querySelector('.v-table-leftview .v-table-body');
+            var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
+
+            if (body1) {
+                body1.scrollTop = body2.scrollTop;
+            }
+
+
+            view2.querySelector('.v-table-header').scrollLeft = body2.scrollLeft;
+        },
+
+        // 列表中滚动条控制
+        scrollControl(){
+            this.$nextTick(x=>{
+
+                var body1 = this.$el.querySelector('.v-table-leftview .v-table-body');
+                var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
+
+                utils.bind(body1, 'mousewheel', this.body1Mousewheel);
+                utils.bind(body2, 'scroll', this.body2Scroll);
+            })
+        },
+    },
+
+    beforeDestroy(){
+        var body1 = this.$el.querySelector('.v-table-leftview .v-table-body');
+        var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
+
+        utils.unbind(body1, 'mousewheel', this.body1Mousewheel);
+        utils.unbind(body2, 'scroll', this.body2Scroll);
+    }
+}

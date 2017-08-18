@@ -51,7 +51,10 @@ export default{
         return {
             newPageIndex: (this.pageIndex && this.pageIndex > 0) ? parseInt(this.pageIndex) : 1,
 
-            newPageSize: this.pageSize
+            newPageSize: this.pageSize,
+
+            // select 配置项
+            newPageSizeOption:[]
         }
     },
 
@@ -105,7 +108,7 @@ export default{
                 return (<li on-click={ this.$parent.prevPage }
                             class={[this.$parent.newPageIndex === 1 ? 'v-page-disabled' : '', 'v-page-li', 'v-page-prev']}
                 >
-                    <a><i class="v-icon icon-angle-left"></i></a></li>)
+                    <a><i class="v-icon-angle-left"></i></a></li>)
             }
         },
 
@@ -117,7 +120,7 @@ export default{
                     <li on-click={this.$parent.nextPage}
                         class={[this.$parent.newPageIndex === this.$parent.pageCount ? 'v-page-disabled' : '', 'v-page-li', 'v-page-next']}
                     >
-                        <a><i class="v-icon icon-angle-right"></i></a></li>
+                        <a><i class="v-icon-angle-right"></i></a></li>
                 )
             }
         },
@@ -126,12 +129,30 @@ export default{
             components: {
                 VSelect
             },
+
             render(h){
                 return (
-                    <v-select size={this.$parent.size} onSelectChangeHandler={this.$parent.pageSizeChangeHandler} class="v-page-select"
-                              labels={this.$parent.pageSizeOption}
-                              currentLabel={this.$parent.pageSize}></v-select>
+                    <v-select size={this.$parent.size} class="v-page-select"
+                               value={this.$parent.newPageSizeOption}
+                               on-input={this.handleChange}
+                               v-model={this.$parent.newPageSizeOption}></v-select>
                 )
+            },
+
+            methods:{
+                handleChange(items){
+
+                    if (Array.isArray(items) && items.length > 0){
+                        let item = items.find(x => x.selected);
+                        if (item){
+                            this.$parent.pageSizeChangeHandler(item.value);
+                        }
+                    }
+                }
+            },
+
+            created(){
+
             }
         },
 
@@ -204,10 +225,47 @@ export default{
         },
 
         // 改变页面大小
-        pageSizeChangeHandler(newPageSize){
-            this.newPageSize = newPageSize
-            this.newPageIndex = 1
-            this.$emit('page-size-change', this.newPageSize)
+        pageSizeChangeHandler(){
+            let item = this.newPageSizeOption.find(x=>x.selected);
+
+            if (item){
+                this.newPageSize = item.value
+                this.newPageIndex = 1
+                this.$emit('page-size-change', this.newPageSize)
+            }
+
+        },
+
+        // 初始化select 选项
+        initSelectOption(){
+
+            this.newPageSizeOption = this.pageSizeOption.map(x=> {
+                var temp = {};
+
+                temp.value = x;
+                temp.label = x+' 条/页'
+                if (this.newPageSize == x){
+                    temp.selected = true;
+                }
+
+                return temp;
+            })
+        },
+
+        // 回到初始页码
+        goBackPageIndex(){
+
+            this.newPageIndex = (this.pageIndex && this.pageIndex > 0) ? parseInt(this.pageIndex) : 1;
+        },
+
+        // 还原每页大小
+        goBackPageSize(){
+
+            if (this.pageSize > 0){
+
+                this.newPageSize = this.pageSize;
+                this.initSelectOption();
+            }
         }
 
     },
@@ -218,12 +276,10 @@ export default{
 
         pageSize:function (newVal, oldVal) {
             this.newPageSize = newVal;
+            this.initSelectOption();
         }
     },
     created(){
-
-    },
-    mounted(){
+        this.initSelectOption();
     }
-
 }

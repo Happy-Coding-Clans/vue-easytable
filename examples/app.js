@@ -1,26 +1,41 @@
-import "babel-polyfill"
-import Vue from "vue"
-import APP from "./app.vue"
-import router from './router.js'
+import Vue from 'vue'
+import APP from './comp/App.vue'
+import router from './router'
 
-import './css/app.css'
+import NProgress from 'nprogress'; // Progress 进度条
+
+import './css/index.css'
+import './css/custom.css'
+
+// Progress 进度条 样式
+import 'nprogress/nprogress.css';
+// highlight theme
+import 'highlight.js/styles/color-brewer.css';
+
+import demoBox from './comp/DemoBox.vue'
+Vue.component('demo-box', demoBox);
 
 
-import '../packages/themes/default/index.css'
-
-/*引用table和分页*/
-
+import '../packages/themes-base/index.css'
 import {VTable,VPagination} from '../src/index.js'
-/*import {VTable} from 'vue-EasyTable'*/
-
-
-/*只引用table*/
-/*import VTable from '../packages/v-table'*/
-/*import VTable from 'VTable'*/
-
 
 Vue.component(VTable.name, VTable)
 Vue.component(VPagination.name, VPagination)
+
+
+
+router.beforeEach((to, from, next) => {
+
+    NProgress.start();
+
+    next();
+
+    NProgress.done();
+})
+
+router.afterEach(() => {
+    NProgress.done(); // 结束Progress
+});
 
 new Vue({
     el: '#app',
