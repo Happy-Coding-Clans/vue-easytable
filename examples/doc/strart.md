@@ -1,9 +1,9 @@
 
-## 介绍
-基于 vue2 的 组件。[API文档](http://doc.huangsw.com/vue-easytable/app.html)
+### 介绍
+基于 vue2 的 组件。[github仓库地址](https://github.com/huangshuwei/vue-easytable)
 
 
-## 主要功能
+### 主要功能
 1. 自适应，可以随着浏览器窗口改变自动适应
 2. 固定列，表头固定
 3. 列宽拖动（默认支持）
@@ -11,16 +11,16 @@
 5. 自定义列、自定义单元格样式、loading效果等
 6. 自带分页组件
 
-## 安装
+### 安装
 
-```
+```javascript
 npm install vue-easytable --save-dev
 ```
 
-## 使用（[更多功能](http://doc.huangsw.com/vue-easytable/app.html)）
+### 使用
 
 
-```
+```javascript
 import 'vue-easytable/packages/themes-base/index.css'
 import {VTable,VPagination} from 'vue-easytable'
 
