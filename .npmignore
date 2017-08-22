@@ -1,5 +1,6 @@
 .idea/
 
+dist
 
 参考
 
@@ -12,4 +13,11 @@ npm-debug.log
 
 
 node_modules
+
+README.md
+
+webpack.config.js
+
+webpack-sets
+
 
