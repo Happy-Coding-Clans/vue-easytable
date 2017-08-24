@@ -1,9 +1,9 @@
 {
   "name": "vue-easytable",
-  "version": "0.0.9",
-  "description": "基于vue的table组件",
-  "main": "",
-  "author": "Huang ShuWei",
+  "version": "1.1.0",
+  "description": "基于 vue2.x 的table组件",
+  "main": "src/index.js",
+  "author": "https://github.com/huangshuwei",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -61,10 +61,11 @@
   },
   "scripts": {
     "build": "webpack --env.build",
-    "dev": "webpack-dev-server --env.dev"
+    "dev": "webpack-dev-server --env.dev",
+    "lib":"babel packages --out-dir dist2/libs"
   },
   "bugs": {
     "url": "https://github.com/huangshuwei/vue-easytable/issues"
   },
-  "homepage": "https://github.com/huangshuwei/vue-easytable"
+  "homepage": "https://github.com/huangshuwei/vue-easytable/blob/master/README.md"
 }
