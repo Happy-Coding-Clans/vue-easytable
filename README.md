@@ -2,7 +2,7 @@
 
 
 ## 介绍
-基于 vue2 的 组件。[API文档](http://doc.huangsw.com/vue-easytable/app.html)
+基于 vue2 的 组件。[API文档以及实例](http://doc.huangsw.com/vue-easytable/app.html)
 
 
 ## 主要功能
