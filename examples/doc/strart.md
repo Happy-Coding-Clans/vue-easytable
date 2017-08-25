@@ -21,7 +21,7 @@ npm install vue-easytable --save-dev
 
 
 ```javascript
-import 'vue-easytable/packages/themes-base/index.css'
+import 'vue-easytable/libs/themes-base/index.css'
 import {VTable,VPagination} from 'vue-easytable'
 
 Vue.component(VTable.name, VTable)

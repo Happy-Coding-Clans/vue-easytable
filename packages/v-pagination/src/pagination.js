@@ -1,6 +1,6 @@
 import pager from "./pager.vue";
 import VSelect from "../../v-select/index";
-import settings from '../../../src/settings/settings.js'
+import settings from '../../src/settings/settings.js'
 
 export default{
     name: 'v-pagination',

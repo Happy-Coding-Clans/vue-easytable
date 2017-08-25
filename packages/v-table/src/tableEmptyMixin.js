@@ -1,5 +1,5 @@
 // 表格数据为空时的处理逻辑
-import utils from '../../../src/utils/utils.js'
+import utils from '../../src/utils/utils.js'
 export default {
 
     data(){

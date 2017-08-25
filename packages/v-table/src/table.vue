@@ -213,8 +213,8 @@
     import sortControlMixin from './sortControlMixin.js'
     import tableEmptyMixin from './tableEmptyMixin.js'
     import dragWidthMixin from './dragWidthMixin.js'
-    import utils from '../../../src/utils/utils.js'
-    import deepClone from '../../../src/utils/deepClone.js'
+    import utils from '../../src/utils/utils.js'
+    import deepClone from '../../src/utils/deepClone.js'
 
     import tableEmpty from './tableEmpty.vue'
     import loading from './loading.vue'

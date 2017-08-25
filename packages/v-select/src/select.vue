@@ -39,14 +39,14 @@
 </template>
 
 <script>
-    import utils from '../../../src/utils/utils.js'
-    import settings from '../../../src/settings/settings.js'
-    import clickoutside from '../../../src/directives/clickoutside.js'
+    import utils from '../../src/utils/utils.js'
+    import settings from '../../src/settings/settings.js'
+    import clickoutside from '../../src/directives/clickoutside.js'
 
 /*    import VCheckboxGroup from '../../v-checkbox-group/index'*/
 /*    import VCheckbox from '../../v-checkbox/index'*/
 
-    import layerAdjustment from '../../../src/mixins/layerAdjustment.js'
+    import layerAdjustment from '../../src/mixins/layerAdjustment.js'
 
     export default {
         name: 'v-select',

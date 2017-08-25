@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import utils from '../../../src/utils/utils.js'
+    import utils from '../../src/utils/utils.js'
 
     export default{
 

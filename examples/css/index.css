@@ -573,7 +573,7 @@ code {
     position: relative;
     margin-left: 30px;
     font-size: 14px;
-    color: #C5C0B0;
+    color: #84a9fd;
 }
 
 .example-codeHighlight {
@@ -589,12 +589,12 @@ code {
     height: 30px;
     line-height: 30px;
     cursor: pointer;
-    color: #C5C0B0;
+    color: #9dbbff;
     font-size: 14px;
 }
 
 .example-codeHighlight-showCode:hover {
-    color: #ED5C43;
+    color: #578afd;
 }
 
 /*实例中的table*/

@@ -1,5 +1,5 @@
-import VTable from "../packages/v-table";
-import VPagination from "../packages/v-pagination";
+import VTable from "./v-table/index";
+import VPagination from "./v-pagination/index";
 
 
 const install = function (Vue, opts = {}) {
