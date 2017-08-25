@@ -1,6 +1,6 @@
 {
   "name": "vue-easytable",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "基于 vue2.x 的table组件",
   "main": "dist-lib/src/index.js",
   "author": "https://github.com/huangshuwei",
@@ -9,6 +9,9 @@
     "type": "git",
     "url": "git+https://github.com/huangshuwei/vue-easytable.git"
   },
+  "files": [
+    "dist-lib"
+  ],
   "dependencies": {
     "nprogress": "^0.2.0",
     "vue": "^2.2.6",
