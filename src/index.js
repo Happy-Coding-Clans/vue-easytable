@@ -10,7 +10,6 @@ const install = function (Vue, opts = {}) {
 }
 
 module.exports = {
-    version: '0.0.1',
     VPagination,
     VTable
 };
