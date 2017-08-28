@@ -63,6 +63,8 @@
 | on-row-click | 行点击回调 | — |
 | row-mouse-enter|  鼠标进入表体行的回调| rowIndex |
 | row-mouse-leave|  鼠标离开表体行的回调| rowIndex |
+| sort-change|  点击排序回调| sortColumns（排序的列对象信息） |
+
 
 
 ### Table Methods
