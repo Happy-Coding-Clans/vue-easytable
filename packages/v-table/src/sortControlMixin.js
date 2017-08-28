@@ -23,6 +23,7 @@ export default {
 
         // 排序控制
         sortControl(field, orderBy){
+
             var self = this,
                 collection = self.titleRowsToSortInfo.length > 0 ? self.titleRowsToSortInfo : self.internalColumns;
 
@@ -40,7 +41,8 @@ export default {
                         }
                     }
                 })
-                self.$emit('sortChange', self.sortColumns());
+
+                self.$emit('sort-change', self.sortColumns());
             }
         },
         // 只允许保留第一个排序规则（‘asc’或者‘desc’）
