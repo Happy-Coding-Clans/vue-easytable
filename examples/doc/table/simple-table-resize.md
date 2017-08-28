@@ -25,13 +25,10 @@
                 tableConfig: {
                     tableData: [],
                     columns: [
-                        {field: 'name', title: '姓名', width: 80, titleAlign: 'center', columnAlign: 'center'},
-                        {field: 'gender', title: '性别', width: 80, titleAlign: 'center', columnAlign: 'center'},
-                        {field: 'height', title: '身高', width: 80, titleAlign: 'center', columnAlign: 'right'},
+                        {field: 'name', title: '姓名', width: 80, titleAlign: 'center', columnAlign: 'center',isResize:true},
                         {field: 'tel', title: '手机号码', width: 150, titleAlign: 'center', columnAlign: 'center',isResize:true},
-                        {field: 'email', title: '邮箱', width: 150, titleAlign: 'center', columnAlign: 'center'},
-                        {field: 'hobby', title: '爱好', width: 280, titleAlign: 'center', columnAlign: 'left',isResize:true},
-                        {field: 'job', title: '职业', width: 280, titleAlign: 'center', columnAlign: 'right',isResize:true}
+                        {field: 'email', title: '邮箱', width: 150, titleAlign: 'center', columnAlign: 'center',isResize:true},
+                        {field: 'address', title: '地址', width: 280, titleAlign: 'center', columnAlign: 'left',isResize:true}
                     ],
                     titleBgColor: "#e1e1e1",
                     onRowClick(rowIndex, rowData){

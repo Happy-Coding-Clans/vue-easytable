@@ -20,15 +20,12 @@
 
                         <a class="main-wrapper-sidebar-link" href="javascript:javascript:void(0);">组件</a>
                         <ul class="menu-sub">
-
-                            <li>
-                                <router-link to="/pagination">Pagination 分页</router-link>
-                            </li>
-
                             <li>
                                 <router-link to="/table">Table 表格</router-link>
                             </li>
-
+                            <li>
+                                <router-link to="/pagination">Pagination 分页</router-link>
+                            </li>
                         </ul>
 
                     </li>

@@ -25,13 +25,10 @@
                 tables: {
                     tableData: [],
                     columns: [
-                        {field: 'name', title: '姓名', width: 80, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'gender', title: '性别', width: 80, titleAlign: 'center',columnAlign:'center',orderBy:'asc'},
-                        {field: 'height', title: '身高', width: 100, titleAlign: 'center',columnAlign:'center',orderBy:'asc'},
-                        {field: 'tel', title: '手机号码', width: 130, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'email', title: '邮箱', width: 130, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'hobby', title: '爱好', width: 230, titleAlign: 'center',columnAlign:'left'},
-                        {field: 'job', title: '职业', titleAlign: 'center',columnAlign:'left'}
+                         {field: 'name', title: '姓名', width: 100, titleAlign: 'center',columnAlign:'center',orderBy:'asc'},
+                         {field: 'tel', title: '手机号码', width: 260, titleAlign: 'center',columnAlign:'center',orderBy:'desc'},
+                         {field: 'hobby', title: '爱好', width: 380, titleAlign: 'center',columnAlign:'center'},
+                         {field: 'address', title: '地址', titleAlign: 'center',columnAlign:'left'}
                     ]
                 }
             }

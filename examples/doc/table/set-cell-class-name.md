@@ -4,6 +4,7 @@
 ```html
 <template>
     <v-table
+            :width="1100"
             :columns="tableConfig.columns"
             :table-data="tableConfig.tableData"
             :on-row-click="tableConfig.onRowClick"
@@ -42,14 +43,11 @@
             return {
                 tableConfig: {
                     tableData:[],
-                    columns: [
-                        {field: 'name', title:'姓名', width: 80, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'gender', title: '性别', width: 80, titleAlign: 'center',columnAlign:'center',titleCellClassName:'title-cell-class-name-test'},
-                        {field: 'height', title: '身高', width: 80, titleAlign: 'center',columnAlign:'right'},
-                        {field: 'tel', title: '手机号码', width: 168, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'email', title: '邮箱', width: 230, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'hobby', title: '爱好', width: 180, titleAlign: 'center',columnAlign:'left'},
-                        {field: 'job', title: '职业',width: 280, titleAlign: 'center',columnAlign:'left'}
+                    columns: [ //
+                       {field: 'name', title:'姓名', width: 100, titleAlign: 'center',columnAlign:'center'},
+                       {field: 'tel', title: '手机号码', width: 260, titleAlign: 'center',columnAlign:'center'},
+                       {field: 'hobby', title: '爱好', width: 380, titleAlign: 'center',columnAlign:'center',titleCellClassName:'title-cell-class-name-test'},
+                       {field: 'address', title: '地址', titleAlign: 'center',columnAlign:'left'}
                     ],
                     titleBgColor: "#e1e1e1",
                     onRowClick(rowIndex,rowData){
@@ -81,7 +79,7 @@
                 }
 
                 // 给姓名为李清照的行设置className
-                if (rowData.name === '李清照'){
+                if (rowData.name === '冯伟'){
 
                     return 'column-cell-class-name-test';
                 }

@@ -27,14 +27,11 @@
                                 return rowIndex < 3 ? '<span style="color:red;font-weight: bold;">' + (rowIndex + 1) + '</span>' : rowIndex + 1
                             }, isFrozen: true
                         },
-                        {field: 'name', title:'姓名', width: 80, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'gender', title: '性别', width: 80, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'height', title: '身高', width: 80, titleAlign: 'center',columnAlign:'right'},
+                        {field: 'name', title:'姓名', width: 130, titleAlign: 'center',columnAlign:'center'},
                         {field: 'tel', title: '手机号码', width: 160, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'email', title: '邮箱', width: 150, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'hobby', title: '爱好', width: 180, titleAlign: 'center',columnAlign:'left'},
-                        {field: 'job', title: '职业', width: 130, titleAlign: 'center',columnAlign:'left'},
-                        {field: 'custome-adv', title: '操作', titleAlign: 'center',columnAlign:'left',componentName:'table-operation'}
+                        {field: 'hobby', title: '爱好', width: 230, titleAlign: 'center',columnAlign:'center'},
+                        {field: 'address', title: '地址', width: 330, titleAlign: 'center',columnAlign:'left'},
+                        {field: 'custome-adv', title: '操作', titleAlign: 'center',columnAlign:'center',componentName:'table-operation'}
                     ]
                 }
             }

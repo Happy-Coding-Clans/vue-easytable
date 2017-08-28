@@ -5,7 +5,7 @@
     <div>
         <v-table
              :width="1100"
-             :height="430"
+             :height="350"
              :columns="tableConfig.columns"
              :table-data="tableConfig.tableData"
              even-bg-color="#f4f4f4"
@@ -26,13 +26,10 @@
                 tableConfig: {
                     tableData: [],
                     columns: [
-                        {field: 'name', title: '姓名', width: 80, titleAlign: 'center',columnAlign:'center', isFrozen: true},
-                        {field: 'gender', title: '性别', width: 180, titleAlign: 'center',columnAlign:'center', isFrozen: false},
-                        {field: 'height', title: '身高', width: 180, titleAlign: 'center',columnAlign:'center', isFrozen: false},
-                        {field: 'tel', title: '手机号码', width: 180, titleAlign: 'center',columnAlign:'center', isFrozen: false},
-                        {field: 'email', title: '邮箱', width: 190, titleAlign: 'center',columnAlign:'center', isFrozen: false},
-                        {field: 'hobby', title: '爱好', width: 230, titleAlign: 'center',columnAlign:'left', isFrozen: false},
-                        {field: 'job', title: '职业', width: 200, titleAlign: 'center',columnAlign:'left', isFrozen: false},
+                           {field: 'name', title:'姓名', width: 150, titleAlign: 'center',columnAlign:'center', isFrozen: true},
+                           {field: 'tel', title: '手机号码', width: 280, titleAlign: 'center',columnAlign:'center', isFrozen: true},
+                           {field: 'hobby', title: '爱好', width: 380, titleAlign: 'center',columnAlign:'center'},
+                           {field: 'address', title: '地址', width: 430, titleAlign: 'center',columnAlign:'left'}
                     ]
                 }
             }
