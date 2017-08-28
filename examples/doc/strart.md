@@ -1,6 +1,6 @@
 
 ### 介绍
-基于 vue2 的 组件。[github仓库地址](https://github.com/huangshuwei/vue-easytable)
+基于 vue2.x 的 组件。[github仓库地址](https://github.com/huangshuwei/vue-easytable)
 
 
 ### 主要功能
