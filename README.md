@@ -30,41 +30,9 @@ Vue.component(VTable.name, VTable)
 Vue.component(VPagination.name, VPagination)
 ```
 
-```html
-<template>
-    <v-table
-            :width="1100"
-             :columns="tableConfig.columns"
-             :table-data="tableConfig.tableData"
-    ></v-table>
-</template>
-```
-```javascript
-<script>
 
-    export default{
-        data() {
-            return {
-                tableConfig: {
-                    tableData:[
-                              {"name":"tom","gender":"男","job":"the cat"},
-                              {"name":"jerry","gender":"男","job":"the mouse"},
-                              {"name":"张飞","gender":"女","job":"勇而有义，皆万人之敌，而为之将"}
-                              ],
-                    columns: [
-                        {field: 'name', title:'姓名', width: 80, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'gender', title: '性别', width: 80, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'job', title: '职业', titleAlign: 'center',columnAlign:'left'}
-                    ]
-                }
-            }
-        }
-    }
-</script>
-```
-
-### 参考
-[饿了么ui组件](http://element.eleme.io/#/zh-CN/component/quickstart)
+## 效果展示
+![vue-easytable](./examples/images/vue-easytable.gif)
 
 
 

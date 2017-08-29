@@ -110,6 +110,11 @@
 
         </div>
 
+        <div class="mt30 mb30">
+                <h3>结合分页的完整实例</h3>
+                <combined-paging></combined-paging>
+        </div>
+
         <!--api-->
         <api></api>
     </div>
@@ -138,6 +143,8 @@
     import customSetLoadingAndErrorContent from './custom-set-loading-and-error-content.md'
     import setLoadingAndErrorContent from './set-loading-and-error-content.md'
 
+    import combinedPaging from './combinedPaging.md'
+
 
     import api from './api.md'
 
@@ -164,7 +171,7 @@
             setLoadingAndErrorContent,
             customSetLoadingAndErrorContent,
 
-
+            combinedPaging,
 
             api
         },
