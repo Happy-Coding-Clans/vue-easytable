@@ -55,11 +55,11 @@
                             }, isFrozen: true
                         },
                         {field: 'name', width: 100, columnAlign: 'center', isFrozen: true},
-                        {field: 'height', width: 150, columnAlign: 'center', isFrozen: true},
-                        {field: 'gender', width: 100, columnAlign: 'center', isFrozen: false,isResize:true},
+                        {field: 'height', width: 100, columnAlign: 'center', isFrozen: true},
+                        {field: 'gender', width: 90, columnAlign: 'center', isFrozen: false,isResize:true},
 
-                        {field: 'address', width: 350, columnAlign: 'left',isResize:true},
-                        {field: 'hobby', width: 230, columnAlign: 'center',isResize:true}
+                        {field: 'address', width: 280, columnAlign: 'left',isResize:true},
+                        {field: 'hobby', width: 180, columnAlign: 'center',isResize:true}
 
                     ],
                     titleRows: [
