@@ -35,4 +35,8 @@ Vue.component(VPagination.name, VPagination)
 ![vue-easytable](./examples/images/vue-easytable.gif)
 
 
+## License
+http://www.opensource.org/licenses/mit-license.php
+
+
 
