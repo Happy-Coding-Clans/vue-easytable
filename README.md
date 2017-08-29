@@ -32,7 +32,7 @@ Vue.component(VPagination.name, VPagination)
 
 
 ## 效果展示
-![vue-easytable](./examples/images/vue-easytable2.gif)
+![vue-easytable](./examples/images/vue-easytable.gif)
 
 
 
