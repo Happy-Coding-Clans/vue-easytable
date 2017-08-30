@@ -1,42 +1,42 @@
 # vue-easytable
 
 
-## 介绍
-基于 vue2.x 的 实用型 table 组件。
+## Introduction
+Based on vue2.x flexible table components.
 
-## API & 实例
-[API文档以及实例](http://doc.huangsw.com/vue-easytable/app.html)
+## API & Examples
+[API&Examples](http://doc.huangsw.com/vue-easytable/app.html)
 
-## 主要功能
-1. 自适应，可以随着浏览器窗口改变自动适应
-2. 固定列，表头固定
-3. 列宽拖动（默认支持）
-4. 排序，支持单个、多个字段排序
-5. 自定义列、自定义单元格样式、loading效果等
-6. 自带分页组件
+## Features
+1. Adaptive, can be automatically adapted as the browser window changes（自适应，可以随着浏览器窗口改变自动适应）
+2. Fixed column, head fixed(固定列，表头固定)
+3. The default support for column width drag(默认支持列宽拖动)
+4. Supports single field sorting and multiple field sorting（支持单个字段排序和多个字段排序）
+5. Custom columns, custom cell styles, loading effects, and more（自定义列、自定义单元格样式、loading效果等）
+6. With paging components（自带分页组件）
 
-## 安装
+## Install
 
 ```
 npm install vue-easytable --save-dev
 ```
 
-## 使用（[更多功能](http://doc.huangsw.com/vue-easytable/app.html)）
+## Usage（[more usage](http://doc.huangsw.com/vue-easytable/app.html)）
 
 
 ```
-// 引入css
+// import css
 import 'vue-easytable/libs/themes-base/index.css'
 
-// 引入table 组件 和 分页组件
+// import table and pagination comp
 import {VTable,VPagination} from 'vue-easytable'
 
-// 注册到全局
+// Register to global
 Vue.component(VTable.name, VTable)
 Vue.component(VPagination.name, VPagination)
 ```
 
-## 效果展示
+## Effect
 ![vue-easytable](./examples/images/vue-easytable.gif)
 
 ## License
