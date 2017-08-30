@@ -25,17 +25,19 @@ npm install vue-easytable --save-dev
 
 
 ```
+// 引入css
 import 'vue-easytable/libs/themes-base/index.css'
+
+// 引入table 组件 和 分页组件
 import {VTable,VPagination} from 'vue-easytable'
 
+// 注册到全局
 Vue.component(VTable.name, VTable)
 Vue.component(VPagination.name, VPagination)
 ```
 
-
 ## 效果展示
 ![vue-easytable](./examples/images/vue-easytable.gif)
-
 
 ## License
 http://www.opensource.org/licenses/mit-license.php
