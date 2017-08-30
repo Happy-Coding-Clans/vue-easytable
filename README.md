@@ -2,8 +2,10 @@
 
 
 ## 介绍
-基于 vue2 的 组件。[API文档以及实例](http://doc.huangsw.com/vue-easytable/app.html)
+基于 vue2.x 的 实用型 table 组件。
 
+## API & 实例
+[API文档以及实例](http://doc.huangsw.com/vue-easytable/app.html)
 
 ## 主要功能
 1. 自适应，可以随着浏览器窗口改变自动适应
