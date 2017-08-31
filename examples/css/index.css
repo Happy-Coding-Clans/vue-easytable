@@ -35,6 +35,22 @@ body, html {
 /*    background-color: lightblue;*/
 }
 
+.main-banner-title-items{
+
+    margin-left: 145px;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.main-banner-title-item{
+    padding-left: 30px;
+}
+
+.main-banner-title-item:hover{
+    font-weight: bold;
+
+}
+
 .main-wrapper{
     position: relative;
     border-radius: 6px;

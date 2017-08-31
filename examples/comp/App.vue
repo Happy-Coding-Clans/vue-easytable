@@ -3,7 +3,11 @@
 
         <div class="main-banner">
             <div class="main-banner-title">
-                vue-easytable
+                <span>vue-easytable</span>
+                <span class="main-banner-title-items">
+                    <a class="main-banner-title-item" href="https://github.com/huangshuwei/vue-easytable">github</a>
+                    <a class="main-banner-title-item" href="https://github.com/huangshuwei/vue-easytable/releases">更新日志</a>
+                </span>
             </div>
         </div>
 

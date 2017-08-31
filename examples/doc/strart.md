@@ -31,12 +31,7 @@ Vue.component(VPagination.name, VPagination)
 ### 效果展示
 ![vue-easytable](../images/vue-easytable.gif)
 
-### github地址
 
-[https://github.com/huangshuwei/vue-easytable](https://github.com/huangshuwei/vue-easytable)
-
-### 更新日志
-[https://github.com/huangshuwei/vue-easytable/releases](https://github.com/huangshuwei/vue-easytable/releases)
 
 
 
