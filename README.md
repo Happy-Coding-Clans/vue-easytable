@@ -30,7 +30,7 @@ npm install vue-easytable --save-dev
 ## Usage（[more usage](http://doc.huangsw.com/vue-easytable/app.html)）
 
 
-```
+```javascript
 // import css
 import 'vue-easytable/libs/themes-base/index.css'
 
