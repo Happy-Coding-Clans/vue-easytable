@@ -23,7 +23,7 @@ Based on vue2.x flexible table components.
 
 ## Install
 
-```
+```javascript
 npm install vue-easytable --save-dev
 ```
 
