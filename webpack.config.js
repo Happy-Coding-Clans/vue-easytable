@@ -24,9 +24,9 @@ var CleanWebpackPlugin = require('clean-webpack-plugin');
 var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 
-var settings = require('./webpack-sets/webpack.settings.js');
+var settings = require('./build/webpack.settings.js');
 
-var markdown = require('./webpack-sets/webpack.markdown.js');
+var markdown = require('./build/webpack.markdown.js');
 
 
 module.exports = function (env) {
