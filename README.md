@@ -48,6 +48,17 @@ Vue.component(VPagination.name, VPagination)
 ## Effect
 ![vue-easytable](./examples/images/vue-easytable.gif)
 
+## ToDo
+
+- 添加单元格编辑功能
+- 添加 checkbox 多选功能
+- 添加 footer 功能
+- 添加导出 excel 功能
+- 添加导出 pdf 功能
+- 添加条件过滤功能
+- 添加行展开功能
+
+
 ## License
 http://www.opensource.org/licenses/mit-license.php
 
