@@ -50,13 +50,20 @@ Vue.component(VPagination.name, VPagination)
 
 ## ToDo
 
-- 添加单元格编辑功能
-- 添加 checkbox 多选功能
-- 添加 footer 功能
-- 添加导出 excel 功能
-- 添加导出 pdf 功能
-- 添加条件过滤功能
-- 添加行展开功能
+- 添加单元格编辑功能   
+  Add cell editing
+- 添加 checkbox 多选功能  
+  Add the checkbox multiple selection
+- 添加 footer 功能  
+  Add the footer
+- 添加导出 excel 功能  
+  Add the export excel
+- 添加导出 pdf 功能  
+  Add the export pdf
+- 添加条件过滤功能  
+  Add conditional filtering
+- 添加行展开功能  
+  Add line expansion
 
 
 ## License
