@@ -207,16 +207,16 @@
 
 <script>
 
-    import scrollControlMixin from './scrollControlMixin.js'
-    import frozenColumnsMixin from './frozenColumnsMixin.js'
-    import tableResizeMixin from './tableResizeMixin.js'
-    import sortControlMixin from './sortControlMixin.js'
-    import tableEmptyMixin from './tableEmptyMixin.js'
-    import dragWidthMixin from './dragWidthMixin.js'
+    import scrollControlMixin from './scroll-control-mixin.js'
+    import frozenColumnsMixin from './frozen-columns-mixin.js'
+    import tableResizeMixin from './table-resize-mixin.js'
+    import sortControlMixin from './sort-control-mixin.js'
+    import tableEmptyMixin from './table-empty-mixin.js'
+    import dragWidthMixin from './drag-width-mixin.js'
     import utils from '../../src/utils/utils.js'
     import deepClone from '../../src/utils/deepClone.js'
 
-    import tableEmpty from './tableEmpty.vue'
+    import tableEmpty from './table-empty.vue'
     import loading from './loading.vue'
 
     export default {
