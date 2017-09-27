@@ -36,8 +36,8 @@ export default {
 
             // 最后一列不允许拖动
             /*if (this.internalColumns[this.internalColumns.length - 1].field === column) {
-                return false;
-            }*/
+             return false;
+             }*/
 
             if (!this.showVerticalBorder) {
                 return false;
@@ -45,13 +45,14 @@ export default {
 
             target = event.target;
 
-            while (target && target.className && target.className.indexOf('v-table-title-cell') === -1) {
+            while (target && ((target.className && target.className.indexOf('v-table-title-cell') === -1) || !target.className)) {
                 target = target.parentNode;
             }
 
             rect = target.getBoundingClientRect();
 
             const bodyStyle = document.body.style;
+
             if (rect.width >= this.minColumnWidth && rect.right - event.pageX < 10) {
 
                 if (!this.isDragging) { // 拖动中不设置
