@@ -19,7 +19,7 @@
                                         @mousedown.stop="handleTitleMouseDown($event)"
                                         @mouseout.stop="handleTitleMouseOut()">
                                         <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
-                                             :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','line-height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
+                                             :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                             <span class="table-title" v-html="col.title"></span>
                                             <span @click.stop="sortControl(col.fields[0],col.orderBy)" class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
                                                     <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
@@ -38,7 +38,7 @@
                                         @mousedown.stop="handleTitleMouseDown($event)"
                                         @mouseout.stop="handleTitleMouseOut()">
                                         <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
-                                             :style="{'width':col.width+'px','height':titleRowHeight+'px','line-height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
+                                             :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
                                             <span class="table-title" v-html="col.title"></span>
                                             <span @click.stop="sortControl(col.field,col.orderBy)" class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
                                                     <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
@@ -111,7 +111,7 @@
                                     @mousedown.stop="handleTitleMouseDown($event)"
                                     @mouseout.stop="handleTitleMouseOut()">
                                     <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
-                                         :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','line-height':titleColumnHeight(col.rowspan)+'px','line-height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
+                                         :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                         <span class="table-title" v-html="col.title"></span>
                                         <span @click.stop="sortControl(col.fields[0],col.orderBy)" class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
                                                     <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
@@ -131,7 +131,7 @@
                                     @mousedown.stop="handleTitleMouseDown($event)"
                                     @mouseout.stop="handleTitleMouseOut()">
                                     <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
-                                         :style="{'width':col.width+'px','height':titleRowHeight+'px','line-height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
+                                         :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
                                         <span class="table-title" v-html="col.title"></span>
                                         <span @click.stop="sortControl(col.field,col.orderBy)" class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
                                                     <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
