@@ -112,7 +112,6 @@
 .table-title{
     display: inline-block;
     padding:0 3px;
-    vertical-align: middle;
     word-break: break-all;
     overflow: hidden;
 }
@@ -120,33 +119,31 @@
 .v-table-sort-icon {
     position: relative;
     display: inline-block;
+    width: 14px;
     vertical-align: middle;
-    font-size:16px;
-    width:16px;
-    height: 16px;
-    overflow: hidden;
+    text-align: center;
+    height: 100%;
+    line-height: 100%;
     cursor: pointer;
     margin-left: -8px;
 }
 
 .v-table-sort-icon i {
-
     position: absolute;
+    line-height: 8px;
     display: block;
-    width:16px;
-    height: 12px;
-    line-height: 12px;
-    overflow: hidden;
+    width: 14px;
+    height: 8px;
     color: #a6a6a6;
     transition: color .2s ease-in-out;
 }
 
 .v-table-sort-icon i:first-child {
-    top: -5px;
+    top: -10px;
 }
 
 .v-table-sort-icon i:last-child {
-    bottom: 0px;
+    /*   bottom: 10px;*/
 }
 
 .v-table-header .cursorPointer{
