@@ -13,16 +13,15 @@
                             <template v-if="frozenTitleCols.length > 0">
                                 <tr v-for="row in frozenTitleCols">
                                     <td v-for="col in row"
-                                        :class="[enableSort(col.orderBy) ? 'cursorPointer':'',col.titleCellClassName]"
+                                        :class="[col.titleCellClassName]"
                                         :colspan="col.colspan" :rowspan="col.rowspan"
-                                        @click.stop="sortControl(col.fields[0],col.orderBy)"
                                         @mousemove.stop="handleTitleMouseMove($event,col.fields)"
                                         @mousedown.stop="handleTitleMouseDown($event)"
                                         @mouseout.stop="handleTitleMouseOut()">
                                         <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
-                                             :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
+                                             :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','line-height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                             <span class="table-title" v-html="col.title"></span>
-                                            <span class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
+                                            <span @click.stop="sortControl(col.fields[0],col.orderBy)" class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
                                                     <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
                                                     <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
                                             </span>
@@ -34,15 +33,14 @@
                             <template v-else>
                                 <tr class="v-table-header-row">
                                     <td v-for="col in frozenCols"
-                                        :class="[enableSort(col.orderBy) ? 'cursorPointer':'',col.titleCellClassName]"
-                                        @click.stop="sortControl(col.field,col.orderBy)"
+                                        :class="[col.titleCellClassName]"
                                         @mousemove.stop="handleTitleMouseMove($event,col.field)"
                                         @mousedown.stop="handleTitleMouseDown($event)"
                                         @mouseout.stop="handleTitleMouseOut()">
                                         <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
-                                             :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
+                                             :style="{'width':col.width+'px','height':titleRowHeight+'px','line-height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                             <span class="table-title" v-html="col.title"></span>
-                                            <span class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
+                                            <span @click.stop="sortControl(col.field,col.orderBy)" class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
                                                     <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
                                                     <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
                                         </span>
@@ -107,16 +105,15 @@
                         <template v-if="noFrozenTitleCols.length > 0">
                             <tr v-for="row in noFrozenTitleCols">
                                 <td v-for="col in row"
-                                    :class="[enableSort(col.orderBy) ? 'cursorPointer':'',col.titleCellClassName]"
+                                    :class="[col.titleCellClassName]"
                                     :colspan="col.colspan" :rowspan="col.rowspan"
-                                    @click.stop="sortControl(col.fields[0],col.orderBy)"
                                     @mousemove.stop="handleTitleMouseMove($event,col.fields)"
                                     @mousedown.stop="handleTitleMouseDown($event)"
                                     @mouseout.stop="handleTitleMouseOut()">
                                     <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
-                                         :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
+                                         :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','line-height':titleColumnHeight(col.rowspan)+'px','line-height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                         <span class="table-title" v-html="col.title"></span>
-                                        <span class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
+                                        <span @click.stop="sortControl(col.fields[0],col.orderBy)" class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
                                                     <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
                                                     <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
                                         </span>
@@ -129,15 +126,14 @@
                         <template v-else>
                             <tr class="v-table-header-row">
                                 <td v-for="(col,colIndex) in noFrozenCols"
-                                    :class="[enableSort(col.orderBy) ? 'cursorPointer':'',col.titleCellClassName]"
-                                    @click.stop="sortControl(col.field,col.orderBy)"
+                                    :class="[col.titleCellClassName]"
                                     @mousemove.stop="handleTitleMouseMove($event,col.field)"
                                     @mousedown.stop="handleTitleMouseDown($event)"
                                     @mouseout.stop="handleTitleMouseOut()">
                                     <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
-                                         :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
+                                         :style="{'width':col.width+'px','height':titleRowHeight+'px','line-height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                         <span class="table-title" v-html="col.title"></span>
-                                        <span class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
+                                        <span @click.stop="sortControl(col.field,col.orderBy)" class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
                                                     <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
                                                     <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
                                         </span>
@@ -286,9 +282,9 @@
             },
 
             // 垂直自适应偏移量
-            VerticalResizeOffset:{
-                type:Number,
-                default:0
+            VerticalResizeOffset: {
+                type: Number,
+                default: 0
             },
 
             // 表头背景颜色

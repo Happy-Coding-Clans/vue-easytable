@@ -106,14 +106,7 @@
     border-width: 0;
     border-style: solid;
     border-color: rgba(221, 221, 221, 1);
-}
 
-.v-table-title-cell:before {
-    content: '';
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-    /* border: 1px solid red;*/ /* so we can see what's going on */
 }
 
 .table-title{
@@ -121,6 +114,7 @@
     padding:0 3px;
     vertical-align: middle;
     word-break: break-all;
+    overflow: hidden;
 }
 
 .v-table-sort-icon {
@@ -131,6 +125,8 @@
     width:16px;
     height: 16px;
     overflow: hidden;
+    cursor: pointer;
+    margin-left: -8px;
 }
 
 .v-table-sort-icon i {
@@ -146,11 +142,11 @@
 }
 
 .v-table-sort-icon i:first-child {
-    top: -3px;
+    top: -5px;
 }
 
 .v-table-sort-icon i:last-child {
-    bottom: -1px;
+    bottom: 0px;
 }
 
 .v-table-header .cursorPointer{
@@ -160,11 +156,6 @@
     -khtml-user-select: none;
     -ms-user-select: none;
 }
-
-.v-table-sort-icon .checked{
-    color:#48576a;
-}
-
 
 .vertical-border{
     border-right-width: 1px !important;
