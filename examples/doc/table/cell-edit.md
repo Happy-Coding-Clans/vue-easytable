@@ -1,5 +1,5 @@
 
-:::demo 实例
+:::demo 通过设置列对象中的 isEdit 属性，控制哪些列开启单元格编辑功能。通过传入回调函数 cell-edit-done，接收编辑结果。
 
 ```html
 <template>
