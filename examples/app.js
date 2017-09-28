@@ -16,8 +16,8 @@ import demoBox from './comp/DemoBox.vue'
 Vue.component('demo-box', demoBox);
 
 
-import '../packages/themes-base/index.css'
-import {VTable,VPagination} from '../packages/index.js'
+import '../libs/themes-base/index.css'
+import {VTable,VPagination} from '../libs/index.js'
 
 Vue.component(VTable.name, VTable)
 Vue.component(VPagination.name, VPagination)

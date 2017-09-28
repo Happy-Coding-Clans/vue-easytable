@@ -37,6 +37,14 @@
 
         </div>
 
+        <div class="mt30">
+            <h3>单元格编辑</h3>
+
+            <div class="mt30">
+                <div class="bold">支持单元格编辑</div>
+                <cell-edit></cell-edit>
+            </div>
+        </div>
 
         <div class="mt30">
             <h3>表格排序</h3>
@@ -128,6 +136,8 @@
     import setCellClassName from './set-cell-class-name.md'
     import customColumns from './custom-columns.md'
 
+    import cellEdit from './cell-edit.md'
+
     import sortBySingleColumns from './sort-by-single-columns.md'
     import sortByMultipleColumns from './sort-by-multiple-columns.md'
 
@@ -159,6 +169,8 @@
 
             complexHeaderFixedColumn,
             frozenTitleColumns,
+
+            cellEdit,
 
             sortByMultipleColumns,
             sortBySingleColumns,

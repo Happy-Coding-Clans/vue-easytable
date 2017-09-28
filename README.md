@@ -23,6 +23,8 @@ Based on vue2.x flexible table components.
    自定义列、自定义单元格样式、loading效果等
 6. With paging components  
    自带分页组件
+7. Cell edit
+   单元格编辑
 
 ## Install
 

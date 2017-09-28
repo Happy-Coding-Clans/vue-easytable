@@ -1,0 +1,75 @@
+import utils from '../../src/utils/utils.js'
+export default {
+
+    methods: {
+        // cell edit
+        cellEdit(e,callback){
+
+            let target = e.target,
+                oldVal,
+                editInput,
+                editInputLen,
+                actionFun,
+                textAlign;
+
+            while ((target.className && target.className.indexOf('v-table-body-cell') === -1) || !target.className) {
+                target = target.parentNode;
+            }
+
+            if (target.classList.contains('cell-editing')) {
+                return false
+            }
+
+            target.classList.add('cell-editing');
+
+            oldVal = target.innerText;
+
+            if (target.style.textAlign){
+
+                textAlign = target.style.textAlign;
+            }
+
+            target.innerHTML = `<input type='text' value="${oldVal}" class='cell-edit-input' style='width:100%;height: 100%;text-align: ${textAlign};'>`;
+
+            editInput = target.querySelector('.cell-edit-input');
+            editInput.focus();
+
+
+            editInputLen = editInput.value.length;
+            if (document.selection) {
+                let ctr = editInput.createTextRange();
+                ctr.moveStart('character', editInputLen);
+                ctr.collapse();
+                ctr.select();
+            } else if (typeof editInput.selectionStart == 'number' && typeof editInput.selectionEnd == 'number') {
+                editInput.selectionStart = editInput.selectionEnd = editInputLen;
+            }
+
+
+            actionFun = function (e) {
+
+                if (typeof e.keyCode === 'undefined' || e.keyCode == 13){
+
+
+                    if (target.classList.contains('cell-editing')) {
+                        target.classList.remove('cell-editing');
+
+                    }else{
+                        return false;
+                    }
+
+                    target.innerText = this.value;
+
+                    callback(this.value,oldVal)
+
+                    utils.unbind(editInput, 'blur', actionFun);
+                    utils.unbind(editInput, 'keydown',actionFun);
+                }
+            };
+
+
+            utils.bind(editInput, 'blur', actionFun);
+            utils.bind(editInput, 'keydown',actionFun);
+        }
+    }
+}

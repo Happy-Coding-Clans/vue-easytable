@@ -121,16 +121,20 @@
     padding:0 3px;
     vertical-align: middle;
     word-break: break-all;
+    overflow: hidden;
+    line-height: 1.2em;
 }
 
 .v-table-sort-icon {
     position: relative;
     display: inline-block;
     vertical-align: middle;
-    font-size:16px;
+    /*font-size:16px;*/
     width:16px;
-    height: 16px;
+    height: 19px;
+    margin-left: -8px;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .v-table-sort-icon i {
@@ -138,19 +142,19 @@
     position: absolute;
     display: block;
     width:16px;
-    height: 12px;
-    line-height: 12px;
+    height: 15px;
+    /*line-height: 12px;*/
     overflow: hidden;
     color: #a6a6a6;
     transition: color .2s ease-in-out;
 }
 
 .v-table-sort-icon i:first-child {
-    top: -3px;
+    top: -4px;
 }
 
 .v-table-sort-icon i:last-child {
-    bottom: -1px;
+    bottom: -0px;
 }
 
 .v-table-header .cursorPointer{
@@ -160,11 +164,6 @@
     -khtml-user-select: none;
     -ms-user-select: none;
 }
-
-.v-table-sort-icon .checked{
-    color:#48576a;
-}
-
 
 .vertical-border{
     border-right-width: 1px !important;

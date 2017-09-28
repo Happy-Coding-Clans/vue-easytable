@@ -67,7 +67,7 @@
                                     <div :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                          :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
                                          :title="col.overflowTitle ?  overflowTitle(item,col) :''"
-                                         @click.stop="onCellClick(rowIndex,item,col)"
+                                         @click.stop="onCellClick(rowIndex,item,col);onCellEdit($event,col.isEdit,item,col.field,rowIndex)"
                                     >
                                         <template
                                                 v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
@@ -160,7 +160,7 @@
                             <div :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                  :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
                                  :title="col.overflowTitle ?  overflowTitle(item,col) :''"
-                                 @click.stop="onCellClick(rowIndex,item,col)"
+                                 @click.stop="onCellClick(rowIndex,item,col);onCellEdit($event,col.isEdit,item,col.field,rowIndex)"
                             >
                                 <template v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
                                     <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex"
@@ -203,21 +203,23 @@
 
 <script>
 
-    import scrollControlMixin from './scrollControlMixin.js'
-    import frozenColumnsMixin from './frozenColumnsMixin.js'
-    import tableResizeMixin from './tableResizeMixin.js'
-    import sortControlMixin from './sortControlMixin.js'
-    import tableEmptyMixin from './tableEmptyMixin.js'
-    import dragWidthMixin from './dragWidthMixin.js'
+    import scrollControlMixin from './scroll-control-mixin.js'
+    import frozenColumnsMixin from './frozen-columns-mixin.js'
+    import tableResizeMixin from './table-resize-mixin.js'
+    import sortControlMixin from './sort-control-mixin.js'
+    import tableEmptyMixin from './table-empty-mixin.js'
+    import dragWidthMixin from './drag-width-mixin.js'
+    import cellEditMixin from './cell-edit-mixin.js'
+
     import utils from '../../src/utils/utils.js'
     import deepClone from '../../src/utils/deepClone.js'
 
-    import tableEmpty from './tableEmpty.vue'
+    import tableEmpty from './table-empty.vue'
     import loading from './loading.vue'
 
     export default {
         name: 'v-table',
-        mixins: [tableResizeMixin, frozenColumnsMixin, scrollControlMixin, sortControlMixin, tableEmptyMixin,dragWidthMixin],
+        mixins: [tableResizeMixin, frozenColumnsMixin, scrollControlMixin, sortControlMixin, tableEmptyMixin,dragWidthMixin,cellEditMixin],
         components: {tableEmpty, loading},
         data(){
             return {
@@ -391,6 +393,8 @@
             rowMouseEnter: Function,
             // 鼠标离开行的回调
             rowMouseLeave: Function,
+            // 单元格编辑完成回调
+            cellEditDone:Function
 
         },
         computed: {
@@ -451,6 +455,22 @@
         },
         methods: {
 
+            // 单元格编辑
+            onCellEdit(e,isEdit,rowData,field,rowIndex){
+
+                if (isEdit){
+
+                    let self = this;
+                    // 单元格内容变化后的回调
+                    let onCellEditCallBack = function (newValue,oldVal) {
+
+                        self.cellEditDone(newValue,oldVal,rowData,field,rowIndex);
+                    }
+
+                    this.cellEdit(e,onCellEditCallBack)
+                }
+            },
+
             setRowHoverColor(isMouseenter){
 
                 if (this.rowHoverColor && this.rowHoverColor.length > 0 && isMouseenter) {
@@ -494,7 +514,6 @@
 
             //点击数据行时，回调点击事件
             onCellClick(rowIndex, rowData, column){
-
                 if (Array.isArray(this.internalTableData) && this.internalTableData.length > 0) {
 
                     var clickCell = this.internalTableData.find(x => x.__columnCellClick__);

@@ -1,4 +1,4 @@
-<template>
+npm <template>
 
     <div class="v-table-empty">
         <!--表格无数据的提示信息-->

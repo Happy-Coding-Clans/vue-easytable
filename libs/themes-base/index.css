@@ -4,6 +4,11 @@
 @import "v-select.css";
 @import "v-table.css";
 
+/*多主题放开后，此处作废*/
+@import "../themes-blue/v-pagination.css";
+@import "../themes-blue/v-select.css";
+@import "../themes-blue/v-table.css";
+
 
 
 

@@ -47,13 +47,14 @@ exports.default = {
 
                                     target = event.target;
 
-                                    while (target && target.className && target.className.indexOf('v-table-title-cell') === -1) {
+                                    while (target && (target.className && target.className.indexOf('v-table-title-cell') === -1 || !target.className)) {
                                                 target = target.parentNode;
                                     }
 
                                     rect = target.getBoundingClientRect();
 
                                     var bodyStyle = document.body.style;
+
                                     if (rect.width >= this.minColumnWidth && rect.right - event.pageX < 10) {
 
                                                 if (!this.isDragging) {
