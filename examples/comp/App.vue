@@ -66,19 +66,7 @@
         methods: {
             goBackTop(){
 
-                this.scrollTo(document.body, 0, 200);
-            },
-
-            scrollTo(element, to, duration) {
-                if (duration <= 0) return;
-                var difference = to - element.scrollTop;
-                var perTick = difference / duration * 10;
-
-                setTimeout(x => {
-                    element.scrollTop = element.scrollTop + perTick;
-                    if (element.scrollTop === to) return;
-                    this.scrollTo(element, to, duration - 10);
-                }, 10)
+                window.scroll(0,0);
             },
 
             handleScroll(){
@@ -94,6 +82,24 @@
         },
         beforeDestroy() {
             document.removeEventListener('scroll', this.handleScroll);
+        },
+        watch:{
+
+            $route(to,from){
+
+                let query = to.query;
+                if (query && query.anchor){
+
+                    this.$nextTick(x=>{
+                        let anchor = this.$el.querySelector('#'+query.anchor);
+
+                        if (anchor && anchor.offsetTop){
+
+                            window.scroll(0,anchor.offsetTop)
+                        }
+                    })
+                }
+            }
         }
     }
 

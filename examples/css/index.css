@@ -698,3 +698,7 @@ code {
     opacity:0.8;
 }
 /*回到顶部 end*/
+
+.anchor{
+    cursor: pointer;
+}
