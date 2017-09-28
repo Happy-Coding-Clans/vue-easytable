@@ -47,7 +47,7 @@ Vue.component(VPagination.name, VPagination)
 
 ## ToDo
 
-- [x] 添加单元格编辑功能   
+- [x] [添加单元格编辑功能](https://github.com/huangshuwei/vue-easytable/releases/tag/1.2.1) 
 - [ ] 添加 checkbox 多选功能  
 - [ ] 添加 footer 功能  
 - [ ] 添加导出 excel 功能  
