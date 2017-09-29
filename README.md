@@ -3,7 +3,7 @@
 
 # vue-easytable
 
-[切换中文]()
+[切换中文](https://github.com/huangshuwei/vue-easytable/blob/master/README-CN.md)
 
 
 ## Introduction
