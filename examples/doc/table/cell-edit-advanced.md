@@ -1,5 +1,5 @@
 
-:::demo 通过设置列对象中的 isEdit 属性，控制哪些列开启单元格编辑功能。通过传入回调函数 cell-edit-done，接收编辑结果。
+:::demo 默认单元格的编辑只接收文本格式，但是可以通过 cell-edit-formatter 方法回调对单元格的编辑后的结果进行二次处理。
 
 ```html
 <template>
