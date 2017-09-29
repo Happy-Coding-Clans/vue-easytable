@@ -53,8 +53,15 @@
             <div class="mt30">
                 <div class="bold">
                 <a class="anchor" id="table-cell-edit" @click.stop="goAnchor('table-cell-edit')">#</a>
-                支持单元格编辑</div>
+                单元格编辑简单用法</div>
                 <cell-edit></cell-edit>
+            </div>
+
+            <div class="mt30">
+                <div class="bold">
+                <a  class="anchor" id="table-cell-edit-advanced" @click.stop="goAnchor('table-cell-edit-advanced')">#</a>
+                单元格编辑高级用法</div>
+                <cell-edit-advanced></cell-edit-advanced>
             </div>
         </div>
 
@@ -176,6 +183,7 @@
     import customColumns from './custom-columns.md'
 
     import cellEdit from './cell-edit.md'
+    import cellEditAdvanced from './cell-edit-advanced.md'
 
     import sortBySingleColumns from './sort-by-single-columns.md'
     import sortByMultipleColumns from './sort-by-multiple-columns.md'
@@ -211,6 +219,7 @@
             frozenTitleColumns,
 
             cellEdit,
+            cellEditAdvanced,
 
             sortByMultipleColumns,
             sortBySingleColumns,

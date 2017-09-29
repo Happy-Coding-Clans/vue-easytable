@@ -13,14 +13,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
 
             methods: {
-                        cellEdit: function cellEdit(e, callback) {
+                        cellEdit: function cellEdit(e, callback, rowIndex, rowData, field) {
 
                                     var target = e.target,
+                                        self = this,
                                         oldVal = void 0,
                                         editInput = void 0,
                                         editInputLen = void 0,
                                         _actionFun = void 0,
-                                        textAlign = void 0;
+                                        textAlign = void 0,
+                                        formatterVal = '';
 
                                     while (target.className && target.className.indexOf('v-table-body-cell') === -1 || !target.className) {
                                                 target = target.parentNode;
@@ -64,7 +66,9 @@ exports.default = {
                                                                         return false;
                                                             }
 
-                                                            target.innerText = this.value;
+                                                            formatterVal = self.cellEditFormatter && self.cellEditFormatter(this.value, oldVal, rowIndex, rowData, field);
+
+                                                            target.innerHTML = formatterVal && formatterVal.length > 0 ? formatterVal : this.value;
 
                                                             callback(this.value, oldVal);
 
@@ -84,10 +88,10 @@ exports.default = {
 
                                                 var onCellEditCallBack = function onCellEditCallBack(newValue, oldVal) {
 
-                                                            self.cellEditDone(newValue, oldVal, rowData, field, rowIndex);
+                                                            self.cellEditDone(newValue, oldVal, rowIndex, rowData, field);
                                                 };
 
-                                                this.cellEdit(e, onCellEditCallBack);
+                                                this.cellEdit(e, onCellEditCallBack, rowIndex, rowData, field);
                                     }
                         }
             }

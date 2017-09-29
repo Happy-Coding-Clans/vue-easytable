@@ -394,7 +394,9 @@
             // 鼠标离开行的回调
             rowMouseLeave: Function,
             // 单元格编辑完成回调
-            cellEditDone:Function
+            cellEditDone:Function,
+            // 单元格编辑格式化
+            cellEditFormatter:Function
 
         },
         computed: {

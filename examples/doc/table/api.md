@@ -60,11 +60,13 @@
 ### Table Event
 | 事件名称 | 说明 | 回调参数 |
 |---------- |-------- |---------- |
-| on-row-click | 行点击回调 | rowIndex, rowData, column |
+| on-row-click | 行点击回调 | rowIndex, rowData, field |
 | row-mouse-enter|  鼠标进入表体行的回调| rowIndex |
 | row-mouse-leave|  鼠标离开表体行的回调| rowIndex |
 | sort-change|  点击排序回调| sortColumns（排序的列对象信息） |
 | cell-edit-done|  单元格编辑完成回调|  newValue,oldValue,rowData,column,index|
+| cell-edit-formatter|  单元格编辑格式化回调（可以对编辑的结果设置样式等）|  newValue,oldValue,rowIndex,rowData,field|
+| cell-edit-done|  单元格编辑完成回调|  newValue,oldValue,rowIndex,rowData,field|
 
 
 

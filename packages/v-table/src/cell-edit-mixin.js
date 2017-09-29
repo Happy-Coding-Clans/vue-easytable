@@ -3,14 +3,16 @@ export default {
 
     methods: {
         // cell edit
-        cellEdit(e,callback){
+        cellEdit(e,callback,rowIndex,rowData,field){
 
             let target = e.target,
+                self = this,
                 oldVal,
                 editInput,
                 editInputLen,
                 actionFun,
-                textAlign;
+                textAlign,
+                formatterVal = '';
 
             while ((target.className && target.className.indexOf('v-table-body-cell') === -1) || !target.className) {
                 target = target.parentNode;
@@ -58,7 +60,9 @@ export default {
                         return false;
                     }
 
-                    target.innerText = this.value;
+                    formatterVal = self.cellEditFormatter && self.cellEditFormatter(this.value,oldVal,rowIndex,rowData,field);
+
+                    target.innerHTML = formatterVal && formatterVal.length > 0 ? formatterVal :this.value;
 
                     callback(this.value,oldVal)
 
@@ -81,10 +85,10 @@ export default {
                 // 单元格内容变化后的回调
                 let onCellEditCallBack = function (newValue,oldVal) {
 
-                    self.cellEditDone(newValue,oldVal,rowData,field,rowIndex);
+                    self.cellEditDone(newValue,oldVal,rowIndex,rowData,field);
                 }
 
-                this.cellEdit(e,onCellEditCallBack)
+                this.cellEdit(e,onCellEditCallBack,rowIndex,rowData,field)
             }
         },
     }
