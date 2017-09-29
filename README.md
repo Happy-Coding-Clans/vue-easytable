@@ -3,6 +3,8 @@
 
 # vue-easytable
 
+[切换中文]()
+
 
 ## Introduction
 Based on vue2.x flexible table components.
@@ -11,14 +13,14 @@ Based on vue2.x flexible table components.
 [API&Examples](http://doc.huangsw.com/vue-easytable/app.html#/table)
 
 ## Features
-1. [自适应，可以随着浏览器窗口改变自动适应](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-simple-table-resize)
-2. [固定列，表头固定](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-frozen-title-columns)  
-3. [默认支持列宽拖动](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-basic-no-table-width)
-4. [支持单个字段排序和多个字段排序](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-sort-by-single-columns)
-5. [自定义列、自定义单元格样式](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-custom-columns)  
-6. [loading效果、自定义loading 等](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-loading-and-error-content)
-7. [自带分页组件](http://doc.huangsw.com/vue-easytable/app.html#/pagination)  
-8. [单元格编辑](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-edit)
+1. [Adaptive, you can automatically adapt to the browser window changes](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-simple-table-resize)
+2. [Fixed column, header fixed](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-frozen-title-columns)  
+3. [Support column width drag](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-basic-no-table-width)
+4. [Supports single field sorting and multiple field sorting](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-sort-by-single-columns)
+5. [Custom columns, custom cell styles](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-custom-columns)
+6. [Loading effects, custom loading, etc](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-loading-and-error-content)
+7. [Own paging component](http://doc.huangsw.com/vue-easytable/app.html#/pagination)
+8. [Cell Editing](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-edit)
    
 
 ## Install
@@ -47,13 +49,14 @@ Vue.component(VPagination.name, VPagination)
 
 ## ToDo
 
-- [x] [添加单元格编辑功能](https://github.com/huangshuwei/vue-easytable/releases/tag/1.2.1) 
-- [ ] 添加 checkbox 多选功能  
-- [ ] 添加 footer 功能  
-- [ ] 添加导出 excel 功能  
-- [ ] 添加导出 pdf 功能  
-- [ ] 添加条件过滤功能  
-- [ ] 添加行展开功能  
+- [x] [Cell editing](https://github.com/huangshuwei/vue-easytable/releases/tag/1.2.1)
+- [ ] Support checkbox selection  
+- [ ] Add footer
+- [ ] Export excel
+- [ ] Export PDF
+- [ ] Conditional filter
+- [ ] Row expansion
+- [ ] Vertical column drag
 
 
 ## License
