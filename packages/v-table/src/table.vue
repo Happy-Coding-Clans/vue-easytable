@@ -67,7 +67,7 @@
                                     <div :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                          :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
                                          :title="col.overflowTitle ?  overflowTitle(item,col) :''"
-                                         @click.stop="onCellClick(rowIndex,item,col);onCellEdit($event,col.isEdit,item,col.field,rowIndex)"
+                                         @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
                                     >
                                         <template
                                                 v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
@@ -160,7 +160,7 @@
                             <div :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                  :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
                                  :title="col.overflowTitle ?  overflowTitle(item,col) :''"
-                                 @click.stop="onCellClick(rowIndex,item,col);onCellEdit($event,col.isEdit,item,col.field,rowIndex)"
+                                 @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
                             >
                                 <template v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
                                     <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex"
@@ -454,22 +454,6 @@
 
         },
         methods: {
-
-            // 单元格编辑
-            onCellEdit(e,isEdit,rowData,field,rowIndex){
-
-                if (isEdit){
-
-                    let self = this;
-                    // 单元格内容变化后的回调
-                    let onCellEditCallBack = function (newValue,oldVal) {
-
-                        self.cellEditDone(newValue,oldVal,rowData,field,rowIndex);
-                    }
-
-                    this.cellEdit(e,onCellEditCallBack)
-                }
-            },
 
             setRowHoverColor(isMouseenter){
 

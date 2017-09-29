@@ -75,6 +75,20 @@ exports.default = {
 
                                     _utils2.default.bind(editInput, 'blur', _actionFun);
                                     _utils2.default.bind(editInput, 'keydown', _actionFun);
+                        },
+                        cellEditClick: function cellEditClick(e, isEdit, rowData, field, rowIndex) {
+
+                                    if (isEdit) {
+
+                                                var self = this;
+
+                                                var onCellEditCallBack = function onCellEditCallBack(newValue, oldVal) {
+
+                                                            self.cellEditDone(newValue, oldVal, rowData, field, rowIndex);
+                                                };
+
+                                                this.cellEdit(e, onCellEditCallBack);
+                                    }
                         }
             }
 };

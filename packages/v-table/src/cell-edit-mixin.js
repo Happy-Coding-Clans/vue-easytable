@@ -70,6 +70,22 @@ export default {
 
             utils.bind(editInput, 'blur', actionFun);
             utils.bind(editInput, 'keydown',actionFun);
-        }
+        },
+
+        // 单元格点击
+        cellEditClick(e,isEdit,rowData,field,rowIndex){
+
+            if (isEdit){
+
+                let self = this;
+                // 单元格内容变化后的回调
+                let onCellEditCallBack = function (newValue,oldVal) {
+
+                    self.cellEditDone(newValue,oldVal,rowData,field,rowIndex);
+                }
+
+                this.cellEdit(e,onCellEditCallBack)
+            }
+        },
     }
 }
