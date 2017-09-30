@@ -48,6 +48,7 @@ Vue.component(VPagination.name, VPagination)
 ## ToDo
 
 - [x] [添加单元格编辑功能](https://github.com/huangshuwei/vue-easytable/releases/tag/1.2.1) 
+- [x] [支持单元格 colSpan 和 rowSpan](https://github.com/huangshuwei/vue-easytable/releases/tag/1.3.0)
 - [ ] 添加 checkbox 多选功能  
 - [ ] 添加 footer 功能  
 - [ ] 添加导出 excel 功能  
