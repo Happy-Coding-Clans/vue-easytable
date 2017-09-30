@@ -21,7 +21,8 @@
                                         <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                              :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                             <span class="table-title" v-html="col.title"></span>
-                                            <span @click.stop="sortControl(col.fields[0],col.orderBy)" class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
+                                            <span @click.stop="sortControl(col.fields[0],col.orderBy)"
+                                                  class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
                                                     <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
                                                     <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
                                             </span>
@@ -40,7 +41,8 @@
                                         <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                              :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
                                             <span class="table-title" v-html="col.title"></span>
-                                            <span @click.stop="sortControl(col.field,col.orderBy)" class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
+                                            <span @click.stop="sortControl(col.field,col.orderBy)"
+                                                  class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
                                                     <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
                                                     <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
                                         </span>
@@ -62,26 +64,45 @@
                                 :style="[trBgColor(rowIndex+1),setRowHoverColor(item.__mouseenter__),setRowClickColor(item.__columnCellClick__)]"
                                 @mouseenter.stop="handleMouseEnter(rowIndex)"
                                 @mouseleave.stop="handleMouseOut(rowIndex)">
-                                <td v-for="col in frozenCols"
+                                <td v-if="cellMergeInit(rowIndex,col.field,item,true)" v-for="(col,colIndex) in frozenCols"
+                                    :key="colIndex"
+                                    :colSpan="setColRowSpan(rowIndex,col.field,item).colSpan"
+                                    :rowSpan="setColRowSpan(rowIndex,col.field,item).rowSpan"
                                     :class="[setColumnCellClassName(rowIndex,col.field,item)]">
-                                    <div :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
+
+                                    <div v-if="isCellMergeRender(rowIndex,col.field,item)"
+                                         :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
+                                         :style="{'width':getRowWidthByColSpan(rowIndex,col.field,item)+'px','height': getRowHeightByRowSpan(rowIndex,col.field,item)+'px','line-height':getRowHeightByRowSpan(rowIndex,col.field,item)+'px','text-align':col.columnAlign}"
+                                         :title="col.overflowTitle ?  overflowTitle(item,col) :''"
+                                         @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
+                                    >
+                                        <template
+                                                v-if="cellMergeContentType(rowIndex,col.field,item).isComponent">
+                                            <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex"
+                                                       :is="cellMerge(rowIndex,item,col.field).componentName"></component>
+                                        </template>
+                                        <template v-else>
+                                            <span v-html="cellMerge(rowIndex,item,col.field).content"></span>
+                                        </template>
+                                    </div>
+                                    <div v-else
+                                         :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                          :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
                                          :title="col.overflowTitle ?  overflowTitle(item,col) :''"
                                          @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
                                     >
                                         <template
                                                 v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
-                                            <component :rowData="item" :field="col.field ? col.field : ''"
-                                                       :index="rowIndex"
+                                            <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex"
                                                        :is="col.componentName"></component>
                                         </template>
                                         <template v-else>
-                                                   <span v-if="typeof col.formatter==='function'"
-                                                         v-html="col.formatter(item,rowIndex,pagingIndex,col.field)">
-                                                    </span>
+                                           <span v-if="typeof col.formatter==='function'"
+                                                 v-html="col.formatter(item,rowIndex,pagingIndex,col.field)">
+                                            </span>
                                             <span v-else>
-                                                        {{item[col.field]}}
-                                                    </span>
+                                                {{item[col.field]}}
+                                            </span>
                                         </template>
                                     </div>
                                 </td>
@@ -113,7 +134,8 @@
                                     <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                          :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                         <span class="table-title" v-html="col.title"></span>
-                                        <span @click.stop="sortControl(col.fields[0],col.orderBy)" class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
+                                        <span @click.stop="sortControl(col.fields[0],col.orderBy)"
+                                              class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
                                                     <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
                                                     <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
                                         </span>
@@ -133,7 +155,8 @@
                                     <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                          :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
                                         <span class="table-title" v-html="col.title"></span>
-                                        <span @click.stop="sortControl(col.field,col.orderBy)" class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
+                                        <span @click.stop="sortControl(col.field,col.orderBy)" class="v-table-sort-icon"
+                                              v-if="enableSort(col.orderBy)">
                                                     <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
                                                     <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
                                         </span>
@@ -150,19 +173,40 @@
                  :style="{'width': rightViewWidth+'px', 'height': bodyViewHeight+'px'}">
                 <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">
                     <tbody>
-                    <tr v-for="(item,rowIndex) in internalTableData" class="v-table-row"
+                    <tr :key="rowIndex" v-for="(item,rowIndex) in internalTableData" class="v-table-row"
                         :style="[trBgColor(rowIndex+1),setRowHoverColor(item.__mouseenter__),setRowClickColor(item.__columnCellClick__)]"
                         @mouseenter.stop="handleMouseEnter(rowIndex)"
                         @mouseleave.stop="handleMouseOut(rowIndex)"
                     >
-                        <td v-for="(col,colIndex) in noFrozenCols"
+                        <td v-if="cellMergeInit(rowIndex,col.field,item,false)" v-for="(col,colIndex) in noFrozenCols"
+                            :key="colIndex"
+                            :colSpan="setColRowSpan(rowIndex,col.field,item).colSpan"
+                            :rowSpan="setColRowSpan(rowIndex,col.field,item).rowSpan"
                             :class="[setColumnCellClassName(rowIndex,col.field,item)]">
-                            <div :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
+
+                            <div v-if="isCellMergeRender(rowIndex,col.field,item)"
+                                 :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
+                                 :style="{'width':getRowWidthByColSpan(rowIndex,col.field,item)+'px','height': getRowHeightByRowSpan(rowIndex,col.field,item)+'px','line-height':getRowHeightByRowSpan(rowIndex,col.field,item)+'px','text-align':col.columnAlign}"
+                                 :title="col.overflowTitle ?  overflowTitle(item,col) :''"
+                                 @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
+                            >
+                                <template
+                                        v-if="cellMergeContentType(rowIndex,col.field,item).isComponent">
+                                    <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex"
+                                               :is="cellMerge(rowIndex,item,col.field).componentName"></component>
+                                </template>
+                                <template v-else>
+                                    <span v-html="cellMerge(rowIndex,item,col.field).content"></span>
+                                </template>
+                            </div>
+                            <div v-else
+                                 :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                  :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
                                  :title="col.overflowTitle ?  overflowTitle(item,col) :''"
                                  @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
                             >
-                                <template v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
+                                <template
+                                        v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
                                     <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex"
                                                :is="col.componentName"></component>
                                 </template>
@@ -210,6 +254,7 @@
     import tableEmptyMixin from './table-empty-mixin.js'
     import dragWidthMixin from './drag-width-mixin.js'
     import cellEditMixin from './cell-edit-mixin.js'
+    import cellMerge from './cell-merge-mixin.js'
 
     import utils from '../../src/utils/utils.js'
     import deepClone from '../../src/utils/deepClone.js'
@@ -219,7 +264,7 @@
 
     export default {
         name: 'v-table',
-        mixins: [tableResizeMixin, frozenColumnsMixin, scrollControlMixin, sortControlMixin, tableEmptyMixin,dragWidthMixin,cellEditMixin],
+        mixins: [tableResizeMixin, frozenColumnsMixin, scrollControlMixin, sortControlMixin, tableEmptyMixin, dragWidthMixin, cellEditMixin, cellMerge],
         components: {tableEmpty, loading},
         data(){
             return {
@@ -394,9 +439,11 @@
             // 鼠标离开行的回调
             rowMouseLeave: Function,
             // 单元格编辑完成回调
-            cellEditDone:Function,
+            cellEditDone: Function,
             // 单元格编辑格式化
-            cellEditFormatter:Function
+            cellEditFormatter: Function,
+            // 单元格合并
+            cellMerge:Function
 
         },
         computed: {
@@ -452,7 +499,28 @@
                 return this.internalColumns.reduce(function (total, curr) {
                     return curr.width ? (total + curr.width) : total;
                 }, 0)
-            }
+            },
+
+            // 获取所有的字段
+            getColumnsFields(){
+                return this.internalColumns.map((item) => {
+                    return item.field;
+                })
+            },
+
+            // 获取非固定列的字段集合
+            getNoFrozenColumnsFields(){
+                return this.internalColumns.filter(x=>!x.isFrozen).map((item) => {
+                    return item.field;
+                })
+            },
+
+            // 获取固定列的字段集合
+            getFrozenColumnsFields(){
+                return this.internalColumns.filter(x=>x.isFrozen).map((item) => {
+                    return item.field;
+                })
+            },
 
         },
         methods: {

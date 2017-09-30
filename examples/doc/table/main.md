@@ -102,6 +102,17 @@
             </div>
         </div>
 
+         <div class="mt30">
+                <h3>单元格合并</h3>
+
+                <div class="mt30">
+                    <div class="bold">
+                    <a class="anchor" id="table-cell-merge" @click.stop="goAnchor('table-cell-merge')">#</a>
+                    支持 rowSpan、colSpan</div>
+                    <cell-merge></cell-merge>
+                </div>
+         </div>
+
         <div class="mt30 mb30">
             <h3>表格自适应（改变浏览器窗口大小试试看）</h3>
 
@@ -191,6 +202,8 @@
     import frozenTitleColumns from './frozen-title-columns.md'
     import complexHeaderFixedColumn from './complex-header-fixed-column.md'
 
+    import cellMerge from './cell-merge.md'
+
     import simpleTableResize from './simple-table-resize.md'
     import complexTableResize from './complex-table-resize.md'
 
@@ -217,6 +230,8 @@
 
             complexHeaderFixedColumn,
             frozenTitleColumns,
+
+            cellMerge,
 
             cellEdit,
             cellEditAdvanced,
