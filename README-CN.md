@@ -19,6 +19,7 @@
 6. [loading效果、自定义loading 等](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-loading-and-error-content)
 7. [自带分页组件](http://doc.huangsw.com/vue-easytable/app.html#/pagination)  
 8. [单元格编辑](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-edit)
+9. [支持单元格合并 (colSpan and rowSpan)](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-merge)
    
 
 ## 安装

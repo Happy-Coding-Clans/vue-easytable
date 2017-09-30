@@ -21,6 +21,7 @@ Based on vue2.x flexible table components.
 6. [Loading effects, custom loading, etc](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-loading-and-error-content)
 7. [Own paging component](http://doc.huangsw.com/vue-easytable/app.html#/pagination)
 8. [Cell Editing](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-edit)
+9. [Support cell merge (colSpan and rowSpan)](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-merge)
    
 
 ## Install

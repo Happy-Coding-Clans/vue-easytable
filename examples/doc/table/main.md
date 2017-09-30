@@ -12,6 +12,8 @@
             <div>5、自定义列、自定义单元格样式、loading效果等</div>
             <div>6、自带分页组件</div>
             <div>7、单元格编辑</div>
+            <div>7、支持单元格 colSpan 和 rowSpan</div>
+
         </div>
 
 
