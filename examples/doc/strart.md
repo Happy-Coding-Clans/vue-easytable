@@ -11,7 +11,7 @@
 5. 自定义列、自定义单元格样式、loading效果等
 6. 自带分页组件
 7. 单元格编辑
-8. 支持单元格 colSpan 和 rowSpan
+8. 支持单元格合并（colSpan 和 rowSpan）
 
 
 ### 安装
