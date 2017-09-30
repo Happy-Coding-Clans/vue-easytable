@@ -50,6 +50,7 @@ Vue.component(VPagination.name, VPagination)
 ## ToDo
 
 - [x] [Cell editing](https://github.com/huangshuwei/vue-easytable/releases/tag/1.2.1)
+- [x] [Support cell colSpan and rowSpan](https://github.com/huangshuwei/vue-easytable/releases/tag/1.3.0)
 - [ ] Support checkbox selection  
 - [ ] Add footer
 - [ ] Export excel
