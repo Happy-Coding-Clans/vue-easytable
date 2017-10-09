@@ -2,7 +2,8 @@
 ```html
 <template>
     <v-table
-            :width="1100"
+            is-horizontal-resize
+            style="width:100%"
             :columns="tableConfig.columns"
             :table-data="tableConfig.tableData"
             row-hover-color="#eee"
@@ -25,13 +26,13 @@
                             field: 'custome', title:'序号', width: 50, titleAlign: 'center', columnAlign: 'center',
                             formatter: function (rowData,rowIndex,pagingIndex,field) {
                                 return rowIndex < 3 ? '<span style="color:red;font-weight: bold;">' + (rowIndex + 1) + '</span>' : rowIndex + 1
-                            }, isFrozen: true
+                            }, isFrozen: true,isResize:true
                         },
-                        {field: 'name', title:'姓名', width: 130, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'tel', title: '手机号码', width: 160, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'hobby', title: '爱好', width: 230, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'address', title: '地址', width: 330, titleAlign: 'center',columnAlign:'left'},
-                        {field: 'custome-adv', title: '操作', titleAlign: 'center',columnAlign:'center',componentName:'table-operation'}
+                        {field: 'name', title:'姓名', width: 130, titleAlign: 'center',columnAlign:'center',isResize:true},
+                        {field: 'tel', title: '手机号码', width: 160, titleAlign: 'center',columnAlign:'center',isResize:true},
+                        {field: 'hobby', title: '爱好', width: 230, titleAlign: 'center',columnAlign:'center',isResize:true},
+                        {field: 'address', title: '地址', width: 330, titleAlign: 'center',columnAlign:'left',isResize:true},
+                        {field: 'custome-adv', title: '操作',width: 280, titleAlign: 'center',columnAlign:'center',componentName:'table-operation',isResize:true}
                     ]
                 }
             }

@@ -4,6 +4,8 @@
 ```html
 <template>
     <v-table
+            is-horizontal-resize
+            style="width:100%"
             :columns="tableConfig.columns"
             :table-data="tableConfig.tableData"
             row-hover-color="#eee"
@@ -22,10 +24,10 @@
                 tableConfig: {
                     tableData:[],
                     columns:  [
-                             {field: 'name', title:'姓名', width: 100, titleAlign: 'center',columnAlign:'center',isEdit:true},
-                             {field: 'tel', title: '手机号码', width: 260, titleAlign: 'center',columnAlign:'center',isEdit:true},
-                             {field: 'hobby', title: '爱好', width: 380, titleAlign: 'center',columnAlign:'center',isEdit:true},
-                             {field: 'address', title: '地址', width: 358, titleAlign: 'center',columnAlign:'left',isEdit:true}
+                             {field: 'name', title:'姓名', width: 100, titleAlign: 'center',columnAlign:'center',isEdit:true,isResize:true},
+                             {field: 'tel', title: '手机号码', width: 260, titleAlign: 'center',columnAlign:'center',isEdit:true,isResize:true},
+                             {field: 'hobby', title: '爱好', width: 380, titleAlign: 'center',columnAlign:'center',isEdit:true,isResize:true},
+                             {field: 'address', title: '地址', width: 280, titleAlign: 'center',columnAlign:'left',isEdit:true,isResize:true}
                          ],
                     titleBgColor: "#e1e1e1"
                 }

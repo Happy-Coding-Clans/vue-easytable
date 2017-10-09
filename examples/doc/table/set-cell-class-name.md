@@ -4,7 +4,8 @@
 ```html
 <template>
     <v-table
-            :width="1100"
+            is-horizontal-resize
+            style="width:100%"
             :columns="tableConfig.columns"
             :table-data="tableConfig.tableData"
             :on-row-click="tableConfig.onRowClick"
@@ -44,10 +45,10 @@
                 tableConfig: {
                     tableData:[],
                     columns: [ //
-                       {field: 'name', title:'姓名', width: 100, titleAlign: 'center',columnAlign:'center'},
-                       {field: 'tel', title: '手机号码', width: 260, titleAlign: 'center',columnAlign:'center'},
-                       {field: 'hobby', title: '爱好', width: 380, titleAlign: 'center',columnAlign:'center',titleCellClassName:'title-cell-class-name-test'},
-                       {field: 'address', title: '地址', titleAlign: 'center',columnAlign:'left'}
+                       {field: 'name', title:'姓名', width: 100, titleAlign: 'center',columnAlign:'center',isResize:true},
+                       {field: 'tel', title: '手机号码', width: 260, titleAlign: 'center',columnAlign:'center',isResize:true},
+                       {field: 'hobby', title: '爱好', width: 380, titleAlign: 'center',columnAlign:'center',titleCellClassName:'title-cell-class-name-test',isResize:true},
+                       {field: 'address', title: '地址', width: 280, titleAlign: 'center',columnAlign:'left',isResize:true}
                     ],
                     titleBgColor: "#e1e1e1",
                     onRowClick(rowIndex,rowData){

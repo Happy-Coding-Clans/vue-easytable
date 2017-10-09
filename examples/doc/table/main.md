@@ -35,6 +35,17 @@
 
             <div class="mt30">
                 <div class="bold">
+                <a class="anchor" id="table-simple-table-resize" @click.stop="goAnchor('table-simple-table-resize')">#</a>
+                简单表格自适应</div>
+                <simple-table-resize></simple-table-resize>
+            </div>
+        </div>
+
+        <div class="mt30">
+            <h3>自定义单元格、自定义列</h3>
+
+            <div class="mt30">
+                <div class="bold">
                 <a class="anchor" id="table-set-cell-class-name" @click.stop="goAnchor('table-set-cell-class-name')">#</a>
                 给单元格设置样式</div>
                 <set-cell-class-name></set-cell-class-name>
@@ -46,7 +57,6 @@
                 自定义列</div>
                 <custom-columns></custom-columns>
             </div>
-
         </div>
 
         <div class="mt30">
@@ -120,15 +130,8 @@
 
             <div class="mt30">
                 <div class="bold">
-                <a class="anchor" id="table-simple-table-resize" @click.stop="goAnchor('table-simple-table-resize')">#</a>
-                简单表格自适应</div>
-                <simple-table-resize></simple-table-resize>
-            </div>
-
-            <div class="mt30">
-                <div class="bold">
                 <a class="anchor" id="table-complex-table-resize" @click.stop="goAnchor('table-complex-table-resize')">#</a>
-                复杂表格自适应，设置方式同上</div>
+                复杂表格自适应，设置方式与简单表格自适应相同</div>
                 <complex-table-resize></complex-table-resize>
 
             </div>

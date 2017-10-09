@@ -24,8 +24,8 @@
                     columns: [
                         {field: 'name', title:'姓名', width: 100, titleAlign: 'center',columnAlign:'center'},
                         {field: 'tel', title: '手机号码', width: 260, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'hobby', title: '爱好', width: 380, titleAlign: 'center',columnAlign:'center'},
-                        {field: 'address', title: '地址', width: 358, titleAlign: 'center',columnAlign:'left'}
+                        {field: 'hobby', title: '爱好', width: 330, titleAlign: 'center',columnAlign:'center'},
+                        {field: 'address', title: '地址', width: 308, titleAlign: 'center',columnAlign:'left'}
                     ],
                     titleBgColor: "#e1e1e1",
                     onRowClick(rowIndex,rowData){

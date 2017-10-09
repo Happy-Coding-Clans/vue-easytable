@@ -4,8 +4,6 @@
     <v-table
             is-horizontal-resize
             style="width:100%"
-            is-vertical-resize
-            :vertical-resize-offset="100"
             :min-height="200"
             :columns="tableConfig.columns"
             :table-data="tableConfig.tableData"
