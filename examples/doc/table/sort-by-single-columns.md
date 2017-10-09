@@ -28,9 +28,9 @@
                     tableData: [],
                     multipleSort:false,
                     columns: [
-                        {field: 'name', title: '姓名', width: 100, titleAlign: 'center',columnAlign:'center',orderBy:'asc',isResize:true},
-                        {field: 'tel', title: '手机号码', width: 260, titleAlign: 'center',columnAlign:'center',orderBy:'asc',isResize:true},
-                        {field: 'hobby', title: '爱好', width: 380, titleAlign: 'center',columnAlign:'center',isResize:true},
+                        {field: 'name', title: '姓名', width: 80, titleAlign: 'center',columnAlign:'center',orderBy:'asc',isResize:true},
+                        {field: 'tel', title: '手机号码', width: 150, titleAlign: 'center',columnAlign:'center',orderBy:'asc',isResize:true},
+                        {field: 'hobby', title: '爱好', width: 150, titleAlign: 'center',columnAlign:'center',isResize:true},
                         {field: 'address', title: '地址',width: 280, titleAlign: 'center',columnAlign:'left',isResize:true}
                     ]
                 }
