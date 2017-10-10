@@ -14,7 +14,7 @@
                                 <tr v-for="row in frozenTitleCols">
                                     <td v-for="col in row"
                                         :class="[col.titleCellClassName]"
-                                        :colspan="col.colspan" :rowspan="col.rowspan"
+                                        :colspan="col.colspan" :rowspan="dealTitleRowspan(row,col.rowspan)"
                                         @mousemove.stop="handleTitleMouseMove($event,col.fields)"
                                         @mousedown.stop="handleTitleMouseDown($event)"
                                         @mouseout.stop="handleTitleMouseOut()">
@@ -64,7 +64,8 @@
                                 :style="[trBgColor(rowIndex+1),setRowHoverColor(item.__mouseenter__),setRowClickColor(item.__columnCellClick__)]"
                                 @mouseenter.stop="handleMouseEnter(rowIndex)"
                                 @mouseleave.stop="handleMouseOut(rowIndex)">
-                                <td v-if="cellMergeInit(rowIndex,col.field,item,true)" v-for="(col,colIndex) in frozenCols"
+                                <td v-if="cellMergeInit(rowIndex,col.field,item,true)"
+                                    v-for="(col,colIndex) in frozenCols"
                                     :key="colIndex"
                                     :colSpan="setColRowSpan(rowIndex,col.field,item).colSpan"
                                     :rowSpan="setColRowSpan(rowIndex,col.field,item).rowSpan"
@@ -78,7 +79,8 @@
                                     >
                                         <template
                                                 v-if="cellMergeContentType(rowIndex,col.field,item).isComponent">
-                                            <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex"
+                                            <component :rowData="item" :field="col.field ? col.field : ''"
+                                                       :index="rowIndex"
                                                        :is="cellMerge(rowIndex,item,col.field).componentName"></component>
                                         </template>
                                         <template v-else>
@@ -127,7 +129,7 @@
                             <tr v-for="row in noFrozenTitleCols">
                                 <td v-for="col in row"
                                     :class="[col.titleCellClassName]"
-                                    :colspan="col.colspan" :rowspan="col.rowspan"
+                                    :colspan="col.colspan" :rowspan="dealTitleRowspan(row,col.rowspan)"
                                     @mousemove.stop="handleTitleMouseMove($event,col.fields)"
                                     @mousedown.stop="handleTitleMouseDown($event)"
                                     @mouseout.stop="handleTitleMouseOut()">
@@ -254,7 +256,8 @@
     import tableEmptyMixin from './table-empty-mixin.js'
     import dragWidthMixin from './drag-width-mixin.js'
     import cellEditMixin from './cell-edit-mixin.js'
-    import cellMerge from './cell-merge-mixin.js'
+    import bodyCellMergeMixin from './body-cell-merge-mixin.js'
+    import titleCellMergeMixin from './title-cell-merge-mixin.js'
 
     import utils from '../../src/utils/utils.js'
     import deepClone from '../../src/utils/deepClone.js'
@@ -264,7 +267,7 @@
 
     export default {
         name: 'v-table',
-        mixins: [tableResizeMixin, frozenColumnsMixin, scrollControlMixin, sortControlMixin, tableEmptyMixin, dragWidthMixin, cellEditMixin, cellMerge],
+        mixins: [tableResizeMixin, frozenColumnsMixin, scrollControlMixin, sortControlMixin, tableEmptyMixin, dragWidthMixin, cellEditMixin, bodyCellMergeMixin, titleCellMergeMixin],
         components: {tableEmpty, loading},
         data(){
             return {
@@ -290,7 +293,6 @@
                 hasFrozenColumn: false,// 是否拥有固定列（false时最后一列的右边border无边框）
 
                 hasBindScrollEvent: false, // 是否绑定了滚动事件（防止多次注册）
-
             }
         },
         props: {
@@ -443,7 +445,7 @@
             // 单元格编辑格式化
             cellEditFormatter: Function,
             // 单元格合并
-            cellMerge:Function
+            cellMerge: Function
 
         },
         computed: {
@@ -470,7 +472,7 @@
             // 左侧、右侧区域高度
             bodyViewHeight(){
                 if (this.internalTitleRows.length > 0) {
-                    return this.internalHeight - this.titleRowHeight * this.internalTitleRows.length;
+                    return this.internalHeight - this.titleRowHeight * (this.internalTitleRows.length + this.getTitleRowspanTotalCount);
                 } else {
                     return this.internalHeight - this.titleRowHeight;
                 }
@@ -510,18 +512,17 @@
 
             // 获取非固定列的字段集合
             getNoFrozenColumnsFields(){
-                return this.internalColumns.filter(x=>!x.isFrozen).map((item) => {
+                return this.internalColumns.filter(x => !x.isFrozen).map((item) => {
                     return item.field;
                 })
             },
 
             // 获取固定列的字段集合
             getFrozenColumnsFields(){
-                return this.internalColumns.filter(x=>x.isFrozen).map((item) => {
+                return this.internalColumns.filter(x => x.isFrozen).map((item) => {
                     return item.field;
                 })
-            },
-
+            }
         },
         methods: {
 
