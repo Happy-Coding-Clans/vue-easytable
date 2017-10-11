@@ -20,11 +20,13 @@
                                         @mouseout.stop="handleTitleMouseOut()">
                                         <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                              :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
-                                            <span class="table-title" v-html="col.title"></span>
-                                            <span @click.stop="sortControl(col.fields[0],col.orderBy)"
-                                                  class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
-                                                    <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                    <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                            <span class="table-title">
+                                                 <span v-html="col.title"></span>
+                                                <span @click.stop="sortControl(col.fields[0],col.orderBy)"
+                                                      class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
+                                                        <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
+                                                        <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                                </span>
                                             </span>
                                         </div>
                                     </td>
@@ -40,12 +42,14 @@
                                         @mouseout.stop="handleTitleMouseOut()">
                                         <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                              :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
-                                            <span class="table-title" v-html="col.title"></span>
-                                            <span @click.stop="sortControl(col.field,col.orderBy)"
-                                                  class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
-                                                    <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                    <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
-                                        </span>
+                                                <span class="table-title">
+                                                    <span v-html="col.title"></span>
+                                                    <span @click.stop="sortControl(col.field,col.orderBy)"
+                                                          class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
+                                                            <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
+                                                            <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                                    </span>
+                                                </span>
                                         </div>
                                     </td>
                                 </tr>
@@ -95,7 +99,8 @@
                                     >
                                         <template
                                                 v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
-                                            <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex"
+                                            <component :rowData="item" :field="col.field ? col.field : ''"
+                                                       :index="rowIndex"
                                                        :is="col.componentName"></component>
                                         </template>
                                         <template v-else>
@@ -135,13 +140,14 @@
                                     @mouseout.stop="handleTitleMouseOut()">
                                     <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                          :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
-                                        <span class="table-title" v-html="col.title"></span>
-                                        <span @click.stop="sortControl(col.fields[0],col.orderBy)"
-                                              class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
-                                                    <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                    <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                        <span class="table-title">
+                                            <span v-html="col.title"></span>
+                                            <span @click.stop="sortControl(col.fields[0],col.orderBy)"
+                                                  class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
+                                                        <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
+                                                        <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                            </span>
                                         </span>
-
                                     </div>
                                 </td>
                             </tr>
@@ -156,11 +162,13 @@
                                     @mouseout.stop="handleTitleMouseOut()">
                                     <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                          :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
-                                        <span class="table-title" v-html="col.title"></span>
-                                        <span @click.stop="sortControl(col.field,col.orderBy)" class="v-table-sort-icon"
-                                              v-if="enableSort(col.orderBy)">
-                                                    <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                    <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                        <span class="table-title">
+                                            <span v-html="col.title"></span>
+                                            <span @click.stop="sortControl(col.field,col.orderBy)" class="v-table-sort-icon"
+                                                  v-if="enableSort(col.orderBy)">
+                                                        <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
+                                                        <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                            </span>
                                         </span>
                                     </div>
                                 </td>
