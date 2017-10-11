@@ -20,8 +20,8 @@ import '../libs/themes-base/index.css'
 import {VTable,VPagination} from '../libs/index.js'
 
 // dev
-import '../libs/themes-base/index.css'
-import {VTable,VPagination} from '../libs/index.js'
+/*import '../packages/themes-base/index.css'
+import {VTable,VPagination} from '../packages/index.js'*/
 
 Vue.component(VTable.name, VTable)
 Vue.component(VPagination.name, VPagination)
