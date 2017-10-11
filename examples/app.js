@@ -15,7 +15,11 @@ import 'highlight.js/styles/color-brewer.css';
 import demoBox from './comp/DemoBox.vue'
 Vue.component('demo-box', demoBox);
 
+// product
+import '../libs/themes-base/index.css'
+import {VTable,VPagination} from '../libs/index.js'
 
+// dev
 import '../libs/themes-base/index.css'
 import {VTable,VPagination} from '../libs/index.js'
 
