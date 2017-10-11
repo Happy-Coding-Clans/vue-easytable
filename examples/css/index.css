@@ -118,6 +118,7 @@ body, html {
     float: left;
     position: relative;
     width: 80%;
+    min-height:calc(100vh - 73px);
     padding-left:20px;
     background-color: #ffffff;
 }
