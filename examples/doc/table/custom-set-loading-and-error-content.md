@@ -34,7 +34,7 @@
                     columns: [
                         {field: 'name', title: '姓名', width: 80, titleAlign: 'center', columnAlign: 'center',isResize: true},
                         {field: 'gender', title: '性别', width: 80, titleAlign: 'center', columnAlign: 'center',isResize: true},
-                        {field: 'height', title: '身高', width: 80, titleAlign: 'center', columnAlign: 'right',isResize: true},
+                        {field: 'height', title: '身高', width: 80, titleAlign: 'center', columnAlign: 'center',isResize: true},
                          {field: 'address',title: '地址', width: 280,titleAlign: 'center',columnAlign: 'left',isResize: true}
                     ],
                     titleBgColor: "#e1e1e1",
