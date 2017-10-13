@@ -43,7 +43,16 @@
                                         <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                              :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
                                                 <span class="table-title">
-                                                    <span v-html="col.title"></span>
+                                                     <span v-if="col.type === 'selection'">
+                                                         <v-checkbox
+                                                                 @change="handleCheckAll"
+                                                                 :indeterminate="indeterminate"
+                                                                 v-model="isAllChecked"
+                                                                 :show-slot="false"
+                                                                 label="check-all"
+                                                         ></v-checkbox>
+                                                    </span>
+                                                    <span v-else v-html="col.title"></span>
                                                     <span @click.stop="sortControl(col.field,col.orderBy)"
                                                           class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
                                                             <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
@@ -62,53 +71,59 @@
                 <div class="v-table-body v-table-body-class"
                      :style="{'width': leftViewWidth+'px', 'height': bodyViewHeight+'px'}">
                     <div class="v-table-body-inner">
-                        <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">
-                            <tbody>
-                            <tr v-for="(item,rowIndex) in internalTableData" class="v-table-row"
-                                :style="[trBgColor(rowIndex+1),setRowHoverColor(item.__mouseenter__),setRowClickColor(item.__columnCellClick__)]"
-                                @mouseenter.stop="handleMouseEnter(rowIndex)"
-                                @mouseleave.stop="handleMouseOut(rowIndex)">
-                                <td v-if="cellMergeInit(rowIndex,col.field,item,true)"
-                                    v-for="(col,colIndex) in frozenCols"
-                                    :key="colIndex"
-                                    :colSpan="setColRowSpan(rowIndex,col.field,item).colSpan"
-                                    :rowSpan="setColRowSpan(rowIndex,col.field,item).rowSpan"
-                                    :class="[setColumnCellClassName(rowIndex,col.field,item)]">
-                                    <!--存在列合并-->
-                                    <div v-if="isCellMergeRender(rowIndex,col.field,item)"
-                                         :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
-                                         :style="{'width':getRowWidthByColSpan(rowIndex,col.field,item)+'px','height': getRowHeightByRowSpan(rowIndex,col.field,item)+'px','line-height':getRowHeightByRowSpan(rowIndex,col.field,item)+'px','text-align':col.columnAlign}"
-                                         :title="col.overflowTitle ?  overflowTitle(item,col) :''"
-                                         @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
-                                    >
+                        <v-checkbox-group v-model="checkboxGroupModel" @change="handleCheckGroupChange">
+                            <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">
+                                <tbody>
+                                <tr v-for="(item,rowIndex) in internalTableData" class="v-table-row"
+                                    :style="[trBgColor(rowIndex+1),setRowHoverColor(item.__mouseenter__),setRowClickColor(item.__columnCellClick__)]"
+                                    @mouseenter.stop="handleMouseEnter(rowIndex)"
+                                    @mouseleave.stop="handleMouseOut(rowIndex)">
+                                    <td v-if="cellMergeInit(rowIndex,col.field,item,true)"
+                                        v-for="(col,colIndex) in frozenCols"
+                                        :key="colIndex"
+                                        :colSpan="setColRowSpan(rowIndex,col.field,item).colSpan"
+                                        :rowSpan="setColRowSpan(rowIndex,col.field,item).rowSpan"
+                                        :class="[setColumnCellClassName(rowIndex,col.field,item)]">
+                                        <!--存在列合并-->
+                                        <div v-if="isCellMergeRender(rowIndex,col.field,item)"
+                                             :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
+                                             :style="{'width':getRowWidthByColSpan(rowIndex,col.field,item)+'px','height': getRowHeightByRowSpan(rowIndex,col.field,item)+'px','line-height':getRowHeightByRowSpan(rowIndex,col.field,item)+'px','text-align':col.columnAlign}"
+                                             :title="col.overflowTitle ?  overflowTitle(item,col) :''"
+                                             @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
+                                        >
                                         <span v-if="cellMergeContentType(rowIndex,col.field,item).isComponent">
                                             <component :rowData="item" :field="col.field ? col.field : ''"
                                                        :index="rowIndex"
                                                        :is="cellMerge(rowIndex,item,col.field).componentName"></component>
                                         </span>
-                                        <span v-else v-html="cellMerge(rowIndex,item,col.field).content"></span>
-                                    </div>
-                                    <!--不存在列合并-->
-                                    <div v-else
-                                         :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
-                                         :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
-                                         :title="col.overflowTitle ?  overflowTitle(item,col) :''"
-                                         @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
-                                    >
+                                            <span v-else v-html="cellMerge(rowIndex,item,col.field).content"></span>
+                                        </div>
+                                        <!--不存在列合并-->
+                                        <div v-else
+                                             :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
+                                             :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
+                                             :title="col.overflowTitle ?  overflowTitle(item,col) :''"
+                                             @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
+                                        >
                                         <span v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
                                             <component :rowData="item" :field="col.field ? col.field : ''"
                                                        :index="rowIndex" :is="col.componentName"></component>
                                         </span>
-                                        <span v-else-if="typeof col.formatter==='function'"
-                                              v-html="col.formatter(item,rowIndex,pagingIndex,col.field)"></span>
-                                        <span v-else>
+                                            <span v-else-if="typeof col.formatter==='function'"
+                                                  v-html="col.formatter(item,rowIndex,pagingIndex,col.field)"></span>
+                                            <span v-else-if="col.type === 'selection'">
+                                            <v-checkbox @change="handleCheckChange(item)" :show-slot="false"
+                                                        :disabled="item._disabled" :label="rowIndex"></v-checkbox>
+                                        </span>
+                                            <span v-else>
                                                 {{item[col.field]}}
                                         </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </v-checkbox-group>
                     </div>
                 </div>
             </div>
@@ -134,7 +149,8 @@
                                     <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                          :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                         <span class="table-title">
-                                            <span v-html="col.title"></span>
+                                            <span v-if="col.type === 'selection'"></span>
+                                            <span v-else v-html="col.title"></span>
                                             <span @click.stop="sortControl(col.fields[0],col.orderBy)"
                                                   class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
                                                         <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
@@ -156,7 +172,16 @@
                                     <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                          :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
                                         <span class="table-title">
-                                            <span v-html="col.title"></span>
+                                            <span v-if="col.type === 'selection'">
+                                                 <v-checkbox
+                                                         @change="handleCheckAll"
+                                                         :indeterminate="indeterminate"
+                                                         v-model="isAllChecked"
+                                                         :show-slot="false"
+                                                         label="check-all"
+                                                 ></v-checkbox>
+                                            </span>
+                                            <span v-else v-html="col.title"></span>
                                             <span @click.stop="sortControl(col.field,col.orderBy)"
                                                   class="v-table-sort-icon"
                                                   v-if="enableSort(col.orderBy)">
@@ -175,54 +200,61 @@
             <!--右列内容-->
             <div :class="['v-table-body v-table-body-class',hasFrozenColumn ? '' : 'v-table-rightview-special-border']"
                  :style="{'width': rightViewWidth+'px', 'height': bodyViewHeight+'px'}">
-                <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">
-                    <tbody>
-                    <tr :key="rowIndex" v-for="(item,rowIndex) in internalTableData" class="v-table-row"
-                        :style="[trBgColor(rowIndex+1),setRowHoverColor(item.__mouseenter__),setRowClickColor(item.__columnCellClick__)]"
-                        @mouseenter.stop="handleMouseEnter(rowIndex)"
-                        @mouseleave.stop="handleMouseOut(rowIndex)"
-                    >
-                        <td v-if="cellMergeInit(rowIndex,col.field,item,false)" v-for="(col,colIndex) in noFrozenCols"
-                            :key="colIndex"
-                            :colSpan="setColRowSpan(rowIndex,col.field,item).colSpan"
-                            :rowSpan="setColRowSpan(rowIndex,col.field,item).rowSpan"
-                            :class="[setColumnCellClassName(rowIndex,col.field,item)]">
-                            <!--存在列合并-->
-                            <div v-if="isCellMergeRender(rowIndex,col.field,item)"
-                                 :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
-                                 :style="{'width':getRowWidthByColSpan(rowIndex,col.field,item)+'px','height': getRowHeightByRowSpan(rowIndex,col.field,item)+'px','line-height':getRowHeightByRowSpan(rowIndex,col.field,item)+'px','text-align':col.columnAlign}"
-                                 :title="col.overflowTitle ?  overflowTitle(item,col) :''"
-                                 @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
-                            >
+                <v-checkbox-group v-model="checkboxGroupModel" @change="handleCheckGroupChange">
+                    <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                        <tr :key="rowIndex" v-for="(item,rowIndex) in internalTableData" class="v-table-row"
+                            :style="[trBgColor(rowIndex+1),setRowHoverColor(item.__mouseenter__),setRowClickColor(item.__columnCellClick__)]"
+                            @mouseenter.stop="handleMouseEnter(rowIndex)"
+                            @mouseleave.stop="handleMouseOut(rowIndex)"
+                        >
+                            <td v-if="cellMergeInit(rowIndex,col.field,item,false)"
+                                v-for="(col,colIndex) in noFrozenCols"
+                                :key="colIndex"
+                                :colSpan="setColRowSpan(rowIndex,col.field,item).colSpan"
+                                :rowSpan="setColRowSpan(rowIndex,col.field,item).rowSpan"
+                                :class="[setColumnCellClassName(rowIndex,col.field,item)]">
+                                <!--存在列合并-->
+                                <div v-if="isCellMergeRender(rowIndex,col.field,item)"
+                                     :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
+                                     :style="{'width':getRowWidthByColSpan(rowIndex,col.field,item)+'px','height': getRowHeightByRowSpan(rowIndex,col.field,item)+'px','line-height':getRowHeightByRowSpan(rowIndex,col.field,item)+'px','text-align':col.columnAlign}"
+                                     :title="col.overflowTitle ?  overflowTitle(item,col) :''"
+                                     @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
+                                >
                                 <span v-if="cellMergeContentType(rowIndex,col.field,item).isComponent">
                                     <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex"
                                                :is="cellMerge(rowIndex,item,col.field).componentName"></component>
                                 </span>
-                                <span v-else v-html="cellMerge(rowIndex,item,col.field).content">
+                                    <span v-else v-html="cellMerge(rowIndex,item,col.field).content">
                                 </span>
-                            </div>
-                            <!--不存在列合并-->
-                            <div v-else
-                                 :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
-                                 :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
-                                 :title="col.overflowTitle ?  overflowTitle(item,col) :''"
-                                 @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
-                            >
+                                </div>
+                                <!--不存在列合并-->
+                                <div v-else
+                                     :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
+                                     :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
+                                     :title="col.overflowTitle ?  overflowTitle(item,col) :''"
+                                     @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
+                                >
                                 <span v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
                                     <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex"
                                                :is="col.componentName"></component>
                                 </span>
-                                <span v-else-if="typeof col.formatter==='function'"
-                                      v-html="col.formatter(item,rowIndex,pagingIndex,col.field)">
+                                    <span v-else-if="typeof col.formatter==='function'"
+                                          v-html="col.formatter(item,rowIndex,pagingIndex,col.field)">
                                 </span>
-                                <span v-else>
+                                    <span v-else-if="col.type === 'selection'">
+                                        <v-checkbox @change="handleCheckChange(item)" :show-slot="false"
+                                                    :disabled="item._disabled" :label="rowIndex"></v-checkbox>
+                                </span>
+                                    <span v-else>
                                      {{item[col.field]}}
                                 </span>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </v-checkbox-group>
             </div>
         </div>
 
@@ -256,17 +288,20 @@
     import cellEditMixin from './cell-edit-mixin.js'
     import bodyCellMergeMixin from './body-cell-merge-mixin.js'
     import titleCellMergeMixin from './title-cell-merge-mixin.js'
+    import checkboxSelectionMixin from './checkbox-selection-mixin.js'
 
     import utils from '../../src/utils/utils.js'
     import deepClone from '../../src/utils/deepClone.js'
 
     import tableEmpty from './table-empty.vue'
     import loading from './loading.vue'
+    import VCheckboxGroup from '../../v-checkbox-group/index.js'
+    import VCheckbox from '../../v-checkbox/index.js'
 
     export default {
         name: 'v-table',
-        mixins: [tableResizeMixin, frozenColumnsMixin, scrollControlMixin, sortControlMixin, tableEmptyMixin, dragWidthMixin, cellEditMixin, bodyCellMergeMixin, titleCellMergeMixin],
-        components: {tableEmpty, loading},
+        mixins: [tableResizeMixin, frozenColumnsMixin, scrollControlMixin, sortControlMixin, tableEmptyMixin, dragWidthMixin, cellEditMixin, bodyCellMergeMixin, titleCellMergeMixin, checkboxSelectionMixin],
+        components: {tableEmpty, loading, VCheckboxGroup, VCheckbox},
         data(){
             return {
                 // 本地列表数据
@@ -423,7 +458,13 @@
             // 单元格编辑格式化
             cellEditFormatter: Function,
             // 单元格合并
-            cellMerge: Function
+            cellMerge: Function,
+            // select all
+            selectAll: Function,
+            // 单个checkbox change event
+            selectChange: Function,
+            // checkbox-group change event
+            selectGroupChange: Function
         },
         computed: {
 
@@ -731,6 +772,8 @@
 
             this.internalTableData = this.initInternalTableData(this.tableData);
 
+            this.updateCheckboxGroupModel();
+
             if (Array.isArray(this.columns) && this.columns.length > 0) {
 
                 this.initColumns();
@@ -770,6 +813,8 @@
             'tableData': function (newVal) {
 
                 this.internalTableData = this.initInternalTableData(newVal);
+
+                this.updateCheckboxGroupModel();
 
                 this.tableEmpty();
 

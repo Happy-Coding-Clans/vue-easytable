@@ -68,6 +68,9 @@
 | cell-edit-formatter|  单元格编辑格式化回调（可以对编辑的结果设置样式等）|  newValue,oldValue,rowIndex,rowData,field|
 | cell-edit-done|  单元格编辑完成回调|  newValue,oldValue,rowIndex,rowData,field|
 | cell-merge|  单元格合并，支持rowSpan、colSpan,返回值`{colSpan: 1,rowSpan: 1,content: '',componentName: ''}`；合并后单元格的内容可以通过`content`（html）设置也可以通过,`componentName`（自定义组件）设置| rowIndex,rowData,field|
+| select-all| 全选时触发 | selection 当前选中的项集合 |
+| select-change| 某一项 checkbox 触发 | selection（当前选中的项集合），rowData（当前选中的项）|
+| select-group-change| 选中项发生变化触发 | selection（当前选中的项集合）  |
 
 
 

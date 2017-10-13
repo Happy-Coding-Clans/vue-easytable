@@ -16,12 +16,12 @@ import demoBox from './comp/DemoBox.vue'
 Vue.component('demo-box', demoBox);
 
 // product
-import '../libs/themes-base/index.css'
-import {VTable,VPagination} from '../libs/index.js'
+/*import '../libs/themes-base/index.css'
+import {VTable,VPagination} from '../libs/index.js'*/
 
 // dev
-/*import '../packages/themes-base/index.css'
-import {VTable,VPagination} from '../packages/index.js'*/
+import '../packages/themes-base/index.css'
+import {VTable,VPagination} from '../packages/index.js'
 
 Vue.component(VTable.name, VTable)
 Vue.component(VPagination.name, VPagination)

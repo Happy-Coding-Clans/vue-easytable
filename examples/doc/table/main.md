@@ -65,8 +65,15 @@
              <div class="mt30">
                  <div class="bold">
                  <a class="anchor" id="table-selection-simple" @click.stop="goAnchor('table-selection-simple')">#</a>
-                 多选简单用法</div>
+                 简单的多选功能</div>
                  <selection-simple></selection-simple>
+             </div>
+
+             <div class="mt30">
+                  <div class="bold">
+                  <a class="anchor" id="table-selection-advanced" @click.stop="goAnchor('table-selection-advanced')">#</a>
+                  多选功能高级用法</div>
+                  <selection-advanced></selection-advanced>
              </div>
         </div>
 
@@ -230,6 +237,7 @@
     import setLoadingAndErrorContent from './set-loading-and-error-content.md'
 
     import selectionSimple from './selection-simple.md'
+    import selectionAdvanced from './selection-advanced.md'
 
     import combinedPaging from './combinedPaging.md'
 
@@ -266,6 +274,7 @@
             customSetLoadingAndErrorContent,
 
             selectionSimple,
+            selectionAdvanced,
 
             combinedPaging,
 
