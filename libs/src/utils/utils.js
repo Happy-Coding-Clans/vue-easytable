@@ -106,5 +106,40 @@ exports.default = {
         outer.parentNode.removeChild(outer);
 
         return widthNoScroll - widthWithScroll;
+    },
+    getParentCompByName: function getParentCompByName(context, name) {
+
+        var parent = context.$parent;
+
+        while (parent) {
+            if (parent.$options.name !== name) {
+                parent = parent.$parent;
+            } else {
+                return parent;
+            }
+        }
+
+        return null;
+    },
+    getChildCompsByName: function getChildCompsByName(context, name) {
+
+        var result = [];
+
+        var childrens = context.$children;
+
+        while (childrens && childrens.length > 1) {
+
+            childrens.forEach(function (child) {
+
+                childrens = child.$children ? child.$children : null;
+
+                if (child.$options.name === name) {
+
+                    result.push(child);
+                }
+            });
+        }
+
+        return result;
     }
 };
