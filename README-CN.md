@@ -11,15 +11,22 @@
 [API&实例](http://doc.huangsw.com/vue-easytable/app.html#/table)
 
 ## 功能
-1. [自适应，可以随着浏览器窗口改变自动适应](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-simple-table-resize)
-2. [固定列，表头固定](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-frozen-title-columns)  
-3. [默认支持列宽拖动](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-basic-no-table-width)
-4. [支持单个字段排序和多个字段排序](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-sort-by-single-columns)
-5. [自定义列、自定义单元格样式](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-custom-columns)  
-6. [loading效果、自定义loading 等](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-loading-and-error-content)
-7. [自带分页组件](http://doc.huangsw.com/vue-easytable/app.html#/pagination)  
-8. [单元格编辑](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-edit)
-9. [支持单元格合并 (colSpan and rowSpan)](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-merge)
+- [x] [自适应，可以随着浏览器窗口改变自动适应](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-simple-table-resize)
+- [x] [固定列，表头固定](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-frozen-title-columns)  
+- [x] [默认支持列宽拖动](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-basic-no-table-width)
+- [x] [支持单个字段排序和多个字段排序](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-sort-by-single-columns)
+- [x] [自定义列、自定义单元格样式](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-custom-columns)  
+- [x] [loading效果、自定义loading 等](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-loading-and-error-content)
+- [x] [自带分页组件](http://doc.huangsw.com/vue-easytable/app.html#/pagination)  
+- [x] [单元格编辑](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-edit)
+- [x] [支持单元格合并 (colSpan and rowSpan)](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-merge)
+- [x] [添加 checkbox 多选功能](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-selection-advanced)
+- [ ] 添加 footer 功能  
+- [ ] 添加导出 excel 功能  
+- [ ] 添加导出 pdf 功能  
+- [ ] 添加条件过滤功能  
+- [ ] 添加行展开功能  
+- [ ] 纵向整列拖动
    
 
 ## 安装
@@ -45,18 +52,6 @@ Vue.component(VPagination.name, VPagination)
 
 ## 效果（不是全部）
 ![vue-easytable](./examples/images/vue-easytable.gif)
-
-## ToDo
-
-- [x] [添加单元格编辑功能](https://github.com/huangshuwei/vue-easytable/releases/tag/1.2.1) 
-- [x] [支持单元格 colSpan 和 rowSpan](https://github.com/huangshuwei/vue-easytable/releases/tag/1.3.0)
-- [ ] 添加 checkbox 多选功能  
-- [ ] 添加 footer 功能  
-- [ ] 添加导出 excel 功能  
-- [ ] 添加导出 pdf 功能  
-- [ ] 添加条件过滤功能  
-- [ ] 添加行展开功能  
-- [ ] 纵向整列拖动
 
 
 ## License
