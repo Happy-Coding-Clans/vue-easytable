@@ -3,10 +3,9 @@
 ```html
 <template>
 <div>
-
      <div class="mt30">
            <div class="bold">单选</div>
-           <v-checkbox v-model="checkboxValue1">哈密瓜</v-checkbox>
+           <v-checkbox  v-model="checkboxValue1">哈密瓜</v-checkbox>
            <div>{{checkboxValue1}}</div>
      </div>
 
