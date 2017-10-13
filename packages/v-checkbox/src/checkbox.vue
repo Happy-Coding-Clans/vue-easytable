@@ -11,7 +11,7 @@
 
             <span class="v-checkbox-inner"></span>
         </span>
-        <span><slot>{{ label }}</slot></span>
+        <span><slot v-if="showSlot">{{ label }}</slot></span>
     </label>
 </template>
 
@@ -29,13 +29,13 @@
                 type: [String, Number],
                 require: true
             },
-            disabled: {
-                type: Boolean
-            },
+            disabled: Boolean,
             // partial selection effect
-            indeterminate: {
-                type: Boolean
-            },
+            indeterminate: Boolean,
+            showSlot:{
+                type:Boolean,
+                default:true
+            }
 
         },
         data(){
