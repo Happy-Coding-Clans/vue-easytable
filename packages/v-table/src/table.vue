@@ -81,15 +81,12 @@
                                          :title="col.overflowTitle ?  overflowTitle(item,col) :''"
                                          @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
                                     >
-                                        <template
-                                                v-if="cellMergeContentType(rowIndex,col.field,item).isComponent">
+                                        <span v-if="cellMergeContentType(rowIndex,col.field,item).isComponent">
                                             <component :rowData="item" :field="col.field ? col.field : ''"
                                                        :index="rowIndex"
                                                        :is="cellMerge(rowIndex,item,col.field).componentName"></component>
-                                        </template>
-                                        <template v-else>
-                                            <span v-html="cellMerge(rowIndex,item,col.field).content"></span>
-                                        </template>
+                                        </span>
+                                        <span v-else v-html="cellMerge(rowIndex,item,col.field).content"></span>
                                     </div>
                                     <!--不存在列合并-->
                                     <div v-else
@@ -98,20 +95,15 @@
                                          :title="col.overflowTitle ?  overflowTitle(item,col) :''"
                                          @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
                                     >
-                                        <template
-                                                v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
+                                        <span v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
                                             <component :rowData="item" :field="col.field ? col.field : ''"
-                                                       :index="rowIndex"
-                                                       :is="col.componentName"></component>
-                                        </template>
-                                        <template v-else>
-                                           <span v-if="typeof col.formatter==='function'"
-                                                 v-html="col.formatter(item,rowIndex,pagingIndex,col.field)">
-                                            </span>
-                                            <span v-else>
+                                                       :index="rowIndex" :is="col.componentName"></component>
+                                        </span>
+                                        <span v-else-if="typeof col.formatter==='function'"
+                                              v-html="col.formatter(item,rowIndex,pagingIndex,col.field)"></span>
+                                        <span v-else>
                                                 {{item[col.field]}}
-                                            </span>
-                                        </template>
+                                        </span>
                                     </div>
                                 </td>
                             </tr>
@@ -165,7 +157,8 @@
                                          :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
                                         <span class="table-title">
                                             <span v-html="col.title"></span>
-                                            <span @click.stop="sortControl(col.field,col.orderBy)" class="v-table-sort-icon"
+                                            <span @click.stop="sortControl(col.field,col.orderBy)"
+                                                  class="v-table-sort-icon"
                                                   v-if="enableSort(col.orderBy)">
                                                         <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
                                                         <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
@@ -201,14 +194,12 @@
                                  :title="col.overflowTitle ?  overflowTitle(item,col) :''"
                                  @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
                             >
-                                <template
-                                        v-if="cellMergeContentType(rowIndex,col.field,item).isComponent">
+                                <span v-if="cellMergeContentType(rowIndex,col.field,item).isComponent">
                                     <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex"
                                                :is="cellMerge(rowIndex,item,col.field).componentName"></component>
-                                </template>
-                                <template v-else>
-                                    <span v-html="cellMerge(rowIndex,item,col.field).content"></span>
-                                </template>
+                                </span>
+                                <span v-else v-html="cellMerge(rowIndex,item,col.field).content">
+                                </span>
                             </div>
                             <!--不存在列合并-->
                             <div v-else
@@ -217,19 +208,16 @@
                                  :title="col.overflowTitle ?  overflowTitle(item,col) :''"
                                  @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
                             >
-                                <template
-                                        v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
+                                <span v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
                                     <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex"
                                                :is="col.componentName"></component>
-                                </template>
-                                <template v-else>
-                                           <span v-if="typeof col.formatter==='function'"
-                                                 v-html="col.formatter(item,rowIndex,pagingIndex,col.field)">
-                                            </span>
-                                    <span v-else>
-                                                {{item[col.field]}}
-                                            </span>
-                                </template>
+                                </span>
+                                <span v-else-if="typeof col.formatter==='function'"
+                                      v-html="col.formatter(item,rowIndex,pagingIndex,col.field)">
+                                </span>
+                                <span v-else>
+                                     {{item[col.field]}}
+                                </span>
                             </div>
                         </td>
                     </tr>
@@ -283,25 +271,18 @@
             return {
                 // 本地列表数据
                 internalTableData: [],
-
                 // 本地宽度
                 internalWidth: 0,
-
                 // 本地高度
                 internalHeight: 0,
-
                 // 本地列数据
                 internalColumns: [],
                 // 本地复杂表头数据
                 internalTitleRows: [],
-
                 errorMsg: ' V-Table error: ',
-
                 // 最大宽度（当width:'max'时）
                 maxWidth: 5000,
-
                 hasFrozenColumn: false,// 是否拥有固定列（false时最后一列的右边border无边框）
-
                 hasBindScrollEvent: false, // 是否绑定了滚动事件（防止多次注册）
             }
         },
@@ -326,7 +307,6 @@
                 require: false,
                 default: 38
             },
-
             // 随着浏览器窗口改变，横向自适应
             isHorizontalResize: {
                 type: Boolean,
@@ -362,7 +342,6 @@
             evenBgColor: {
                 type: String
             },
-
             // 内容行高
             rowHeight: {
                 type: Number,
@@ -395,10 +374,8 @@
                     return []
                 }
             },
-
             // 分页序号
             pagingIndex: Number,
-
             // 没数据时的html
             errorContent: {
                 type: String,
@@ -409,43 +386,34 @@
                 type: Number,
                 default: 50
             },
-
             // 是否正在加载,为false 则会显示错误信息（如果加载时间较长，最好设置为true,数据返回后设置为false）
             isLoading: {
                 type: Boolean,
                 default: false
             },
-
             loadingContent: {
                 type: String,
                 default: '<span><i class="v-icon-spin5 animate-loading-23" style="font-size: 28px;opacity:0.6;"></i></span>'
             },
-
             // 不设置则没有hover效果
             rowHoverColor: {
                 type: String
             },
-
             rowClickColor: {
                 type: String
             },
-
             showVerticalBorder: {
                 type: Boolean,
                 default: true
             },
-
             showHorizontalBorder: {
                 type: Boolean,
                 default: true
             },
-
             // 表体单元格样式回调
             columnCellClassName: Function,
-
             // 行点击回调
             onRowClick: Function,
-
             // 鼠标进入行的回调
             rowMouseEnter: Function,
             // 鼠标离开行的回调
@@ -456,7 +424,6 @@
             cellEditFormatter: Function,
             // 单元格合并
             cellMerge: Function
-
         },
         computed: {
 
@@ -786,7 +753,6 @@
             }
 
             this.singelSortInit();
-
         },
         watch: {
 
