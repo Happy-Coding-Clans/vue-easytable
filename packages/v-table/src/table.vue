@@ -74,7 +74,7 @@
                                     :colSpan="setColRowSpan(rowIndex,col.field,item).colSpan"
                                     :rowSpan="setColRowSpan(rowIndex,col.field,item).rowSpan"
                                     :class="[setColumnCellClassName(rowIndex,col.field,item)]">
-
+                                    <!--存在列合并-->
                                     <div v-if="isCellMergeRender(rowIndex,col.field,item)"
                                          :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                          :style="{'width':getRowWidthByColSpan(rowIndex,col.field,item)+'px','height': getRowHeightByRowSpan(rowIndex,col.field,item)+'px','line-height':getRowHeightByRowSpan(rowIndex,col.field,item)+'px','text-align':col.columnAlign}"
@@ -91,6 +91,7 @@
                                             <span v-html="cellMerge(rowIndex,item,col.field).content"></span>
                                         </template>
                                     </div>
+                                    <!--不存在列合并-->
                                     <div v-else
                                          :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                          :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
@@ -188,6 +189,7 @@
                         @mouseenter.stop="handleMouseEnter(rowIndex)"
                         @mouseleave.stop="handleMouseOut(rowIndex)"
                     >
+                        <!--存在列合并-->
                         <td v-if="cellMergeInit(rowIndex,col.field,item,false)" v-for="(col,colIndex) in noFrozenCols"
                             :key="colIndex"
                             :colSpan="setColRowSpan(rowIndex,col.field,item).colSpan"
@@ -209,6 +211,7 @@
                                     <span v-html="cellMerge(rowIndex,item,col.field).content"></span>
                                 </template>
                             </div>
+                            <!--不存在列合并-->
                             <div v-else
                                  :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                  :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
