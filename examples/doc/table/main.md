@@ -60,6 +60,17 @@
         </div>
 
         <div class="mt30">
+             <h3>selection 多选</h3>
+
+             <div class="mt30">
+                 <div class="bold">
+                 <a class="anchor" id="table-selection-simple" @click.stop="goAnchor('table-selection-simple')">#</a>
+                 多选简单用法</div>
+                 <selection-simple></selection-simple>
+             </div>
+        </div>
+
+        <div class="mt30">
             <h3>单元格编辑</h3>
 
             <div class="mt30">
@@ -218,6 +229,8 @@
     import customSetLoadingAndErrorContent from './custom-set-loading-and-error-content.md'
     import setLoadingAndErrorContent from './set-loading-and-error-content.md'
 
+    import selectionSimple from './selection-simple.md'
+
     import combinedPaging from './combinedPaging.md'
 
 
@@ -251,6 +264,8 @@
 
             setLoadingAndErrorContent,
             customSetLoadingAndErrorContent,
+
+            selectionSimple,
 
             combinedPaging,
 
