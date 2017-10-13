@@ -13,15 +13,16 @@ Based on vue2.x flexible table components.
 [API&Examples](http://doc.huangsw.com/vue-easytable/app.html#/table)
 
 ## Features
-1. [Adaptive, you can automatically adapt to the browser window changes](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-simple-table-resize)
-2. [Fixed column, header fixed](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-frozen-title-columns)  
-3. [Support column width drag](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-basic-no-table-width)
-4. [Supports single field sorting and multiple field sorting](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-sort-by-single-columns)
-5. [Custom columns, custom cell styles](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-custom-columns)
-6. [Loading effects, custom loading, etc](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-loading-and-error-content)
-7. [Own paging component](http://doc.huangsw.com/vue-easytable/app.html#/pagination)
-8. [Cell Editing](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-edit)
-9. [Support cell merge (colSpan and rowSpan)](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-merge)
+- [x] [Adaptive, you can automatically adapt to the browser window changes](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-simple-table-resize)
+- [x] [Fixed column, header fixed](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-frozen-title-columns)  
+- [x] [Support column width drag](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-basic-no-table-width)
+- [x] [Supports single field sorting and multiple field sorting](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-sort-by-single-columns)
+- [x] [Custom columns, custom cell styles](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-custom-columns)
+- [x] [Loading effects, custom loading, etc](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-loading-and-error-content)
+- [x] [Own paging component](http://doc.huangsw.com/vue-easytable/app.html#/pagination)
+- [x] [Cell Editing](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-edit)
+- [x] [Support cell merge (colSpan and rowSpan)](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-merge)
+
    
 
 ## Install
