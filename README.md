@@ -22,7 +22,13 @@ Based on vue2.x flexible table components.
 - [x] [Own paging component](http://doc.huangsw.com/vue-easytable/app.html#/pagination)
 - [x] [Cell Editing](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-edit)
 - [x] [Support cell merge (colSpan and rowSpan)](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-merge)
-
+- [x] [Support checkbox selection](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-selection-advanced)  
+- [ ] Add footer
+- [ ] Export excel
+- [ ] Export PDF
+- [ ] Conditional filter
+- [ ] Row expansion
+- [ ] Vertical column drag
    
 
 ## Install
@@ -48,18 +54,6 @@ Vue.component(VPagination.name, VPagination)
 
 ## Effect
 ![vue-easytable](./examples/images/vue-easytable.gif)
-
-## ToDo
-
-- [x] [Cell editing](https://github.com/huangshuwei/vue-easytable/releases/tag/1.2.1)
-- [x] [Support cell colSpan and rowSpan](https://github.com/huangshuwei/vue-easytable/releases/tag/1.3.0)
-- [ ] Support checkbox selection  
-- [ ] Add footer
-- [ ] Export excel
-- [ ] Export PDF
-- [ ] Conditional filter
-- [ ] Row expansion
-- [ ] Vertical column drag
 
 
 ## License
