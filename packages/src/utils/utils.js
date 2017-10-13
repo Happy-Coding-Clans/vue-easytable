@@ -134,6 +134,46 @@ export default {
 
         return widthNoScroll - widthWithScroll;
 
+    },
+
+    // 获取父组件信息
+    getParentCompByName(context,name){
+
+        let parent = context.$parent;
+
+        while (parent) {
+            if (parent.$options.name !== name) {
+                parent = parent.$parent;
+            }else{
+                return parent;
+            }
+        }
+
+        return null;
+    },
+
+    // 获取多个符合条件的子组件信息
+    getChildCompsByName(context,name){
+
+        let result = [];
+
+        let childrens = context.$children;
+
+        while (childrens && childrens.length > 1) {
+
+            childrens.forEach(child=>{
+
+                childrens = child.$children ? child.$children : null;
+
+                if (child.$options.name === name){
+
+                    result.push(child);
+                }
+
+            })
+        }
+
+        return result;
     }
 
 }
