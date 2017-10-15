@@ -15,20 +15,6 @@ export default {
 
     computed: {
 
-        // 禁用已选中的复选框集合
-        disabledChecked(){
-
-            let result = [];
-
-            this.internalTableData.filter((item, index) => {
-
-                if (item._disabled && item._checked) {
-                    result.push(index);
-                }
-            })
-            return result;
-        },
-
         // 禁用未选中的复选框集合
         disabledUnChecked(){
 
@@ -55,6 +41,20 @@ export default {
 
     methods: {
 
+        // 禁用已选中的复选框集合
+        disabledChecked(){
+
+            let result = [];
+
+            this.internalTableData.filter((item, index) => {
+
+                if (item._disabled && item._checked) {
+                    result.push(index);
+                }
+            })
+            return result;
+        },
+
         // check all trigger event
         handleCheckAll(){
 
@@ -79,7 +79,7 @@ export default {
 
             } else {
 
-                this.checkboxGroupModel = this.disabledChecked;
+                this.checkboxGroupModel = this.disabledChecked();
             }
 
             this.setCheckAllState();
@@ -125,7 +125,7 @@ export default {
             }
         },
 
-        // 修改checkbox 选中状态
+        // 修改checkbox 选中状态(table.vue 中调用)
         updateCheckboxGroupModel(){
 
             this.checkboxGroupModel = [];

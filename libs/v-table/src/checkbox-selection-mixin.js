@@ -17,18 +17,6 @@ exports.default = {
 
 
     computed: {
-        disabledChecked: function disabledChecked() {
-
-            var result = [];
-
-            this.internalTableData.filter(function (item, index) {
-
-                if (item._disabled && item._checked) {
-                    result.push(index);
-                }
-            });
-            return result;
-        },
         disabledUnChecked: function disabledUnChecked() {
 
             var result = [];
@@ -52,6 +40,18 @@ exports.default = {
     },
 
     methods: {
+        disabledChecked: function disabledChecked() {
+
+            var result = [];
+
+            this.internalTableData.filter(function (item, index) {
+
+                if (item._disabled && item._checked) {
+                    result.push(index);
+                }
+            });
+            return result;
+        },
         handleCheckAll: function handleCheckAll() {
 
             if (this.isAllChecked) {
@@ -74,7 +74,7 @@ exports.default = {
                 this.selectAll && this.selectAll(this.getCheckedTableRow);
             } else {
 
-                this.checkboxGroupModel = this.disabledChecked;
+                this.checkboxGroupModel = this.disabledChecked();
             }
 
             this.setCheckAllState();
