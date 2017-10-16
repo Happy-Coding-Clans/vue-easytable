@@ -117,7 +117,7 @@ body, html {
     height:auto;
     float: left;
     position: relative;
-    width: 80%;
+    width: 75%;
     min-height:calc(100vh - 73px);
     padding-left:20px;
     background-color: #ffffff;
@@ -563,7 +563,7 @@ code {
 .example-codeHighlight code {
     font-family: Menlo,Monaco,Consolas,Courier,monospace;
     line-height: 1.2;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .example-codeDescription-title {
