@@ -31,8 +31,6 @@
 
 <script>
 
-    import mockData from '../../mock/tableData.js'
-
     export default{
         name: 'frozen-title-columns',
         data(){
@@ -40,7 +38,13 @@
                 tab:1,
 
                 tables1: {
-                    tableData: [],
+                    tableData: [
+                            {"name":"赵伟","tel":"156*****1987","hobby":"钢琴、书法、唱歌","address":"上海市黄浦区金陵东路569号17楼"},
+                            {"name":"李伟","tel":"182*****1538","hobby":"钢琴、书法、唱歌","address":"上海市奉贤区南桥镇立新路12号2楼"},
+                            {"name":"孙伟","tel":"161*****0097","hobby":"钢琴、书法、唱歌","address":"上海市崇明县城桥镇八一路739号"},
+                            {"name":"周伟","tel":"197*****1123","hobby":"钢琴、书法、唱歌","address":"上海市青浦区青浦镇章浜路24号"},
+                            {"name":"吴伟","tel":"183*****6678","hobby":"钢琴、书法、唱歌","address":"上海市松江区乐都西路867-871号"}
+                    ],
                     columns: [
                         {field: 'name', title: '姓名1', width: 180, titleAlign: 'center',columnAlign:'center', isFrozen: true,formatter: function (rowData, index) {
                             return '表格1111111111';
@@ -54,7 +58,13 @@
                 },
 
                 tables2: {
-                    tableData: [],
+                    tableData: [
+                        {"name":"赵伟","tel":"156*****1987","hobby":"钢琴、书法、唱歌","address":"上海市黄浦区金陵东路569号17楼"},
+                        {"name":"李伟","tel":"182*****1538","hobby":"钢琴、书法、唱歌","address":"上海市奉贤区南桥镇立新路12号2楼"},
+                        {"name":"孙伟","tel":"161*****0097","hobby":"钢琴、书法、唱歌","address":"上海市崇明县城桥镇八一路739号"},
+                        {"name":"周伟","tel":"197*****1123","hobby":"钢琴、书法、唱歌","address":"上海市青浦区青浦镇章浜路24号"},
+                        {"name":"吴伟","tel":"183*****6678","hobby":"钢琴、书法、唱歌","address":"上海市松江区乐都西路867-871号"}
+                    ],
                     columns: [
                         {field: 'name', title: '姓名2', width: 180, titleAlign: 'center',columnAlign:'center', isFrozen: true,formatter: function (rowData, index) {
                             return '表格222222222';
@@ -69,25 +79,12 @@
             }
         },
         methods: {
-            // 模拟获取数据
-            getTableData(){
-                var vm = this
-
-                setTimeout(function () {
-                    vm.tables1.tableData = mockData;
-                    vm.tables2.tableData = mockData
-                }, 100)
-
-            },
 
             tabClick(tabId){
                  this.tab = tabId;
                  this.$refs['table'+tabId].resize();
 
             }
-        },
-        created(){
-            this.getTableData()
         }
     }
 </script>
