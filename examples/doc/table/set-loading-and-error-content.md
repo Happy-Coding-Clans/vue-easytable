@@ -28,8 +28,8 @@
                     tableData: null,
                     columns: [
                         {field: 'name', title: '姓名', width: 80, titleAlign: 'center', columnAlign: 'center',isResize: true},
-                        {field: 'gender', title: '性别', width: 80, titleAlign: 'center', columnAlign: 'center',isResize: true},
-                        {field: 'height', title: '身高', width: 80, titleAlign: 'center', columnAlign: 'center',isResize: true},
+                        {field: 'tel', title: '手机号码', width: 80, titleAlign: 'center', columnAlign: 'center',isResize: true},
+                        {field: 'hobby', title: '爱好', width: 80, titleAlign: 'center', columnAlign: 'center',isResize: true},
                         {field: 'address',title: '地址', width: 280,titleAlign: 'center',columnAlign: 'left',isResize: true}
                     ],
                     titleBgColor: "#e1e1e1",

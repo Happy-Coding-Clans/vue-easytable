@@ -48,7 +48,7 @@
                         {field: 'tel', title: '手机号码1', width: 180, titleAlign: 'center',columnAlign:'center', isFrozen: false,isResize:true,formatter: function (rowData, index) {
                             return '表格1111111111';
                         }},
-                        {field: 'email', title: '邮箱1', width: 190, titleAlign: 'center',columnAlign:'center', isFrozen: false,isResize:true},
+                        {field: 'hobby', title: '爱好1', width: 190, titleAlign: 'center',columnAlign:'center', isFrozen: false,isResize:true},
                         {field: 'address', title: '地址1', width: 200, titleAlign: 'center',columnAlign:'left', isFrozen: false,isResize:true},
                     ]
                 },
@@ -62,7 +62,7 @@
                         {field: 'tel', title: '手机号码2', width: 180, titleAlign: 'center',columnAlign:'center', isFrozen: false,isResize:true,formatter: function (rowData, index) {
                             return '表格222222222';
                         }},
-                        {field: 'email', title: '邮箱2', width: 190, titleAlign: 'center',columnAlign:'center', isFrozen: false,isResize:true},
+                        {field: 'hobby', title: '爱好2', width: 190, titleAlign: 'center',columnAlign:'center', isFrozen: false,isResize:true},
                         {field: 'address', title: '地址2', width: 200, titleAlign: 'center',columnAlign:'left', isFrozen: false,isResize:true},
                     ]
                 }
