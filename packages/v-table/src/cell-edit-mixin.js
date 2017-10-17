@@ -1,9 +1,11 @@
 import utils from '../../src/utils/utils.js'
+import {hasClass, addClass, removeClass} from '../../src/utils/dom.js'
+
 export default {
 
     methods: {
         // cell edit
-        cellEdit(e,callback,rowIndex,rowData,field){
+        cellEdit(e, callback, rowIndex, rowData, field){
 
             let target = e.target,
                 self = this,
@@ -18,15 +20,15 @@ export default {
                 target = target.parentNode;
             }
 
-            if (target.classList.contains('cell-editing')) {
+            if (hasClass(target, 'cell-editing')) {
                 return false
             }
 
-            target.classList.add('cell-editing');
+            addClass(target, 'cell-editing');
 
             oldVal = target.innerText;
 
-            if (target.style.textAlign){
+            if (target.style.textAlign) {
 
                 textAlign = target.style.textAlign;
             }
@@ -50,45 +52,45 @@ export default {
 
             actionFun = function (e) {
 
-                if (typeof e.keyCode === 'undefined' || e.keyCode == 13){
+                if (typeof e.keyCode === 'undefined' || e.keyCode === 0 || e.keyCode == 13) {
 
+                    if (hasClass(target, 'cell-editing')) {
 
-                    if (target.classList.contains('cell-editing')) {
-                        target.classList.remove('cell-editing');
-
-                    }else{
+                        removeClass(target, 'cell-editing');
+                    } else {
                         return false;
                     }
 
-                    formatterVal = self.cellEditFormatter && self.cellEditFormatter(this.value,oldVal,rowIndex,rowData,field);
+                    formatterVal = self.cellEditFormatter && self.cellEditFormatter(editInput.value, oldVal, rowIndex, rowData, field);
 
-                    target.innerHTML = formatterVal && formatterVal.length > 0 ? formatterVal :this.value;
+                    target.innerHTML = formatterVal && formatterVal.length > 0 ? formatterVal : editInput.value;
 
-                    callback(this.value,oldVal)
+                    // fixed this.value bug in IE9
+                    callback(editInput.value, oldVal)
 
                     utils.unbind(editInput, 'blur', actionFun);
-                    utils.unbind(editInput, 'keydown',actionFun);
+                    utils.unbind(editInput, 'keydown', actionFun);
                 }
             };
 
 
             utils.bind(editInput, 'blur', actionFun);
-            utils.bind(editInput, 'keydown',actionFun);
+            utils.bind(editInput, 'keydown', actionFun);
         },
 
         // 单元格点击
-        cellEditClick(e,isEdit,rowData,field,rowIndex){
+        cellEditClick(e, isEdit, rowData, field, rowIndex){
 
-            if (isEdit){
+            if (isEdit) {
 
                 let self = this;
                 // 单元格内容变化后的回调
-                let onCellEditCallBack = function (newValue,oldVal) {
+                let onCellEditCallBack = function (newValue, oldVal) {
 
-                    self.cellEditDone(newValue,oldVal,rowIndex,rowData,field);
+                    self.cellEditDone(newValue, oldVal, rowIndex, rowData, field);
                 }
 
-                this.cellEdit(e,onCellEditCallBack,rowIndex,rowData,field)
+                this.cellEdit(e, onCellEditCallBack, rowIndex, rowData, field)
             }
         },
     }

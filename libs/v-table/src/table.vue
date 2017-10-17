@@ -760,11 +760,10 @@
 
             // 对外暴露（隐藏显示切换时）
             resize(){
-
-                this.$nextTick(x => {
+                // fixed bug in IE9 #17
+                setTimeout(x=>{
 
                     this.tableResize();
-
                 })
             }
         },

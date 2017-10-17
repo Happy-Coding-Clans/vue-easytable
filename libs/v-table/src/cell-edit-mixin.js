@@ -8,6 +8,8 @@ var _utils = require('../../src/utils/utils.js');
 
 var _utils2 = _interopRequireDefault(_utils);
 
+var _dom = require('../../src/utils/dom.js');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
@@ -28,11 +30,11 @@ exports.default = {
                                                 target = target.parentNode;
                                     }
 
-                                    if (target.classList.contains('cell-editing')) {
+                                    if ((0, _dom.hasClass)(target, 'cell-editing')) {
                                                 return false;
                                     }
 
-                                    target.classList.add('cell-editing');
+                                    (0, _dom.addClass)(target, 'cell-editing');
 
                                     oldVal = target.innerText;
 
@@ -58,19 +60,20 @@ exports.default = {
 
                                     _actionFun = function actionFun(e) {
 
-                                                if (typeof e.keyCode === 'undefined' || e.keyCode == 13) {
+                                                if (typeof e.keyCode === 'undefined' || e.keyCode === 0 || e.keyCode == 13) {
 
-                                                            if (target.classList.contains('cell-editing')) {
-                                                                        target.classList.remove('cell-editing');
+                                                            if ((0, _dom.hasClass)(target, 'cell-editing')) {
+
+                                                                        (0, _dom.removeClass)(target, 'cell-editing');
                                                             } else {
                                                                         return false;
                                                             }
 
-                                                            formatterVal = self.cellEditFormatter && self.cellEditFormatter(this.value, oldVal, rowIndex, rowData, field);
+                                                            formatterVal = self.cellEditFormatter && self.cellEditFormatter(editInput.value, oldVal, rowIndex, rowData, field);
 
-                                                            target.innerHTML = formatterVal && formatterVal.length > 0 ? formatterVal : this.value;
+                                                            target.innerHTML = formatterVal && formatterVal.length > 0 ? formatterVal : editInput.value;
 
-                                                            callback(this.value, oldVal);
+                                                            callback(editInput.value, oldVal);
 
                                                             _utils2.default.unbind(editInput, 'blur', _actionFun);
                                                             _utils2.default.unbind(editInput, 'keydown', _actionFun);
