@@ -1,6 +1,6 @@
 {
   "name": "vue-easytable",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "基于 vue2.x 的table组件",
   "main": "libs/index.js",
   "author": "https://github.com/huangshuwei",
