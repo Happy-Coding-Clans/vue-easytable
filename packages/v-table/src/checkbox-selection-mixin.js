@@ -82,7 +82,7 @@ export default {
                 this.checkboxGroupModel = this.disabledChecked();
             }
 
-            this.setCheckAllState();
+            this.setIndeterminateState();
         },
 
         // checkbox change event
@@ -98,11 +98,11 @@ export default {
 
             this.selectGroupChange && this.selectGroupChange(this.getCheckedTableRow);
 
-            this.setCheckAllState();
+            this.setCheckState();
         },
 
-        // 设置全选状态
-        setCheckAllState(){
+        // 设置部分选中状态（全选或者取消全选时）
+        setIndeterminateState(){
 
             let checkedLen = this.checkboxGroupModel.length,
                 allLen = this.internalTableData.length;
@@ -111,16 +111,40 @@ export default {
             if (checkedLen > 0 && checkedLen === allLen) {
 
                 this.indeterminate = false;
-                this.isAllChecked = true;
 
             } else if (checkedLen > 0 && checkedLen < allLen) { // 部分选中
 
-                this.isAllChecked = false;
                 this.indeterminate = true;
 
             } else { // 全不选
 
                 this.indeterminate = false;
+            }
+        },
+
+        // 设置选中状态
+        setCheckState(){
+
+            let checkedLen = this.checkboxGroupModel.length,
+                allLen = this.internalTableData.length;
+
+            // 全选
+            if (checkedLen > 0 && checkedLen === allLen) {
+
+                this.indeterminate = false;
+
+                this.isAllChecked = true;
+
+            } else if (checkedLen > 0 && checkedLen < allLen) { // 部分选中
+
+                this.isAllChecked = false;
+
+                this.indeterminate = true;
+
+            } else { // 全不选
+
+                this.indeterminate = false;
+
                 this.isAllChecked = false;
             }
         },
@@ -138,7 +162,7 @@ export default {
                 }
             })
 
-            this.setCheckAllState();
+            this.setCheckState();
         }
     }
 }
