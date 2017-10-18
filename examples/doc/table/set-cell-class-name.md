@@ -1,5 +1,5 @@
 
-:::demo 设置表头单元格：通过‘titleCellClassName’属性给表头的单元格设置class；设置列单元格:通过‘columnCellClassName’方法给列的单元格设置class
+:::demo 设置**表头单元格样式**：通过`titleCellClassName`属性给表头的单元格设置class；<br>设置**列单元格样式**：通过`columnCellClassName`方法给列的单元格设置class；
 
 ```html
 <template>

@@ -1,4 +1,4 @@
-:::demo 通过给 table-data 设置 _checked: true 可以默认选中当前项，_disabled: true 可以禁止选择当前项。
+:::demo 提示：如果存在禁用的 **选中项** 则一直为部分选中状态 <br> - 通过给 `table-data` 设置 `_checked: true` 可以默认选中当前项<br> - 通过给 `table-data` 设置 `_disabled: true` 可以禁止选择当前项
 ```html
 <template>
     <v-table

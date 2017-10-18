@@ -1,4 +1,4 @@
-:::demo 如果加载等待时间较长，建议使用loading
+:::demo 如果表格数据返回较慢，可以开启loading效果<br>**使用方法**： <br> - 默认设置 `is-loading`为`true` <br> - 当表格数据返回后设置为`false`关闭 loading
 ```html
 <template>
     <div>

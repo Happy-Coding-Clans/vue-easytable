@@ -1,5 +1,5 @@
 
-:::demo 可以根据单个字段进行排序
+:::demo 通过设置 `multiple-sort` 为 `false` 开启单个字段进行排序
 ```html
 <template>
     <div>

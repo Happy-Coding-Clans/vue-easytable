@@ -1,5 +1,5 @@
 
-:::demo 默认单元格的编辑只接收文本格式，但是可以通过 cell-edit-formatter 方法回调对单元格的编辑后的结果进行二次处理。
+:::demo 默认单元格的编辑只接收文本格式，但是可以通过 `cell-edit-formatter` 回调函数对单元格的编辑后的结果进行二次处理。
 
 ```html
 <template>

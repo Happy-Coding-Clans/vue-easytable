@@ -1,4 +1,4 @@
-:::demo formatter 对当前数据进行简单的加工处理；自定义列的高级用法通过`componentName`传递一个vue组件，同时这个自定义组件会接收到`rowData`、`field`、`index`数据
+:::demo **自定义列普通用法**：通过 `formatter`函数对当前数据进行简单的加工处理，这个方法接收`rowData`、`rowIndex`,`pagingIndex`,`field`作为回调数据；<br>**自定义列高级用法**：通过`componentName`传递一个vue组件，这个自定义组件会接收到`rowData`、`field`、`index`作为回调数据；
 ```html
 <template>
     <v-table

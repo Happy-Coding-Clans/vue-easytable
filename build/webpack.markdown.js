@@ -76,6 +76,7 @@ exports.getMarkDownSetting = function () {
                     return params.trim().match(/^demo/);
                 },
 
+
                 render: function (tokens, idx) {
 
                     var m = tokens[idx].info.trim().match(/^demo\s*(.*)$/),
@@ -87,8 +88,18 @@ exports.getMarkDownSetting = function () {
                         var content = tokens[idx + 1].content;
                         var effectHtml = convert(striptags.strip(content, ['script', 'style'])).replace(/(<[^>]*)=""(?=.*>)/g, '$1');
 
-                        var codeDescription = showDemo ? md.utils.escapeHtml(m[1]) : '';
+                        //var codeDescription = showDemo ? md.utils.escapeHtml(m[1]) : '';
+                        var codeDescription = '';
 
+                        if (showDemo) { // 换行显示
+
+                            var descArr = m[1].split('<br>');
+
+                            descArr.forEach(item => {
+
+                                codeDescription += md.render(item);
+                            })
+                        }
 
                         return `<demo-box
                                     :showDemo="${showDemo}">

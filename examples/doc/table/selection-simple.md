@@ -1,4 +1,4 @@
-:::demo 通过给 columns 设置 type: 'selection'，即可自动开启多选功能。
+:::demo 通过给 `columns` 设置 `type: 'selection'`，即可自动开启多选功能。<br>**回调事件**：<br> - `select-all`回调函数，全选后触发，回调参数为 `selection`，已选项。<br> - `select-change`回调函数，选中某一项触发，回调参数为 `selection` 和 `rowData`，分别为已选项和刚选择的项 <br> - `select-group-change`回调函数，任意选中项发生变化时就会触发，回调参数为 `selection`，已选项。
 ```html
 <template>
     <v-table

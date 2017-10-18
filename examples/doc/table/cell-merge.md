@@ -1,4 +1,4 @@
-:::demo 通过传入回调函数 ‘cell-merge’ 设置要合并的单元格
+:::demo 通过传入 `cell-merge` 回调函数设置要合并的单元格<br> **使用技巧**：<br> - 找到要合并的列使用`colspan`，找到要合并的行使用`rowspan` <br> - 通过设置 `content`为合并后单元格内容（html），也可通过 `componentName` 将**组件**作为合并后单元格内容
 
 ```html
 <template>

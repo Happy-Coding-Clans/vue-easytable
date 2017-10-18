@@ -1,4 +1,4 @@
-:::demo 自定义loading 以及 错误信息
+:::demo - 通过设置 `loading-content` 自定义loading效果<br> - 通过设置 `error-content` 自定义失败效果
 ```html
 <template>
     <div>
