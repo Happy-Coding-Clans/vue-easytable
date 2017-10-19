@@ -16,11 +16,12 @@
             <div class="main-wrapper-sidebar">
                 <ul class="menu-root">
                     <li>
-                        <div>
-                            <router-link style="cursor: pointer;" class="main-wrapper-sidebar-link" to="/start">
-                                开始
-                            </router-link>
-                        </div>
+                        <a class="main-wrapper-sidebar-link" href="javascript:javascript:void(0);">开始</a>
+                        <ul class="menu-sub">
+                            <li>
+                                <router-link to="/start">快速上手</router-link>
+                            </li>
+                        </ul>
 
                         <a class="main-wrapper-sidebar-link" href="javascript:javascript:void(0);">组件</a>
                         <ul class="menu-sub">
