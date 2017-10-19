@@ -1,5 +1,6 @@
 
 ## 基础用法
+<anchor id="page-simple" label="简单实例" h4 ></anchor>
 :::demo 简单实例
 ```html
 <template>
@@ -8,6 +9,7 @@
 ```
 :::
 
+<anchor id="page-set-page-size" label="设置页数大小" h4 ></anchor>
 :::demo 设置页数大小
 ```html
 <template>
@@ -17,6 +19,7 @@
 :::
 
 :::demo 当页码改变或者每页条数改变都会触发分页回调
+<anchor id="page-callback" label="分页回调" h4 ></anchor>
 ```html
 <template>
           <v-pagination :total="600" @page-change="pageChange1" @page-size-change="pageSizeChange1"></v-pagination>
@@ -42,6 +45,7 @@
 
 
 ## 尺寸配置
+<anchor id="page-set-size" label="分页尺寸配置" h4 ></anchor>
 :::demo 实例
 ```html
 <template>
@@ -67,6 +71,7 @@
 
 
 ## 布局设置
+<anchor id="page-set-layout" label="layout 布局设置" h4 ></anchor>
 :::demo 通过设置 layout 属性，改变布局
 ```html
 <template>
@@ -95,7 +100,7 @@
 ```
 :::
 
-
+<anchor id="page-api" label="api" h3 ></anchor>
 ### Pagination props
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |

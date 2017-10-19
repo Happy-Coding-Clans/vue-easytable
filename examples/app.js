@@ -13,7 +13,9 @@ import 'nprogress/nprogress.css';
 import 'highlight.js/styles/color-brewer.css';
 
 import demoBox from './comp/DemoBox.vue'
+import anchor from './comp/Anchor.vue'
 Vue.component('demo-box', demoBox);
+Vue.component('anchor', anchor);
 
 // product
 /*import '../libs/themes-base/index.css'

@@ -52,16 +52,25 @@
 
         </div>
 
+        <!--目录-->
+        <div>
+            <catolog :catalog-data="catalogData"></catolog>
+        </div>
+
     </div>
 </template>
 
 <script>
 
+    import catolog from './Catalog.vue'
+
     export default{
         name: "App",
+        components: {catolog},
         data(){
             return {
-                showBackTop: false
+                showBackTop: false,
+                catalogData: []
             }
         },
         methods: {
@@ -75,6 +84,42 @@
                 var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop || window.scrollY;
 
                 this.showBackTop = scrollTop > 600 ? true : false;
+            },
+
+            anchorLink(to){
+
+                let query = to.query;
+                if (query && query.anchor) {
+
+                    this.$nextTick(x => {
+                        let anchor = this.$el.querySelector('#' + query.anchor);
+
+                        if (anchor && anchor.offsetTop) {
+
+                            window.scroll(0, anchor.offsetTop)
+                        }
+                    })
+                }
+
+
+                this.$nextTick(x => {
+
+                    let anchorLinkArr = this.$el.querySelectorAll(".anchor-link"),
+                        catalogData = [];
+
+                    console.log(anchorLinkArr);
+
+                    if (anchorLinkArr && anchorLinkArr.length > 0) {
+
+                        for (var i = 0, len = anchorLinkArr.length; i < len; i++) {
+
+                            catalogData.push({id: anchorLinkArr[i].id, label: anchorLinkArr[i].getAttribute('label')})
+                        }
+                    }
+
+
+                    this.catalogData = catalogData;
+                })
             }
         },
         mounted(){
@@ -88,18 +133,7 @@
 
             $route(to,from){
 
-                let query = to.query;
-                if (query && query.anchor){
-
-                    this.$nextTick(x=>{
-                        let anchor = this.$el.querySelector('#'+query.anchor);
-
-                        if (anchor && anchor.offsetTop){
-
-                            window.scroll(0,anchor.offsetTop)
-                        }
-                    })
-                }
+                this.anchorLink(to);
             }
         }
     }

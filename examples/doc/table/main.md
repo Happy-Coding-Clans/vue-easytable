@@ -4,39 +4,22 @@
     <div>
         <div class="mt30">
             <h1>Table 表格</h1>
-            <div>主要包含以下功能：</div>
-            <div>1、自适应，可以随着浏览器窗口改变自动适应</div>
-            <div>2、固定列，表头固定</div>
-            <div>3、列宽拖动（默认支持）</div>
-            <div>4、排序，支持单个、多个字段排序</div>
-            <div>5、自定义列、自定义单元格样式、loading效果等</div>
-            <div>6、自带分页组件</div>
-            <div>7、单元格编辑</div>
-            <div>8、支持单元格合并（colSpan 和 rowSpan）</div>
-
         </div>
-
 
         <div class="mt30">
             <h3>基础用法</h3>
 
             <div class="mt30">
-                <div class="bold">
-                <a  class="anchor" id="table-basic-set-table-width" @click.stop="goAnchor('table-basic-set-table-width')">#</a>
-                设置表格宽度，最后一列不设置</div>
+                <anchor id="table-basic-set-table-width" label="基础用法，最后一列不设置" h4 ></anchor>
                 <basic-set-table-width></basic-set-table-width>
             </div>
             <div class="mt30">
-                <div class="bold">
-                <a  class="anchor" id="table-basic-no-table-width" @click.stop="goAnchor('table-basic-no-table-width')">#</a>
-                不设置表格总体宽度，只设置每列的宽度</div>
+                <anchor id="table-basic-no-table-width" label="基础用法，只设置每列的宽度" h4 ></anchor>
                 <basic-no-table-width></basic-no-table-width>
             </div>
 
             <div class="mt30">
-                <div class="bold">
-                <a class="anchor" id="table-simple-table-resize" @click.stop="goAnchor('table-simple-table-resize')">#</a>
-                简单表格自适应</div>
+                <anchor id="table-simple-table-resize" label="简单表格自适应" h4 ></anchor>
                 <simple-table-resize></simple-table-resize>
             </div>
         </div>
@@ -45,16 +28,12 @@
             <h3>自定义单元格、自定义列</h3>
 
             <div class="mt30">
-                <div class="bold">
-                <a class="anchor" id="table-set-cell-class-name" @click.stop="goAnchor('table-set-cell-class-name')">#</a>
-                给单元格设置样式</div>
+                <anchor id="table-set-cell-class-name" label="给单元格设置样式" h4 ></anchor>
                 <set-cell-class-name></set-cell-class-name>
             </div>
 
             <div class="mt30">
-                <div class="bold">
-                <a class="anchor" id="table-custom-columns" @click.stop="goAnchor('table-custom-columns')">#</a>
-                自定义列</div>
+                <anchor id="table-custom-columns" label="自定义列" h4 ></anchor>
                 <custom-columns></custom-columns>
             </div>
         </div>
@@ -63,17 +42,13 @@
              <h3>selection 多选</h3>
 
              <div class="mt30">
-                 <div class="bold">
-                 <a class="anchor" id="table-selection-simple" @click.stop="goAnchor('table-selection-simple')">#</a>
-                 简单的多选功能</div>
+                 <anchor id="table-selection-simple" label="简单的多选功能" h4 ></anchor>
                  <selection-simple></selection-simple>
              </div>
 
              <div class="mt30">
-                  <div class="bold">
-                  <a class="anchor" id="table-selection-advanced" @click.stop="goAnchor('table-selection-advanced')">#</a>
-                  多选功能高级用法</div>
-                  <selection-advanced></selection-advanced>
+                 <anchor id="table-selection-advanced" label="多选功能高级用法" h4 ></anchor>
+                 <selection-advanced></selection-advanced>
              </div>
         </div>
 
@@ -81,16 +56,12 @@
             <h3>单元格编辑</h3>
 
             <div class="mt30">
-                <div class="bold">
-                <a class="anchor" id="table-cell-edit" @click.stop="goAnchor('table-cell-edit')">#</a>
-                单元格编辑简单用法</div>
+                <anchor id="table-cell-edit" label="单元格编辑简单用法" h4 ></anchor>
                 <cell-edit></cell-edit>
             </div>
 
             <div class="mt30">
-                <div class="bold">
-                <a  class="anchor" id="table-cell-edit-advanced" @click.stop="goAnchor('table-cell-edit-advanced')">#</a>
-                单元格编辑高级用法</div>
+                <anchor id="table-cell-edit-advanced" label="单元格编辑高级用法" h4 ></anchor>
                 <cell-edit-advanced></cell-edit-advanced>
             </div>
         </div>
@@ -99,16 +70,12 @@
             <h3>表格排序</h3>
 
             <div class="mt30">
-                <div class="bold">
-                <a class="anchor" id="table-sort-by-single-columns" @click.stop="goAnchor('table-sort-by-single-columns')">#</a>
-                根据一个字段排序</div>
+                <anchor id="table-sort-by-single-columns" label="单个字段排序" h4 ></anchor>
                 <sort-by-single-columns></sort-by-single-columns>
             </div>
 
             <div class="mt30">
-                <div class="bold">
-                <a class="anchor" id="table-sort-by-multiple-columns" @click.stop="goAnchor('table-sort-by-multiple-columns')">#</a>
-                根据多个字段排序</div>
+                <anchor id="table-sort-by-multiple-columns" label="多个字段排序" h4 ></anchor>
                 <sort-by-multiple-columns></sort-by-multiple-columns>
             </div>
         </div>
@@ -116,18 +83,13 @@
         <div class="mt30">
             <h3>固定列、固定表头、复杂表头</h3>
 
-
             <div class="mt30">
-                <div class="bold">
-                <a class="anchor" id="table-frozen-title-columns" @click.stop="goAnchor('table-frozen-title-columns')">#</a>
-                固定表头+固定列</div>
+                <anchor id="table-frozen-title-columns" label="固定表头和固定列" h4 ></anchor>
                 <frozen-title-columns></frozen-title-columns>
             </div>
 
             <div class="mt30">
-                <div class="bold">
-                <a class="anchor" id="table-complex-header-fixed-column" @click.stop="goAnchor('table-complex-header-fixed-column')">#</a>
-                固定复杂表头+固定列</div>
+                <anchor id="table-complex-header-fixed-column" label="固定复杂表头和固定列" h4 ></anchor>
                 <complex-header-fixed-column></complex-header-fixed-column>
             </div>
         </div>
@@ -136,9 +98,7 @@
                 <h3>单元格合并</h3>
 
                 <div class="mt30">
-                    <div class="bold">
-                    <a class="anchor" id="table-cell-merge" @click.stop="goAnchor('table-cell-merge')">#</a>
-                    支持 rowSpan、colSpan</div>
+                    <anchor id="table-cell-merge" label="支持 rowSpan、colSpan" h4 ></anchor>
                     <cell-merge></cell-merge>
                 </div>
          </div>
@@ -147,25 +107,19 @@
             <h3>表格自适应（改变浏览器窗口大小试试看）</h3>
 
             <div class="mt30">
-                <div class="bold">
-                <a class="anchor" id="table-complex-table-resize" @click.stop="goAnchor('table-complex-table-resize')">#</a>
-                复杂表格自适应，设置方式与简单表格自适应相同</div>
+                <anchor id="table-complex-table-resize" label="复杂表格自适应" h4 ></anchor>
                 <complex-table-resize></complex-table-resize>
 
             </div>
 
             <div class="mt30">
-                <div class="bold">
-                <a class="anchor" id="table-hide-table-resize" @click.stop="goAnchor('table-hide-table-resize')">#</a>
-                自适应的显示隐藏切换</div>
+                <anchor id="table-hide-table-resize" label="自适应的显示隐藏切换" h4 ></anchor>
                 <hide-table-resize></hide-table-resize>
             </div>
 
 
             <div class="mt30">
-                <div class="bold">
-                <a class="anchor" id="table-container-resize" @click.stop="goAnchor('table-container-resize')">#</a>
-                容器中自适应</div>
+                <anchor id="table-container-resize" label="容器中自适应" h4 ></anchor>
                 <container-resize></container-resize>
 
             </div>
@@ -175,41 +129,29 @@
             <h3>设置loading 和 暂无数据</h3>
 
             <div class="mt30">
-                <div class="bold">
-                <a class="anchor" id="table-loading-and-error-content" @click.stop="goAnchor('table-loading-and-error-content')">#</a>
-                开启loading效果</div>
+                <anchor id="table-loading-and-error-content" label="开启loading效果" h4 ></anchor>
                 <set-loading-and-error-content></set-loading-and-error-content>
             </div>
 
             <div class="mt30">
-                <div class="bold">
-                <a class="anchor" id="table-custom-set-loading-and-error-content" @click.stop="goAnchor('table-custom-set-loading-and-error-content')">#</a>
-                自定义loading 以及 错误信息</div>
+                <anchor id="table-custom-set-loading-and-error-content" label="自定义loading 以及 错误信息" h4 ></anchor>
                 <custom-set-loading-and-error-content></custom-set-loading-and-error-content>
             </div>
 
         </div>
 
         <div class="mt30 mb30">
-                <h3>
-                <a class="anchor" id="table-combined-paging" @click.stop="goAnchor('table-combined-paging')">#</a>
-                结合分页的完整实例</h3>
+                <anchor id="table-combined-paging" label="结合分页的完整实例" h4 ></anchor>
                 <combined-paging></combined-paging>
         </div>
 
         <!--api-->
-        <h3>
-         <a class="anchor" id="table-api" @click.stop="goAnchor('table-api')">#</a>
-         API
-        </h3>
-
+        <anchor id="table-api" label="API" h3 ></anchor>
         <api></api>
     </div>
 </template>
 
 <script>
-
-    import anchorMixin from '../../mixin/anchor-mixin.js'
 
     import basicSetTableWidth from './basic-set-table-width.md'
     import basicNoTableWidth from './basic-no-table-width.md'
@@ -247,7 +189,6 @@
 
     export default{
         name: "Table",
-        mixins:[anchorMixin],
         components: {
             basicSetTableWidth,
             basicNoTableWidth,
