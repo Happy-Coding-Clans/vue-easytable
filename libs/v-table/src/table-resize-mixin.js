@@ -82,10 +82,6 @@ exports.default = {
         },
         changeColumnsWidth: function changeColumnsWidth(currentWidth) {
 
-            if (this.resizeColumns.length <= 0) {
-                return false;
-            }
-
             var differ = currentWidth - 2 - this.totalColumnsWidth,
                 initResizeWidths = this.initTotalColumnsWidth,
                 rightViewBody = this.$el.querySelector('.v-table-rightview .v-table-body');
