@@ -1,12 +1,12 @@
 <template>
     <div class="catalog-container" v-if="catalogData && catalogData.length > 0">
-        <div class="catalog-corner">
-            <span class="catalog-corner">目录</span>
+        <div class="catalog-corner" v-show="!showCatalogList2" @click.stop="toggleCatalogList()">
+            <span>目录</span>
         </div>
-        <ul class="catalog-ul">
-            <li class="catalog-li-title">目 录</li>
-            <li class="catalog-li" v-for="item in catalogData" @click.stop="goAnchor(item.id)"><a
-                    href="javascript:void(0);">{{item.label}}</a></li>
+        <ul class="catalog-ul" v-show="showCatalogList2">
+            <li class="catalog-li-title" @click.stop="toggleCatalogList()">目 录 <i class="catalog-li-title-down icon iconfont icon-shouqi1"></i></li>
+            <li class="catalog-li" v-for="item in catalogData"><a @click.stop="goAnchor(item.id)"
+                                                                  href="javascript:void(0);">{{item.label}}</a></li>
         </ul>
     </div>
 
@@ -20,6 +20,18 @@
             catalogData: {
                 type: Array,
                 require: true
+            },
+            showCatalogList:{
+                type:Boolean,
+                default:true
+
+            }
+        },
+
+        data(){
+
+            return {
+                showCatalogList2:this.showCatalogList
             }
         },
 
@@ -37,6 +49,11 @@
                     this.$router.replace({path: this.$route.path, query: {anchor: id}});
                 }
 
+            },
+
+            toggleCatalogList(){
+
+                this.showCatalogList2 = !this.showCatalogList2;
             }
         },
 
@@ -51,12 +68,8 @@
 
     }
 
-    .catalog-corner:hover + .catalog-ul {
-
-        display: block;
-    }
-
     .catalog-corner {
+        cursor: pointer;
         display: block;
         width: 45px;
         height: 180px;
@@ -64,23 +77,19 @@
         right: 0;
         top: 73px;
         background-color: #fff;
-     /*   -moz-border-radius-topleft: 15px;
-        -moz-border-radius-bottomleft: 15px;*/
+        /*   -moz-border-radius-topleft: 15px;
+           -moz-border-radius-bottomleft: 15px;*/
         border-radius: 5px 0 0 5px;
         border: solid 1px #eee;
         font-size: 15px;
         padding: 60px 10px;
         line-height: 1.9;
         font-weight: bold;
-    }
-
-    .catalog-ul:hover {
-
-        display: block;
+        color:#666;
     }
 
     .catalog-ul {
-        display: none;
+        display: block;
         list-style: none;
         width: 200px;
         min-height: 180px;
@@ -96,9 +105,21 @@
     }
 
     .catalog-li-title{
+        cursor: pointer;
         font-weight: bold;
         font-size:14px;
         margin-bottom: 10px;
+        color:#666;
+    }
+
+    .catalog-corner:hover,.catalog-li-title:hover{
+        color:#000;
+    }
+
+    .catalog-li-title-down{
+
+        font-size: 14px;
+        margin-left: 10px;
     }
 
     .catalog-li {

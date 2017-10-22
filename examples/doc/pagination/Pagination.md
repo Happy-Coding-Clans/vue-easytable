@@ -100,7 +100,7 @@
 ```
 :::
 
-<anchor id="page-api" label="api" h3 ></anchor>
+<anchor id="page-api" label="API" h3 ></anchor>
 ### Pagination props
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
