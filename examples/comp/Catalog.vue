@@ -5,7 +5,7 @@
         </div>
         <ul class="catalog-ul" v-show="showCatalogList2">
             <li class="catalog-li-title" @click.stop="toggleCatalogList()">目 录 <i class="catalog-li-title-down icon iconfont icon-shouqi1"></i></li>
-            <li class="catalog-li" v-for="item in catalogData"><a @click.stop="goAnchor(item.id)"
+            <li :title="item.label" class="catalog-li" v-for="item in catalogData"><a @click.stop="goAnchor(item.id)"
                                                                   href="javascript:void(0);">{{item.label}}</a></li>
         </ul>
     </div>
@@ -91,7 +91,8 @@
     .catalog-ul {
         display: block;
         list-style: none;
-        width: 200px;
+        min-width: 100px;
+        max-width: 200px;
         min-height: 180px;
         margin: 0;
         padding: 10px;
@@ -126,5 +127,9 @@
 
         line-height: 2.1em;
         display: list-item;
+        white-space: nowrap;
+        word-wrap: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 </style>
