@@ -37,17 +37,23 @@ body, html {
 
 .main-banner-title-items{
 
-    margin-left: 145px;
+    margin-left: 11%;
     font-weight: normal;
     font-size: 14px;
 }
 
 .main-banner-title-item{
+    margin-left: 10px;
     padding-left: 30px;
+    border:1px solid #ddd;
+    height: 30px;
+    display: inline-block;
+    line-height: 30px;
+    padding-right: 10px;
 }
 
 .main-banner-title-item:hover{
-    font-weight: bold;
+   /* font-weight: bold;*/
 
 }
 
@@ -56,7 +62,7 @@ body, html {
     border-radius: 6px;
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
     margin: 0 auto;
-    width:95%;
+    width:90%;
     background-color: #fff;
     overflow: hidden;
 }
