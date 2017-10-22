@@ -99,7 +99,7 @@ module.exports = function (env) {
 
         // img loader
         {
-            test: /\.(png|gif|jpe?g)(\?\S*)?$/,
+            test: /\.(ico|png|gif|jpe?g)(\?\S*)?$/,
             use: [{
                 loader: 'url-loader',
                 options: {

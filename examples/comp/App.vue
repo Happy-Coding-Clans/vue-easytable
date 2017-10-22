@@ -120,11 +120,21 @@
 
                     this.catalogData = catalogData;
                 })
+            },
+
+            setFavicon(){
+
+                var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                link.type = 'image/x-icon';
+                link.rel = 'shortcut icon';
+                link.href = require('./../images/favicon.ico');
+                document.getElementsByTagName('head')[0].appendChild(link);
             }
         },
         mounted(){
             document.addEventListener('scroll', this.handleScroll);
 
+            this.setFavicon();
         },
         beforeDestroy() {
             document.removeEventListener('scroll', this.handleScroll);
