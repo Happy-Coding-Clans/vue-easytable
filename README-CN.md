@@ -20,7 +20,7 @@
 - [x] [自带分页组件](http://doc.huangsw.com/vue-easytable/app.html#/pagination)  
 - [x] [单元格编辑](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-edit)
 - [x] [支持单元格合并 (colSpan and rowSpan)](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-merge)
-- [x] [添加 checkbox 多选功能](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-selection-advanced)
+- [x] [支持 checkbox 多选功能](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-selection-advanced)
 - [ ] 添加 footer 功能  
 - [ ] 添加导出 excel 功能  
 - [ ] 添加导出 pdf 功能  
@@ -51,7 +51,17 @@ Vue.component(VPagination.name, VPagination)
 ```
 
 ## 效果（不是全部）
+**自适应、固定列，表头固定、支持列宽拖动、排序、分页**
 ![vue-easytable](./examples/images/vue-easytable.gif)
+
+**支持单元格合并**
+![vue-easytable](./examples/images/rowspan.png)
+
+**单元格编辑**
+![vue-easytable](./examples/images/edit.gif)
+
+**支持 checkbox 多选功能**
+![vue-easytable](./examples/images/selection.gif)
 
 
 ## License
