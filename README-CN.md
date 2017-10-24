@@ -18,7 +18,7 @@
 - [x] [自定义列、自定义单元格样式](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-custom-columns)  
 - [x] [loading效果、自定义loading 等](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-loading-and-error-content)
 - [x] [自带分页组件](http://doc.huangsw.com/vue-easytable/app.html#/pagination)  
-- [x] [单元格编辑](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-edit)
+- [x] [单元格编辑](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-edit-advanced)
 - [x] [支持单元格合并 (colSpan and rowSpan)](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-merge)
 - [x] [支持 checkbox 多选功能](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-selection-advanced)
 - [ ] 添加 footer 功能  
