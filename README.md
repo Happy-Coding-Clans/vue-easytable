@@ -20,7 +20,7 @@ Based on vue2.x flexible table components.
 - [x] [Custom columns, custom cell styles](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-custom-columns)
 - [x] [Loading effects, custom loading, etc](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-loading-and-error-content)
 - [x] [Own paging component](http://doc.huangsw.com/vue-easytable/app.html#/pagination)
-- [x] [Cell Editing](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-edit)
+- [x] [Cell Editing](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-edit-advanced)
 - [x] [Support cell merge (colSpan and rowSpan)](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-merge)
 - [x] [Support checkbox selection](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-selection-advanced)  
 - [ ] Add footer
