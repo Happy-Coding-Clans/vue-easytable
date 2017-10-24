@@ -56,12 +56,7 @@
             <h3>单元格编辑</h3>
 
             <div class="mt30">
-                <anchor id="table-cell-edit" label="单元格编辑简单用法" h4 ></anchor>
-                <cell-edit></cell-edit>
-            </div>
-
-            <div class="mt30">
-                <anchor id="table-cell-edit-advanced" label="单元格编辑高级用法" h4 ></anchor>
+                <anchor id="table-cell-edit-advanced" label="单元格编辑用法" h4 ></anchor>
                 <cell-edit-advanced></cell-edit-advanced>
             </div>
         </div>
@@ -158,7 +153,6 @@
     import setCellClassName from './set-cell-class-name.md'
     import customColumns from './custom-columns.md'
 
-    import cellEdit from './cell-edit.md'
     import cellEditAdvanced from './cell-edit-advanced.md'
 
     import sortBySingleColumns from './sort-by-single-columns.md'
@@ -200,7 +194,6 @@
 
             cellMerge,
 
-            cellEdit,
             cellEditAdvanced,
 
             sortByMultipleColumns,

@@ -1,5 +1,5 @@
 
-:::demo 默认单元格的编辑只接收文本格式，但是可以通过 `cell-edit-formatter` 回调函数对单元格的编辑后的结果进行二次处理。
+:::demo 通过给 `columns` 设置 `isEdit:true` 开启单元格编辑。<br> **回调事件**： <br> - `cell-edit-done`回调函数，回调参数为 `newValue`、`oldValue`、`rowIndex`、`rowData`、`field`，并给`table-data`当前编辑的列赋值 <br> **提示**：由于直接通过操作DOM 会破坏响应式，通过在`cell-edit-done`回调函数中给 `table-data`编辑的列赋值，达到响应式的目的
 
 ```html
 <template>
@@ -10,7 +10,6 @@
             :table-data="tableData"
             row-hover-color="#eee"
             row-click-color="#edf7ff"
-            :cell-edit-formatter="cellEditFormatter"
             :cell-edit-done="cellEditDone"
     ></v-table>
 </template>
@@ -47,21 +46,13 @@
             }
         },
         methods:{
-           // 单元格编辑格式化回调
-           cellEditFormatter(newValue,oldValue,rowIndex,rowData,field){
-
-                if (field === 'name'){
-                    return `<span class="cell-edit-color">${newValue}</span>`
-                }
-           },
 
             // 单元格编辑回调
             cellEditDone(newValue,oldValue,rowIndex,rowData,field){
-                 console.log(newValue)
-                 console.log(oldValue)
-                 console.log(rowIndex)
-                 console.log(rowData)
-                 console.log(field)
+
+                this.tableData[rowIndex][field] = newValue;
+
+                // 接下来处理你的业务逻辑，数据持久化等...
             }
         }
     }
