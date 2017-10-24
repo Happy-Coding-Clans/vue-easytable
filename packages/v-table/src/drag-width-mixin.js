@@ -1,5 +1,6 @@
 // 列宽度拖动
 import utils from '../../src/utils/utils.js'
+import {hasClass, addClass, removeClass} from '../../src/utils/dom.js'
 export default {
 
     data(){
@@ -45,7 +46,7 @@ export default {
 
             target = event.target;
 
-            while (target && ((target.className && target.className.indexOf('v-table-title-cell') === -1) || !target.className)) {
+            while (target && ((target.className && !hasClass(target, 'v-table-title-cell')) || !target.className)) {
                 target = target.parentNode;
             }
 
@@ -152,16 +153,17 @@ export default {
             if (this.totalColumnsWidth < this.internalWidth) {
 
                 rightViewBody.style.overflowX = 'hidden';
+
+                removeClass(rightViewBody, 'v-table-rightview-special-border');
                 rightViewBody.classList.remove('v-table-rightview-special-border');
 
-                //this.internalColumns[this.internalColumns.length - 1].width += this.internalWidth - this.totalColumnsWidth - 2;
-            }else{
+            } else {
 
                 rightViewBody.style.overflowX = 'scroll';
 
-                if (!this.hasFrozenColumn){
+                if (!this.hasFrozenColumn) {
 
-                    rightViewBody.classList.add('v-table-rightview-special-border');
+                    addClass(rightViewBody, 'v-table-rightview-special-border');
                 }
             }
 

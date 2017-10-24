@@ -455,8 +455,6 @@
             rowMouseLeave: Function,
             // 单元格编辑完成回调
             cellEditDone: Function,
-            // 单元格编辑格式化
-            cellEditFormatter: Function,
             // 单元格合并
             cellMerge: Function,
             // select all
@@ -809,24 +807,29 @@
                 this.initColumns();
             },
 
-            'tableData': function (newVal) {
+            // deep watch
+            'tableData': {
 
-                this.internalTableData = this.initInternalTableData(newVal);
+                handler:function (newVal) {
 
-                this.updateCheckboxGroupModel();
+                    this.internalTableData = this.initInternalTableData(newVal);
 
-                this.tableEmpty();
+                    this.updateCheckboxGroupModel();
 
-                if (Array.isArray(newVal) && newVal.length > 0) {
+                    this.tableEmpty();
 
-                    this.initView();
+                    if (Array.isArray(newVal) && newVal.length > 0) {
 
-                    if (!this.hasBindScrollEvent) {
-                        this.scrollControl();
+                        this.initView();
+
+                        if (!this.hasBindScrollEvent) {
+                            this.scrollControl();
+                        }
                     }
-                }
 
-                this.resize();
+                    this.resize();
+                },
+                deep: true
             }
         }
     }

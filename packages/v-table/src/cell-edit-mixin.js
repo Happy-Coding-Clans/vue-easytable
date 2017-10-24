@@ -14,11 +14,17 @@ export default {
                 editInputLen,
                 actionFun,
                 textAlign,
-                formatterVal = '';
+                childTarget;
 
             while ((target.className && target.className.indexOf('v-table-body-cell') === -1) || !target.className) {
                 target = target.parentNode;
             }
+
+            // 子节点（span节点）
+            childTarget = target.children[0];
+
+            // 把子节点影藏掉
+            childTarget.style.display = 'none';
 
             if (hasClass(target, 'cell-editing')) {
                 return false
@@ -26,18 +32,24 @@ export default {
 
             addClass(target, 'cell-editing');
 
-            oldVal = target.innerText;
+            oldVal = childTarget.innerText.trim();
 
             if (target.style.textAlign) {
 
                 textAlign = target.style.textAlign;
             }
 
-            target.innerHTML = `<input type='text' value="${oldVal}" class='cell-edit-input' style='width:100%;height: 100%;text-align: ${textAlign};'>`;
+            editInput = document.createElement('input');
+            editInput.value = oldVal;
+            editInput.className = 'cell-edit-input';
+            editInput.style.textAlign = textAlign;
+            editInput.style.width = '100%';
+            editInput.style.height = '100%';
+            //editInput.style = `width:100%;height: 100%;text-align: ${textAlign};`;
 
-            editInput = target.querySelector('.cell-edit-input');
+            target.appendChild(editInput);
+
             editInput.focus();
-
 
             editInputLen = editInput.value.length;
             if (document.selection) {
@@ -48,7 +60,6 @@ export default {
             } else if (typeof editInput.selectionStart == 'number' && typeof editInput.selectionEnd == 'number') {
                 editInput.selectionStart = editInput.selectionEnd = editInputLen;
             }
-
 
             actionFun = function (e) {
 
@@ -61,15 +72,15 @@ export default {
                         return false;
                     }
 
-                    formatterVal = self.cellEditFormatter && self.cellEditFormatter(editInput.value, oldVal, rowIndex, rowData, field);
-
-                    target.innerHTML = formatterVal && formatterVal.length > 0 ? formatterVal : editInput.value;
+                    childTarget.style.display = '';
 
                     // fixed this.value bug in IE9
-                    callback(editInput.value, oldVal)
+                    callback(editInput.value, oldVal);
 
                     utils.unbind(editInput, 'blur', actionFun);
                     utils.unbind(editInput, 'keydown', actionFun);
+
+                    target.removeChild(editInput);
                 }
             };
 
@@ -80,14 +91,13 @@ export default {
 
         // 单元格点击
         cellEditClick(e, isEdit, rowData, field, rowIndex){
-
             if (isEdit) {
 
                 let self = this;
                 // 单元格内容变化后的回调
                 let onCellEditCallBack = function (newValue, oldVal) {
 
-                    self.cellEditDone(newValue, oldVal, rowIndex, rowData, field);
+                    self.cellEditDone && self.cellEditDone(newValue, oldVal, rowIndex, rowData, field);
                 }
 
                 this.cellEdit(e, onCellEditCallBack, rowIndex, rowData, field)
