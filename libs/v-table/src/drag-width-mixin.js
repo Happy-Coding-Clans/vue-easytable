@@ -8,6 +8,8 @@ var _utils = require('../../src/utils/utils.js');
 
 var _utils2 = _interopRequireDefault(_utils);
 
+var _dom = require('../../src/utils/dom.js');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
@@ -47,7 +49,7 @@ exports.default = {
 
                                     target = event.target;
 
-                                    while (target && (target.className && target.className.indexOf('v-table-title-cell') === -1 || !target.className)) {
+                                    while (target && (target.className && !(0, _dom.hasClass)(target, 'v-table-title-cell') || !target.className)) {
                                                 target = target.parentNode;
                                     }
 
@@ -149,6 +151,8 @@ exports.default = {
                                     if (this.totalColumnsWidth < this.internalWidth) {
 
                                                 rightViewBody.style.overflowX = 'hidden';
+
+                                                (0, _dom.removeClass)(rightViewBody, 'v-table-rightview-special-border');
                                                 rightViewBody.classList.remove('v-table-rightview-special-border');
                                     } else {
 
@@ -156,7 +160,7 @@ exports.default = {
 
                                                 if (!this.hasFrozenColumn) {
 
-                                                            rightViewBody.classList.add('v-table-rightview-special-border');
+                                                            (0, _dom.addClass)(rightViewBody, 'v-table-rightview-special-border');
                                                 }
                                     }
 
