@@ -797,14 +797,20 @@
         watch: {
 
             // 重新跟新列信息
-            'columns': function (newVal) {
+            'columns': {
+                handler:function (newVal) {
 
-                this.initColumns();
+                    this.initColumns();
+                },
+                deep: true
             },
             // 重新覆盖复杂表头信息
-            'titleRows': function (newVal) {
+            'titleRows': {
+                handler:function (newVal) {
 
-                this.initColumns();
+                    this.initColumns();
+                },
+                deep: true
             },
 
             // deep watch
