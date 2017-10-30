@@ -7,13 +7,14 @@
 | height | table 高度 | number | — | — |
 | min-height | table最小高度（当表格自适应时生效`resize()`） | - | — | — |
 | title-row-height | 表头行高 | number | — | 38px |
+| row-height | 表格体行高 | string | — | 40px |
+| footer-row-height | footer 每一行的高度 | number | — | 40 |
 | is-horizontal-resize | 是否开启横向自适应（开启后会随着窗口改变而改变、根据表格宽度自动填充），注意需要设置`style="width:100%"` | boolean | — | false |
 | is-vertical-resize | 是否开启纵向自适应（开启后会随着窗口改变而改变、根据表格高度自动填充）| boolean | — | false |
 | vertical-resize-offset | 垂直自适应的偏移量，一般是表格下方有分页时会用到，使其成为自适应的一部分 | number | — | - |
 | title-bg-color | 表头背景颜色 | string | — | #fff |
 | odd-bg-color | 表格体奇数行颜色 | string | — | #fff |
 | even-bg-color |表格体偶数行颜色 | string | — | #fff |
-| row-height | 表格体行高 | string | — | 40px |
 | multiple-sort | 是否开启多列排序| boolean | — | true |
 | table-data | 表格数据集合 | - | — | array |
 | columns | 列的集合。具体参考columns | array | — | — |
@@ -27,6 +28,9 @@
 | row-click-color | 表格体行点击后的背景色（行高亮） | string | — | — |
 | show-vertical-border | 是否显示垂直border,false 时列拖动失效 | boolean | — | true |
 | show-horizontal-border | 是否显示横向border | boolean | — | true |
+
+
+
 
 
 ### columns（Table props）
@@ -57,7 +61,20 @@
 | rowspan | 合并行的数目 | number | — | — |
 | colspan | 合并列的数目 | number | — | — |
 | orderBy | 排序规则，`columns` 中不用配置 | string | asc/desc  | — |
-| titleCellClassName | 表头单元格设置className | string | — | — |
+
+### footer（Table props）
+表格footer
+| 参数      | 说明          | 类型      | 可选值                           | 默认值  |
+|---------- |-------------- |---------- |--------------------------------  |-------- |
+| - | 数组集合，每一个子数组为一行代表当前的汇总信息 | array | — | — |
+
+
+### table-data（Table props）
+table 表格数据，通过设置一些特殊属性实现某些功能，如 checkbox 多选功能
+| 参数      | 说明          | 类型      | 可选值                           | 默认值  |
+|---------- |-------------- |---------- |--------------------------------  |-------- |
+| _checked | 是否选中（当开启多选时有效） | boolean | — | false |
+| _disabled | 是否禁用选中\未选中（当开启多选时有效） | boolean | — | false |
 
 
 ### Table Event
@@ -73,6 +90,8 @@
 | select-all| 全选时触发 | selection 当前选中的项集合 |
 | select-change| 某一项 checkbox 触发 | selection（当前选中的项集合），rowData（当前选中的项）|
 | select-group-change| 选中项发生变化触发 | selection（当前选中的项集合）  |
+| column-cell-class-name| 表体单元格设置className | rowIndex,columnName,rowData  |
+
 
 
 
