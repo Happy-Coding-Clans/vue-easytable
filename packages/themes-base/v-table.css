@@ -18,6 +18,10 @@
     background-color: rgb(255, 255, 255);
 }
 
+.v-table-footer{
+    border-top:1px solid rgba(221, 221, 221, 1);
+}
+
 .v-table-leftview, .v-table-rightview {
     position: absolute;
     overflow: hidden;
@@ -83,7 +87,7 @@
     zoom: 1;
 }
 
-.v-table-rightview .v-table-body{
+.v-table-rightview .v-table-body,.v-table-rightview .v-table-footer{
     overflow-x: auto;
     overflow-y: auto;
 }
@@ -94,6 +98,10 @@
 }
 
 .v-table-leftview .v-table-body-inner {
+    /* padding-bottom: 20px;*/
+}
+
+.v-table-body-inner-pb{
     padding-bottom: 20px;
 }
 
@@ -248,5 +256,7 @@
 .v-table-title-class{}
 
 .v-table-body-class{}
+
+.v-table-footer-class
 */
 
