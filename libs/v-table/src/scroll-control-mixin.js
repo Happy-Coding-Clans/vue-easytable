@@ -31,6 +31,15 @@ exports.default = {
 
             view2.querySelector('.v-table-header').scrollLeft = body2.scrollLeft;
         },
+        rightViewFooterScroll: function rightViewFooterScroll() {
+
+            var view2 = this.$el.querySelector('.v-table-rightview');
+
+            var rightViewFooter = this.$el.querySelector('.v-table-rightview .v-table-footer');
+
+            view2.querySelector('.v-table-header').scrollLeft = rightViewFooter.scrollLeft;
+            view2.querySelector('.v-table-body').scrollLeft = rightViewFooter.scrollLeft;
+        },
         scrollControl: function scrollControl() {
             var _this = this;
 
@@ -38,9 +47,11 @@ exports.default = {
 
                 var body1 = _this.$el.querySelector('.v-table-leftview .v-table-body');
                 var body2 = _this.$el.querySelector('.v-table-rightview .v-table-body');
+                var rightViewFooter = _this.$el.querySelector('.v-table-rightview .v-table-footer');
 
                 _utils2.default.bind(body1, 'mousewheel', _this.body1Mousewheel);
                 _utils2.default.bind(body2, 'scroll', _this.body2Scroll);
+                _utils2.default.bind(rightViewFooter, 'scroll', _this.rightViewFooterScroll);
             });
         }
     },
@@ -48,8 +59,10 @@ exports.default = {
     beforeDestroy: function beforeDestroy() {
         var body1 = this.$el.querySelector('.v-table-leftview .v-table-body');
         var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
+        var rightViewFooter = this.$el.querySelector('.v-table-rightview .v-table-footer');
 
         _utils2.default.unbind(body1, 'mousewheel', this.body1Mousewheel);
         _utils2.default.unbind(body2, 'scroll', this.body2Scroll);
+        _utils2.default.bind(rightViewFooter, 'scroll', this.rightViewFooterScroll);
     }
 };

@@ -84,18 +84,31 @@ exports.default = {
 
             var differ = currentWidth - 2 - this.totalColumnsWidth,
                 initResizeWidths = this.initTotalColumnsWidth,
-                rightViewBody = this.$el.querySelector('.v-table-rightview .v-table-body');
+                rightViewBody = this.$el.querySelector('.v-table-rightview .v-table-body'),
+                rightViewFooter = this.$el.querySelector('.v-table-rightview .v-table-footer');
 
             if (currentWidth <= initResizeWidths && !this.isTableEmpty) {
 
-                rightViewBody.style.overflowX = 'scroll';
+                if (this.hasTableFooter) {
+
+                    rightViewFooter.style.overflowX = 'scroll';
+                } else {
+
+                    rightViewBody.style.overflowX = 'scroll';
+                }
             } else {
                 if (this.getTotalColumnsHeight() > this.internalHeight) {
 
                     differ -= _utils2.default.getScrollbarWidth() + 1;
                 }
 
-                rightViewBody.style.overflowX = 'hidden';
+                if (this.hasTableFooter) {
+
+                    rightViewFooter.style.overflowX = 'hidden';
+                } else {
+
+                    rightViewBody.style.overflowX = 'hidden';
+                }
             }
 
             if (currentWidth >= initResizeWidths || differ > 0) {

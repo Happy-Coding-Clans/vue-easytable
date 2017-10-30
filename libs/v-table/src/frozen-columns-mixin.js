@@ -1,8 +1,15 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _utils = require('../../src/utils/utils.js');
+
+var _utils2 = _interopRequireDefault(_utils);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = {
     computed: {
         frozenCols: function frozenCols() {
@@ -65,6 +72,27 @@ exports.default = {
                 });
             }
             return noFrozenTitleCols;
+        }
+    },
+
+    methods: {
+        setInternalHeightByFrozen: function setInternalHeightByFrozen(totalColumnsHeight) {
+            var _this = this;
+
+            if (this.$el && this.hasFrozenColumn) {
+
+                this.$nextTick(function (x) {
+
+                    if (_this.hasBodyHorizontalScrollBar()) {
+
+                        totalColumnsHeight += _utils2.default.getScrollbarWidth();
+                    }
+                    _this.internalHeight = totalColumnsHeight;
+                });
+            } else {
+
+                this.internalHeight = totalColumnsHeight;
+            }
         }
     }
 };
