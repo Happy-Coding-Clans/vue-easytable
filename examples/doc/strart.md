@@ -52,6 +52,15 @@ Vue.component(VPagination.name, VPagination)
 }
 ```
 
+**表格footer设置**
+```css
+.v-table-footer-class {
+  /*font-weight: normal;
+    color: #333333;
+    text-shadow: 0 0 0 #333333;*/
+}
+```
+
 ### 效果展示（只是部分功能）
 ![vue-easytable](../images/vue-easytable.gif)
 
