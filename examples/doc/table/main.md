@@ -75,6 +75,15 @@
             </div>
         </div>
 
+       <div class="mt30">
+            <h3>footer 汇总功能</h3>
+
+            <div class="mt30">
+                <anchor id="table-footer-summary" label="footer 汇总功能" h4 ></anchor>
+                <footer-summary></footer-summary>
+            </div>
+        </div>
+
         <div class="mt30">
             <h3>固定列、固定表头、复杂表头</h3>
 
@@ -177,6 +186,8 @@
 
     import combinedPaging from './combinedPaging.md'
 
+    import footerSummary from './footer-summary.md'
+
 
     import api from './api.md'
 
@@ -211,6 +222,8 @@
             selectionAdvanced,
 
             combinedPaging,
+
+            footerSummary,
 
             api
         },
