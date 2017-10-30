@@ -7,7 +7,7 @@
 ## 介绍
 基于 vue2.x 的table组件
 
-## API & 实例
+## API & 实例(如果访问不了说明被墙了，我也很无奈......)
 [API&实例](http://doc.huangsw.com/vue-easytable/app.html#/table)
 
 ## 功能
