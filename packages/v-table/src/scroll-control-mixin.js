@@ -4,7 +4,7 @@
 
 import utils from '../../src/utils/utils.js'
 export default {
-    methods:{
+    methods: {
         body1Mousewheel(e){
             var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
 
@@ -27,24 +27,39 @@ export default {
             view2.querySelector('.v-table-header').scrollLeft = body2.scrollLeft;
         },
 
+        rightViewFooterScroll(){
+
+            var view2 = this.$el.querySelector('.v-table-rightview');
+
+            var rightViewFooter = this.$el.querySelector('.v-table-rightview .v-table-footer');
+
+            view2.querySelector('.v-table-header').scrollLeft = rightViewFooter.scrollLeft;
+            view2.querySelector('.v-table-body').scrollLeft = rightViewFooter.scrollLeft;
+
+        },
+
         // 列表中滚动条控制
         scrollControl(){
-            this.$nextTick(x=>{
+            this.$nextTick(x => {
 
                 var body1 = this.$el.querySelector('.v-table-leftview .v-table-body');
                 var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
+                var rightViewFooter = this.$el.querySelector('.v-table-rightview .v-table-footer');
 
                 utils.bind(body1, 'mousewheel', this.body1Mousewheel);
                 utils.bind(body2, 'scroll', this.body2Scroll);
+                utils.bind(rightViewFooter, 'scroll', this.rightViewFooterScroll);
             })
-        },
+        }
     },
 
     beforeDestroy(){
         var body1 = this.$el.querySelector('.v-table-leftview .v-table-body');
         var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
+        var rightViewFooter = this.$el.querySelector('.v-table-rightview .v-table-footer');
 
         utils.unbind(body1, 'mousewheel', this.body1Mousewheel);
         utils.unbind(body2, 'scroll', this.body2Scroll);
+        utils.bind(rightViewFooter, 'scroll', this.rightViewFooterScroll);
     }
 }

@@ -59,7 +59,7 @@ export  default {
 
             if (self.isVerticalResize && self.internalHeight && self.internalHeight > 0 && currentHeight > 0) {
                 // （窗口高度缩小 && 当前高度大于最小高度） || （窗口高度扩大 && 当前高度小于最大高度）
-                bottom -=self.VerticalResizeOffset;
+                bottom -= self.VerticalResizeOffset;
                 if ((bottom < 0 && currentHeight > minHeight) || (bottom > 0 && currentHeight < maxHeight)) {
                     var currentHeight = currentHeight + bottom;// - self.VerticalResizeOffset;
                     currentHeight = currentHeight > maxHeight ? maxHeight : currentHeight;
@@ -89,21 +89,35 @@ export  default {
 
             var differ = currentWidth - 2 - this.totalColumnsWidth,
                 initResizeWidths = this.initTotalColumnsWidth,
-                rightViewBody = this.$el.querySelector('.v-table-rightview .v-table-body');
+                rightViewBody = this.$el.querySelector('.v-table-rightview .v-table-body'),
+                rightViewFooter = this.$el.querySelector('.v-table-rightview .v-table-footer');
 
 
             if (currentWidth <= initResizeWidths && !this.isTableEmpty) {// 排除表格无数据的影响
 
-                rightViewBody.style.overflowX = 'scroll';
+                if (this.hasTableFooter){
+
+                    rightViewFooter.style.overflowX = 'scroll';
+
+                }else{
+
+                    rightViewBody.style.overflowX = 'scroll';
+                }
 
             } else {
                 // 防止最后一列右距中时内容显示不全
                 if (this.getTotalColumnsHeight() > this.internalHeight) {
 
-                    differ -= (utils.getScrollbarWidth()+1);
+                    differ -= (utils.getScrollbarWidth() + 1);
                 }
 
-                rightViewBody.style.overflowX = 'hidden';
+                if (this.hasTableFooter){
+
+                    rightViewFooter.style.overflowX = 'hidden';
+                }else{
+
+                    rightViewBody.style.overflowX = 'hidden';
+                }
             }
 
             if (currentWidth >= initResizeWidths || differ > 0) {
@@ -120,16 +134,17 @@ export  default {
                 })
 
             }
-        }
+        },
+
     },
 
     mounted(){
 
-        utils.bind(window,'resize',this.tableResize);
+        utils.bind(window, 'resize', this.tableResize);
     },
     beforeDestroy(){
 
-        utils.unbind(window,'resize',this.tableResize);
+        utils.unbind(window, 'resize', this.tableResize);
     }
 
 }

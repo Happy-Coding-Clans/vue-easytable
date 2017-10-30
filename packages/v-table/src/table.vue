@@ -70,7 +70,7 @@
                 <!--左列内容-->
                 <div class="v-table-body v-table-body-class"
                      :style="{'width': leftViewWidth+'px', 'height': bodyViewHeight+'px'}">
-                    <div class="v-table-body-inner">
+                    <div :class="['v-table-body-inner',vTableBodyInner]">
                         <v-checkbox-group v-model="checkboxGroupModel" @change="handleCheckGroupChange">
                             <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">
                                 <tbody>
@@ -125,6 +125,21 @@
                             </table>
                         </v-checkbox-group>
                     </div>
+                </div>
+
+                <!--footer-->
+                <div v-if="frozenFooterCols.length > 0"
+                     :class="['v-table-footer','v-table-footer-class']"
+                     :style="{'width': leftViewWidth+'px'}">
+                    <table class="v-table-ftable" cellspacing="0" cellpadding="0" border="0">
+                        <tr class="v-table-row" v-for="(item,rowIndex) in frozenFooterCols">
+                            <td v-for="(col,colIndex) in item" :class="setFooterCellClassName(true,rowIndex,colIndex,col.content)">
+                                <div :style="{'height':footerRowHeight+'px','line-height':footerRowHeight+'px','width':col.width+'px','text-align':col.align}"
+                                     :class="['v-table-body-cell',vTableBodyCell]"
+                                     v-html="col.content"></div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </template>
@@ -256,6 +271,21 @@
                     </table>
                 </v-checkbox-group>
             </div>
+
+            <!--footer-->
+            <div v-if="noFrozenFooterCols.length > 0"
+                 :class="['v-table-footer','v-table-footer-class',vTableFooter]"
+                 :style="{'width': rightViewWidth+'px'}">
+                <table class="v-table-ftable" cellspacing="0" cellpadding="0" border="0">
+                    <tr class="v-table-row" v-for="(item,rowIndex) in noFrozenFooterCols">
+                        <td v-for="(col,colIndex) in item" :class="setFooterCellClassName(false,rowIndex,colIndex,col.content)">
+                            <div :style="{'height':footerRowHeight+'px','line-height':footerRowHeight+'px','width':col.width+'px','text-align':col.align}"
+                                 :class="['v-table-body-cell',vTableBodyCell]"
+                                 v-html="col.content"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
 
         <table-empty v-if="isTableEmpty"
@@ -279,6 +309,7 @@
 
 <script>
 
+    import classesMixin from './classes-mixin.js'
     import scrollControlMixin from './scroll-control-mixin.js'
     import frozenColumnsMixin from './frozen-columns-mixin.js'
     import tableResizeMixin from './table-resize-mixin.js'
@@ -289,6 +320,8 @@
     import bodyCellMergeMixin from './body-cell-merge-mixin.js'
     import titleCellMergeMixin from './title-cell-merge-mixin.js'
     import checkboxSelectionMixin from './checkbox-selection-mixin.js'
+    import tableFooterMixin from './table-footer-mixin.js'
+    import scrollBarControlMixin from './scroll-bar-control-mixin.js'
 
     import utils from '../../src/utils/utils.js'
     import deepClone from '../../src/utils/deepClone.js'
@@ -300,7 +333,7 @@
 
     export default {
         name: 'v-table',
-        mixins: [tableResizeMixin, frozenColumnsMixin, scrollControlMixin, sortControlMixin, tableEmptyMixin, dragWidthMixin, cellEditMixin, bodyCellMergeMixin, titleCellMergeMixin, checkboxSelectionMixin],
+        mixins: [classesMixin,tableResizeMixin, frozenColumnsMixin, scrollControlMixin, sortControlMixin, tableEmptyMixin, dragWidthMixin, cellEditMixin, bodyCellMergeMixin, titleCellMergeMixin, checkboxSelectionMixin, tableFooterMixin, scrollBarControlMixin],
         components: {tableEmpty, loading, VCheckboxGroup, VCheckbox},
         data(){
             return {
@@ -445,8 +478,21 @@
                 type: Boolean,
                 default: true
             },
+            footer: {
+                type: Array,
+                default: function () {
+                    return []
+                }
+            },
+            footerRowHeight: {
+                type: Number,
+                require: false,
+                default: 40
+            },
             // 表体单元格样式回调
             columnCellClassName: Function,
+            // footer单元格样式回调
+            footerCellClassName: Function,
             // 行点击回调
             onRowClick: Function,
             // 鼠标进入行的回调
@@ -487,11 +533,19 @@
 
             // 左侧、右侧区域高度
             bodyViewHeight(){
+                var result;
                 if (this.internalTitleRows.length > 0) {
-                    return this.internalHeight - this.titleRowHeight * (this.internalTitleRows.length + this.getTitleRowspanTotalCount);
+                    result = this.internalHeight - this.titleRowHeight * (this.internalTitleRows.length + this.getTitleRowspanTotalCount);
                 } else {
-                    return this.internalHeight - this.titleRowHeight;
+                    result = this.internalHeight - this.titleRowHeight;
                 }
+
+                if (this.getFooterContainerHeight) {
+
+                    result -= this.getFooterContainerHeight + 1;
+                }
+
+                return result;
             },
 
             // 将复杂表头配置数据简单化
@@ -515,6 +569,14 @@
             // 所有列的总宽度
             totalColumnsWidth(){
                 return this.internalColumns.reduce(function (total, curr) {
+                    return curr.width ? (total + curr.width) : total;
+                }, 0)
+            },
+
+            // 获取未固定列的总宽度
+            totalNoFrozenColumnsWidth(){
+
+                return this.noFrozenCols.reduce(function (total, curr) {
                     return curr.width ? (total + curr.width) : total;
                 }, 0)
             },
@@ -644,6 +706,9 @@
             getTotalColumnsHeight(){
 
                 var titleTotalHeight = (this.internalTitleRows && this.internalTitleRows.length > 0) ? this.titleRowHeight * this.internalTitleRows.length : this.titleRowHeight
+
+                titleTotalHeight += this.getFooterTotalRowHeight;
+
                 return titleTotalHeight + this.internalTableData.length * this.rowHeight + 1;
             },
 
@@ -698,7 +763,7 @@
             // 当没设置宽度和高度时动态计算
             initView(){
 
-                var self = this
+                var self = this;
                 // 当没有设置宽度计算总宽度
                 if (!(self.internalWidth && self.internalWidth > 0)) {
 
@@ -710,31 +775,11 @@
 
                 var totalColumnsHeight = self.getTotalColumnsHeight();
 
-                // 当没有设置高度时计算总高度
-                if (!(self.height && self.height > 0)) {
+                // 当没有设置高度时计算总高度 || 设置的高度大于所有列高度之和时
+                if (!(self.height && self.height > 0) || self.height > totalColumnsHeight) {
 
-                    self.internalHeight = totalColumnsHeight;
+                    this.setInternalHeightByFrozen(totalColumnsHeight);
 
-                } else if (self.height > totalColumnsHeight) {  // 设置的高度小于所有列高度之和时
-
-                    if (self.$el) {
-
-                        self.$nextTick(x => {
-
-                            var rightViewBody = self.$el.querySelector('.v-table-rightview .v-table-body'),
-                                rightViewContent = self.$el.querySelector('.v-table-rightview .v-table-body .v-table-btable'),
-                                hasHorizontalScrollBar = rightViewBody.clientWidth + 2 < rightViewContent.clientWidth,
-                                scrollbarWidth = 0;
-
-                            if (hasHorizontalScrollBar) {
-
-                                scrollbarWidth = utils.getScrollbarWidth();
-                                totalColumnsHeight += scrollbarWidth;
-                            }
-
-                            self.internalHeight = totalColumnsHeight;
-                        })
-                    }
                 } else if (self.height <= totalColumnsHeight) {
 
                     self.internalHeight = self.height;
@@ -759,7 +804,7 @@
             // 对外暴露（隐藏显示切换时）
             resize(){
                 // fixed bug in IE9 #17
-                setTimeout(x=>{
+                setTimeout(x => {
 
                     this.tableResize();
                 })
@@ -793,12 +838,14 @@
             }
 
             this.singelSortInit();
+
+            this.controlScrollBar();
         },
         watch: {
 
             // 重新跟新列信息
             'columns': {
-                handler:function (newVal) {
+                handler: function (newVal) {
 
                     this.initColumns();
                 },
@@ -806,7 +853,7 @@
             },
             // 重新覆盖复杂表头信息
             'titleRows': {
-                handler:function (newVal) {
+                handler: function (newVal) {
 
                     this.initColumns();
                 },
@@ -816,7 +863,7 @@
             // deep watch
             'tableData': {
 
-                handler:function (newVal) {
+                handler: function (newVal) {
 
                     this.internalTableData = this.initInternalTableData(newVal);
 
