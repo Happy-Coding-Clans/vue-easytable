@@ -28,6 +28,10 @@ var install = function install(Vue) {
     Vue.component(_index8.default.name, _index8.default);
 };
 
+if (typeof window !== 'undefined' && window.Vue) {
+    install(window.Vue);
+}
+
 module.exports = {
     VPagination: _index4.default,
     VTable: _index2.default,
