@@ -10,7 +10,7 @@
 Based on vue2.x flexible table components.
 
 ## API & Examples(如果访问不了说明被墙了，我也很无奈......)
-[API&Examples](http://doc.huangsw.com/vue-easytable/app.html#/table)
+[API&Examples](http://doc.huangsw.com/vue-easytable/app.html#/install)
 
 ## Features
 - [x] [Adaptive, you can automatically adapt to the browser window changes](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-simple-table-resize)
