@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="../../../umd/css/index.css">
+</head>
+<body>
+<div id="app">
+    <v-pagination :total="600" :layout="['total', 'prev', 'pager', 'next', 'sizer', 'jumper']"></v-pagination>
+</div>
+</div>
+</body>
+<!-- 先引入 Vue -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- 引入组件库 -->
+<script src="../../../umd/js/index.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: function() {
+            return {
+
+            }
+        }
+    })
+</script>
+</html>
