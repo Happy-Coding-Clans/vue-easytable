@@ -52,6 +52,9 @@ Vue.component(VTable.name, VTable)
 Vue.component(VPagination.name, VPagination)
 ```
 
+> also you can use it **[by cdn](http://doc.huangsw.com/vue-easytable/app.html#/install)**
+
+
 ## Effect
 **Adaptive、Fixed column, header fixed、Support column width drag、Custom columns, custom cell styles、Own paging component**
 ![vue-easytable](./examples/images/vue-easytable.gif)
