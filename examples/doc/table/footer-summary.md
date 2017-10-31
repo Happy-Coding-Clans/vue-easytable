@@ -1,4 +1,4 @@
-:::demo 通过设置 `footer` 数组对象给 table 添加汇总信息，footer 汇总信息可以设置多行，每一个子数组代表一行汇总信息 <br> 通过 `footer-cell-class-name` 属性设置footer 各个单元格的样式 <br> 通过 `footer-row-height`属性设置每个footer行高 <br> **注意**：由于汇总信息格式不定，有求和、平均值、最大值等等，以及保留位数不定等问题。所以汇总信息由调用者提供！
+:::demo 通过设置 `footer` 数组对象给 table 添加汇总信息，footer **汇总信息可以设置多行**，每一个子数组代表一行汇总信息 <br> 通过 `footer-cell-class-name` 属性设置footer 各个单元格的样式 <br> 通过 `footer-row-height`属性设置每个footer行高（默认40px） <br> **注意**：由于汇总信息格式不定，有**求和、平均值、最大值、最小值、乘积**等等，以及保留位数不定等问题。所以**汇总信息由调用者提供**！
 ```html
 <template>
     <div>
@@ -69,8 +69,8 @@
                     });
 
                 let minVal = ['最小值'];
-                minVal.push(Math.min.apply(null, amounts1));
-                minVal.push(Math.min.apply(null, amounts2));
+                minVal.push(Math.min.apply(null, amounts1)+' ￥');
+                minVal.push(Math.min.apply(null, amounts2)+' ￥');
                 minVal.push('-');
 
 
@@ -79,14 +79,14 @@
                     amounts1.reduce((prev, curr) => {
 
                         return parseInt(prev) + parseInt(curr);
-                    }, 0)
+                    }, 0)+' ￥'
                 )
 
                 sumVal.push(
                     amounts2.reduce((prev, curr) => {
 
                         return parseInt(prev) + parseInt(curr);
-                    }, 0)
+                    }, 0)+' ￥'
                 )
 
                 sumVal.push('-');
