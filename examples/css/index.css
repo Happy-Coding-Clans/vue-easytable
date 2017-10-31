@@ -101,7 +101,7 @@ body, html {
 }
 
 .main-wrapper-sidebar .menu-sub li {
-    line-height: 3.1em;
+    line-height: 2.3em;
 }
 
 
@@ -708,4 +708,8 @@ code {
 
 .anchor{
     cursor: pointer;
+}
+
+.hljs{
+    background-color: #fafafa !important;
 }

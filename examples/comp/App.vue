@@ -21,6 +21,12 @@
                         <a class="main-wrapper-sidebar-link" href="javascript:javascript:void(0);">开始</a>
                         <ul class="menu-sub">
                             <li>
+                                <router-link to="/intro">介绍</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/install">安装</router-link>
+                            </li>
+                            <li>
                                 <router-link to="/start">快速上手</router-link>
                             </li>
                         </ul>

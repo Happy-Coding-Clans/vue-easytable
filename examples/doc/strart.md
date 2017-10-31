@@ -1,26 +1,8 @@
-
-### 介绍
-基于 vue2.x 的 table 组件支持单元格合并、单元格编辑、多表头固定、多列固定、列拖动、排序、自定义列、分页、单元格编辑、多选等功能
+## 快速上手
 
 
-### 安装
 
-```javascript
-npm install vue-easytable --save-dev
-```
-
-### 使用
-
-
-```javascript
-import 'vue-easytable/libs/themes-base/index.css'
-import {VTable,VPagination} from 'vue-easytable'
-
-Vue.component(VTable.name, VTable)
-Vue.component(VPagination.name, VPagination)
-```
-
-### 全局配置表格字体以及其他样式
+### 全局配置表格字体等样式
 
 表格内的字体以及字体大小默认是依赖于全局设置的字体，如果需要设置可以通过开放的class 即可：
 
@@ -61,8 +43,6 @@ Vue.component(VPagination.name, VPagination)
 }
 ```
 
-### 效果展示（只是部分功能）
-![vue-easytable](../images/vue-easytable.gif)
 
 
 
