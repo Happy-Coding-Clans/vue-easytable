@@ -3,7 +3,7 @@
 
 ### CDN 方式使用
 
-通过 https://unpkg.com/vue-easytable 可以看到 vue-easytable 最新版本的资源，也可以切换版本选择需要的资源，在页面上引入 js 和 css 文件即可开始使用：
+通过 [https://unpkg.com/vue-easytable/](https://unpkg.com/vue-easytable/) 可以看到 vue-easytable 最新版本的资源，也可以切换版本选择需要的资源，在页面上引入 js 和 css 文件即可开始使用：
 
 ```css
 <!-- 引入样式 -->
