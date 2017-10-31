@@ -1,6 +1,6 @@
 
 2017-10-31
-1、添加 umd 版本，html 中可以直接通过 `<script>` 标签方式引入 #29 #22
+1、添加 [UMD](https://github.com/umdjs/umd) 版本，html 中可以直接通过 `<script>` 标签方式引入 #29 #22
 
 2017-10-30
 
