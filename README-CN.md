@@ -50,6 +50,8 @@ Vue.component(VTable.name, VTable)
 Vue.component(VPagination.name, VPagination)
 ```
 
+> 你也可以 **[通过 cdn 使用](http://doc.huangsw.com/vue-easytable/app.html#/install)**
+
 ## 效果（不是全部）
 **自适应、固定列，表头固定、支持列宽拖动、排序、分页**
 ![vue-easytable](./examples/images/vue-easytable.gif)
