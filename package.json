@@ -67,7 +67,8 @@
     "build": "webpack --env.build",
     "dev": "webpack-dev-server --env.dev",
     "build:libs": "node build/build-libs.js",
-    "umd":"webpack --env.umd --config build/webpack.umd.config.js"
+    "build:umd":"webpack --env.umd --config build/webpack.umd.config.js",
+    "build:all": "npm run build:libs && npm run build:umd"
   },
   "bugs": {
     "url": "https://github.com/huangshuwei/vue-easytable/issues"
