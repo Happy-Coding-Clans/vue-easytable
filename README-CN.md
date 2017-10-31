@@ -8,7 +8,7 @@
 基于 vue2.x 的table组件
 
 ## API & 实例(如果访问不了说明被墙了，我也很无奈......)
-[API&实例](http://doc.huangsw.com/vue-easytable/app.html#/table)
+[API&实例](http://doc.huangsw.com/vue-easytable/app.html#/install)
 
 ## 功能
 - [x] [自适应，可以随着浏览器窗口改变自动适应](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-simple-table-resize)
