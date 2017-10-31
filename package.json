@@ -1,7 +1,7 @@
 {
   "name": "vue-easytable",
-  "version": "1.4.0",
-  "description": "基于 vue2.x 的table组件",
+  "version": "1.5.0",
+  "description": "vue table component",
   "main": "libs/index.js",
   "author": "https://github.com/huangshuwei",
   "license": "MIT",
