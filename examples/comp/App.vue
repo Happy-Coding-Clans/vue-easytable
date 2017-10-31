@@ -52,6 +52,14 @@
             <!--主体内容 End-->
         </div>
 
+        <div class="main-footer">
+            <div>
+                <span><i class="iconfont icon-github"></i><a href="https://github.com/huangshuwei/vue-easytable"> GitHub</a></span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span>Created by <a href="https://github.com/huangshuwei">huangsw</a></span>
+            </div>
+        </div>
+
         <!--回到顶部-->
         <div>
             <div class="main-back-top" v-show="showBackTop">
