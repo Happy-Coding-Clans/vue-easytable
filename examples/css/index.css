@@ -614,7 +614,7 @@ code {
     margin-bottom: 50px;
     border-top: 1px dotted #e9e9e9;
     border-bottom: 1px solid #e9e9e9;
-
+    position: relative;
 }
 
 .example-codeHighlight-showCode {
@@ -628,6 +628,25 @@ code {
 
 .example-codeHighlight-showCode:hover {
     color: #578afd;
+}
+
+.example-codeHighlight-tools{
+    position: absolute;
+    right: 30px;
+    top:30px;
+}
+
+.example-codeHighlight-tools-i{
+    margin-left: 10px;
+    color:#8e8d8d;
+    cursor:pointer;
+    font-size:16px;
+
+}
+
+.example-codeHighlight-tools-i:hover{
+    color:#34495e;
+
 }
 
 /*实例中的table*/

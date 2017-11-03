@@ -16,6 +16,15 @@
   </div>
 </template>
 
+<style>
+    .title-cell-class-name-test1 {
+        background-color: #2db7f5;
+    }
+    .title-cell-class-name-test2 {
+        background-color: #f60;
+    }
+</style>
+
 <script>
 
     export default{

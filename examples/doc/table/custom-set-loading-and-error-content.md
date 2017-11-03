@@ -18,8 +18,6 @@
 
 <script>
 
-    import mockData from '../../mock/tableData.js'
-
     export default{
         data() {
             return {

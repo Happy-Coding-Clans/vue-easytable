@@ -101,7 +101,14 @@ exports.getMarkDownSetting = function () {
                             })
                         }
 
+                        var script = striptags.fetch(content, 'script'),
+                            style = striptags.fetch(content, 'style'),
+                            jsfiddle = {html: effectHtml, script: script, style: style};
+
+                        jsfiddle = md.utils.escapeHtml(JSON.stringify(jsfiddle));
+
                         return `<demo-box
+                                    :jsfiddle="${jsfiddle}"
                                     :showDemo="${showDemo}">
                                  <div slot="effectHtml">${effectHtml}</div>
                                  <div slot="codeDescription">${codeDescription}</div>
