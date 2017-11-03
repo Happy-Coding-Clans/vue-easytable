@@ -147,20 +147,35 @@ exports.default = {
                                                 }
                                     }
 
-                                    var rightViewBody = this.$el.querySelector('.v-table-rightview .v-table-body');
+                                    var rightViewBody = this.$el.querySelector('.v-table-rightview .v-table-body'),
+                                        rightViewFooter = this.$el.querySelector('.v-table-rightview .v-table-footer'),
+                                        hasTableFooter = this.hasTableFooter;
+
                                     if (this.totalColumnsWidth < this.internalWidth) {
 
-                                                rightViewBody.style.overflowX = 'hidden';
+                                                if (!hasTableFooter) {
 
-                                                (0, _dom.removeClass)(rightViewBody, 'v-table-rightview-special-border');
-                                                rightViewBody.classList.remove('v-table-rightview-special-border');
+                                                            rightViewBody.style.overflowX = 'hidden';
+
+                                                            (0, _dom.removeClass)(rightViewBody, 'v-table-rightview-special-border');
+                                                            rightViewBody.classList.remove('v-table-rightview-special-border');
+                                                } else {
+
+                                                            rightViewFooter.style.overflowX = 'hidden';
+                                                }
                                     } else {
 
-                                                rightViewBody.style.overflowX = 'scroll';
+                                                if (!hasTableFooter) {
 
-                                                if (!this.hasFrozenColumn) {
+                                                            rightViewBody.style.overflowX = 'scroll';
 
-                                                            (0, _dom.addClass)(rightViewBody, 'v-table-rightview-special-border');
+                                                            if (!this.hasFrozenColumn) {
+
+                                                                        (0, _dom.addClass)(rightViewBody, 'v-table-rightview-special-border');
+                                                            }
+                                                } else {
+
+                                                            rightViewFooter.style.overflowX = 'scroll';
                                                 }
                                     }
 
