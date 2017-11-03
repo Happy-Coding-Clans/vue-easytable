@@ -23,7 +23,7 @@ Based on vue2.x flexible table components.
 - [x] [Cell Editing](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-edit-advanced)
 - [x] [Support cell merge (colSpan and rowSpan)](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-merge)
 - [x] [Support checkbox selection](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-selection-advanced)  
-- [x] [Footer summary](http://localhost:63342/vue-easytable/dist/app.html?_ijt=ji129qv629k711n66iq6anenca#/table?anchor=table-footer-summary)
+- [x] [Footer summary](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-footer-summary)
 - [ ] Export excel
 - [ ] Export PDF
 - [ ] Conditional filter
