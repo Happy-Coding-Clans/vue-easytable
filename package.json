@@ -10,7 +10,8 @@
     "url": "git+https://github.com/huangshuwei/vue-easytable.git"
   },
   "files": [
-    "libs","umd"
+    "libs",
+    "umd"
   ],
   "dependencies": {
     "nprogress": "^0.2.0",
@@ -37,6 +38,7 @@
     "chalk": "^2.0.1",
     "cheerio": "^0.18.0",
     "clean-webpack-plugin": "^0.1.9",
+    "clipboard": "^1.7.1",
     "css-loader": "^0.28.4",
     "csv-loader": "^2.1.1",
     "extract-text-webpack-plugin": "^2.1.2",
@@ -67,7 +69,7 @@
     "build": "webpack --env.build",
     "dev": "webpack-dev-server --env.dev",
     "build:libs": "node build/build-libs.js",
-    "build:umd":"webpack --env.umd --config build/webpack.umd.config.js",
+    "build:umd": "webpack --env.umd --config build/webpack.umd.config.js",
     "build:all": "npm run build:libs && npm run build:umd"
   },
   "bugs": {

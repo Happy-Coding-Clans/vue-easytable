@@ -99,7 +99,7 @@
         background-color: #fff;
         position: fixed;
         right: 0;
-        top: 73px;
+        top: 80px;
         border-radius: 3px;
         border: solid 1px #eee;
         font-size: 12px;

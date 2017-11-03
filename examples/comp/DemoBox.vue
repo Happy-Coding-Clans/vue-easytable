@@ -18,8 +18,15 @@
             <div class="example-codeHighlight-tools" v-if="showCode">
                 <i @click.stop="openJSFiddle()" title="在 JSFiddle 中打开"
                    class="example-codeHighlight-tools-i iconfont icon-bug"></i>
-                <!--<i title="复制代码" class="example-codeHighlight-tools-i iconfont icon-fuzhi"></i>-->
+                <span>
+                    <i v-show="!copyDone" @click="copyCode" title="复制代码"
+                       class="copy-code example-codeHighlight-tools-i iconfont icon-fuzhi1"></i>
+
+                    <i v-show="copyDone" class="copy-code-done iconfont icon-chenggong"
+                       @mouseout.stop="copyCodeMouseout($event)"></i>
+                </span>
             </div>
+
             <slot name="codeHighlight" v-if="showCode"></slot>
             <div class="example-codeHighlight-showCode" @click="showCodeToggle()">
                 <i :class="[showCode?'v-icon-up-dir':'v-icon-down-dir']"></i>
@@ -32,7 +39,7 @@
 </template>
 
 <script>
-
+    import Clipboard from 'clipboard'
     export default{
         name: 'demo-box',
 
@@ -54,7 +61,8 @@
 
             return {
 
-                showCode: false
+                showCode: false,
+                copyDone: false // copy done
 
             }
         },
@@ -65,16 +73,53 @@
 
             },
 
+            copyCode(){
+
+                let {html, style, script} = this.jsfiddle;
+
+                style = style ? '<style>' + style + '<\/style>\n' : '';
+
+                script = script ? '<script>' + script + '<\/script>' : '';
+
+                const code = (html || '') + style + script;
+
+                const clipboard = new Clipboard('.copy-code', {
+                    text(trigger) {
+                        return code;
+                    }
+                });
+
+
+                clipboard.on('success', (e) => {
+                    e.clearSelection();
+                    clipboard.destroy();
+
+                    this.copyDone = true;
+                });
+
+                clipboard.on('error', function (e) {
+                    console.error('Action:', e.action);
+                    console.error('Trigger:', e.trigger);
+                });
+            },
+
+            copyCodeMouseout(){
+
+                setTimeout(x=>{
+                    this.copyDone = false;
+                },2000)
+            },
+
             openJSFiddle(){
 
                 const {script, html, style} = this.jsfiddle;
 
                 const scriptTpl = [
-                    '<script src="//unpkg.com/vue/dist/vue.js"></scr' + 'ipt>',
-                    '<script src="//unpkg.com/vue-easytable/umd/js/index.js"></scr' + 'ipt>',
+                    '<script src="//unpkg.com/vue/dist/vue.js"><\/script>',
+                    '<script src="//unpkg.com/vue-easytable/umd/js/index.js"><\/script>',
                 ].join('\n');
 
-                let jsTpl = (script || '').replace(/export default/, 'var Main =').replace(/import Vue from 'vue'/,'').trim();
+                let jsTpl = (script || '').replace(/export default/, 'var Main =').replace(/import Vue from 'vue'/, '').trim();
 
                 jsTpl = jsTpl
                     ? jsTpl + '\nvar Ctor = Vue.extend(Main)\nnew Ctor().$mount(\'#app\')'

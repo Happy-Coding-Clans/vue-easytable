@@ -640,14 +640,21 @@ code {
 
 .example-codeHighlight-tools-i{
     margin-left: 10px;
-    color:#8e8d8d;
+    color:#7c9be0;
     cursor:pointer;
     font-size:16px;
 
 }
 
+.copy-code-done{
+    margin-left: 10px;
+    font-size:16px;
+    color: #139a13;
+    font-weight: bold;
+}
+
 .example-codeHighlight-tools-i:hover{
-    color:#34495e;
+    color:#3561c3;
 
 }
 
