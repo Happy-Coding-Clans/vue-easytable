@@ -1,3 +1,5 @@
+2017-11-8
+1、table 组件添加事件`on-custom-comp`实现子组件与父组件通讯的目的
 
 2017-10-31
 1、添加 [UMD](https://github.com/umdjs/umd) 版本，html 中可以直接通过 `<script>` 标签方式引入 #29 #22

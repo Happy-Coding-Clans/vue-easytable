@@ -94,7 +94,7 @@
                                         <span v-if="cellMergeContentType(rowIndex,col.field,item).isComponent">
                                             <component :rowData="item" :field="col.field ? col.field : ''"
                                                        :index="rowIndex"
-                                                       :is="cellMerge(rowIndex,item,col.field).componentName"></component>
+                                                       :is="cellMerge(rowIndex,item,col.field).componentName" @on-custom-comp="customCompFunc"></component>
                                         </span>
                                             <span v-else v-html="cellMerge(rowIndex,item,col.field).content"></span>
                                         </div>
@@ -107,7 +107,7 @@
                                         >
                                         <span v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
                                             <component :rowData="item" :field="col.field ? col.field : ''"
-                                                       :index="rowIndex" :is="col.componentName"></component>
+                                                       :index="rowIndex" :is="col.componentName" @on-custom-comp="customCompFunc"></component>
                                         </span>
                                             <span v-else-if="typeof col.formatter==='function'"
                                                   v-html="col.formatter(item,rowIndex,pagingIndex,col.field)"></span>
@@ -238,7 +238,7 @@
                                 >
                                 <span v-if="cellMergeContentType(rowIndex,col.field,item).isComponent">
                                     <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex"
-                                               :is="cellMerge(rowIndex,item,col.field).componentName"></component>
+                                               :is="cellMerge(rowIndex,item,col.field).componentName" @on-custom-comp="customCompFunc"></component>
                                 </span>
                                     <span v-else v-html="cellMerge(rowIndex,item,col.field).content">
                                 </span>
@@ -252,7 +252,7 @@
                                 >
                                 <span v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
                                     <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex"
-                                               :is="col.componentName"></component>
+                                               :is="col.componentName" @on-custom-comp="customCompFunc"></component>
                                 </span>
                                     <span v-else-if="typeof col.formatter==='function'"
                                           v-html="col.formatter(item,rowIndex,pagingIndex,col.field)">
@@ -508,7 +508,7 @@
             // 单个checkbox change event
             selectChange: Function,
             // checkbox-group change event
-            selectGroupChange: Function
+            selectGroupChange: Function,
         },
         computed: {
 
@@ -603,6 +603,11 @@
             }
         },
         methods: {
+            // custom columns component event
+            customCompFunc(params){
+
+                this.$emit('on-custom-comp',params);
+            },
 
             setRowHoverColor(isMouseenter){
 
