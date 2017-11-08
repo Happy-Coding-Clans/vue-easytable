@@ -1,4 +1,4 @@
-:::demo **自定义列普通用法**：通过 `formatter`函数对当前数据进行简单的加工处理，这个方法接收`rowData`、`rowIndex`,`pagingIndex`,`field`作为回调数据；<br>**自定义列高级用法**：通过`componentName`传递一个vue组件，这个自定义组件会接收到`rowData`、`field`、`index`作为回调数据；
+:::demo **自定义列普通用法**：<br>通过 `formatter`函数对当前数据进行简单的加工处理，这个方法接收`rowData`、`rowIndex`,`pagingIndex`,`field`作为回调数据；<br>**自定义列高级用法**：<br>通过`componentName`传递一个vue组件，这个自定义组件会接收到`rowData`、`field`、`index`作为回调数据；<br>通过传入事件`on-custom-comp`实现子组件与父组件通讯的目的；
 ```html
 <template>
     <v-table
@@ -8,6 +8,7 @@
             :table-data="tableData"
             row-hover-color="#eee"
             row-click-color="#edf7ff"
+            @on-custom-comp="customCompFunc"
     ></v-table>
 </template>
 
@@ -38,6 +39,23 @@
                         {field: 'address', title: '地址', width: 230, titleAlign: 'center',columnAlign:'left',isResize:true},
                         {field: 'custome-adv', title: '操作',width: 200, titleAlign: 'center',columnAlign:'center',componentName:'table-operation',isResize:true}
                     ]
+
+            }
+        },
+        methods:{
+            customCompFunc(params){
+
+                console.log(params);
+
+                if (params.type === 'delete'){ // do delete operation
+
+                    this.$delete(this.tableData,params.index);
+
+                }else if (params.type === 'edit'){ // do edit operation
+
+                    alert(`行号：${params.index} 姓名：${params.rowData['name']}`)
+                }
+
             }
         }
     }
@@ -61,19 +79,18 @@
         },
         methods:{
             update(){
-                alert('编辑: '+this.index)
-                console.log(this.index)
-                console.log(this.rowData[this.field])
 
-                console.log(this.rowData)
+               // 参数根据业务场景随意构造
+               let params = {type:'edit',index:this.index,rowData:this.rowData};
+               this.$emit('on-custom-comp',params);
             },
 
             deleteRow(){
-                alert('删除: '+this.index)
-                console.log(this.index)
-                console.log(this.rowData[this.field])
 
-                console.log(this.rowData)
+                // 参数根据业务场景随意构造
+                let params = {type:'delete',index:this.index};
+                this.$emit('on-custom-comp',params);
+
             }
         }
     })

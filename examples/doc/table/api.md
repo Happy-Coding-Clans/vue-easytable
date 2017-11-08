@@ -28,6 +28,17 @@
 | row-click-color | 表格体行点击后的背景色（行高亮） | string | — | — |
 | show-vertical-border | 是否显示垂直border,false 时列拖动失效 | boolean | — | true |
 | show-horizontal-border | 是否显示横向border | boolean | — | true |
+| on-row-click | 行点击回调 | Function({rowIndex, rowData, field}) | — | — |
+| row-mouse-enter|  鼠标进入表体行的回调| Function({rowIndex}) | — | — |
+| row-mouse-leave|  鼠标离开表体行的回调|  Function({rowIndex}) | — | — |
+| sort-change|  点击排序回调| Function({sortColumns}) 参数说明: 参数为排序的列对象信息 | — | — |
+| ~~cell-edit-formatter~~ [1.3.5](https://github.com/huangshuwei/vue-easytable/releases/tag/1.3.5) 版本废除|  ~~单元格编辑格式化回调（可以对编辑的结果设置样式等）~~|  ~~Function({newValue,oldValue,rowIndex,rowData,field})~~| — | — |
+| cell-edit-done|  单元格编辑完成回调|  Function({newValue,oldValue,rowIndex,rowData,field})| — | — |
+| cell-merge|  单元格合并，支持rowSpan、colSpan,返回值`{colSpan: 1,rowSpan: 1,content: '',componentName: ''}`；合并后单元格的内容可以通过`content`（html）设置也可以通过,`componentName`（自定义组件）设置| Function({rowIndex,rowData,field})| — | — |
+| select-all| 全选时触发 | Function({selection}) 参数说明: selection 当前选中的项集合 | — | — |
+| select-change| 某一项 checkbox 触发 | Function({selection,rowData}) 参数说明：selection为当前选中的项集合，rowData为当前选中的项| — | — |
+| select-group-change| 选中项发生变化触发 |Function({selection}) 参数说明:  selection为当前选中的项集合  | — | — |
+| column-cell-class-name| 表体单元格设置className | Function({rowIndex,columnName,rowData})  | — | — |
 
 
 
@@ -77,22 +88,11 @@ table 表格数据，通过设置一些特殊属性实现某些功能，如 chec
 | _disabled | 是否禁用选中\未选中（当开启多选时有效） | boolean | — | false |
 
 
-### Table Event
+### Table Event（注意传入的‘事件名称’必须和api保持一致）
+
 | 事件名称 | 说明 | 回调参数 |
 |---------- |-------- |---------- |
-| on-row-click | 行点击回调 | rowIndex, rowData, field |
-| row-mouse-enter|  鼠标进入表体行的回调| rowIndex |
-| row-mouse-leave|  鼠标离开表体行的回调| rowIndex |
-| sort-change|  点击排序回调| sortColumns（排序的列对象信息） |
-| ~~cell-edit-formatter~~ [1.3.5](https://github.com/huangshuwei/vue-easytable/releases/tag/1.3.5) 版本废除|  ~~单元格编辑格式化回调（可以对编辑的结果设置样式等）~~|  ~~newValue,oldValue,rowIndex,rowData,field~~|
-| cell-edit-done|  单元格编辑完成回调|  newValue,oldValue,rowIndex,rowData,field|
-| cell-merge|  单元格合并，支持rowSpan、colSpan,返回值`{colSpan: 1,rowSpan: 1,content: '',componentName: ''}`；合并后单元格的内容可以通过`content`（html）设置也可以通过,`componentName`（自定义组件）设置| rowIndex,rowData,field|
-| select-all| 全选时触发 | selection 当前选中的项集合 |
-| select-change| 某一项 checkbox 触发 | selection（当前选中的项集合），rowData（当前选中的项）|
-| select-group-change| 选中项发生变化触发 | selection（当前选中的项集合）  |
-| column-cell-class-name| 表体单元格设置className | rowIndex,columnName,rowData  |
-
-
+| on-custom-comp | 自定义列为组件时，子组件与父组件通讯的方法 | params （参数为任意类型，根据业务场景随意构造） |
 
 
 ### Table Methods
