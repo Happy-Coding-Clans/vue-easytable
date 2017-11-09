@@ -489,6 +489,10 @@
                 require: false,
                 default: 40
             },
+            columnWidthDrag:{
+                type: Boolean,
+                default: false
+            },
             // 表体单元格样式回调
             columnCellClassName: Function,
             // footer单元格样式回调

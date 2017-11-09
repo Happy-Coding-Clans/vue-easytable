@@ -27,6 +27,10 @@ exports.default = {
             methods: {
                         handleTitleMouseMove: function handleTitleMouseMove(event, column) {
 
+                                    if (!this.columnWidthDrag) {
+                                                return false;
+                                    }
+
                                     var target = void 0,
                                         rect = void 0;
 
@@ -182,6 +186,13 @@ exports.default = {
                                     this.draggingColumn = null;
                                     document.body.style.cursor = '';
                                     this.isDragging = false;
+
+                                    document.onselectstart = function () {
+                                                return true;
+                                    };
+                                    document.ondragstart = function () {
+                                                return true;
+                                    };
 
                                     _utils2.default.unbind(document, 'mousemove', this.handleDragMouseMove);
                                     _utils2.default.unbind(document, 'mouseup', this.handleDragMouseUp);
