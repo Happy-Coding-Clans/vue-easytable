@@ -191,6 +191,13 @@ export default {
             document.body.style.cursor = '';
             this.isDragging = false;
 
+            document.onselectstart = function () {
+                return true;
+            };
+            document.ondragstart = function () {
+                return true;
+            };
+
             utils.unbind(document, 'mousemove', this.handleDragMouseMove);
             utils.unbind(document, 'mouseup', this.handleDragMouseUp);
         }
