@@ -28,6 +28,7 @@
 | row-click-color | 表格体行点击后的背景色（行高亮） | string | — | — |
 | show-vertical-border | 是否显示垂直border,false 时列拖动失效 | boolean | — | true |
 | show-horizontal-border | 是否显示横向border | boolean | — | true |
+| column-width-drag | 是否开启列宽拖动 | boolean | — | false |
 | on-row-click | 行点击回调 | Function({rowIndex, rowData, field}) | — | — |
 | row-mouse-enter|  鼠标进入表体行的回调| Function({rowIndex}) | — | — |
 | row-mouse-leave|  鼠标离开表体行的回调|  Function({rowIndex}) | — | — |

@@ -39,6 +39,16 @@
         </div>
 
         <div class="mt30">
+             <h3>列宽拖动</h3>
+
+             <div class="mt30">
+                 <anchor id="table-column-width-drag" label="列宽拖动" h4 ></anchor>
+                 <column-width-drag></column-width-drag>
+             </div>
+
+        </div>
+
+        <div class="mt30">
              <h3>selection 多选</h3>
 
              <div class="mt30">
@@ -188,6 +198,8 @@
 
     import footerSummary from './footer-summary.md'
 
+    import columnWidthDrag from './column-width-drag.md'
+
 
     import api from './api.md'
 
@@ -224,6 +236,8 @@
             combinedPaging,
 
             footerSummary,
+
+            columnWidthDrag,
 
             api
         },
