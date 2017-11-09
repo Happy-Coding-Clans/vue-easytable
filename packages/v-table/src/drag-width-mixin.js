@@ -18,6 +18,10 @@ export default {
 
         handleTitleMouseMove(event, column){
 
+            if (!this.columnWidthDrag){
+                return false;
+            }
+
             let target, rect;
 
             if (this.isDragging) {
