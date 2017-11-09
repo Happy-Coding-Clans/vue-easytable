@@ -6,7 +6,6 @@
             style="width:100%"
             :columns="columns"
             :table-data="tableData"
-            :on-row-click="onRowClick"
             row-hover-color="#eee"
             row-click-color="#edf7ff"
     ></v-table>
@@ -29,10 +28,7 @@
                     {field: 'tel', title: '手机号码', width: 150, titleAlign: 'center', columnAlign: 'center',isResize:true},
                     {field: 'hobby', title: '爱好', width: 150, titleAlign: 'center', columnAlign: 'center',isResize:true},
                     {field: 'address', title: '地址', width: 280, titleAlign: 'center', columnAlign: 'left',isResize:true}
-                ],
-                onRowClick(rowIndex, rowData){
-                    console.log(rowIndex,rowData);
-                }
+                ]
             }
         }
     }
