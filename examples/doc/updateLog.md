@@ -1,3 +1,6 @@
+2017-11-9
+1、table 组件天假属性`column-width-drag`控制是否打开列宽拖动功能
+
 2017-11-8
 1、table 组件添加事件`on-custom-comp`实现子组件与父组件通讯的目的
 
