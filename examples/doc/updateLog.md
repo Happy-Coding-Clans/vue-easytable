@@ -1,5 +1,6 @@
 2017-11-9
 1、table 组件天假属性`column-width-drag`控制是否打开列宽拖动功能
+2、修复 table 组件列拖动结束后，页面元素无法选中的bug
 
 2017-11-8
 1、table 组件添加事件`on-custom-comp`实现子组件与父组件通讯的目的
