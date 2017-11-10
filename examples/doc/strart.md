@@ -43,7 +43,33 @@
 }
 ```
 
+### 配置表格内部滚动条样式
 
+如果设置了全局滚动条样式，则自动依赖全局样式，如果需要针对表格内部设置则可以通过`.v-scrollbar-wrap`设置。举个例子：
+
+```css
+.v-scrollbar-wrap::-webkit-scrollbar-track
+    {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        background-color: #F5F5F5;
+    }
+
+    .v-scrollbar-wrap::-webkit-scrollbar
+    {
+        height:12px;
+        width:10px;
+        background-color: #F5F5F5;
+    }
+
+    .v-scrollbar-wrap::-webkit-scrollbar-thumb
+    {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        background-color: #666;
+    }
+```
+也可以[在线查看实例](https://jsfiddle.net/huangsw/nqe3qogv/)
 
 
 
