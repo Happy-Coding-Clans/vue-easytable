@@ -1,13 +1,30 @@
+import settings from '../../src/settings/settings.js'
+
 export default {
 
     computed: {
 
-        vTableFooter(){
+        vTableRightBody(){
 
-            return {
-
+            let result = {
                 'v-table-rightview-special-border': this.hasFrozenColumn
             }
+
+            result[settings.scrollbarClass] = true;
+
+            return result;
+        },
+
+        vTableFooter(){
+
+            let result = {
+
+                'v-table-rightview-special-border': this.hasFrozenColumn,
+            }
+
+            result[settings.scrollbarClass] = true;
+
+            return result;
         },
 
         vTableBodyInner(){

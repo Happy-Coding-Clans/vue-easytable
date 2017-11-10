@@ -3,15 +3,36 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _settings = require('../../src/settings/settings.js');
+
+var _settings2 = _interopRequireDefault(_settings);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = {
 
     computed: {
+        vTableRightBody: function vTableRightBody() {
+
+            var result = {
+                'v-table-rightview-special-border': this.hasFrozenColumn
+            };
+
+            result[_settings2.default.scrollbarClass] = true;
+
+            return result;
+        },
         vTableFooter: function vTableFooter() {
 
-            return {
+            var result = {
 
                 'v-table-rightview-special-border': this.hasFrozenColumn
             };
+
+            result[_settings2.default.scrollbarClass] = true;
+
+            return result;
         },
         vTableBodyInner: function vTableBodyInner() {
 

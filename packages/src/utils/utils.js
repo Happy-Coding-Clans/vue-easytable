@@ -1,3 +1,5 @@
+import settings from '../settings/settings'
+
 export default {
     // 获取当前元素的left、top偏移
     getViewportOffset(element) {
@@ -114,8 +116,9 @@ export default {
 
     // 获取滚动条的宽度
     getScrollbarWidth(){
+
         const outer = document.createElement('div');
-        outer.className = 'el-scrollbar__wrap';
+        outer.className = settings.scrollbarClass;
         outer.style.visibility = 'hidden';
         outer.style.width = '100px';
         outer.style.position = 'absolute';
@@ -131,6 +134,8 @@ export default {
 
         const widthWithScroll = inner.offsetWidth;
         outer.parentNode.removeChild(outer);
+
+        console.log(widthNoScroll - widthWithScroll)
 
         return widthNoScroll - widthWithScroll;
 

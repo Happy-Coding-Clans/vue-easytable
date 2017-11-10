@@ -213,7 +213,7 @@
                 </div>
             </div>
             <!--右列内容-->
-            <div :class="['v-table-body v-table-body-class',hasFrozenColumn ? '' : 'v-table-rightview-special-border']"
+            <div :class="['v-table-body v-table-body-class',vTableRightBody]"
                  :style="{'width': rightViewWidth+'px', 'height': bodyViewHeight+'px'}">
                 <v-checkbox-group v-model="checkboxGroupModel" @change="handleCheckGroupChange">
                     <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">

@@ -3,6 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _settings = require('../settings/settings');
+
+var _settings2 = _interopRequireDefault(_settings);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = {
     getViewportOffset: function getViewportOffset(element) {
 
@@ -87,8 +94,9 @@ exports.default = {
         }
     },
     getScrollbarWidth: function getScrollbarWidth() {
+
         var outer = document.createElement('div');
-        outer.className = 'el-scrollbar__wrap';
+        outer.className = _settings2.default.scrollbarClass;
         outer.style.visibility = 'hidden';
         outer.style.width = '100px';
         outer.style.position = 'absolute';
@@ -104,6 +112,8 @@ exports.default = {
 
         var widthWithScroll = inner.offsetWidth;
         outer.parentNode.removeChild(outer);
+
+        console.log(widthNoScroll - widthWithScroll);
 
         return widthNoScroll - widthWithScroll;
     },
