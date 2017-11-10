@@ -13,7 +13,7 @@
 ## 功能
 - [x] [自适应，可以随着浏览器窗口改变自动适应](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-simple-table-resize)
 - [x] [固定列，表头固定](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-frozen-title-columns)  
-- [x] [默认支持列宽拖动](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-basic-no-table-width)
+- [x] [支持列宽拖动](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-column-width-drag)
 - [x] [支持单个字段排序和多个字段排序](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-sort-by-single-columns)
 - [x] [自定义列、自定义单元格样式](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-custom-columns)  
 - [x] [loading效果、自定义loading 等](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-loading-and-error-content)

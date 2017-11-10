@@ -15,7 +15,7 @@ Based on vue2.x flexible table components.
 ## Features
 - [x] [Adaptive, you can automatically adapt to the browser window changes](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-simple-table-resize)
 - [x] [Fixed column, header fixed](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-frozen-title-columns)  
-- [x] [Support column width drag](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-basic-no-table-width)
+- [x] [Support column width drag](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-column-width-drag)
 - [x] [Supports single field sorting and multiple field sorting](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-sort-by-single-columns)
 - [x] [Custom columns, custom cell styles](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-custom-columns)
 - [x] [Loading effects, custom loading, etc](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-loading-and-error-content)
