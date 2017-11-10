@@ -1,3 +1,6 @@
+2017-11-10
+1、table 组件支持通过设置样式 `v-scrollbar-wrap` 订制滚动条样式
+
 2017-11-9
 1、table 组件天假属性`column-width-drag`控制是否打开列宽拖动功能
 2、修复 table 组件列拖动结束后，页面元素无法选中的bug
