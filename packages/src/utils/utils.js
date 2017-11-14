@@ -135,8 +135,6 @@ export default {
         const widthWithScroll = inner.offsetWidth;
         outer.parentNode.removeChild(outer);
 
-        console.log(widthNoScroll - widthWithScroll)
-
         return widthNoScroll - widthWithScroll;
 
     },
