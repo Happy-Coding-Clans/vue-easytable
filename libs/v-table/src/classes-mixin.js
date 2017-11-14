@@ -16,7 +16,7 @@ exports.default = {
         vTableRightBody: function vTableRightBody() {
 
             var result = {
-                'v-table-rightview-special-border': this.hasFrozenColumn
+                'v-table-rightview-special-border': true
             };
 
             result[_settings2.default.scrollbarClass] = true;
@@ -27,7 +27,7 @@ exports.default = {
 
             var result = {
 
-                'v-table-rightview-special-border': this.hasFrozenColumn
+                'v-table-rightview-special-border': true
             };
 
             result[_settings2.default.scrollbarClass] = true;

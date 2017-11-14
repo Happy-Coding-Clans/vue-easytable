@@ -16,7 +16,15 @@ exports.default = {
         },
         hasBodyHorizontalScrollBar: function hasBodyHorizontalScrollBar() {
 
-            return this.rightViewWidth < this.totalNoFrozenColumnsWidth;
+            if (this.$el) {
+
+                var rightViewBody = this.$el.querySelector('.v-table-rightview .v-table-body'),
+                    rightColumnsWidth = Math.round(this.totalNoFrozenColumnsWidth);
+
+                return rightViewBody.clientWidth + 2 < rightColumnsWidth;
+            }
+
+            return false;
         }
     }
 

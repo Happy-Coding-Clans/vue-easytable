@@ -38,6 +38,31 @@ exports.default = {
             this.initTotalColumnsWidth = this.totalColumnsWidth;
             this.getResizeColumns();
         },
+        adjustHeight: function adjustHeight() {
+            var _this = this;
+
+            setTimeout(function (x) {
+
+                if (!_this.$el || _this.isVerticalResize) {
+                    return false;
+                }
+
+                var totalColumnsHeight = _this.getTotalColumnsHeight(),
+                    scrollbarWidth = _utils2.default.getScrollbarWidth(),
+                    hasScrollBar = _this.hasBodyHorizontalScrollBar();
+
+                if (!(_this.height && _this.height > 0) || _this.height > totalColumnsHeight) {
+
+                    if (hasScrollBar && _this.internalHeight + 2 < totalColumnsHeight + scrollbarWidth) {
+
+                        _this.internalHeight += scrollbarWidth;
+                    } else if (!hasScrollBar) {
+
+                        _this.internalHeight = totalColumnsHeight;
+                    }
+                }
+            });
+        },
         tableResize: function tableResize() {
 
             if (!this.isHorizontalResize && !this.isVerticalResize) {
@@ -51,8 +76,8 @@ exports.default = {
                 minHeight = self.minHeight,
                 view = this.$el,
                 viewOffset = _utils2.default.getViewportOffset(view),
-                currentWidth = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().width : view.clientWidth + 2,
-                currentHeight = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().height : view.clientHeight + 2,
+                currentWidth = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().width : view.clientWidth,
+                currentHeight = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().height : view.clientHeight,
                 right = window.document.documentElement.clientWidth - currentWidth - viewOffset.left,
                 bottom = window.document.documentElement.clientHeight - currentHeight - viewOffset.top - 2;
 
@@ -82,7 +107,7 @@ exports.default = {
         },
         changeColumnsWidth: function changeColumnsWidth(currentWidth) {
 
-            var differ = currentWidth - 2 - this.totalColumnsWidth,
+            var differ = currentWidth - this.totalColumnsWidth,
                 initResizeWidths = this.initTotalColumnsWidth,
                 rightViewBody = this.$el.querySelector('.v-table-rightview .v-table-body'),
                 rightViewFooter = this.$el.querySelector('.v-table-rightview .v-table-footer');
@@ -99,7 +124,7 @@ exports.default = {
             } else {
                 if (this.getTotalColumnsHeight() > this.internalHeight) {
 
-                    differ -= _utils2.default.getScrollbarWidth() + 1;
+                    differ -= _utils2.default.getScrollbarWidth();
                 }
 
                 if (this.hasTableFooter) {
@@ -110,6 +135,8 @@ exports.default = {
                     rightViewBody.style.overflowX = 'hidden';
                 }
             }
+
+            this.adjustHeight();
 
             if (currentWidth >= initResizeWidths || differ > 0) {
 
