@@ -2,10 +2,9 @@
  * 固定列
  *
  * */
-import utils from '../../src/utils/utils.js'
 
 export default {
-    computed:{
+    computed: {
         // 冻结的列集合
         frozenCols(){
             return this.internalColumns.filter(x => x.isFrozen === true);
@@ -65,29 +64,5 @@ export default {
         },
 
 
-    },
-
-    methods:{
-
-        // 获取滚动条高度（当没有设置高度或者设置的高度大于所有列高度之和时）
-        setInternalHeightByFrozen(totalColumnsHeight){
-
-            // 包含固定列
-            if (this.$el && this.hasFrozenColumn) {
-
-                this.$nextTick(x => {
-
-                    if (this.hasBodyHorizontalScrollBar()) {
-
-                        totalColumnsHeight += utils.getScrollbarWidth();
-
-                    }
-                    this.internalHeight = totalColumnsHeight;
-                })
-            }else{
-
-                this.internalHeight = totalColumnsHeight;
-            }
-        }
     }
 }

@@ -780,26 +780,25 @@
             // 当没设置宽度和高度时动态计算
             initView(){
 
-                var self = this;
                 // 当没有设置宽度计算总宽度
-                if (!(self.internalWidth && self.internalWidth > 0)) {
+                if (!(this.internalWidth && this.internalWidth > 0)) {
 
-                    if (self.columns && self.columns.length > 0) {
-                        self.internalWidth = self.columns.reduce((total, curr) => total + curr.width, 0);
+                    if (this.columns && this.columns.length > 0) {
+                        this.internalWidth = this.columns.reduce((total, curr) => total + curr.width, 0);
 
                     }
                 }
 
-                var totalColumnsHeight = self.getTotalColumnsHeight();
+                var totalColumnsHeight = this.getTotalColumnsHeight();
 
                 // 当没有设置高度时计算总高度 || 设置的高度大于所有列高度之和时
-                if (!(self.height && self.height > 0) || self.height > totalColumnsHeight) {
+                if (!(this.height && this.height > 0) || this.height > totalColumnsHeight) {
 
-                    this.setInternalHeightByFrozen(totalColumnsHeight);
+                    this.internalHeight = totalColumnsHeight;
 
-                } else if (self.height <= totalColumnsHeight) {
+                } else if (this.height <= totalColumnsHeight) {
 
-                    self.internalHeight = self.height;
+                    this.internalHeight = this.height;
                 }
             },
 
@@ -845,6 +844,8 @@
             this.resize();
         },
         mounted(){
+
+            this.adjustHeight();
 
             this.tableEmpty();
 
@@ -898,6 +899,8 @@
                     }
 
                     this.resize();
+
+                    this.adjustHeight();
                 },
                 deep: true
             }

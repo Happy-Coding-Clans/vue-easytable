@@ -37,6 +37,34 @@ export  default {
             this.getResizeColumns();
         },
 
+        adjustHeight(){
+
+            setTimeout(x => {
+
+                if (!this.$el || this.isVerticalResize) {
+                    return false;
+                }
+
+                var totalColumnsHeight = this.getTotalColumnsHeight(),
+                    scrollbarWidth = utils.getScrollbarWidth(),
+                    hasScrollBar = this.hasBodyHorizontalScrollBar();
+
+                // 当没有设置高度时计算总高度 || 设置的高度大于所有列高度之和时
+                if (!(this.height && this.height > 0) || this.height > totalColumnsHeight) {
+
+                    if (hasScrollBar && this.internalHeight + 2 < totalColumnsHeight + scrollbarWidth) {
+
+                        this.internalHeight += scrollbarWidth;
+
+                    } else if (!hasScrollBar) {
+
+                        this.internalHeight = totalColumnsHeight;
+                    }
+                }
+            })
+
+        },
+
         // 随着窗口改变表格自适应
         tableResize(){
 
@@ -119,6 +147,8 @@ export  default {
                     rightViewBody.style.overflowX = 'hidden';
                 }
             }
+
+            this.adjustHeight();
 
             if (currentWidth >= initResizeWidths || differ > 0) {
 

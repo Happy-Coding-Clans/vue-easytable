@@ -14,12 +14,15 @@ export default {
         // 判断右侧区域是否有横向滚动条
         hasBodyHorizontalScrollBar(){
 
-            return this.rightViewWidth < this.totalNoFrozenColumnsWidth;
+            if (this.$el){
 
-           /* var rightViewBody = this.$el.querySelector('.v-table-rightview .v-table-body'),
-                rightViewContent = this.$el.querySelector('.v-table-rightview .v-table-body .v-table-btable');
+                let rightViewBody = this.$el.querySelector('.v-table-rightview .v-table-body'),
+                    rightColumnsWidth = Math.round(this.totalNoFrozenColumnsWidth);
 
-            return rightViewBody.clientWidth + 2 < rightViewContent.clientWidth;*/
+                return rightViewBody.clientWidth + 2 < rightColumnsWidth;
+            }
+
+            return false;
         }
     }
 
