@@ -51,8 +51,8 @@ export  default {
                 minHeight = self.minHeight,
                 view = this.$el,
                 viewOffset = utils.getViewportOffset(view),
-                currentWidth = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().width : (view.clientWidth + 2),
-                currentHeight = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().height : (view.clientHeight + 2),
+                currentWidth = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().width : view.clientWidth,
+                currentHeight = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().height : view.clientHeight,
                 right = window.document.documentElement.clientWidth - currentWidth - viewOffset.left,
                 bottom = window.document.documentElement.clientHeight - currentHeight - viewOffset.top - 2; //
 
@@ -87,7 +87,7 @@ export  default {
         // 改变所有需要自适应列的宽度
         changeColumnsWidth(currentWidth){
 
-            var differ = currentWidth - 2 - this.totalColumnsWidth,
+            var differ = currentWidth - this.totalColumnsWidth,
                 initResizeWidths = this.initTotalColumnsWidth,
                 rightViewBody = this.$el.querySelector('.v-table-rightview .v-table-body'),
                 rightViewFooter = this.$el.querySelector('.v-table-rightview .v-table-footer');
@@ -95,11 +95,11 @@ export  default {
 
             if (currentWidth <= initResizeWidths && !this.isTableEmpty) {// 排除表格无数据的影响
 
-                if (this.hasTableFooter){
+                if (this.hasTableFooter) {
 
                     rightViewFooter.style.overflowX = 'scroll';
 
-                }else{
+                } else {
 
                     rightViewBody.style.overflowX = 'scroll';
                 }
@@ -108,13 +108,13 @@ export  default {
                 // 防止最后一列右距中时内容显示不全
                 if (this.getTotalColumnsHeight() > this.internalHeight) {
 
-                    differ -= (utils.getScrollbarWidth() + 1);
+                    differ -= utils.getScrollbarWidth();
                 }
 
-                if (this.hasTableFooter){
+                if (this.hasTableFooter) {
 
                     rightViewFooter.style.overflowX = 'hidden';
-                }else{
+                } else {
 
                     rightViewBody.style.overflowX = 'hidden';
                 }

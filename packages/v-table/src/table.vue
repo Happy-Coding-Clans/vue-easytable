@@ -94,7 +94,8 @@
                                         <span v-if="cellMergeContentType(rowIndex,col.field,item).isComponent">
                                             <component :rowData="item" :field="col.field ? col.field : ''"
                                                        :index="rowIndex"
-                                                       :is="cellMerge(rowIndex,item,col.field).componentName" @on-custom-comp="customCompFunc"></component>
+                                                       :is="cellMerge(rowIndex,item,col.field).componentName"
+                                                       @on-custom-comp="customCompFunc"></component>
                                         </span>
                                             <span v-else v-html="cellMerge(rowIndex,item,col.field).content"></span>
                                         </div>
@@ -107,7 +108,8 @@
                                         >
                                         <span v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
                                             <component :rowData="item" :field="col.field ? col.field : ''"
-                                                       :index="rowIndex" :is="col.componentName" @on-custom-comp="customCompFunc"></component>
+                                                       :index="rowIndex" :is="col.componentName"
+                                                       @on-custom-comp="customCompFunc"></component>
                                         </span>
                                             <span v-else-if="typeof col.formatter==='function'"
                                                   v-html="col.formatter(item,rowIndex,pagingIndex,col.field)"></span>
@@ -133,7 +135,8 @@
                      :style="{'width': leftViewWidth+'px'}">
                     <table class="v-table-ftable" cellspacing="0" cellpadding="0" border="0">
                         <tr class="v-table-row" v-for="(item,rowIndex) in frozenFooterCols">
-                            <td v-for="(col,colIndex) in item" :class="setFooterCellClassName(true,rowIndex,colIndex,col.content)">
+                            <td v-for="(col,colIndex) in item"
+                                :class="setFooterCellClassName(true,rowIndex,colIndex,col.content)">
                                 <div :style="{'height':footerRowHeight+'px','line-height':footerRowHeight+'px','width':col.width+'px','text-align':col.align}"
                                      :class="['v-table-body-cell',vTableBodyCell]"
                                      v-html="col.content"></div>
@@ -238,7 +241,8 @@
                                 >
                                 <span v-if="cellMergeContentType(rowIndex,col.field,item).isComponent">
                                     <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex"
-                                               :is="cellMerge(rowIndex,item,col.field).componentName" @on-custom-comp="customCompFunc"></component>
+                                               :is="cellMerge(rowIndex,item,col.field).componentName"
+                                               @on-custom-comp="customCompFunc"></component>
                                 </span>
                                     <span v-else v-html="cellMerge(rowIndex,item,col.field).content">
                                 </span>
@@ -278,7 +282,8 @@
                  :style="{'width': rightViewWidth+'px'}">
                 <table class="v-table-ftable" cellspacing="0" cellpadding="0" border="0">
                     <tr class="v-table-row" v-for="(item,rowIndex) in noFrozenFooterCols">
-                        <td v-for="(col,colIndex) in item" :class="setFooterCellClassName(false,rowIndex,colIndex,col.content)">
+                        <td v-for="(col,colIndex) in item"
+                            :class="setFooterCellClassName(false,rowIndex,colIndex,col.content)">
                             <div :style="{'height':footerRowHeight+'px','line-height':footerRowHeight+'px','width':col.width+'px','text-align':col.align}"
                                  :class="['v-table-body-cell',vTableBodyCell]"
                                  v-html="col.content"></div>
@@ -333,7 +338,7 @@
 
     export default {
         name: 'v-table',
-        mixins: [classesMixin,tableResizeMixin, frozenColumnsMixin, scrollControlMixin, sortControlMixin, tableEmptyMixin, dragWidthMixin, cellEditMixin, bodyCellMergeMixin, titleCellMergeMixin, checkboxSelectionMixin, tableFooterMixin, scrollBarControlMixin],
+        mixins: [classesMixin, tableResizeMixin, frozenColumnsMixin, scrollControlMixin, sortControlMixin, tableEmptyMixin, dragWidthMixin, cellEditMixin, bodyCellMergeMixin, titleCellMergeMixin, checkboxSelectionMixin, tableFooterMixin, scrollBarControlMixin],
         components: {tableEmpty, loading, VCheckboxGroup, VCheckbox},
         data(){
             return {
@@ -489,7 +494,7 @@
                 require: false,
                 default: 40
             },
-            columnWidthDrag:{
+            columnWidthDrag: {
                 type: Boolean,
                 default: false
             },
@@ -525,14 +530,17 @@
             // 左侧区域宽度
             leftViewWidth(){
                 var result = 0
-                if (this.frozenCols && this.frozenCols.length > 0) {
+                if (this.hasFrozenColumn) {
                     result = this.frozenCols.reduce((total, curr) => total + curr.width, 0);
                 }
                 return result
             },
             // 右侧区域宽度
             rightViewWidth(){
-                return this.internalWidth - this.leftViewWidth - 2;
+
+                let result = this.internalWidth - this.leftViewWidth;
+
+                return this.hasFrozenColumn ? result - 2 : result;
             },
 
             // 左侧、右侧区域高度
@@ -546,7 +554,7 @@
 
                 if (this.getFooterContainerHeight) {
 
-                    result -= this.getFooterContainerHeight + 1;
+                    result -= this.getFooterContainerHeight;
                 }
 
                 return result;
@@ -610,7 +618,7 @@
             // custom columns component event
             customCompFunc(params){
 
-                this.$emit('on-custom-comp',params);
+                this.$emit('on-custom-comp', params);
             },
 
             setRowHoverColor(isMouseenter){
@@ -755,7 +763,7 @@
                             if (self.isHorizontalResize) {
                                 console.error(self.errorMsg + "If you are using the isHorizontalResize property,Please set the value for each column's width");
                             } else {
-                                item.width = self.internalWidth - self.totalColumnsWidth - 2;
+                                item.width = self.internalWidth - self.totalColumnsWidth;
                             }
 
                         }
@@ -777,7 +785,7 @@
                 if (!(self.internalWidth && self.internalWidth > 0)) {
 
                     if (self.columns && self.columns.length > 0) {
-                        self.internalWidth = self.columns.reduce((total, curr) => total + curr.width, 0) + 2;
+                        self.internalWidth = self.columns.reduce((total, curr) => total + curr.width, 0);
 
                     }
                 }
