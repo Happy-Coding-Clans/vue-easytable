@@ -12,9 +12,10 @@
 | is-horizontal-resize | 是否开启横向自适应（开启后会随着窗口改变而改变、根据表格宽度自动填充），注意需要设置`style="width:100%"` | boolean | — | false |
 | is-vertical-resize | 是否开启纵向自适应（开启后会随着窗口改变而改变、根据表格高度自动填充）| boolean | — | false |
 | vertical-resize-offset | 垂直自适应的偏移量，一般是表格下方有分页时会用到，使其成为自适应的一部分 | number | — | - |
+| table-bg-color | 表格背景颜色 | string | — | #fff |
 | title-bg-color | 表头背景颜色 | string | — | #fff |
-| odd-bg-color | 表格体奇数行颜色 | string | — | #fff |
-| even-bg-color |表格体偶数行颜色 | string | — | #fff |
+| odd-bg-color | 表格体奇数行颜色 | string | — |  |
+| even-bg-color |表格体偶数行颜色 | string | — |  |
 | multiple-sort | 是否开启多列排序| boolean | — | true |
 | table-data | 表格数据集合 | - | — | array |
 | columns | 列的集合。具体参考columns | array | — | — |
@@ -24,7 +25,7 @@
 | error-content-height | 表体没数据时区域高度 | number | — | 50px |
 | is-loading |  是否正在加载,异步请求结束要显示的设置false | boolean | — | false |
 | loading-content | 加载时的内容 | html/string | — | loading 效果 |
-| row-hoverColor | 表格体行浮动背景色 | string | — | - |
+| row-hover-color | 表格体行浮动背景色 | string | — | - |
 | row-click-color | 表格体行点击后的背景色（行高亮） | string | — | — |
 | show-vertical-border | 是否显示垂直border,false 时列拖动失效 | boolean | — | true |
 | show-horizontal-border | 是否显示横向border | boolean | — | true |
