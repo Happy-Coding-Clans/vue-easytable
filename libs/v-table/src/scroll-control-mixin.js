@@ -63,6 +63,6 @@ exports.default = {
 
         _utils2.default.unbind(body1, 'mousewheel', this.body1Mousewheel);
         _utils2.default.unbind(body2, 'scroll', this.body2Scroll);
-        _utils2.default.bind(rightViewFooter, 'scroll', this.rightViewFooterScroll);
+        _utils2.default.unbind(rightViewFooter, 'scroll', this.rightViewFooterScroll);
     }
 };

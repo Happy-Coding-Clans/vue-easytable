@@ -1,5 +1,5 @@
 <template>
-    <div class="v-table-views v-table-class" :style="{'width': internalWidth+'px', 'height': getTableHeight+'px'}">
+    <div class="v-table-views v-table-class" :style="{'width': internalWidth+'px', 'height': getTableHeight+'px','background-color':tableBgColor}">
         <!--左列-->
         <template v-if="frozenCols.length > 0">
             <div class="v-table-leftview" :style="{'width':leftViewWidth+'px'}">
@@ -75,7 +75,7 @@
                             <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">
                                 <tbody>
                                 <tr v-for="(item,rowIndex) in internalTableData" class="v-table-row"
-                                    :style="[trBgColor(rowIndex+1),setRowHoverColor(item.__mouseenter__),setRowClickColor(item.__columnCellClick__)]"
+                                    :style="[trBgColor(rowIndex+1)]"
                                     @mouseenter.stop="handleMouseEnter(rowIndex)"
                                     @mouseleave.stop="handleMouseOut(rowIndex)">
                                     <td v-if="cellMergeInit(rowIndex,col.field,item,true)"
@@ -222,7 +222,7 @@
                     <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">
                         <tbody>
                         <tr :key="rowIndex" v-for="(item,rowIndex) in internalTableData" class="v-table-row"
-                            :style="[trBgColor(rowIndex+1),setRowHoverColor(item.__mouseenter__),setRowClickColor(item.__columnCellClick__)]"
+                            :style="[trBgColor(rowIndex+1)]"
                             @mouseenter.stop="handleMouseEnter(rowIndex)"
                             @mouseleave.stop="handleMouseOut(rowIndex)"
                         >
@@ -327,6 +327,7 @@
     import checkboxSelectionMixin from './checkbox-selection-mixin.js'
     import tableFooterMixin from './table-footer-mixin.js'
     import scrollBarControlMixin from './scroll-bar-control-mixin.js'
+    import tableRowMouseEventsMixin from './table-row-mouse-events-mixin'
 
     import utils from '../../src/utils/utils.js'
     import deepClone from '../../src/utils/deepClone.js'
@@ -338,7 +339,7 @@
 
     export default {
         name: 'v-table',
-        mixins: [classesMixin, tableResizeMixin, frozenColumnsMixin, scrollControlMixin, sortControlMixin, tableEmptyMixin, dragWidthMixin, cellEditMixin, bodyCellMergeMixin, titleCellMergeMixin, checkboxSelectionMixin, tableFooterMixin, scrollBarControlMixin],
+        mixins: [classesMixin, tableResizeMixin, frozenColumnsMixin, scrollControlMixin, sortControlMixin, tableEmptyMixin, dragWidthMixin, cellEditMixin, bodyCellMergeMixin, titleCellMergeMixin, checkboxSelectionMixin, tableFooterMixin, scrollBarControlMixin,tableRowMouseEventsMixin],
         components: {tableEmpty, loading, VCheckboxGroup, VCheckbox},
         data(){
             return {
@@ -363,7 +364,6 @@
             width: [Number, String],
             minWidth: {
                 type: Number,
-                require: false,
                 default: 50
             },
             height: {
@@ -372,24 +372,20 @@
             },
             minHeight: {
                 type: Number,
-                require: false,
                 default: 50
             },
             titleRowHeight: {
                 type: Number,
-                require: false,
                 default: 38
             },
             // 随着浏览器窗口改变，横向自适应
             isHorizontalResize: {
                 type: Boolean,
-                require: false,
                 default: false
             },
             // 随着浏览器窗口改变，垂直自适应
             isVerticalResize: {
                 type: Boolean,
-                require: false,
                 default: false
             },
 
@@ -399,32 +395,35 @@
                 default: 0
             },
 
+            tableBgColor:{
+                type: String,
+                default: '#fff'
+            },
+
             // 表头背景颜色
             titleBgColor: {
                 type: String,
-                require: false,
                 default: '#fff'
             },
 
             // 奇数行颜色
             oddBgColor: {
                 type: String,
-                default: '#fff'
+                default: ''
             },
             // 偶数行颜色
             evenBgColor: {
-                type: String
+                type: String,
+                default: ''
             },
             // 内容行高
             rowHeight: {
                 type: Number,
-                require: false,
                 default: 40
             },
             // 多列排序
             multipleSort: {
                 type: Boolean,
-                require: false,
                 default: true
             },
             columns: {
@@ -491,7 +490,6 @@
             },
             footerRowHeight: {
                 type: Number,
-                require: false,
                 default: 40
             },
             columnWidthDrag: {
@@ -621,22 +619,6 @@
                 this.$emit('on-custom-comp', params);
             },
 
-            setRowHoverColor(isMouseenter){
-
-                if (this.rowHoverColor && this.rowHoverColor.length > 0 && isMouseenter) {
-
-                    return {'background-color': this.rowHoverColor};
-                }
-            },
-
-            setRowClickColor(isColumnCellClick){
-
-                if (this.rowClickColor && this.rowClickColor.length > 0 && isColumnCellClick) {
-
-                    return {'background-color': this.rowClickColor};
-                }
-            },
-
             // 行颜色
             trBgColor(num){
                 if ((this.evenBgColor && this.evenBgColor.length > 0) || (this.oddBgColor && this.oddBgColor.length > 0)) {
@@ -644,38 +626,10 @@
                 }
             },
 
-            handleMouseEnter(rowIndex){
-
-                this.internalTableData[rowIndex].__mouseenter__ = true;
-                this.rowMouseEnter && this.rowMouseEnter(rowIndex);
-            },
-
-            handleMouseOut(rowIndex){
-
-                this.internalTableData[rowIndex].__mouseenter__ = false;
-                this.rowMouseLeave && this.rowMouseLeave(rowIndex);
-            },
-
             // 设置 column 列的样式
             setColumnCellClassName(rowIndex, field, rowData){
 
                 return this.columnCellClassName && this.columnCellClassName(rowIndex, field, rowData);
-            },
-
-            //点击数据行时，回调点击事件
-            onCellClick(rowIndex, rowData, column){
-                if (Array.isArray(this.internalTableData) && this.internalTableData.length > 0) {
-
-                    var clickCell = this.internalTableData.find(x => x.__columnCellClick__);
-
-                    if (clickCell) {
-                        clickCell.__columnCellClick__ = false;
-                    }
-
-                    this.internalTableData[rowIndex].__columnCellClick__ = true;
-                }
-
-                this.onRowClick && this.onRowClick(rowIndex, rowData, column);
             },
 
             // 获取每个表头列的宽度
@@ -804,17 +758,7 @@
 
             initInternalTableData(data){
 
-                var result = Array.isArray(this.tableData) ? deepClone(this.tableData) : [];
-
-                if (result.length > 0) {
-
-                    result.map(x => {
-                        x.__mouseenter__ = false;
-                        x.__columnCellClick__ = false;
-                    })
-                }
-
-                return result;
+                return Array.isArray(this.tableData) ? deepClone(this.tableData) : [];
             },
 
             // 对外暴露（隐藏显示切换时）
@@ -830,12 +774,12 @@
 
             this.internalTableData = this.initInternalTableData(this.tableData);
 
-            this.updateCheckboxGroupModel();
-
             if (Array.isArray(this.columns) && this.columns.length > 0) {
 
                 this.initColumns();
             }
+
+            this.updateCheckboxGroupModel();
 
             this.$nextTick(x => {
                 this.initView();

@@ -36,6 +36,15 @@ export default {
 
                 return this.checkboxGroupModel.indexOf(index) > -1;
             })
+        },
+
+        // 检测是否有
+        hasSelectionColumns(){
+
+            return this.internalColumns.some(x=>{
+
+                return x.type && x.type === 'selection';
+            })
         }
     },
 
@@ -151,6 +160,8 @@ export default {
 
         // 修改checkbox 选中状态(table.vue 中调用)
         updateCheckboxGroupModel(){
+
+            if (!this.hasSelectionColumns){return false;}
 
             this.checkboxGroupModel = [];
 

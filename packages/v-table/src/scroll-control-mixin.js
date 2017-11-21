@@ -60,6 +60,6 @@ export default {
 
         utils.unbind(body1, 'mousewheel', this.body1Mousewheel);
         utils.unbind(body2, 'scroll', this.body2Scroll);
-        utils.bind(rightViewFooter, 'scroll', this.rightViewFooterScroll);
+        utils.unbind(rightViewFooter, 'scroll', this.rightViewFooterScroll);
     }
 }

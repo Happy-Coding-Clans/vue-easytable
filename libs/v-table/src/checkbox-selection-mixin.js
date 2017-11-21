@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
             value: true
@@ -35,6 +35,13 @@ exports.default = {
                                     return this.internalTableData.filter(function (item, index) {
 
                                                 return _this.checkboxGroupModel.indexOf(index) > -1;
+                                    });
+                        },
+                        hasSelectionColumns: function hasSelectionColumns() {
+
+                                    return this.internalColumns.some(function (x) {
+
+                                                return x.type && x.type === 'selection';
                                     });
                         }
             },
@@ -132,6 +139,10 @@ exports.default = {
                         },
                         updateCheckboxGroupModel: function updateCheckboxGroupModel() {
                                     var _this3 = this;
+
+                                    if (!this.hasSelectionColumns) {
+                                                return false;
+                                    }
 
                                     this.checkboxGroupModel = [];
 
