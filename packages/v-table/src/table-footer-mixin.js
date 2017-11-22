@@ -1,8 +1,13 @@
 import deepClone from '../../src/utils/deepClone.js'
-import utils from '../../src/utils/utils.js'
 
 export default {
+    data(){
 
+        return {
+
+            footerTotalHeight:0
+        }
+    },
     computed: {
 
         frozenFooterCols(){
@@ -41,23 +46,6 @@ export default {
                 return this.footer.length * this.footerRowHeight;
             }
             return 0;
-        },
-
-        // 如果存在横向滚动条，则包含横向滚动条的宽度
-        getFooterContainerHeight(){
-
-            var result = 0;
-            if (this.getFooterTotalRowHeight > 0) {
-
-                result = this.getFooterTotalRowHeight;
-
-                if (this.hasBodyHorizontalScrollBar()) {
-
-                    result += utils.getScrollbarWidth();
-                }
-            }
-
-            return result;
         },
 
         hasTableFooter(){

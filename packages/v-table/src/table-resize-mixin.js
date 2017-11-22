@@ -37,32 +37,54 @@ export  default {
             this.getResizeColumns();
         },
 
-        adjustHeight(){
+        // 目前适用于有横向自适应功能的表格
+        adjustHeight(hasScrollBar){
 
-            setTimeout(x => {
+            if (!this.$el || this.isVerticalResize) {
+                return false;
+            }
 
-                if (!this.$el || this.isVerticalResize) {
-                    return false;
-                }
+            var totalColumnsHeight = this.getTotalColumnsHeight(),
+                scrollbarWidth = this.scrollbarWidth;
 
-                var totalColumnsHeight = this.getTotalColumnsHeight(),
-                    scrollbarWidth = utils.getScrollbarWidth(),
-                    hasScrollBar = this.hasBodyHorizontalScrollBar();
+            // 有footer 功能
+            if (this.hasTableFooter) {
 
-                // 当没有设置高度时计算总高度 || 设置的高度大于所有列高度之和时
-                if (!(this.height && this.height > 0) || this.height > totalColumnsHeight) {
+                if (hasScrollBar){
 
-                    if (hasScrollBar && this.internalHeight + 2 < totalColumnsHeight + scrollbarWidth) {
+                    if (this.footerTotalHeight === this.getFooterTotalRowHeight) {
 
-                        this.internalHeight += scrollbarWidth;
+                        this.footerTotalHeight += scrollbarWidth;
 
-                    } else if (!hasScrollBar) {
+                        if (!(this.height && this.height > 0)|| this.height > totalColumnsHeight){
+                            this.internalHeight += scrollbarWidth;
+                        }
+                    }
+                }else if(!hasScrollBar){
 
-                        this.internalHeight = totalColumnsHeight;
+                    if (this.footerTotalHeight > this.getFooterTotalRowHeight){
+
+                        this.footerTotalHeight -=scrollbarWidth;
+
+                        if (!(this.height && this.height > 0)|| this.height > totalColumnsHeight){
+
+                            this.internalHeight -=scrollbarWidth;
+                        }
                     }
                 }
-            })
+            }
+            // 当没有设置高度时计算总高度 || 设置的高度大于所有列高度之和时
+            else if (!(this.height && this.height > 0) || this.height > totalColumnsHeight) {
 
+                if (hasScrollBar && this.internalHeight + 2 < totalColumnsHeight + scrollbarWidth) {
+
+                    this.internalHeight += scrollbarWidth;
+
+                } else if (!hasScrollBar) {
+
+                    this.internalHeight = this.getTotalColumnsHeight();
+                }
+            }
         },
 
         // 随着窗口改变表格自适应
@@ -132,11 +154,13 @@ export  default {
                     rightViewBody.style.overflowX = 'scroll';
                 }
 
+                this.adjustHeight(true);
+
             } else {
                 // 防止最后一列右距中时内容显示不全
                 if (this.getTotalColumnsHeight() > this.internalHeight) {
 
-                    differ -= utils.getScrollbarWidth();
+                    differ -= this.scrollbarWidth;
                 }
 
                 if (this.hasTableFooter) {
@@ -146,9 +170,9 @@ export  default {
 
                     rightViewBody.style.overflowX = 'hidden';
                 }
-            }
 
-            this.adjustHeight();
+                this.adjustHeight(false);
+            }
 
             if (currentWidth >= initResizeWidths || differ > 0) {
 
@@ -162,7 +186,6 @@ export  default {
 
                     return item;
                 })
-
             }
         },
 
