@@ -186,6 +186,17 @@ export  default {
 
                     return item;
                 })
+            }else{ // 最小化有滚动条时
+
+                this.columns.forEach((col,index)=>{
+
+
+                    if (col.isResize){
+
+                        this.internalColumns[index].width = col.width;
+                    }
+
+                })
             }
         },
 
