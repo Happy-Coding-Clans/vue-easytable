@@ -42,9 +42,9 @@
                 ],
                 columns: [
                     {field: 'name',title: '姓名',width: 100,titleAlign: 'center',columnAlign: 'center',isFrozen: true},
-                    {field: 'amount1',title: '数值1',width: 260,titleAlign: 'center',columnAlign: 'center',isResize: true},
-                    {field: 'amount2',title: '数值2',width: 330,titleAlign: 'center',columnAlign: 'center',isResize: true},
-                    {field: 'amount3',title: '数值3',width: 308,titleAlign: 'center',columnAlign: 'left',isResize: true}
+                    {field: 'amount1',title: '数值1',width: 200,titleAlign: 'center',columnAlign: 'center',isResize: true},
+                    {field: 'amount2',title: '数值2',width: 230,titleAlign: 'center',columnAlign: 'center',isResize: true},
+                    {field: 'amount3',title: '数值3',width: 208,titleAlign: 'center',columnAlign: 'left',isResize: true}
                 ],
                 footer: []
                 /* 下面的数据结构
