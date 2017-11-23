@@ -38,30 +38,49 @@ exports.default = {
             this.initTotalColumnsWidth = this.totalColumnsWidth;
             this.getResizeColumns();
         },
-        adjustHeight: function adjustHeight() {
-            var _this = this;
+        adjustHeight: function adjustHeight(hasScrollBar) {
 
-            setTimeout(function (x) {
+            if (!this.$el || this.isVerticalResize) {
+                return false;
+            }
 
-                if (!_this.$el || _this.isVerticalResize) {
-                    return false;
-                }
+            var totalColumnsHeight = this.getTotalColumnsHeight(),
+                scrollbarWidth = this.scrollbarWidth;
 
-                var totalColumnsHeight = _this.getTotalColumnsHeight(),
-                    scrollbarWidth = _utils2.default.getScrollbarWidth(),
-                    hasScrollBar = _this.hasBodyHorizontalScrollBar();
+            if (this.hasTableFooter) {
 
-                if (!(_this.height && _this.height > 0) || _this.height > totalColumnsHeight) {
+                if (hasScrollBar) {
 
-                    if (hasScrollBar && _this.internalHeight + 2 < totalColumnsHeight + scrollbarWidth) {
+                    if (this.footerTotalHeight === this.getFooterTotalRowHeight) {
 
-                        _this.internalHeight += scrollbarWidth;
-                    } else if (!hasScrollBar) {
+                        this.footerTotalHeight += scrollbarWidth;
 
-                        _this.internalHeight = totalColumnsHeight;
+                        if (!(this.height && this.height > 0) || this.height > totalColumnsHeight) {
+                            this.internalHeight += scrollbarWidth;
+                        }
+                    }
+                } else if (!hasScrollBar) {
+
+                    if (this.footerTotalHeight > this.getFooterTotalRowHeight) {
+
+                        this.footerTotalHeight -= scrollbarWidth;
+
+                        if (!(this.height && this.height > 0) || this.height > totalColumnsHeight) {
+
+                            this.internalHeight -= scrollbarWidth;
+                        }
                     }
                 }
-            });
+            } else if (!(this.height && this.height > 0) || this.height > totalColumnsHeight) {
+
+                    if (hasScrollBar && this.internalHeight + 2 < totalColumnsHeight + scrollbarWidth) {
+
+                        this.internalHeight += scrollbarWidth;
+                    } else if (!hasScrollBar) {
+
+                        this.internalHeight = this.getTotalColumnsHeight();
+                    }
+                }
         },
         tableResize: function tableResize() {
 
@@ -92,20 +111,18 @@ exports.default = {
             }
 
             if (self.isHorizontalResize && self.internalWidth && self.internalWidth > 0 && currentWidth > 0) {
+                if (right <= 0 && currentWidth > minWidth || right >= 0 && currentWidth < maxWidth) {
 
-                var newTableWidth = this.$el.clientWidth;
+                    currentWidth = currentWidth > maxWidth ? maxWidth : currentWidth;
+                    currentWidth = currentWidth < minWidth ? minWidth : currentWidth;
 
-                if (right <= 0 && newTableWidth > minWidth || right >= 0 && newTableWidth < maxWidth) {
-
-                    newTableWidth = newTableWidth > maxWidth ? maxWidth : newTableWidth;
-                    newTableWidth = newTableWidth < minWidth ? minWidth : newTableWidth;
-
-                    self.internalWidth = newTableWidth;
-                    self.changeColumnsWidth(newTableWidth);
+                    self.internalWidth = currentWidth;
+                    self.changeColumnsWidth(currentWidth);
                 }
             }
         },
         changeColumnsWidth: function changeColumnsWidth(currentWidth) {
+            var _this = this;
 
             var differ = currentWidth - this.totalColumnsWidth,
                 initResizeWidths = this.initTotalColumnsWidth,
@@ -121,10 +138,12 @@ exports.default = {
 
                     rightViewBody.style.overflowX = 'scroll';
                 }
+
+                this.adjustHeight(true);
             } else {
                 if (this.getTotalColumnsHeight() > this.internalHeight) {
 
-                    differ -= _utils2.default.getScrollbarWidth();
+                    differ -= this.scrollbarWidth;
                 }
 
                 if (this.hasTableFooter) {
@@ -134,9 +153,14 @@ exports.default = {
 
                     rightViewBody.style.overflowX = 'hidden';
                 }
+
+                this.adjustHeight(false);
             }
 
-            this.adjustHeight();
+            if (this.hasFrozenColumn) {
+
+                differ -= 2;
+            }
 
             if (currentWidth >= initResizeWidths || differ > 0) {
 
@@ -149,6 +173,15 @@ exports.default = {
                     }
 
                     return item;
+                });
+            } else {
+
+                this.columns.forEach(function (col, index) {
+
+                    if (col.isResize) {
+
+                        _this.internalColumns[index].width = col.width;
+                    }
                 });
             }
         }

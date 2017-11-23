@@ -1,5 +1,6 @@
 <template>
-    <div class="v-table-views v-table-class" :style="{'width': internalWidth+'px', 'height': getTableHeight+'px','background-color':tableBgColor}">
+    <div class="v-table-views v-table-class"
+         :style="{'width': internalWidth+'px', 'height': getTableHeight+'px','background-color':tableBgColor}">
         <!--左列-->
         <template v-if="frozenCols.length > 0">
             <div class="v-table-leftview" :style="{'width':leftViewWidth+'px'}">
@@ -132,7 +133,7 @@
                 <!--footer-->
                 <div v-if="frozenFooterCols.length > 0"
                      :class="['v-table-footer','v-table-footer-class']"
-                     :style="{'width': leftViewWidth+'px'}">
+                     :style="{'width': leftViewWidth+'px','height':footerTotalHeight}">
                     <table class="v-table-ftable" cellspacing="0" cellpadding="0" border="0">
                         <tr class="v-table-row" v-for="(item,rowIndex) in frozenFooterCols">
                             <td v-for="(col,colIndex) in item"
@@ -279,7 +280,7 @@
             <!--footer-->
             <div v-if="noFrozenFooterCols.length > 0"
                  :class="['v-table-footer','v-table-footer-class',vTableFooter]"
-                 :style="{'width': rightViewWidth+'px'}">
+                 :style="{'width': rightViewWidth+'px','height':footerTotalHeight}">
                 <table class="v-table-ftable" cellspacing="0" cellpadding="0" border="0">
                     <tr class="v-table-row" v-for="(item,rowIndex) in noFrozenFooterCols">
                         <td v-for="(col,colIndex) in item"
@@ -339,7 +340,7 @@
 
     export default {
         name: 'v-table',
-        mixins: [classesMixin, tableResizeMixin, frozenColumnsMixin, scrollControlMixin, sortControlMixin, tableEmptyMixin, dragWidthMixin, cellEditMixin, bodyCellMergeMixin, titleCellMergeMixin, checkboxSelectionMixin, tableFooterMixin, scrollBarControlMixin,tableRowMouseEventsMixin],
+        mixins: [classesMixin, tableResizeMixin, frozenColumnsMixin, scrollControlMixin, sortControlMixin, tableEmptyMixin, dragWidthMixin, cellEditMixin, bodyCellMergeMixin, titleCellMergeMixin, checkboxSelectionMixin, tableFooterMixin, scrollBarControlMixin, tableRowMouseEventsMixin],
         components: {tableEmpty, loading, VCheckboxGroup, VCheckbox},
         data(){
             return {
@@ -395,7 +396,7 @@
                 default: 0
             },
 
-            tableBgColor:{
+            tableBgColor: {
                 type: String,
                 default: '#fff'
             },
@@ -538,7 +539,7 @@
 
                 let result = this.internalWidth - this.leftViewWidth;
 
-                return this.hasFrozenColumn ? result - 2 : result;
+                return this.hasFrozenColumn ? result -2 : result;
             },
 
             // 左侧、右侧区域高度
@@ -550,10 +551,7 @@
                     result = this.internalHeight - this.titleRowHeight;
                 }
 
-                if (this.getFooterContainerHeight) {
-
-                    result -= this.getFooterContainerHeight;
-                }
+                result -= this.footerTotalHeight;
 
                 return result;
             },
@@ -676,9 +674,9 @@
             // 获取所有列的总高度
             getTotalColumnsHeight(){
 
-                var titleTotalHeight = (this.internalTitleRows && this.internalTitleRows.length > 0) ? this.titleRowHeight * this.internalTitleRows.length : this.titleRowHeight
+                var titleTotalHeight = (this.internalTitleRows && this.internalTitleRows.length > 0) ? this.titleRowHeight * this.internalTitleRows.length : this.titleRowHeight;
 
-                titleTotalHeight += this.getFooterTotalRowHeight;
+                titleTotalHeight += this.footerTotalHeight;
 
                 return titleTotalHeight + this.internalTableData.length * this.rowHeight + 1;
             },
@@ -695,6 +693,8 @@
             initColumns(){
 
                 this.internalHeight = this.height;
+
+                this.footerTotalHeight = this.getFooterTotalRowHeight;
 
                 this.internalColumns = Array.isArray(this.columns) ? deepClone(this.columns) : [];
 
@@ -756,7 +756,7 @@
                 }
             },
 
-            initInternalTableData(data){
+            initInternalTableData(){
 
                 return Array.isArray(this.tableData) ? deepClone(this.tableData) : [];
             },
@@ -781,15 +781,13 @@
 
             this.updateCheckboxGroupModel();
 
-            this.$nextTick(x => {
-                this.initView();
-            })
-
-            this.resize();
+            this.initView();
         },
         mounted(){
 
-            this.adjustHeight();
+            this.setScrollbarWidth();
+
+            this.tableResize();
 
             this.tableEmpty();
 
@@ -843,8 +841,6 @@
                     }
 
                     this.resize();
-
-                    this.adjustHeight();
                 },
                 deep: true
             }

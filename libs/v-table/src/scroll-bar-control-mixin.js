@@ -3,7 +3,22 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _utils = require('../../src/utils/utils.js');
+
+var _utils2 = _interopRequireDefault(_utils);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = {
+    data: function data() {
+
+        return {
+
+            scrollbarWidth: 0
+        };
+    },
+
 
     methods: {
         controlScrollBar: function controlScrollBar() {
@@ -14,17 +29,9 @@ exports.default = {
                 body.style.overflowX = 'hidden';
             }
         },
-        hasBodyHorizontalScrollBar: function hasBodyHorizontalScrollBar() {
+        setScrollbarWidth: function setScrollbarWidth() {
 
-            if (this.$el) {
-
-                var rightViewBody = this.$el.querySelector('.v-table-rightview .v-table-body'),
-                    rightColumnsWidth = Math.round(this.totalNoFrozenColumnsWidth);
-
-                return rightViewBody.clientWidth + 2 < rightColumnsWidth;
-            }
-
-            return false;
+            this.scrollbarWidth = _utils2.default.getScrollbarWidth();
         }
     }
 
