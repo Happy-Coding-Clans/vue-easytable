@@ -50,25 +50,25 @@ export  default {
             // 有footer 功能
             if (this.hasTableFooter) {
 
-                if (hasScrollBar){
+                if (hasScrollBar) {
 
                     if (this.footerTotalHeight === this.getFooterTotalRowHeight) {
 
                         this.footerTotalHeight += scrollbarWidth;
 
-                        if (!(this.height && this.height > 0)|| this.height > totalColumnsHeight){
+                        if (!(this.height && this.height > 0) || this.height > totalColumnsHeight) {
                             this.internalHeight += scrollbarWidth;
                         }
                     }
-                }else if(!hasScrollBar){
+                } else if (!hasScrollBar) {
 
-                    if (this.footerTotalHeight > this.getFooterTotalRowHeight){
+                    if (this.footerTotalHeight > this.getFooterTotalRowHeight) {
 
-                        this.footerTotalHeight -=scrollbarWidth;
+                        this.footerTotalHeight -= scrollbarWidth;
 
-                        if (!(this.height && this.height > 0)|| this.height > totalColumnsHeight){
+                        if (!(this.height && this.height > 0) || this.height > totalColumnsHeight) {
 
-                            this.internalHeight -=scrollbarWidth;
+                            this.internalHeight -= scrollbarWidth;
                         }
                     }
                 }
@@ -120,16 +120,14 @@ export  default {
 
             if (self.isHorizontalResize && self.internalWidth && self.internalWidth > 0 && currentWidth > 0) {
 
-                var newTableWidth = this.$el.clientWidth;
-
                 // （窗口宽度缩小 && 当前宽度大于最小宽度） ||（窗口宽度扩大 && 当前宽度小于最大宽度）
-                if ((right <= 0 && newTableWidth > minWidth) || (right >= 0 && newTableWidth < maxWidth)) {
+                if ((right <= 0 && currentWidth > minWidth) || (right >= 0 && currentWidth < maxWidth)) {
 
-                    newTableWidth = newTableWidth > maxWidth ? maxWidth : newTableWidth;
-                    newTableWidth = newTableWidth < minWidth ? minWidth : newTableWidth;
+                    currentWidth = currentWidth > maxWidth ? maxWidth : currentWidth;
+                    currentWidth = currentWidth < minWidth ? minWidth : currentWidth;
 
-                    self.internalWidth = newTableWidth;
-                    self.changeColumnsWidth(newTableWidth);
+                    self.internalWidth = currentWidth;
+                    self.changeColumnsWidth(currentWidth);
                 }
             }
         },
@@ -174,6 +172,11 @@ export  default {
                 this.adjustHeight(false);
             }
 
+            if (this.hasFrozenColumn) {
+
+                differ -= 2;
+            }
+
             if (currentWidth >= initResizeWidths || differ > 0) {
 
                 var average = differ / this.resizeColumns.length;
@@ -186,16 +189,14 @@ export  default {
 
                     return item;
                 })
-            }else{ // 最小化有滚动条时
+            } else { // 最小化有滚动条时
 
-                this.columns.forEach((col,index)=>{
+                this.columns.forEach((col, index) => {
 
-
-                    if (col.isResize){
+                    if (col.isResize) {
 
                         this.internalColumns[index].width = col.width;
                     }
-
                 })
             }
         },

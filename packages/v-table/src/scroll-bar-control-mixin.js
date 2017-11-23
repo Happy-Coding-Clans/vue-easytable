@@ -20,20 +20,6 @@ export default {
             }
         },
 
-        // 判断右侧区域是否有横向滚动条
-        hasBodyHorizontalScrollBar(){
-
-            if (this.$el){
-
-                let rightViewBody = this.$el.querySelector('.v-table-rightview .v-table-body'),
-                    rightColumnsWidth = Math.round(this.totalNoFrozenColumnsWidth);
-
-                return rightViewBody.clientWidth + 2 < rightColumnsWidth;
-            }
-
-            return false;
-        },
-
         setScrollbarWidth(){
 
             this.scrollbarWidth = utils.getScrollbarWidth();

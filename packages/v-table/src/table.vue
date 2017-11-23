@@ -539,7 +539,7 @@
 
                 let result = this.internalWidth - this.leftViewWidth;
 
-                return this.hasFrozenColumn ? result - 2 : result;
+                return this.hasFrozenColumn ? result -2 : result;
             },
 
             // 左侧、右侧区域高度
@@ -840,7 +840,7 @@
                         }
                     }
 
-                    this.tableResize();
+                    this.resize();
                 },
                 deep: true
             }
