@@ -15,7 +15,9 @@ exports.default = {
         return {
             resizeColumns: [],
             initTotalColumnsWidth: 0,
-            hasContainerWidth: false };
+            hasContainerWidth: false,
+            containerWidthCheckTimer: null
+        };
     },
 
 
@@ -37,6 +39,19 @@ exports.default = {
 
             this.initTotalColumnsWidth = this.totalColumnsWidth;
             this.getResizeColumns();
+        },
+        containerWidthCheck: function containerWidthCheck() {
+            var _this = this;
+
+            this.containerWidthCheckTimer = setTimeout(function (x) {
+
+                var tableContainerWidth = _this.$el.clientWidth;
+
+                if (tableContainerWidth - _this.internalWidth > 3) {
+
+                    _this.tableResize();
+                }
+            });
         },
         adjustHeight: function adjustHeight(hasScrollBar) {
 
@@ -100,7 +115,7 @@ exports.default = {
                 right = window.document.documentElement.clientWidth - currentWidth - viewOffset.left,
                 bottom = window.document.documentElement.clientHeight - currentHeight - viewOffset.top - 2;
 
-            if (self.isVerticalResize && self.internalHeight && self.internalHeight > 0 && currentHeight > 0) {
+            if (self.isVerticalResize && currentHeight > 0) {
                 bottom -= self.VerticalResizeOffset;
                 if (bottom < 0 && currentHeight > minHeight || bottom > 0 && currentHeight < maxHeight) {
                     var currentHeight = currentHeight + bottom;
@@ -122,7 +137,7 @@ exports.default = {
             }
         },
         changeColumnsWidth: function changeColumnsWidth(currentWidth) {
-            var _this = this;
+            var _this2 = this;
 
             var differ = currentWidth - this.totalColumnsWidth,
                 initResizeWidths = this.initTotalColumnsWidth,
@@ -180,10 +195,12 @@ exports.default = {
 
                     if (col.isResize) {
 
-                        _this.internalColumns[index].width = col.width;
+                        _this2.internalColumns[index].width = col.width;
                     }
                 });
             }
+
+            this.containerWidthCheck();
         }
     },
 
@@ -194,5 +211,6 @@ exports.default = {
     beforeDestroy: function beforeDestroy() {
 
         _utils2.default.unbind(window, 'resize', this.tableResize);
+        clearTimeout(this.containerWidthCheckTimer);
     }
 };

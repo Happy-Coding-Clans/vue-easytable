@@ -359,6 +359,7 @@
                 maxWidth: 5000,
                 hasFrozenColumn: false,// 是否拥有固定列（false时最后一列的右边border无边框）
                 hasBindScrollEvent: false, // 是否绑定了滚动事件（防止多次注册）
+                resizeTimer:null
             }
         },
         props: {
@@ -748,7 +749,10 @@
                 // 当没有设置高度时计算总高度 || 设置的高度大于所有列高度之和时
                 if (!(this.height && this.height > 0) || this.height > totalColumnsHeight) {
 
-                    this.internalHeight = totalColumnsHeight;
+                    if (!this.isVerticalResize){
+
+                        this.internalHeight = totalColumnsHeight;
+                    }
 
                 } else if (this.height <= totalColumnsHeight) {
 
@@ -764,7 +768,7 @@
             // 对外暴露（隐藏显示切换时）
             resize(){
                 // fixed bug in IE9 #17
-                setTimeout(x => {
+                this.resizeTimer = setTimeout(x => {
 
                     this.tableResize();
                 })
@@ -844,6 +848,10 @@
                 },
                 deep: true
             }
+        },
+        beforeDestroy(){
+
+            clearTimeout(this.resizeTimer);
         }
     }
 </script>

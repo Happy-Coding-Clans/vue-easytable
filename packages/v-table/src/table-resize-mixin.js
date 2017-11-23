@@ -9,7 +9,8 @@ export  default {
         return {
             resizeColumns: [], // 所有需要自适应的列集合
             initTotalColumnsWidth: 0, // 所有列初始化时的总宽度
-            hasContainerWidth: false // 容器是否有宽度（display：none 时没有）
+            hasContainerWidth: false, // 容器是否有宽度（display：none 时没有）
+            containerWidthCheckTimer:null
         }
     },
 
@@ -35,6 +36,21 @@ export  default {
 
             this.initTotalColumnsWidth = this.totalColumnsWidth;
             this.getResizeColumns();
+        },
+
+        // 如果初始化时document上包含滚动条，渲染完document滚动条消失会造成表格宽度计算有误的问题
+        containerWidthCheck(){
+
+            this.containerWidthCheckTimer = setTimeout(x=>{
+
+                let tableContainerWidth = this.$el.clientWidth;
+
+                // 3为容错值
+                if (tableContainerWidth - this.internalWidth > 3){
+
+                    this.tableResize();
+                }
+            })
         },
 
         // 目前适用于有横向自适应功能的表格
@@ -107,7 +123,7 @@ export  default {
                 bottom = window.document.documentElement.clientHeight - currentHeight - viewOffset.top - 2; //
 
 
-            if (self.isVerticalResize && self.internalHeight && self.internalHeight > 0 && currentHeight > 0) {
+            if (self.isVerticalResize && currentHeight > 0) {
                 // （窗口高度缩小 && 当前高度大于最小高度） || （窗口高度扩大 && 当前高度小于最大高度）
                 bottom -= self.VerticalResizeOffset;
                 if ((bottom < 0 && currentHeight > minHeight) || (bottom > 0 && currentHeight < maxHeight)) {
@@ -199,6 +215,8 @@ export  default {
                     }
                 })
             }
+
+            this.containerWidthCheck();
         },
 
     },
@@ -210,6 +228,7 @@ export  default {
     beforeDestroy(){
 
         utils.unbind(window, 'resize', this.tableResize);
+        clearTimeout(this.containerWidthCheckTimer);
     }
 
 }
