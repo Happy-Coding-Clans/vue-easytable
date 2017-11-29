@@ -44,6 +44,9 @@
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
     "fs-extra": "^4.0.1",
+    "gulp": "^3.9.1",
+    "gulp-cssimport": "^6.0.0",
+    "gulp-cssmin": "^0.2.0",
     "highlight.js": "^9.12.0",
     "html-loader": "^0.4.3",
     "html-minify-loader": "^1.1.0",
@@ -68,9 +71,12 @@
   "scripts": {
     "build": "webpack --env.build",
     "dev": "webpack-dev-server --env.dev",
-    "build:libs": "node build/build-libs.js",
+    "build:remove": "node build/build-remove.js",
+    "build:js": "node build/build-js.js",
+    "build:copy": "node build/build-copy-files.js",
+    "build:themes": "gulp build --gulpfile build/build-themes.js",
     "build:umd": "webpack --env.umd --config build/webpack.umd.config.js",
-    "build:all": "npm run build:libs && npm run build:umd"
+    "build:all": "npm run build:remove && npm run build:copy && npm run build:js && npm run build:themes && npm run build:umd"
   },
   "bugs": {
     "url": "https://github.com/huangshuwei/vue-easytable/issues"
