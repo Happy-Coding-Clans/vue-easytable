@@ -1,7 +1,6 @@
 <template>
     <div style="width:100%;height: 100%;">
-        <div class="v-table-loading"></div>
-
+        <div class="v-table-loading" :style="{'opacity':loadingOpacity}"></div>
         <div class="v-table-loading-content" v-html="loadingContent"></div>
     </div>
 
@@ -14,28 +13,35 @@
 
             loadingContent: [String],
 
-            width: [Number, String],
+            loadingOpacity: [Number],
 
-            height: [Number, String]
+            titleRows: [Array],
 
+            titleRowHeight: [Number],
+
+            columns:[Array]
         },
 
         methods: {
 
             setPosition(){
 
-                var loadingEle = this.$el,
-                    loadingContentEle = this.$el.querySelector('.v-table-loading-content');
+                let loadingEle = this.$el,
+                    loadingContentEle = this.$el.querySelector('.v-table-loading-content'),
+                    titleHeight = 0;
 
-                loadingContentEle.style.top = (loadingEle.clientHeight / 2 - loadingContentEle.clientHeight / 2) + 'px';
+                if (this.columns && this.columns.length > 0){
 
+                    titleHeight = (this.titleRows && this.titleRows.length > 0) ? this.titleRows.length * this.titleRowHeight : this.titleRowHeight;
+                }
+
+                loadingContentEle.style.top = ((loadingEle.clientHeight + titleHeight) / 2 - loadingContentEle.clientHeight / 2) + 'px';
             }
-
         },
 
         mounted(){
 
-            this.$nextTick(x=>{
+            this.$nextTick(x => {
                 this.setPosition();
             })
         }

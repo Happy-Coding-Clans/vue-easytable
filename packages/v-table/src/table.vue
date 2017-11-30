@@ -296,16 +296,20 @@
 
         <table-empty v-if="isTableEmpty"
                      :width="internalWidth"
-                     :totalColumnsWidth="totalColumnsWidth"
-                     :contentHeight="errorContentHeight"
-                     :titleHeight="getTotalColumnsHeight()"
-                     :errorContent="errorContent"
-                     :isLoading="isLoading"
+                     :total-columns-width="totalColumnsWidth"
+                     :content-height="errorContentHeight"
+                     :title-height="getTotalColumnsHeight()"
+                     :error-content="errorContent"
+                     :is-loading="isLoading"
         ></table-empty>
 
         <loading
                 v-if="isLoading"
-                :loadingContent="loadingContent"
+                :loading-content="loadingContent"
+                :title-rows="internalTitleRows"
+                :title-row-height="titleRowHeight"
+                :columns="internalColumns"
+                :loading-opacity="loadingOpacity"
         ></loading>
 
         <!--列拖动时的线条-->
@@ -392,7 +396,7 @@
             },
 
             // 垂直自适应偏移量
-            VerticalResizeOffset: {
+            verticalResizeOffset: {
                 type: Number,
                 default: 0
             },
@@ -497,6 +501,10 @@
             columnWidthDrag: {
                 type: Boolean,
                 default: false
+            },
+            loadingOpacity:{
+                type: Number,
+                default: 0.6
             },
             // 表体单元格样式回调
             columnCellClassName: Function,
