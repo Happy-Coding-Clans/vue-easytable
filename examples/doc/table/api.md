@@ -24,7 +24,8 @@
 | error-content | 表体没数据时显示的内容 | html/string | — | ’暂无数据‘ |
 | error-content-height | 表体没数据时区域高度 | number | — | 50px |
 | is-loading |  是否正在加载,异步请求结束要显示的设置false | boolean | — | false |
-| loading-content | 加载时的内容 | html/string | — | loading 效果 |
+| loading-content | 加载时的内容 | html/string | — | loading 菊花效果 |
+| loading-opacity | 加载时透明度 | number | 0~1 | 0.6 |
 | row-hover-color | 表格体行浮动背景色 | string | — | - |
 | row-click-color | 表格体行点击后的背景色（行高亮） | string | — | — |
 | show-vertical-border | 是否显示垂直border,false 时列拖动失效 | boolean | — | true |
