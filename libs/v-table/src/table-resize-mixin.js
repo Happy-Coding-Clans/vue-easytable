@@ -116,8 +116,8 @@ exports.default = {
                 bottom = window.document.documentElement.clientHeight - currentHeight - viewOffset.top - 2;
 
             if (self.isVerticalResize && currentHeight > 0) {
-                bottom -= self.VerticalResizeOffset;
-                if (bottom < 0 && currentHeight > minHeight || bottom > 0 && currentHeight < maxHeight) {
+                bottom -= self.verticalResizeOffset;
+                if (currentHeight > minHeight || currentHeight < maxHeight) {
                     var currentHeight = currentHeight + bottom;
                     currentHeight = currentHeight > maxHeight ? maxHeight : currentHeight;
                     currentHeight = currentHeight < minHeight ? minHeight : currentHeight;
