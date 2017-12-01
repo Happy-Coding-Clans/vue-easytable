@@ -126,7 +126,7 @@ export  default {
             if (self.isVerticalResize && currentHeight > 0) {
                 // （窗口高度缩小 && 当前高度大于最小高度） || （窗口高度扩大 && 当前高度小于最大高度）
                 bottom -= self.verticalResizeOffset;
-                if ((bottom < 0 && currentHeight > minHeight) || (bottom > 0 && currentHeight < maxHeight)) {
+                if ((currentHeight > minHeight) || (currentHeight < maxHeight)) {
                     var currentHeight = currentHeight + bottom;// - self.VerticalResizeOffset;
                     currentHeight = currentHeight > maxHeight ? maxHeight : currentHeight;
                     currentHeight = currentHeight < minHeight ? minHeight : currentHeight;

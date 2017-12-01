@@ -6,6 +6,7 @@ import utils from '../../src/utils/utils.js'
 export default {
     methods: {
         body1Mousewheel(e){
+
             var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
 
             var e1 = e.originalEvent || window.event || e;
@@ -40,7 +41,13 @@ export default {
 
         // 列表中滚动条控制
         scrollControl(){
-            this.$nextTick(x => {
+
+            if (this.hasBindScrollEvent){return false;}
+
+            this.hasBindScrollEvent = true;
+
+            // 修复左侧固定列绑定滚动事件失效的问题
+            setTimeout(x => {
 
                 var body1 = this.$el.querySelector('.v-table-leftview .v-table-body');
                 var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');

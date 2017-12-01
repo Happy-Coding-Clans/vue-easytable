@@ -806,7 +806,6 @@
             if (Array.isArray(this.tableData) && this.tableData.length > 0) {
 
                 this.scrollControl();
-                this.hasBindScrollEvent = true;
             }
 
             this.singelSortInit();
@@ -843,13 +842,16 @@
 
                     this.tableEmpty();
 
+                    if (this.isTableEmpty){
+
+                        this.hasBindScrollEvent = false;
+                    }
+
                     if (Array.isArray(newVal) && newVal.length > 0) {
 
                         this.initView();
 
-                        if (!this.hasBindScrollEvent) {
-                            this.scrollControl();
-                        }
+                        this.scrollControl();
                     }
 
                     this.resize();
