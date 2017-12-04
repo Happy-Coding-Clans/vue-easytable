@@ -17,6 +17,7 @@
 | odd-bg-color | 表格体奇数行颜色 | string | — |  |
 | even-bg-color |表格体偶数行颜色 | string | — |  |
 | multiple-sort | 是否开启多列排序| boolean | — | true |
+| sort-always | 是否只在升序和倒序切换| boolean | — | false |
 | table-data | 表格数据集合 | - | — | array |
 | columns | 列的集合。具体参考columns | array | — | — |
 | title-rows | 复杂表头集合，只有复杂表头时用到。具体参考titleRows | array | — | — |
@@ -34,7 +35,6 @@
 | on-row-click | 行点击回调 | Function({rowIndex, rowData, field}) | — | — |
 | row-mouse-enter|  鼠标进入表体行的回调| Function({rowIndex}) | — | — |
 | row-mouse-leave|  鼠标离开表体行的回调|  Function({rowIndex}) | — | — |
-| sort-change|  点击排序回调| Function({sortColumns}) 参数说明: 参数为排序的列对象信息 | — | — |
 | ~~cell-edit-formatter~~ [1.3.5](https://github.com/huangshuwei/vue-easytable/releases/tag/1.3.5) 版本废除|  ~~单元格编辑格式化回调（可以对编辑的结果设置样式等）~~|  ~~Function({newValue,oldValue,rowIndex,rowData,field})~~| — | — |
 | cell-edit-done|  单元格编辑完成回调|  Function({newValue,oldValue,rowIndex,rowData,field})| — | — |
 | cell-merge|  单元格合并，支持rowSpan、colSpan,返回值`{colSpan: 1,rowSpan: 1,content: '',componentName: ''}`；合并后单元格的内容可以通过`content`（html）设置也可以通过,`componentName`（自定义组件）设置| Function({rowIndex,rowData,field})| — | — |
@@ -95,7 +95,8 @@ table 表格数据，通过设置一些特殊属性实现某些功能，如 chec
 
 | 事件名称 | 说明 | 回调参数 |
 |---------- |-------- |---------- |
-| on-custom-comp | 自定义列为组件时，子组件与父组件通讯的方法 | params （参数为任意类型，根据业务场景随意构造） |
+| on-custom-comp | 自定义列为组件时，子组件与父组件通讯的方法 | params （参数为任意类型，根据业务场景随意构造，由自定义组件设置） |
+| sort-change    | 点击排序回调| params 参数说明: 参数为排序的列对象信息，形如：```{name: "asc", tel: "desc"}``` | — | — |
 
 
 ### Table Methods
