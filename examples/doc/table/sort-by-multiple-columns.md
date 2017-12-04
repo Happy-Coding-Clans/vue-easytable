@@ -5,7 +5,7 @@
         <v-table
                is-horizontal-resize
                style="width:100%"
-               multipleSort
+               multiple-sort
                :columns="columns"
                :table-data="tableData"
                @sort-change="sortChange"
