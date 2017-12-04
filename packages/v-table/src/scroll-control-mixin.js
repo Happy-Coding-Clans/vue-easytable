@@ -42,9 +42,7 @@ export default {
         // 列表中滚动条控制
         scrollControl(){
 
-            if (this.hasBindScrollEvent){return false;}
-
-            this.hasBindScrollEvent = true;
+            this.unbindEvents();
 
             // 修复左侧固定列绑定滚动事件失效的问题
             setTimeout(x => {
@@ -57,16 +55,22 @@ export default {
                 utils.bind(body2, 'scroll', this.body2Scroll);
                 utils.bind(rightViewFooter, 'scroll', this.rightViewFooterScroll);
             })
+        },
+
+        unbindEvents(){
+
+            var body1 = this.$el.querySelector('.v-table-leftview .v-table-body');
+            var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
+            var rightViewFooter = this.$el.querySelector('.v-table-rightview .v-table-footer');
+
+            utils.unbind(body1, 'mousewheel', this.body1Mousewheel);
+            utils.unbind(body2, 'scroll', this.body2Scroll);
+            utils.unbind(rightViewFooter, 'scroll', this.rightViewFooterScroll);
         }
     },
 
     beforeDestroy(){
-        var body1 = this.$el.querySelector('.v-table-leftview .v-table-body');
-        var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
-        var rightViewFooter = this.$el.querySelector('.v-table-rightview .v-table-footer');
 
-        utils.unbind(body1, 'mousewheel', this.body1Mousewheel);
-        utils.unbind(body2, 'scroll', this.body2Scroll);
-        utils.unbind(rightViewFooter, 'scroll', this.rightViewFooterScroll);
+        this.unbindEvents();
     }
 }

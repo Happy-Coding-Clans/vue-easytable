@@ -44,11 +44,7 @@ exports.default = {
                         scrollControl: function scrollControl() {
                                     var _this = this;
 
-                                    if (this.hasBindScrollEvent) {
-                                                return false;
-                                    }
-
-                                    this.hasBindScrollEvent = true;
+                                    this.unbindEvents();
 
                                     setTimeout(function (x) {
 
@@ -60,16 +56,21 @@ exports.default = {
                                                 _utils2.default.bind(body2, 'scroll', _this.body2Scroll);
                                                 _utils2.default.bind(rightViewFooter, 'scroll', _this.rightViewFooterScroll);
                                     });
+                        },
+                        unbindEvents: function unbindEvents() {
+
+                                    var body1 = this.$el.querySelector('.v-table-leftview .v-table-body');
+                                    var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
+                                    var rightViewFooter = this.$el.querySelector('.v-table-rightview .v-table-footer');
+
+                                    _utils2.default.unbind(body1, 'mousewheel', this.body1Mousewheel);
+                                    _utils2.default.unbind(body2, 'scroll', this.body2Scroll);
+                                    _utils2.default.unbind(rightViewFooter, 'scroll', this.rightViewFooterScroll);
                         }
             },
 
             beforeDestroy: function beforeDestroy() {
-                        var body1 = this.$el.querySelector('.v-table-leftview .v-table-body');
-                        var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
-                        var rightViewFooter = this.$el.querySelector('.v-table-rightview .v-table-footer');
 
-                        _utils2.default.unbind(body1, 'mousewheel', this.body1Mousewheel);
-                        _utils2.default.unbind(body2, 'scroll', this.body2Scroll);
-                        _utils2.default.unbind(rightViewFooter, 'scroll', this.rightViewFooterScroll);
+                        this.unbindEvents();
             }
 };

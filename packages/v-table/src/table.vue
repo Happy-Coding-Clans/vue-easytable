@@ -362,7 +362,6 @@
                 // 最大宽度（当width:'max'时）
                 maxWidth: 5000,
                 hasFrozenColumn: false,// 是否拥有固定列（false时最后一列的右边border无边框）
-                hasBindScrollEvent: false, // 是否绑定了滚动事件（防止多次注册）
                 resizeTimer:null
             }
         },
@@ -841,11 +840,6 @@
                     this.updateCheckboxGroupModel();
 
                     this.tableEmpty();
-
-                    if (this.isTableEmpty){
-
-                        this.hasBindScrollEvent = false;
-                    }
 
                     if (Array.isArray(newVal) && newVal.length > 0) {
 
