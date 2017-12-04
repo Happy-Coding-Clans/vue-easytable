@@ -10,7 +10,7 @@ export  default {
             resizeColumns: [], // 所有需要自适应的列集合
             initTotalColumnsWidth: 0, // 所有列初始化时的总宽度
             hasContainerWidth: false, // 容器是否有宽度（display：none 时没有）
-            containerWidthCheckTimer:null
+            containerWidthCheckTimer: null
         }
     },
 
@@ -41,12 +41,12 @@ export  default {
         // 如果初始化时document上包含滚动条，渲染完document滚动条消失会造成表格宽度计算有误的问题
         containerWidthCheck(){
 
-            this.containerWidthCheckTimer = setTimeout(x=>{
+            this.containerWidthCheckTimer = setTimeout(x => {
 
                 let tableContainerWidth = this.$el.clientWidth;
 
                 // 3为容错值
-                if (tableContainerWidth - this.internalWidth > 3){
+                if (tableContainerWidth - this.internalWidth > 3) {
 
                     this.tableResize();
                 }
@@ -110,41 +110,36 @@ export  default {
                 return false;
             }
 
-            var self = this,
-                maxWidth = self.maxWidth,
-                maxHeight = (self.height && self.height > 0) ? self.height : this.getTotalColumnsHeight(),
-                minWidth = self.minWidth,
-                minHeight = self.minHeight,
+            var totalColumnsHeight = this.getTotalColumnsHeight(),
+                maxWidth = this.maxWidth,
+                maxHeight = (this.height && this.height > 0) ? this.height : totalColumnsHeight,
+                minWidth = this.minWidth,
+                minHeight = this.minHeight > totalColumnsHeight ? totalColumnsHeight : this.minHeight,
                 view = this.$el,
                 viewOffset = utils.getViewportOffset(view),
                 currentWidth = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().width : view.clientWidth,
                 currentHeight = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().height : view.clientHeight,
-                right = window.document.documentElement.clientWidth - currentWidth - viewOffset.left,
+                //right = window.document.documentElement.clientWidth - currentWidth - viewOffset.left,
                 bottom = window.document.documentElement.clientHeight - currentHeight - viewOffset.top - 2; //
 
 
-            if (self.isVerticalResize && currentHeight > 0) {
-                // （窗口高度缩小 && 当前高度大于最小高度） || （窗口高度扩大 && 当前高度小于最大高度）
-                bottom -= self.verticalResizeOffset;
-                if ((currentHeight > minHeight) || (currentHeight < maxHeight)) {
-                    var currentHeight = currentHeight + bottom;// - self.VerticalResizeOffset;
-                    currentHeight = currentHeight > maxHeight ? maxHeight : currentHeight;
-                    currentHeight = currentHeight < minHeight ? minHeight : currentHeight;
-                    self.internalHeight = currentHeight;
-                }
+            if (this.isVerticalResize && currentHeight > 0) {
+
+                bottom -= this.verticalResizeOffset;
+
+                currentHeight = currentHeight + bottom;// - this.VerticalResizeOffset;
+                currentHeight = currentHeight > maxHeight ? maxHeight : currentHeight;
+                currentHeight = currentHeight < minHeight ? minHeight : currentHeight;
+                this.internalHeight = currentHeight;
             }
 
-            if (self.isHorizontalResize && self.internalWidth && self.internalWidth > 0 && currentWidth > 0) {
+            if (this.isHorizontalResize && this.internalWidth && this.internalWidth > 0 && currentWidth > 0) {
 
-                // （窗口宽度缩小 && 当前宽度大于最小宽度） ||（窗口宽度扩大 && 当前宽度小于最大宽度）
-                if ((right <= 0 && currentWidth > minWidth) || (right >= 0 && currentWidth < maxWidth)) {
+                currentWidth = currentWidth > maxWidth ? maxWidth : currentWidth;
+                currentWidth = currentWidth < minWidth ? minWidth : currentWidth;
 
-                    currentWidth = currentWidth > maxWidth ? maxWidth : currentWidth;
-                    currentWidth = currentWidth < minWidth ? minWidth : currentWidth;
-
-                    self.internalWidth = currentWidth;
-                    self.changeColumnsWidth(currentWidth);
-                }
+                this.internalWidth = currentWidth;
+                this.changeColumnsWidth(currentWidth);
             }
         },
 

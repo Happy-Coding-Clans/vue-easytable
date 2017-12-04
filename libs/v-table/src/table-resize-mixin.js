@@ -103,37 +103,34 @@ exports.default = {
                 return false;
             }
 
-            var self = this,
-                maxWidth = self.maxWidth,
-                maxHeight = self.height && self.height > 0 ? self.height : this.getTotalColumnsHeight(),
-                minWidth = self.minWidth,
-                minHeight = self.minHeight,
+            var totalColumnsHeight = this.getTotalColumnsHeight(),
+                maxWidth = this.maxWidth,
+                maxHeight = this.height && this.height > 0 ? this.height : totalColumnsHeight,
+                minWidth = this.minWidth,
+                minHeight = this.minHeight > totalColumnsHeight ? totalColumnsHeight : this.minHeight,
                 view = this.$el,
                 viewOffset = _utils2.default.getViewportOffset(view),
                 currentWidth = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().width : view.clientWidth,
                 currentHeight = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().height : view.clientHeight,
-                right = window.document.documentElement.clientWidth - currentWidth - viewOffset.left,
                 bottom = window.document.documentElement.clientHeight - currentHeight - viewOffset.top - 2;
 
-            if (self.isVerticalResize && currentHeight > 0) {
-                bottom -= self.verticalResizeOffset;
-                if (currentHeight > minHeight || currentHeight < maxHeight) {
-                    var currentHeight = currentHeight + bottom;
-                    currentHeight = currentHeight > maxHeight ? maxHeight : currentHeight;
-                    currentHeight = currentHeight < minHeight ? minHeight : currentHeight;
-                    self.internalHeight = currentHeight;
-                }
+            if (this.isVerticalResize && currentHeight > 0) {
+
+                bottom -= this.verticalResizeOffset;
+
+                currentHeight = currentHeight + bottom;
+                currentHeight = currentHeight > maxHeight ? maxHeight : currentHeight;
+                currentHeight = currentHeight < minHeight ? minHeight : currentHeight;
+                this.internalHeight = currentHeight;
             }
 
-            if (self.isHorizontalResize && self.internalWidth && self.internalWidth > 0 && currentWidth > 0) {
-                if (right <= 0 && currentWidth > minWidth || right >= 0 && currentWidth < maxWidth) {
+            if (this.isHorizontalResize && this.internalWidth && this.internalWidth > 0 && currentWidth > 0) {
 
-                    currentWidth = currentWidth > maxWidth ? maxWidth : currentWidth;
-                    currentWidth = currentWidth < minWidth ? minWidth : currentWidth;
+                currentWidth = currentWidth > maxWidth ? maxWidth : currentWidth;
+                currentWidth = currentWidth < minWidth ? minWidth : currentWidth;
 
-                    self.internalWidth = currentWidth;
-                    self.changeColumnsWidth(currentWidth);
-                }
+                this.internalWidth = currentWidth;
+                this.changeColumnsWidth(currentWidth);
             }
         },
         changeColumnsWidth: function changeColumnsWidth(currentWidth) {
