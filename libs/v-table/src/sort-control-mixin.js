@@ -30,7 +30,14 @@ exports.default = {
                 collection.filter(function (column, index) {
 
                     if (self.enableSort(column.orderBy) && column.field === field) {
-                        column.orderBy = column.orderBy === 'asc' ? 'desc' : column.orderBy === 'desc' ? '' : 'asc';
+
+                        if (self.sortAlways) {
+
+                            column.orderBy = column.orderBy === 'asc' ? 'desc' : 'asc';
+                        } else {
+
+                            column.orderBy = column.orderBy === 'asc' ? 'desc' : column.orderBy === 'desc' ? '' : 'asc';
+                        }
                     }
 
                     if (!self.multipleSort) {

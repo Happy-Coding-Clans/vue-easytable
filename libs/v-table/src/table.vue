@@ -431,6 +431,11 @@
                 type: Boolean,
                 default: true
             },
+            // 只在 升序和倒序切换
+            sortAlways: {
+                type: Boolean,
+                default: false
+            },
             columns: {
                 type: Array,
                 require: true
