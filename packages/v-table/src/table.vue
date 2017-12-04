@@ -835,6 +835,8 @@
 
                 handler: function (newVal) {
 
+                    this.skipRenderCells = [];
+
                     this.internalTableData = this.initInternalTableData(newVal);
 
                     this.updateCheckboxGroupModel();
