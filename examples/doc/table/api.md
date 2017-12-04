@@ -3,9 +3,9 @@
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | width | table 宽度 | number | — | — |
-| min-width | table 最小宽度（当表格自适应时） | number |  —  |  —  |
+| min-width | table 最小宽度（当设置了横向自适应时生效） | number |  —  |  —  |
 | height | table 高度 | number | — | — |
-| min-height | table最小高度（当表格自适应时生效`resize()`） | - | — | — |
+| min-height | table最小高度（当设置了纵向自适应时生效） | number | — | — |
 | title-row-height | 表头行高 | number | — | 38px |
 | row-height | 表格体行高 | string | — | 40px |
 | footer-row-height | footer 每一行的高度 | number | — | 40 |
