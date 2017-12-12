@@ -32,7 +32,10 @@
 | show-vertical-border | 是否显示垂直border,false 时列拖动失效 | boolean | — | true |
 | show-horizontal-border | 是否显示横向border | boolean | — | true |
 | column-width-drag | 是否开启列宽拖动 | boolean | — | false |
-| on-row-click | 行点击回调 | Function({rowIndex, rowData, field}) | — | — |
+| row-click | 行单击回调 | Function({rowIndex, rowData, column}) | — | — |
+| row-dblclick | 行双击回调 | Function({rowIndex, rowData, column}) | — | — |
+| title-click | 表头单元格单击回调 | Function({title,field}) | — | — |
+| title-dblclick | 表头单元格双击回调 | Function({title,field}) | — | — |
 | row-mouse-enter|  鼠标进入表体行的回调| Function({rowIndex}) | — | — |
 | row-mouse-leave|  鼠标离开表体行的回调|  Function({rowIndex}) | — | — |
 | ~~cell-edit-formatter~~ [1.3.5](https://github.com/huangshuwei/vue-easytable/releases/tag/1.3.5) 版本废除|  ~~单元格编辑格式化回调（可以对编辑的结果设置样式等）~~|  ~~Function({newValue,oldValue,rowIndex,rowData,field})~~| — | — |
