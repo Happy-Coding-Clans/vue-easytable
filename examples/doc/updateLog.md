@@ -1,3 +1,11 @@
+2017-12-12
+1、table 组件 行单击事件名称由`on-row-click`改为`row-click`
+2、table 组件 添加行双击击回调 `row-dblclick` #63
+3、table 组件 添加表头单元格单击回调 `title-click`
+4、table 组件 添加表头单元格双击回调 `title-dblclick`
+5、table 组件 修复当有全选功能时，‘全不选择’没有触发回调的 bug #62
+6、table 组件 优化当存在分页时，页码改变滚动条回到顶部
+
 2017-12-4
 1、table 组件支持通过设置属性sort-always允许排序只在升序和降序切换 #57
 2、修复 table 组件 数据变化合并单元格样式错乱的问题 #60
