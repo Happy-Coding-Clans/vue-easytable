@@ -33,14 +33,25 @@ exports.default = {
 
                                     this.rowMouseLeave && this.rowMouseLeave(rowIndex);
                         },
-                        onCellClick: function onCellClick(rowIndex, rowData, column) {
+                        titleCellClick: function titleCellClick(field, title) {
 
+                                    this.titleClick && this.titleClick(title, field);
+                        },
+                        titleCellDblClick: function titleCellDblClick(field, title) {
+
+                                    this.titleDblclick && this.titleDblclick(title, field);
+                        },
+                        rowCellClick: function rowCellClick(rowIndex, rowData, column) {
                                     if (this.rowClickColor && this.rowClickColor.length > 0) {
 
                                                 this.clickRowIndex = rowIndex;
                                     }
 
-                                    this.onRowClick && this.onRowClick(rowIndex, rowData, column);
+                                    this.rowClick && this.rowClick(rowIndex, rowData, column);
+                        },
+                        rowCellDbClick: function rowCellDbClick(rowIndex, rowData, column) {
+
+                                    this.rowDblclick && this.rowDblclick(rowIndex, rowData, column);
                         },
                         getHighPriorityBgColor: function getHighPriorityBgColor(rowIndex) {
 

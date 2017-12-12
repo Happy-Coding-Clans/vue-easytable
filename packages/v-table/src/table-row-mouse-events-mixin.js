@@ -32,16 +32,38 @@ export default {
             this.rowMouseLeave && this.rowMouseLeave(rowIndex);
         },
 
+        /*
+         * 表头单元格单击事件
+         * 注意：如果为复杂表头，field 为数组
+         * */
+        titleCellClick(field,title){
 
-        //点击数据行时，回调点击事件
-        onCellClick(rowIndex, rowData, column){
+            this.titleClick && this.titleClick(title,field);
+        },
 
+        /*
+         * 表头单元格双击事件
+         * 注意：如果为复杂表头，field 为数组
+         * */
+        titleCellDblClick(field,title){
+
+            this.titleDblclick && this.titleDblclick(title,field);
+        },
+
+        // 行单击事件
+        rowCellClick(rowIndex, rowData, column){
             if (this.rowClickColor && this.rowClickColor.length > 0) {
 
                 this.clickRowIndex = rowIndex;
             }
 
-            this.onRowClick && this.onRowClick(rowIndex, rowData, column);
+            this.rowClick && this.rowClick(rowIndex, rowData, column);
+        },
+
+        // 行双击事件
+        rowCellDbClick(rowIndex, rowData, column){
+
+            this.rowDblclick && this.rowDblclick(rowIndex, rowData, column);
         },
 
         /*

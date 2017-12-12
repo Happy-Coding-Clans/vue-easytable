@@ -77,12 +77,12 @@ exports.default = {
                                                                         }
                                                             }
                                                 }
-
-                                                this.selectAll && this.selectAll(this.getCheckedTableRow);
                                     } else {
 
                                                 this.checkboxGroupModel = this.disabledChecked();
                                     }
+
+                                    this.selectAll && this.selectAll(this.getCheckedTableRow);
 
                                     this.setIndeterminateState();
                         },

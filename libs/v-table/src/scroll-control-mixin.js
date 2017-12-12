@@ -20,6 +20,16 @@ exports.default = {
                                     var scrollHeight = e1.wheelDelta || e1.detail * -1;
                                     body2.scrollTop = body2.scrollTop - scrollHeight;
                         },
+                        bodyScrollTop: function bodyScrollTop() {
+
+                                    var view2 = this.$el.querySelector('.v-table-rightview');
+                                    var body1 = this.$el.querySelector('.v-table-leftview .v-table-body');
+                                    var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
+
+                                    if (body1) {
+                                                body1.scrollTop = body2.scrollTop = 0;
+                                    }
+                        },
                         body2Scroll: function body2Scroll(e) {
 
                                     var view2 = this.$el.querySelector('.v-table-rightview');

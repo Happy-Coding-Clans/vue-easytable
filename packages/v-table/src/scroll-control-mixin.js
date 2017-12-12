@@ -14,6 +14,18 @@ export default {
             body2.scrollTop = (body2.scrollTop - scrollHeight);
         },
 
+        // 表格内容滚动到顶部（常用与分页）
+        bodyScrollTop(){
+
+            var view2 = this.$el.querySelector('.v-table-rightview');
+            var body1 = this.$el.querySelector('.v-table-leftview .v-table-body');
+            var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
+
+            if (body1) {
+                body1.scrollTop = body2.scrollTop = 0;
+            }
+        },
+
         body2Scroll(e){
 
             var view2 = this.$el.querySelector('.v-table-rightview');

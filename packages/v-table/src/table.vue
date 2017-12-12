@@ -16,9 +16,12 @@
                                     <td v-for="col in row"
                                         :class="[col.titleCellClassName]"
                                         :colspan="col.colspan" :rowspan="dealTitleRowspan(row,col.rowspan)"
+
                                         @mousemove.stop="handleTitleMouseMove($event,col.fields)"
                                         @mousedown.stop="handleTitleMouseDown($event)"
-                                        @mouseout.stop="handleTitleMouseOut()">
+                                        @mouseout.stop="handleTitleMouseOut()"
+                                        @click.stop="titleCellClick(col.fields,col.title);"
+                                        @dblclick.stop="titleCellDblClick(col.fields,col.title)">
                                         <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                              :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                             <span class="table-title">
@@ -40,7 +43,9 @@
                                         :class="[col.titleCellClassName]"
                                         @mousemove.stop="handleTitleMouseMove($event,col.field)"
                                         @mousedown.stop="handleTitleMouseDown($event)"
-                                        @mouseout.stop="handleTitleMouseOut()">
+                                        @mouseout.stop="handleTitleMouseOut()"
+                                        @click.stop="titleCellClick(col.field,col.title);"
+                                        @dblclick.stop="titleCellDblClick(col.field,col.title)">
                                         <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                              :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
                                                 <span class="table-title">
@@ -90,7 +95,8 @@
                                              :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                              :style="{'width':getRowWidthByColSpan(rowIndex,col.field,item)+'px','height': getRowHeightByRowSpan(rowIndex,col.field,item)+'px','line-height':getRowHeightByRowSpan(rowIndex,col.field,item)+'px','text-align':col.columnAlign}"
                                              :title="col.overflowTitle ?  overflowTitle(item,col) :''"
-                                             @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
+                                             @click.stop="rowCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
+                                             @dblclick.stop="rowCellDbClick(rowIndex,item,col)"
                                         >
                                         <span v-if="cellMergeContentType(rowIndex,col.field,item).isComponent">
                                             <component :rowData="item" :field="col.field ? col.field : ''"
@@ -105,7 +111,8 @@
                                              :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                              :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
                                              :title="col.overflowTitle ?  overflowTitle(item,col) :''"
-                                             @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
+                                             @click.stop="rowCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
+                                             @dblclick.stop="rowCellDbClick(rowIndex,item,col)"
                                         >
                                         <span v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
                                             <component :rowData="item" :field="col.field ? col.field : ''"
@@ -164,7 +171,9 @@
                                     :colspan="col.colspan" :rowspan="dealTitleRowspan(row,col.rowspan)"
                                     @mousemove.stop="handleTitleMouseMove($event,col.fields)"
                                     @mousedown.stop="handleTitleMouseDown($event)"
-                                    @mouseout.stop="handleTitleMouseOut()">
+                                    @mouseout.stop="handleTitleMouseOut()"
+                                    @click.stop="titleCellClick(col.fields,col.title);"
+                                    @dblclick.stop="titleCellDblClick(col.fields,col.title)">
                                     <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                          :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                         <span class="table-title">
@@ -187,7 +196,9 @@
                                     :class="[col.titleCellClassName]"
                                     @mousemove.stop="handleTitleMouseMove($event,col.field)"
                                     @mousedown.stop="handleTitleMouseDown($event)"
-                                    @mouseout.stop="handleTitleMouseOut()">
+                                    @mouseout.stop="handleTitleMouseOut()"
+                                    @click.stop="titleCellClick(col.field,col.title);"
+                                    @dblclick.stop="titleCellDblClick(col.field,col.title)">
                                     <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                          :style="{'width':col.width+'px','height':titleRowHeight+'px','text-align':col.titleAlign}">
                                         <span class="table-title">
@@ -238,7 +249,8 @@
                                      :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                      :style="{'width':getRowWidthByColSpan(rowIndex,col.field,item)+'px','height': getRowHeightByRowSpan(rowIndex,col.field,item)+'px','line-height':getRowHeightByRowSpan(rowIndex,col.field,item)+'px','text-align':col.columnAlign}"
                                      :title="col.overflowTitle ?  overflowTitle(item,col) :''"
-                                     @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
+                                     @click.stop="rowCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
+                                     @dblclick.stop="rowCellDbClick(rowIndex,item,col)"
                                 >
                                 <span v-if="cellMergeContentType(rowIndex,col.field,item).isComponent">
                                     <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex"
@@ -253,7 +265,8 @@
                                      :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                      :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
                                      :title="col.overflowTitle ?  overflowTitle(item,col) :''"
-                                     @click.stop="onCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
+                                     @click.stop="rowCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
+                                     @dblclick.stop="rowCellDbClick(rowIndex,item,col)"
                                 >
                                 <span v-if="typeof col.componentName ==='string' && col.componentName.length > 0">
                                     <component :rowData="item" :field="col.field ? col.field : ''" :index="rowIndex"
@@ -362,7 +375,7 @@
                 // 最大宽度（当width:'max'时）
                 maxWidth: 5000,
                 hasFrozenColumn: false,// 是否拥有固定列（false时最后一列的右边border无边框）
-                resizeTimer:null
+                resizeTimer: null
             }
         },
         props: {
@@ -506,7 +519,7 @@
                 type: Boolean,
                 default: false
             },
-            loadingOpacity:{
+            loadingOpacity: {
                 type: Number,
                 default: 0.6
             },
@@ -514,8 +527,14 @@
             columnCellClassName: Function,
             // footer单元格样式回调
             footerCellClassName: Function,
-            // 行点击回调
-            onRowClick: Function,
+            // 行单击回调
+            rowClick: Function,
+            // 行双击回调
+            rowDblclick: Function,
+            // 表头单元格单击回调
+            titleClick: Function,
+            // 表头单元格双击回调
+            titleDblclick: Function,
             // 鼠标进入行的回调
             rowMouseEnter: Function,
             // 鼠标离开行的回调
@@ -552,7 +571,7 @@
 
                 let result = this.internalWidth - this.leftViewWidth;
 
-                return this.hasFrozenColumn ? result -2 : result;
+                return this.hasFrozenColumn ? result - 2 : result;
             },
 
             // 左侧、右侧区域高度
@@ -761,7 +780,7 @@
                 // 当没有设置高度时计算总高度 || 设置的高度大于所有列高度之和时
                 if (!(this.height && this.height > 0) || this.height > totalColumnsHeight) {
 
-                    if (!this.isVerticalResize){
+                    if (!this.isVerticalResize) {
 
                         this.internalHeight = totalColumnsHeight;
                     }
@@ -856,6 +875,8 @@
                     }
 
                     this.resize();
+
+                    this.bodyScrollTop();
                 },
                 deep: true
             }
