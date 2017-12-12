@@ -8,7 +8,7 @@
             style="width:100%"
             :columns="columns"
             :table-data="tableData"
-            :on-row-click="onRowClick"
+            :row-click="rowClick"
             :column-cell-class-name="columnCellClass"
             row-hover-color="#eee"
             row-click-color="#edf7ff"
@@ -52,11 +52,8 @@
                       {field: 'tel', title: '手机号码', width: 150, titleAlign: 'center',columnAlign:'center',isResize:true},
                       {field: 'hobby', title: '爱好', width: 150, titleAlign: 'center',columnAlign:'center',titleCellClassName:'title-cell-class-name-test',isResize:true},
                       {field: 'address', title: '地址', width: 280, titleAlign: 'center',columnAlign:'left',isResize:true}
-                   ],
-                   onRowClick(rowIndex,rowData){
-                       console.log(rowIndex);
-                       console.log(rowData);
-                   }
+                   ]
+
             }
         },
         methods:{
@@ -80,6 +77,11 @@
 
                     return 'column-cell-class-name-test';
                 }
+            },
+
+            rowClick(rowIndex,rowData){
+               console.log(rowIndex);
+               console.log(rowData);
             }
         }
     }
