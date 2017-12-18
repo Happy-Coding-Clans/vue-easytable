@@ -860,7 +860,6 @@
                 handler: function (newVal) {
 
                     this.skipRenderCells = [];
-                    this.clickRowIndex = -1;
 
                     this.internalTableData = this.initInternalTableData(newVal);
 
@@ -880,6 +879,13 @@
                     this.bodyScrollTop();
                 },
                 deep: true
+            },
+            'pagingIndex':{
+
+                handler:function () {
+
+                    this.clickRowIndex = -1;
+                }
             }
         },
         beforeDestroy(){
