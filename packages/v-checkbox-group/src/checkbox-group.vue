@@ -49,7 +49,7 @@
 
                let children = utils.getChildCompsByName(this,'v-checkbox');
 
-               if (children.length > 1){
+               if (children.length > 0){
 
                    children.forEach(child =>{
 

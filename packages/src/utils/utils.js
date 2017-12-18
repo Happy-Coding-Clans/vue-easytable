@@ -162,7 +162,7 @@ export default {
 
         let childrens = context.$children;
 
-        while (childrens && childrens.length > 1) {
+        while (childrens && childrens.length > 0) {
 
             childrens.forEach(child=>{
 
