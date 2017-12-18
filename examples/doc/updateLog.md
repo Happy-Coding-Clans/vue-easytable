@@ -1,3 +1,6 @@
+2017-12-18 未发布
+1、table 组件 修复数据只有一条无法全选和取消全选的bug #65
+
 2017-12-12
 1、table 组件 行单击事件名称由`on-row-click`改为`row-click`
 2、table 组件 添加行双击击回调 `row-dblclick` #63
