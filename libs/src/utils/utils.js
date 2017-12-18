@@ -135,7 +135,7 @@ exports.default = {
 
         var childrens = context.$children;
 
-        while (childrens && childrens.length > 1) {
+        while (childrens && childrens.length > 0) {
 
             childrens.forEach(function (child) {
 
