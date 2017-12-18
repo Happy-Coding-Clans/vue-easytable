@@ -860,6 +860,7 @@
                 handler: function (newVal) {
 
                     this.skipRenderCells = [];
+                    this.clickRowIndex = -1;
 
                     this.internalTableData = this.initInternalTableData(newVal);
 
