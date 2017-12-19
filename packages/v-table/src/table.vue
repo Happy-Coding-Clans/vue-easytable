@@ -891,6 +891,20 @@
         beforeDestroy(){
 
             clearTimeout(this.resizeTimer);
+        } , mounted() {
+            const that = this;
+            /*挂载窗口大小重置事件调用table resize事件*/
+            EleResize.on(that.$el,function () {
+                if (!that.windowResizeTimer) {
+                    that.windowResizeTimer = true
+                    setTimeout(function () {
+                        that.resize();
+                        that.windowResizeTimer = false
+                    }, 100)
+                }
+
+            });
+
         }
     }
 </script>
