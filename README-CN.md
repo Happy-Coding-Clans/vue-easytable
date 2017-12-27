@@ -65,6 +65,9 @@ Vue.component(VPagination.name, VPagination)
 **支持 checkbox 多选功能**
 ![vue-easytable](./examples/images/selection.gif)
 
+## Discussion group
+通过添加微信进行群组讨论
+![weixin](./examples/images/weixin.png)
 
 ## License
 http://www.opensource.org/licenses/mit-license.php
