@@ -70,6 +70,7 @@ Vue.component(VPagination.name, VPagination)
 
 ## Discussion group
 Group discussion by adding WeChat
+
 ![weixin](./examples/images/weixin.png)
 
 ## License
