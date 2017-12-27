@@ -68,6 +68,10 @@ Vue.component(VPagination.name, VPagination)
 **Support checkbox selection**
 ![vue-easytable](./examples/images/selection.gif)
 
+## Discussion group
+Group discussion by adding WeChat
+![weixin](./examples/images/weixin.png)
+
 ## License
 http://www.opensource.org/licenses/mit-license.php
 
