@@ -22,8 +22,9 @@ export default {
             var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
 
             if (body1) {
-                body1.scrollTop = body2.scrollTop = 0;
+                body1.scrollTop = 0;
             }
+            body2.scrollTop = 0;
         },
 
         body2Scroll(e){

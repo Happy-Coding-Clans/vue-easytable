@@ -47,6 +47,17 @@ exports.default = {
             },
 
             methods: {
+                        isSelectionCol: function isSelectionCol(fileds) {
+
+                                    if (Array.isArray(fileds) && fileds.length === 1) {
+
+                                                return this.internalColumns.some(function (x) {
+                                                            return x.field === fileds[0] && x.type === 'selection';
+                                                });
+                                    }
+
+                                    return false;
+                        },
                         disabledChecked: function disabledChecked() {
 
                                     var result = [];

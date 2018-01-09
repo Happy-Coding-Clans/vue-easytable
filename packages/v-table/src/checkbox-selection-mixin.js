@@ -49,6 +49,16 @@ export default {
     },
 
     methods: {
+        // 检测复杂表头是否需要设置 checkbox
+        isSelectionCol(fileds){
+
+            if (Array.isArray(fileds) && fileds.length === 1){
+
+                return this.internalColumns.some(x => x.field === fileds[0] && x.type === 'selection')
+            }
+
+            return false;
+        },
 
         // 禁用已选中的复选框集合
         disabledChecked(){

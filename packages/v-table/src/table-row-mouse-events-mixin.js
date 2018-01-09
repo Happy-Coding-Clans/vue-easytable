@@ -131,6 +131,12 @@ export default {
                     newRow.style.backgroundColor = color;
                 }
             })
+        },
+
+        // 取消当前选中的行
+        clearCurrentRow(){
+
+            this.clickRowIndex = -1;
         }
 
     },

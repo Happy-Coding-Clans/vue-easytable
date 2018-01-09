@@ -115,6 +115,10 @@ exports.default = {
                                                             newRow.style.backgroundColor = color;
                                                 }
                                     });
+                        },
+                        clearCurrentRow: function clearCurrentRow() {
+
+                                    this.clickRowIndex = -1;
                         }
             },
 
