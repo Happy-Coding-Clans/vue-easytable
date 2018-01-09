@@ -1,4 +1,4 @@
-2017-12-19
+2017-12-19 已发布
 1、Table 组件修复没有固定列时，分页数据无法回到顶部的bug
 2、Table 组件修复复杂表头时，表头无checkbox bug
 3、Table 组件新增取消选中当前行的方法 `clearCurrentRow()`
