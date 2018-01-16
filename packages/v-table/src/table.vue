@@ -35,10 +35,10 @@
                                                      ></v-checkbox>
                                                 </span>
                                                 <span v-else v-html="col.title"></span>
-                                                <span @click.stop="sortControl(col.fields[0],col.orderBy)"
+                                                <span @click.stop="sortControl(col.fields[0])"
                                                       class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
-                                                        <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                        <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                                        <i :class='["v-icon-up-dir",getCurrentSort(col.field) ==="asc" ? "checked":""]'></i>
+                                                        <i :class='["v-icon-down-dir",getCurrentSort(col.field) ==="desc" ? "checked":""]'></i>
                                                 </span>
                                             </span>
                                         </div>
@@ -68,10 +68,10 @@
                                                          ></v-checkbox>
                                                     </span>
                                                     <span v-else v-html="col.title"></span>
-                                                    <span @click.stop="sortControl(col.field,col.orderBy)"
+                                                    <span @click.stop="sortControl(col.field)"
                                                           class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
-                                                            <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                            <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                                            <i :class='["v-icon-up-dir",getCurrentSort(col.field) ==="asc" ? "checked":""]'></i>
+                                                            <i :class='["v-icon-down-dir",getCurrentSort(col.field) ==="desc" ? "checked":""]'></i>
                                                     </span>
                                                 </span>
                                         </div>
@@ -188,10 +188,10 @@
                                         <span class="table-title">
                                             <span v-if="col.type === 'selection'"></span>
                                             <span v-else v-html="col.title"></span>
-                                            <span @click.stop="sortControl(col.fields[0],col.orderBy)"
+                                            <span @click.stop="sortControl(col.fields[0])"
                                                   class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
-                                                        <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                        <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                                        <i :class='["v-icon-up-dir",getCurrentSort(col.field) ==="asc" ? "checked":""]'></i>
+                                                        <i :class='["v-icon-down-dir",getCurrentSort(col.field) ==="desc" ? "checked":""]'></i>
                                             </span>
                                         </span>
                                     </div>
@@ -221,11 +221,11 @@
                                                  ></v-checkbox>
                                             </span>
                                             <span v-else v-html="col.title"></span>
-                                            <span @click.stop="sortControl(col.field,col.orderBy)"
+                                            <span @click.stop="sortControl(col.field)"
                                                   class="v-table-sort-icon"
                                                   v-if="enableSort(col.orderBy)">
-                                                        <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                        <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                                        <i :class='["v-icon-up-dir",getCurrentSort(col.field) ==="asc" ? "checked":""]'></i>
+                                                        <i :class='["v-icon-down-dir",getCurrentSort(col.field) ==="desc" ? "checked":""]'></i>
                                             </span>
                                         </span>
                                     </div>
@@ -597,24 +597,6 @@
                 return result;
             },
 
-            // 将复杂表头配置数据简单化
-            titleRowsToSortInfo(){
-                var result = [], self = this;
-
-                if (self.internalTitleRows.length > 0) {
-                    self.internalTitleRows.filter(function (row) {
-                        row.filter(function (column, index) {
-                            if (typeof column.orderBy === 'string' && column.fields.length === 1) {
-                                column.field = column.fields[0];
-                                result.push(column);
-                            }
-                        })
-                    })
-                }
-                return result;
-            },
-
-
             // 所有列的总宽度
             totalColumnsWidth(){
                 return this.internalColumns.reduce(function (total, curr) {
@@ -747,6 +729,8 @@
 
                 this.initTableWidth();
 
+                this.setSortColumns();
+
 
                 var self = this, widthCountCheck = 0;
 
@@ -840,7 +824,7 @@
                 this.scrollControl();
             }
 
-            this.singelSortInit();
+            //this.singleSortInit();
 
             this.controlScrollBar();
         },
