@@ -1,4 +1,4 @@
-:::demo 通过设置 `multiple-sort` 为 `true` 开启单个字段进行排序；<br>通过设置属性`sort-always`允许排序只在升序和降序切换；<br> 通过传入`sort-change`回调函数，获取当前排序的字段，将排序结果重新赋值`table-data`达到排序的目的；
+:::demo 通过设置 `multiple-sort` 为 `true` 开启多个字段进行排序；<br>通过设置属性`sort-always`允许排序只在升序和降序切换；<br> 通过传入`sort-change`回调函数，获取当前排序的字段，将排序结果重新赋值`table-data`达到排序的目的；
 ```html
 <template>
     <div>
