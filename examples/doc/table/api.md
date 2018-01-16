@@ -107,6 +107,7 @@ table 表格数据，通过设置一些特殊属性实现某些功能，如 chec
 |---------- |-------- |---------- |
 | resize| 强制自适应（当表格有显示隐藏切换时需要用到） | — |
 | clearCurrentRow| 取消当前选中的行 | — |
+| resetOrder| 重置还原排序规则，同时会触发`sort-change`事件 | — |
 
 
 ### Table Classes
