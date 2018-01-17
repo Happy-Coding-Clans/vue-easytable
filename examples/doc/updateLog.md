@@ -2,7 +2,7 @@
 1、Table 组件修复 checkbox 点击左上角位置偏移的 bug #82
 2、Table 组件新增还原排序规则的方法 `resetOrder()` #81
 3、Table 组件修复当表格配置了纵向自适应，出现横行滚动条的时候 ，横行滚动条高度会遮住最后一行表格 bug #79 #83
-4、Table 组件修复横向滚动条没有显示全的 bug #87
+4、Table 组件修复横向滚动条没有显示完整的 bug #87
 5、Table 组件修复自定义列通过 formatter 实现时，设置了overflowTitle 无效果的 bug #88
 
 
