@@ -120,8 +120,18 @@ export  default {
                 currentWidth = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().width : view.clientWidth,
                 currentHeight = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().height : view.clientHeight,
                 //right = window.document.documentElement.clientWidth - currentWidth - viewOffset.left,
-                bottom = window.document.documentElement.clientHeight - currentHeight - viewOffset.top - 2; //
+                bottom = window.document.documentElement.clientHeight - currentHeight - viewOffset.top - 2,
+                bottom2 = viewOffset.bottom2,
+                scrollbarWidth = this.scrollbarWidth;
 
+
+            if (this.isHorizontalResize && this.internalWidth && this.internalWidth > 0 && currentWidth > 0) {
+
+                currentWidth = currentWidth > maxWidth ? maxWidth : currentWidth;
+                currentWidth = currentWidth < minWidth ? minWidth : currentWidth;
+
+                this.internalWidth = currentWidth;
+            }
 
             if (this.isVerticalResize && currentHeight > 0) {
 
@@ -130,17 +140,30 @@ export  default {
                 currentHeight = currentHeight + bottom;// - this.VerticalResizeOffset;
                 currentHeight = currentHeight > maxHeight ? maxHeight : currentHeight;
                 currentHeight = currentHeight < minHeight ? minHeight : currentHeight;
+
+                // 有横向滚动条
+                if (currentWidth <= this.initTotalColumnsWidth && !this.isTableEmpty) {
+
+                    bottom2 -= this.verticalResizeOffset;
+
+                    let differ = bottom2 - totalColumnsHeight;
+
+                    // 高度足够（table 顶部到文档底部的高度 > 表格高度+滚动条高度）
+                    if (bottom2 > totalColumnsHeight + scrollbarWidth){
+
+                        currentHeight += scrollbarWidth;
+
+                    }
+                    else if(differ > 0 && differ < scrollbarWidth){
+
+                        currentHeight += differ;
+                    }
+                }
+
                 this.internalHeight = currentHeight;
             }
 
-            if (this.isHorizontalResize && this.internalWidth && this.internalWidth > 0 && currentWidth > 0) {
-
-                currentWidth = currentWidth > maxWidth ? maxWidth : currentWidth;
-                currentWidth = currentWidth < minWidth ? minWidth : currentWidth;
-
-                this.internalWidth = currentWidth;
-                this.changeColumnsWidth(currentWidth);
-            }
+            this.changeColumnsWidth(currentWidth);
         },
 
         // 改变所有需要自适应列的宽度

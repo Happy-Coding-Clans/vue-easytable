@@ -1,7 +1,14 @@
 import settings from '../settings/settings'
 
 export default {
-    // 获取当前元素的left、top偏移
+    /*获取当前元素的left、top偏移
+    *   left：元素最左侧距离文档左侧的距离
+    *   top:元素最顶端距离文档顶端的距离
+    *   right:元素最右侧距离文档右侧的距离
+    *   bottom：元素最底端距离文档底端的距离
+    *   right2：元素最左侧距离文档右侧的距离
+    *   bottom2：元素最底端距离文档最底部的距离
+    * */
     getViewportOffset(element) {
 
         var doc = document.documentElement,
@@ -19,7 +26,9 @@ export default {
             left: left,
             top: top,
             right: window.document.documentElement.clientWidth - box.width - left,
-            bottom: window.document.documentElement.clientHeight - box.height - top
+            bottom: window.document.documentElement.clientHeight - box.height - top,
+            right2: window.document.documentElement.clientWidth - left,
+            bottom2: window.document.documentElement.clientHeight - top,
         }
     },
 
@@ -99,7 +108,7 @@ export default {
     // 是否包含横向滚动条
     hasHorizontalScrollBar(ele){
 
-        if (ele){
+        if (ele) {
 
             return ele.scrollWidth > ele.clientWidth;
         }
@@ -108,7 +117,7 @@ export default {
     // 是否包含纵向滚动条
     hasVerticalScrollBar(ele){
 
-        if (ele){
+        if (ele) {
 
             return ele.scrollHeight > ele.clientHeight;
         }
@@ -140,14 +149,14 @@ export default {
     },
 
     // 获取父组件信息
-    getParentCompByName(context,name){
+    getParentCompByName(context, name){
 
         let parent = context.$parent;
 
         while (parent) {
             if (parent.$options.name !== name) {
                 parent = parent.$parent;
-            }else{
+            } else {
                 return parent;
             }
         }
@@ -156,7 +165,7 @@ export default {
     },
 
     // 获取多个符合条件的子组件信息
-    getChildCompsByName(context,name){
+    getChildCompsByName(context, name){
 
         let result = [];
 
@@ -164,11 +173,11 @@ export default {
 
         while (childrens && childrens.length > 0) {
 
-            childrens.forEach(child=>{
+            childrens.forEach(child => {
 
                 childrens = child.$children ? child.$children : null;
 
-                if (child.$options.name === name){
+                if (child.$options.name === name) {
 
                     result.push(child);
                 }
