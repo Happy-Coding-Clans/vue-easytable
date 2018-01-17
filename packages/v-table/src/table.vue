@@ -103,7 +103,7 @@
                                         <div v-if="isCellMergeRender(rowIndex,col.field,item)"
                                              :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                              :style="{'width':getRowWidthByColSpan(rowIndex,col.field,item)+'px','height': getRowHeightByRowSpan(rowIndex,col.field,item)+'px','line-height':getRowHeightByRowSpan(rowIndex,col.field,item)+'px','text-align':col.columnAlign}"
-                                             :title="col.overflowTitle ?  overflowTitle(item,col) :''"
+                                             :title="col.overflowTitle ?  overflowTitle(item,rowIndex,col) :''"
                                              @click.stop="rowCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
                                              @dblclick.stop="rowCellDbClick(rowIndex,item,col)"
                                         >
@@ -119,7 +119,7 @@
                                         <div v-else
                                              :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                              :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
-                                             :title="col.overflowTitle ?  overflowTitle(item,col) :''"
+                                             :title="col.overflowTitle ?  overflowTitle(item,rowIndex,col) :''"
                                              @click.stop="rowCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
                                              @dblclick.stop="rowCellDbClick(rowIndex,item,col)"
                                         >
@@ -257,7 +257,7 @@
                                 <div v-if="isCellMergeRender(rowIndex,col.field,item)"
                                      :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                      :style="{'width':getRowWidthByColSpan(rowIndex,col.field,item)+'px','height': getRowHeightByRowSpan(rowIndex,col.field,item)+'px','line-height':getRowHeightByRowSpan(rowIndex,col.field,item)+'px','text-align':col.columnAlign}"
-                                     :title="col.overflowTitle ?  overflowTitle(item,col) :''"
+                                     :title="col.overflowTitle ?  overflowTitle(item,rowIndex,col) :''"
                                      @click.stop="rowCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
                                      @dblclick.stop="rowCellDbClick(rowIndex,item,col)"
                                 >
@@ -273,7 +273,7 @@
                                 <div v-else
                                      :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                      :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
-                                     :title="col.overflowTitle ?  overflowTitle(item,col) :''"
+                                     :title="col.overflowTitle ?  overflowTitle(item,rowIndex,col) :''"
                                      @click.stop="rowCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
                                      @dblclick.stop="rowCellDbClick(rowIndex,item,col)"
                                 >
@@ -679,10 +679,11 @@
             },
 
             // 超出的title提示
-            overflowTitle(row, col){
+            overflowTitle(row, rowIndex,col){
+
                 var result = '';
                 if (typeof col.formatter === 'function') {
-                    var val = col.formatter(row, -1);
+                    var val = col.formatter(row, rowIndex,this.pagingIndex,col.field);
                     // 如果是html 不处理
                     if (utils.isHtml(val)) {
                         result = '';
