@@ -592,7 +592,8 @@
                     result = this.internalHeight - this.titleRowHeight;
                 }
 
-                result -= this.footerTotalHeight;
+                // 1px: 当有滚动条时，使滚动条显示全
+                result -= (this.footerTotalHeight+1);
 
                 return result;
             },
