@@ -35,10 +35,10 @@
                                                      ></v-checkbox>
                                                 </span>
                                                 <span v-else v-html="col.title"></span>
-                                                <span @click.stop="sortControl(col.fields[0],col.orderBy)"
+                                                <span @click.stop="sortControl(col.fields[0])"
                                                       class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
-                                                        <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                        <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                                        <i :class='["v-icon-up-dir",getCurrentSort(col.field) ==="asc" ? "checked":""]'></i>
+                                                        <i :class='["v-icon-down-dir",getCurrentSort(col.field) ==="desc" ? "checked":""]'></i>
                                                 </span>
                                             </span>
                                         </div>
@@ -68,10 +68,10 @@
                                                          ></v-checkbox>
                                                     </span>
                                                     <span v-else v-html="col.title"></span>
-                                                    <span @click.stop="sortControl(col.field,col.orderBy)"
+                                                    <span @click.stop="sortControl(col.field)"
                                                           class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
-                                                            <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                            <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                                            <i :class='["v-icon-up-dir",getCurrentSort(col.field) ==="asc" ? "checked":""]'></i>
+                                                            <i :class='["v-icon-down-dir",getCurrentSort(col.field) ==="desc" ? "checked":""]'></i>
                                                     </span>
                                                 </span>
                                         </div>
@@ -103,7 +103,7 @@
                                         <div v-if="isCellMergeRender(rowIndex,col.field,item)"
                                              :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                              :style="{'width':getRowWidthByColSpan(rowIndex,col.field,item)+'px','height': getRowHeightByRowSpan(rowIndex,col.field,item)+'px','line-height':getRowHeightByRowSpan(rowIndex,col.field,item)+'px','text-align':col.columnAlign}"
-                                             :title="col.overflowTitle ?  overflowTitle(item,col) :''"
+                                             :title="col.overflowTitle ?  overflowTitle(item,rowIndex,col) :''"
                                              @click.stop="rowCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
                                              @dblclick.stop="rowCellDbClick(rowIndex,item,col)"
                                         >
@@ -119,7 +119,7 @@
                                         <div v-else
                                              :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                              :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
-                                             :title="col.overflowTitle ?  overflowTitle(item,col) :''"
+                                             :title="col.overflowTitle ?  overflowTitle(item,rowIndex,col) :''"
                                              @click.stop="rowCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
                                              @dblclick.stop="rowCellDbClick(rowIndex,item,col)"
                                         >
@@ -188,10 +188,10 @@
                                         <span class="table-title">
                                             <span v-if="col.type === 'selection'"></span>
                                             <span v-else v-html="col.title"></span>
-                                            <span @click.stop="sortControl(col.fields[0],col.orderBy)"
+                                            <span @click.stop="sortControl(col.fields[0])"
                                                   class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
-                                                        <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                        <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                                        <i :class='["v-icon-up-dir",getCurrentSort(col.field) ==="asc" ? "checked":""]'></i>
+                                                        <i :class='["v-icon-down-dir",getCurrentSort(col.field) ==="desc" ? "checked":""]'></i>
                                             </span>
                                         </span>
                                     </div>
@@ -221,11 +221,11 @@
                                                  ></v-checkbox>
                                             </span>
                                             <span v-else v-html="col.title"></span>
-                                            <span @click.stop="sortControl(col.field,col.orderBy)"
+                                            <span @click.stop="sortControl(col.field)"
                                                   class="v-table-sort-icon"
                                                   v-if="enableSort(col.orderBy)">
-                                                        <i :class='["v-icon-up-dir",col.orderBy ==="asc" ? "checked":""]'></i>
-                                                        <i :class='["v-icon-down-dir",col.orderBy ==="desc" ? "checked":""]'></i>
+                                                        <i :class='["v-icon-up-dir",getCurrentSort(col.field) ==="asc" ? "checked":""]'></i>
+                                                        <i :class='["v-icon-down-dir",getCurrentSort(col.field) ==="desc" ? "checked":""]'></i>
                                             </span>
                                         </span>
                                     </div>
@@ -257,7 +257,7 @@
                                 <div v-if="isCellMergeRender(rowIndex,col.field,item)"
                                      :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                      :style="{'width':getRowWidthByColSpan(rowIndex,col.field,item)+'px','height': getRowHeightByRowSpan(rowIndex,col.field,item)+'px','line-height':getRowHeightByRowSpan(rowIndex,col.field,item)+'px','text-align':col.columnAlign}"
-                                     :title="col.overflowTitle ?  overflowTitle(item,col) :''"
+                                     :title="col.overflowTitle ?  overflowTitle(item,rowIndex,col) :''"
                                      @click.stop="rowCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
                                      @dblclick.stop="rowCellDbClick(rowIndex,item,col)"
                                 >
@@ -273,7 +273,7 @@
                                 <div v-else
                                      :class="['v-table-body-cell',showVerticalBorder ? 'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                      :style="{'width':col.width+'px','height': rowHeight+'px','line-height':rowHeight+'px','text-align':col.columnAlign}"
-                                     :title="col.overflowTitle ?  overflowTitle(item,col) :''"
+                                     :title="col.overflowTitle ?  overflowTitle(item,rowIndex,col) :''"
                                      @click.stop="rowCellClick(rowIndex,item,col);cellEditClick($event,col.isEdit,item,col.field,rowIndex)"
                                      @dblclick.stop="rowCellDbClick(rowIndex,item,col)"
                                 >
@@ -592,28 +592,11 @@
                     result = this.internalHeight - this.titleRowHeight;
                 }
 
-                result -= this.footerTotalHeight;
+                // 1px: 当有滚动条时，使滚动条显示全
+                result -= (this.footerTotalHeight+1);
 
                 return result;
             },
-
-            // 将复杂表头配置数据简单化
-            titleRowsToSortInfo(){
-                var result = [], self = this;
-
-                if (self.internalTitleRows.length > 0) {
-                    self.internalTitleRows.filter(function (row) {
-                        row.filter(function (column, index) {
-                            if (typeof column.orderBy === 'string' && column.fields.length === 1) {
-                                column.field = column.fields[0];
-                                result.push(column);
-                            }
-                        })
-                    })
-                }
-                return result;
-            },
-
 
             // 所有列的总宽度
             totalColumnsWidth(){
@@ -696,10 +679,11 @@
             },
 
             // 超出的title提示
-            overflowTitle(row, col){
+            overflowTitle(row, rowIndex,col){
+
                 var result = '';
                 if (typeof col.formatter === 'function') {
-                    var val = col.formatter(row, -1);
+                    var val = col.formatter(row, rowIndex,this.pagingIndex,col.field);
                     // 如果是html 不处理
                     if (utils.isHtml(val)) {
                         result = '';
@@ -746,6 +730,8 @@
                 this.hasFrozenColumn = this.internalColumns.some(x => x.isFrozen);
 
                 this.initTableWidth();
+
+                this.setSortColumns();
 
 
                 var self = this, widthCountCheck = 0;
@@ -840,7 +826,7 @@
                 this.scrollControl();
             }
 
-            this.singelSortInit();
+            //this.singleSortInit();
 
             this.controlScrollBar();
         },

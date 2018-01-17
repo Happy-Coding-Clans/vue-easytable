@@ -27,7 +27,9 @@ exports.default = {
             left: left,
             top: top,
             right: window.document.documentElement.clientWidth - box.width - left,
-            bottom: window.document.documentElement.clientHeight - box.height - top
+            bottom: window.document.documentElement.clientHeight - box.height - top,
+            right2: window.document.documentElement.clientWidth - left,
+            bottom2: window.document.documentElement.clientHeight - top
         };
     },
     bind: function bind(elem, event, handler) {

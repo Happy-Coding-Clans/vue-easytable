@@ -112,7 +112,17 @@ exports.default = {
                 viewOffset = _utils2.default.getViewportOffset(view),
                 currentWidth = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().width : view.clientWidth,
                 currentHeight = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().height : view.clientHeight,
-                bottom = window.document.documentElement.clientHeight - currentHeight - viewOffset.top - 2;
+                bottom = window.document.documentElement.clientHeight - currentHeight - viewOffset.top - 2,
+                bottom2 = viewOffset.bottom2,
+                scrollbarWidth = this.scrollbarWidth;
+
+            if (this.isHorizontalResize && this.internalWidth && this.internalWidth > 0 && currentWidth > 0) {
+
+                currentWidth = currentWidth > maxWidth ? maxWidth : currentWidth;
+                currentWidth = currentWidth < minWidth ? minWidth : currentWidth;
+
+                this.internalWidth = currentWidth;
+            }
 
             if (this.isVerticalResize && currentHeight > 0) {
 
@@ -121,17 +131,26 @@ exports.default = {
                 currentHeight = currentHeight + bottom;
                 currentHeight = currentHeight > maxHeight ? maxHeight : currentHeight;
                 currentHeight = currentHeight < minHeight ? minHeight : currentHeight;
+
+                if (currentWidth <= this.initTotalColumnsWidth && !this.isTableEmpty) {
+
+                    bottom2 -= this.verticalResizeOffset;
+
+                    var differ = bottom2 - totalColumnsHeight;
+
+                    if (bottom2 > totalColumnsHeight + scrollbarWidth) {
+
+                        currentHeight += scrollbarWidth;
+                    } else if (differ > 0 && differ < scrollbarWidth) {
+
+                        currentHeight += differ;
+                    }
+                }
+
                 this.internalHeight = currentHeight;
             }
 
-            if (this.isHorizontalResize && this.internalWidth && this.internalWidth > 0 && currentWidth > 0) {
-
-                currentWidth = currentWidth > maxWidth ? maxWidth : currentWidth;
-                currentWidth = currentWidth < minWidth ? minWidth : currentWidth;
-
-                this.internalWidth = currentWidth;
-                this.changeColumnsWidth(currentWidth);
-            }
+            this.changeColumnsWidth(currentWidth);
         },
         changeColumnsWidth: function changeColumnsWidth(currentWidth) {
             var _this2 = this;
