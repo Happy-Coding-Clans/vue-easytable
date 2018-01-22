@@ -16,7 +16,8 @@ exports.default = {
             });
         },
         frozenTitleCols: function frozenTitleCols() {
-            var frozenTitleCols = [];
+            var frozenTitleCols = [],
+                self = this;
 
             if (this.internalTitleRows.length > 0) {
                 var frozenFields = this.frozenCols.map(function (x) {
@@ -34,15 +35,29 @@ exports.default = {
                             }
                         }
                     });
+
                     if (frozenTitleRows.length > 0) {
+
                         frozenTitleCols.push(frozenTitleRows);
+
+                        var minRowspan = self.getMinRowspan(frozenTitleRows);
+
+                        if (minRowspan && minRowspan > 0) {
+
+                            for (var i = 0; i < minRowspan; i++) {
+
+                                frozenTitleCols.push([]);
+                            }
+                        }
                     }
                 });
             }
+
             return frozenTitleCols;
         },
         noFrozenTitleCols: function noFrozenTitleCols() {
-            var noFrozenTitleCols = [];
+            var noFrozenTitleCols = [],
+                self = this;
 
             if (this.internalTitleRows.length > 0) {
                 var noFrozenFields = this.noFrozenCols.map(function (x) {
@@ -61,6 +76,16 @@ exports.default = {
 
                     if (noFrozenTitleRows.length > 0) {
                         noFrozenTitleCols.push(noFrozenTitleRows);
+
+                        var minRowspan = self.getMinRowspan(noFrozenTitleRows);
+
+                        if (minRowspan && minRowspan > 0) {
+
+                            for (var i = 0; i < minRowspan; i++) {
+
+                                noFrozenTitleCols.push([]);
+                            }
+                        }
                     }
                 });
             }

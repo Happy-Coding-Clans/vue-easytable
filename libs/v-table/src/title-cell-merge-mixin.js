@@ -63,29 +63,17 @@ exports.default = {
                 return [];
             }
         },
-        dealTitleRowspan: function dealTitleRowspan(row, rowspan) {
+        getMinRowspan: function getMinRowspan(row) {
 
-            var result = rowspan,
-                rowspanCountArr = void 0,
-                minVal = void 0;
+            var result = void 0;
 
-            rowspanCountArr = this.getTitleRowspanCountArr(row);
+            var rowspanCountArr = this.getTitleRowspanCountArr(row);
 
             if (Array.isArray(rowspanCountArr) && rowspanCountArr.length > 0) {
 
-                rowspan = parseInt(rowspan);
-
-                minVal = Math.min.apply(null, rowspanCountArr);
-
-                if (rowspan === minVal) {
-
-                    result = 1;
-                } else {
-
-                    result = rowspan - minVal + 1;
-                }
+                result = Math.min.apply(null, rowspanCountArr);
             }
-            return result;
+            return result - 1;
         }
     }
 
