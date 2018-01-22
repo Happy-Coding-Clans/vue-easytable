@@ -15,7 +15,7 @@
                                 <tr v-for="row in frozenTitleCols">
                                     <td v-for="col in row"
                                         :class="[col.titleCellClassName]"
-                                        :colspan="col.colspan" :rowspan="dealTitleRowspan(row,col.rowspan)"
+                                        :colspan="col.colspan" :rowspan="col.rowspan"
 
                                         @mousemove.stop="handleTitleMouseMove($event,col.fields)"
                                         @mousedown.stop="handleTitleMouseDown($event)"
@@ -177,7 +177,7 @@
                             <tr v-for="row in noFrozenTitleCols">
                                 <td v-for="col in row"
                                     :class="[col.titleCellClassName]"
-                                    :colspan="col.colspan" :rowspan="dealTitleRowspan(row,col.rowspan)"
+                                    :colspan="col.colspan" :rowspan="col.rowspan"
                                     @mousemove.stop="handleTitleMouseMove($event,col.fields)"
                                     @mousedown.stop="handleTitleMouseDown($event)"
                                     @mouseout.stop="handleTitleMouseOut()"
@@ -587,6 +587,7 @@
             bodyViewHeight(){
                 var result;
                 if (this.internalTitleRows.length > 0) {
+
                     result = this.internalHeight - this.titleRowHeight * (this.internalTitleRows.length + this.getTitleRowspanTotalCount);
                 } else {
                     result = this.internalHeight - this.titleRowHeight;

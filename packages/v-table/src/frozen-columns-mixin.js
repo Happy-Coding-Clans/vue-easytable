@@ -15,7 +15,7 @@ export default {
         },
         // 冻结的表头列集合
         frozenTitleCols(){
-            var frozenTitleCols = [];
+            var frozenTitleCols = [], self = this;
 
             if (this.internalTitleRows.length > 0) {
 
@@ -31,16 +31,29 @@ export default {
                             }
                         }
                     })
+
                     if (frozenTitleRows.length > 0) {
+
                         frozenTitleCols.push(frozenTitleRows);
+
+                        var minRowspan = self.getMinRowspan(frozenTitleRows);
+
+                        if (minRowspan && minRowspan > 0) {
+
+                            for (var i = 0; i < minRowspan; i++) {
+
+                                frozenTitleCols.push([]);
+                            }
+                        }
                     }
                 })
             }
+
             return frozenTitleCols;
         },
         // 未的表头列集合
         noFrozenTitleCols(){
-            var noFrozenTitleCols = [];
+            var noFrozenTitleCols = [], self = this;
 
             if (this.internalTitleRows.length > 0) {
 
@@ -57,12 +70,20 @@ export default {
 
                     if (noFrozenTitleRows.length > 0) {
                         noFrozenTitleCols.push(noFrozenTitleRows);
+
+                        var minRowspan = self.getMinRowspan(noFrozenTitleRows);
+
+                        if (minRowspan && minRowspan > 0) {
+
+                            for (var i = 0; i < minRowspan; i++) {
+
+                                noFrozenTitleCols.push([]);
+                            }
+                        }
                     }
                 })
             }
             return noFrozenTitleCols;
-        },
-
-
+        }
     }
 }

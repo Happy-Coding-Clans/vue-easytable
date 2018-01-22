@@ -70,31 +70,46 @@ export default {
          * row :行信息
          * rowspan：当前列的rowspan值
          * */
-        dealTitleRowspan(row, rowspan){
+        /*dealTitleRowspan(row, rowspan){
 
-            let result = rowspan,
-                rowspanCountArr,
-                minVal;
+         let result = rowspan,
+         rowspanCountArr,
+         minVal;
 
-            rowspanCountArr = this.getTitleRowspanCountArr(row);
+         rowspanCountArr = this.getTitleRowspanCountArr(row);
+
+         // 如果每一项的rowspan值都大于1则继续处理
+         if (Array.isArray(rowspanCountArr) && rowspanCountArr.length > 0) {
+
+         rowspan = parseInt(rowspan);
+
+         minVal = Math.min.apply(null, rowspanCountArr);
+
+         if (rowspan === minVal) {
+
+         result = 1;
+         } else {
+
+         result = rowspan - minVal + 1;
+         }
+         }
+         return result;
+         },*/
+
+        // 获取最小的 rowspan
+        getMinRowspan(row){
+
+            let result;
+
+            let rowspanCountArr = this.getTitleRowspanCountArr(row);
 
             // 如果每一项的rowspan值都大于1则继续处理
             if (Array.isArray(rowspanCountArr) && rowspanCountArr.length > 0) {
 
-                rowspan = parseInt(rowspan);
-
-                minVal = Math.min.apply(null, rowspanCountArr);
-
-                if (rowspan === minVal) {
-
-                    result = 1;
-                } else {
-
-                    result = rowspan - minVal + 1;
-                }
+                result = Math.min.apply(null, rowspanCountArr);
             }
-            return result;
-        },
+            return result - 1;
+        }
     }
 
 }
