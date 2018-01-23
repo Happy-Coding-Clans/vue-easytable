@@ -186,7 +186,15 @@
                                     <div :class="['v-table-title-cell',showVerticalBorder?'vertical-border':'',showHorizontalBorder?'horizontal-border':'']"
                                          :style="{'width':titleColumnWidth(col.fields)+'px','height':titleColumnHeight(col.rowspan)+'px','text-align':col.titleAlign}">
                                         <span class="table-title">
-                                            <span v-if="col.type === 'selection'"></span>
+                                          <span v-if="isSelectionCol(col.fields)">
+                                                 <v-checkbox
+                                                         @change="handleCheckAll"
+                                                         :indeterminate="indeterminate"
+                                                         v-model="isAllChecked"
+                                                         :show-slot="false"
+                                                         label="check-all"
+                                                 ></v-checkbox>
+                                            </span>
                                             <span v-else v-html="col.title"></span>
                                             <span @click.stop="sortControl(col.fields[0])"
                                                   class="v-table-sort-icon" v-if="enableSort(col.orderBy)">

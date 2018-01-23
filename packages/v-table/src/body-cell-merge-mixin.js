@@ -97,7 +97,7 @@ export default {
 
             let setting = this.cellMerge && this.cellMerge(rowIndex,rowData,field);
 
-            if (setting && ((setting.colSpan && setting.colSpan > 1) || (setting.rowSpan && setting.rowSpan > 1))) {
+            if (setting && ((setting.colSpan && setting.colSpan > 0) || (setting.rowSpan && setting.rowSpan > 0))) {
 
                 return true;
             }
