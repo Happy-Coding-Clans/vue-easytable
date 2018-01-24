@@ -826,16 +826,14 @@
 
             this.setScrollbarWidth();
 
-            this.tableResize();
-
             this.tableEmpty();
+
+            this.tableResize();
 
             if (Array.isArray(this.tableData) && this.tableData.length > 0) {
 
                 this.scrollControl();
             }
-
-            //this.singleSortInit();
 
             this.controlScrollBar();
         },
