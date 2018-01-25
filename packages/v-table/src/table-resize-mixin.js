@@ -23,10 +23,10 @@ export  default {
             this.internalColumns.forEach(item => {
 
                 if (item.isResize) {
-                    result.push({width: item.width, field: item.field});
-                }
+                result.push({width: item.width, field: item.field});
+            }
 
-            })
+        })
 
             this.resizeColumns = result;
         },
@@ -43,14 +43,14 @@ export  default {
 
             this.containerWidthCheckTimer = setTimeout(x => {
 
-                let tableContainerWidth = this.$el.clientWidth;
+                    let tableContainerWidth = this.$el.clientWidth;
 
-                // 3为容错值
-                if (tableContainerWidth - this.internalWidth > 3) {
+            // 3为容错值
+            if (tableContainerWidth - this.internalWidth > 3) {
 
-                    this.tableResize();
-                }
-            })
+                this.tableResize();
+            }
+        })
         },
 
         // 目前适用于有横向自适应功能的表格
@@ -149,12 +149,12 @@ export  default {
                     let differ = bottom2 - totalColumnsHeight;
 
                     // 高度足够（table 顶部到文档底部的高度 > 表格高度+滚动条高度）
-                    if (bottom2 > totalColumnsHeight + scrollbarWidth){
+                    if (bottom2 > totalColumnsHeight + scrollbarWidth) {
 
                         currentHeight += scrollbarWidth;
 
                     }
-                    else if(differ > 0 && differ < scrollbarWidth){
+                    else if (differ > 0 && differ < scrollbarWidth) {
 
                         currentHeight += differ;
                     }
@@ -208,35 +208,60 @@ export  default {
 
             if (this.hasFrozenColumn) {
 
-                differ -= 2;
+                differ -= 1;
             }
 
             if (currentWidth >= initResizeWidths || differ > 0) {
 
-                var average = differ / this.resizeColumns.length;
+                this.setColumnsWidth(differ);
 
-                this.internalColumns.map(item => {
-
-                    if (item.isResize) {
-                        item.width += average;
-                    }
-
-                    return item;
-                })
             } else { // 最小化有滚动条时
 
                 this.columns.forEach((col, index) => {
 
                     if (col.isResize) {
 
-                        this.internalColumns[index].width = col.width;
-                    }
-                })
+                    this.internalColumns[index].width = col.width;
+                }
+            })
             }
 
             this.containerWidthCheck();
         },
 
+        /*
+         * 自适应时给列设置宽度
+         * 备注：浏览器 px 必须精确多整数
+         * */
+        setColumnsWidth(differ){
+
+            let resizeColumnsLen = this.resizeColumns.length,
+                average = Math.floor(differ / resizeColumnsLen),
+                totalAverage = average * resizeColumnsLen,
+                leftAverage = differ - totalAverage,
+                leftAverageFloor = Math.floor(leftAverage),
+                averageColumnsWidthArr = (new Array(resizeColumnsLen)).fill(average),
+                index = 0;
+
+            // 剩余的宽度以整数的形式平均到每个列
+            for (var i = 0; i < leftAverageFloor; i++) {
+
+                averageColumnsWidthArr[i] += 1;
+            }
+
+            // 剩余的小数给最后一列
+            averageColumnsWidthArr[resizeColumnsLen - 1] += (leftAverage - leftAverageFloor);
+
+            this.internalColumns.map(item => {
+
+                if (item.isResize) {
+
+                item.width += averageColumnsWidthArr[index++];
+            }
+
+            return item;
+        })
+        }
     },
 
     mounted(){

@@ -190,21 +190,12 @@ exports.default = {
 
             if (this.hasFrozenColumn) {
 
-                differ -= 2;
+                differ -= 1;
             }
 
             if (currentWidth >= initResizeWidths || differ > 0) {
 
-                var average = differ / this.resizeColumns.length;
-
-                this.internalColumns.map(function (item) {
-
-                    if (item.isResize) {
-                        item.width += average;
-                    }
-
-                    return item;
-                });
+                this.setColumnsWidth(differ);
             } else {
 
                 this.columns.forEach(function (col, index) {
@@ -217,6 +208,33 @@ exports.default = {
             }
 
             this.containerWidthCheck();
+        },
+        setColumnsWidth: function setColumnsWidth(differ) {
+
+            var resizeColumnsLen = this.resizeColumns.length,
+                average = Math.floor(differ / resizeColumnsLen),
+                totalAverage = average * resizeColumnsLen,
+                leftAverage = differ - totalAverage,
+                leftAverageFloor = Math.floor(leftAverage),
+                averageColumnsWidthArr = new Array(resizeColumnsLen).fill(average),
+                index = 0;
+
+            for (var i = 0; i < leftAverageFloor; i++) {
+
+                averageColumnsWidthArr[i] += 1;
+            }
+
+            averageColumnsWidthArr[resizeColumnsLen - 1] += leftAverage - leftAverageFloor;
+
+            this.internalColumns.map(function (item) {
+
+                if (item.isResize) {
+
+                    item.width += averageColumnsWidthArr[index++];
+                }
+
+                return item;
+            });
         }
     },
 
