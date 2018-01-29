@@ -39,10 +39,12 @@ exports.default = {
 
                                     __autoAdjustment__events__.push(handler);
                                     _utils2.default.bind(window, 'scroll', handler);
+                                    _utils2.default.bind(window, 'resize', handler);
                         }
             },
             beforeDestroy: function beforeDestroy() {
 
                         _utils2.default.unbind(window, 'scroll', __autoAdjustment__events__);
+                        _utils2.default.unbind(window, 'resize', __autoAdjustment__events__);
             }
 };

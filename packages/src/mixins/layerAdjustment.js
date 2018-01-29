@@ -46,12 +46,14 @@ export default {
 
             __autoAdjustment__events__.push(handler);
             utils.bind(window,'scroll',handler);
+            utils.bind(window,'resize',handler);
 
         }
     },
     beforeDestroy(){
 
         utils.unbind(window, 'scroll', __autoAdjustment__events__);
+        utils.unbind(window, 'resize', __autoAdjustment__events__);
 
     }
 }
