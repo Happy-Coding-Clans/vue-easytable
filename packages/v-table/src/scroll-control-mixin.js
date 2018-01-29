@@ -17,7 +17,6 @@ export default {
         // 表格内容滚动到顶部（常用与分页）
         bodyScrollTop(){
 
-            var view2 = this.$el.querySelector('.v-table-rightview');
             var body1 = this.$el.querySelector('.v-table-leftview .v-table-body');
             var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
 
@@ -79,6 +78,12 @@ export default {
             utils.unbind(body1, 'mousewheel', this.body1Mousewheel);
             utils.unbind(body2, 'scroll', this.body2Scroll);
             utils.unbind(rightViewFooter, 'scroll', this.rightViewFooterScroll);
+        },
+
+        // 对外暴露的方法
+        scrollToTop(){
+
+            this.bodyScrollTop();
         }
     },
 

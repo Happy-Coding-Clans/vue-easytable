@@ -22,7 +22,6 @@ exports.default = {
                         },
                         bodyScrollTop: function bodyScrollTop() {
 
-                                    var view2 = this.$el.querySelector('.v-table-rightview');
                                     var body1 = this.$el.querySelector('.v-table-leftview .v-table-body');
                                     var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
 
@@ -77,6 +76,10 @@ exports.default = {
                                     _utils2.default.unbind(body1, 'mousewheel', this.body1Mousewheel);
                                     _utils2.default.unbind(body2, 'scroll', this.body2Scroll);
                                     _utils2.default.unbind(rightViewFooter, 'scroll', this.rightViewFooterScroll);
+                        },
+                        scrollToTop: function scrollToTop() {
+
+                                    this.bodyScrollTop();
                         }
             },
 

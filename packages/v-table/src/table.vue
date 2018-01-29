@@ -877,8 +877,6 @@
                     }
 
                     this.resize();
-
-                    this.bodyScrollTop();
                 },
                 deep: true
             },
@@ -887,6 +885,8 @@
                 handler:function () {
 
                     this.clearCurrentRow();
+
+                    this.bodyScrollTop();
                 }
             }
         },
