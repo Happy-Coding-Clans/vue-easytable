@@ -22,9 +22,9 @@
 - [x] [支持单元格合并 (colSpan and rowSpan)](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-merge)
 - [x] [支持 checkbox 多选功能](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-selection-advanced)
 - [x] [footer 汇总功能](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-footer-summary)
+- [x] [添加条件过滤功能](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-filters)  
 - [ ] 添加导出 excel 功能  
 - [ ] 添加导出 pdf 功能  
-- [ ] 添加条件过滤功能  
 - [ ] 添加行展开功能  
 - [ ] 纵向整列拖动
    
