@@ -24,9 +24,9 @@ Based on vue2.x flexible table components.
 - [x] [Support cell merge (colSpan and rowSpan)](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-merge)
 - [x] [Support checkbox selection](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-selection-advanced)  
 - [x] [Footer summary](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-footer-summary)
+- [x] [Conditional filter](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-filters)
 - [ ] Export excel
 - [ ] Export PDF
-- [ ] Conditional filter
 - [ ] Row expansion
 - [ ] Vertical column drag
    
