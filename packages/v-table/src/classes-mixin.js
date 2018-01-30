@@ -41,6 +41,16 @@ export default {
                 'horizontal-border': this.showHorizontalBorder
             }
         }
+    },
 
+    methods:{
+
+        vTableFiltersIcon(filters){
+
+            return {
+                'v-icon-filter': true,
+                'checked': filters.some(x => x.selected && x.value !== this.filterSpecialValue)
+            }
+        }
     }
 }

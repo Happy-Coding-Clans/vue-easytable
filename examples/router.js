@@ -7,6 +7,8 @@ const start = r => require.ensure([], () => r(require('./doc/strart.md')), 'star
 const pagination = r => require.ensure([], () => r(require('./doc/pagination/Pagination.md')), 'pagination');
 const table = r => require.ensure([], () => r(require('./doc/table/main.md')), 'table');
 const checkbox = r => require.ensure([], () => r(require('./doc/checkbox/main.md')), 'checkbox');
+const select = r => require.ensure([], () => r(require('./doc/select/main.vue')), 'select');
+const dropdown = r => require.ensure([], () => r(require('./doc/dropdown/main.vue')), 'dropdown');
 
 
 
@@ -22,15 +24,17 @@ export default new VueRouter({
         { path: '/pagination', component: pagination },
         { path: '/table', component: table },
         { path: '/checkbox', component: checkbox },
+        { path: '/select', component: select },
+        { path: '/dropdown', component: dropdown },
 
         {
             path: '*',
             redirect: '/intro'
         }
         /*  {
-              path: '*', component: {
-              template: '<div>抱歉，没有您要的页面。</div>'
-               }
-          }*/
+         path: '*', component: {
+         template: '<div>抱歉，没有您要的页面。</div>'
+         }
+         }*/
     ]
 })

@@ -148,3 +148,20 @@
 .v-checkbox-indeterminate.v-checkbox-disabled .v-checkbox-inner:after {
     border-color: rgba(0,0,0,.25)
 }
+
+.v-select-items-multiple{
+    display: table;
+    width: 100%;
+    padding: 5px;
+}
+
+.v-select-items-multiple span{
+    vertical-align: middle;
+    font-size: 14px;
+    font-weight: normal;
+    color: rgba(0, 0, 0, 0.65);
+}
+
+.v-select-items-multiple:hover{
+    background-color: #e6f7ff;
+}

@@ -16,6 +16,11 @@
                 default () {
                     return [];
                 }
+            },
+            // 是否垂直排列显示（当时checkbox组时生效）
+            isVerticalShow:{
+                type:Boolean,
+                default:false
             }
         },
 
@@ -47,15 +52,15 @@
             // 更新子组件选中状态
             'value'(newVal){
 
-               let children = utils.getChildCompsByName(this,'v-checkbox');
+                let children = utils.getChildCompsByName(this,'v-checkbox');
 
-               if (children.length > 0){
+                if (children.length > 0){
 
-                   children.forEach(child =>{
+                    children.forEach(child =>{
 
-                       child.updateModelByGroup(newVal);
-                   })
-               }
+                        child.updateModelByGroup(newVal);
+                    })
+                }
 
             }
         }

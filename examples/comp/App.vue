@@ -41,6 +41,21 @@
                             </li>
                         </ul>
 
+                        <template v-if="showHide">
+                            <a class="main-wrapper-sidebar-link" href="javascript:javascript:void(0);">内置组件</a>
+                            <ul class="menu-sub">
+                                <li>
+                                    <router-link to="/select">Select 选择</router-link>
+                                </li>
+                                <li>
+                                    <router-link to="/checkbox">Checkbox 多选</router-link>
+                                </li>
+                                <li>
+                                    <router-link to="/dropdown">Dropdown 下拉</router-link>
+                                </li>
+                            </ul>
+                        </template>
+
                     </li>
                 </ul>
             </div>
@@ -86,7 +101,8 @@
         data(){
             return {
                 showBackTop: false,
-                catalogData: []
+                catalogData: [],
+                showHide:false // 是否显示内置组件
             }
         },
         methods: {
@@ -105,6 +121,7 @@
             anchorLink(to){
 
                 let query = to.query;
+
                 if (query && query.anchor) {
 
                     this.$nextTick(x => {
@@ -138,6 +155,17 @@
                 })
             },
 
+            // select、checkbox、dropdown 等组件都是内置的，showHide=1 则开启
+            enableHideComp(to){
+
+                let query = to.query;
+
+                if (query.showHide && query.showHide == 1){
+
+                    this.showHide = true;
+                }
+            },
+
             setFavicon(){
 
                 var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
@@ -160,6 +188,9 @@
             $route(to,from){
 
                 this.anchorLink(to);
+
+                // 显示内置组件
+                this.enableHideComp(to);
             }
         }
     }

@@ -19,16 +19,18 @@ Vue.component('anchor', anchor);
 
 // product
 import '../libs/themes-base/index.css'
-import {VTable,VPagination,VCheckbox,VCheckboxGroup} from '../libs/index.js'
+ import {VTable,VPagination,VCheckbox,VCheckboxGroup,VSelect,VDropdown} from '../libs/index.js'
 
 // dev
 /*import '../packages/themes-base/index.css'
-import {VTable,VPagination,VCheckbox,VCheckboxGroup} from '../packages/index.js'*/
+import {VTable,VPagination,VCheckbox,VCheckboxGroup,VSelect,VDropdown} from '../packages/index.js'*/
 
 Vue.component(VTable.name, VTable)
 Vue.component(VPagination.name, VPagination)
 Vue.component(VCheckbox.name, VCheckbox)
 Vue.component(VCheckboxGroup.name, VCheckboxGroup)
+Vue.component(VSelect.name, VSelect)
+Vue.component(VDropdown.name, VDropdown)
 
 
 

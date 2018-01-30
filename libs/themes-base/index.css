@@ -1,14 +1,14 @@
 
 @font-face {
-    font-family: 'fontello';
-    src: url('../font/fontello.eot?58619503');
-    src: url('../font/fontello.eot?58619503#iefix') format('embedded-opentype'),
-    url('../font/fontello.woff2?58619503') format('woff2'),
-    url('../font/fontello.woff?58619503') format('woff'),
-    url('../font/fontello.ttf?58619503') format('truetype'),
-    url('../font/fontello.svg?58619503#fontello') format('svg');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'fontello';
+  src: url('../font/fontello.eot?85200898');
+  src: url('../font/fontello.eot?85200898#iefix') format('embedded-opentype'),
+       url('../font/fontello.woff2?85200898') format('woff2'),
+       url('../font/fontello.woff?85200898') format('woff'),
+       url('../font/fontello.ttf?85200898') format('truetype'),
+       url('../font/fontello.svg?85200898#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
 /* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
 /* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
@@ -16,52 +16,53 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'fontello';
-    src: url('../font/fontello.svg?58619503#fontello') format('svg');
+    src: url('../font/fontello.svg?85200898#fontello') format('svg');
   }
 }
 */
-
-[class^="v-icon-"]:before, [class*=" v-icon-"]:before {
-    font-family: "fontello";
-    font-style: normal;
-    font-weight: normal;
-    speak: none;
-
-    display: inline-block;
-    text-decoration: inherit;
-    width: 1em;
-    margin-right: .2em;
-    text-align: center;
-    /* opacity: .8; */
-
-    /* For safety - reset parent styles, that can break glyph codes*/
-    font-variant: normal;
-    text-transform: none;
-
-    /* fix buttons height, for twitter bootstrap */
-    line-height: 1em;
-
-    /* Animation center compensation - margins should be symmetric */
-    /* remove if not needed */
-    margin-left: .2em;
-
-    /* you can be more comfortable with increased icons size */
-    /* font-size: 120%; */
-
-    /* Font smoothing. That was taken from TWBS */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-
-    /* Uncomment for 3D effect */
-    /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+ 
+ [class^="v-icon-"]:before, [class*=" v-icon-"]:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+ 
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
-
+ 
 .v-icon-down-dir:before { content: '\e800'; } /* '' */
 .v-icon-up-dir:before { content: '\e801'; } /* '' */
 .v-icon-cancel:before { content: '\e802'; } /* '' */
 .v-icon-spin3:before { content: '\e832'; } /* '' */
 .v-icon-spin4:before { content: '\e834'; } /* '' */
 .v-icon-spin5:before { content: '\e838'; } /* '' */
+.v-icon-filter:before { content: '\f0b0'; } /* '' */
 .v-icon-angle-double-left:before { content: '\f100'; } /* '' */
 .v-icon-angle-double-right:before { content: '\f101'; } /* '' */
 .v-icon-angle-left:before { content: '\f104'; } /* '' */
@@ -411,6 +412,8 @@
     cursor: not-allowed
 }
 @charset "UTF-8";
+
+/*-------------------------分割线-----------------------------------*/
 .v-select--large .v-select-selected,
 .v-select--large .v-select-items-li{
     font-size:16px;
@@ -421,10 +424,10 @@
     line-height:40px !important;
 }
 .v-select--large .v-select-selected{
-   /* width:120px;*/
+    /* width:120px;*/
 }
 .v-select--large .v-select-items{
- /*   min-width: 120px;*/
+    /*   min-width: 120px;*/
 }
 
 
@@ -438,10 +441,10 @@
     line-height:32px !important;
 }
 .v-select--middle .v-select-selected{
- /*   width:100px;*/
+    /*   width:100px;*/
 }
 .v-select--middle .v-select-items{
-   /* min-width: 100px;*/
+    /* min-width: 100px;*/
 }
 
 
@@ -455,63 +458,11 @@
     line-height:24px !important;
 }
 .v-select--small .v-select-selected{
-/*    width:90px;*/
+    /*    width:90px;*/
 }
 .v-select--small .v-select-items{
-/*    min-width: 90px;*/
+    /*    min-width: 90px;*/
 }
-
-.v-select{
-    display: inline-table;
-}
-
-.v-select-dd,.v-select-dt{
-    z-index: 9999;
-}
-
-.v-select-dd,.v-select-dt,.v-select-items {
-    margin:0px;
-    padding:0px;
-    background-color: #fff;
-}
-
-.v-select-items{
-    overflow:hidden;
-    text-overflow:ellipsis;
-    word-wrap:normal;
-    white-space: nowrap;
-}
-
-
-
-.v-select a, .v-select a:visited {
-    color:#000;
-    text-decoration:none;
-    outline:none;
-}
-
-.v-select-selected {
-    position: relative;
-    display:block;
-    border:1px solid #c8cdd4;
-    border-radius: 2px;
-}
-
-.v-select-selected:hover {
-    color:#0092dd;
-    border-color:#0092dd;
-}
-
-.v-select-selected-span {
-    width: 80%;
-    display:block !important;/*修复会被别的样式覆盖的问题*/
-    text-align: center;
-    cursor:pointer;
-    white-space: nowrap;
-    overflow: hidden;
-    padding-left: 2px;
-}
-
 .v-select-input{
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -534,6 +485,16 @@
 
 }
 
+.v-select-selected-span {
+    width: 80%;
+    display:block !important;/*修复会被别的样式覆盖的问题*/
+    text-align: center;
+    cursor:pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-left: 2px;
+}
+
 .v-select-selected-i{
     display: inline-block;
     position: absolute;
@@ -541,71 +502,6 @@
     right:0;
     font-size: 120%;
 }
-
-.v-select-dd {
-    position:absolute !important;
-    z-index:9999999;
-}
-
-.v-select-items {
-    /*position:absolute;*/
-    position:fixed;
-    top:2px;
-    left:0px;
-    list-style:none;
-    border-radius: 2px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,.12), 0 0 6px rgba(0,0,0,.04);
-    border:1px solid #d1dbe5;
-    color:#C5C0B0;
-
-    padding:5px 0px;
-    width:auto;
-}
-
-.v-select-items-li{
-    white-space: nowrap;
-}
-
-.v-select-items-li.active{
-    background-color:#0092dd;
-}
-
-.v-select-items-li.active a{
-    color:#fff;
-}
-
-.v-select-items-li-a {
-    width: 100%;
-    display:block;
-    padding-left: 8px;
-    padding-right: 8px;
-}
-
-.v-select-items-li-a-left{
-    text-align: left;
-
-}
-
-.v-select-items-li-a-center{
-    text-align: center;
-}
-
-.v-select-items-li-a-right{
-    text-align: right;
-}
-
-.v-select-items-li:hover {
-    background-color: #e4e8f1;
-    color:#fff;
-}
-
-.v-select-items-li.active:hover{
-    background-color:#0092dd;
-}
-
-
-
 @charset "UTF-8";
 
 .v-table-views *,.v-table-views *:before,.v-table-views *:after{
@@ -789,9 +685,17 @@
     border-bottom-width: 1px !important;
 }
 
-
 .v-table-rightview-special-border td:last-child .v-table-body-cell{
     border-right-width: 0 !important;
+}
+
+.v-table-dropdown{
+    margin-left: -3px !important;
+}
+
+.v-table-filter-icon{
+    font-size:14px;
+    cursor: pointer;
 }
 
 /*没数据时的样式 start*/
@@ -866,7 +770,6 @@
 
 .v-table-footer-class
 */
-
 
 .v-checkbox-wrapper{
     cursor: pointer;
@@ -1019,6 +922,258 @@
     border-color: rgba(0,0,0,.25)
 }
 
+.v-select-items-multiple{
+    display: table;
+    width: 100%;
+    padding: 5px;
+}
+
+.v-select-items-multiple span{
+    vertical-align: middle;
+    font-size: 14px;
+    font-weight: normal;
+    color: rgba(0, 0, 0, 0.65);
+}
+
+.v-select-items-multiple:hover{
+    background-color: #e6f7ff;
+}
+@charset "UTF-8";
+
+/*设置尺寸 start*/
+.v-dropdown--large .v-dropdown-selected,
+.v-dropdown--large .v-dropdown-items-li{
+    font-size:16px;
+    height:40px;
+    line-height: 40px;
+}
+.v-dropdown--large .v-dropdown-selected-i{
+    line-height:40px !important;
+}
+.v-dropdown--large .v-dropdown-selected{
+    /* width:120px;*/
+}
+.v-dropdown--large .v-dropdown-items{
+    /*   min-width: 120px;*/
+}
+
+
+.v-dropdown--middle .v-dropdown-selected,
+.v-dropdown--middle .v-dropdown-items-li{
+    font-size:14px;
+    height:32px;
+    line-height: 32px;
+}
+.v-dropdown--middle .v-dropdown-selected-i{
+    line-height:32px !important;
+}
+.v-dropdown--middle .v-dropdown-selected{
+    /*   width:100px;*/
+}
+.v-dropdown--middle .v-dropdown-items{
+    /* min-width: 100px;*/
+}
+
+
+.v-dropdown--small .v-dropdown-selected,
+.v-dropdown--small .v-dropdown-items-li{
+    font-size:13px;
+    height:24px;
+    line-height: 24px;
+}
+.v-dropdown--small .v-dropdown-selected-i{
+    line-height:24px !important;
+}
+.v-dropdown--small .v-dropdown-selected{
+    /*    width:90px;*/
+}
+.v-dropdown--small .v-dropdown-items{
+    /*    min-width: 90px;*/
+}
+/*设置尺寸 end*/
+
+.v-dropdown{
+    display: inline-table;
+    margin: 0;
+}
+
+.v-dropdown-dd,.v-dropdown-dt{
+    z-index: 9999;
+}
+
+.v-dropdown-dd,.v-dropdown-dt,.v-dropdown-items {
+    margin:0px;
+    padding:0px;
+    background-color: #fff;
+}
+
+.v-dropdown-items{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    word-wrap:normal;
+    white-space: nowrap;
+}
+
+.v-dropdown a, .v-dropdown a:visited {
+    color:#000;
+    text-decoration:none;
+    outline:none;
+}
+
+.v-dropdown-selected {
+    position: relative;
+    display:block;
+    border:1px solid #c8cdd4;
+    border-radius: 2px;
+}
+
+.v-dropdown-selected:hover {
+    color:#0092dd;
+    border-color:#0092dd;
+}
+
+.v-dropdown-selected-span {
+    width: 80%;
+    display:block !important;/*修复会被别的样式覆盖的问题*/
+    text-align: center;
+    cursor:pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-left: 2px;
+}
+
+.v-dropdown-input{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    background-image: none;
+    /*    border-radius: 4px;*/
+    border: 1px solid #fff;
+    box-sizing: border-box;
+    color: #1f2d3d;
+    display: inline-block;
+    font-size: inherit;
+    /* height: 36px;*/
+    line-height: 1;
+    outline: none;
+    padding-left: 2px;
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    width: 80%;
+    text-align: left;
+
+}
+
+.v-dropdown-selected-i{
+    display: inline-block;
+    position: absolute;
+    top:0;
+    right:0;
+    font-size: 120%;
+}
+
+.v-dropdown-dd {
+    position:absolute !important;
+    z-index:9999999;
+}
+
+.v-dropdown-items {
+    /*position:absolute;*/
+    position:fixed;
+    top:2px;
+    left:0px;
+    list-style:none;
+    border-radius: 2px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,.12), 0 0 6px rgba(0,0,0,.04);
+    border:1px solid #d1dbe5;
+    color:#C5C0B0;
+
+    padding:5px 0px;
+    width:auto;
+}
+
+.v-dropdown-items-li{
+    white-space: nowrap;
+}
+
+.v-dropdown-items-li.active{
+    background-color:#0092dd;
+}
+
+.v-dropdown-items-li.active a{
+    color:#fff;
+}
+
+.v-dropdown-items-li-a {
+    width: 100%;
+    display:block;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.v-dropdown-items-li-a-left{
+    text-align: left;
+
+}
+
+.v-dropdown-items-li-a-center{
+    text-align: center;
+}
+
+.v-dropdown-items-li-a-right{
+    text-align: right;
+}
+
+.v-dropdown-items-li:hover {
+    background-color: #e4e8f1;
+    color:#fff;
+}
+
+.v-dropdown-items-li.active:hover{
+    background-color:#0092dd;
+}
+/*------------分割线----------*/
+
+.v-dropdown-items-multiple{
+    display: table;
+    width: 100%;
+    padding: 5px;
+}
+
+.v-dropdown-items-multiple span{
+    vertical-align: middle;
+    font-size: 14px;
+    font-weight: normal;
+    color: rgba(0, 0, 0, 0.65);
+}
+
+.v-dropdown-items-multiple:hover{
+    background-color: #e6f7ff;
+}
+
+
+/*操作功能开始*/
+.v-dropdown-operation {
+    padding:8px 0 3px 0;
+    font-size: 14px;
+    border-top: 1px solid #e8e8e8;
+}
+
+.v-dropdown-operation-item {
+    padding: 0 8px;
+    color:#495060;
+}
+
+.v-dropdown-operation-item:last-child{
+    float: right;
+}
+
+.v-dropdown-operation-item:hover{
+    color: #1890ff;
+}
+/*操作功能结束*/
+
 /*多主题放开后，此处作废*/
 @charset "UTF-8";
 @charset "UTF-8";
@@ -1028,6 +1183,14 @@
     color:#48576a;
 }
 
+.v-table-filter-icon{
+    color:#999;
+}
+
+.v-table-filter-icon.checked{
+    color:#48576a;
+}
+@charset "UTF-8";
 @charset "UTF-8";
 
 

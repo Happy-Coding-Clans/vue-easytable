@@ -37,10 +37,20 @@
                                                 <span v-else v-html="col.title"></span>
                                                 <span @click.stop="sortControl(col.fields[0])"
                                                       class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
-                                                        <i :class='["v-icon-up-dir",getCurrentSort(col.field) ==="asc" ? "checked":""]'></i>
-                                                        <i :class='["v-icon-down-dir",getCurrentSort(col.field) ==="desc" ? "checked":""]'></i>
+                                                        <i :class='["v-icon-up-dir",getCurrentSort(col.fields[0]) ==="asc" ? "checked":""]'></i>
+                                                        <i :class='["v-icon-down-dir",getCurrentSort(col.fields[0]) ==="desc" ? "checked":""]'></i>
                                                 </span>
                                             </span>
+                                            <!--filters-->
+                                            <v-dropdown class="v-table-dropdown" v-if="enableFilters(col.filters,col.fields)"
+                                                        v-model="col.filters"
+                                                        :show-operation="col.filterMultiple"
+                                                        :is-multiple="col.filterMultiple"
+                                                        @on-filter-method="filterEvent"
+                                                        @change="filterConditionChange(col.filterMultiple)"
+                                            >
+                                                <i :class="['v-table-filter-icon',vTableFiltersIcon(col.filters)]"></i>
+                                            </v-dropdown>
                                         </div>
                                     </td>
                                 </tr>
@@ -74,6 +84,16 @@
                                                             <i :class='["v-icon-down-dir",getCurrentSort(col.field) ==="desc" ? "checked":""]'></i>
                                                     </span>
                                                 </span>
+                                                <!--filters-->
+                                                <v-dropdown class="v-table-dropdown" v-if="enableFilters(col.filters)"
+                                                            v-model="col.filters"
+                                                            :show-operation="col.filterMultiple"
+                                                            :is-multiple="col.filterMultiple"
+                                                            @on-filter-method="filterEvent"
+                                                            @change="filterConditionChange(col.filterMultiple)"
+                                                >
+                                                    <i :class="['v-table-filter-icon',vTableFiltersIcon(col.filters)]"></i>
+                                                </v-dropdown>
                                         </div>
                                     </td>
                                 </tr>
@@ -198,10 +218,20 @@
                                             <span v-else v-html="col.title"></span>
                                             <span @click.stop="sortControl(col.fields[0])"
                                                   class="v-table-sort-icon" v-if="enableSort(col.orderBy)">
-                                                        <i :class='["v-icon-up-dir",getCurrentSort(col.field) ==="asc" ? "checked":""]'></i>
-                                                        <i :class='["v-icon-down-dir",getCurrentSort(col.field) ==="desc" ? "checked":""]'></i>
+                                                        <i :class='["v-icon-up-dir",getCurrentSort(col.fields[0]) ==="asc" ? "checked":""]'></i>
+                                                        <i :class='["v-icon-down-dir",getCurrentSort(col.fields[0]) ==="desc" ? "checked":""]'></i>
                                             </span>
                                         </span>
+                                        <!--filters-->
+                                        <v-dropdown class="v-table-dropdown" v-if="enableFilters(col.filters,col.fields)"
+                                                    v-model="col.filters"
+                                                    :show-operation="col.filterMultiple"
+                                                    :is-multiple="col.filterMultiple"
+                                                    @on-filter-method="filterEvent"
+                                                    @change="filterConditionChange(col.filterMultiple)"
+                                        >
+                                            <i :class="['v-table-filter-icon',vTableFiltersIcon(col.filters)]"></i>
+                                        </v-dropdown>
                                     </div>
                                 </td>
                             </tr>
@@ -235,6 +265,16 @@
                                                         <i :class='["v-icon-up-dir",getCurrentSort(col.field) ==="asc" ? "checked":""]'></i>
                                                         <i :class='["v-icon-down-dir",getCurrentSort(col.field) ==="desc" ? "checked":""]'></i>
                                             </span>
+                                            <!--filters-->
+                                            <v-dropdown class="v-table-dropdown" v-if="enableFilters(col.filters)"
+                                                        v-model="col.filters"
+                                                        :show-operation="col.filterMultiple"
+                                                        :is-multiple="col.filterMultiple"
+                                                        @on-filter-method="filterEvent"
+                                                        @change="filterConditionChange(col.filterMultiple)"
+                                            >
+                                                 <i :class="['v-table-filter-icon',vTableFiltersIcon(col.filters)]"></i>
+                                            </v-dropdown>
                                         </span>
                                     </div>
                                 </td>
@@ -363,6 +403,7 @@
     import tableFooterMixin from './table-footer-mixin.js'
     import scrollBarControlMixin from './scroll-bar-control-mixin.js'
     import tableRowMouseEventsMixin from './table-row-mouse-events-mixin'
+    import tableFiltersMixin from './table-filters-mixin'
 
     import utils from '../../src/utils/utils.js'
     import deepClone from '../../src/utils/deepClone.js'
@@ -371,11 +412,13 @@
     import loading from './loading.vue'
     import VCheckboxGroup from '../../v-checkbox-group/index.js'
     import VCheckbox from '../../v-checkbox/index.js'
+    import VDropdown from '../../v-dropdown/index.js'
+
 
     export default {
         name: 'v-table',
-        mixins: [classesMixin, tableResizeMixin, frozenColumnsMixin, scrollControlMixin, sortControlMixin, tableEmptyMixin, dragWidthMixin, cellEditMixin, bodyCellMergeMixin, titleCellMergeMixin, checkboxSelectionMixin, tableFooterMixin, scrollBarControlMixin, tableRowMouseEventsMixin],
-        components: {tableEmpty, loading, VCheckboxGroup, VCheckbox},
+        mixins: [classesMixin, tableResizeMixin, frozenColumnsMixin, scrollControlMixin, sortControlMixin, tableEmptyMixin, dragWidthMixin, cellEditMixin, bodyCellMergeMixin, titleCellMergeMixin, checkboxSelectionMixin, tableFooterMixin, scrollBarControlMixin, tableRowMouseEventsMixin, tableFiltersMixin],
+        components: {tableEmpty, loading, VCheckboxGroup, VCheckbox, VDropdown},
         data(){
             return {
                 // 本地列表数据
@@ -566,8 +609,16 @@
             selectChange: Function,
             // checkbox-group change event
             selectGroupChange: Function,
+            // filter event
+            filterMethod: Function
         },
         computed: {
+
+            // 是否是复杂表头
+            isComplexTitle(){
+
+                return (Array.isArray(this.internalTitleRows) && this.internalTitleRows.length > 0);
+            },
 
             // 获取表格高度
             getTableHeight(){
@@ -602,7 +653,7 @@
                 }
 
                 // 1px: 当有滚动条时，使滚动条显示全
-                result -= (this.footerTotalHeight+1);
+                result -= (this.footerTotalHeight + 1);
 
                 return result;
             },
@@ -688,11 +739,11 @@
             },
 
             // 超出的title提示
-            overflowTitle(row, rowIndex,col){
+            overflowTitle(row, rowIndex, col){
 
                 var result = '';
                 if (typeof col.formatter === 'function') {
-                    var val = col.formatter(row, rowIndex,this.pagingIndex,col.field);
+                    var val = col.formatter(row, rowIndex, this.pagingIndex, col.field);
                     // 如果是html 不处理
                     if (utils.isHtml(val)) {
                         result = '';
@@ -733,6 +784,8 @@
                 this.internalColumns = Array.isArray(this.columns) ? deepClone(this.columns) : [];
 
                 this.internalTitleRows = Array.isArray(this.titleRows) ? deepClone(this.titleRows) : [];
+
+                this.initColumnsFilters();
 
                 this.initResizeColumns();
 
@@ -880,9 +933,9 @@
                 },
                 deep: true
             },
-            'pagingIndex':{
+            'pagingIndex': {
 
-                handler:function () {
+                handler: function () {
 
                     this.clearCurrentRow();
 

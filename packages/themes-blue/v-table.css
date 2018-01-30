@@ -3,3 +3,11 @@
 .v-table-sort-icon .checked{
     color:#48576a;
 }
+
+.v-table-filter-icon{
+    color:#999;
+}
+
+.v-table-filter-icon.checked{
+    color:#48576a;
+}

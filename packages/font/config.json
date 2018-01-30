@@ -65,6 +65,12 @@
       "css": "spin5",
       "code": 59448,
       "src": "fontelico"
+    },
+    {
+      "uid": "4109c474ff99cad28fd5a2c38af2ec6f",
+      "css": "filter",
+      "code": 61616,
+      "src": "fontawesome"
     }
   ]
 }

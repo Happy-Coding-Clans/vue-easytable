@@ -85,6 +85,21 @@
             </div>
         </div>
 
+         <div class="mt30">
+            <h3>数据筛选</h3>
+
+            <div class="mt30">
+                <anchor id="table-filters" label="数据筛选功能" h4 ></anchor>
+                <filters></filters>
+            </div>
+
+             <div class="mt30">
+                <anchor id="table-complex-header-filters" label="复杂表头中使用筛选功能" h4 ></anchor>
+                <complex-header-filters></complex-header-filters>
+            </div>
+
+        </div>
+
        <div class="mt30">
             <h3>footer 汇总功能</h3>
 
@@ -200,6 +215,9 @@
 
     import columnWidthDrag from './column-width-drag.md'
 
+    import filters from './filters.md'
+    import complexHeaderFilters from './complex-header-filters.md'
+
 
     import api from './api.md'
 
@@ -238,6 +256,9 @@
             footerSummary,
 
             columnWidthDrag,
+
+            filters,
+            complexHeaderFilters,
 
             api
         },

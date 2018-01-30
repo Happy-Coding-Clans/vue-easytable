@@ -41,7 +41,10 @@ export default {
 
             var handler = (e) => {
 
-                this.layerAdjustmentOnce(layerElement, targetElement, distance);
+                setTimeout(x=>{
+
+                    this.layerAdjustmentOnce(layerElement, targetElement, distance);
+                })
             }
 
             __autoAdjustment__events__.push(handler);

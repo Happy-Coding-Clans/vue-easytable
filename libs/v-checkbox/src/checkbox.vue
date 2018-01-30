@@ -1,5 +1,5 @@
 <template>
-    <label class="v-checkbox-wrapper">
+    <label class="v-checkbox-wrapper" :style="{'display':displayType}">
         <span :class="checkboxClasses">
             <input
                     class="v-checkbox-input"
@@ -63,6 +63,17 @@
 
                 this._checkboxGroup = utils.getParentCompByName(this, 'v-checkbox-group');
                 return this._checkboxGroup ? true : false;
+            },
+
+            // 是否横向显示还是纵向显示
+            displayType(){
+
+                var style = 'inline-block';
+
+                if (this._checkboxGroup) {
+                    style = this._checkboxGroup.isVerticalShow ? 'block' : 'inline-block';
+                }
+                return style;
             },
         },
 
@@ -129,7 +140,7 @@
             }
         },
 
-        mounted(){
+        created(){
 
             this.initModel();
         },

@@ -47,5 +47,18 @@ exports.default = {
                 'horizontal-border': this.showHorizontalBorder
             };
         }
+    },
+
+    methods: {
+        vTableFiltersIcon: function vTableFiltersIcon(filters) {
+            var _this = this;
+
+            return {
+                'v-icon-filter': true,
+                'checked': filters.some(function (x) {
+                    return x.selected && x.value !== _this.filterSpecialValue;
+                })
+            };
+        }
     }
 };

@@ -181,9 +181,17 @@
     border-bottom-width: 1px !important;
 }
 
-
 .v-table-rightview-special-border td:last-child .v-table-body-cell{
     border-right-width: 0 !important;
+}
+
+.v-table-dropdown{
+    margin-left: -3px !important;
+}
+
+.v-table-filter-icon{
+    font-size:14px;
+    cursor: pointer;
 }
 
 /*没数据时的样式 start*/
@@ -258,4 +266,3 @@
 
 .v-table-footer-class
 */
-

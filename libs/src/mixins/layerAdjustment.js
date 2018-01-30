@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-            value: true
+    value: true
 });
 
 var _utils = require('../utils/utils');
@@ -13,38 +13,41 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var __autoAdjustment__events__ = [];
 
 exports.default = {
-            methods: {
-                        layerAdjustmentOnce: function layerAdjustmentOnce(layerElement, targetElement, distance) {
+    methods: {
+        layerAdjustmentOnce: function layerAdjustmentOnce(layerElement, targetElement, distance) {
 
-                                    var viewportOffset = _utils2.default.getViewportOffset(targetElement),
-                                        layerElemHeight = typeof layerElement.getBoundingClientRect !== "undefined" ? layerElement.getBoundingClientRect().height : layerElement.clientHeight;
+            var viewportOffset = _utils2.default.getViewportOffset(targetElement),
+                layerElemHeight = typeof layerElement.getBoundingClientRect !== "undefined" ? layerElement.getBoundingClientRect().height : layerElement.clientHeight;
 
-                                    if (viewportOffset.bottom < layerElemHeight) {
+            if (viewportOffset.bottom < layerElemHeight) {
 
-                                                layerElement.style.top = viewportOffset.top - layerElemHeight - distance + 'px';
-                                    } else {
+                layerElement.style.top = viewportOffset.top - layerElemHeight - distance + 'px';
+            } else {
 
-                                                layerElement.style.top = viewportOffset.top + targetElement.clientHeight + distance + 'px';
-                                    }
-
-                                    layerElement.style.left = viewportOffset.left + 'px';
-                        },
-                        layerAdjustmentBind: function layerAdjustmentBind(layerElement, targetElement, distance) {
-                                    var _this = this;
-
-                                    var handler = function handler(e) {
-
-                                                _this.layerAdjustmentOnce(layerElement, targetElement, distance);
-                                    };
-
-                                    __autoAdjustment__events__.push(handler);
-                                    _utils2.default.bind(window, 'scroll', handler);
-                                    _utils2.default.bind(window, 'resize', handler);
-                        }
-            },
-            beforeDestroy: function beforeDestroy() {
-
-                        _utils2.default.unbind(window, 'scroll', __autoAdjustment__events__);
-                        _utils2.default.unbind(window, 'resize', __autoAdjustment__events__);
+                layerElement.style.top = viewportOffset.top + targetElement.clientHeight + distance + 'px';
             }
+
+            layerElement.style.left = viewportOffset.left + 'px';
+        },
+        layerAdjustmentBind: function layerAdjustmentBind(layerElement, targetElement, distance) {
+            var _this = this;
+
+            var handler = function handler(e) {
+
+                setTimeout(function (x) {
+
+                    _this.layerAdjustmentOnce(layerElement, targetElement, distance);
+                });
+            };
+
+            __autoAdjustment__events__.push(handler);
+            _utils2.default.bind(window, 'scroll', handler);
+            _utils2.default.bind(window, 'resize', handler);
+        }
+    },
+    beforeDestroy: function beforeDestroy() {
+
+        _utils2.default.unbind(window, 'scroll', __autoAdjustment__events__);
+        _utils2.default.unbind(window, 'resize', __autoAdjustment__events__);
+    }
 };
