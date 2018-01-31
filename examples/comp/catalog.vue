@@ -4,9 +4,11 @@
             <span>目录</span>
         </div>
         <ul class="catalog-ul" v-show="showCatalogList2">
-            <li class="catalog-li-title" @click.stop="toggleCatalogList()">目 录 <i class="catalog-li-title-down icon iconfont icon-shouqi1"></i></li>
+            <li class="catalog-li-title" @click.stop="toggleCatalogList()">目 录 <i
+                    class="catalog-li-title-down icon iconfont icon-shouqi1"></i></li>
             <li :title="item.label" class="catalog-li" v-for="item in catalogData"><a @click.stop="goAnchor(item.id)"
-                                                                  href="javascript:void(0);">{{item.label}}</a></li>
+                                                                                      href="javascript:void(0);">{{item.label}}</a>
+            </li>
         </ul>
     </div>
 
@@ -21,9 +23,9 @@
                 type: Array,
                 require: true
             },
-            showCatalogList:{
-                type:Boolean,
-                default:true
+            showCatalogList: {
+                type: Boolean,
+                default: true
 
             }
         },
@@ -31,7 +33,7 @@
         data(){
 
             return {
-                showCatalogList2:this.showCatalogList
+                showCatalogList2: this.showCatalogList
             }
         },
 
@@ -85,7 +87,7 @@
         padding: 60px 10px;
         line-height: 1.9;
         font-weight: bold;
-        color:#666;
+        color: #666;
     }
 
     .catalog-ul {
@@ -93,7 +95,7 @@
         list-style: none;
         min-width: 100px;
         max-width: 200px;
-        min-height: 180px;
+       /* min-height: 180px;*/
         margin: 0;
         padding: 10px;
         background-color: #fff;
@@ -105,19 +107,19 @@
         font-size: 12px;
     }
 
-    .catalog-li-title{
+    .catalog-li-title {
         cursor: pointer;
         font-weight: bold;
-        font-size:14px;
+        font-size: 14px;
         margin-bottom: 10px;
-        color:#666;
+        color: #666;
     }
 
-    .catalog-corner:hover,.catalog-li-title:hover{
-        color:#000;
+    .catalog-corner:hover, .catalog-li-title:hover {
+        color: #000;
     }
 
-    .catalog-li-title-down{
+    .catalog-li-title-down {
 
         font-size: 14px;
         margin-left: 10px;

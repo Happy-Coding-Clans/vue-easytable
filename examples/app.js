@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import APP from './comp/App.vue'
+import APP from './comp/app.vue'
 import router from './router'
 
 import NProgress from 'nprogress'; // Progress 进度条
@@ -12,8 +12,8 @@ import 'nprogress/nprogress.css';
 // highlight theme
 import 'highlight.js/styles/color-brewer.css';
 
-import demoBox from './comp/DemoBox.vue'
-import anchor from './comp/Anchor.vue'
+import demoBox from './comp/demo-box.vue'
+import anchor from './comp/anchor.vue'
 Vue.component('demo-box', demoBox);
 Vue.component('anchor', anchor);
 

@@ -3,10 +3,12 @@
 <template>
   <div>
       <v-table
-              :multiple-sort="false"
+              is-vertical-resize
+              :vertical-resize-offset='60'
               is-horizontal-resize
               style="width:100%"
-              :height="350"
+              :multiple-sort="false"
+              :min-height="350"
               even-bg-color="#f2f2f2"
               :title-rows="tableConfig.titleRows"
               :columns="tableConfig.columns"
@@ -17,8 +19,8 @@
               :paging-index="(pageIndex-1)*pageSize"
       ></v-table>
 
-       <div class="mt30 mb20 bold"></div>
-                       <v-pagination @page-change="pageChange" @page-size-change="pageSizeChange" :total="50" :layout="['total', 'prev', 'pager', 'next', 'sizer', 'jumper']"></v-pagination>
+       <div class="mt20 mb20 bold"></div>
+                       <v-pagination @page-change="pageChange" @page-size-change="pageSizeChange" :total="50" :page-size="pageSize" :layout="['total', 'prev', 'pager', 'next', 'sizer', 'jumper']"></v-pagination>
        </div>
   </div>
 </template>
@@ -36,13 +38,13 @@
 
 <script>
 
-    import tableDate from '../../mock/tableData2.js'
+    import tableDate from '../../../mock/tableData2.js'
 
     export default{
         data(){
             return {
                 pageIndex:1,
-                pageSize:10,
+                pageSize:20,
                 tableConfig: {
                     multipleSort: false,
                     tableData: [],

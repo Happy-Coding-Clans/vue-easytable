@@ -101,9 +101,13 @@ body, html {
 }
 
 .main-wrapper-sidebar .menu-sub li {
-    line-height: 2.3em;
+    line-height: 1.8em;
 }
 
+.main-wrapper-sidebar .menu-sub li:hover a{
+
+    color: #0092dd;
+}
 
 .main-wrapper-sidebar .menu-sub li .active {
     font-weight: bold;

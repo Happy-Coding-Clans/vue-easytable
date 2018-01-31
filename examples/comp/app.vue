@@ -31,13 +31,65 @@
                             </li>
                         </ul>
 
-                        <a class="main-wrapper-sidebar-link" href="javascript:javascript:void(0);">组件</a>
+                        <a class="main-wrapper-sidebar-link" href="javascript:javascript:void(0);">table 组件</a>
                         <ul class="menu-sub">
                             <li>
-                                <router-link to="/table">Table 表格</router-link>
+                                <router-link to="/table/basic">基本用法</router-link>
                             </li>
                             <li>
-                                <router-link to="/pagination">Pagination 分页</router-link>
+                                <router-link to="/table/horizontalResize">表格横向自适应</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/table/verticalResize">表格纵向自适应</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/table/customColumns">自定义列</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/table/cellStyle">单元格样式</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/table/columnWidthDrag">列宽拖动</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/table/selection">多选功能</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/table/cellEdit">单元格编辑</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/table/cellMerge">行、列合并</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/table/conditionFilters">条件筛选</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/table/footerSummary">footer 汇总</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/table/loading">loading 以及错误提示</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/table/sort">排序</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/table/fixedColumnsTitle">固定表头固定列</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/table/hideTable">隐藏表格</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/table/combinedPaging">表格结合分页</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/table/api">API</router-link>
+                            </li>
+                        </ul>
+
+                        <a class="main-wrapper-sidebar-link" href="javascript:javascript:void(0);">分页组件</a>
+                        <ul class="menu-sub">
+                            <li>
+                                <router-link to="/pagination">pagination 分页</router-link>
                             </li>
                         </ul>
 
@@ -93,7 +145,7 @@
 
 <script>
 
-    import catolog from './Catalog.vue'
+    import catolog from './catalog.vue'
 
     export default{
         name: "App",
