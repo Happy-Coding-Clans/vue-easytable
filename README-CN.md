@@ -52,18 +52,6 @@ Vue.component(VPagination.name, VPagination)
 
 > 你也可以 **[通过 cdn 使用](http://doc.huangsw.com/vue-easytable/app.html#/install)**
 
-## 效果（不是全部）
-**自适应、固定列，表头固定、支持列宽拖动、排序、分页**
-![vue-easytable](./examples/images/vue-easytable.gif)
-
-**支持单元格合并**
-![vue-easytable](./examples/images/rowspan.png)
-
-**单元格编辑**
-![vue-easytable](./examples/images/edit.gif)
-
-**支持 checkbox 多选功能**
-![vue-easytable](./examples/images/selection.gif)
 
 ## 讨论组
 通过添加微信进行群组讨论

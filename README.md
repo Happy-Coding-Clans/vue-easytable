@@ -55,19 +55,6 @@ Vue.component(VPagination.name, VPagination)
 > also you can use it **[by cdn](http://doc.huangsw.com/vue-easytable/app.html#/install)**
 
 
-## Effect
-**Adaptive、Fixed column, header fixed、Support column width drag、Custom columns, custom cell styles、Own paging component**
-![vue-easytable](./examples/images/vue-easytable.gif)
-
-**Support cell merge**
-![vue-easytable](./examples/images/rowspan.png)
-
-**Cell Editing**
-![vue-easytable](./examples/images/edit.gif)
-
-**Support checkbox selection**
-![vue-easytable](./examples/images/selection.gif)
-
 ## Discussion group
 Group discussion by adding WeChat
 
