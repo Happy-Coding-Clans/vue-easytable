@@ -13,18 +13,18 @@ Based on vue2.x flexible table components.
 [API&Examples](http://doc.huangsw.com/vue-easytable/app.html#/install)
 
 ## Features
-- [x] [Adaptive, you can automatically adapt to the browser window changes](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-simple-table-resize)
-- [x] [Fixed column, header fixed](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-frozen-title-columns)  
-- [x] [Support column width drag](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-column-width-drag)
-- [x] [Supports single field sorting and multiple field sorting](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-sort-by-single-columns)
-- [x] [Custom columns, custom cell styles](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-custom-columns)
-- [x] [Loading effects, custom loading, etc](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-loading-and-error-content)
+- [x] [Adaptive, you can automatically adapt to the browser window changes](http://doc.huangsw.com/vue-easytable/app.html#/table/horizontalResize)
+- [x] [Fixed column, header fixed](http://doc.huangsw.com/vue-easytable/app.html#/table/fixedColumnsTitle)  
+- [x] [Support column width drag](http://doc.huangsw.com/vue-easytable/app.html#/table/columnWidthDrag)
+- [x] [Supports single field sorting and multiple field sorting](http://doc.huangsw.com/vue-easytable/app.html#/table/sort)
+- [x] [Custom columns, custom cell styles](http://doc.huangsw.com/vue-easytable/app.html#/table/cellStyle)
+- [x] [Loading effects, custom loading, etc](http://doc.huangsw.com/vue-easytable/app.html#/table/loading)
 - [x] [Own paging component](http://doc.huangsw.com/vue-easytable/app.html#/pagination)
-- [x] [Cell Editing](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-edit-advanced)
-- [x] [Support cell merge (colSpan and rowSpan)](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-cell-merge)
-- [x] [Support checkbox selection](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-selection-advanced)  
-- [x] [Footer summary](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-footer-summary)
-- [x] [Conditional filter](http://doc.huangsw.com/vue-easytable/app.html#/table?anchor=table-filters)
+- [x] [Cell Editing](http://doc.huangsw.com/vue-easytable/app.html#/table/cellEdit)
+- [x] [Support cell merge (colSpan and rowSpan)](http://doc.huangsw.com/vue-easytable/app.html#/table/cellMerge)
+- [x] [Support checkbox selection](http://doc.huangsw.com/vue-easytable/app.html#/table/selection)  
+- [x] [Footer summary](http://doc.huangsw.com/vue-easytable/app.html#/table/footerSummary)
+- [x] [Conditional filter](http://doc.huangsw.com/vue-easytable/app.html#/table/conditionFilters)
 - [ ] Export excel
 - [ ] Export PDF
 - [ ] Row expansion
