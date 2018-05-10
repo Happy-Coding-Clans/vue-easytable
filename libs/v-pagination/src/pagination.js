@@ -76,55 +76,29 @@ exports.default = {
     },
 
     render: function render(h) {
-        var template = h(
-            "ul",
-            { "class": "v-page-ul" },
-            []
-        );
+        var template = h("ul", { "class": "v-page-ul" });
 
         var comps = {
-            'total': h(
-                "total",
-                null,
-                []
-            ),
-            'prev': h(
-                "prev",
-                null,
-                []
-            ),
-            'pager': h(
-                "pager",
-                {
-                    attrs: { pageCount: this.pageCount, pageIndex: this.newPageIndex,
-                        showPagingCount: this.showPagingCount
-                    },
-                    on: {
-                        "jumpPageHandler": this.jumpPageHandler
-                    }
+            'total': h("total", null),
+            'prev': h("prev", null),
+            'pager': h("pager", {
+                attrs: { pageCount: this.pageCount, pageIndex: this.newPageIndex,
+                    showPagingCount: this.showPagingCount
                 },
-                []
-            ),
-            'next': h(
-                "next",
-                null,
-                []
-            ),
-            'sizer': h(
-                "sizer",
-                null,
-                []
-            ),
-            'jumper': h(
-                "jumper",
-                {
-                    on: {
-                        "jumpPageHandler": this.jumpPageHandler
-                    }
-                },
-                []
-            )
+                on: {
+                    "jumpPageHandler": this.jumpPageHandler
+                }
+            }),
+            'next': h("next", null),
+            'sizer': h("sizer", null),
+            'jumper': h("jumper", {
+                on: {
+                    "jumpPageHandler": this.jumpPageHandler
+                }
+            })
         };
+
+        template.children = template.children || [];
 
         this.layout.forEach(function (item) {
             template.children.push(comps[item]);
@@ -165,11 +139,7 @@ exports.default = {
                     [h(
                         "a",
                         null,
-                        [h(
-                            "i",
-                            { "class": "v-icon-angle-left" },
-                            []
-                        )]
+                        [h("i", { "class": "v-icon-angle-left" })]
                     )]
                 );
             }
@@ -191,11 +161,7 @@ exports.default = {
                     [h(
                         "a",
                         null,
-                        [h(
-                            "i",
-                            { "class": "v-icon-angle-right" },
-                            []
-                        )]
+                        [h("i", { "class": "v-icon-angle-right" })]
                     )]
                 );
             }
@@ -207,22 +173,18 @@ exports.default = {
             },
 
             render: function render(h) {
-                return h(
-                    "v-select",
-                    {
-                        attrs: { size: this.$parent.size,
-                            value: this.$parent.newPageSizeOption
-                        },
-                        "class": "v-page-select", on: {
-                            "input": this.handleChange
-                        },
-                        directives: [{
-                            name: "model",
-                            value: this.$parent.newPageSizeOption
-                        }]
+                return h("v-select", {
+                    attrs: { size: this.$parent.size,
+                        value: this.$parent.newPageSizeOption
                     },
-                    []
-                );
+                    "class": "v-page-select", on: {
+                        "input": this.handleChange
+                    },
+                    directives: [{
+                        name: "model",
+                        value: this.$parent.newPageSizeOption
+                    }]
+                });
             },
 
 
@@ -259,22 +221,18 @@ exports.default = {
                 return h(
                     "span",
                     { "class": "v-page-goto" },
-                    ["\xA0\u524D\u5F80\xA0", h(
-                        "input",
-                        {
-                            "class": "v-page-goto-input",
-                            domProps: {
-                                "value": this.$parent.newPageIndex
-                            },
-                            on: {
-                                "keyup": this.jumperEnter
-                            },
-                            attrs: {
-                                type: "input"
-                            }
+                    ["\xA0\u524D\u5F80\xA0", h("input", {
+                        "class": "v-page-goto-input",
+                        domProps: {
+                            "value": this.$parent.newPageIndex
                         },
-                        []
-                    ), "\xA0\u9875\xA0"]
+                        on: {
+                            "keyup": this.jumperEnter
+                        },
+                        attrs: {
+                            type: "input"
+                        }
+                    }), "\xA0\u9875\xA0"]
                 );
             }
         }

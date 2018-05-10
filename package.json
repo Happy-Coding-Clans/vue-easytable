@@ -1,6 +1,6 @@
 {
   "name": "vue-easytable",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "vue table component",
   "main": "libs/index.js",
   "author": "https://github.com/huangshuwei",
@@ -25,6 +25,7 @@
     "webpack-dev-server": "^2.5.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.9.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.2",
     "babel-loader": "^7.1.1",
