@@ -79,6 +79,10 @@ export default{
             'jumper': <jumper onJumpPageHandler={this.jumpPageHandler}></jumper>
         }
 
+        // https://github.com/ElemeFE/element/issues/10033
+        // https://github.com/ElemeFE/element/issues/9587
+        template.children = template.children || [];
+
         this.layout.forEach(item => {
             template.children.push(comps[item]);
         })
