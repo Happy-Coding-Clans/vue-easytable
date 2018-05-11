@@ -4,7 +4,7 @@ import VCheckbox from './v-checkbox/index'
 import VCheckboxGroup from './v-checkbox-group/index'
 import VSelect from './v-select/index'
 import VDropdown from './v-dropdown/index'
-import VDraggableTable from "./v-draggable-table/index"
+
 
 const install = function (Vue, opts = {}) {
 
@@ -14,7 +14,7 @@ const install = function (Vue, opts = {}) {
     Vue.component(VCheckboxGroup.name, VCheckboxGroup);
     Vue.component(VSelect.name, VSelect);
     Vue.component(VDropdown.name, VDropdown);
-    Vue.component(VDraggableTable.name, VDraggableTable)
+
 }
 
 // auto install
@@ -28,6 +28,5 @@ module.exports = {
     VCheckbox,
     VCheckboxGroup,
     VSelect,
-    VDropdown,
-    VDraggableTable
+    VDropdown
 };

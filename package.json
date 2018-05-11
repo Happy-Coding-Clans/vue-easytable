@@ -20,7 +20,6 @@
     "vue-router": "^2.4.0",
     "vue-style-loader": "^3.0.0",
     "vue-template-compiler": "^2.2.6",
-    "vuedraggable": "^2.16.0",
     "webpack": "^3.0.0",
     "webpack-chunk-hash": "^0.4.0",
     "webpack-dev-server": "^2.5.0"

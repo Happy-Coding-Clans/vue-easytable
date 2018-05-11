@@ -79,8 +79,8 @@ exports.default = {
         var template = h("ul", { "class": "v-page-ul" });
 
         var comps = {
-            'total': h("total"),
-            'prev': h("prev"),
+            'total': h("total", null),
+            'prev': h("prev", null),
             'pager': h("pager", {
                 attrs: { pageCount: this.pageCount, pageIndex: this.newPageIndex,
                     showPagingCount: this.showPagingCount
@@ -89,8 +89,8 @@ exports.default = {
                     "jumpPageHandler": this.jumpPageHandler
                 }
             }),
-            'next': h("next"),
-            'sizer': h("sizer"),
+            'next': h("next", null),
+            'sizer': h("sizer", null),
             'jumper': h("jumper", {
                 on: {
                     "jumpPageHandler": this.jumpPageHandler
@@ -136,7 +136,11 @@ exports.default = {
 
                         "class": [this.$parent.newPageIndex === 1 ? 'v-page-disabled' : '', 'v-page-li', 'v-page-prev']
                     },
-                    [h("a", [h("i", { "class": "v-icon-angle-left" })])]
+                    [h(
+                        "a",
+                        null,
+                        [h("i", { "class": "v-icon-angle-left" })]
+                    )]
                 );
             }
         },
@@ -154,7 +158,11 @@ exports.default = {
 
                         "class": [this.$parent.newPageIndex === this.$parent.pageCount ? 'v-page-disabled' : '', 'v-page-li', 'v-page-next']
                     },
-                    [h("a", [h("i", { "class": "v-icon-angle-right" })])]
+                    [h(
+                        "a",
+                        null,
+                        [h("i", { "class": "v-icon-angle-right" })]
+                    )]
                 );
             }
         },

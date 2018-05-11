@@ -30,7 +30,7 @@ const hideTable =  r => require.ensure([], () => r(require('./doc/table/hide-tab
 const combinedPaging =  r => require.ensure([], () => r(require('./doc/table/combined-paging/main.md')), 'combinedPaging');
 const api =  r => require.ensure([], () => r(require('./doc/table/api/main.md')), 'api');
 
-const draggableTable = r => require.ensure([], () => r(require('./doc/draggable-table/basic/main.md')), 'draggableTable');
+
 
 Vue.use(VueRouter)
 
@@ -42,7 +42,6 @@ export default new VueRouter({
         { path: '/install', component: install ,name:'安装'},
         { path: '/start', component: start ,name:'开始'},
         { path: '/pagination', component: pagination ,name:'分页'},
-        { path: '/draggable_table', component: draggableTable ,name:'拖拽表格'},
         { path: '/table',name:'表格', component: childRouterTpl ,redirect:'/table/basic',
             children : [
                 {path : 'basic', component :basic, name : '基础表格'},

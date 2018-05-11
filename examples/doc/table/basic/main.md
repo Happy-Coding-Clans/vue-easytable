@@ -5,7 +5,7 @@
             <h3>基础用法</h3>
 
             <div class="mt30">
-                <anchor id="set-table-width" label="基础用法" h4 ></anchor>
+                <anchor id="set-table-width" label="基础用法，最后一列不设置" h4 ></anchor>
                 <basic-set-table-width></basic-set-table-width>
             </div>
             <div class="mt30">
@@ -22,7 +22,7 @@
 
 
     export default{
-        name: "basic-draggable-table-main",
+        name: "basic-main",
         components: {
             basicSetTableWidth,
             basicNoTableWidth
