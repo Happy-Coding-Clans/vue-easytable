@@ -108,7 +108,7 @@
                     <div :class="['v-table-body-inner',vTableBodyInner]">
                         <v-checkbox-group v-model="checkboxGroupModel" @change="handleCheckGroupChange">
                             <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">
-                                <tbody>
+                                <draggable  class="v-table-tbody" v-model="internalTableData" :options="draggableOption" element="tbody"  @start="startDrag" @end="endLeftDrag">
                                 <tr v-for="(item,rowIndex) in internalTableData" class="v-table-row"
                                     :style="[trBgColor(rowIndex+1)]"
                                     @mouseenter.stop="handleMouseEnter(rowIndex)"
@@ -160,7 +160,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                </tbody>
+                                </draggable>
                             </table>
                         </v-checkbox-group>
                     </div>
@@ -289,7 +289,7 @@
                  :style="{'width': rightViewWidth+'px', 'height': bodyViewHeight+'px'}">
                 <v-checkbox-group v-model="checkboxGroupModel" @change="handleCheckGroupChange">
                     <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">
-                        <tbody>
+                        <draggable  class="v-table-tbody" v-model="internalTableData" :options="draggableOption" element="tbody"  @start="startDrag" @end="endDrag">
                         <tr :key="rowIndex" v-for="(item,rowIndex) in internalTableData" class="v-table-row"
                             :style="[trBgColor(rowIndex+1)]"
                             @mouseenter.stop="handleMouseEnter(rowIndex)"
@@ -342,7 +342,7 @@
                                 </div>
                             </td>
                         </tr>
-                        </tbody>
+                        </draggable>
                     </table>
                 </v-checkbox-group>
             </div>
@@ -388,6 +388,47 @@
 </template>
 
 <script>
-    import tableMixin from './table-mixin.js'
-    export default tableMixin
+    import draggable from 'vuedraggable'
+    import tableMixin from '../../v-table/src/table-mixin.js'
+    export default {
+        mixins: [tableMixin],
+        name: 'v-draggable-table',
+        components: {draggable},
+        props: {
+            dragOptions: {
+                type: Object,
+                default: function () {
+                    return  {
+                    }
+                }
+            }
+        },
+        computed: {
+            // 获取拖拽参数
+            draggableOption () {
+                return Object.assign({}, this.dragOptions, {
+                    draggable: '.v-table-row'
+                })
+            }
+        },
+        methods: {
+            // 开始拖动
+            startDrag () {
+                this.$emit('start',this.internalTableData )
+            },
+            endLeftDrag () {
+                this.endDrag()
+                var body1 = this.$el.querySelector('.v-table-leftview .v-table-body')
+                var body2 = this.$el.querySelector('.v-table-rightview .v-table-body')
+                if (body1) {
+                    body2.scrollTop = body1.scrollTop
+                }
+            },
+            // 结束拖动
+            endDrag () {
+                this.$emit('end',this.internalTableData )
+            }
+
+        }
+    }
 </script>
