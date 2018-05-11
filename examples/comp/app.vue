@@ -86,6 +86,13 @@
                             </li>
                         </ul>
 
+                        <a class="main-wrapper-sidebar-link" href="javascript:javascript:void(0);">拖拽表格</a>
+                        <ul class="menu-sub">
+                            <li>
+                                <router-link to="/draggable_table">拖拽表格</router-link>
+                            </li>
+                        </ul>
+
                         <a class="main-wrapper-sidebar-link" href="javascript:javascript:void(0);">分页组件</a>
                         <ul class="menu-sub">
                             <li>
