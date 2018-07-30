@@ -116,6 +116,7 @@
                                     <td v-if="cellMergeInit(rowIndex,col.field,item,true)"
                                         v-for="(col,colIndex) in frozenCols"
                                         :key="colIndex"
+                                        :style="[setColumnCellStyleName(rowIndex,col.field,item)]"
                                         :colSpan="setColRowSpan(rowIndex,col.field,item).colSpan"
                                         :rowSpan="setColRowSpan(rowIndex,col.field,item).rowSpan"
                                         :class="[setColumnCellClassName(rowIndex,col.field,item)]">
@@ -298,6 +299,7 @@
                             <td v-if="cellMergeInit(rowIndex,col.field,item,false)"
                                 v-for="(col,colIndex) in noFrozenCols"
                                 :key="colIndex"
+                                :style="[setColumnCellStyleName(rowIndex,col.field,item)]"
                                 :colSpan="setColRowSpan(rowIndex,col.field,item).colSpan"
                                 :rowSpan="setColRowSpan(rowIndex,col.field,item).rowSpan"
                                 :class="[setColumnCellClassName(rowIndex,col.field,item)]">
@@ -585,6 +587,8 @@
             },
             // 表体单元格样式回调
             columnCellClassName: Function,
+            // 表体单元格style样式回调
+            columnCellStyleName: Function,
             // footer单元格样式回调
             footerCellClassName: Function,
             // 行单击回调
@@ -712,6 +716,12 @@
             setColumnCellClassName(rowIndex, field, rowData){
 
                 return this.columnCellClassName && this.columnCellClassName(rowIndex, field, rowData);
+            },
+
+            // 设置 column 列的style样式
+            setColumnCellStyleName(rowIndex, field, rowData){
+
+                return this.columnCellStyleName && this.columnCellStyleName(rowIndex, field, rowData);
             },
 
             // 获取每个表头列的宽度
