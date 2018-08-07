@@ -364,8 +364,7 @@
             </div>
         </div>
         <!-- 固定操作列 -->
-        <div class="v-table-actionview"
-             :style="{'width': actionViewWidth+'px'}">
+        <div class="v-table-actionview" :style="{'width': actionViewWidth+'px'}" v-if="actions.length>0 && actionViewWidth>0">
             <div class="v-table-header v-table-title-class"
                  :style="{'width': (actionViewWidth-1)+'px','background-color':titleBgColor}">
                 <div class="v-table-header-inner" style="display: block;">
@@ -392,7 +391,7 @@
                             <div :class="['v-table-body-cell','horizontal-border','vertical-border-left']"
                                  :style="{'width':actionViewWidth+'px','height': rowHeight+'px','line-height':rowHeight+'px'}">
                                 <!-- 渲染操作按钮 -->
-                                <button v-for="(action, i) in actions" :key="i" style="padding: 0px 10px;margin-right: 2px;"
+                                <button v-for="(action, i) in actions" :key="i" style="padding: 0 10px;margin-right: 2px;"
                                         :class="['v-table-btn', action.class]" @click="doAction(action.key, item)">
                                     {{action.text}}
                                 </button>
@@ -693,7 +692,7 @@
             },
             // 右侧区域宽度
             rightViewWidth(){
-console.log(this.actionViewWidth);
+
                 let result = this.internalWidth - this.leftViewWidth - this.actionViewWidth;
 
                 return this.hasFrozenColumn ? result - 2 : result;
