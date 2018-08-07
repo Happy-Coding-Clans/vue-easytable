@@ -185,7 +185,7 @@
         </template>
         <!--右列-->
         <div class="v-table-rightview"
-             :style="{'width': rightViewWidth+'px'}">
+             :style="{'width': rightViewWidth+'px','left': leftViewWidth+'px'}">
             <!--右列头-->
             <div class="v-table-header v-table-title-class"
                  :style="{'width': (rightViewWidth-1)+'px','background-color':titleBgColor}">
@@ -360,6 +360,46 @@
                                  v-html="col.content"></div>
                         </td>
                     </tr>
+                </table>
+            </div>
+        </div>
+        <!-- 固定操作列 -->
+        <div class="v-table-actionview"
+             :style="{'width': actionViewWidth+'px'}">
+            <div class="v-table-header v-table-title-class"
+                 :style="{'width': (actionViewWidth-1)+'px','background-color':titleBgColor}">
+                <div class="v-table-header-inner" style="display: block;">
+                    <table class="v-table-htable" border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div :class="['v-table-title-cell','horizontal-border','vertical-border-left']"
+                                     :style="{'width':actionViewWidth+'px','height':titleColumnHeight()+'px','lineHeight':titleColumnHeight()+'px','text-align':'center'}">
+                                    操作
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div :class="['v-table-body v-table-body-class',vTableRightBody]"
+                 :style="{'width': actionViewWidth+'px', 'height': bodyViewHeight+'px'}">
+                <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">
+                    <tbody>
+                    <tr :key="rowIndex" v-for="(item,rowIndex) in internalTableData" class="v-table-row">
+                        <td>
+                            <div :class="['v-table-body-cell','horizontal-border','vertical-border-left']"
+                                 :style="{'width':actionViewWidth+'px','height': rowHeight+'px','line-height':rowHeight+'px'}">
+                                <!-- 渲染操作按钮 -->
+                                <button v-for="(action, i) in actions" :key="i"
+                                        :class="['v-table-btn', action.class]" @click="doAction(action.key, item)">
+                                    {{action.text}}
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -610,7 +650,19 @@
             // checkbox-group change event
             selectGroupChange: Function,
             // filter event
-            filterMethod: Function
+            filterMethod: Function,
+            // actions
+            // {
+            //      key: '',    // 回调方法关键字参数
+            //      text: '',  // 按钮显示文本
+            //      class: '',  // 样式：info,success,warn,error
+            // }
+            actions: {
+                type: Array,
+                default() {
+                    return [];
+                }
+            }
         },
         computed: {
 
@@ -637,9 +689,16 @@
             // 右侧区域宽度
             rightViewWidth(){
 
-                let result = this.internalWidth - this.leftViewWidth;
+                let result = this.internalWidth - this.leftViewWidth - this.actionViewWidth;
 
                 return this.hasFrozenColumn ? result - 2 : result;
+            },
+            // 操作列宽度
+            actionViewWidth() {
+                if (this.actions.length > 0) {
+                    return 70 + (this.actions.length - 1) * 40;
+                }
+                return 0;
             },
 
             // 左侧、右侧区域高度
@@ -860,6 +919,11 @@
 
                     this.tableResize();
                 })
+            },
+
+            // 触发table中声明的@do-action方法
+            doAction(key, row) {
+                this.$emit('do-action', key, row);
             }
         },
         created(){

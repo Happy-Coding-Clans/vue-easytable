@@ -4,13 +4,15 @@
 <template>
     <div>
         <v-table
-             :width="1100"
+             :width="970"
              :height="200"
              :columns="columns"
              :table-data="tableData"
              even-bg-color="#f4f4f4"
              row-hover-color="#eee"
              row-click-color="#edf7ff"
+             :actions="[{key:'detail',text:'详情',class:'info'},{key:'update',text:'更新',class:'success'},{key:'delete',text:'删除',class:'error'}]"
+             @do-action="doAction"
         ></v-table>
     </div>
 </template>
@@ -35,6 +37,11 @@
                            {field: 'address', title: '地址', width: 430, titleAlign: 'center',columnAlign:'left'}
                     ]
             }
+        },
+        methods:{
+        	doAction(key, row){
+        		console.log('do action', key, row);
+        	}
         }
     }
 </script>
