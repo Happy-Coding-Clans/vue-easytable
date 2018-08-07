@@ -657,7 +657,6 @@
             // {
             //      key: '',    // 回调方法关键字参数
             //      text: '',   // 按钮显示文本
-            //      width: '',  // 按钮宽度， Number
             //      class: '',  // 样式：info,success,warn,error
             // }
             actions: {

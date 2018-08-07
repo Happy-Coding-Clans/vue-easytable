@@ -1,45 +1,57 @@
-import deepClone from '../../src/utils/deepClone.js'
+'use strict';
 
-export default {
-    data(){
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _deepClone = require('../../src/utils/deepClone.js');
+
+var _deepClone2 = _interopRequireDefault(_deepClone);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    data: function data() {
 
         return {
 
-            footerTotalHeight:0
-        }
+            footerTotalHeight: 0
+        };
     },
+
     computed: {
-
-        frozenFooterCols(){
+        frozenFooterCols: function frozenFooterCols() {
 
             var result = [];
 
             if (this.initInternalFooter.length > 0) {
 
-                this.initInternalFooter.forEach(columns => {
+                this.initInternalFooter.forEach(function (columns) {
 
-                    result.push(columns.filter(col => col.isFrozen));
+                    result.push(columns.filter(function (col) {
+                        return col.isFrozen;
+                    }));
                 });
             }
 
             return result;
         },
-
-        noFrozenFooterCols(){
+        noFrozenFooterCols: function noFrozenFooterCols() {
             var result = [];
 
             if (this.initInternalFooter.length > 0) {
 
-                this.initInternalFooter.forEach(columns => {
+                this.initInternalFooter.forEach(function (columns) {
 
-                    result.push(columns.filter(col => !col.isFrozen));
+                    result.push(columns.filter(function (col) {
+                        return !col.isFrozen;
+                    }));
                 });
             }
 
             return result;
         },
-
-        getFooterTotalRowHeight(){
+        getFooterTotalRowHeight: function getFooterTotalRowHeight() {
 
             if (Array.isArray(this.footer) && this.footer.length > 0) {
 
@@ -47,13 +59,11 @@ export default {
             }
             return 0;
         },
-
-        hasTableFooter(){
+        hasTableFooter: function hasTableFooter() {
 
             return Array.isArray(this.footer) && this.footer.length;
         },
-
-        initInternalFooter(){
+        initInternalFooter: function initInternalFooter() {
 
             if (!(Array.isArray(this.footer) && this.footer.length > 0)) {
 
@@ -64,9 +74,7 @@ export default {
                 resultRow = [],
                 cloneInternalColumns;
 
-
-            // 防止排序后对原数组进行干扰
-            cloneInternalColumns = deepClone(this.internalColumns);
+            cloneInternalColumns = (0, _deepClone2.default)(this.internalColumns);
 
             cloneInternalColumns.sort(function (a, b) {
 
@@ -78,13 +86,13 @@ export default {
                     return 1;
                 }
                 return 0;
-            })
+            });
 
-            this.footer.forEach((items, rows) => {
+            this.footer.forEach(function (items, rows) {
 
                 resultRow = [];
 
-                items.forEach((value, index) => {
+                items.forEach(function (value, index) {
 
                     resultRow.push({
                         content: value,
@@ -92,29 +100,26 @@ export default {
                         align: cloneInternalColumns[index].columnAlign,
                         isFrozen: cloneInternalColumns[index].isFrozen ? true : false
                     });
-                })
+                });
 
                 result.push(resultRow);
-            })
+            });
             return result;
         }
     },
 
     methods: {
+        setFooterCellClassName: function setFooterCellClassName(isLeftView, rowIndex, colIndex, value) {
 
-        // 设置 footer 单元格样式
-        setFooterCellClassName(isLeftView, rowIndex, colIndex, value){
+            var _colIndex = colIndex;
 
-            let _colIndex = colIndex;
-
-            // 如果是右列，并且有固定列
             if (!isLeftView && this.hasFrozenColumn) {
 
                 _colIndex += this.frozenCols.length;
             }
 
             return this.footerCellClassName && this.footerCellClassName(rowIndex, _colIndex, value);
-        },
+        }
     }
 
-}
+};

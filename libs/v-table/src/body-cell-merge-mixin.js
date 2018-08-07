@@ -1,181 +1,161 @@
-export default {
+'use strict';
 
-    data(){
+Object.defineProperty(exports, "__esModule", {
+            value: true
+});
+exports.default = {
+            data: function data() {
 
-        return {
+                        return {
+                                    skipRenderCells: []
+                        };
+            },
 
-            // 跳过渲染的列集合
-            skipRenderCells: []
-        }
 
-    },
+            methods: {
+                        cellMergeInit: function cellMergeInit(rowIndex, field, rowData, isFrozenColumns) {
+                                    if (this.skipRenderCells.indexOf(rowIndex + '-' + field) !== -1) {
+                                                return false;
+                                    }
 
-    methods: {
+                                    var setting = this.cellMerge && this.cellMerge(rowIndex, rowData, field);
 
-        /*
-         * isFrozenColumns:是否是固定列
-         * */
-        cellMergeInit(rowIndex, field, rowData, isFrozenColumns){
+                                    if (setting && (setting.colSpan && setting.colSpan > 1 || setting.rowSpan && setting.rowSpan > 1)) {
 
-            // 包含在 skipRenderCells 内，则不渲染
-            if (this.skipRenderCells.indexOf(rowIndex + '-' + field) !== -1) {
-                return false;
-            }
+                                                this.setSkipRenderCells(setting.colSpan, setting.rowSpan, rowIndex, field, isFrozenColumns);
+                                    }
 
-            let setting = this.cellMerge && this.cellMerge(rowIndex,rowData,field);
+                                    return true;
+                        },
+                        setSkipRenderCells: function setSkipRenderCells(colSpan, rowSpan, rowIndex, field, isFrozenColumns) {
 
-            if (setting && ((setting.colSpan && setting.colSpan > 1) || (setting.rowSpan && setting.rowSpan > 1))) {
+                                    var columnsFields = isFrozenColumns ? this.getFrozenColumnsFields : this.getNoFrozenColumnsFields,
+                                        skipCell = '',
+                                        startPosX = void 0,
+                                        endPosX = void 0,
+                                        startPosY = void 0,
+                                        endPosY = void 0;
 
-                this.setSkipRenderCells(setting.colSpan, setting.rowSpan, rowIndex, field, isFrozenColumns);
-            }
+                                    endPosX = startPosX = columnsFields.indexOf(field);
+                                    if (colSpan && colSpan > 1) {
 
-            return true;
-        },
+                                                endPosX = startPosX + colSpan - 1;
+                                    }
 
-        // 设置不渲染的列
-        setSkipRenderCells(colSpan, rowSpan, rowIndex, field, isFrozenColumns){
+                                    endPosY = startPosY = rowIndex;
+                                    if (rowSpan && rowSpan > 1) {
 
-            let columnsFields = isFrozenColumns ? this.getFrozenColumnsFields : this.getNoFrozenColumnsFields,
-                skipCell = '',
-                startPosX, endPosX, startPosY, endPosY;
+                                                endPosY = rowIndex + rowSpan - 1;
+                                    }
 
-            endPosX = startPosX = columnsFields.indexOf(field);
-            if (colSpan && colSpan > 1) {
+                                    for (var posX = startPosX; posX <= endPosX; posX++) {
 
-                endPosX = startPosX + colSpan - 1;
-            }
+                                                for (var posY = startPosY; posY <= endPosY; posY++) {
 
-            endPosY = startPosY = rowIndex;
-            if (rowSpan && rowSpan > 1) {
+                                                            if (posX == startPosX && posY == startPosY) {
+                                                                        continue;
+                                                            }
 
-                endPosY = rowIndex + rowSpan - 1;
-            }
+                                                            skipCell = posY + '-' + columnsFields[posX];
 
-            for (var posX = startPosX; posX <= endPosX; posX++) {
+                                                            if (this.skipRenderCells.indexOf(skipCell) === -1) {
 
-                for (var posY = startPosY; posY <= endPosY; posY++) {
+                                                                        this.skipRenderCells.push(skipCell);
+                                                            }
+                                                }
+                                    }
+                        },
+                        setColRowSpan: function setColRowSpan(rowIndex, field, rowData) {
 
-                    if (posX == startPosX && posY == startPosY) {
-                        continue;
-                    }
+                                    var result = {
+                                                colSpan: '',
+                                                rowSpan: ''
+                                    },
+                                        setting = this.cellMerge && this.cellMerge(rowIndex, rowData, field);
 
-                    skipCell = posY + '-' + columnsFields[posX];
+                                    if (setting) {
 
-                    // 避免状态改变重新渲染的情况
-                    if (this.skipRenderCells.indexOf(skipCell) === -1) {
+                                                result = {
+                                                            colSpan: setting.colSpan ? setting.colSpan : '',
+                                                            rowSpan: setting.rowSpan ? setting.rowSpan : ''
+                                                };
+                                    }
 
-                        this.skipRenderCells.push(skipCell);
-                    }
-                }
-            }
-        },
+                                    return result;
+                        },
+                        isCellMergeRender: function isCellMergeRender(rowIndex, field, rowData) {
 
-        // 设置 colSpan
-        setColRowSpan(rowIndex, field, rowData){
+                                    var setting = this.cellMerge && this.cellMerge(rowIndex, rowData, field);
 
-            let result = {
-                    colSpan: '',
-                    rowSpan: ''
-                },
-                setting = this.cellMerge && this.cellMerge(rowIndex,rowData,field);
+                                    if (setting && (setting.colSpan && setting.colSpan > 0 || setting.rowSpan && setting.rowSpan > 0)) {
 
-            if (setting) {
+                                                return true;
+                                    }
 
-                result = {
-                    colSpan: setting.colSpan ? setting.colSpan : '',
-                    rowSpan: setting.rowSpan ? setting.rowSpan : ''
-                }
-            }
+                                    return false;
+                        },
+                        getRowHeightByRowSpan: function getRowHeightByRowSpan(rowIndex, field, rowData) {
 
-            return result;
-        },
+                                    var setting = this.cellMerge && this.cellMerge(rowIndex, rowData, field);
 
-        /*
-         * 并检测不合法的设置，如果设置不合法则不会合并行和列
-         * */
-        isCellMergeRender(rowIndex, field, rowData){
+                                    if (setting && setting.rowSpan && setting.rowSpan > 1) {
 
-            let setting = this.cellMerge && this.cellMerge(rowIndex,rowData,field);
+                                                return this.rowHeight * setting.rowSpan;
+                                    }
 
-            if (setting && ((setting.colSpan && setting.colSpan > 0) || (setting.rowSpan && setting.rowSpan > 0))) {
+                                    return this.rowHeight;
+                        },
+                        getRowWidthByColSpan: function getRowWidthByColSpan(rowIndex, field, rowData) {
 
-                return true;
-            }
+                                    var endPosX = void 0,
+                                        startPosX = void 0,
+                                        columnsFields = this.getColumnsFields,
+                                        setting = this.cellMerge && this.cellMerge(rowIndex, rowData, field),
+                                        colSpan = setting.colSpan,
+                                        totalWidth = 0;
 
-            return false;
-        },
+                                    if (setting && colSpan && colSpan >= 1) {
 
-        // 获取行高
-        getRowHeightByRowSpan(rowIndex, field, rowData){
+                                                startPosX = columnsFields.indexOf(field);
 
-            let setting = this.cellMerge && this.cellMerge(rowIndex,rowData,field);
+                                                endPosX = startPosX + colSpan - 1;
 
-            if (setting && (setting.rowSpan && setting.rowSpan > 1)) {
+                                                for (var i = startPosX; i <= endPosX; i++) {
 
-                return this.rowHeight * setting.rowSpan;
-            }
+                                                            this.internalColumns.forEach(function (x) {
 
-            return this.rowHeight;
-        },
+                                                                        if (columnsFields[i] === x.field) {
 
-        /*
-         * 获取单元格宽度
-         * isFrozenColumns:是否是固定列
-         * */
-        getRowWidthByColSpan(rowIndex, field, rowData){
+                                                                                    totalWidth += x.width;
+                                                                        }
+                                                            });
+                                                }
+                                    }
 
-            let endPosX,
-                startPosX,
-                columnsFields = this.getColumnsFields,
-                setting = this.cellMerge && this.cellMerge(rowIndex,rowData,field),
-                colSpan = setting.colSpan,
-                totalWidth = 0;
+                                    return totalWidth;
+                        },
+                        cellMergeContentType: function cellMergeContentType(rowIndex, field, rowData) {
 
-            if (setting && (colSpan && colSpan >= 1)) {
+                                    var result = {
+                                                isComponent: false,
+                                                isContent: false
+                                    };
 
-                startPosX = columnsFields.indexOf(field);
+                                    var setting = this.cellMerge && this.cellMerge(rowIndex, rowData, field);
 
-                endPosX = startPosX + colSpan - 1;
+                                    if (setting) {
 
-                for (var i = startPosX; i <= endPosX; i++) {
+                                                if (setting.componentName && typeof setting.componentName === 'string' && setting.componentName.length > 0) {
 
-                    this.internalColumns.forEach(x => {
+                                                            result.isComponent = true;
+                                                } else if (setting.content && setting.content.length > 0) {
 
-                        if (columnsFields[i] === x.field) {
+                                                            result.isContent = true;
+                                                }
+                                    }
 
-                            totalWidth += x.width;
+                                    return result;
                         }
-                    })
-                }
             }
 
-            return totalWidth;
-        },
-
-        // 合并的单元格渲染的内容类型
-        cellMergeContentType(rowIndex, field, rowData){
-
-            let result = {
-                isComponent: false,
-                isContent: false
-            }
-
-            var setting = this.cellMerge && this.cellMerge(rowIndex,rowData,field);
-
-            if (setting) {
-
-                if (setting.componentName && typeof setting.componentName === 'string' && setting.componentName.length > 0) {
-
-                    result.isComponent = true;
-
-                } else if (setting.content && setting.content.length > 0) {
-
-                    result.isContent = true;
-                }
-            }
-
-            return result;
-        }
-    }
-
-}
+};

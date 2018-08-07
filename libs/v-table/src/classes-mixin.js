@@ -1,56 +1,64 @@
-import settings from '../../src/settings/settings.js'
+'use strict';
 
-export default {
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _settings = require('../../src/settings/settings.js');
+
+var _settings2 = _interopRequireDefault(_settings);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
 
     computed: {
+        vTableRightBody: function vTableRightBody() {
 
-        vTableRightBody(){
-
-            let result = {
+            var result = {
                 'v-table-rightview-special-border': true
-            }
+            };
 
-            result[settings.scrollbarClass] = true;
-
-            return result;
-        },
-
-        vTableFooter(){
-
-            let result = {
-
-                'v-table-rightview-special-border': true,
-            }
-
-            result[settings.scrollbarClass] = true;
+            result[_settings2.default.scrollbarClass] = true;
 
             return result;
         },
+        vTableFooter: function vTableFooter() {
 
-        vTableBodyInner(){
+            var result = {
+
+                'v-table-rightview-special-border': true
+            };
+
+            result[_settings2.default.scrollbarClass] = true;
+
+            return result;
+        },
+        vTableBodyInner: function vTableBodyInner() {
 
             return {
                 'v-table-body-inner-pb': !this.hasTableFooter
-            }
+            };
         },
-
-        vTableBodyCell(){
+        vTableBodyCell: function vTableBodyCell() {
 
             return {
                 'vertical-border': this.showVerticalBorder,
                 'horizontal-border': this.showHorizontalBorder
-            }
+            };
         }
     },
 
-    methods:{
-
-        vTableFiltersIcon(filters){
+    methods: {
+        vTableFiltersIcon: function vTableFiltersIcon(filters) {
+            var _this = this;
 
             return {
                 'v-icon-filter': true,
-                'checked': filters.some(x => x.selected && x.value !== this.filterSpecialValue)
-            }
+                'checked': filters.some(function (x) {
+                    return x.selected && x.value !== _this.filterSpecialValue;
+                })
+            };
         }
     }
-}
+};

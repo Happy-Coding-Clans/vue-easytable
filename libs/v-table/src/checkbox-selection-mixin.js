@@ -1,189 +1,171 @@
-export default {
+'use strict';
 
-    data(){
-        return {
-            // 是否全部选中
-            isAllChecked: false,
+Object.defineProperty(exports, "__esModule", {
+            value: true
+});
+exports.default = {
+            data: function data() {
+                        return {
+                                    isAllChecked: false,
 
-            checkboxGroupModel: [],
+                                    checkboxGroupModel: [],
 
-            indeterminate: false
+                                    indeterminate: false
 
-        }
+                        };
+            },
 
-    },
 
-    computed: {
+            computed: {
+                        disabledUnChecked: function disabledUnChecked() {
 
-        // 禁用未选中的复选框集合
-        disabledUnChecked(){
+                                    var result = [];
 
-            let result = [];
+                                    this.internalTableData.filter(function (item, index) {
 
-            this.internalTableData.filter((item, index) => {
+                                                if (item._disabled && !item._checked) {
+                                                            result.push(index);
+                                                }
+                                    });
+                                    return result;
+                        },
+                        getCheckedTableRow: function getCheckedTableRow() {
+                                    var _this = this;
 
-                if (item._disabled && !item._checked) {
-                    result.push(index);
-                }
-            })
-            return result;
-        },
+                                    return this.internalTableData.filter(function (item, index) {
 
-        // 获取当前选中的行信息
-        getCheckedTableRow(){
+                                                return _this.checkboxGroupModel.indexOf(index) > -1;
+                                    });
+                        },
+                        hasSelectionColumns: function hasSelectionColumns() {
 
-            return this.internalTableData.filter((item, index) => {
+                                    return this.internalColumns.some(function (x) {
 
-                return this.checkboxGroupModel.indexOf(index) > -1;
-            })
-        },
-
-        // 检测是否有
-        hasSelectionColumns(){
-
-            return this.internalColumns.some(x=>{
-
-                return x.type && x.type === 'selection';
-            })
-        }
-    },
-
-    methods: {
-        // 检测复杂表头是否需要设置 checkbox
-        isSelectionCol(fileds){
-
-            if (Array.isArray(fileds) && fileds.length === 1){
-
-                return this.internalColumns.some(x => x.field === fileds[0] && x.type === 'selection')
-            }
-
-            return false;
-        },
-
-        // 禁用已选中的复选框集合
-        disabledChecked(){
-
-            let result = [];
-
-            this.internalTableData.filter((item, index) => {
-
-                if (item._disabled && item._checked) {
-                    result.push(index);
-                }
-            })
-            return result;
-        },
-
-        // check all trigger event
-        handleCheckAll(){
-
-            if (this.isAllChecked) {
-
-                this.checkboxGroupModel = [];
-
-                let allLen = this.internalTableData.length;
-
-                if (allLen > 0) {
-
-                    for (let i = 0; i < allLen; i++) {
-
-                        if (this.disabledUnChecked.indexOf(i) === -1) {
-
-                            this.checkboxGroupModel.push(i);
+                                                return x.type && x.type === 'selection';
+                                    });
                         }
-                    }
-                }
+            },
 
-            } else {
+            methods: {
+                        isSelectionCol: function isSelectionCol(fileds) {
 
-                this.checkboxGroupModel = this.disabledChecked();
+                                    if (Array.isArray(fileds) && fileds.length === 1) {
+
+                                                return this.internalColumns.some(function (x) {
+                                                            return x.field === fileds[0] && x.type === 'selection';
+                                                });
+                                    }
+
+                                    return false;
+                        },
+                        disabledChecked: function disabledChecked() {
+
+                                    var result = [];
+
+                                    this.internalTableData.filter(function (item, index) {
+
+                                                if (item._disabled && item._checked) {
+                                                            result.push(index);
+                                                }
+                                    });
+                                    return result;
+                        },
+                        handleCheckAll: function handleCheckAll() {
+
+                                    if (this.isAllChecked) {
+
+                                                this.checkboxGroupModel = [];
+
+                                                var allLen = this.internalTableData.length;
+
+                                                if (allLen > 0) {
+
+                                                            for (var i = 0; i < allLen; i++) {
+
+                                                                        if (this.disabledUnChecked.indexOf(i) === -1) {
+
+                                                                                    this.checkboxGroupModel.push(i);
+                                                                        }
+                                                            }
+                                                }
+                                    } else {
+
+                                                this.checkboxGroupModel = this.disabledChecked();
+                                    }
+
+                                    this.selectAll && this.selectAll(this.getCheckedTableRow);
+
+                                    this.setIndeterminateState();
+                        },
+                        handleCheckChange: function handleCheckChange(rowData) {
+                                    var _this2 = this;
+
+                                    this.$nextTick(function (x) {
+                                                _this2.selectChange && _this2.selectChange(_this2.getCheckedTableRow, rowData);
+                                    });
+                        },
+                        handleCheckGroupChange: function handleCheckGroupChange() {
+
+                                    this.selectGroupChange && this.selectGroupChange(this.getCheckedTableRow);
+
+                                    this.setCheckState();
+                        },
+                        setIndeterminateState: function setIndeterminateState() {
+
+                                    var checkedLen = this.checkboxGroupModel.length,
+                                        allLen = this.internalTableData.length;
+
+                                    if (checkedLen > 0 && checkedLen === allLen) {
+
+                                                this.indeterminate = false;
+                                    } else if (checkedLen > 0 && checkedLen < allLen) {
+
+                                                this.indeterminate = true;
+                                    } else {
+
+                                                this.indeterminate = false;
+                                    }
+                        },
+                        setCheckState: function setCheckState() {
+
+                                    var checkedLen = this.checkboxGroupModel.length,
+                                        allLen = this.internalTableData.length;
+
+                                    if (checkedLen > 0 && checkedLen === allLen) {
+
+                                                this.indeterminate = false;
+
+                                                this.isAllChecked = true;
+                                    } else if (checkedLen > 0 && checkedLen < allLen) {
+
+                                                this.isAllChecked = false;
+
+                                                this.indeterminate = true;
+                                    } else {
+
+                                                this.indeterminate = false;
+
+                                                this.isAllChecked = false;
+                                    }
+                        },
+                        updateCheckboxGroupModel: function updateCheckboxGroupModel() {
+                                    var _this3 = this;
+
+                                    if (!this.hasSelectionColumns) {
+                                                return false;
+                                    }
+
+                                    this.checkboxGroupModel = [];
+
+                                    this.internalTableData.filter(function (item, index) {
+
+                                                if (item._checked) {
+
+                                                            _this3.checkboxGroupModel.push(index);
+                                                }
+                                    });
+
+                                    this.setCheckState();
+                        }
             }
-
-            this.selectAll && this.selectAll(this.getCheckedTableRow);
-
-            this.setIndeterminateState();
-        },
-
-        // checkbox change event
-        handleCheckChange(rowData){
-
-            this.$nextTick(x => {
-                this.selectChange && this.selectChange(this.getCheckedTableRow, rowData);
-            })
-        },
-
-        // checkbox-group change event
-        handleCheckGroupChange(){
-
-            this.selectGroupChange && this.selectGroupChange(this.getCheckedTableRow);
-
-            this.setCheckState();
-        },
-
-        // 设置部分选中状态（全选或者取消全选时）
-        setIndeterminateState(){
-
-            let checkedLen = this.checkboxGroupModel.length,
-                allLen = this.internalTableData.length;
-
-            // 全选
-            if (checkedLen > 0 && checkedLen === allLen) {
-
-                this.indeterminate = false;
-
-            } else if (checkedLen > 0 && checkedLen < allLen) { // 部分选中
-
-                this.indeterminate = true;
-
-            } else { // 全不选
-
-                this.indeterminate = false;
-            }
-        },
-
-        // 设置选中状态
-        setCheckState(){
-
-            let checkedLen = this.checkboxGroupModel.length,
-                allLen = this.internalTableData.length;
-
-            // 全选
-            if (checkedLen > 0 && checkedLen === allLen) {
-
-                this.indeterminate = false;
-
-                this.isAllChecked = true;
-
-            } else if (checkedLen > 0 && checkedLen < allLen) { // 部分选中
-
-                this.isAllChecked = false;
-
-                this.indeterminate = true;
-
-            } else { // 全不选
-
-                this.indeterminate = false;
-
-                this.isAllChecked = false;
-            }
-        },
-
-        // 修改checkbox 选中状态(table.vue 中调用)
-        updateCheckboxGroupModel(){
-
-            if (!this.hasSelectionColumns){return false;}
-
-            this.checkboxGroupModel = [];
-
-            this.internalTableData.filter((item, index) => {
-
-                if (item._checked) {
-
-                    this.checkboxGroupModel.push(index);
-                }
-            })
-
-            this.setCheckState();
-        }
-    }
-}
+};

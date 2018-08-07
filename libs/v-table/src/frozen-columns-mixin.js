@@ -1,36 +1,40 @@
-/*
- * 固定列
- *
- * */
+"use strict";
 
-export default {
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
     computed: {
-        // 冻结的列集合
-        frozenCols(){
-            return this.internalColumns.filter(x => x.isFrozen === true);
+        frozenCols: function frozenCols() {
+            return this.internalColumns.filter(function (x) {
+                return x.isFrozen === true;
+            });
         },
-        // 非冻结列集合
-        noFrozenCols(){
-            return this.internalColumns.filter(x => x.isFrozen !== true);
+        noFrozenCols: function noFrozenCols() {
+            return this.internalColumns.filter(function (x) {
+                return x.isFrozen !== true;
+            });
         },
-        // 冻结的表头列集合
-        frozenTitleCols(){
-            var frozenTitleCols = [], self = this;
+        frozenTitleCols: function frozenTitleCols() {
+            var frozenTitleCols = [],
+                self = this;
 
             if (this.internalTitleRows.length > 0) {
-
-                // 获取当前锁定的字段集合
-                var frozenFields = this.frozenCols.map(x => x.field);
+                var frozenFields = this.frozenCols.map(function (x) {
+                    return x.field;
+                });
 
                 this.internalTitleRows.forEach(function (rows) {
 
                     var frozenTitleRows = rows.filter(function (row) {
                         if (Array.isArray(row.fields)) {
-                            if (row.fields.every(field => frozenFields.indexOf(field) !== -1)) {
+                            if (row.fields.every(function (field) {
+                                return frozenFields.indexOf(field) !== -1;
+                            })) {
                                 return true;
                             }
                         }
-                    })
+                    });
 
                     if (frozenTitleRows.length > 0) {
 
@@ -46,27 +50,29 @@ export default {
                             }
                         }
                     }
-                })
+                });
             }
 
             return frozenTitleCols;
         },
-        // 未的表头列集合
-        noFrozenTitleCols(){
-            var noFrozenTitleCols = [], self = this;
+        noFrozenTitleCols: function noFrozenTitleCols() {
+            var noFrozenTitleCols = [],
+                self = this;
 
             if (this.internalTitleRows.length > 0) {
-
-                // 获取当前未锁定的字段集合
-                var noFrozenFields = this.noFrozenCols.map(x => x.field);
+                var noFrozenFields = this.noFrozenCols.map(function (x) {
+                    return x.field;
+                });
 
                 this.internalTitleRows.forEach(function (rows) {
 
                     var noFrozenTitleRows = rows.filter(function (row) {
                         if (Array.isArray(row.fields)) {
-                            return row.fields.every(field => noFrozenFields.indexOf(field) !== -1)
+                            return row.fields.every(function (field) {
+                                return noFrozenFields.indexOf(field) !== -1;
+                            });
                         }
-                    })
+                    });
 
                     if (noFrozenTitleRows.length > 0) {
                         noFrozenTitleCols.push(noFrozenTitleRows);
@@ -81,9 +87,9 @@ export default {
                             }
                         }
                     }
-                })
+                });
             }
             return noFrozenTitleCols;
         }
     }
-}
+};

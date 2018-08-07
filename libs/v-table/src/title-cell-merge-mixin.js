@@ -1,21 +1,23 @@
-export default {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
 
     computed: {
+        getTitleRowspanTotalCount: function getTitleRowspanTotalCount() {
+            var _this = this;
 
-        // 获取表头行合并的数量
-        getTitleRowspanTotalCount(){
-
-            let titleRowspanTotalCount1 = 0,
+            var titleRowspanTotalCount1 = 0,
                 titleRowspanTotalCount2 = 0,
-                rowspanCountArr, minVal;
+                rowspanCountArr = void 0,
+                minVal = void 0;
 
+            this.noFrozenTitleCols.forEach(function (row) {
 
-            // 不能用noFrozenTitleCols 要用原始数据处理
-            this.noFrozenTitleCols.forEach(row => {
+                rowspanCountArr = _this.getTitleRowspanCountArr(row);
 
-                rowspanCountArr = this.getTitleRowspanCountArr(row);
-
-                // 如果每一项的rowspan值都大于1则继续处理
                 if (Array.isArray(rowspanCountArr) && rowspanCountArr.length > 0) {
 
                     minVal = Math.min.apply(null, rowspanCountArr);
@@ -24,11 +26,10 @@ export default {
                 }
             });
 
-            this.frozenTitleCols.forEach(row => {
+            this.frozenTitleCols.forEach(function (row) {
 
-                rowspanCountArr = this.getTitleRowspanCountArr(row);
+                rowspanCountArr = _this.getTitleRowspanCountArr(row);
 
-                // 如果每一项的rowspan值都大于1则继续处理
                 if (Array.isArray(rowspanCountArr) && rowspanCountArr.length > 0) {
 
                     minVal = Math.min.apply(null, rowspanCountArr);
@@ -38,17 +39,14 @@ export default {
             });
 
             return titleRowspanTotalCount1 < titleRowspanTotalCount2 ? titleRowspanTotalCount1 : titleRowspanTotalCount2;
-        },
-
+        }
     },
     methods: {
+        getTitleRowspanCountArr: function getTitleRowspanCountArr(row) {
 
-        // return array
-        getTitleRowspanCountArr(row){
+            var rowspanCountArr = [];
 
-            let rowspanCountArr = [];
-
-            let shouldDeal = row.every(col => {
+            var shouldDeal = row.every(function (col) {
 
                 if (col.rowspan && parseInt(col.rowspan) > 1) {
 
@@ -57,7 +55,7 @@ export default {
                 } else {
                     return false;
                 }
-            })
+            });
 
             if (shouldDeal) {
                 return rowspanCountArr;
@@ -65,45 +63,12 @@ export default {
                 return [];
             }
         },
+        getMinRowspan: function getMinRowspan(row) {
 
-        /*
-         * row :行信息
-         * rowspan：当前列的rowspan值
-         * */
-        /*dealTitleRowspan(row, rowspan){
+            var result = void 0;
 
-         let result = rowspan,
-         rowspanCountArr,
-         minVal;
+            var rowspanCountArr = this.getTitleRowspanCountArr(row);
 
-         rowspanCountArr = this.getTitleRowspanCountArr(row);
-
-         // 如果每一项的rowspan值都大于1则继续处理
-         if (Array.isArray(rowspanCountArr) && rowspanCountArr.length > 0) {
-
-         rowspan = parseInt(rowspan);
-
-         minVal = Math.min.apply(null, rowspanCountArr);
-
-         if (rowspan === minVal) {
-
-         result = 1;
-         } else {
-
-         result = rowspan - minVal + 1;
-         }
-         }
-         return result;
-         },*/
-
-        // 获取最小的 rowspan
-        getMinRowspan(row){
-
-            let result;
-
-            let rowspanCountArr = this.getTitleRowspanCountArr(row);
-
-            // 如果每一项的rowspan值都大于1则继续处理
             if (Array.isArray(rowspanCountArr) && rowspanCountArr.length > 0) {
 
                 result = Math.min.apply(null, rowspanCountArr);
@@ -112,4 +77,4 @@ export default {
         }
     }
 
-}
+};

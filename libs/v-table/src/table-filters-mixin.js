@@ -1,58 +1,53 @@
-export default {
-    data(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    data: function data() {
 
         return {
 
             filterSpecialValue: '__all__'
-        }
+        };
     },
+
     methods: {
+        initColumnsFilters: function initColumnsFilters() {
+            var _this = this;
 
-        // 初始化 columns filters
-        initColumnsFilters(){
-
-            // 如果是复杂表头
             if (this.isComplexTitle) {
 
-                this.internalTitleRows.forEach(rows => {
+                this.internalTitleRows.forEach(function (rows) {
 
-                    rows.forEach(col => {
+                    rows.forEach(function (col) {
 
-                        if (this.enableFilters(col.filters, col.fields) && !col.filterMultiple) {
+                        if (_this.enableFilters(col.filters, col.fields) && !col.filterMultiple) {
 
-                            col.filters.unshift({label: '全部', value: this.filterSpecialValue, selected: true});
+                            col.filters.unshift({ label: '全部', value: _this.filterSpecialValue, selected: true });
                         }
-                    })
-                })
+                    });
+                });
             } else {
 
-                this.internalColumns.map(col => {
+                this.internalColumns.map(function (col) {
 
-                    if (this.enableFilters(col.filters) && !col.filterMultiple) {
+                    if (_this.enableFilters(col.filters) && !col.filterMultiple) {
 
-                        col.filters.unshift({label: '全部', value: this.filterSpecialValue, selected: true});
+                        col.filters.unshift({ label: '全部', value: _this.filterSpecialValue, selected: true });
                     }
-                })
+                });
             }
         },
-
-        // 单选条件改变
-        filterConditionChange(filterMultiple){
-
-            // 单选
+        filterConditionChange: function filterConditionChange(filterMultiple) {
             if (!filterMultiple) {
 
                 this.filterSummary();
             }
         },
+        enableFilters: function enableFilters(filters, fields) {
 
-        /*
-         * 是否包含 filters 功能
-         * fields : 当是复杂表头时，必须保证不是 colspan 的列
-         * */
-        enableFilters(filters, fields){
-
-            let result = false
+            var result = false;
 
             if (Array.isArray(fields) && fields.length > 1) {
 
@@ -64,63 +59,61 @@ export default {
             }
             return result;
         },
-
-        filterEvent(){
+        filterEvent: function filterEvent() {
 
             this.filterSummary();
         },
+        filterSummary: function filterSummary() {
+            var _this2 = this;
 
-        filterSummary(){
-
-            let result = {},
+            var result = {},
                 columns = [],
                 tempArr = [];
 
-            // 复杂表头
             if (this.isComplexTitle) {
 
                 columns = this.internalTitleRows;
 
-                columns.forEach(rows => {
+                columns.forEach(function (rows) {
 
-                    rows.forEach(col => {
+                    rows.forEach(function (col) {
 
                         tempArr = [];
-                        if (this.enableFilters(col.filters, col.fields)) {
+                        if (_this2.enableFilters(col.filters, col.fields)) {
 
-                            col.filters.forEach(f => {
+                            col.filters.forEach(function (f) {
 
-                                if (f.selected && f.value !== this.filterSpecialValue) {
-                                    tempArr.push(f.value)
+                                if (f.selected && f.value !== _this2.filterSpecialValue) {
+                                    tempArr.push(f.value);
                                 }
-                            })
+                            });
 
                             result[col.fields[0]] = tempArr.length > 0 ? tempArr : null;
                         }
-                    })
-                })
+                    });
+                });
             } else {
 
                 columns = this.internalColumns;
 
-                columns.forEach(col => {
+                columns.forEach(function (col) {
 
                     tempArr = [];
-                    if (this.enableFilters(col.filters)) {
+                    if (_this2.enableFilters(col.filters)) {
 
-                        col.filters.forEach(f => {
+                        col.filters.forEach(function (f) {
 
-                            if (f.selected && f.value !== this.filterSpecialValue) {
-                                tempArr.push(f.value)
+                            if (f.selected && f.value !== _this2.filterSpecialValue) {
+                                tempArr.push(f.value);
                             }
-                        })
+                        });
 
                         result[col.field] = tempArr.length > 0 ? tempArr : null;
                     }
-                })
+                });
             }
 
             this.filterMethod && this.filterMethod(result);
         }
     }
-}
+};

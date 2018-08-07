@@ -1,7 +1,17 @@
-import VPagination from './src/pagination.js';
+'use strict';
 
-VPagination.install = function(Vue) {
-    Vue.component(VPagination.name, VPagination);
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _pagination = require('./src/pagination.js');
+
+var _pagination2 = _interopRequireDefault(_pagination);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_pagination2.default.install = function (Vue) {
+    Vue.component(_pagination2.default.name, _pagination2.default);
 };
 
-export default VPagination;
+exports.default = _pagination2.default;

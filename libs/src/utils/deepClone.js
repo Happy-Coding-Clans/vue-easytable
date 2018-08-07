@@ -1,11 +1,8 @@
-/*
-*
-* source:https://github.com/pvorb/clone/blob/master/clone.js
-*
-*
-* */
+'use strict';
 
-var clone = (function() {
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var clone = function () {
     'use strict';
 
     function _instanceof(obj, type) {
@@ -15,79 +12,49 @@ var clone = (function() {
     var nativeMap;
     try {
         nativeMap = Map;
-    } catch(_) {
-        // maybe a reference error because no `Map`. Give it a dummy value that no
-        // value will ever be an instanceof.
-        nativeMap = function() {};
+    } catch (_) {
+        nativeMap = function nativeMap() {};
     }
 
     var nativeSet;
     try {
         nativeSet = Set;
-    } catch(_) {
-        nativeSet = function() {};
+    } catch (_) {
+        nativeSet = function nativeSet() {};
     }
 
     var nativePromise;
     try {
         nativePromise = Promise;
-    } catch(_) {
-        nativePromise = function() {};
+    } catch (_) {
+        nativePromise = function nativePromise() {};
     }
 
-    /**
-     * Clones (copies) an Object using deep copying.
-     *
-     * This function supports circular references by default, but if you are certain
-     * there are no circular references in your object, you can save some CPU time
-     * by calling clone(obj, false).
-     *
-     * Caution: if `circular` is false and `parent` contains circular references,
-     * your program may enter an infinite loop and crash.
-     *
-     * @param `parent` - the object to be cloned
-     * @param `circular` - set to true if the object to be cloned may contain
-     *    circular references. (optional - true by default)
-     * @param `depth` - set to a number if the object is only to be cloned to
-     *    a particular depth. (optional - defaults to Infinity)
-     * @param `prototype` - sets the prototype to be used when cloning an object.
-     *    (optional - defaults to parent prototype).
-     * @param `includeNonEnumerable` - set to true if the non-enumerable properties
-     *    should be cloned as well. Non-enumerable properties on the prototype
-     *    chain will be ignored. (optional - false by default)
-     */
     function clone(parent, circular, depth, prototype, includeNonEnumerable) {
-        if (typeof circular === 'object') {
+        if ((typeof circular === 'undefined' ? 'undefined' : _typeof(circular)) === 'object') {
             depth = circular.depth;
             prototype = circular.prototype;
             includeNonEnumerable = circular.includeNonEnumerable;
             circular = circular.circular;
         }
-        // maintain two arrays for circular references, where corresponding parents
-        // and children have the same index
+
         var allParents = [];
         var allChildren = [];
 
         var useBuffer = typeof Buffer != 'undefined';
 
-        if (typeof circular == 'undefined')
-            circular = true;
+        if (typeof circular == 'undefined') circular = true;
 
-        if (typeof depth == 'undefined')
-            depth = Infinity;
+        if (typeof depth == 'undefined') depth = Infinity;
 
-        // recurse this function so we don't reset allParents and allChildren
         function _clone(parent, depth) {
-            // cloning null always returns null
-            if (parent === null)
-                return null;
+            if (parent === null) return null;
 
-            if (depth === 0)
-                return parent;
+            if (depth === 0) return parent;
 
             var child;
             var proto;
-            if (typeof parent != 'object') {
+            if ((typeof parent === 'undefined' ? 'undefined' : _typeof(parent)) != 'object') {
                 return parent;
             }
 
@@ -97,9 +64,9 @@ var clone = (function() {
                 child = new nativeSet();
             } else if (_instanceof(parent, nativePromise)) {
                 child = new nativePromise(function (resolve, reject) {
-                    parent.then(function(value) {
+                    parent.then(function (value) {
                         resolve(_clone(value, depth - 1));
-                    }, function(err) {
+                    }, function (err) {
                         reject(_clone(err, depth - 1));
                     });
                 });
@@ -120,8 +87,7 @@ var clone = (function() {
                 if (typeof prototype == 'undefined') {
                     proto = Object.getPrototypeOf(parent);
                     child = Object.create(proto);
-                }
-                else {
+                } else {
                     child = Object.create(prototype);
                     proto = prototype;
                 }
@@ -138,14 +104,14 @@ var clone = (function() {
             }
 
             if (_instanceof(parent, nativeMap)) {
-                parent.forEach(function(value, key) {
+                parent.forEach(function (value, key) {
                     var keyChild = _clone(key, depth - 1);
                     var valueChild = _clone(value, depth - 1);
                     child.set(keyChild, valueChild);
                 });
             }
             if (_instanceof(parent, nativeSet)) {
-                parent.forEach(function(value) {
+                parent.forEach(function (value) {
                     var entryChild = _clone(value, depth - 1);
                     child.add(entryChild);
                 });
@@ -166,8 +132,6 @@ var clone = (function() {
             if (Object.getOwnPropertySymbols) {
                 var symbols = Object.getOwnPropertySymbols(parent);
                 for (var i = 0; i < symbols.length; i++) {
-                    // Don't need to worry about cloning a symbol because it is a primitive,
-                    // like a number or string.
                     var symbol = symbols[i];
                     var descriptor = Object.getOwnPropertyDescriptor(parent, symbol);
                     if (descriptor && !descriptor.enumerable && !includeNonEnumerable) {
@@ -203,23 +167,13 @@ var clone = (function() {
         return _clone(parent, depth);
     }
 
-    /**
-     * Simple flat clone using prototype, accepts only objects, usefull for property
-     * override on FLAT configuration object (no nested props).
-     *
-     * USE WITH CAUTION! This may not behave as you wish if you do not know how this
-     * works.
-     */
     clone.clonePrototype = function clonePrototype(parent) {
-        if (parent === null)
-            return null;
+        if (parent === null) return null;
 
-        var c = function () {};
+        var c = function c() {};
         c.prototype = parent;
         return new c();
     };
-
-// private utility functions
 
     function __objToStr(o) {
         return Object.prototype.toString.call(o);
@@ -227,17 +181,17 @@ var clone = (function() {
     clone.__objToStr = __objToStr;
 
     function __isDate(o) {
-        return typeof o === 'object' && __objToStr(o) === '[object Date]';
+        return (typeof o === 'undefined' ? 'undefined' : _typeof(o)) === 'object' && __objToStr(o) === '[object Date]';
     }
     clone.__isDate = __isDate;
 
     function __isArray(o) {
-        return typeof o === 'object' && __objToStr(o) === '[object Array]';
+        return (typeof o === 'undefined' ? 'undefined' : _typeof(o)) === 'object' && __objToStr(o) === '[object Array]';
     }
     clone.__isArray = __isArray;
 
     function __isRegExp(o) {
-        return typeof o === 'object' && __objToStr(o) === '[object RegExp]';
+        return (typeof o === 'undefined' ? 'undefined' : _typeof(o)) === 'object' && __objToStr(o) === '[object RegExp]';
     }
     clone.__isRegExp = __isRegExp;
 
@@ -251,8 +205,8 @@ var clone = (function() {
     clone.__getRegExpFlags = __getRegExpFlags;
 
     return clone;
-})();
+}();
 
-if (typeof module === 'object' && module.exports) {
+if ((typeof module === 'undefined' ? 'undefined' : _typeof(module)) === 'object' && module.exports) {
     module.exports = clone;
 }
