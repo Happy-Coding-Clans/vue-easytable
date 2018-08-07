@@ -12,6 +12,7 @@
              row-hover-color="#eee"
              row-click-color="#edf7ff"
              :actions="[{key:'detail',text:'详情',class:'info'},{key:'update',text:'更新',class:'success'},{key:'delete',text:'删除',class:'error'}]"
+             :action-view-width="180"
              @do-action="doAction"
         ></v-table>
     </div>

@@ -392,11 +392,9 @@
                             <div :class="['v-table-body-cell','horizontal-border','vertical-border-left']"
                                  :style="{'width':actionViewWidth+'px','height': rowHeight+'px','line-height':rowHeight+'px'}">
                                 <!-- 渲染操作按钮 -->
-                                <button v-for="(action, i) in actions" :key="i"
+                                <button v-for="(action, i) in actions" :key="i" style="padding: 0px 10px;margin-right: 2px;"
                                         :class="['v-table-btn', action.class]" @click="doAction(action.key, item)">
-                                    <span style="padding: 0px 2px;">
                                     {{action.text}}
-                                    </span>
                                 </button>
                             </div>
                         </td>
@@ -664,6 +662,11 @@
                 default() {
                     return [];
                 }
+            },
+            // 操作列宽度
+            actionViewWidth: {
+                type: Number,
+                default: 0
             }
         },
         computed: {
@@ -690,17 +693,10 @@
             },
             // 右侧区域宽度
             rightViewWidth(){
-
+console.log(this.actionViewWidth);
                 let result = this.internalWidth - this.leftViewWidth - this.actionViewWidth;
 
                 return this.hasFrozenColumn ? result - 2 : result;
-            },
-            // 操作列宽度
-            actionViewWidth() {
-                if (this.actions.length > 0) {
-                    return 60 + this.actions.length * 40;
-                }
-                return 0;
             },
 
             // 左侧、右侧区域高度
