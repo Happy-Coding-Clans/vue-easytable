@@ -526,7 +526,7 @@
     border-top:1px solid rgba(221, 221, 221, 1);
 }
 
-.v-table-leftview, .v-table-rightview {
+.v-table-leftview, .v-table-rightview, .v-table-actionview {
     position: absolute;
     overflow: hidden;
     top: 0px;
@@ -534,6 +534,10 @@
 
 .v-table-leftview {
     left: 0px;
+}
+
+.v-table-actionview {
+    right: 0px;
 }
 
 .v-table-header {
@@ -591,9 +595,14 @@
     zoom: 1;
 }
 
-.v-table-rightview .v-table-body,.v-table-rightview .v-table-footer{
-    overflow-x: auto;
+.v-table-actionview .v-table-body {
+    overflow-x: hidden;
     overflow-y: auto;
+}
+
+.v-table-rightview .v-table-body,.v-table-rightview .v-table-footer{
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
 }
 
 .v-table-leftview .v-table-body {
@@ -607,10 +616,6 @@
 
 .v-table-body-inner-pb{
     padding-bottom: 20px;
-}
-
-.v-table-rightview {
-    right: 0px;
 }
 
 .v-table-title-cell{
@@ -679,6 +684,10 @@
 
 .vertical-border{
     border-right-width: 1px !important;
+}
+
+.vertical-border-left {
+    border-left-width: 1px !important;
 }
 
 .horizontal-border{
@@ -771,6 +780,48 @@
 .v-table-footer-class
 */
 
+/**
+    固定操作列 按钮样式
+ */
+.v-table-btn {
+    height: 30px;
+    line-height: 28px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    font-size: 12px;
+    border-radius: 4px;
+    outline: 0;
+    margin: 0 2px;
+}
+
+.v-table-btn.info {
+    color: #fff;
+    background-color: #2db7f5;
+    border-color: #2db7f5;
+}
+
+.v-table-btn.success {
+    color: #fff;
+    background-color: #18b566;
+    border-color: #18b566;
+}
+
+.v-table-btn.warn {
+    color: #fff;
+    background-color: #f90;
+    border-color: #f90;
+}
+
+.v-table-btn.error {
+    color: #fff;
+    background-color: #ed4014;
+    border-color: #ed4014;
+}
+
+.v-table-btn.info:active, .v-table-btn.success:active, .v-table-btn.warn:active, .v-table-btn.error:active {
+    color: #000;
+}
 .v-checkbox-wrapper{
     cursor: pointer;
     font-size: 12px;
