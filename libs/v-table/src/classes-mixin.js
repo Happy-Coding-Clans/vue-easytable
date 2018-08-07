@@ -1,64 +1,56 @@
-'use strict';
+import settings from '../../src/settings/settings.js'
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _settings = require('../../src/settings/settings.js');
-
-var _settings2 = _interopRequireDefault(_settings);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
+export default {
 
     computed: {
-        vTableRightBody: function vTableRightBody() {
 
-            var result = {
+        vTableRightBody(){
+
+            let result = {
                 'v-table-rightview-special-border': true
-            };
+            }
 
-            result[_settings2.default.scrollbarClass] = true;
+            result[settings.scrollbarClass] = true;
 
             return result;
         },
-        vTableFooter: function vTableFooter() {
 
-            var result = {
+        vTableFooter(){
 
-                'v-table-rightview-special-border': true
-            };
+            let result = {
 
-            result[_settings2.default.scrollbarClass] = true;
+                'v-table-rightview-special-border': true,
+            }
+
+            result[settings.scrollbarClass] = true;
 
             return result;
         },
-        vTableBodyInner: function vTableBodyInner() {
+
+        vTableBodyInner(){
 
             return {
                 'v-table-body-inner-pb': !this.hasTableFooter
-            };
+            }
         },
-        vTableBodyCell: function vTableBodyCell() {
+
+        vTableBodyCell(){
 
             return {
                 'vertical-border': this.showVerticalBorder,
                 'horizontal-border': this.showHorizontalBorder
-            };
+            }
         }
     },
 
-    methods: {
-        vTableFiltersIcon: function vTableFiltersIcon(filters) {
-            var _this = this;
+    methods:{
+
+        vTableFiltersIcon(filters){
 
             return {
                 'v-icon-filter': true,
-                'checked': filters.some(function (x) {
-                    return x.selected && x.value !== _this.filterSpecialValue;
-                })
-            };
+                'checked': filters.some(x => x.selected && x.value !== this.filterSpecialValue)
+            }
         }
     }
-};
+}

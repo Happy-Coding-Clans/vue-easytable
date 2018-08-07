@@ -1,111 +1,107 @@
-'use strict';
+import utils from '../../src/utils/utils.js'
+import {hasClass, addClass, removeClass} from '../../src/utils/dom.js'
 
-Object.defineProperty(exports, "__esModule", {
-            value: true
-});
+export default {
 
-var _utils = require('../../src/utils/utils.js');
+    methods: {
+        // cell edit
+        cellEdit(e, callback, rowIndex, rowData, field){
 
-var _utils2 = _interopRequireDefault(_utils);
+            let target = e.target,
+                self = this,
+                oldVal,
+                editInput,
+                editInputLen,
+                actionFun,
+                textAlign,
+                childTarget;
 
-var _dom = require('../../src/utils/dom.js');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-
-            methods: {
-                        cellEdit: function cellEdit(e, callback, rowIndex, rowData, field) {
-
-                                    var target = e.target,
-                                        self = this,
-                                        oldVal = void 0,
-                                        editInput = void 0,
-                                        editInputLen = void 0,
-                                        _actionFun = void 0,
-                                        textAlign = void 0,
-                                        childTarget = void 0;
-
-                                    while (target.className && target.className.indexOf('v-table-body-cell') === -1 || !target.className) {
-                                                target = target.parentNode;
-                                    }
-
-                                    childTarget = target.children[0];
-
-                                    childTarget.style.display = 'none';
-
-                                    if ((0, _dom.hasClass)(target, 'cell-editing')) {
-                                                return false;
-                                    }
-
-                                    (0, _dom.addClass)(target, 'cell-editing');
-
-                                    oldVal = childTarget.innerText.trim();
-
-                                    if (target.style.textAlign) {
-
-                                                textAlign = target.style.textAlign;
-                                    }
-
-                                    editInput = document.createElement('input');
-                                    editInput.value = oldVal;
-                                    editInput.className = 'cell-edit-input';
-                                    editInput.style.textAlign = textAlign;
-                                    editInput.style.width = '100%';
-                                    editInput.style.height = '100%';
-
-
-                                    target.appendChild(editInput);
-
-                                    editInput.focus();
-
-                                    editInputLen = editInput.value.length;
-                                    if (document.selection) {
-                                                var ctr = editInput.createTextRange();
-                                                ctr.moveStart('character', editInputLen);
-                                                ctr.collapse();
-                                                ctr.select();
-                                    } else if (typeof editInput.selectionStart == 'number' && typeof editInput.selectionEnd == 'number') {
-                                                editInput.selectionStart = editInput.selectionEnd = editInputLen;
-                                    }
-
-                                    _actionFun = function actionFun(e) {
-
-                                                if (typeof e.keyCode === 'undefined' || e.keyCode === 0 || e.keyCode == 13) {
-
-                                                            if ((0, _dom.hasClass)(target, 'cell-editing')) {
-
-                                                                        (0, _dom.removeClass)(target, 'cell-editing');
-                                                            } else {
-                                                                        return false;
-                                                            }
-
-                                                            childTarget.style.display = '';
-
-                                                            callback(editInput.value, oldVal);
-
-                                                            _utils2.default.unbind(editInput, 'blur', _actionFun);
-                                                            _utils2.default.unbind(editInput, 'keydown', _actionFun);
-
-                                                            target.removeChild(editInput);
-                                                }
-                                    };
-
-                                    _utils2.default.bind(editInput, 'blur', _actionFun);
-                                    _utils2.default.bind(editInput, 'keydown', _actionFun);
-                        },
-                        cellEditClick: function cellEditClick(e, isEdit, rowData, field, rowIndex) {
-                                    if (isEdit) {
-
-                                                var self = this;
-
-                                                var onCellEditCallBack = function onCellEditCallBack(newValue, oldVal) {
-
-                                                            self.cellEditDone && self.cellEditDone(newValue, oldVal, rowIndex, rowData, field);
-                                                };
-
-                                                this.cellEdit(e, onCellEditCallBack, rowIndex, rowData, field);
-                                    }
-                        }
+            while ((target.className && target.className.indexOf('v-table-body-cell') === -1) || !target.className) {
+                target = target.parentNode;
             }
-};
+
+            // 子节点（span节点）
+            childTarget = target.children[0];
+
+            // 把子节点影藏掉
+            childTarget.style.display = 'none';
+
+            if (hasClass(target, 'cell-editing')) {
+                return false
+            }
+
+            addClass(target, 'cell-editing');
+
+            oldVal = childTarget.innerText.trim();
+
+            if (target.style.textAlign) {
+
+                textAlign = target.style.textAlign;
+            }
+
+            editInput = document.createElement('input');
+            editInput.value = oldVal;
+            editInput.className = 'cell-edit-input';
+            editInput.style.textAlign = textAlign;
+            editInput.style.width = '100%';
+            editInput.style.height = '100%';
+            //editInput.style = `width:100%;height: 100%;text-align: ${textAlign};`;
+
+            target.appendChild(editInput);
+
+            editInput.focus();
+
+            editInputLen = editInput.value.length;
+            if (document.selection) {
+                let ctr = editInput.createTextRange();
+                ctr.moveStart('character', editInputLen);
+                ctr.collapse();
+                ctr.select();
+            } else if (typeof editInput.selectionStart == 'number' && typeof editInput.selectionEnd == 'number') {
+                editInput.selectionStart = editInput.selectionEnd = editInputLen;
+            }
+
+            actionFun = function (e) {
+
+                if (typeof e.keyCode === 'undefined' || e.keyCode === 0 || e.keyCode == 13) {
+
+                    if (hasClass(target, 'cell-editing')) {
+
+                        removeClass(target, 'cell-editing');
+                    } else {
+                        return false;
+                    }
+
+                    childTarget.style.display = '';
+
+                    // fixed this.value bug in IE9
+                    callback(editInput.value, oldVal);
+
+                    utils.unbind(editInput, 'blur', actionFun);
+                    utils.unbind(editInput, 'keydown', actionFun);
+
+                    target.removeChild(editInput);
+                }
+            };
+
+
+            utils.bind(editInput, 'blur', actionFun);
+            utils.bind(editInput, 'keydown', actionFun);
+        },
+
+        // 单元格点击
+        cellEditClick(e, isEdit, rowData, field, rowIndex){
+            if (isEdit) {
+
+                let self = this;
+                // 单元格内容变化后的回调
+                let onCellEditCallBack = function (newValue, oldVal) {
+
+                    self.cellEditDone && self.cellEditDone(newValue, oldVal, rowIndex, rowData, field);
+                }
+
+                this.cellEdit(e, onCellEditCallBack, rowIndex, rowData, field)
+            }
+        },
+    }
+}

@@ -388,13 +388,15 @@
                 <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">
                     <tbody>
                     <tr :key="rowIndex" v-for="(item,rowIndex) in internalTableData" class="v-table-row">
-                        <td>
+                        <td style="text-align: center;">
                             <div :class="['v-table-body-cell','horizontal-border','vertical-border-left']"
                                  :style="{'width':actionViewWidth+'px','height': rowHeight+'px','line-height':rowHeight+'px'}">
                                 <!-- 渲染操作按钮 -->
                                 <button v-for="(action, i) in actions" :key="i"
                                         :class="['v-table-btn', action.class]" @click="doAction(action.key, item)">
+                                    <span style="padding: 0px 2px;">
                                     {{action.text}}
+                                    </span>
                                 </button>
                             </div>
                         </td>
@@ -654,7 +656,7 @@
             // actions
             // {
             //      key: '',    // 回调方法关键字参数
-            //      text: '',  // 按钮显示文本
+            //      text: '',   // 按钮显示文本
             //      class: '',  // 样式：info,success,warn,error
             // }
             actions: {
@@ -696,7 +698,7 @@
             // 操作列宽度
             actionViewWidth() {
                 if (this.actions.length > 0) {
-                    return 70 + (this.actions.length - 1) * 40;
+                    return 60 + this.actions.length * 40;
                 }
                 return 0;
             },

@@ -1,30 +1,14 @@
-"use strict";
+import pager from "./pager.vue";
+import VSelect from "../../v-select/index";
+import settings from '../../src/settings/settings.js'
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _pager = require("./pager.vue");
-
-var _pager2 = _interopRequireDefault(_pager);
-
-var _index = require("../../v-select/index");
-
-var _index2 = _interopRequireDefault(_index);
-
-var _settings = require("../../src/settings/settings.js");
-
-var _settings2 = _interopRequireDefault(_settings);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
+export default{
     name: 'v-pagination',
     props: {
         layout: {
             type: Array,
-            default: function _default() {
-                return ['total', 'prev', 'pager', 'next', 'sizer', 'jumper'];
+            default(){
+                return ['total', 'prev', 'pager', 'next', 'sizer', 'jumper']
             }
         },
 
@@ -32,289 +16,274 @@ exports.default = {
             type: String
         },
 
+        // 总条数
         total: {
             type: Number,
             require: true
         },
 
+        // 当前页
         pageIndex: {
             type: Number
         },
 
+        // 最多显示几个数字按钮
         showPagingCount: {
             type: Number,
             default: 5
         },
 
+        // 每页大小
         pageSize: {
             type: Number,
             default: 10
         },
 
+        // 每页大小下拉配置
         pageSizeOption: {
             type: Array,
-            default: function _default() {
-                return [10, 20, 30];
+            default: function () {
+                return [10, 20, 30]
             }
         }
     },
-    data: function data() {
+    data(){
         return {
-            newPageIndex: this.pageIndex && this.pageIndex > 0 ? parseInt(this.pageIndex) : 1,
+            newPageIndex: (this.pageIndex && this.pageIndex > 0) ? parseInt(this.pageIndex) : 1,
 
             newPageSize: this.pageSize,
 
-            newPageSizeOption: []
-        };
-    },
-
-
-    computed: {
-        pageCount: function pageCount() {
-            return Math.ceil(this.total / this.newPageSize);
+            // select 配置项
+            newPageSizeOption:[]
         }
     },
 
-    render: function render(h) {
-        var template = h("ul", { "class": "v-page-ul" });
+    computed: {
+        pageCount(){
+            return Math.ceil(this.total / this.newPageSize)
+        }
+    },
+
+    render(h){
+        let template = <ul class="v-page-ul"></ul>;
 
         var comps = {
-            'total': h("total"),
-            'prev': h("prev"),
-            'pager': h("pager", {
-                attrs: { pageCount: this.pageCount, pageIndex: this.newPageIndex,
-                    showPagingCount: this.showPagingCount
-                },
-                on: {
-                    "jumpPageHandler": this.jumpPageHandler
-                }
-            }),
-            'next': h("next"),
-            'sizer': h("sizer"),
-            'jumper': h("jumper", {
-                on: {
-                    "jumpPageHandler": this.jumpPageHandler
-                }
-            })
-        };
+            //'total','prev','pager','next','sizer','jumper'
+            'total': <total></total>,
+            'prev': <prev></prev>,
+            'pager': <pager pageCount={this.pageCount} pageIndex={this.newPageIndex}
+                            showPagingCount={this.showPagingCount}
+                            onJumpPageHandler={this.jumpPageHandler}></pager>,
+            'next': <next></next>,
+            'sizer': <sizer></sizer>,
+            'jumper': <jumper onJumpPageHandler={this.jumpPageHandler}></jumper>
+        }
 
+        // https://github.com/ElemeFE/element/issues/10033
+        // https://github.com/ElemeFE/element/issues/9587
         template.children = template.children || [];
 
-        this.layout.forEach(function (item) {
+        this.layout.forEach(item => {
             template.children.push(comps[item]);
-        });
+        })
 
-        var size = _settings2.default.sizeMaps[this.size] || _settings2.default.sizeMapDefault;
-        var sizeClass = size === _settings2.default.sizeMaps['large'] ? ' v-page--large' : size === _settings2.default.sizeMaps['middle'] ? ' v-page--middle' : ' v-page--small';
+        let size = settings.sizeMaps[this.size] || settings.sizeMapDefault
+        let sizeClass = size === settings.sizeMaps['large'] ? ' v-page--large' :(size === settings.sizeMaps['middle'] ? ' v-page--middle' :' v-page--small')
 
         template.data.class += sizeClass;
 
-        return template;
-    },
+        return template
 
+    },
 
     components: {
 
+
         Total: {
-            render: function render(h) {
-                return h(
-                    "span",
-                    { "class": "v-page-total" },
-                    ["\xA0\u5171\xA0", this.$parent.total, "\xA0\u6761\xA0"]
-                );
+            render(h){
+                return (
+                    <span class="v-page-total">&nbsp;共&nbsp;{this.$parent.total}&nbsp;条&nbsp;</span>
+                )
             }
         },
 
         Prev: {
-            render: function render(h) {
-                return h(
-                    "li",
-                    {
-                        on: {
-                            "click": this.$parent.prevPage
-                        },
-
-                        "class": [this.$parent.newPageIndex === 1 ? 'v-page-disabled' : '', 'v-page-li', 'v-page-prev']
-                    },
-                    [h("a", [h("i", { "class": "v-icon-angle-left" })])]
-                );
+            render(h){
+                return (<li on-click={ this.$parent.prevPage }
+                            class={[this.$parent.newPageIndex === 1 ? 'v-page-disabled' : '', 'v-page-li', 'v-page-prev']}
+                >
+                    <a><i class="v-icon-angle-left"></i></a></li>)
             }
         },
 
-        pager: _pager2.default,
+        pager,
 
         Next: {
-            render: function render(h) {
-                return h(
-                    "li",
-                    {
-                        on: {
-                            "click": this.$parent.nextPage
-                        },
-
-                        "class": [this.$parent.newPageIndex === this.$parent.pageCount ? 'v-page-disabled' : '', 'v-page-li', 'v-page-next']
-                    },
-                    [h("a", [h("i", { "class": "v-icon-angle-right" })])]
-                );
+            render(h){
+                return (
+                    <li on-click={this.$parent.nextPage}
+                        class={[this.$parent.newPageIndex === this.$parent.pageCount ? 'v-page-disabled' : '', 'v-page-li', 'v-page-next']}
+                    >
+                        <a><i class="v-icon-angle-right"></i></a></li>
+                )
             }
         },
 
         Sizer: {
             components: {
-                VSelect: _index2.default
+                VSelect
             },
 
-            render: function render(h) {
-                return h("v-select", {
-                    attrs: { size: this.$parent.size,
-                        value: this.$parent.newPageSizeOption
-                    },
-                    "class": "v-page-select", on: {
-                        "input": this.handleChange
-                    },
-                    directives: [{
-                        name: "model",
-                        value: this.$parent.newPageSizeOption
-                    }]
-                });
+            render(h){
+                return (
+                    <v-select size={this.$parent.size} class="v-page-select"
+                               value={this.$parent.newPageSizeOption}
+                               on-input={this.handleChange}
+                               v-model={this.$parent.newPageSizeOption}></v-select>
+                )
             },
 
+            methods:{
+                handleChange(items){
 
-            methods: {
-                handleChange: function handleChange(items) {
-
-                    if (Array.isArray(items) && items.length > 0) {
-                        var item = items.find(function (x) {
-                            return x.selected;
-                        });
-                        if (item) {
+                    if (Array.isArray(items) && items.length > 0){
+                        let item = items.find(x => x.selected);
+                        if (item){
                             this.$parent.pageSizeChangeHandler(item.value);
                         }
                     }
                 }
             },
 
-            created: function created() {}
+            created(){
+
+            }
         },
 
         Jumper: {
             methods: {
-                jumperEnter: function jumperEnter(event) {
-                    if (event.keyCode !== 13) return;
+                jumperEnter(event){
+                    if (event.keyCode !== 13) return
 
-                    var val = this.$parent.getValidNum(event.target.value);
+                    var val = this.$parent.getValidNum(event.target.value)
 
-                    this.$parent.newPageIndex = val;
+                    this.$parent.newPageIndex = val
 
-                    this.$emit('jumpPageHandler', val);
+                    this.$emit('jumpPageHandler', val)
                 }
             },
-            render: function render(h) {
-                return h(
-                    "span",
-                    { "class": "v-page-goto" },
-                    ["\xA0\u524D\u5F80\xA0", h("input", {
-                        "class": "v-page-goto-input",
-                        domProps: {
-                            "value": this.$parent.newPageIndex
-                        },
-                        on: {
-                            "keyup": this.jumperEnter
-                        },
-                        attrs: {
-                            type: "input"
-                        }
-                    }), "\xA0\u9875\xA0"]
-                );
+            render(h){
+                return (
+                    <span class="v-page-goto">&nbsp;前往&nbsp;<input
+                        class="v-page-goto-input"
+                        domProps-value={this.$parent.newPageIndex}
+                        on-keyup={this.jumperEnter}
+                        type="input"
+                    />&nbsp;页&nbsp;</span>
+                )
             }
         }
     },
 
     methods: {
-        getValidNum: function getValidNum(value) {
-            var result = 1;
+
+        getValidNum(value){
+            let result = 1
 
             value = parseInt(value, 10);
 
             if (isNaN(value) || value < 1) {
-                result = 1;
+                result = 1
             } else {
                 if (value < 1) {
                     result = 1;
                 } else if (value > this.pageCount) {
                     result = this.pageCount;
                 } else {
-                    result = value;
+                    result = value
                 }
             }
-            return result;
+            return result
         },
-        jumpPageHandler: function jumpPageHandler(newPageIndex) {
-            this.newPageIndex = newPageIndex;
-            this.$emit('page-change', this.newPageIndex);
+
+        jumpPageHandler(newPageIndex){
+            this.newPageIndex = newPageIndex
+            this.$emit('page-change', this.newPageIndex)
         },
-        prevPage: function prevPage() {
+
+
+        // 上一页
+        prevPage(){
             if (this.newPageIndex > 1) {
-                this.newPageIndex = this.newPageIndex - 1;
-                this.$emit('page-change', this.newPageIndex);
+                this.newPageIndex = this.newPageIndex - 1
+                this.$emit('page-change', this.newPageIndex)
             }
         },
-        nextPage: function nextPage() {
+
+        // 下一页
+        nextPage(){
             if (this.newPageIndex < this.pageCount) {
-                this.newPageIndex = this.newPageIndex + 1;
-                this.$emit('page-change', this.newPageIndex);
+                this.newPageIndex = this.newPageIndex + 1
+                this.$emit('page-change', this.newPageIndex)
             }
         },
-        pageSizeChangeHandler: function pageSizeChangeHandler() {
-            var item = this.newPageSizeOption.find(function (x) {
-                return x.selected;
-            });
 
-            if (item) {
-                this.newPageSize = item.value;
-                this.newPageIndex = 1;
-                this.$emit('page-size-change', this.newPageSize);
+        // 改变页面大小
+        pageSizeChangeHandler(){
+            let item = this.newPageSizeOption.find(x=>x.selected);
+
+            if (item){
+                this.newPageSize = item.value
+                this.newPageIndex = 1
+                this.$emit('page-size-change', this.newPageSize)
             }
-        },
-        initSelectOption: function initSelectOption() {
-            var _this = this;
 
-            this.newPageSizeOption = this.pageSizeOption.map(function (x) {
+        },
+
+        // 初始化select 选项
+        initSelectOption(){
+
+            this.newPageSizeOption = this.pageSizeOption.map(x=> {
                 var temp = {};
 
                 temp.value = x;
-                temp.label = x + ' 条/页';
-                if (_this.newPageSize == x) {
+                temp.label = x+' 条/页'
+                if (this.newPageSize == x){
                     temp.selected = true;
                 }
 
                 return temp;
-            });
+            })
         },
-        goBackPageIndex: function goBackPageIndex() {
 
-            this.newPageIndex = this.pageIndex && this.pageIndex > 0 ? parseInt(this.pageIndex) : 1;
+        // 回到初始页码
+        goBackPageIndex(){
+
+            this.newPageIndex = (this.pageIndex && this.pageIndex > 0) ? parseInt(this.pageIndex) : 1;
         },
-        goBackPageSize: function goBackPageSize() {
 
-            if (this.pageSize > 0) {
+        // 还原每页大小
+        goBackPageSize(){
+
+            if (this.pageSize > 0){
 
                 this.newPageSize = this.pageSize;
                 this.initSelectOption();
             }
         }
+
     },
-    watch: {
-        pageIndex: function pageIndex(newVal, oldVal) {
+    watch:{
+        pageIndex:function (newVal, oldVal) {
             this.newPageIndex = newVal;
         },
 
-        pageSize: function pageSize(newVal, oldVal) {
+        pageSize:function (newVal, oldVal) {
             this.newPageSize = newVal;
             this.initSelectOption();
         }
     },
-    created: function created() {
+    created(){
         this.initSelectOption();
     }
-};
+}

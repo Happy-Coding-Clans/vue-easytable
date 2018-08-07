@@ -1,59 +1,60 @@
-'use strict';
+/*
+ * 列自适应
+ * */
+import utils from '../../src/utils/utils.js'
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
+export  default {
 
-var _utils = require('../../src/utils/utils.js');
-
-var _utils2 = _interopRequireDefault(_utils);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-    data: function data() {
+    data(){
         return {
-            resizeColumns: [],
-            initTotalColumnsWidth: 0,
-            hasContainerWidth: false,
+            resizeColumns: [], // 所有需要自适应的列集合
+            initTotalColumnsWidth: 0, // 所有列初始化时的总宽度
+            hasContainerWidth: false, // 容器是否有宽度（display：none 时没有）
             containerWidthCheckTimer: null
-        };
+        }
     },
 
-
     methods: {
-        getResizeColumns: function getResizeColumns() {
+        // 获取所有自适应列的集合
+        getResizeColumns(){
 
             var result = [];
 
-            this.internalColumns.forEach(function (item) {
+            this.internalColumns.forEach(item => {
 
                 if (item.isResize) {
-                    result.push({ width: item.width, field: item.field });
-                }
-            });
+                result.push({width: item.width, field: item.field});
+            }
+
+        })
 
             this.resizeColumns = result;
         },
-        initResizeColumns: function initResizeColumns() {
+
+        // 初始化
+        initResizeColumns(){
 
             this.initTotalColumnsWidth = this.totalColumnsWidth;
             this.getResizeColumns();
         },
-        containerWidthCheck: function containerWidthCheck() {
-            var _this = this;
 
-            this.containerWidthCheckTimer = setTimeout(function (x) {
+        // 如果初始化时document上包含滚动条，渲染完document滚动条消失会造成表格宽度计算有误的问题
+        containerWidthCheck(){
 
-                var tableContainerWidth = _this.$el.clientWidth;
+            this.containerWidthCheckTimer = setTimeout(x => {
 
-                if (tableContainerWidth - _this.internalWidth > 3) {
+                    let tableContainerWidth = this.$el.clientWidth;
 
-                    _this.tableResize();
-                }
-            });
+            // 3为容错值
+            if (tableContainerWidth - this.internalWidth > 3) {
+
+                this.tableResize();
+            }
+        })
         },
-        adjustHeight: function adjustHeight(hasScrollBar) {
+
+        // 目前适用于有横向自适应功能的表格
+        adjustHeight(hasScrollBar){
 
             if (!this.$el || this.isVerticalResize) {
                 return false;
@@ -62,6 +63,7 @@ exports.default = {
             var totalColumnsHeight = this.getTotalColumnsHeight(),
                 scrollbarWidth = this.scrollbarWidth;
 
+            // 有footer 功能
             if (this.hasTableFooter) {
 
                 if (hasScrollBar) {
@@ -86,18 +88,23 @@ exports.default = {
                         }
                     }
                 }
-            } else if (!(this.height && this.height > 0) || this.height > totalColumnsHeight) {
+            }
+            // 当没有设置高度时计算总高度 || 设置的高度大于所有列高度之和时
+            else if (!(this.height && this.height > 0) || this.height > totalColumnsHeight) {
 
-                    if (hasScrollBar && this.internalHeight + 2 < totalColumnsHeight + scrollbarWidth) {
+                if (hasScrollBar && this.internalHeight + 2 < totalColumnsHeight + scrollbarWidth) {
 
-                        this.internalHeight += scrollbarWidth;
-                    } else if (!hasScrollBar) {
+                    this.internalHeight += scrollbarWidth;
 
-                        this.internalHeight = this.getTotalColumnsHeight();
-                    }
+                } else if (!hasScrollBar) {
+
+                    this.internalHeight = this.getTotalColumnsHeight();
                 }
+            }
         },
-        tableResize: function tableResize() {
+
+        // 随着窗口改变表格自适应
+        tableResize(){
 
             if (!this.isHorizontalResize && !this.isVerticalResize) {
                 return false;
@@ -105,16 +112,18 @@ exports.default = {
 
             var totalColumnsHeight = this.getTotalColumnsHeight(),
                 maxWidth = this.maxWidth,
-                maxHeight = this.height && this.height > 0 ? this.height : totalColumnsHeight,
+                maxHeight = (this.height && this.height > 0) ? this.height : totalColumnsHeight,
                 minWidth = this.minWidth,
                 minHeight = this.minHeight > totalColumnsHeight ? totalColumnsHeight : this.minHeight,
                 view = this.$el,
-                viewOffset = _utils2.default.getViewportOffset(view),
+                viewOffset = utils.getViewportOffset(view),
                 currentWidth = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().width : view.clientWidth,
                 currentHeight = view.getBoundingClientRect !== 'undefined' ? view.getBoundingClientRect().height : view.clientHeight,
+                //right = window.document.documentElement.clientWidth - currentWidth - viewOffset.left,
                 bottom = window.document.documentElement.clientHeight - currentHeight - viewOffset.top - 2,
                 bottom2 = viewOffset.bottom2,
                 scrollbarWidth = this.scrollbarWidth;
+
 
             if (this.isHorizontalResize && this.internalWidth && this.internalWidth > 0 && currentWidth > 0) {
 
@@ -128,20 +137,24 @@ exports.default = {
 
                 bottom -= this.verticalResizeOffset;
 
-                currentHeight = currentHeight + bottom;
+                currentHeight = currentHeight + bottom;// - this.VerticalResizeOffset;
                 currentHeight = currentHeight > maxHeight ? maxHeight : currentHeight;
                 currentHeight = currentHeight < minHeight ? minHeight : currentHeight;
 
+                // 有横向滚动条
                 if (currentWidth <= this.initTotalColumnsWidth && !this.isTableEmpty) {
 
                     bottom2 -= this.verticalResizeOffset;
 
-                    var differ = bottom2 - totalColumnsHeight;
+                    let differ = bottom2 - totalColumnsHeight;
 
+                    // 高度足够（table 顶部到文档底部的高度 > 表格高度+滚动条高度）
                     if (bottom2 > totalColumnsHeight + scrollbarWidth) {
 
                         currentHeight += scrollbarWidth;
-                    } else if (differ > 0 && differ < scrollbarWidth) {
+
+                    }
+                    else if (differ > 0 && differ < scrollbarWidth) {
 
                         currentHeight += differ;
                     }
@@ -152,26 +165,31 @@ exports.default = {
 
             this.changeColumnsWidth(currentWidth);
         },
-        changeColumnsWidth: function changeColumnsWidth(currentWidth) {
-            var _this2 = this;
+
+        // 改变所有需要自适应列的宽度
+        changeColumnsWidth(currentWidth){
 
             var differ = currentWidth - this.totalColumnsWidth,
                 initResizeWidths = this.initTotalColumnsWidth,
                 rightViewBody = this.$el.querySelector('.v-table-rightview .v-table-body'),
                 rightViewFooter = this.$el.querySelector('.v-table-rightview .v-table-footer');
 
-            if (currentWidth <= initResizeWidths && !this.isTableEmpty) {
+
+            if (currentWidth <= initResizeWidths && !this.isTableEmpty) {// 排除表格无数据的影响
 
                 if (this.hasTableFooter) {
 
                     rightViewFooter.style.overflowX = 'scroll';
+
                 } else {
 
                     rightViewBody.style.overflowX = 'scroll';
                 }
 
                 this.adjustHeight(true);
+
             } else {
+                // 防止最后一列右距中时内容显示不全
                 if (this.getTotalColumnsHeight() > this.internalHeight) {
 
                     differ -= this.scrollbarWidth;
@@ -196,55 +214,64 @@ exports.default = {
             if (currentWidth >= initResizeWidths || differ > 0) {
 
                 this.setColumnsWidth(differ);
-            } else {
 
-                this.columns.forEach(function (col, index) {
+            } else { // 最小化有滚动条时
+
+                this.columns.forEach((col, index) => {
 
                     if (col.isResize) {
 
-                        _this2.internalColumns[index].width = col.width;
-                    }
-                });
+                    this.internalColumns[index].width = col.width;
+                }
+            })
             }
 
             this.containerWidthCheck();
         },
-        setColumnsWidth: function setColumnsWidth(differ) {
 
-            var resizeColumnsLen = this.resizeColumns.length,
+        /*
+         * 自适应时给列设置宽度
+         * 备注：浏览器 px 必须精确多整数
+         * */
+        setColumnsWidth(differ){
+
+            let resizeColumnsLen = this.resizeColumns.length,
                 average = Math.floor(differ / resizeColumnsLen),
                 totalAverage = average * resizeColumnsLen,
                 leftAverage = differ - totalAverage,
                 leftAverageFloor = Math.floor(leftAverage),
-                averageColumnsWidthArr = new Array(resizeColumnsLen).fill(average),
+                averageColumnsWidthArr = (new Array(resizeColumnsLen)).fill(average),
                 index = 0;
 
+            // 剩余的宽度以整数的形式平均到每个列
             for (var i = 0; i < leftAverageFloor; i++) {
 
                 averageColumnsWidthArr[i] += 1;
             }
 
-            averageColumnsWidthArr[resizeColumnsLen - 1] += leftAverage - leftAverageFloor;
+            // 剩余的小数给最后一列
+            averageColumnsWidthArr[resizeColumnsLen - 1] += (leftAverage - leftAverageFloor);
 
-            this.internalColumns.map(function (item) {
+            this.internalColumns.map(item => {
 
                 if (item.isResize) {
 
-                    item.width += averageColumnsWidthArr[index++];
-                }
+                item.width += averageColumnsWidthArr[index++];
+            }
 
-                return item;
-            });
+            return item;
+        })
         }
     },
 
-    mounted: function mounted() {
+    mounted(){
 
-        _utils2.default.bind(window, 'resize', this.tableResize);
+        utils.bind(window, 'resize', this.tableResize);
     },
-    beforeDestroy: function beforeDestroy() {
+    beforeDestroy(){
 
-        _utils2.default.unbind(window, 'resize', this.tableResize);
+        utils.unbind(window, 'resize', this.tableResize);
         clearTimeout(this.containerWidthCheckTimer);
     }
-};
+
+}

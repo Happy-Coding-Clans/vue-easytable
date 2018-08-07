@@ -1,17 +1,15 @@
-'use strict';
+import settings from '../settings/settings'
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _settings = require('../settings/settings');
-
-var _settings2 = _interopRequireDefault(_settings);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-    getViewportOffset: function getViewportOffset(element) {
+export default {
+    /*获取当前元素的left、top偏移
+    *   left：元素最左侧距离文档左侧的距离
+    *   top:元素最顶端距离文档顶端的距离
+    *   right:元素最右侧距离文档右侧的距离
+    *   bottom：元素最底端距离文档底端的距离
+    *   right2：元素最左侧距离文档右侧的距离
+    *   bottom2：元素最底端距离文档最底部的距离
+    * */
+    getViewportOffset(element) {
 
         var doc = document.documentElement,
             box = typeof element.getBoundingClientRect !== "undefined" ? element.getBoundingClientRect() : 0,
@@ -19,6 +17,7 @@ exports.default = {
             scrollTop = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0),
             offsetLeft = box.left + window.pageXOffset,
             offsetTop = box.top + window.pageYOffset;
+
 
         var left = offsetLeft - scrollLeft,
             top = offsetTop - scrollTop;
@@ -29,27 +28,46 @@ exports.default = {
             right: window.document.documentElement.clientWidth - box.width - left,
             bottom: window.document.documentElement.clientHeight - box.height - top,
             right2: window.document.documentElement.clientWidth - left,
-            bottom2: window.document.documentElement.clientHeight - top
-        };
+            bottom2: window.document.documentElement.clientHeight - top,
+        }
     },
-    bind: function bind(elem, event, handler) {
+
+    /*
+     * 事件绑定
+     *
+     * @method bind
+     * @param  {dom||window}   elem        需要绑定的dom节点或window对象
+     * @param  {String}        event       绑定的事件名称
+     * @param  {Function}      handler     事件处理方法
+     */
+    bind(elem, event, handler){
         if (elem && elem !== 'undefined' && event && handler) {
 
-            event = event === 'mousewheel' ? document.onmousewheel !== undefined ? "mousewheel" : "DOMMouseScroll" : event;
+            event = event === 'mousewheel' ? (document.onmousewheel !== undefined ? "mousewheel" : "DOMMouseScroll") : event;
 
-            if (document.attachEvent) {
+            if (document.attachEvent) { //if IE (and Opera depending on user setting)
 
                 elem.attachEvent("on" + event, handler);
-            } else {
+            }
+            else { //WC3 browsers
 
                 elem.addEventListener(event, handler, false);
             }
         }
     },
-    unbind: function unbind(elem, event, handler) {
+
+    /*
+     * 移除事件绑定
+     *
+     * @method unbind
+     * @param  {dom||window}   elem         需要移除绑定的dom节点或window对象
+     * @param  {String}        event        绑定的事件名称
+     * @param  {Function||Array<Function>}  handler    事件处理方法，可以为数组
+     */
+    unbind(elem, event, handler){
         if (elem && elem !== 'undefined' && event && handler) {
 
-            event = event === 'mousewheel' ? document.onmousewheel !== undefined ? "mousewheel" : "DOMMouseScroll" : event;
+            event = event === 'mousewheel' ? (document.onmousewheel !== undefined ? "mousewheel" : "DOMMouseScroll") : event;
 
             var handlers = [];
             if (Array.isArray(handler) && handler.length > 0) {
@@ -60,66 +78,80 @@ exports.default = {
 
             if (document.removeEventListener) {
 
-                handlers.forEach(function (e) {
+                handlers.forEach(e => {
                     elem.removeEventListener(event, e, false);
-                });
-            } else {
+                })
+            }
+            else {
 
-                handlers.forEach(function (e) {
+                handlers.forEach(e => {
                     elem.removeEventListener('on' + event, e);
-                });
+                })
             }
         }
     },
-    isHtml: function isHtml(val) {
-        return (/<[a-z][\s\S]*>/i.test(val)
-        );
+
+    // 判断当前是否包含html元素
+    isHtml(val){
+        return /<[a-z][\s\S]*>/i.test(val);
     },
-    getDisplayValue: function getDisplayValue(ele) {
+
+    // 获取当前dislpay值
+    getDisplayValue(ele){
 
         if (ele) {
             return ele.currentStyle ? ele.currentStyle.display : getComputedStyle(ele, null).display;
         }
+
     },
-    hasHorizontalScrollBar: function hasHorizontalScrollBar(ele) {
+
+    // 是否包含横向滚动条
+    hasHorizontalScrollBar(ele){
 
         if (ele) {
 
             return ele.scrollWidth > ele.clientWidth;
         }
     },
-    hasVerticalScrollBar: function hasVerticalScrollBar(ele) {
+
+    // 是否包含纵向滚动条
+    hasVerticalScrollBar(ele){
 
         if (ele) {
 
             return ele.scrollHeight > ele.clientHeight;
         }
     },
-    getScrollbarWidth: function getScrollbarWidth() {
 
-        var outer = document.createElement('div');
-        outer.className = _settings2.default.scrollbarClass;
+    // 获取滚动条的宽度
+    getScrollbarWidth(){
+
+        const outer = document.createElement('div');
+        outer.className = settings.scrollbarClass;
         outer.style.visibility = 'hidden';
         outer.style.width = '100px';
         outer.style.position = 'absolute';
         outer.style.top = '-9999px';
         document.body.appendChild(outer);
 
-        var widthNoScroll = outer.offsetWidth;
+        const widthNoScroll = outer.offsetWidth;
         outer.style.overflow = 'scroll';
 
-        var inner = document.createElement('div');
+        const inner = document.createElement('div');
         inner.style.width = '100%';
         outer.appendChild(inner);
 
-        var widthWithScroll = inner.offsetWidth;
+        const widthWithScroll = inner.offsetWidth;
         outer.parentNode.removeChild(outer);
 
         return widthNoScroll - widthWithScroll;
-    },
-    getParentCompByName: function getParentCompByName(context, name) {
 
-        var parent = context.$parent;
+    },
+
+    // 获取父组件信息
+    getParentCompByName(context, name){
+
+        let parent = context.$parent;
 
         while (parent) {
             if (parent.$options.name !== name) {
@@ -131,15 +163,17 @@ exports.default = {
 
         return null;
     },
-    getChildCompsByName: function getChildCompsByName(context, name) {
 
-        var result = [];
+    // 获取多个符合条件的子组件信息
+    getChildCompsByName(context, name){
 
-        var childrens = context.$children;
+        let result = [];
+
+        let childrens = context.$children;
 
         while (childrens && childrens.length > 0) {
 
-            childrens.forEach(function (child) {
+            childrens.forEach(child => {
 
                 childrens = child.$children ? child.$children : null;
 
@@ -147,9 +181,11 @@ exports.default = {
 
                     result.push(child);
                 }
-            });
+
+            })
         }
 
         return result;
     }
-};
+
+}

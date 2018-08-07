@@ -1,12 +1,6 @@
-'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.hasClass = hasClass;
-exports.addClass = addClass;
-exports.removeClass = removeClass;
-function hasClass(el, cls) {
+// has class
+export function hasClass(el, cls) {
     if (!el || !cls) return false;
     if (cls.indexOf(' ') !== -1) throw new Error('className should not contain space.');
     if (el.classList) {
@@ -16,14 +10,16 @@ function hasClass(el, cls) {
     }
 };
 
-function addClass(el, cls) {
+// add class
+export function addClass(el, cls) {
     if (!el || !cls) return;
 
     if (el.classList) {
         el.classList.add(cls);
-    } else {
 
-        var clsArr = el.className.split(" ");
+    }else{
+
+        var clsArr =  el.className.split(" ");
 
         if (clsArr.indexOf(cls) === -1) {
             el.className += " " + cls;
@@ -31,7 +27,8 @@ function addClass(el, cls) {
     }
 };
 
-function removeClass(el, cls) {
+// remove class
+export function removeClass(el, cls) {
     if (!el || !cls) return;
 
     if (el.classList) {
@@ -39,6 +36,6 @@ function removeClass(el, cls) {
     } else {
 
         var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
-        el.className = el.className.replace(reg, ' ');
+        el.className = el.className.replace(reg, ' '); // For IE9 and earlier
     }
 };

@@ -1,80 +1,73 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
+// 有csv 根式有很大的局限性，不能合并单元格，目前先不上此功能
 function getDownloadUrl(content) {
 
-    var BOM = '\uFEFF';
-
+    const BOM = '\uFEFF';
+    // Add BOM to text for open in excel correctly
     if (window.Blob && window.URL && window.URL.createObjectURL) {
-        var csvData = new Blob([BOM + content], { type: 'text/csv' });
+        const csvData = new Blob([BOM + content], { type: 'text/csv' });
         return URL.createObjectURL(csvData);
     } else {
         return 'data:attachment/csv;charset=utf-8,' + BOM + encodeURIComponent(content);
     }
 }
 
-function getContent(columns, tableData) {
-    var separator = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ',';
+function getContent(columns,tableData,separator = ',') {
 
+    const newLine = '\r\n';
 
-    var newLine = '\r\n';
+    let result = [],csvRows=[],_tableData=[];
 
-    var result = [],
-        csvRows = [],
-        _tableData = [];
+    if (Array.isArray(columns) && columns.length > 0){
 
-    if (Array.isArray(columns) && columns.length > 0) {
-
-        csvRows = columns.map(function (x) {
+        csvRows = columns.map(x=>{
 
             return x.title;
-        });
+        })
 
-        result.push(csvRows.join(separator));
+        result.push(csvRows.join(separator))
     }
 
-    if (Array.isArray(tableData) && tableData.length > 0) {
+    if (Array.isArray(tableData) && tableData.length > 0){
 
-        tableData.forEach(function (row) {
+        tableData.forEach(row=>{
 
-            csvRows = columns.map(function (col) {
+            csvRows = columns.map(col=>{
 
-                if (row[col.field]) {
+                if (row[col.field]){
 
                     return row[col.field];
                 }
 
                 return '';
-            });
+            })
 
-            result.push(csvRows.join(separator));
-        });
+            result.push(csvRows.join(separator))
+        })
     }
 
     return result.join(newLine);
 }
 
-var csv = {
-    download: function download(fileName, columns, tableData) {
+const csv = {
 
-        var content = getContent(columns, tableData);
+    download(fileName,columns,tableData){
 
-        if (content && content.length > 0) {
 
-            var link = document.createElement('a');
+        let content = getContent(columns,tableData);
+
+        if (content && content.length > 0){
+
+            const link = document.createElement('a');
             link.download = fileName;
             link.href = getDownloadUrl(content);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-        } else {
+        }else{
 
             console.error('vue-easytable::no export data');
         }
     }
-};
+}
 
-exports.default = csv;
+export default csv;

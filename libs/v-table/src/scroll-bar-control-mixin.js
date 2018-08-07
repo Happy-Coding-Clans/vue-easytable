@@ -1,27 +1,17 @@
-'use strict';
+import utils from '../../src/utils/utils.js'
+export default {
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _utils = require('../../src/utils/utils.js');
-
-var _utils2 = _interopRequireDefault(_utils);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-    data: function data() {
+    data(){
 
         return {
 
-            scrollbarWidth: 0
-        };
+            scrollbarWidth:0
+        }
     },
 
-
     methods: {
-        controlScrollBar: function controlScrollBar() {
+        // 如果存在footer 则横向滚动条体现在footer上
+        controlScrollBar(){
 
             if (this.hasTableFooter) {
 
@@ -29,10 +19,11 @@ exports.default = {
                 body.style.overflowX = 'hidden';
             }
         },
-        setScrollbarWidth: function setScrollbarWidth() {
 
-            this.scrollbarWidth = _utils2.default.getScrollbarWidth();
+        setScrollbarWidth(){
+
+            this.scrollbarWidth = utils.getScrollbarWidth();
         }
     }
 
-};
+}
