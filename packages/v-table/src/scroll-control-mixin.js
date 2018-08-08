@@ -109,6 +109,7 @@ export default {
             var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
             var rightViewFooter = this.$el.querySelector('.v-table-rightview .v-table-footer');
             var body3 = this.$el.querySelector('.v-table-actionview .v-table-body');
+            var body4 = this.$el.querySelector('.v-table-empty-scroll');
 
             utils.unbind(body1, 'mousewheel', this.bodyMousewheel);
             utils.unbind(body2, 'mousewheel', this.bodyMousewheel);
@@ -116,6 +117,7 @@ export default {
             utils.unbind(body2, 'scroll', this.body2Scroll);
             utils.unbind(rightViewFooter, 'scroll', this.rightViewFooterScroll);
             utils.unbind(body3, 'scroll', this.body3Scroll);
+            utils.unbind(body4, 'scroll', this.body4Scroll);
         },
 
         // 对外暴露的方法

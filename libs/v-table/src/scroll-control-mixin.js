@@ -105,6 +105,7 @@ exports.default = {
                                     var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
                                     var rightViewFooter = this.$el.querySelector('.v-table-rightview .v-table-footer');
                                     var body3 = this.$el.querySelector('.v-table-actionview .v-table-body');
+                                    var body4 = this.$el.querySelector('.v-table-empty-scroll');
 
                                     _utils2.default.unbind(body1, 'mousewheel', this.bodyMousewheel);
                                     _utils2.default.unbind(body2, 'mousewheel', this.bodyMousewheel);
@@ -112,6 +113,7 @@ exports.default = {
                                     _utils2.default.unbind(body2, 'scroll', this.body2Scroll);
                                     _utils2.default.unbind(rightViewFooter, 'scroll', this.rightViewFooterScroll);
                                     _utils2.default.unbind(body3, 'scroll', this.body3Scroll);
+                                    _utils2.default.unbind(body4, 'scroll', this.body4Scroll);
                         },
                         scrollToTop: function scrollToTop() {
 
