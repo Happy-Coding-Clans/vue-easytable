@@ -5,7 +5,7 @@
 import utils from '../../src/utils/utils.js'
 export default {
     methods: {
-        body1Mousewheel(e){
+        bodyMousewheel(e){
 
             var body1 = this.$el.querySelector('.v-table-leftview .v-table-body');
             var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
@@ -61,6 +61,13 @@ export default {
             }
         },
 
+        body4Scroll(){
+            var view2 = this.$el.querySelector('.v-table-rightview');
+            var body4 = this.$el.querySelector('.v-table-empty-scroll');
+
+            view2.querySelector('.v-table-header').scrollLeft = body4.scrollLeft;
+        },
+
         rightViewFooterScroll(){
 
             var view2 = this.$el.querySelector('.v-table-rightview');
@@ -84,6 +91,7 @@ export default {
                 var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
                 var rightViewFooter = this.$el.querySelector('.v-table-rightview .v-table-footer');
                 var body3 = this.$el.querySelector('.v-table-actionview .v-table-body');
+                var body4 = this.$el.querySelector('.v-table-empty-scroll');
 
                 utils.bind(body1, 'mousewheel', this.bodyMousewheel);
                 utils.bind(body2, 'mousewheel', this.bodyMousewheel);
@@ -91,6 +99,7 @@ export default {
                 utils.bind(body2, 'scroll', this.body2Scroll);
                 utils.bind(rightViewFooter, 'scroll', this.rightViewFooterScroll);
                 utils.bind(body3, 'scroll', this.body3Scroll);
+                utils.bind(body4, 'scroll', this.body4Scroll);
             })
         },
 

@@ -11,8 +11,8 @@
 
         <!--表格无数据的滚动条-->
         <div class="v-table-empty-scroll"
-             :style="{'height':contentHeight+'px','width':width+'px','top':titleHeight+'px'}">
-            <div class="v-table-empty-inner" :style="{'height':'1px','width':totalColumnsWidth+'px'}"></div>
+             :style="{'height':contentHeight+'px','width':rightViewWidth+'px','top':titleHeight+'px','left':leftViewWidth+'px'}">
+            <div class="v-table-empty-inner" :style="{'height':'1px','width':(totalColumnsWidth-leftViewWidth)+'px'}"></div>
         </div>
 
     </div>
@@ -20,7 +20,6 @@
 </template>
 
 <script>
-    import utils from '../../src/utils/utils.js'
 
     export default{
 
@@ -37,6 +36,12 @@
 
             // 所有列的宽度和
             totalColumnsWidth: [Number, String],
+
+            // 左固定宽度
+            leftViewWidth: [Number],
+            
+            // 右固定宽度
+            rightViewWidth: [Number],
 
             // 没数据时显示的内容
             errorContent: {

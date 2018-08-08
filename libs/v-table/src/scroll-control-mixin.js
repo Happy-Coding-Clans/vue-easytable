@@ -12,7 +12,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = {
             methods: {
-                        body1Mousewheel: function body1Mousewheel(e) {
+                        bodyMousewheel: function bodyMousewheel(e) {
 
                                     var body1 = this.$el.querySelector('.v-table-leftview .v-table-body');
                                     var body2 = this.$el.querySelector('.v-table-rightview .v-table-body');
@@ -62,6 +62,12 @@ exports.default = {
                                                 body2.scrollTop = body3.scrollTop;
                                     }
                         },
+                        body4Scroll: function body4Scroll() {
+                                    var view2 = this.$el.querySelector('.v-table-rightview');
+                                    var body4 = this.$el.querySelector('.v-table-empty-scroll');
+
+                                    view2.querySelector('.v-table-header').scrollLeft = body4.scrollLeft;
+                        },
                         rightViewFooterScroll: function rightViewFooterScroll() {
 
                                     var view2 = this.$el.querySelector('.v-table-rightview');
@@ -82,6 +88,7 @@ exports.default = {
                                                 var body2 = _this.$el.querySelector('.v-table-rightview .v-table-body');
                                                 var rightViewFooter = _this.$el.querySelector('.v-table-rightview .v-table-footer');
                                                 var body3 = _this.$el.querySelector('.v-table-actionview .v-table-body');
+                                                var body4 = _this.$el.querySelector('.v-table-empty-scroll');
 
                                                 _utils2.default.bind(body1, 'mousewheel', _this.bodyMousewheel);
                                                 _utils2.default.bind(body2, 'mousewheel', _this.bodyMousewheel);
@@ -89,6 +96,7 @@ exports.default = {
                                                 _utils2.default.bind(body2, 'scroll', _this.body2Scroll);
                                                 _utils2.default.bind(rightViewFooter, 'scroll', _this.rightViewFooterScroll);
                                                 _utils2.default.bind(body3, 'scroll', _this.body3Scroll);
+                                                _utils2.default.bind(body4, 'scroll', _this.body4Scroll);
                                     });
                         },
                         unbindEvents: function unbindEvents() {

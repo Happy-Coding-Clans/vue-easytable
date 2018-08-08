@@ -406,6 +406,8 @@
         <table-empty v-if="isTableEmpty"
                      :width="internalWidth"
                      :total-columns-width="totalColumnsWidth"
+                     :left-view-width="leftViewWidth"
+                     :right-view-width="rightViewWidth"
                      :content-height="errorContentHeight"
                      :title-height="getTotalColumnsHeight()"
                      :error-content="errorContent"
