@@ -605,6 +605,10 @@
     overflow-y: hidden !important;
 }
 
+.v-table-rightview .v-table-body.scroll-y{
+    overflow-y: auto !important;
+}
+
 .v-table-leftview .v-table-body {
     overflow-x: hidden !important;
     overflow-y: hidden !important;

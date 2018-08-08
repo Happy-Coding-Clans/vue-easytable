@@ -285,7 +285,7 @@
                 </div>
             </div>
             <!--右列内容-->
-            <div :class="['v-table-body v-table-body-class',vTableRightBody]"
+            <div :class="['v-table-body v-table-body-class',vTableRightBody,hasActionView?'':'scroll-y']"
                  :style="{'width': rightViewWidth+'px', 'height': bodyViewHeight+'px'}">
                 <v-checkbox-group v-model="checkboxGroupModel" @change="handleCheckGroupChange">
                     <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">
@@ -364,7 +364,7 @@
             </div>
         </div>
         <!-- 固定操作列 -->
-        <div class="v-table-actionview" :style="{'width': actionViewWidth+'px'}" v-if="actions.length>0 && actionViewWidth>0">
+        <div class="v-table-actionview" :style="{'width': actionViewWidth+'px'}" v-if="hasActionView">
             <div class="v-table-header v-table-title-class"
                  :style="{'width': (actionViewWidth-1)+'px','background-color':titleBgColor}">
                 <div class="v-table-header-inner" style="display: block;">
@@ -750,6 +750,11 @@
                 return this.internalColumns.filter(x => x.isFrozen).map((item) => {
                     return item.field;
                 })
+            },
+
+			// 是否有固定操作列
+            hasActionView(){
+                return this.actions.length>0 && this.actionViewWidth>0;
             }
         },
         methods: {
