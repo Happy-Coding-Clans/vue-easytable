@@ -391,7 +391,7 @@
                             <div :class="['v-table-body-cell','horizontal-border','vertical-border-left']"
                                  :style="{'width':actionViewWidth+'px','height': rowHeight+'px','line-height':rowHeight+'px'}">
                                 <!-- 渲染操作按钮 -->
-                                <button v-for="(action, i) in actions" :key="i" style="padding: 0 10px;margin-right: 2px;"
+                                <button v-for="(action, i) in actions" :key="i" style="padding: 0 10px;margin-right: 5px;"
                                         :class="['v-table-btn', action.class]" @click="doAction(action.key, item)">
                                     {{action.text}}
                                 </button>
@@ -697,7 +697,7 @@
 
                 let result = this.internalWidth - this.leftViewWidth - this.actionViewWidth;
 
-                return this.hasFrozenColumn ? result - 2 : result;
+                return result;
             },
 
             // 左侧、右侧区域高度
@@ -869,7 +869,7 @@
                             if (self.isHorizontalResize) {
                                 console.error(self.errorMsg + "If you are using the isHorizontalResize property,Please set the value for each column's width");
                             } else {
-                                item.width = self.internalWidth - self.totalColumnsWidth;
+                                item.width = self.internalWidth - self.totalColumnsWidth  - self.actionViewWidth - 2;
                             }
 
                         }

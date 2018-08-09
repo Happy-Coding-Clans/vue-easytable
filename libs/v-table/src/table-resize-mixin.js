@@ -155,12 +155,12 @@ exports.default = {
         changeColumnsWidth: function changeColumnsWidth(currentWidth) {
             var _this2 = this;
 
-            var differ = currentWidth - this.totalColumnsWidth,
+            var differ = currentWidth - this.totalColumnsWidth - this.actionViewWidth,
                 initResizeWidths = this.initTotalColumnsWidth,
                 rightViewBody = this.$el.querySelector('.v-table-rightview .v-table-body'),
                 rightViewFooter = this.$el.querySelector('.v-table-rightview .v-table-footer');
 
-            if (currentWidth <= initResizeWidths && !this.isTableEmpty) {
+            if (differ < 0 || currentWidth <= initResizeWidths && !this.isTableEmpty) {
 
                 if (this.hasTableFooter) {
 

@@ -124,7 +124,6 @@ export  default {
                 bottom2 = viewOffset.bottom2,
                 scrollbarWidth = this.scrollbarWidth;
 
-
             if (this.isHorizontalResize && this.internalWidth && this.internalWidth > 0 && currentWidth > 0) {
 
                 currentWidth = currentWidth > maxWidth ? maxWidth : currentWidth;
@@ -169,13 +168,12 @@ export  default {
         // 改变所有需要自适应列的宽度
         changeColumnsWidth(currentWidth){
 
-            var differ = currentWidth - this.totalColumnsWidth,
+            var differ = currentWidth - this.totalColumnsWidth - this.actionViewWidth,
                 initResizeWidths = this.initTotalColumnsWidth,
                 rightViewBody = this.$el.querySelector('.v-table-rightview .v-table-body'),
                 rightViewFooter = this.$el.querySelector('.v-table-rightview .v-table-footer');
 
-
-            if (currentWidth <= initResizeWidths && !this.isTableEmpty) {// 排除表格无数据的影响
+            if (differ<0 || (currentWidth <= initResizeWidths && !this.isTableEmpty)) {// 排除表格无数据的影响
 
                 if (this.hasTableFooter) {
 

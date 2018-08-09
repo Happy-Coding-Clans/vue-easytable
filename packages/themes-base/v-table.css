@@ -284,8 +284,8 @@
     固定操作列 按钮样式
  */
 .v-table-btn {
-    height: 30px;
-    line-height: 28px;
+    height: 25px;
+    line-height: 25px;
     cursor: pointer;
     border: 1px solid transparent;
     white-space: nowrap;
