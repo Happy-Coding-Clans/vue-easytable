@@ -285,7 +285,7 @@
                 </div>
             </div>
             <!--右列内容-->
-            <div :class="['v-table-body v-table-body-class',vTableRightBody,hasActionView?'':'scroll-y']"
+            <div :class="['v-table-body v-table-body-class',vTableRightBody]"
                  :style="{'width': rightViewWidth+'px', 'height': bodyViewHeight+'px'}">
                 <v-checkbox-group v-model="checkboxGroupModel" @change="handleCheckGroupChange">
                     <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">
@@ -400,6 +400,15 @@
                     </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+        <!-- 没有固定操作列 滚动条容器 -->
+        <div class="v-table-actionview scroll-y" v-else>
+            <div class="v-table-header v-table-title-class" :style="{'background-color':titleBgColor}">
+                <div :style="{'height':titleColumnHeight()+'px'}"></div>
+            </div>
+            <div :class="['v-table-body v-table-body-class',vTableRightBody]" :style="{'height': bodyViewHeight+'px'}">
+                <div :style="{'height': rowHeight+'px'}" v-for="(item,rowIndex) in internalTableData" :key="rowIndex"></div>
             </div>
         </div>
 

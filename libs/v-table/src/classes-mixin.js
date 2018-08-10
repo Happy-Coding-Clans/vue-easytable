@@ -37,7 +37,7 @@ exports.default = {
         vTableBodyInner: function vTableBodyInner() {
 
             return {
-                'v-table-body-inner-pb': !this.hasTableFooter
+                'v-table-body-inner-pb': !this.hasTableFooter && this.totalColumnsWidth > this.leftViewWidth + this.rightViewWidth
             };
         },
         vTableBodyCell: function vTableBodyCell() {

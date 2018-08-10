@@ -600,13 +600,13 @@
     overflow-y: auto;
 }
 
+.v-table-actionview.scroll-y{
+    width: 10px;
+}
+
 .v-table-rightview .v-table-body,.v-table-rightview .v-table-footer{
     overflow-x: auto !important;
     overflow-y: hidden !important;
-}
-
-.v-table-rightview .v-table-body.scroll-y{
-    overflow-y: auto !important;
 }
 
 .v-table-leftview .v-table-body {
@@ -619,7 +619,7 @@
 }
 
 .v-table-body-inner-pb{
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 }
 
 .v-table-title-cell{
