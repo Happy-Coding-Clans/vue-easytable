@@ -295,6 +295,12 @@
     margin: 0 2px;
 }
 
+.v-table-btn.primary {
+    color: #fff;
+    background-color: #2d8cf0;
+    border-color: #2d8cf0;
+}
+
 .v-table-btn.info {
     color: #fff;
     background-color: #2db7f5;
@@ -307,7 +313,7 @@
     border-color: #18b566;
 }
 
-.v-table-btn.warn {
+.v-table-btn.warning {
     color: #fff;
     background-color: #f90;
     border-color: #f90;
@@ -319,6 +325,6 @@
     border-color: #ed4014;
 }
 
-.v-table-btn.info:active, .v-table-btn.success:active, .v-table-btn.warn:active, .v-table-btn.error:active {
+.v-table-btn.primary:active, .v-table-btn.info:active, .v-table-btn.success:active, .v-table-btn.warning:active, .v-table-btn.error:active {
     color: #000;
 }
