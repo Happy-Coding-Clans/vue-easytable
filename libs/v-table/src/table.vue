@@ -384,22 +384,24 @@
             </div>
             <div :class="['v-table-body v-table-body-class',vTableRightBody]"
                  :style="{'width': actionViewWidth+'px', 'height': bodyViewHeight+'px'}">
-                <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">
-                    <tbody>
-                    <tr :key="rowIndex" v-for="(item,rowIndex) in internalTableData" class="v-table-row">
-                        <td style="text-align: center;">
-                            <div :class="['v-table-body-cell','horizontal-border','vertical-border-left']"
-                                 :style="{'width':actionViewWidth+'px','height': rowHeight+'px','line-height':rowHeight+'px'}">
-                                <!-- 渲染操作按钮 -->
-                                <button v-for="(action, i) in actions" :key="i" style="padding: 0 10px;margin-right: 5px;"
-                                        :class="['v-table-btn', action.class]" @click="doAction(action.key, item)">
-                                    {{action.text}}
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div :class="['v-table-body-inner',vTableBodyInner]">
+                    <table class="v-table-btable" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                        <tr :key="rowIndex" v-for="(item,rowIndex) in internalTableData" class="v-table-row">
+                            <td style="text-align: center;">
+                                <div :class="['v-table-body-cell','horizontal-border','vertical-border-left']"
+                                     :style="{'width':actionViewWidth+'px','height': rowHeight+'px','line-height':rowHeight+'px'}">
+                                    <!-- 渲染操作按钮 -->
+                                    <button v-for="(action, i) in actions" :key="i" style="padding: 0 10px;margin-right: 5px;"
+                                            :class="['v-table-btn', action.class]" @click="doAction(action.key, item)">
+                                        {{action.text}}
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <!-- 没有固定操作列 滚动条容器 -->
