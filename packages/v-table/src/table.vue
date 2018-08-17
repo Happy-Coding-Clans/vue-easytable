@@ -891,7 +891,9 @@
             this.controlScrollBar();
         },
         watch: {
-
+            width() {
+              this.initTableWidth();
+            },
             // 重新跟新列信息
             'columns': {
                 handler: function (newVal) {
