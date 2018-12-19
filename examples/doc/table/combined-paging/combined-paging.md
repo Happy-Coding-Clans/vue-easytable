@@ -12,7 +12,7 @@
               even-bg-color="#f2f2f2"
               :title-rows="tableConfig.titleRows"
               :columns="tableConfig.columns"
-              :table-data="tableConfig.tableData"
+              :table-data="pagingTableData"
               row-hover-color="#eee"
               row-click-color="#edf7ff"
               @sort-change="sortChange"
@@ -20,7 +20,7 @@
       ></v-table>
 
        <div class="mt20 mb20 bold"></div>
-                       <v-pagination @page-change="pageChange" @page-size-change="pageSizeChange" :total="50" :page-size="pageSize" :layout="['total', 'prev', 'pager', 'next', 'sizer', 'jumper']"></v-pagination>
+            <v-pagination @page-change="pageChange" @page-size-change="pageSizeChange" :total="tableConfig.tableData.length" :page-size="pageSize" :layout="['total', 'prev', 'pager', 'next', 'sizer', 'jumper']"></v-pagination>
        </div>
   </div>
 </template>
@@ -85,22 +85,25 @@
                 }
             }
         },
+        computed () {
+            pagingTableData () {
+                return this.tableConfig.tableData.slice((this.pageIndex - 1) * this.pageSize, this.pageIndex * this.pageSize);
+            }
+        }
         methods:{
             getTableData(){
 
-                this.tableConfig.tableData = tableDate.slice((this.pageIndex-1)*this.pageSize,(this.pageIndex)*this.pageSize)
+                this.tableConfig.tableData = tableDate;
             },
             pageChange(pageIndex){
 
                  this.pageIndex = pageIndex;
-                 this.getTableData();
                  console.log(pageIndex)
             },
             pageSizeChange(pageSize){
 
                 this.pageIndex = 1;
                 this.pageSize = pageSize;
-                this.getTableData();
            },
             sortChange(params){
 
