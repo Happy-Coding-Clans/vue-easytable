@@ -897,6 +897,8 @@
                 handler: function (newVal) {
 
                     this.initColumns();
+                    // fix issue #261
+                    this.tableResize();
                 },
                 deep: true
             },
