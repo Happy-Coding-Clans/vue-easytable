@@ -1,3 +1,4 @@
+[![npm](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/gBm3k6r)
 [![npm](https://img.shields.io/npm/v/vue-easytable.svg)](https://www.npmjs.com/package/vue-easytable)
 [![npm](https://img.shields.io/npm/l/vue-easytable.svg?maxAge=2592000)](http://www.opensource.org/licenses/mit-license.php)
 
@@ -54,7 +55,11 @@ Vue.component(VPagination.name, VPagination)
 
 
 ## 讨论组
-通过添加微信进行群组讨论
+使用 Discord 聊天室 (推荐)
+
+[点击进入 Discord Chat Room](https://discord.gg/gBm3k6r)
+
+或 通过添加微信进行群组讨论
 
 ![weixin](./examples/images/weixin.png)
 
