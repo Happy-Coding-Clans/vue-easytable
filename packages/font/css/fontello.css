@@ -1,5 +1,5 @@
 @font-face {
-  font-family: 'fontello';
+  font-family: 'fontello-vtb';
   src: url('../font/fontello.eot?85200898');
   src: url('../font/fontello.eot?85200898#iefix') format('embedded-opentype'),
        url('../font/fontello.woff2?85200898') format('woff2'),
@@ -14,14 +14,14 @@
 /*
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
-    font-family: 'fontello';
+    font-family: 'fontello-vtb';
     src: url('../font/fontello.svg?85200898#fontello') format('svg');
   }
 }
 */
  
  [class^="v-icon-"]:before, [class*=" v-icon-"]:before {
-  font-family: "fontello";
+  font-family: "fontello-vtb";
   font-style: normal;
   font-weight: normal;
   speak: none;
