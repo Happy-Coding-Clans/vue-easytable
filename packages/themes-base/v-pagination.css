@@ -1,6 +1,8 @@
 @charset "UTF-8";
-*, :after, :before {
-    box-sizing: border-box;
+v-page-ul *, v-page-ul *:after, v-page-ul *:before {
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
 }
 
 .v-page--large .v-page-total,
