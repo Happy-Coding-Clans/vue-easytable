@@ -1,5 +1,5 @@
 @charset "UTF-8";
-*, :after, :before {
+.v-page-ul*,.v-page-ul *:after, .v-page-ul *:before {
     box-sizing: border-box;
 }
 
