@@ -14,17 +14,18 @@
     "umd"
   ],
   "dependencies": {
-    "nprogress": "^0.2.0",
-    "vue": "^2.2.6",
+  },
+  "peerDependencies": {
+    "vue": "^2.2.6"
+  },
+  "devDependencies": {
     "vue-loader": "^12.2.1",
     "vue-router": "^2.4.0",
     "vue-style-loader": "^3.0.0",
     "vue-template-compiler": "^2.2.6",
     "webpack": "^3.0.0",
     "webpack-chunk-hash": "^0.4.0",
-    "webpack-dev-server": "^2.5.0"
-  },
-  "devDependencies": {
+    "webpack-dev-server": "^2.5.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.9.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.2",
