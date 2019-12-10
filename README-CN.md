@@ -59,10 +59,6 @@ Vue.component(VPagination.name, VPagination)
 
 [点击进入 Discord Chat Room](https://discord.gg/gBm3k6r)
 
-或 通过添加微信进行群组讨论
-
-![weixin](./examples/images/weixin.png)
-
 ## License
 http://www.opensource.org/licenses/mit-license.php
 
