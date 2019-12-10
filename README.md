@@ -55,6 +55,11 @@ Vue.component(VPagination.name, VPagination)
 
 > also you can use it **[by cdn](http://doc.huangsw.com/vue-easytable/app.html#/install)**
 
+## Discussion group	
+Group discussion on Discord (Recommend)	
+
+[Join in Discord Chat Room](https://discord.gg/gBm3k6r)
+
 ## License
 http://www.opensource.org/licenses/mit-license.php
 
