@@ -10,53 +10,50 @@
 ## Introduction
 Based on vue2.x flexible table components.
 
-## API & Examples(如果访问不了说明被墙了，我也很无奈......)
-[API&Examples](http://doc.huangsw.com/vue-easytable/app.html#/install)
+### Features
 
-## Features
-- [x] [Adaptive, you can automatically adapt to the browser window changes](http://doc.huangsw.com/vue-easytable/app.html#/table/horizontalResize)
-- [x] [Fixed column, header fixed](http://doc.huangsw.com/vue-easytable/app.html#/table/fixedColumnsTitle)  
-- [x] [Support column width drag](http://doc.huangsw.com/vue-easytable/app.html#/table/columnWidthDrag)
-- [x] [Supports single field sorting and multiple field sorting](http://doc.huangsw.com/vue-easytable/app.html#/table/sort)
-- [x] [Custom columns, custom cell styles](http://doc.huangsw.com/vue-easytable/app.html#/table/cellStyle)
-- [x] [Loading effects, custom loading, etc](http://doc.huangsw.com/vue-easytable/app.html#/table/loading)
-- [x] [Own paging component](http://doc.huangsw.com/vue-easytable/app.html#/pagination)
-- [x] [Cell Editing](http://doc.huangsw.com/vue-easytable/app.html#/table/cellEdit)
-- [x] [Support cell merge (colSpan and rowSpan)](http://doc.huangsw.com/vue-easytable/app.html#/table/cellMerge)
-- [x] [Support checkbox selection](http://doc.huangsw.com/vue-easytable/app.html#/table/selection)  
-- [x] [Footer summary](http://doc.huangsw.com/vue-easytable/app.html#/table/footerSummary)
-- [x] [Conditional filter](http://doc.huangsw.com/vue-easytable/app.html#/table/conditionFilters)
-- [ ] Export excel
-- [ ] Export PDF
-- [ ] Row expansion
-- [ ] Vertical column drag
-   
+- Easy to use
+- Powerful
+- Unit test coverage greater than 80%
 
-## Install
+### Supports
 
-```javascript
-npm install vue-easytable --save-dev
-```
+- [x] Internationalization
+- [x] Theme Custom
+- [x] Built in theme
+- [x] Column Fixed
+- [x] Header Fixed
+- [x] Header Grouping
+- [x] Filter
+- [x] Sort
+- [x] Cell Style
+- [x] Cell Span
+- [x] Cell Custom
+- [x] Cell Selection(keyboard operation)
+- [x] Cell Ellipsis
+- [x] Row Radio
+- [x] Row Checkbox
+- [x] Row Expand
+- [x] Row Style
+- [x] Footer Summary
+- [x] Pagination
+- [x] Virtual Scroll
+- [x] Event Custom
+- [x] Loading component
 
-## Usage（[more usage](http://doc.huangsw.com/vue-easytable/app.html)）
+### Environment Support
+
+- Modern browser and ie10 and above
+
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera | 
+| --- | --- | --- | --- | --- | 
+| IE10, IE11, Edge | last 2 versions | last 2 versions | last 2 versions | last 2 versions | 
 
 
-```javascript
-// import css
-import 'vue-easytable/libs/themes-base/index.css'
+### How to contribute
 
-// import table and pagination comp
-import {VTable,VPagination} from 'vue-easytable'
-
-// Register to global
-Vue.component(VTable.name, VTable)
-Vue.component(VPagination.name, VPagination)
-```
-
-> also you can use it **[by cdn](http://doc.huangsw.com/vue-easytable/app.html#/install)**
-
+If you want to contribute,just create a [Pull Request](https://github.com/huangshuwei/vue-easytable/pulls)
 ## Discussion group	
-Group discussion on Discord (Recommend)	
 
 [Join in Discord Chat Room](https://discord.gg/gBm3k6r)
 

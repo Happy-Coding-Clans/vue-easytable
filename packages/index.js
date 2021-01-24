@@ -1,32 +1,72 @@
-import VTable from "./v-table/index";
-import VPagination from "./v-pagination/index";
-import VCheckbox from './v-checkbox/index'
-import VCheckboxGroup from './v-checkbox-group/index'
-import VSelect from './v-select/index'
-import VDropdown from './v-dropdown/index'
+// This file is auto gererated by build/build-entry.js
+
+import Vue from 'vue';
+import VeCheckbox from './ve-checkbox';
+import VeCheckboxGroup from './ve-checkbox-group';
+import VeDropdown from './ve-dropdown';
+import VeIcon from './ve-icon';
+import VeLoading from './ve-loading';
+import VeLocale from './ve-locale';
+import VePagination from './ve-pagination';
+import VeRadio from './ve-radio';
+import VeSelect from './ve-select';
+import VeTable from './ve-table';
 
 
-const install = function (Vue, opts = {}) {
+const version = '2.0.0-beta.1';
+const components = [
+  VeCheckbox,
+  VeCheckboxGroup,
+  VeDropdown,
+  VeIcon,
+  VeLoading,
+  VeLocale,
+  VePagination,
+  VeRadio,
+  VeSelect,
+  VeTable
+];
 
-    Vue.component(VTable.name, VTable);
-    Vue.component(VPagination.name, VPagination);
-    Vue.component(VCheckbox.name, VCheckbox);
-    Vue.component(VCheckboxGroup.name, VCheckboxGroup);
-    Vue.component(VSelect.name, VSelect);
-    Vue.component(VDropdown.name, VDropdown);
+const install = Vue => {
+  components.forEach(Component => {
+    Vue.use(Component);
+  });
 
-}
+  Vue.prototype.$veLoading = VeLoading;
+  Vue.prototype.$veLocale = VeLocale;
+};
 
-// auto install
+/* istanbul ignore if */
 if (typeof window !== 'undefined' && window.Vue) {
-    install(window.Vue);
+  install(window.Vue);
 }
 
-module.exports = {
-    VPagination,
-    VTable,
-    VCheckbox,
-    VCheckboxGroup,
-    VSelect,
-    VDropdown
+export {
+  install,
+  version,
+  VeCheckbox,
+  VeCheckboxGroup,
+  VeDropdown,
+  VeIcon,
+  VeLoading,
+  VeLocale,
+  VePagination,
+  VeRadio,
+  VeSelect,
+  VeTable
+};
+
+export default {
+  install,
+  version,
+  VeCheckbox,
+  VeCheckboxGroup,
+  VeDropdown,
+  VeIcon,
+  VeLoading,
+  VeLocale,
+  VePagination,
+  VeRadio,
+  VeSelect,
+  VeTable
 };

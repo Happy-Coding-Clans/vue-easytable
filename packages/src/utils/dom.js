@@ -1,41 +1,62 @@
+/*
+fork from:
+https://github.com/ElemeFE/element
+*/
 
-// has class
-export function hasClass(el, cls) {
-    if (!el || !cls) return false;
-    if (cls.indexOf(' ') !== -1) throw new Error('className should not contain space.');
-    if (el.classList) {
-        return el.classList.contains(cls);
-    } else {
-        return (' ' + el.className + ' ').indexOf(' ' + cls + ' ') > -1;
-    }
+const trim = function(string) {
+    return (string || "").replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, "");
 };
 
 // add class
 export function addClass(el, cls) {
-    if (!el || !cls) return;
+    if (!el) return;
+    var curClass = el.className;
+    var classes = (cls || "").split(" ");
 
-    if (el.classList) {
-        el.classList.add(cls);
+    for (var i = 0, j = classes.length; i < j; i++) {
+        var clsName = classes[i];
+        if (!clsName) continue;
 
-    }else{
-
-        var clsArr =  el.className.split(" ");
-
-        if (clsArr.indexOf(cls) === -1) {
-            el.className += " " + cls;
+        if (el.classList) {
+            el.classList.add(clsName);
+        } else if (!hasClass(el, clsName)) {
+            curClass += " " + clsName;
         }
     }
-};
+    if (!el.classList) {
+        el.className = curClass;
+    }
+}
 
 // remove class
 export function removeClass(el, cls) {
     if (!el || !cls) return;
+    var classes = cls.split(" ");
+    var curClass = " " + el.className + " ";
 
-    if (el.classList) {
-        el.classList.remove(cls);
-    } else {
+    for (var i = 0, j = classes.length; i < j; i++) {
+        var clsName = classes[i];
+        if (!clsName) continue;
 
-        var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
-        el.className = el.className.replace(reg, ' '); // For IE9 and earlier
+        if (el.classList) {
+            el.classList.remove(clsName);
+        } else if (hasClass(el, clsName)) {
+            curClass = curClass.replace(" " + clsName + " ", " ");
+        }
     }
-};
+    if (!el.classList) {
+        el.className = trim(curClass);
+    }
+}
+
+// has class
+export function hasClass(el, cls) {
+    if (!el || !cls) return false;
+    if (cls.indexOf(" ") !== -1)
+        throw new Error("className should not contain space.");
+    if (el.classList) {
+        return el.classList.contains(cls);
+    } else {
+        return (" " + el.className + " ").indexOf(" " + cls + " ") > -1;
+    }
+}

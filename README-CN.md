@@ -4,60 +4,55 @@
 
 # vue-easytable
 
+## Introduction
+一个基于 Vue2.x 的表格组件
+### 特点
 
-## 介绍
-基于 vue2.x 的table组件
+- 使用简单
+- 功能强大
+- 单元测试覆盖率大于 80%
 
-## API & 实例(如果访问不了说明被墙了，我也很无奈......)
-[API&实例](http://doc.huangsw.com/vue-easytable/app.html#/install)
+### Supports
 
-## 功能
-- [x] [自适应，可以随着浏览器窗口改变自动适应](http://doc.huangsw.com/vue-easytable/app.html#/table/horizontalResize)
-- [x] [固定列，表头固定](http://doc.huangsw.com/vue-easytable/app.html#/table/fixedColumnsTitle)  
-- [x] [支持列宽拖动](http://doc.huangsw.com/vue-easytable/app.html#/table/columnWidthDrag)
-- [x] [支持单个字段排序和多个字段排序](http://doc.huangsw.com/vue-easytable/app.html#/table/sort)
-- [x] [自定义列、自定义单元格样式](http://doc.huangsw.com/vue-easytable/app.html#/table/cellStyle)  
-- [x] [loading效果、自定义loading 等](http://doc.huangsw.com/vue-easytable/app.html#/table/loading)
-- [x] [自带分页组件](http://doc.huangsw.com/vue-easytable/app.html#/pagination)  
-- [x] [单元格编辑](http://doc.huangsw.com/vue-easytable/app.html#/table/cellEdit)
-- [x] [支持单元格合并 (colSpan and rowSpan)](http://doc.huangsw.com/vue-easytable/app.html#/table/cellMerge)
-- [x] [支持 checkbox 多选功能](http://doc.huangsw.com/vue-easytable/app.html#/table/selection)
-- [x] [footer 汇总功能](http://doc.huangsw.com/vue-easytable/app.html#/table/footerSummary)
-- [x] [添加条件过滤功能](http://doc.huangsw.com/vue-easytable/app.html#/table/conditionFilters)  
-- [ ] 添加导出 excel 功能  
-- [ ] 添加导出 pdf 功能  
-- [ ] 添加行展开功能  
-- [ ] 纵向整列拖动
-   
+- [x] 国际化
+- [x] 主题定制
+- [x] 内置主题
+- [x] 固定列
+- [x] 固定表头
+- [x] 表头分组
+- [x] 筛选
+- [x] 排序
+- [x] 单元格样式
+- [x] 单元格合并
+- [x] 单元格自定义
+- [x] 单元格选择（键盘操作）
+- [x] 单元格省略
+- [x] 行单选
+- [x] 行多选
+- [x] 行展开
+- [x] 行样式
+- [x] footer
+- [x] 分页
+- [x] 虚拟滚动
+- [x] 自定义事件
+- [x] 内置loading
 
-## 安装
+### 支持环境
 
-```javascript
-npm install vue-easytable --save-dev
-```
+- 现代浏览器和 IE10及以上
 
-## 使用（[更多](http://doc.huangsw.com/vue-easytable/app.html)）
-
-
-```javascript
-// 导入 css
-import 'vue-easytable/libs/themes-base/index.css'
-
-// 导入 table 组件 和分页组件
-import {VTable,VPagination} from 'vue-easytable'
-
-// 将组件注册到全局
-Vue.component(VTable.name, VTable)
-Vue.component(VPagination.name, VPagination)
-```
-
-> 你也可以 **[通过 cdn 使用](http://doc.huangsw.com/vue-easytable/app.html#/install)**
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera | 
+| --- | --- | --- | --- | --- | 
+| IE10, IE11, Edge | last 2 versions | last 2 versions | last 2 versions | last 2 versions | 
 
 
-## 讨论组
-使用 Discord 聊天室 (推荐)
+### 如何贡献
 
-[点击进入 Discord Chat Room](https://discord.gg/gBm3k6r)
+如果你希望参与贡献，欢迎 [Pull Request](https://github.com/huangshuwei/vue-easytable/pulls)
+
+## Discussion 讨论组	
+
+[加入 Discord 讨论](https://discord.gg/gBm3k6r)
 
 ## License
 http://www.opensource.org/licenses/mit-license.php

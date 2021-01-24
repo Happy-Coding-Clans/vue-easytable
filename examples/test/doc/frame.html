@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .body,
+      .main {
+        height: 100%;
+        width: 100%;
+        background-color: aliceblue;
+      }
+      .header {
+        position: fixed;
+        top: 0;
+        height: 60px;
+        width: 100%;
+        background-color: aquamarine;
+      }
+
+      .conent-container {
+        height: calc(100% - 60px);
+        overflow: auto;
+      }
+
+      .left {
+        position: fixed;
+        top: 60px;
+        height: 1000px;
+        overflow: auto;
+        width: 200px;
+        background-color: beige;
+      }
+
+      .right {
+        /* position: fixed;
+        top: 60px;
+        left: 210px; */
+        margin-left: 210px;
+        margin-top: 60px;
+        height: 100%;
+        min-width: 600px;
+        padding-left: 210px;
+        background-color: coral;
+      }
+    </style>
+  </head>
+  <body class="body">
+    <div class="main">
+      <div class="header">header</div>
+      <div class="conent-container">
+        <div class="left">
+          <div style="height: 1200px;">left</div>
+        </div>
+        <div class="right">
+          <div style="height: 1300px;">
+            <div>right1</div>
+            <div>right2</div>
+            <div>right3</div>
+            <div>right</div>
+            <div>right</div>
+            <div>right</div>
+            <div>right</div>
+            <div>right</div>
+            <div>right</div>
+            <div>right</div>
+            <div>right</div>
+            <div>right</div>
+            <div>right</div>
+            <div>right</div>
+            <div>right</div>
+            <div>right</div>
+            <div>right</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

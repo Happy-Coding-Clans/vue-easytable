@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="./style/ve-table.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      .ve-table {
+        width: 100%;
+      }
+
+      .ve-table-container {
+/*         max-width: 1000px; */
+        width:100%;
+      }
+
+      .ve-table-content {
+        width: 1300px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="ve-table" style="margin-top:20px;">
+        <div class="ve-table-container ve-table-border-around" ref="container">
+          <table ref="content" class="ve-table-content ve-table-border-x">
+            <colgroup>
+              <col style="width: 50px;" />
+              <col style="width: 300px;" />
+              <col style="width: 300px;" />
+              <col style="width: 350px;" />
+            </colgroup>
+            <thead class="ve-table-fixed-header ve-table-header">
+              <tr class="ve-table-header-tr">
+                <th
+                  class="ve-table-header-th"
+                  style="text-align: left; background:lightblue;"
+                >
+                  Name
+                </th>
+                <th class="ve-table-header-th" style="text-align: left;">
+                  Tel
+                </th>
+                <th class="ve-table-header-th" style="text-align: left; ">
+                  Hobby
+                </th>
+                <th class="ve-table-header-th" style="text-align: left; ">
+                  Address
+                </th>
+              </tr>
+            </thead>
+            <tbody class="ve-table-body">
+              <tr
+                class="ve-table-body-tr"
+                :key="index"
+                v-for="(item,index) in visibleData"
+              >
+                <td class="ve-table-body-td">{{item.name}}</td>
+                <td class="ve-table-body-td">{{item.tel}}</td>
+                <td class="ve-table-body-td">{{item.hobby}}</td>
+                <td class="ve-table-body-td">{{item.address}}</td>
+              </tr>
+            </tbody>
+            <tfoot class="ve-table-footer"></tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<script>
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        visibleData: [],
+      };
+    },
+    methods: {
+      initTable() {
+        let data = [];
+        for (let i = 0; i < 5; i++) {
+          data.push({
+            name: i,
+            tel: i,
+            hobby: i,
+            address: i,
+          });
+        }
+        this.visibleData = data;
+      },
+    },
+    created() {
+      this.initTable();
+    },
+  });
+</script>

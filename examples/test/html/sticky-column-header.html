@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <style>
+    .container *,
+    .container *:before,
+    .container *:after {
+      box-sizing: border-box;
+    }
+
+    .container {
+      max-height: 200px;
+      overflow: auto;
+      width: 1000px;
+    }
+
+    table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid #eee;
+      overflow-x: scroll;
+    }
+
+    thead tr th {
+      background: lightblue;
+    }
+
+    thead.fixed-header th {
+      position: sticky;
+      top: 0;
+    }
+
+    thead .fixed-left,thead .fixed-right {
+      z-index: 3;
+    }
+
+    tr>td,
+    tr>th {
+      border: 1px solid #eee;
+      display: table-cell;
+    }
+
+    tbody .fixed-left {
+      position: sticky;
+      z-index: 2;
+      background: lightblue;
+    }
+
+    tbody .fixed-right {
+      position: sticky;
+      z-index: 2;
+      background: lightcoral;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <table>
+      <colgroup>
+        <col style="width:200px;min-width:200px;background: #eee;" />
+        <col style="width:200px;min-width:200px;background: #eee;" />
+        <col style="width:200px;min-width:200px;" />
+        <col style="width:200px;min-width:200px;" />
+        <col style="width:200px;min-width:200px;" />
+        <col style="width:200px;min-width:200px;" />
+      </colgroup>
+      <thead class="fixed-header">
+        <tr>
+          <th class="fixed-left" style="left: 0;">title1</th>
+          <th class="fixed-left" style="left: 200px;">title2</th>
+          <th>title3</th>
+          <th>title4</th>
+          <th class="fixed-right" style="right: 200px;">title5</th>
+          <th class="fixed-right" style="right: 0;">title6</th>
+        </tr>
+      </thead>
+      <!-- 表格体 -->
+      <tbody>
+        <tr>
+          <td class="fixed-left" style="left: 0;">1</td>
+          <td class="fixed-left" style="left: 200px;">2</td>
+          <td>3</td>
+          <td>4</td>
+          <td class="fixed-right" style="right: 200px;">5</td>
+          <td class="fixed-right" style="right: 0;">6</td>
+        </tr>
+        <tr>
+          <td class="fixed-left" style="left: 0;">11</td>
+          <td class="fixed-left" style="left: 200px;">22</td>
+          <td>33</td>
+          <td>44</td>
+          <td class="fixed-right" style="right: 200px;">55</td>
+          <td class="fixed-right" style="right: 0;">66</td>
+        </tr>
+        <tr>
+          <td class="fixed-left" style="left: 0;">1</td>
+          <td class="fixed-left" style="left: 200px;">2</td>
+          <td>3</td>
+          <td>4</td>
+          <td class="fixed-right" style="right: 200px;">5</td>
+          <td class="fixed-right" style="right: 0;">6</td>
+        </tr>
+        <tr>
+          <td class="fixed-left" style="left: 0;">11</td>
+          <td class="fixed-left" style="left: 200px;">22</td>
+          <td>33</td>
+          <td>44</td>
+          <td class="fixed-right" style="right: 200px;">55</td>
+          <td class="fixed-right" style="right: 0;">66</td>
+        </tr>
+        <tr>
+          <td class="fixed-left" style="left: 0;">1</td>
+          <td class="fixed-left" style="left: 200px;">2</td>
+          <td>3</td>
+          <td>4</td>
+          <td class="fixed-right" style="right: 200px;">5</td>
+          <td class="fixed-right" style="right: 0;">6</td>
+        </tr>
+        <tr>
+          <td class="fixed-left" style="left: 0;">11</td>
+          <td class="fixed-left" style="left: 200px;">22</td>
+          <td>33</td>
+          <td>44</td>
+          <td class="fixed-right" style="right: 200px;">55</td>
+          <td class="fixed-right" style="right: 0;">66</td>
+        </tr>
+        <tr>
+          <td class="fixed-left" style="left: 0;">1</td>
+          <td class="fixed-left" style="left: 200px;">2</td>
+          <td>3</td>
+          <td>4</td>
+          <td class="fixed-right" style="right: 200px;">5</td>
+          <td class="fixed-right" style="right: 0;">6</td>
+        </tr>
+        <tr>
+          <td class="fixed-left" style="left: 0;">11</td>
+          <td class="fixed-left" style="left: 200px;">22</td>
+          <td>33</td>
+          <td>44</td>
+          <td class="fixed-right" style="right: 200px;">55</td>
+          <td class="fixed-right" style="right: 0;">66</td>
+        </tr>
+        <tr>
+          <td class="fixed-left" style="left: 0;">1</td>
+          <td class="fixed-left" style="left: 200px;">2</td>
+          <td>3</td>
+          <td>4</td>
+          <td class="fixed-right" style="right: 200px;">5</td>
+          <td class="fixed-right" style="right: 0;">6</td>
+        </tr>
+        <tr>
+          <td class="fixed-left" style="left: 0;">11</td>
+          <td class="fixed-left" style="left: 200px;">22</td>
+          <td>33</td>
+          <td>44</td>
+          <td class="fixed-right" style="right: 200px;">55</td>
+          <td class="fixed-right" style="right: 0;">66</td>
+        </tr>
+        <tr>
+          <td class="fixed-left" style="left: 0;">1</td>
+          <td class="fixed-left" style="left: 200px;">2</td>
+          <td>3</td>
+          <td>4</td>
+          <td class="fixed-right" style="right: 200px;">5</td>
+          <td class="fixed-right" style="right: 0;">6</td>
+        </tr>
+        <tr>
+          <td class="fixed-left" style="left: 0;">11</td>
+          <td class="fixed-left" style="left: 200px;">22</td>
+          <td>33</td>
+          <td>44</td>
+          <td class="fixed-right" style="right: 200px;">55</td>
+          <td class="fixed-right" style="right: 0;">66</td>
+        </tr>
+        <tr>
+          <td class="fixed-left" style="left: 0;">1</td>
+          <td class="fixed-left" style="left: 200px;">2</td>
+          <td>3</td>
+          <td>4</td>
+          <td class="fixed-right" style="right: 200px;">5</td>
+          <td class="fixed-right" style="right: 0;">6</td>
+        </tr>
+        <tr>
+          <td class="fixed-left" style="left: 0;">11</td>
+          <td class="fixed-left" style="left: 200px;">22</td>
+          <td>33</td>
+          <td>44</td>
+          <td class="fixed-right" style="right: 200px;">55</td>
+          <td class="fixed-right" style="right: 0;">66</td>
+        </tr>
+        <tr>
+          <td class="fixed-left" style="left: 0;">1</td>
+          <td class="fixed-left" style="left: 200px;">2</td>
+          <td>3</td>
+          <td>4</td>
+          <td class="fixed-right" style="right: 200px;">5</td>
+          <td class="fixed-right" style="right: 0;">6</td>
+        </tr>
+        <tr>
+          <td class="fixed-left" style="left: 0;">11</td>
+          <td class="fixed-left" style="left: 200px;">22</td>
+          <td>33</td>
+          <td>44</td>
+          <td class="fixed-right" style="right: 200px;">55</td>
+          <td class="fixed-right" style="right: 0;">66</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`veTable cell custom render 1`] = `
+<div class="ve-table">
+  <div class="ve-table-container ve-table-border-around">
+    <table class="ve-table-content ve-table-border-x">
+      <colgroup>
+        <col>
+        <col>
+        <col>
+        <col>
+      </colgroup>
+      <thead class="ve-table-fixed-header ve-table-header">
+        <tr class="ve-table-header-tr">
+          <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;"><span class="header-cell-custom-class-test" style="color: rgb(24, 144, 255);"></span></th>
+          <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Date</th>
+          <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Hobby</th>
+          <th rowspan="1" colspan="1" class="ve-table-header-th ve-table-last-column" style="text-align: left; top: 0px;">Address</th>
+        </tr>
+      </thead>
+      <tbody class="ve-table-body ve-table-row-hover ve-table-row-highlight">
+        <tr style="height: 0px;">
+          <td style="padding: 0px; border: 0px; height: 0px;"></td>
+          <td style="padding: 0px; border: 0px; height: 0px;"></td>
+          <td style="padding: 0px; border: 0px; height: 0px;"></td>
+          <td style="padding: 0px; border: 0px; height: 0px;"></td>
+        </tr>
+        <tr class="ve-table-body-tr">
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;"><span class="body-cell-custom-class-test" style="color: rgb(24, 144, 255);">1</span></td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">1900-05-20</td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">coding</td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Shanghai</td>
+        </tr>
+        <tr class="ve-table-body-tr">
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;"><span class="body-cell-custom-class-test" style="color: rgb(24, 144, 255);">2</span></td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">1910-06-20</td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">coding</td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Beijing</td>
+        </tr>
+        <tr class="ve-table-body-tr">
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;"><span class="body-cell-custom-class-test" style="color: rgb(24, 144, 255);">3</span></td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">2000-07-20</td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">coding and coding repeat</td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Chongqing</td>
+        </tr>
+        <tr class="ve-table-body-tr">
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;"><span class="body-cell-custom-class-test" style="color: rgb(24, 144, 255);">4</span></td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">2010-08-20</td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">coding and coding repeat</td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Xiamen</td>
+        </tr>
+        <tr class="ve-table-body-tr">
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;"><span class="body-cell-custom-class-test" style="color: rgb(24, 144, 255);">5</span></td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">2020-09-20</td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">coding and coding repeat</td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Shenzhen</td>
+        </tr>
+      </tbody>
+      <tfoot class="ve-table-fixed-footer ve-table-footer">
+        <tr row-key="0" class="ve-table-footer-tr">
+          <td rowspan="1" colspan="1" class="ve-table-footer-td" style="text-align: left; bottom: 0px;"><span class="footer-cell-custom-class-test">平均值</span></td>
+          <td rowspan="1" colspan="1" class="ve-table-footer-td" style="text-align: left; bottom: 0px;">213</td>
+          <td rowspan="1" colspan="1" class="ve-table-footer-td" style="text-align: left; bottom: 0px;">355</td>
+          <td rowspan="1" colspan="1" class="ve-table-footer-td" style="text-align: left; bottom: 0px;">189</td>
+        </tr>
+        <tr row-key="1" class="ve-table-footer-tr">
+          <td rowspan="1" colspan="1" class="ve-table-footer-td" style="text-align: left; bottom: 0px;"><span class="footer-cell-custom-class-test">汇总值</span></td>
+          <td rowspan="1" colspan="1" class="ve-table-footer-td" style="text-align: left; bottom: 0px;">1780</td>
+          <td rowspan="1" colspan="1" class="ve-table-footer-td" style="text-align: left; bottom: 0px;">890</td>
+          <td rowspan="1" colspan="1" class="ve-table-footer-td" style="text-align: left; bottom: 0px;">2988</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+`;

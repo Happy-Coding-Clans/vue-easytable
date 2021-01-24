@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`veRadio render 1`] = `
+<div>
+  <div><label class="ve-radio"><span class="ve-radio-container ve-radio-checked"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">normal</span></label></div>
+  <div><label class="ve-radio"><span class="ve-radio-container ve-radio-checked ve-radio-disabled"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">disabled checked</span></label></div>
+  <div><label class="ve-radio"><span class="ve-radio-container ve-radio-disabled"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">disabled unChecked</span></label></div>
+  <div><label class="ve-radio"><span class="ve-radio-container ve-radio-checked"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">controlled</span></label></div>
+</div>
+`;

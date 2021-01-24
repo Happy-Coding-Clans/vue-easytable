@@ -1,0 +1,218 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`veTable row expand expandOption expandedRowKeys(controllable attr) 1`] = `
+<div><button class="button-demo">第3行展开切换</button>
+  <div class="ve-table" style="width: 100%;">
+    <div class="ve-table-container ve-table-border-around">
+      <table class="ve-table-content ve-table-border-x">
+        <colgroup>
+          <col style="width: 50px;">
+          <col style="width: 200px;">
+          <col style="width: 300px;">
+          <col>
+        </colgroup>
+        <thead class="ve-table-fixed-header ve-table-header">
+          <tr class="ve-table-header-tr">
+            <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;"></th>
+            <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Name</th>
+            <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Hobby</th>
+            <th rowspan="1" colspan="1" class="ve-table-header-th ve-table-last-column" style="text-align: left; top: 0px;">Address</th>
+          </tr>
+        </thead>
+        <tbody class="ve-table-body ve-table-row-hover ve-table-row-highlight">
+          <tr style="height: 0px;">
+            <td style="padding: 0px; border: 0px; height: 0px;"></td>
+            <td style="padding: 0px; border: 0px; height: 0px;"></td>
+            <td style="padding: 0px; border: 0px; height: 0px;"></td>
+            <td style="padding: 0px; border: 0px; height: 0px;"></td>
+          </tr>
+          <tr row-key="1001" class="ve-table-body-tr">
+            <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;"><span class="ve-table-row-expand-icon ve-table-expand-icon-collapsed"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
+            <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+              <!---->John
+            </td>
+            <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+              <!---->coding
+            </td>
+            <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+              <!---->No.1 Century Avenue, Shanghai
+            </td>
+          </tr>
+          <tr class="ve-table-expand-tr ve-table-expand-tr-show">
+            <td colspan="4" class="ve-table-expand-td">
+              <p>My name is<span style="color: rgb(24, 144, 255);">John</span>,I'm living in No.1 Century Avenue, Shanghai</p>
+            </td>
+          </tr>
+          <tr row-key="1002" class="ve-table-body-tr">
+            <td rowspan="1" colspan="1" class="ve-table-body-td ve-table-cell-selection" style="text-align: center;"><span class="ve-table-row-expand-icon ve-table-expand-icon-collapsed"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
+            <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+              <!---->Dickerson
+            </td>
+            <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+              <!---->coding
+            </td>
+            <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+              <!---->No.1 Century Avenue, Beijing
+            </td>
+          </tr>
+          <tr class="ve-table-expand-tr ve-table-expand-tr-show">
+            <td colspan="4" class="ve-table-expand-td">
+              <p>My name is<span style="color: rgb(24, 144, 255);">Dickerson</span>,I'm living in No.1 Century Avenue, Beijing</p>
+            </td>
+          </tr>
+          <tr row-key="1003" class="ve-table-body-tr">
+            <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;"><span class="ve-table-row-expand-icon ve-table-expand-icon-collapsed"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
+            <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+              <!---->Larsen
+            </td>
+            <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+              <!---->coding and coding repeat
+            </td>
+            <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+              <!---->No.1 Century Avenue, Chongqing
+            </td>
+          </tr>
+          <tr class="ve-table-expand-tr ve-table-expand-tr-show">
+            <td colspan="4" class="ve-table-expand-td">
+              <p>My name is<span style="color: rgb(24, 144, 255);">Larsen</span>,I'm living in No.1 Century Avenue, Chongqing</p>
+            </td>
+          </tr>
+          <tr row-key="1004" class="ve-table-body-tr">
+            <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;"><span class="ve-table-row-expand-icon"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
+            <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+              <!---->Geneva
+            </td>
+            <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+              <!---->coding and coding repeat
+            </td>
+            <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+              <!---->No.1 Century Avenue, Xiamen
+            </td>
+          </tr>
+          <tr class="ve-table-expand-tr">
+            <td colspan="4" class="ve-table-expand-td">
+              <p>My name is<span style="color: rgb(24, 144, 255);">Geneva</span>,I'm living in No.1 Century Avenue, Xiamen</p>
+            </td>
+          </tr>
+          <tr row-key="1005" class="ve-table-body-tr">
+            <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;"><span class="ve-table-row-expand-icon"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
+            <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+              <!---->Jami
+            </td>
+            <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+              <!---->coding and coding repeat
+            </td>
+            <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+              <!---->No.1 Century Avenue, Shenzhen
+            </td>
+          </tr>
+          <tr class="ve-table-expand-tr">
+            <td colspan="4" class="ve-table-expand-td">
+              <p>My name is<span style="color: rgb(24, 144, 255);">Jami</span>,I'm living in No.1 Century Avenue, Shenzhen</p>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot class="ve-table-fixed-footer ve-table-footer"></tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`veTable row expand render 1`] = `
+<div class="ve-table">
+  <div class="ve-table-container ve-table-border-around">
+    <table class="ve-table-content ve-table-border-x">
+      <colgroup>
+        <col style="width: 50px;">
+        <col style="width: 200px;">
+        <col style="width: 300px;">
+        <col>
+      </colgroup>
+      <thead class="ve-table-fixed-header ve-table-header">
+        <tr class="ve-table-header-tr">
+          <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;"></th>
+          <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Name</th>
+          <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Hobby</th>
+          <th rowspan="1" colspan="1" class="ve-table-header-th ve-table-last-column" style="text-align: left; top: 0px;">Address</th>
+        </tr>
+      </thead>
+      <tbody class="ve-table-body ve-table-row-hover ve-table-row-highlight">
+        <tr style="height: 0px;">
+          <td style="padding: 0px; border: 0px; height: 0px;"></td>
+          <td style="padding: 0px; border: 0px; height: 0px;"></td>
+          <td style="padding: 0px; border: 0px; height: 0px;"></td>
+          <td style="padding: 0px; border: 0px; height: 0px;"></td>
+        </tr>
+        <tr row-key="1001" class="ve-table-body-tr">
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;"><span class="ve-table-row-expand-icon ve-table-expand-icon-collapsed"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+            <!---->John
+          </td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+            <!---->coding
+          </td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+            <!---->No.1 Century Avenue, Shanghai
+          </td>
+        </tr>
+        <tr class="ve-table-expand-tr ve-table-expand-tr-show">
+          <td colspan="4" class="ve-table-expand-td"></td>
+        </tr>
+        <tr row-key="1002" class="ve-table-body-tr">
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;"></td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">Dickerson</td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">coding</td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Beijing</td>
+        </tr>
+        <tr row-key="1003" class="ve-table-body-tr">
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;"><span class="ve-table-row-expand-icon ve-table-expand-icon-collapsed"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+            <!---->Larsen
+          </td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+            <!---->coding and coding repeat
+          </td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+            <!---->No.1 Century Avenue, Chongqing
+          </td>
+        </tr>
+        <tr class="ve-table-expand-tr ve-table-expand-tr-show">
+          <td colspan="4" class="ve-table-expand-td"></td>
+        </tr>
+        <tr row-key="1004" class="ve-table-body-tr">
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;"><span class="ve-table-row-expand-icon"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+            <!---->Geneva
+          </td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+            <!---->coding and coding repeat
+          </td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+            <!---->No.1 Century Avenue, Xiamen
+          </td>
+        </tr>
+        <tr class="ve-table-expand-tr">
+          <td colspan="4" class="ve-table-expand-td"></td>
+        </tr>
+        <tr row-key="1005" class="ve-table-body-tr">
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;"><span class="ve-table-row-expand-icon"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+            <!---->Jami
+          </td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+            <!---->coding and coding repeat
+          </td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
+            <!---->No.1 Century Avenue, Shenzhen
+          </td>
+        </tr>
+        <tr class="ve-table-expand-tr">
+          <td colspan="4" class="ve-table-expand-td"></td>
+        </tr>
+      </tbody>
+      <tfoot class="ve-table-fixed-footer ve-table-footer"></tfoot>
+    </table>
+  </div>
+</div>
+`;

@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`veIcon render by different props 1`] = `<div><i class="ve-icon iconfont-vet icon-vet-double-right-arrow"></i> <i class="ve-icon iconfont-vet icon-vet-double-right-arrow" style="color: blue;"></i> <i class="ve-icon iconfont-vet icon-vet-double-right-arrow" style="font-size: 40px;"></i></div>`;

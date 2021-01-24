@@ -1,0 +1,65 @@
+<template>
+    <div class="mb100">
+        <h2>API</h2>
+        <!-- table props -->
+        <TableProps />
+        <!-- columns -->
+        <ColumnProps />
+        <!-- cell Span Option -->
+        <CellSpanOption />
+        <!-- cell Style Option -->
+        <CellStyleOption />
+        <!-- Row Style Option -->
+        <RowStyleOption />
+        <!-- expand Option -->
+        <ExpandOption />
+        <!-- checkbox Option -->
+        <CheckboxOption />
+        <!-- radio Option -->
+        <RadioOption />
+        <!-- virtual Scroll Option -->
+        <VirtualScrollOption />
+        <!-- sort Option -->
+        <SortOption />
+        <!-- Cell Selection Option -->
+        <CellSelectionOption />
+        <!-- Event Custom Option -->
+        <EventCustomOption />
+    </div>
+</template>
+<script>
+import { db } from "./db";
+import TableProps from "./table-props";
+import ColumnProps from "./column-props";
+import ExpandOption from "./expand-option-props";
+import CheckboxOption from "./checkbox-option-props";
+import RadioOption from "./radio-option-props";
+import VirtualScrollOption from "./virtual-scroll-option-props";
+import SortOption from "./sort-option-props";
+import CellSpanOption from "./cell-span-option-props";
+import EventCustomOption from "./event-custom-option-props";
+import CellStyleOption from "./cell-style-option-props";
+import RowStyleOption from "./row-style-option-props";
+import CellSelectionOption from "./cell-selection-option-props";
+export default {
+    components: {
+        TableProps,
+        ColumnProps,
+        CellSpanOption,
+        EventCustomOption,
+        CellStyleOption,
+        RowStyleOption,
+        ExpandOption,
+        CheckboxOption,
+        RadioOption,
+        VirtualScrollOption,
+        SortOption,
+        CellSelectionOption
+    },
+    data() {
+        return {
+            db: db
+        };
+    }
+};
+</script>

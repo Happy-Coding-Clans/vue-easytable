@@ -1,16 +1,25 @@
+/*
+build locale lang
+暂未使用！！
+*/
 
-const { exec } = require('child_process');
+/* const { exec } = require("child_process"); */
 
+/*
+compile locale lang
+need pkgs: @babel/cli @babel/preset-env
+*/
+/* function compileLocaleLang() {
+    exec(
+        "babel packages/src/locale --out-dir libs/locale --presets=@babel/env --ignore packages/src/locale/index.js",
+        (error, stdout, stderr) => {
+            if (error) {
+                console.error(`exec error: ${error}`);
+                return;
+            }
+            console.log(`compile locale lang: \r\n${stdout}`);
+        }
+    );
+}
 
-// 将es6 转 es5
-exec('babel packages --out-dir libs', (error, stdout, stderr) => {
-    if (error) {
-        console.error(`exec error: ${error}`);
-        return;
-    }
-    console.log(`stdout: ${stdout}`);
-    console.log(`stderr: ${stderr}`);
-});
-
-
-
+compileLocaleLang(); */
