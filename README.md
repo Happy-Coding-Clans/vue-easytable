@@ -16,6 +16,9 @@ Based on vue2.x flexible table components.
 - Powerful
 - Unit test coverage greater than 80%
 
+### API & Examples
+[官方文档](http://doc.huangsw.com/vue-easytable/app.html)
+
 ### Supports
 
 - [x] Internationalization
