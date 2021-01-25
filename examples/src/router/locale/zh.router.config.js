@@ -246,7 +246,7 @@ const config = [
             }
         ]
     },
-    {
+    /* {
         path: "other",
         name: "辅助组件",
         component: emptyLayout,
@@ -272,7 +272,7 @@ const config = [
                 name: "dropdown"
             }
         ]
-    }
+    } */
 ];
 
 export default config;
