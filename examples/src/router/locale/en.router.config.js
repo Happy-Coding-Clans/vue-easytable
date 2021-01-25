@@ -9,7 +9,7 @@ const config = [
     },
     {
         path: "start",
-        component: () => import("@/docs/en/strart.md"),
+        component: () => import("@/docs/en/start.md"),
         name: "Quick Start",
         meta: { keepAlive: true }
     },
