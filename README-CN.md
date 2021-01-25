@@ -13,7 +13,7 @@
 - 单元测试覆盖率大于 80%
 
 ## API & Examples
-[Official documents](http://doc.huangsw.com/vue-easytable/app.html)
+[Official documents](http://doc.huangsw.com/vue-easytable)
 
 ## Supports
 
