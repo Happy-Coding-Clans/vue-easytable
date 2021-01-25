@@ -1,7 +1,6 @@
 {
   "name": "vue-easytable-example",
-  "version": "2.x",
-  "private": true,
+  "version": "2.0.0",
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
