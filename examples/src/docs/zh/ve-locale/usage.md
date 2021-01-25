@@ -1,4 +1,4 @@
-:::anchor 使用
+:::anchor 使用方法
 
 ```javascript
 import Vue from "vue";

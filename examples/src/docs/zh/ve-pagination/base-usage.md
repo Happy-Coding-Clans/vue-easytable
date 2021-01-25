@@ -1,4 +1,5 @@
-<anchor label="基础示例"></anchor>
+:::anchor 基础示例
+
 :::demo
 
 ```html

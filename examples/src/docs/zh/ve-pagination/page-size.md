@@ -1,4 +1,5 @@
-<anchor label="每页大小"></anchor>
+:::anchor 每页大小
+
 :::demo `page-size` 属性设置每页大小
 
 ```html

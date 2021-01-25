@@ -1,4 +1,4 @@
-:::anchor 使用
+:::anchor 使用方法
 在你需要的地方引用
 
 ```javascript

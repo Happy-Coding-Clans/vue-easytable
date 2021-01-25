@@ -1,4 +1,4 @@
-<anchor label="Usage"/>
+:::anchor 使用方法
 
 引入 `VePagination`
 

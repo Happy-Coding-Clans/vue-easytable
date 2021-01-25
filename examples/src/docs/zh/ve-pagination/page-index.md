@@ -1,4 +1,5 @@
-<anchor  label="当前页码"></anchor>
+:::anchor 当前页码
+
 :::demo `page-index` 属性设置当前页码
 
 ```html
