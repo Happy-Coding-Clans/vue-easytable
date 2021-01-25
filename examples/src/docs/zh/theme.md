@@ -27,7 +27,7 @@ vue-easytable 的样式使用了 Less 作为开发语言，并定义了一系列
 
 #### 选择蓝色主题定制
 
-如果你需要的主题和蓝色主题接近，你可以选择按照蓝色主题定制。所有蓝色主题样式变量可以在[这里]()找到。
+如果你需要的主题和蓝色主题接近，你可以选择按照蓝色主题定制。所有蓝色主题样式变量可以在 **[这里找到](https://github.com/huangshuwei/vue-easytable/blob/master/packages/theme-default/var.less)**。
 
 建创建一个单独的 less 变量文件，例如 vue-easytable-variables.less，引入这个文件覆盖 var.less 里的变量。
 
@@ -48,7 +48,7 @@ Vue.use(Element)
 
 #### 选择暗黑主题定制
 
-如果你需要的主题和暗黑主题接近，你可以选择按照暗黑主题定制。所有暗黑主题样式变量可以在[这里]()找到。
+如果你需要的主题和暗黑主题接近，你可以选择按照暗黑主题定制。所有暗黑主题样式变量可以在 **[这里找到](https://github.com/huangshuwei/vue-easytable/blob/master/packages/theme-dark/var.less)**。
 
 建创建一个单独的 less 变量文件，例如 vue-easytable-variables.less，引入这个文件覆盖 var.less 里的变量。
 
