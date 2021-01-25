@@ -8,7 +8,7 @@ export default [
     {
         path: "/",
         meta: { keepAlive: true, hide: true },
-        redirect: "/en/demo"
+        redirect: "/en/doc"
     }, // 默认路由
     {
         path: "/zh",
