@@ -67,7 +67,36 @@ export default {
         // edit on github or gitlab etc.
         eidt() {
             if (this.isEdit) {
-                alert(this.fileName);
+                //alert();
+                const fileName = this.fileName;
+
+                let result = "";
+
+                let routerUrl = window.location.href.split("/doc/")[1];
+
+                if (routerUrl) {
+                    routerUrl = routerUrl.split("?")[0];
+
+                    const routerUrlDetail = routerUrl.split("/");
+
+                    if (routerUrlDetail.length === 1) {
+                        // scene 1 : http://doc.huangsw.com/vue-easytable/#/en/doc/qa
+                        result = fileName;
+                    } else if (routerUrlDetail[0] === "base") {
+                        // scene 2 : http://doc.huangsw.com/vue-easytable/#/en/doc/base/loading
+                        result = `ve-${routerUrlDetail[1]}/${fileName}`;
+                    } else if (routerUrlDetail[0] === "table") {
+                        // scene 3 : http://doc.huangsw.com/vue-easytable/#/en/doc/table/header-fixed
+                        result = `ve-table/${routerUrlDetail[1]}/${fileName}`;
+                    }
+
+                    if (result) {
+                        result =
+                            locale[this.currentDocLang]["eidtDemoUrlPrefix"] +
+                            result;
+                        window.open(result, "_blank");
+                    }
+                }
             }
         }
     },
