@@ -4,22 +4,22 @@
 
 # vue-easytable
 
-[切换中文](https://github.com/huangshuwei/vue-easytable/blob/master/README-CN.md)
+[切换中文](https://github.com/huangshuwei/vue-easytable/blob/dev/README-CN.md)
 
 
 ## Introduction
 Based on vue2.x flexible table components.
 
-### Features
+## Features
 
 - Easy to use
 - Powerful
 - Unit test coverage greater than 80%
 
-### API & Examples
+## API & Examples
 [官方文档](http://doc.huangsw.com/vue-easytable/app.html)
 
-### Supports
+## Supports
 
 - [x] Internationalization
 - [x] Theme Custom
@@ -44,7 +44,7 @@ Based on vue2.x flexible table components.
 - [x] Event Custom
 - [x] Loading component
 
-### Environment Support
+## Environment Support
 
 - Modern browser and ie10 and above
 
@@ -53,7 +53,7 @@ Based on vue2.x flexible table components.
 | IE10, IE11, Edge | last 2 versions | last 2 versions | last 2 versions | last 2 versions | 
 
 
-### How to contribute
+## How to contribute
 
 If you want to contribute,just create a [Pull Request](https://github.com/huangshuwei/vue-easytable/pulls)
 ## Discussion group	
