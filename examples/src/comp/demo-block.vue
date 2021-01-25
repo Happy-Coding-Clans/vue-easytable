@@ -53,7 +53,8 @@
 
 <script type="text/babel">
 import { stripScript, stripStyle, stripTemplate } from "@/utils/index";
-import { version } from "../../package.json";
+// 最外层
+import { version } from "../../../package.json";
 
 import locale from "./locale";
 import I18nMixins from "./mixins/i18n-mixins";
@@ -142,13 +143,13 @@ export default {
                 'ipt src="//unpkg.com/vue/dist/vue.js"></scr' +
                 "ipt>" +
                 "\n<scr" +
-                `ipt src="//unpkg.com/vue-easytable@${version}/umd/js/index.js"></scr` +
+                `ipt src="//unpkg.com/vue-easytable@${version}/libs/umd/index.js"></scr` +
                 "ipt>";
             let jsTpl = (script || "")
                 .replace(/export default/, "var Main =")
                 .trim();
             let htmlTpl = `${resourcesTpl}\n<div id="app">\n${html.trim()}\n</div>`;
-            let cssTpl = `@import url("//unpkg.com/vue-easytable@${version}/umd/css/index.css");\n${(
+            let cssTpl = `@import url("//unpkg.com/vue-easytable@${version}/libs/theme-default/index.css");\n${(
                 style || ""
             ).trim()}\n`;
             jsTpl = jsTpl
