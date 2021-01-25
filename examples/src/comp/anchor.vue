@@ -26,37 +26,6 @@
     </div>
 </template>
 
-<style lang="scss" scoped>
-.anchor-container {
-    .content {
-        &:hover {
-            .anchor-link {
-                opacity: 0.5;
-            }
-        }
-
-        .anchor-link {
-            margin-left: -20px;
-            margin-right: 5px;
-            opacity: 0;
-            font-weight: bold;
-        }
-
-        .anchor-label {
-            display: inline-block;
-            .icon-edit {
-                margin-left: 5px;
-                color: #ddd;
-                cursor: pointer;
-                &:hover {
-                    color: #333;
-                }
-            }
-        }
-    }
-}
-</style>
-
 <script>
 import { slugify } from "transliteration";
 import { goTobyAnchorId } from "../utils/index";
@@ -109,3 +78,34 @@ export default {
     }
 };
 </script>
+
+<style lang="scss" scoped>
+.anchor-container {
+    .content {
+        &:hover {
+            .anchor-link {
+                opacity: 0.5;
+            }
+        }
+
+        .anchor-link {
+            margin-left: -20px;
+            margin-right: 5px;
+            opacity: 0;
+            font-weight: bold;
+        }
+
+        .anchor-label {
+            display: inline-block;
+            .icon-edit {
+                margin-left: 5px;
+                color: #ddd;
+                cursor: pointer;
+                &:hover {
+                    color: #333;
+                }
+            }
+        }
+    }
+}
+</style>
