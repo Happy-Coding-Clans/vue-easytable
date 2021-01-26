@@ -131,11 +131,11 @@ new Vue({
 
 ```css
 <!-- 引入样式 -->
-<link rel="stylesheet" href="https://unpkg.com/vue-easytable/umd/css/index.css">
+<link rel="stylesheet" href="https://unpkg.com/vue-easytable/libs/theme-default/index.css">
 <!-- 引入Vue -->
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <!-- 引入组件库 -->
-<script src="https://unpkg.com/vue-easytable/umd/js/index.js"></script>
+<script src="https://unpkg.com/vue-easytable/libs/umd/index.js"></script>
 ```
 
 #### 示例
@@ -148,7 +148,7 @@ new Vue({
     <!-- 引入样式 -->
     <link
       rel="stylesheet"
-      href="https://unpkg.com/vue-easytable/umd/css/index.css"
+      href="https://unpkg.com/vue-easytable/libs/theme-default/index.css"
     />
   </head>
   <body>
@@ -159,7 +159,7 @@ new Vue({
   <!-- 引入 Vue -->
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <!-- 引入组件库 -->
-  <script src="https://unpkg.com/vue-easytable/libs/umd/js/index.js"></script>
+  <script src="https://unpkg.com/vue-easytable/libs/umd/index.js"></script>
   <script>
     new Vue({
       el: "#app",
