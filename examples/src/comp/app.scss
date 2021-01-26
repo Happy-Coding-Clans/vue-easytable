@@ -178,6 +178,7 @@ $--right-content-index: 1;
     .main-wrapper-sidebar {
       @include left-content-width();
       position: fixed;
+      padding-bottom: 25px;
       top: $--header-height;
       z-index: $--left-menu-index;
       height: calc(100vh - 60px);
