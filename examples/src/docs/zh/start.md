@@ -80,24 +80,9 @@ new Vue({
     data() {
       return {
         columns: [
-          {
-            field: "name",
-            key: "a",
-            title: "Name",
-            align: "center",
-          },
-          {
-            field: "date",
-            key: "b",
-            title: "Date",
-            align: "left",
-          },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            align: "right",
-          },
+          { field: "name", key: "a", title: "Name", align: "center" },
+          { field: "date", key: "b", title: "Date", align: "left" },
+          { field: "hobby", key: "c", title: "Hobby", align: "right" },
           { field: "address", key: "d", title: "Address" },
         ],
         tableData: [
@@ -181,24 +166,9 @@ new Vue({
       data: function() {
         return {
           columns: [
-            {
-              field: "name",
-              key: "a",
-              title: "Name",
-              align: "center",
-            },
-            {
-              field: "date",
-              key: "b",
-              title: "Date",
-              align: "left",
-            },
-            {
-              field: "hobby",
-              key: "c",
-              title: "Hobby",
-              align: "right",
-            },
+            { field: "name", key: "a", title: "Name", align: "center" },
+            { field: "date", key: "b", title: "Date", align: "left" },
+            { field: "hobby", key: "c", title: "Hobby", align: "right" },
             { field: "address", key: "d", title: "Address" },
           ],
           tableData: [
@@ -241,4 +211,4 @@ new Vue({
 ```
 
 :::anchor 浏览器兼容
-默认支持现代浏览器和 IE10及以上
+默认支持现代浏览器和 IE10 及以上
