@@ -324,6 +324,11 @@ $--right-content-index: 1;
         border-left: 5px solid #fe6c6f;
         margin: 20px 0;
       }
+
+      // ul li
+      > ul li {
+        margin-top: 15px;
+      }
     }
   }
 
