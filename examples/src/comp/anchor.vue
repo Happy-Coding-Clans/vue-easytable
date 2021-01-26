@@ -67,7 +67,6 @@ export default {
         // edit on github or gitlab etc.
         eidt() {
             if (this.isEdit) {
-                //alert();
                 const fileName = this.fileName;
 
                 let result = "";

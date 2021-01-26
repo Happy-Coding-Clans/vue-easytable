@@ -19,7 +19,8 @@ export default {
         // 组件配置多语言跟着文档语言环境走
         compLang: zhCN,
         eidtDemoTitle: "在 Github 上编辑",
-        eidtDemoUrlPrefix:"https://github.com/huangshuwei/vue-easytable/edit/master/examples/src/docs/zh/",
+        eidtDemoUrlPrefix:
+            "https://github.com/huangshuwei/vue-easytable/edit/master/examples/src/docs/zh/",
         demo: {
             description: "功能描述",
             expandCode: "展开代码",
@@ -43,7 +44,8 @@ export default {
         anchorCatalogTitle: "Contents",
         compLang: enUS,
         eidtDemoTitle: "Edit this on Github",
-        eidtDemoUrlPrefix:"https://github.com/huangshuwei/vue-easytable/edit/master/examples/src/docs/en/",
+        eidtDemoUrlPrefix:
+            "https://github.com/huangshuwei/vue-easytable/edit/master/examples/src/docs/en/",
         demo: {
             description: "Code Description",
             expandCode: "Expand Code",
