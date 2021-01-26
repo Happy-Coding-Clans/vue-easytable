@@ -40,10 +40,10 @@ vue-easytable 的样式使用了 Less 作为开发语言，并定义了一系列
 
 ```
 import Vue from 'vue'
-import Element from 'vue-easytable'
+import VueEasytable from 'vue-easytable'
 import './vue-easytable-variables.less'
 
-Vue.use(Element)
+Vue.use(VueEasytable)
 ```
 
 #### 选择暗黑主题定制
@@ -61,8 +61,8 @@ Vue.use(Element)
 
 ```
 import Vue from 'vue'
-import Element from 'vue-easytable'
+import VueEasytable from 'vue-easytable'
 import './vue-easytable-variables.less'
 
-Vue.use(Element)
+Vue.use(VueEasytable)
 ```
