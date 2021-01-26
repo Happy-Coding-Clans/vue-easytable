@@ -60,4 +60,4 @@ The following languages are currently supported：
 | Simplified Chinese | zh-CN |
 | English | en-US |
 
-If you need to use other languages, you are welcome to contribute PR: just add a language configuration file in [here]().
+If you need to use other languages, you are welcome to contribute PR: just add a language configuration file in [here](https://github.com/huangshuwei/vue-easytable/tree/master/packages/src/locale/lang).

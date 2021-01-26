@@ -61,4 +61,4 @@ VeLocale.update(lang);
 | 简体中文 | zh-CN |
 | 英语 | en-US |
 
-如果你需要使用其他的语言，欢迎贡献 PR：只需在 [这里]() 添加一个语言配置文件即可。
+如果你需要使用其他的语言，欢迎贡献 PR：只需在 [这里](https://github.com/huangshuwei/vue-easytable/tree/master/packages/src/locale/lang) 添加一个语言配置文件即可。
