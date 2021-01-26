@@ -4,12 +4,7 @@
 
 ```html
 <template>
-  <ve-table
-    :columns="columns"
-    :table-data="tableData"
-    :border-x="true"
-    :border-y="true"
-  />
+  <ve-table :columns="columns" :table-data="tableData" :border-x="true" :border-y="true" />
 </template>
 
 <script>

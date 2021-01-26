@@ -6,11 +6,7 @@
 <template>
   <div>
     打开F12 查看 console 信息
-    <ve-table
-      :columns="columns"
-      :table-data="tableData"
-      :eventCustomOption="eventCustomOption"
-    />
+    <ve-table :columns="columns" :table-data="tableData" :eventCustomOption="eventCustomOption" />
   </div>
 </template>
 
@@ -51,27 +47,9 @@
               return ++rowIndex;
             },
           },
-          {
-            field: "name",
-            key: "b",
-            title: "Name",
-            width: 200,
-            align: "left",
-          },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            width: 300,
-            align: "left",
-          },
-          {
-            field: "address",
-            key: "d",
-            title: "Address",
-            width: "",
-            align: "left",
-          },
+          { field: "name", key: "b", title: "Name", width: 200, align: "left" },
+          { field: "hobby", key: "c", title: "Hobby", width: 300, align: "left" },
+          { field: "address", key: "d", title: "Address", width: "", align: "left" },
         ],
         tableData: [
           {

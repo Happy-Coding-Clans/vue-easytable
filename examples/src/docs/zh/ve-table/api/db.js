@@ -593,7 +593,7 @@ export const db = {
                 type: "<code>Number</code>",
                 optionalVal: "-",
                 default: "42"
-            },
+            }
             /* {
                 param: "bufferScale",
                 desc: `缓冲比例。可视范围数据的整数倍，防止滚动过快白屏，默认无缓冲`,

@@ -3,7 +3,7 @@
 import `VeIcon`
 
 ```javascript
-import Vue from 'vue';
+import Vue from "vue";
 import { VeIcon } from "vue-easytable";
 
 Vue.use(VeIcon);

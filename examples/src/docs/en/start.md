@@ -41,13 +41,7 @@ Write the following in mian.js：
 import Vue from "vue";
 import "vue-easytable/libs/theme-default/index.css"; // import style
 
-import {
-  VeTable,
-  VePagination,
-  VeIcon,
-  VeLoading,
-  VeLocale,
-} from "vue-easytable"; // import library
+import { VeTable, VePagination, VeIcon, VeLoading, VeLocale } from "vue-easytable"; // import library
 
 Vue.use(VeTable);
 Vue.use(VePagination);
@@ -143,10 +137,7 @@ Through [https://unpkg.com/vue-easytable/](https://unpkg.com/vue-easytable/), yo
   <head>
     <meta charset="UTF-8" />
     <!-- import style -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/vue-easytable/libs/theme-default/index.css"
-    />
+    <link rel="stylesheet" href="https://unpkg.com/vue-easytable/libs/theme-default/index.css" />
   </head>
   <body>
     <div id="app">

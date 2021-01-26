@@ -37,10 +37,7 @@
                       placeholder="Search name"
                     />
                     <div class="custom-name-filter-operation">
-                      <span
-                        class="name-filter-cancel"
-                        on-click={() => this.searchCancel(closeFn)}
-                      >
+                      <span class="name-filter-cancel" on-click={() => this.searchCancel(closeFn)}>
                         取消
                       </span>
                       <span
@@ -55,27 +52,9 @@
               },
             },
           },
-          {
-            field: "date",
-            key: "b",
-            title: "Date",
-            align: "left",
-            width: "15%",
-          },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            align: "center",
-            width: "30%",
-          },
-          {
-            field: "address",
-            key: "d",
-            title: "Address",
-            align: "left",
-            width: "40%",
-          },
+          { field: "date", key: "b", title: "Date", align: "left", width: "15%" },
+          { field: "hobby", key: "c", title: "Hobby", align: "center", width: "30%" },
+          { field: "address", key: "d", title: "Address", align: "left", width: "40%" },
         ],
         // real table data
         tableData: [],
@@ -124,9 +103,7 @@
       search() {
         const searchValue = this.searchValue;
         this.tableData = this.sourceData.filter(
-          (x) =>
-            !searchValue.length ||
-            x.name.toLowerCase().includes(searchValue.toLowerCase())
+          (x) => !searchValue.length || x.name.toLowerCase().includes(searchValue.toLowerCase())
         );
       },
 

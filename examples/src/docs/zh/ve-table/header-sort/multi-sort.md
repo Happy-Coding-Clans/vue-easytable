@@ -4,11 +4,7 @@
 
 ```html
 <template>
-  <ve-table
-    :columns="columns"
-    :table-data="tableData"
-    :sort-option="sortOption"
-  />
+  <ve-table :columns="columns" :table-data="tableData" :sort-option="sortOption" />
 </template>
 
 <script>
@@ -24,32 +20,10 @@
           },
         },
         columns: [
-          {
-            field: "name",
-            key: "a",
-            title: "Name",
-            align: "left",
-          },
-          {
-            field: "age",
-            key: "b",
-            title: "Age",
-            align: "center",
-            sortBy: "",
-          },
-          {
-            field: "weight",
-            key: "c",
-            title: "Weight(kg)",
-            align: "center",
-            sortBy: "asc",
-          },
-          {
-            field: "hobby",
-            key: "d",
-            title: "Hobby",
-            align: "center",
-          },
+          { field: "name", key: "a", title: "Name", align: "left" },
+          { field: "age", key: "b", title: "Age", align: "center", sortBy: "" },
+          { field: "weight", key: "c", title: "Weight(kg)", align: "center", sortBy: "asc" },
+          { field: "hobby", key: "d", title: "Hobby", align: "center" },
           { field: "address", key: "e", title: "Address", align: "left" },
         ],
         tableData: [

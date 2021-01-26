@@ -16,6 +16,7 @@ example：
 #### Use Dark Theme
 
 import dark theme style
+
 ```
 import "vue-easytable/libs/theme-dark/index.css";
 ```

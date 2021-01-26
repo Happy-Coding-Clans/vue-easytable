@@ -5,11 +5,7 @@
 ```html
 <template>
   <div>
-    <ve-table
-      :row-style-option="rowStyleOption"
-      :columns="columns"
-      :table-data="tableData"
-    />
+    <ve-table :row-style-option="rowStyleOption" :columns="columns" :table-data="tableData" />
   </div>
 </template>
 
@@ -32,20 +28,8 @@
             },
           },
           { field: "name", key: "b", title: "Name", width: 200, align: "left" },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            width: 300,
-            align: "left",
-          },
-          {
-            field: "address",
-            key: "d",
-            title: "Address",
-            width: "",
-            align: "left",
-          },
+          { field: "hobby", key: "c", title: "Hobby", width: 300, align: "left" },
+          { field: "address", key: "d", title: "Address", width: "", align: "left" },
         ],
         tableData: [
           {

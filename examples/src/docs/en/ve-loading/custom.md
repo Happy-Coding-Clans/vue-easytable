@@ -8,10 +8,7 @@ You can also customize the loading text, background color and size
   <div>
     <button class="button-demo" @click="show()">Open</button>
     <button class="button-demo" @click="close()">Close</button><br /><br />
-    <div
-      id="custom-loading-container"
-      style="width:100%;height:250px;background-color:#2980b9;"
-    />
+    <div id="custom-loading-container" style="width:100%;height:250px;background-color:#2980b9;" />
   </div>
 </template>
 <script>

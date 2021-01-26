@@ -1,7 +1,7 @@
 <anchor label="Usage"/>
 
 ```javascript
-import Vue from 'vue';
+import Vue from "vue";
 import { VeLocale } from "vue-easytable";
 // import language config
 import enUS from "vue-easytable/libs/locale/lang/en-US.js";

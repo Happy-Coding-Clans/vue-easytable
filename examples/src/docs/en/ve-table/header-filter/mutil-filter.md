@@ -36,9 +36,7 @@
               isMultiple: true,
               // filter confirm hook
               filterConfirm: (filterList) => {
-                const labels = filterList
-                  .filter((x) => x.selected)
-                  .map((x) => x.label);
+                const labels = filterList.filter((x) => x.selected).map((x) => x.label);
                 this.searchByNameField(labels);
               },
               // filter reset hook
@@ -49,27 +47,9 @@
               maxHeight: 120,
             },
           },
-          {
-            field: "date",
-            key: "b",
-            title: "Date",
-            align: "left",
-            width: "15%",
-          },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            align: "center",
-            width: "30%",
-          },
-          {
-            field: "address",
-            key: "d",
-            title: "Address",
-            align: "left",
-            width: "40%",
-          },
+          { field: "date", key: "b", title: "Date", align: "left", width: "15%" },
+          { field: "hobby", key: "c", title: "Hobby", align: "center", width: "30%" },
+          { field: "address", key: "d", title: "Address", align: "left", width: "40%" },
         ],
         // real table data
         tableData: [],

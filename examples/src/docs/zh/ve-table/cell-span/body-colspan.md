@@ -22,27 +22,9 @@
           bodyCellSpan: this.bodyCellSpan,
         },
         columns: [
-          {
-            field: "name",
-            key: "a",
-            title: "Name",
-            width: 200,
-            align: "center",
-          },
-          {
-            field: "date",
-            key: "b",
-            title: "Date",
-            width: 200,
-            align: "left",
-          },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            width: 200,
-            align: "right",
-          },
+          { field: "name", key: "a", title: "Name", width: 200, align: "center" },
+          { field: "date", key: "b", title: "Date", width: 200, align: "left" },
+          { field: "hobby", key: "c", title: "Hobby", width: 200, align: "right" },
           { field: "address", key: "d", title: "Address", width: "" },
         ],
         tableData: [

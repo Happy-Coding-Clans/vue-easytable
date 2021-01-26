@@ -31,9 +31,7 @@
             renderBodyCell: ({ row, column, rowIndex }, h) => {
               if (column.field === "name") {
                 if (rowIndex === 1) {
-                  return (
-                    <span style="color:#1890ff;">this is custom content</span>
-                  );
+                  return <span style="color:#1890ff;">this is custom content</span>;
                 }
               }
 
@@ -49,22 +47,14 @@
             renderBodyCell: ({ row, column, rowIndex }, h) => {
               if (rowIndex === 1) {
                 if (column.field === "date") {
-                  return (
-                    <span style="color:#1890ff;">this is custom content</span>
-                  );
+                  return <span style="color:#1890ff;">this is custom content</span>;
                 }
               }
 
               return row[column.field];
             },
           },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            width: 200,
-            align: "right",
-          },
+          { field: "hobby", key: "c", title: "Hobby", width: 200, align: "right" },
           { field: "address", key: "d", title: "Address", width: "" },
         ],
         tableData: [

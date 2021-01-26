@@ -9,8 +9,7 @@
       第二行选中切换
     </button>
     <button class="button-demo" @click="selectedAll()">选中全部</button>
-    <button class="button-demo" @click="unselectedAll()">取消选中全部</button
-    ><br /><br />
+    <button class="button-demo" @click="unselectedAll()">取消选中全部</button><br /><br />
     <ve-table
       style="width:100%"
       :columns="columns"
@@ -48,27 +47,9 @@
             width: 50,
             align: "center",
           },
-          {
-            field: "name",
-            key: "b",
-            title: "Name",
-            width: 200,
-            align: "left",
-          },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            width: 300,
-            align: "left",
-          },
-          {
-            field: "address",
-            key: "d",
-            title: "Address",
-            width: "",
-            align: "left",
-          },
+          { field: "name", key: "b", title: "Name", width: 200, align: "left" },
+          { field: "hobby", key: "c", title: "Hobby", width: 300, align: "left" },
+          { field: "address", key: "d", title: "Address", width: "", align: "left" },
         ],
         tableData: [
           {
@@ -128,9 +109,7 @@
       },
       // 选中全部
       selectedAll() {
-        this.checkboxOptipon.selectedRowKeys = this.tableData.map(
-          (x) => x.rowKey
-        );
+        this.checkboxOptipon.selectedRowKeys = this.tableData.map((x) => x.rowKey);
       },
       // 取消选中全部
       unselectedAll() {

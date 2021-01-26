@@ -4,12 +4,7 @@
 
 ```html
 <template>
-  <ve-table
-    :columns="columns"
-    :table-data="tableData"
-    :border-x="true"
-    :border-y="true"
-  />
+  <ve-table :columns="columns" :table-data="tableData" :border-x="true" :border-y="true" />
 </template>
 
 <script>
@@ -17,24 +12,9 @@
     data() {
       return {
         columns: [
-          {
-            field: "name",
-            key: "a",
-            title: "Name",
-            align: "center",
-          },
-          {
-            field: "date",
-            key: "b",
-            title: "Date",
-            align: "left",
-          },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            align: "right",
-          },
+          { field: "name", key: "a", title: "Name", align: "center" },
+          { field: "date", key: "b", title: "Date", align: "left" },
+          { field: "hobby", key: "c", title: "Hobby", align: "right" },
           { field: "address", key: "d", title: "Address" },
         ],
         tableData: [

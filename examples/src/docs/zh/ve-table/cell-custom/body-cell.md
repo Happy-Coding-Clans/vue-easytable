@@ -4,12 +4,7 @@
 
 ```html
 <template>
-  <ve-table
-    style="width:100%"
-    border-y
-    :columns="columns"
-    :table-data="tableData"
-  />
+  <ve-table style="width:100%" border-y :columns="columns" :table-data="tableData" />
 </template>
 
 <script>
@@ -31,13 +26,7 @@
               );
             },
           },
-          {
-            field: "date",
-            key: "b",
-            title: "Date",
-            width: 200,
-            align: "center",
-          },
+          { field: "date", key: "b", title: "Date", width: 200, align: "center" },
           {
             field: "hobby",
             key: "c",
@@ -80,17 +69,11 @@
             renderBodyCell: ({ row, column, rowIndex }, h) => {
               return (
                 <span>
-                  <button
-                    class="button-demo"
-                    on-click={() => this.editRow(rowIndex)}
-                  >
+                  <button class="button-demo" on-click={() => this.editRow(rowIndex)}>
                     Edit
                   </button>
                   &nbsp;
-                  <button
-                    class="button-demo"
-                    on-click={() => this.deleteRow(rowIndex)}
-                  >
+                  <button class="button-demo" on-click={() => this.deleteRow(rowIndex)}>
                     Delete
                   </button>
                 </span>

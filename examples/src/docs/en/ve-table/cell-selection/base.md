@@ -23,27 +23,9 @@
           enable: true,
         },
         columns: [
-          {
-            field: "name",
-            key: "a",
-            title: "Name",
-            align: "left",
-            width: "20%",
-          },
-          {
-            field: "date",
-            key: "b",
-            title: "Date",
-            align: "left",
-            width: "20%",
-          },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            align: "center",
-            width: "30%",
-          },
+          { field: "name", key: "a", title: "Name", align: "left", width: "20%" },
+          { field: "date", key: "b", title: "Date", align: "left", width: "20%" },
+          { field: "hobby", key: "c", title: "Hobby", align: "center", width: "30%" },
           { field: "address", key: "d", title: "Address", width: "30%" },
         ],
         tableData: [

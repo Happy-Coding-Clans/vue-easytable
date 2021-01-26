@@ -4,11 +4,7 @@
 
 ```html
 <template>
-  <ve-table
-    :columns="columns"
-    :table-data="tableData"
-    :cell-style-option="cellStyleOption"
-  />
+  <ve-table :columns="columns" :table-data="tableData" :cell-style-option="cellStyleOption" />
 </template>
 
 <style>

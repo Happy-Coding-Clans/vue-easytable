@@ -1,4 +1,4 @@
-:::anchor footer列合并
+:::anchor footer 列合并
 
 :::demo 设置 footer 汇总第 1 行`date`列和`hoby`列合并。 同时需要指定第 2 行`hoby`列不渲染
 
@@ -24,27 +24,9 @@
           footerCellSpan: this.footerCellSpan,
         },
         columns: [
-          {
-            field: "name",
-            key: "a",
-            title: "Name",
-            width: 200,
-            align: "center",
-          },
-          {
-            field: "date",
-            key: "b",
-            title: "Date",
-            width: 200,
-            align: "left",
-          },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            width: 200,
-            align: "right",
-          },
+          { field: "name", key: "a", title: "Name", width: 200, align: "center" },
+          { field: "date", key: "b", title: "Date", width: 200, align: "left" },
+          { field: "hobby", key: "c", title: "Hobby", width: 200, align: "right" },
           { field: "address", key: "d", title: "Address", width: "" },
         ],
         tableData: [

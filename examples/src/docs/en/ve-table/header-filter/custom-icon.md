@@ -19,13 +19,7 @@ filterIcon Supports custom icon. The built-in `<ve-icon name="search" />` icon i
     data() {
       return {
         columns: [
-          {
-            field: "name",
-            key: "a",
-            title: "Name",
-            align: "left",
-            width: "15%",
-          },
+          { field: "name", key: "a", title: "Name", align: "left", width: "15%" },
           {
             field: "date",
             key: "b",
@@ -43,9 +37,7 @@ filterIcon Supports custom icon. The built-in `<ve-icon name="search" />` icon i
               ],
               // filter confirm hook
               filterConfirm: (filterList) => {
-                const labels = filterList
-                  .filter((x) => x.selected)
-                  .map((x) => x.label);
+                const labels = filterList.filter((x) => x.selected).map((x) => x.label);
                 this.searchByDateField(labels);
               },
               // filter reset hook
@@ -58,20 +50,8 @@ filterIcon Supports custom icon. The built-in `<ve-icon name="search" />` icon i
               },
             },
           },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            align: "center",
-            width: "30%",
-          },
-          {
-            field: "address",
-            key: "d",
-            title: "Address",
-            align: "left",
-            width: "40%",
-          },
+          { field: "hobby", key: "c", title: "Hobby", align: "center", width: "30%" },
+          { field: "address", key: "d", title: "Address", align: "left", width: "40%" },
         ],
         // real table data
         tableData: [],

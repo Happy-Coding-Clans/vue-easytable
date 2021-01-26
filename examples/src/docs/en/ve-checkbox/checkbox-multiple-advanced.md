@@ -73,10 +73,7 @@
         let result = [];
 
         this.checkboxGroupInitValues.filter((x) => {
-          if (
-            x.disabled &&
-            this.checkboxGroupDefaultValue.indexOf(x.label) > -1
-          ) {
+          if (x.disabled && this.checkboxGroupDefaultValue.indexOf(x.label) > -1) {
             result.push(x.label);
           }
         });
@@ -88,10 +85,7 @@
         let result = [];
 
         this.checkboxGroupInitValues.filter((x) => {
-          if (
-            x.disabled &&
-            this.checkboxGroupDefaultValue.indexOf(x.label) === -1
-          ) {
+          if (x.disabled && this.checkboxGroupDefaultValue.indexOf(x.label) === -1) {
             result.push(x.label);
           }
         });

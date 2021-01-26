@@ -46,24 +46,9 @@
               return (this.pageIndex - 1) * this.pageSize + rowIndex + 1;
             },
           },
-          {
-            field: "name",
-            key: "b",
-            title: "Name",
-            align: "center",
-          },
-          {
-            field: "date",
-            key: "c",
-            title: "Date",
-            align: "left",
-          },
-          {
-            field: "hobby",
-            key: "d",
-            title: "Hobby",
-            align: "left",
-          },
+          { field: "name", key: "b", title: "Name", align: "center" },
+          { field: "date", key: "c", title: "Date", align: "left" },
+          { field: "hobby", key: "d", title: "Hobby", align: "left" },
           { field: "address", key: "e", title: "Address", width: "" },
         ],
       };

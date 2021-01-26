@@ -8,8 +8,7 @@
     <button class="button-demo" @click="selectedSwitch(1002)">
       第二行选中切换
     </button>
-    <button class="button-demo" @click="unselected()">取消选中</button
-    ><br /><br />
+    <button class="button-demo" @click="unselected()">取消选中</button><br /><br />
     <ve-table
       style="width:100%"
       :columns="columns"
@@ -41,27 +40,9 @@
             width: 50,
             align: "center",
           },
-          {
-            field: "name",
-            key: "b",
-            title: "Name",
-            width: 200,
-            align: "left",
-          },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            width: 300,
-            align: "left",
-          },
-          {
-            field: "address",
-            key: "d",
-            title: "Address",
-            width: "",
-            align: "left",
-          },
+          { field: "name", key: "b", title: "Name", width: 200, align: "left" },
+          { field: "hobby", key: "c", title: "Hobby", width: 300, align: "left" },
+          { field: "address", key: "d", title: "Address", width: "", align: "left" },
         ],
         tableData: [
           {

@@ -21,32 +21,10 @@
     data() {
       return {
         columns: [
-          {
-            field: "name",
-            key: "a",
-            title: "Name",
-            align: "center",
-            width: 200,
-          },
-          {
-            field: "date",
-            key: "b",
-            title: "Date",
-            align: "left",
-          },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            align: "center",
-          },
-          {
-            field: "address",
-            key: "d",
-            title: "Address",
-            align: "left",
-            width: 200,
-          },
+          { field: "name", key: "a", title: "Name", align: "center", width: 200 },
+          { field: "date", key: "b", title: "Date", align: "left" },
+          { field: "hobby", key: "c", title: "Hobby", align: "center" },
+          { field: "address", key: "d", title: "Address", align: "left", width: 200 },
         ],
         tableData: [],
         footerData: [],

@@ -33,31 +33,11 @@
     data() {
       return {
         columns: [
-          {
-            field: "col1",
-            key: "a",
-            title: "Col1",
-          },
-          {
-            field: "col2",
-            key: "b",
-            title: "Col2",
-          },
-          {
-            field: "col3",
-            key: "c",
-            title: "Col3",
-          },
-          {
-            field: "col4",
-            key: "d",
-            title: "Col4",
-          },
-          {
-            field: "col5",
-            key: "e",
-            title: "Col5",
-          },
+          { field: "col1", key: "a", title: "Col1" },
+          { field: "col2", key: "b", title: "Col2" },
+          { field: "col3", key: "c", title: "Col3" },
+          { field: "col4", key: "d", title: "Col4" },
+          { field: "col5", key: "e", title: "Col5" },
         ],
         tableData: [
           {
@@ -105,27 +85,9 @@
             width: 50,
             align: "center",
           },
-          {
-            field: "name",
-            key: "b",
-            title: "Name",
-            width: 200,
-            align: "center",
-          },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            width: 300,
-            align: "left",
-          },
-          {
-            field: "address",
-            key: "d",
-            title: "Address",
-            width: "",
-            align: "left",
-          },
+          { field: "name", key: "b", title: "Name", width: 200, align: "center" },
+          { field: "hobby", key: "c", title: "Hobby", width: 300, align: "left" },
+          { field: "address", key: "d", title: "Address", width: "", align: "left" },
         ],
         tableData: [
           {

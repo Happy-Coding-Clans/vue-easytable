@@ -8,8 +8,7 @@
     <button class="button-demo" @click="selectedSwitch(1002)">
       Second Row Switch Selection
     </button>
-    <button class="button-demo" @click="unselected()">UnCheck</button
-    ><br /><br />
+    <button class="button-demo" @click="unselected()">UnCheck</button><br /><br />
     <ve-table
       style="width:100%"
       :columns="columns"
@@ -41,20 +40,8 @@
             align: "center",
           },
           { field: "name", key: "b", title: "Name", width: 200, align: "left" },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            width: 300,
-            align: "left",
-          },
-          {
-            field: "address",
-            key: "d",
-            title: "Address",
-            width: "",
-            align: "left",
-          },
+          { field: "hobby", key: "c", title: "Hobby", width: 300, align: "left" },
+          { field: "address", key: "d", title: "Address", width: "", align: "left" },
         ],
         tableData: [
           {

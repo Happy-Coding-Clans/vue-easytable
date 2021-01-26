@@ -47,13 +47,7 @@
           { field: "name", key: "a", title: "Name", align: "left" },
           { field: "date", key: "b", title: "Date", align: "left" },
           { field: "hobby", key: "c", title: "Hobby", align: "left" },
-          {
-            field: "address",
-            key: "d",
-            title: "Address",
-            width: "",
-            align: "left",
-          },
+          { field: "address", key: "d", title: "Address", width: "", align: "left" },
         ],
         tableData: [],
       };

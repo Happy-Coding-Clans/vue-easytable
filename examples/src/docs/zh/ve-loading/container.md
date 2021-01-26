@@ -6,13 +6,8 @@
 <template>
   <div>
     <button class="button-demo" @click="show()">开启 Loading</button>
-    <button class="button-demo" @click="close()">关闭 Loading</button
-    ><br /><br />
-    <ve-table
-      id="loading-container"
-      :columns="columns"
-      :table-data="tableData"
-    />
+    <button class="button-demo" @click="close()">关闭 Loading</button><br /><br />
+    <ve-table id="loading-container" :columns="columns" :table-data="tableData" />
   </div>
 </template>
 <script>
@@ -21,24 +16,9 @@
       return {
         loadingInstance: null,
         columns: [
-          {
-            field: "name",
-            key: "a",
-            title: "Name",
-            align: "center",
-          },
-          {
-            field: "date",
-            key: "b",
-            title: "Date",
-            align: "left",
-          },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            align: "right",
-          },
+          { field: "name", key: "a", title: "Name", align: "center" },
+          { field: "date", key: "b", title: "Date", align: "left" },
+          { field: "hobby", key: "c", title: "Hobby", align: "right" },
           { field: "address", key: "d", title: "Address" },
         ],
         tableData: [

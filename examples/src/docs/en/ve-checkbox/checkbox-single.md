@@ -5,11 +5,7 @@
   <div>
     <div>
       <div class="bold">单选</div>
-      <ve-checkbox
-        @on-checked-change="checkedChange"
-        v-model="checkboxValue1"
-        label="哈密瓜"
-      />
+      <ve-checkbox @on-checked-change="checkedChange" v-model="checkboxValue1" label="哈密瓜" />
       <div>{{checkboxValue1}}</div>
     </div>
 
@@ -35,10 +31,7 @@
       <div class="bold">
         受控属性
       </div>
-      <ve-checkbox
-        isControlled
-        :isSelected="isSelected"
-        @on-checked-change="checkedChangeControl"
+      <ve-checkbox isControlled :isSelected="isSelected" @on-checked-change="checkedChangeControl"
         >哈密瓜</ve-checkbox
       >
       <div>{{isSelected}}</div>

@@ -18,34 +18,10 @@
     data() {
       return {
         columns: [
-          {
-            field: "name",
-            key: "a",
-            title: "Name",
-            align: "left",
-            width: "15%",
-          },
-          {
-            field: "date",
-            key: "b",
-            title: "Date",
-            align: "left",
-            width: "15%",
-          },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            align: "center",
-            width: "30%",
-          },
-          {
-            field: "address",
-            key: "d",
-            title: "Address",
-            align: "left",
-            width: "40%",
-          },
+          { field: "name", key: "a", title: "Name", align: "left", width: "15%" },
+          { field: "date", key: "b", title: "Date", align: "left", width: "15%" },
+          { field: "hobby", key: "c", title: "Hobby", align: "center", width: "30%" },
+          { field: "address", key: "d", title: "Address", align: "left", width: "40%" },
         ],
         // table data
         tableData: [
@@ -77,8 +53,7 @@
             name: "Geneva",
             date: "2010-08-20",
             hobby: "coding and coding repeat",
-            address:
-              "No.1 Century Avenue, Xiamen,this is a long text,this is a long text",
+            address: "No.1 Century Avenue, Xiamen,this is a long text,this is a long text",
             rowkey: 3,
           },
           {

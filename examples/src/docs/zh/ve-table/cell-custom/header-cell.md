@@ -1,4 +1,4 @@
-:::anchor header自定义单元格
+:::anchor header 自定义单元格
 
 :::demo 1、`column`配置中，支持通过属性 `renderHeaderCell`传入渲染函数，与 body 自定义单元格用法一致。`renderHeaderCell`在表头分组中一样适用<br>2、渲染函数接收一个参数，`column`:当前列配置
 
@@ -49,49 +49,37 @@
               );
             },
           },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            width: 300,
-            align: "left",
-          },
-          {
-            field: "address",
-            key: "d",
-            title: "Address",
-            width: "",
-            align: "left",
-          },
+          { field: "hobby", key: "c", title: "Hobby", width: 300, align: "left" },
+          { field: "address", key: "d", title: "Address", width: "", align: "left" },
         ],
         tableData: [
           {
             name: "John",
-            date:"1900-05-20",
+            date: "1900-05-20",
             hobby: "coding",
             address: "No.1 Century Avenue, Shanghai",
           },
           {
             name: "Dickerson",
-            date:"1910-06-20",
+            date: "1910-06-20",
             hobby: "coding",
             address: "No.1 Century Avenue, Beijing",
           },
           {
             name: "Larsen",
-            date:"2000-07-20",
+            date: "2000-07-20",
             hobby: "coding and coding repeat",
             address: "No.1 Century Avenue, Chongqing",
           },
           {
             name: "Geneva",
-            date:"2010-08-20",
+            date: "2010-08-20",
             hobby: "coding and coding repeat",
             address: "No.1 Century Avenue, Xiamen",
           },
           {
             name: "Jami",
-            date:"2020-09-20",
+            date: "2020-09-20",
             hobby: "coding and coding repeat",
             address: "No.1 Century Avenue, Shenzhen",
           },

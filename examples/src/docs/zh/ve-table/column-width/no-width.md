@@ -18,26 +18,10 @@
     data() {
       return {
         columns: [
-          {
-            field: "name",
-            key: "a",
-            title: "Name",
-          },
-          {
-            field: "date",
-            key: "b",
-            title: "Date",
-          },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-          },
-          {
-            field: "address",
-            key: "d",
-            title: "Address",
-          },
+          { field: "name", key: "a", title: "Name" },
+          { field: "date", key: "b", title: "Date" },
+          { field: "hobby", key: "c", title: "Hobby" },
+          { field: "address", key: "d", title: "Address" },
         ],
         tableData: [
           {

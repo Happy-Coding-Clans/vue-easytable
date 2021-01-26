@@ -8,11 +8,7 @@ Display the Loading effect in containers such as tables
   <div>
     <button class="button-demo" @click="show()">Open</button>
     <button class="button-demo" @click="close()">Close</button><br /><br />
-    <ve-table
-      id="loading-container"
-      :columns="columns"
-      :table-data="tableData"
-    />
+    <ve-table id="loading-container" :columns="columns" :table-data="tableData" />
   </div>
 </template>
 <script>
@@ -21,21 +17,9 @@ Display the Loading effect in containers such as tables
       return {
         loadingInstance: null,
         columns: [
-          {field: "name",
-            key: "a",
-            title: "Name",
-            align: "center",
-          },
-          {field: "date",
-            key: "b",
-            title: "Date",
-            align: "left",
-          },
-          {field: "hobby",
-            key: "c",
-            title: "Hobby",
-            align: "right",
-          },
+          { field: "name", key: "a", title: "Name", align: "center" },
+          { field: "date", key: "b", title: "Date", align: "left" },
+          { field: "hobby", key: "c", title: "Hobby", align: "right" },
           { field: "address", key: "d", title: "Address" },
         ],
         tableData: [

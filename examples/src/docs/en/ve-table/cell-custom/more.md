@@ -10,12 +10,7 @@
 
 ```html
 <template>
-  <ve-table
-    style="width:100%"
-    border-y
-    :columns="columns"
-    :table-data="tableData"
-  />
+  <ve-table style="width:100%" border-y :columns="columns" :table-data="tableData" />
 </template>
 
 <script>
@@ -45,32 +40,12 @@
             width: 200,
             align: "center",
             renderBodyCell: ({ row, column, rowIndex }, h) => {
-              return (
-                <OtherComp row={row} column={column} rowIndex={rowIndex} />
-              );
+              return <OtherComp row={row} column={column} rowIndex={rowIndex} />;
             },
           },
-          {
-            field: "date",
-            key: "b",
-            title: "Date",
-            width: 200,
-            align: "center",
-          },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            width: 300,
-            align: "left",
-          },
-          {
-            field: "address",
-            key: "d",
-            title: "Address",
-            width: "",
-            align: "left",
-          },
+          { field: "date", key: "b", title: "Date", width: 200, align: "center" },
+          { field: "hobby", key: "c", title: "Hobby", width: 300, align: "left" },
+          { field: "address", key: "d", title: "Address", width: "", align: "left" },
         ],
         tableData: [
           {

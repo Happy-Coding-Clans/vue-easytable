@@ -35,13 +35,7 @@
         tempData: [],
         tableData: [],
         columns: [
-          {
-            field: "col1",
-            key: "a",
-            title: "col1",
-            width: "10%",
-            fixed: "left",
-          },
+          { field: "col1", key: "a", title: "col1", width: "10%", fixed: "left" },
           { field: "col2", key: "b", title: "col2", width: "10%" },
           { field: "col3", key: "c", title: "col3", width: "10%" },
           { field: "col4", key: "d", title: "col4", width: "10%" },
@@ -79,20 +73,14 @@
 
         let startTime = window.performance.now();
         setTimeout(() => {
-          this.msg =
-            "render took: " +
-            (window.performance.now() - startTime).toFixed(2) +
-            "ms";
+          this.msg = "render took: " + (window.performance.now() - startTime).toFixed(2) + "ms";
         }, 0);
       },
       unmount() {
         this.tableData = this.tempData = [];
         let startTime = window.performance.now();
         setTimeout(() => {
-          this.msg =
-            "unmount took: " +
-            (window.performance.now() - startTime).toFixed(2) +
-            "ms";
+          this.msg = "unmount took: " + (window.performance.now() - startTime).toFixed(2) + "ms";
         }, 0);
       },
     },

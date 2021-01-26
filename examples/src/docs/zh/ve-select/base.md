@@ -99,11 +99,7 @@
 
 ```html
 <template>
-  <ve-select
-    v-model="selectItems1"
-    placeholder="姓名"
-    @on-select-change="selectChange"
-  />
+  <ve-select v-model="selectItems1" placeholder="姓名" @on-select-change="selectChange" />
 </template>
 <script>
   export default {

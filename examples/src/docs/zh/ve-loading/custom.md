@@ -6,12 +6,8 @@
 <template>
   <div>
     <button class="button-demo" @click="show()">开启 Loading</button>
-    <button class="button-demo" @click="close()">关闭 Loading</button
-    ><br /><br />
-    <div
-      id="custom-loading-container"
-      style="width:100%;height:250px;background-color:#2980b9;"
-    />
+    <button class="button-demo" @click="close()">关闭 Loading</button><br /><br />
+    <div id="custom-loading-container" style="width:100%;height:250px;background-color:#2980b9;" />
   </div>
 </template>
 <script>

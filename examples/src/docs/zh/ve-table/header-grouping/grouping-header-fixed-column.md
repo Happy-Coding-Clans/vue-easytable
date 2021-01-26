@@ -20,13 +20,7 @@
     data() {
       return {
         columns: [
-          {
-            field: "col1",
-            key: "a",
-            title: "col1",
-            width: 50,
-            fixed: "left",
-          },
+          { field: "col1", key: "a", title: "col1", width: 50, fixed: "left" },
           {
             title: "col2-col3",
             fixed: "left",
@@ -73,20 +67,8 @@
               },
             ],
           },
-          {
-            field: "col7",
-            key: "g",
-            title: "col7",
-            width: 50,
-            fixed: "right",
-          },
-          {
-            field: "col8",
-            key: "h",
-            title: "col8",
-            width: 50,
-            fixed: "right",
-          },
+          { field: "col7", key: "g", title: "col7", width: 50, fixed: "right" },
+          { field: "col8", key: "h", title: "col8", width: 50, fixed: "right" },
         ],
         tableData: [],
       };

@@ -54,9 +54,7 @@
               isMultiple: true,
               // filter confirm hook
               filterConfirm: (filterList) => {
-                const labels = filterList
-                  .filter((x) => x.selected)
-                  .map((x) => x.label);
+                const labels = filterList.filter((x) => x.selected).map((x) => x.label);
                 this.searchData.names = labels;
               },
               // filter reset hook
@@ -85,20 +83,8 @@
               },
             },
           },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            align: "center",
-            width: "30%",
-          },
-          {
-            field: "address",
-            key: "d",
-            title: "Address",
-            align: "left",
-            width: "40%",
-          },
+          { field: "hobby", key: "c", title: "Hobby", align: "center", width: "30%" },
+          { field: "address", key: "d", title: "Address", align: "left", width: "40%" },
         ],
         // real table data
         tableData: [],
@@ -156,17 +142,13 @@
       search() {
         const { names, date } = this.searchData;
         this.tableData = this.sourceData.filter(
-          (x) =>
-            (date === "" || date === x.date) &&
-            (names.length === 0 || names.includes(x.name))
+          (x) => (date === "" || date === x.date) && (names.length === 0 || names.includes(x.name))
         );
       },
     },
     created() {
       // default search by names
-      this.searchData.names = NAME_FILTER_LIST.filter((x) => x.selected).map(
-        (x) => x.label
-      );
+      this.searchData.names = NAME_FILTER_LIST.filter((x) => x.selected).map((x) => x.label);
     },
   };
 </script>

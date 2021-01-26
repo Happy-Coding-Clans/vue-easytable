@@ -29,8 +29,8 @@
           render: ({ row, column, rowIndex }, h) => {
             return (
               <p>
-                My name is <span style="color:#1890ff;">{row.name}</span>,I'm
-                living in {row.address}
+                My name is <span style="color:#1890ff;">{row.name}</span>,I'm living in{" "}
+                {row.address}
               </p>
             );
           },
@@ -56,20 +56,8 @@
               return <span domPropsInnerHTML={row.name}></span>;
             },
           },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            width: 300,
-            align: "left",
-          },
-          {
-            field: "address",
-            key: "d",
-            title: "Address",
-            width: "",
-            align: "left",
-          },
+          { field: "hobby", key: "c", title: "Hobby", width: 300, align: "left" },
+          { field: "address", key: "d", title: "Address", width: "", align: "left" },
         ],
         tableData: [],
       };
