@@ -5,7 +5,7 @@
 ```html
 <template>
   <div>
-     Open F12 to view the console information
+    Open F12 to view the console information
     <ve-table
       :columns="columns"
       :table-data="tableData"
@@ -50,13 +50,7 @@
               return ++rowIndex;
             },
           },
-          {
-            field: "name",
-            key: "b",
-            title: "Name",
-            width: 200,
-            align: "left",
-          },
+          { field: "name", key: "b", title: "Name", width: 200, align: "left" },
           {
             field: "hobby",
             key: "c",

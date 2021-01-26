@@ -41,13 +41,7 @@
               return ++rowIndex;
             },
           },
-          {
-            field: "name",
-            key: "b",
-            title: "Name",
-            width: 200,
-            align: "left",
-          },
+          { field: "name", key: "b", title: "Name", width: 200, align: "left" },
           {
             field: "hobby",
             key: "c",

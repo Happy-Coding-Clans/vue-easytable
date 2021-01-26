@@ -22,19 +22,8 @@
           },
         },
         columns: [
-          {
-            field: "name",
-            key: "a",
-            title: "Name",
-            align: "left",
-          },
-          {
-            field: "age",
-            key: "b",
-            title: "Age",
-            align: "center",
-            sortBy: "",
-          },
+          { field: "name", key: "a", title: "Name", align: "left" },
+          { field: "age", key: "b", title: "Age", align: "center", sortBy: "" },
           {
             field: "weight",
             key: "c",
@@ -42,12 +31,7 @@
             align: "center",
             sortBy: "asc",
           },
-          {
-            field: "hobby",
-            key: "d",
-            title: "Hobby",
-            align: "center",
-          },
+          { field: "hobby", key: "d", title: "Hobby", align: "center" },
           { field: "address", key: "e", title: "Address", align: "left" },
         ],
         tableData: [

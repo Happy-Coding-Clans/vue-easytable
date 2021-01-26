@@ -18,46 +18,16 @@
     data() {
       return {
         columns: [
-          {
-            field: "col1",
-            key: "a",
-            title: "Title1",
-            fixed: "left",
-          },
-          {
-            field: "col2",
-            key: "b",
-            title: "Title2",
-            fixed: "left",
-          },
-          {
-            field: "col3",
-            key: "c",
-            title: "Title3",
-          },
+          { field: "col1", key: "a", title: "Title1", fixed: "left" },
+          { field: "col2", key: "b", title: "Title2", fixed: "left" },
+          { field: "col3", key: "c", title: "Title3" },
           { field: "col4", key: "d", title: "Title4" },
           { field: "col5", key: "e", title: "Title5" },
           { field: "col6", key: "f", title: "Title6" },
-          {
-            field: "col7",
-            key: "g",
-            title: "Title7",
-          },
-          {
-            field: "col8",
-            key: "h",
-            title: "Title8",
-          },
-          {
-            field: "col9",
-            key: "i",
-            title: "Title9",
-          },
-          {
-            field: "col10",
-            key: "j",
-            title: "Title10",
-          },
+          { field: "col7", key: "g", title: "Title7" },
+          { field: "col8", key: "h", title: "Title8" },
+          { field: "col9", key: "i", title: "Title9" },
+          { field: "col10", key: "j", title: "Title10" },
         ],
         tableData: [
           {

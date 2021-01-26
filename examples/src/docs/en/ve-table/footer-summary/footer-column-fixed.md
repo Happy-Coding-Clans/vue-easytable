@@ -30,18 +30,8 @@
             fixed: "left",
             width: 200,
           },
-          {
-            field: "date",
-            key: "b",
-            title: "Date",
-            align: "left",
-          },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby",
-            align: "center",
-          },
+          { field: "date", key: "b", title: "Date", align: "left" },
+          { field: "hobby", key: "c", title: "Hobby", align: "center" },
           {
             field: "address",
             key: "d",

@@ -18,30 +18,10 @@
     data() {
       return {
         columns: [
-          {
-            field: "name",
-            key: "a",
-            title: "Name 40%",
-            width: "40%",
-          },
-          {
-            field: "date",
-            key: "b",
-            title: "Tel 20%",
-            width: "20%",
-          },
-          {
-            field: "hobby",
-            key: "c",
-            title: "Hobby 20%",
-            width: "20%",
-          },
-          {
-            field: "address",
-            key: "d",
-            title: "Address 20%",
-            width: "20%",
-          },
+          { field: "name", key: "a", title: "Name 40%", width: "40%" },
+          { field: "date", key: "b", title: "Tel 20%", width: "20%" },
+          { field: "hobby", key: "c", title: "Hobby 20%", width: "20%" },
+          { field: "address", key: "d", title: "Address 20%", width: "20%" },
         ],
         tableData: [
           {

@@ -29,13 +29,7 @@
             width: 200,
             align: "center",
           },
-          {
-            field: "date",
-            key: "b",
-            title: "Date",
-            width: 200,
-            align: "left",
-          },
+          { field: "date", key: "b", title: "Date", width: 200, align: "left" },
           {
             field: "hobby",
             key: "c",

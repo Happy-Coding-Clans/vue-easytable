@@ -21,20 +21,17 @@ use
     data() {
       return {
         columns: [
-          {
-            field: "name",
+          {field: "name",
             key: "a",
             title: "Name",
             align: "center",
           },
-          {
-            field: "date",
+          {field: "date",
             key: "b",
             title: "Date",
             align: "left",
           },
-          {
-            field: "hobby",
+          {field: "hobby",
             key: "c",
             title: "Hobby",
             align: "right",
