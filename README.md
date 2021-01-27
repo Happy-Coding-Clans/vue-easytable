@@ -23,28 +23,28 @@ Based on vue2.x flexible table components.
 
 ## Supports
 
-- [x] Internationalization
-- [x] Theme Custom
-- [x] Built in theme
-- [x] Column Fixed
-- [x] Header Fixed
-- [x] Header Grouping
-- [x] Filter
-- [x] Sort
-- [x] Cell Style
-- [x] Cell Span
-- [x] Cell Custom
-- [x] Cell Selection(keyboard operation)
-- [x] Cell Ellipsis
-- [x] Row Radio
-- [x] Row Checkbox
-- [x] Row Expand
-- [x] Row Style
-- [x] Footer Summary
-- [x] Pagination
-- [x] Virtual Scroll
-- [x] Event Custom
-- [x] Loading component
+- [x] [Internationalization](http://doc.huangsw.com/vue-easytable/#/zh/doc/locale)
+- [x] [Theme Custom & Built in theme](http://doc.huangsw.com/vue-easytable/#/zh/doc/theme)
+- [x] [Virtual Scroll](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/virtual-scroll)
+- [x] [Column Fixed](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/column-fixed)
+- [x] [Header Fixed](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/header-fixed)
+- [x] [Header Grouping](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/header-grouping)
+- [x] [Filter](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/header-filter)
+- [x] [Sort](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/header-sort)
+- [x] [Cell Style](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/cell-style)
+- [x] [Cell Custom](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/cell-custom)
+- [x] [Cell Span](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/cell-span)
+- [x] [Cell Selection(keyboard operation)](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/cell-selection)
+- [x] [Cell Ellipsis](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/cell-ellipsis)
+- [x] [Row Radio](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/row-radio)
+- [x] [Row Checkbox](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/row-checkbox)
+- [x] [Row Expand](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/row-expand)
+- [x] [Row Style](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/row-style)
+- [x] [Footer Summary](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/footer-summary)
+- [x] [Event Custom](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/event-custom)
+- [x] [Loading component](http://doc.huangsw.com/vue-easytable/#/zh/doc/base/loading)
+- [x] [Pagination component](http://doc.huangsw.com/vue-easytable/#/zh/doc/base/pagination)
+- [More](http://doc.huangsw.com/vue-easytable)
 
 ## Environment Support
 

@@ -23,28 +23,27 @@
 
 ## Supports
 
-- [x] 国际化
-- [x] 主题定制
-- [x] 内置主题
-- [x] 固定列
-- [x] 固定表头
-- [x] 表头分组
-- [x] 筛选
-- [x] 排序
-- [x] 单元格样式
-- [x] 单元格合并
-- [x] 单元格自定义
-- [x] 单元格选择（键盘操作）
-- [x] 单元格省略
-- [x] 行单选
-- [x] 行多选
-- [x] 行展开
-- [x] 行样式
-- [x] footer
-- [x] 分页
-- [x] 虚拟滚动
-- [x] 自定义事件
-- [x] 内置 loading
+- [x] [国际化](http://doc.huangsw.com/vue-easytable/#/zh/doc/locale)
+- [x] [主题定制 & 内置主题](http://doc.huangsw.com/vue-easytable/#/zh/doc/theme)
+- [x] [虚拟滚动](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/virtual-scroll)
+- [x] [固定列](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/column-fixed)
+- [x] [固定表头](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/header-fixed)
+- [x] [表头分组](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/header-grouping)
+- [x] [筛选](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/header-filter)
+- [x] [排序](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/header-sort)
+- [x] [单元格样式](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/cell-style)
+- [x] [单元格自定义](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/cell-custom)
+- [x] [单元格合并](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/cell-span)
+- [x] [单元格选择（键盘操作）](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/cell-selection)
+- [x] [单元格省略](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/cell-ellipsis)
+- [x] [行单选](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/row-radio)
+- [x] [行多选](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/row-checkbox)
+- [x] [行展开](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/row-expand)
+- [x] [行样式](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/row-style)
+- [x] [footer 汇总](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/footer-summary)
+- [x] [自定义事件](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/event-custom)
+- [x] [内置loading组件](http://doc.huangsw.com/vue-easytable/#/zh/doc/base/loading)
+- [x] [内置分页组件](http://doc.huangsw.com/vue-easytable/#/zh/doc/base/pagination)
 
 ## 支持环境
 
