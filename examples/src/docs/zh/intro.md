@@ -1,6 +1,6 @@
-## vue-easytable
+## vue-easytable 
 
-一个基于 Vue2.x 的表格组件
+一个基于 Vue2.x 的表格组件。[![npm](https://img.shields.io/npm/v/vue-easytable.svg)](https://www.npmjs.com/package/vue-easytable)
 ### 特点
 
 - 使用简单

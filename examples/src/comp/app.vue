@@ -157,7 +157,7 @@ export default {
             switchVersionOptions: [
                 {
                     value: "http://doc.huangsw.com/vue-easytable/",
-                    label: "2.0.0-beta.1"
+                    label: "2.0.0"
                 },
                 {
                     value:
@@ -166,7 +166,7 @@ export default {
                 }
             ],
             showVersionDropdown: false,
-            currentDocVersion: "2.0.0-beta.1"
+            currentDocVersion: "2.0.0"
         };
     },
     computed: {
