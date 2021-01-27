@@ -7,9 +7,24 @@
 
 **English** | [中文](./README-CN.md)
 
-## Introduction
+## Introduction 
 
 Based on vue2.x flexible table components.
+
+## v2.0 New Version  [![npm](https://img.shields.io/npm/v/vue-easytable.svg)](https://www.npmjs.com/package/vue-easytable)
+
+- Complete rewriting of version 1.0. Based on JSX syntax rewriting、Parameter naming normalization、Event naming normalization, etc
+- Support International
+- Support Custom theme & Built in two themes
+- Support Virtual scrolling
+- Support Row expand
+- Support Custom cell content. Based on `render` function
+- Support Custom event
+- Support Cell ellipsis
+- Support Loading component
+- Add Unit test.> 80% coverage
+- Official document update
+- For more information, Refer to [official document ](http://doc.huangsw.com/vue-easytable/#/en/doc/intro)
 
 ## Features
 
