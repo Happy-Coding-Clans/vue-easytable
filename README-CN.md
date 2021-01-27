@@ -44,6 +44,7 @@
 - [x] [自定义事件](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/event-custom)
 - [x] [内置loading组件](http://doc.huangsw.com/vue-easytable/#/zh/doc/base/loading)
 - [x] [内置分页组件](http://doc.huangsw.com/vue-easytable/#/zh/doc/base/pagination)
+- [更多](http://doc.huangsw.com/vue-easytable)
 
 ## 支持环境
 
