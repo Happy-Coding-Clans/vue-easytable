@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>Filter</h2>
+        <h2>Filter Custom</h2>
         <Explain />
         <SingleFilter />
         <CustomIcon />

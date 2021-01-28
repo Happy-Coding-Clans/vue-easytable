@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>筛选</h2>
+        <h2>筛选自定义</h2>
         <Explain />
         <SingleFilter />
         <CustomIcon />
