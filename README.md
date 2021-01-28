@@ -1,7 +1,9 @@
-[![npm](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/gBm3k6r)
 [![npm](https://img.shields.io/npm/v/vue-easytable.svg)](https://www.npmjs.com/package/vue-easytable)
-[![npm](https://img.shields.io/npm/l/vue-easytable.svg?maxAge=2592000)](http://www.opensource.org/licenses/mit-license.php)
+[![codecov](https://codecov.io/gh/huangshuwei/vue-easytable/branch/master/graph/badge.svg)](https://codecov.io/gh/huangshuwei/vue-easytable)
 [![Build Status](https://travis-ci.com/huangshuwei/vue-easytable.svg?branch=master)](https://travis-ci.com/huangshuwei/vue-easytable)
+[![license](https://img.shields.io/npm/l/vue-easytable.svg?maxAge=2592000)](http://www.opensource.org/licenses/mit-license.php)
+[![chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/gBm3k6r)
+
 
 # vue-easytable
 
@@ -22,7 +24,7 @@ Based on vue2.x flexible table components.
 - Support Custom event
 - Support Cell ellipsis
 - Support Loading component
-- Add Unit test > 80% coverage
+- Add Unit test > 85% coverage
 - Official document update
 - For more information, Refer to [official document ](http://doc.huangsw.com/vue-easytable/#/en/doc/intro)
 

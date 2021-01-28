@@ -1,7 +1,10 @@
-[![npm](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/gBm3k6r)
 [![npm](https://img.shields.io/npm/v/vue-easytable.svg)](https://www.npmjs.com/package/vue-easytable)
-[![npm](https://img.shields.io/npm/l/vue-easytable.svg?maxAge=2592000)](http://www.opensource.org/licenses/mit-license.php)
+[![codecov](https://codecov.io/gh/huangshuwei/vue-easytable/branch/master/graph/badge.svg)](https://codecov.io/gh/huangshuwei/vue-easytable)
 [![Build Status](https://travis-ci.com/huangshuwei/vue-easytable.svg?branch=master)](https://travis-ci.com/huangshuwei/vue-easytable)
+[![license](https://img.shields.io/npm/l/vue-easytable.svg?maxAge=2592000)](http://www.opensource.org/licenses/mit-license.php)
+[![chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/gBm3k6r)
+
+
 
 # vue-easytable
 
@@ -22,7 +25,7 @@
 - 新增自定义事件
 - 新增单元格省略
 - 新增 loading 组件
-- 新增单元测试。覆盖率 > 80%
+- 新增单元测试。覆盖率 > 85%
 - 文档更新
 - 更多内容请查看 [官方文档](http://doc.huangsw.com/vue-easytable/#/zh/doc/intro)
 
