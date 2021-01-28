@@ -1,6 +1,6 @@
 import { clsName } from "../util";
 import { COMPS_NAME, COLUMN_TYPES } from "../util/constant";
-import VeIcon from "ve-table/packages/ve-icon";
+import VeIcon from "vue-easytable/packages/ve-icon";
 import { ICON_NAMES } from "../../../src/utils/constant";
 
 export default {

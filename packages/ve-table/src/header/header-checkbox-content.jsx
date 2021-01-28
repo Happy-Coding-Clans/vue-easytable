@@ -1,4 +1,4 @@
-import VeCheckbox from "ve-table/packages/ve-checkbox";
+import VeCheckbox from "vue-easytable/packages/ve-checkbox";
 import {
     COMPS_NAME,
     EMIT_EVENTS,

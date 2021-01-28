@@ -1,4 +1,4 @@
-import VeIcon from "ve-table/packages/ve-icon";
+import VeIcon from "vue-easytable/packages/ve-icon";
 import { clsName } from "./util";
 import { LOCALE_COMP_NAME } from "./util/constant";
 import { createLocale } from "../../src/utils/index";

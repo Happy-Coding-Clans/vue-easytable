@@ -5,7 +5,7 @@ import { getFixedTotalWidthByColumnKey, clsName } from "../util";
 import { getValByUnit } from "../../../src/utils/index.js";
 import { COMPS_NAME, COLUMN_TYPES, EMIT_EVENTS } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
-import VeIcon from "ve-table/packages/ve-icon";
+import VeIcon from "vue-easytable/packages/ve-icon";
 import { ICON_NAMES } from "../../../src/utils/constant";
 
 export default {

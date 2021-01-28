@@ -17,15 +17,15 @@ let externals = {
     }
 };
 
-externals["ve-table/packages/src/locale/lang/en-US"] =
-    "ve-table/libs/locale/lang/en-US";
+externals["vue-easytable/packages/src/locale/lang/en-US"] =
+    "vue-easytable/libs/locale/lang/en-US";
 
 Object.keys(Components).forEach(function(key) {
-    externals[`ve-table/packages/${key}`] = `ve-table/libs/${key}`;
+    externals[`vue-easytable/packages/${key}`] = `vue-easytable/libs/${key}`;
 });
 
 let alias = {
-    "ve-table": path.resolve(__dirname, "../")
+    "vue-easytable": path.resolve(__dirname, "../")
 };
 
 exports.externals = externals;

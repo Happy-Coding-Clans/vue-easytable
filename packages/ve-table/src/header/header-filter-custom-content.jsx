@@ -1,4 +1,4 @@
-import VeDropdown from "ve-table/packages/ve-dropdown";
+import VeDropdown from "vue-easytable/packages/ve-dropdown";
 import {
     COMPS_NAME,
     EMIT_EVENTS,
@@ -7,7 +7,7 @@ import {
 } from "../util/constant";
 import { clsName } from "../util";
 import { createLocale, isFunction, isBoolean } from "../../../src/utils/index";
-import VeIcon from "ve-table/packages/ve-icon";
+import VeIcon from "vue-easytable/packages/ve-icon";
 import { ICON_NAMES } from "../../../src/utils/constant";
 
 const t = createLocale(LOCALE_COMP_NAME);

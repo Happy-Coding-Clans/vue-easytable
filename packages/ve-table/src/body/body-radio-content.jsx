@@ -1,4 +1,4 @@
-import VeRadio from "ve-table/packages/ve-radio";
+import VeRadio from "vue-easytable/packages/ve-radio";
 import {
     COMPS_NAME,
     EMIT_EVENTS,

@@ -1,6 +1,6 @@
 import clickoutside from "../../src/directives/clickoutside.js";
-import VeCheckbox from "ve-table/packages/ve-checkbox";
-import VeRadio from "ve-table/packages/ve-radio";
+import VeCheckbox from "vue-easytable/packages/ve-checkbox";
+import VeRadio from "vue-easytable/packages/ve-radio";
 import layerAdjustment from "../../src/mixins/layer-adjustment.js";
 import { COMPS_NAME, EMIT_EVENTS } from "./util/constant";
 import { clsName } from "./util/index";

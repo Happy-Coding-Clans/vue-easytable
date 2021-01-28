@@ -41,7 +41,7 @@ import enUS from "../../libs/locale/lang/en-US";
 VeLocale.use(zhCN); */
 
 // dev
-import "../../packages/theme-default/index.less";
+/* import "../../packages/theme-default/index.less";
 import {
     VeCheckbox,
     VeDropdown,
@@ -63,11 +63,15 @@ Vue.use(VeSelect);
 Vue.use(VeTable);
 
 Vue.prototype.$veLoading = VeLoading;
-Vue.prototype.$veLocale = VeLocale;
+Vue.prototype.$veLocale = VeLocale; */
 
 // 全部引入
-/* import "../../packages/theme-default/index.less";
+import "../../packages/theme-default/index.less";
 import vueEasytable from "../../packages/index.js";
+Vue.use(vueEasytable);
+
+/* import "../../libs/theme-default/index.css";
+import vueEasytable from "../../libs/main.js";
 Vue.use(vueEasytable); */
 
 // 设置当前环境

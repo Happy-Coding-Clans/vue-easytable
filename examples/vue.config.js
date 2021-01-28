@@ -44,7 +44,7 @@ module.exports = {
             resolve: {
                 alias: {
                     // 需要和组件库 alias 名称一致
-                    "ve-table": path.resolve(__dirname, "../")
+                    "vue-easytable": path.resolve(__dirname, "../")
                 }
             },
             plugins: [

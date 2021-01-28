@@ -1,6 +1,6 @@
 import Vue from "vue";
 import { merge, cloneDeep } from "lodash";
-import defaultLang from "ve-table/packages/src/locale/lang/en-US";
+import defaultLang from "vue-easytable/packages/src/locale/lang/en-US";
 
 const { defineReactive } = Vue.util;
 const proto = Vue.prototype;
