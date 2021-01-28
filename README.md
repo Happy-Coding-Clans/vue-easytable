@@ -22,7 +22,7 @@ Based on vue2.x flexible table components.
 - Support Custom event
 - Support Cell ellipsis
 - Support Loading component
-- Add Unit test.> 80% coverage
+- Add Unit test > 80% coverage
 - Official document update
 - For more information, Refer to [official document ](http://doc.huangsw.com/vue-easytable/#/en/doc/intro)
 
