@@ -157,16 +157,16 @@ export default {
             switchVersionOptions: [
                 {
                     value: "http://doc.huangsw.com/vue-easytable/",
-                    label: "2.0.0"
+                    label: "2.x"
                 },
                 {
                     value:
                         "http://doc.huangsw.com/vue-easytable/1.7.2/app.html",
-                    label: "1.7.2"
+                    label: "1.x"
                 }
             ],
             showVersionDropdown: false,
-            currentDocVersion: "2.0.0"
+            currentDocVersion: "2.x"
         };
     },
     computed: {
