@@ -14,7 +14,7 @@ branches:
     - dev
 
 script:
-  - npm test:cover
+  - npm run test:cover
   - npm run codecov
 
 # 配置当构建失败的时候发送通知 https://docs.travis-ci.com/user/notifications
