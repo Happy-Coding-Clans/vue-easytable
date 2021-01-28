@@ -5,7 +5,7 @@ Based on vue2.x flexible table components. [![npm](https://img.shields.io/npm/v/
 
 - Easy to use
 - Powerful
-- Unit test coverage greater than 80%
+- Unit test coverage greater than 85%
 
 ### Supports
 
