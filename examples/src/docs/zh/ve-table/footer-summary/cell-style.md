@@ -11,7 +11,7 @@
     :columns="columns"
     :table-data="tableData"
     :footer-data="footerData"
-    :cellStyleOption="cellStyleOption"
+    :cell-style-option="cellStyleOption"
     rowKeyFieldName="rowkey"
   />
 </template>

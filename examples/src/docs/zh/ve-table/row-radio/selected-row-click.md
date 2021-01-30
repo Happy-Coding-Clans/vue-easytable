@@ -12,7 +12,7 @@
       :table-data="tableData"
       :radio-option="radioOption"
       row-key-field-name="rowKey"
-      :eventCustomOption="eventCustomOption"
+      :event-custom-option="eventCustomOption"
     />
   </div>
 </template>

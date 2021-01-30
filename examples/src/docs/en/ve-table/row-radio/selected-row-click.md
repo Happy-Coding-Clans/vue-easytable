@@ -12,7 +12,7 @@ This example is row click trigger selection,You can also click and select column
       :table-data="tableData"
       :radio-option="radioOption"
       row-key-field-name="rowKey"
-      :eventCustomOption="eventCustomOption"
+      :event-custom-option="eventCustomOption"
     />
   </div>
 </template>

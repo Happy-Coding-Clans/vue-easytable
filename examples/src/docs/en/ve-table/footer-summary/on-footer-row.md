@@ -14,7 +14,7 @@
       :table-data="tableData"
       :footer-data="footerData"
       rowKeyFieldName="rowkey"
-      :eventCustomOption="eventCustomOption"
+      :event-custom-option="eventCustomOption"
     />
   </div>
 </template>

@@ -12,7 +12,7 @@
     :table-data="tableData"
     :footer-data="footerData"
     rowKeyFieldName="rowkey"
-    :cellSpanOption="cellSpanOption"
+    :cell-span-option="cellSpanOption"
   />
 </template>
 

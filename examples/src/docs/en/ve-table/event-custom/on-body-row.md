@@ -6,7 +6,7 @@
 <template>
   <div>
     Open F12 to view the console information
-    <ve-table :columns="columns" :table-data="tableData" :eventCustomOption="eventCustomOption" />
+    <ve-table :columns="columns" :table-data="tableData" :event-custom-option="eventCustomOption" />
   </div>
 </template>
 

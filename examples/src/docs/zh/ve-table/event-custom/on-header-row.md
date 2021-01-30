@@ -6,7 +6,7 @@
 <template>
   <div>
     打开F12 查看 console 信息
-    <ve-table :columns="columns" :table-data="tableData" :eventCustomOption="eventCustomOption" />
+    <ve-table :columns="columns" :table-data="tableData" :event-custom-option="eventCustomOption" />
   </div>
 </template>
 

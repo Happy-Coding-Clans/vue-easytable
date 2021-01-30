@@ -12,7 +12,7 @@ This example is row click trigger selection. You can also achieve column click s
       :table-data="tableData"
       row-key-field-name="rowKey"
       :checkbox-optipon="checkboxOptipon"
-      :eventCustomOption="eventCustomOption"
+      :event-custom-option="eventCustomOption"
     />
   </div>
 </template>

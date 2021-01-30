@@ -12,7 +12,7 @@
       :table-data="tableData"
       row-key-field-name="rowKey"
       :checkbox-optipon="checkboxOptipon"
-      :eventCustomOption="eventCustomOption"
+      :event-custom-option="eventCustomOption"
     />
   </div>
 </template>

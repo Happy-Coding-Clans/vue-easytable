@@ -10,7 +10,7 @@
     :border-around="true"
     :border-x="true"
     :border-y="true"
-    :cellSpanOption="cellSpanOption"
+    :cell-span-option="cellSpanOption"
   />
 </template>
 
