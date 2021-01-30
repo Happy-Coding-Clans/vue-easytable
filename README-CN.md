@@ -4,8 +4,6 @@
 [![license](https://img.shields.io/npm/l/vue-easytable.svg?maxAge=2592000)](http://www.opensource.org/licenses/mit-license.php)
 [![chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/gBm3k6r)
 
-
-
 # vue-easytable
 
 [English](./README.md) | **中文**
@@ -14,9 +12,9 @@
 
 一个基于 Vue2.x 的表格组件
 
-## v2.0 新版本  [![npm](https://img.shields.io/npm/v/vue-easytable.svg)](https://www.npmjs.com/package/vue-easytable)
+## v2.0 新版本 [![npm](https://img.shields.io/npm/v/vue-easytable.svg)](https://www.npmjs.com/package/vue-easytable)
 
-- 对1.0 版本彻底重构。基于 jsx 语法重写、参数命名规范化、事件命名规范化等
+- 对 1.0 版本彻底重构。基于 jsx 语法重写、参数命名规范化、事件命名规范化等
 - 增加对国际化支持
 - 新增定制主题 & 内置两套主题
 - 新增虚拟滚动
@@ -60,9 +58,13 @@
 - [x] [行样式](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/row-style)
 - [x] [footer 汇总](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/footer-summary)
 - [x] [自定义事件](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/event-custom)
-- [x] [内置loading组件](http://doc.huangsw.com/vue-easytable/#/zh/doc/base/loading)
+- [x] [内置 loading 组件](http://doc.huangsw.com/vue-easytable/#/zh/doc/base/loading)
 - [x] [内置分页组件](http://doc.huangsw.com/vue-easytable/#/zh/doc/base/pagination)
 - [更多](http://doc.huangsw.com/vue-easytable)
+
+## Todo List
+
+[What are we doing](https://github.com/Happy-Coding-Clans/vue-easytable/projects)
 
 ## 支持环境
 

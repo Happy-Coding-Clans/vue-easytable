@@ -4,16 +4,15 @@
 [![license](https://img.shields.io/npm/l/vue-easytable.svg?maxAge=2592000)](http://www.opensource.org/licenses/mit-license.php)
 [![chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/gBm3k6r)
 
-
 # vue-easytable
 
 **English** | [中文](./README-CN.md)
 
-## Introduction 
+## Introduction
 
 Based on vue2.x flexible table components.
 
-## v2.0 New Version  [![npm](https://img.shields.io/npm/v/vue-easytable.svg)](https://www.npmjs.com/package/vue-easytable)
+## v2.0 New Version [![npm](https://img.shields.io/npm/v/vue-easytable.svg)](https://www.npmjs.com/package/vue-easytable)
 
 - Complete rewriting of version 1.0. Based on JSX syntax rewriting、Parameter naming normalization、Event naming normalization, etc
 - Support International
@@ -62,6 +61,10 @@ Based on vue2.x flexible table components.
 - [x] [Loading component](http://doc.huangsw.com/vue-easytable/#/zh/doc/base/loading)
 - [x] [Pagination component](http://doc.huangsw.com/vue-easytable/#/zh/doc/base/pagination)
 - [More](http://doc.huangsw.com/vue-easytable)
+
+## 开发计划
+
+[正在做的事情](https://github.com/Happy-Coding-Clans/vue-easytable/projects)
 
 ## Environment Support
 
