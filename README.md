@@ -62,9 +62,9 @@ Based on vue2.x flexible table components.
 - [x] [Pagination component](http://doc.huangsw.com/vue-easytable/#/zh/doc/base/pagination)
 - [More](http://doc.huangsw.com/vue-easytable)
 
-## 开发计划
+## Todo List
 
-[正在做的事情](https://github.com/Happy-Coding-Clans/vue-easytable/projects)
+[What are we doing](https://github.com/Happy-Coding-Clans/vue-easytable/projects)
 
 ## Environment Support
 

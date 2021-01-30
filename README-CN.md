@@ -62,9 +62,9 @@
 - [x] [内置分页组件](http://doc.huangsw.com/vue-easytable/#/zh/doc/base/pagination)
 - [更多](http://doc.huangsw.com/vue-easytable)
 
-## Todo List
+## 开发计划
 
-[What are we doing](https://github.com/Happy-Coding-Clans/vue-easytable/projects)
+[正在做的事情](https://github.com/Happy-Coding-Clans/vue-easytable/projects)
 
 ## 支持环境
 
