@@ -33,11 +33,11 @@
 - 功能强大
 - 单元测试覆盖率大于 85%
 
-## API & Examples
+## API & 文档
 
 [官方文档](http://doc.huangsw.com/vue-easytable)
 
-## Supports
+## 功能支持
 
 - [x] [国际化](http://doc.huangsw.com/vue-easytable/#/zh/doc/locale)
 - [x] [主题定制 & 内置主题](http://doc.huangsw.com/vue-easytable/#/zh/doc/theme)
@@ -61,6 +61,8 @@
 - [x] [内置 loading 组件](http://doc.huangsw.com/vue-easytable/#/zh/doc/base/loading)
 - [x] [内置分页组件](http://doc.huangsw.com/vue-easytable/#/zh/doc/base/pagination)
 - [更多](http://doc.huangsw.com/vue-easytable)
+
+如果没有你想要的的功能，[请告诉我们](http://doc.huangsw.com/issue-template-generater/#/zh)
 
 ## 开发计划
 
