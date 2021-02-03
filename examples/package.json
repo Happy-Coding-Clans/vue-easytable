@@ -15,6 +15,7 @@
     "echarts": "^4.9.0",
     "highlight.js": "^10.5.0",
     "js-cookie": "^2.2.1",
+    "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
     "regenerator-runtime": "^0.13.7",
     "vue-router": "^3.2.0",

@@ -1,15 +1,16 @@
 <template>
     <div>
-        <div class="site-demo">
+        <div class="site-demo-container">
             <ve-table
                 fixed-header
                 border-y
-                :max-height="500"
-                :scroll-width="1600"
+                :max-height="600"
+                :scroll-width="2000"
                 :virtual-scroll-option="virtualScrollOption"
                 :columns="columns"
                 :table-data="tableData"
                 row-key-field-name="rowKey"
+                :cell-style-option="cellStyleOption"
             />
         </div>
         <!-- <Footer /> -->
@@ -18,81 +19,175 @@
 
 <script>
 /* import Footer from "@/comp/layout/footer.vue"; */
+import Mock from "mockjs";
 export default {
     components: {
         /* Footer */
     },
     data() {
         return {
+            cellStyleOption: {
+                bodyCellClass: ({ row, column, rowIndex }) => {
+                    if (column.field === "proficiency") {
+                        return "table-body-cell-proficiency";
+                    }
+                }
+            },
             virtualScrollOption: {
                 // 是否开启
                 enable: true
             },
             columns: [
                 {
-                    field: "col1",
+                    field: "rowIndex",
                     key: "a",
-                    title: "col1",
+                    title: "#",
                     width: 50,
                     fixed: "left"
                 },
                 {
-                    title: "col2-col3",
+                    title: "Basic Info",
                     fixed: "left",
                     children: [
                         {
-                            field: "col2",
+                            field: "name",
                             key: "b",
-                            title: "col2",
-                            width: 50
+                            title: "Name",
+                            width: 100,
+                            align: "left"
                         },
                         {
-                            field: "col3",
+                            field: "sex",
                             key: "c",
-                            title: "col3",
-                            width: 50
+                            title: "Sex",
+                            width: 50,
+                            align: "center",
+                            renderBodyCell: ({ row, column, rowIndex }, h) => {
+                                const cellData = row[column.field];
+
+                                let iconName =
+                                    cellData === 1
+                                        ? "icon-male"
+                                        : "icon-female";
+
+                                return (
+                                    <i
+                                        style="font-size:20px;color:#666;"
+                                        class={"iconfont " + iconName}
+                                    />
+                                );
+                            }
                         }
                     ]
                 },
                 {
-                    title: "col4-col5-col6",
+                    title: "Personal Experience",
+                    align: "center",
                     children: [
                         {
-                            title: "col4-col5",
-                            children: [
-                                {
-                                    field: "col4",
-                                    key: "d",
-                                    title: "col4",
-                                    width: 130
-                                },
-                                {
-                                    field: "col5",
-                                    key: "e",
-                                    title: "col5",
-                                    width: 140
-                                }
-                            ]
+                            title: "Profession",
+                            field: "profession",
+                            key: "d",
+                            width: 100,
+                            align: "left"
                         },
                         {
-                            title: "col6",
-                            field: "col6",
-                            key: "f",
-                            width: 140
+                            title: "IT Skills",
+                            children: [
+                                {
+                                    field: "proficiency",
+                                    key: "e",
+                                    title: "Proficiency",
+                                    width: 150,
+                                    renderBodyCell: (
+                                        { row, column, rowIndex },
+                                        h
+                                    ) => {
+                                        const cellData = row[column.field];
+
+                                        const colorClass =
+                                            cellData > 60
+                                                ? "demo-blue"
+                                                : cellData > 30
+                                                ? "demo-orange"
+                                                : "demo-red";
+
+                                        return (
+                                            <div class="proficiency-span-container">
+                                                <span
+                                                    class={
+                                                        "proficiency-span " +
+                                                        colorClass
+                                                    }
+                                                    style={
+                                                        "width:" +
+                                                        cellData +
+                                                        "%;"
+                                                    }
+                                                >
+                                                    {cellData}%
+                                                </span>
+                                            </div>
+                                        );
+                                    }
+                                },
+                                {
+                                    field: "skills",
+                                    key: "f",
+                                    title: "Skills",
+                                    width: 150,
+                                    align: "left",
+                                    renderBodyCell: (
+                                        { row, column, rowIndex },
+                                        h
+                                    ) => {
+                                        const cellData = row[column.field];
+
+                                        const LANGS = [
+                                            {
+                                                name: "Javascript",
+                                                color: "#48a4ef"
+                                            },
+                                            {
+                                                name: "Python",
+                                                color: "#d8899c"
+                                            },
+                                            { name: "java", color: "#a88cd9" },
+                                            { name: "C++", color: "#88d317" }
+                                        ];
+
+                                        const skills = LANGS.slice(0, cellData);
+
+                                        return skills.map(skill => {
+                                            return (
+                                                <span
+                                                    class="skill-span"
+                                                    style={
+                                                        "background-color:" +
+                                                        skill.color
+                                                    }
+                                                >
+                                                    {skill.name}
+                                                </span>
+                                            );
+                                        });
+                                    }
+                                }
+                            ]
                         }
                     ]
                 },
                 {
-                    field: "col7",
+                    field: "address",
                     key: "g",
-                    title: "col7",
-                    width: 50,
-                    fixed: "right"
+                    title: "Address",
+                    width: 250,
+                    align: "left"
                 },
                 {
-                    field: "col8",
+                    field: "zip",
                     key: "h",
-                    title: "col8",
+                    title: "Zip",
                     width: 50,
                     fixed: "right"
                 }
@@ -105,20 +200,27 @@ export default {
             return Math.floor(Math.random() * (max - min) + min);
         },
         initData() {
+            const PROFESSIONS = [
+                "Project Manager",
+                "User Interface Designer",
+                "Front-End Developer",
+                "Testor",
+                "Product Designer",
+                "System Designer"
+            ];
+
             let data = [];
             for (let i = 0; i < 10000; i++) {
                 data.push({
                     rowKey: i,
-                    col1: i,
-                    col2: i,
-                    col3: i,
-                    col4: i,
-                    col5: i,
-                    col6: i,
-                    col7: i,
-                    col8: i,
-                    col9: i,
-                    col10: i
+                    rowIndex: i + 1,
+                    name: Mock.Random.name(),
+                    sex: Mock.Random.boolean() ? 1 : 2,
+                    profession: PROFESSIONS[Mock.Random.natural(0, 5)],
+                    proficiency: Mock.Random.natural(5, 85),
+                    skills: Mock.Random.natural(0, 4),
+                    address: Mock.Random.county(true),
+                    zip: Mock.Random.zip()
                 });
             }
 
@@ -130,10 +232,46 @@ export default {
     }
 };
 </script>
-<style lang="less" scoped>
-.site-demo {
+<style lang="less">
+.site-demo-container {
     background: #fff;
     margin-top: 62px;
     padding: 10px;
+
+    // proficiency filed custom cell style
+    .table-body-cell-proficiency {
+        padding: 0 !important;
+    }
+    // proficiency filed
+    .proficiency-span-container {
+        height: 100%;
+        text-align: left;
+        .proficiency-span {
+            height: 100%;
+            display: inline-flex;
+            align-items: center;
+            padding-left: 10px;
+            font-weight: bold;
+            color: #555;
+
+            &.demo-blue {
+                background-color: RGBA(24, 144, 255, 0.7);
+            }
+            &.demo-orange {
+                background-color: RGBA(255, 179, 0, 0.7);
+            }
+            &.demo-red {
+                background-color: RGBA(244, 93, 81, 0.7);
+            }
+        }
+    }
+
+    // skills
+    .skill-span {
+        display: inline-block;
+        margin-right: 5px;
+        padding: 3px 8px;
+        color: #333;
+    }
 }
 </style>
