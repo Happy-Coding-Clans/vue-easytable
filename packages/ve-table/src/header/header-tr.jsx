@@ -1,5 +1,5 @@
 import HeaderTh from "./header-th";
-import { clsName } from "../util";
+import { clsName, getDomResizeObserverCompKey } from "../util";
 import { COMPS_NAME, EMIT_EVENTS } from "../util/constant";
 import VueDomResizeObserver from "../../../src/comps/resize-observer";
 import emitter from "../../../src/mixins/emitter";
@@ -7,6 +7,10 @@ export default {
     name: COMPS_NAME.VE_TABLE_THADER_TR,
     mixins: [emitter],
     props: {
+        columnsOptionResetTime: {
+            type: Number,
+            default: 0
+        },
         // group columns item
         groupColumn: {
             type: Array,
@@ -148,6 +152,10 @@ export default {
         };
 
         const trProps = {
+            key: getDomResizeObserverCompKey(
+                rowIndex,
+                this.columnsOptionResetTime
+            ),
             class: clsName("header-tr"),
             props: {
                 tagName: "tr"

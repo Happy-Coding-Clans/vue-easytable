@@ -1,7 +1,7 @@
 import BodyTr from "./body-tr";
 import ExpandTr from "./expand-tr";
 import VueDomResizeObserver from "../../../src/comps/resize-observer";
-import { clsName } from "../util";
+import { clsName, getDomResizeObserverCompKey } from "../util";
 import { getValByUnit } from "../../../src/utils/index.js";
 import emitter from "../../../src/mixins/emitter";
 import {
@@ -19,6 +19,10 @@ export default {
     name: COMPS_NAME.VE_TABLE_BODY,
     mixins: [emitter],
     props: {
+        columnsOptionResetTime: {
+            type: Number,
+            default: 0
+        },
         colgroups: {
             type: Array,
             required: true
@@ -796,7 +800,10 @@ export default {
                 <tr style="height:0;">
                     {colgroups.map(column => {
                         const measureTdProps = {
-                            key: column.key,
+                            key: getDomResizeObserverCompKey(
+                                column.key,
+                                this.columnsOptionResetTime
+                            ),
                             props: {
                                 tagName: "td",
                                 id: column.key

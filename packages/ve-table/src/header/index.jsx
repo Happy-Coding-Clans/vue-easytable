@@ -5,6 +5,10 @@ import { COMPS_NAME, EMIT_EVENTS } from "../util/constant";
 export default {
     name: COMPS_NAME.VE_TABLE_THADER,
     props: {
+        columnsOptionResetTime: {
+            type: Number,
+            default: 0
+        },
         groupColumns: {
             type: Array,
             required: true
@@ -137,6 +141,8 @@ export default {
                     const trProps = {
                         key: rowIndex,
                         props: {
+                            columnsOptionResetTime: this
+                                .columnsOptionResetTime,
                             groupColumn,
                             headerRows,
                             colgroups,

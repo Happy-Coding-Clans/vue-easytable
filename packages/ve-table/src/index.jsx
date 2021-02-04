@@ -163,6 +163,11 @@ export default {
     },
     data() {
         return {
+            /*
+            列配置变化次数
+            依赖columns 配置渲染，都需要重新计算：粘性布局时，重新触发 on-dom-resize-change 事件
+            */
+            columnsOptionResetTime: 0,
             tableContainerRef: "tableContainerRef",
             tableContentRef: "tableContentRef",
             virtualPhantomRef: "virtualPhantomRef",
@@ -409,7 +414,10 @@ export default {
             immediate: true
         },
         columns: {
-            handler() {
+            handler(newVal, oldVal) {
+                if (newVal != oldVal) {
+                    this.columnsOptionResetTime++;
+                }
                 this.initColumns();
                 this.initGroupColumns();
             },
@@ -988,6 +996,7 @@ export default {
         const headerProps = {
             class: clsName("header"),
             props: {
+                columnsOptionResetTime: this.columnsOptionResetTime,
                 groupColumns,
                 colgroups,
                 fixedHeader,
@@ -1003,6 +1012,7 @@ export default {
         const bodyProps = {
             class: [clsName("body"), this.tableBodyClass],
             props: {
+                columnsOptionResetTime: this.columnsOptionResetTime,
                 colgroups,
                 expandOption,
                 checkboxOptipon,
