@@ -173,15 +173,54 @@ export default {
                 }
             }
             return result;
-        }
-    },
-    methods: {
+        },
+
         /*
-         * @getBodyTdClass
-         * @desc  get body td class
-         * @param {string} fixed - 固定方式
+         * @bodyTdStyle
+         * @desc body td style
          */
-        getBodyTdClass({ fixed }) {
+        bodyTdStyle() {
+            const { key, align, fixed } = this.column;
+
+            let result = {};
+
+            const { colgroups, column } = this;
+
+            // text align
+            result["text-align"] = align || "center";
+
+            // fixed left total width or right total width
+            if (fixed) {
+                let totalWidth = 0;
+                // column index
+                const columnIndex = colgroups.findIndex(x => x.key === key);
+                if (
+                    (fixed === "left" && columnIndex > 0) ||
+                    (fixed === "right" && columnIndex < colgroups.length - 1)
+                ) {
+                    totalWidth = getFixedTotalWidthByColumnKey(
+                        colgroups,
+                        key,
+                        fixed
+                    );
+
+                    totalWidth = getValByUnit(totalWidth);
+                }
+
+                result["left"] = fixed === "left" ? totalWidth : "";
+                result["right"] = fixed === "right" ? totalWidth : "";
+            }
+
+            return result;
+        },
+
+        /*
+         * @bodyTdClass
+         * @desc body td class
+         */
+        bodyTdClass() {
+            const { fixed } = this.column;
+
             let result = {
                 [clsName("body-td")]: true
             };
@@ -234,48 +273,9 @@ export default {
             }
 
             return result;
-        },
-
-        /*
-         * @getBodyTdStyle
-         * @desc  get body td style
-         * @param {any} key - column key
-         * @param {string} align - 居中方式
-         * @param {bool} fixed - 固定方式
-         */
-        getBodyTdStyle({ key, align, fixed }) {
-            let result = {};
-
-            const { colgroups, column } = this;
-
-            // text align
-            result["text-align"] = align || "center";
-
-            // fixed left total width or right total width
-            if (fixed) {
-                let totalWidth = 0;
-                // column index
-                const columnIndex = colgroups.findIndex(x => x.key === key);
-                if (
-                    (fixed === "left" && columnIndex > 0) ||
-                    (fixed === "right" && columnIndex < colgroups.length - 1)
-                ) {
-                    totalWidth = getFixedTotalWidthByColumnKey(
-                        colgroups,
-                        key,
-                        fixed
-                    );
-
-                    totalWidth = getValByUnit(totalWidth);
-                }
-
-                result["left"] = fixed === "left" ? totalWidth : "";
-                result["right"] = fixed === "right" ? totalWidth : "";
-            }
-
-            return result;
-        },
-
+        }
+    },
+    methods: {
         // get ellipsis content style
         getEllipsisContentStyle() {
             let result = {};
@@ -531,8 +531,8 @@ export default {
 
         // td props
         const tdProps = {
-            class: this.getBodyTdClass(column),
-            style: this.getBodyTdStyle(column),
+            class: this.bodyTdClass,
+            style: this.bodyTdStyle,
             attrs: {
                 rowspan,
                 colspan
