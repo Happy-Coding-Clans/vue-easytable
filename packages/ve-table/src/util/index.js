@@ -25,6 +25,25 @@ export function getRowKey(rowData, rowKeyFieldName) {
 }
 
 /*
+ * @getDomResizeObserverCompKey
+ * @desc  get dom resize observer comp key
+ * @param {Any} originalKey - original key
+ * @param {Number} columnsOptionResetTime - columns option change time
+ */
+export function getDomResizeObserverCompKey(
+    originalKey,
+    columnsOptionResetTime
+) {
+    let result = originalKey;
+
+    if (result || result == 0) {
+        result = originalKey + "@" + columnsOptionResetTime;
+    }
+
+    return result;
+}
+
+/*
  * @getFixedTotalWidthByColumnKey
  * @desc  get fixed total width by column key
  * @param {object} colgroups - 列信息
