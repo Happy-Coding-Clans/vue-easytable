@@ -23,6 +23,9 @@ import Anchor from "@/comp/anchor.vue";
 Vue.component("demo-block", DemoBlock);
 Vue.component("anchor", Anchor);
 
+import { Switch } from "element-ui";
+Vue.use(Switch);
+
 // product
 /* import "../../libs/theme-default/index.css";
 import {

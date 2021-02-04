@@ -15,5 +15,14 @@ module.exports = {
         ]
     ],
     comments: false,
-    plugins: ["transform-vue-jsx"]
+    plugins: [
+        "transform-vue-jsx",
+        [
+            "component",
+            {
+                libraryName: "element-ui",
+                styleLibraryName: "theme-chalk"
+            }
+        ]
+    ]
 };
