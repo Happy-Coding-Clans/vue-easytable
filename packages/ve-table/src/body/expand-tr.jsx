@@ -1,6 +1,5 @@
 import { clsName } from "../util";
 import { COMPS_NAME, COLUMN_TYPES } from "../util/constant";
-import VueDomResizeObserver from "../../../src/comps/resize-observer";
 import emitter from "../../../src/mixins/emitter";
 
 export default {
