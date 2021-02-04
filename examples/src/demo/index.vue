@@ -203,7 +203,7 @@ export default {
                                 name: "Meeting",
                                 color: "#d8899c"
                             },
-                            { name: "Trip", color: "#a88cd9" }
+                            { name: "Traveling", color: "#a88cd9" }
                         ];
 
                         const state = STATUS[cellData];
