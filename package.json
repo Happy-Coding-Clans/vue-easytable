@@ -1,6 +1,6 @@
 {
   "name": "vue-easytable",
-  "version": "2.0.2",
+  "version": "2.0.1",
   "main": "libs/main.js",
   "description": "Vue table component",
   "keywords": [
