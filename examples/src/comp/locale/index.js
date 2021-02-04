@@ -26,6 +26,9 @@ export default {
             expandCode: "展开代码",
             foldCode: "收起代码",
             runInline: "在线运行"
+        },
+        completeDemo: {
+            columnFixed: "列固定："
         }
     },
     en: {
@@ -51,6 +54,9 @@ export default {
             expandCode: "Expand Code",
             foldCode: "Hide Code",
             runInline: "Open in CodePen"
+        },
+        completeDemo: {
+            columnFixed: "Fixed Columns:"
         }
     }
 };

@@ -1,6 +1,16 @@
 <template>
     <div>
         <div class="site-demo-container">
+            <div class="operation">
+                {{ currentLocal["columnFixed"] }}
+                <el-switch
+                    v-model="columnFixed"
+                    active-color="#1890ff"
+                    inactive-color="rgba(0,0,0,.25)"
+                >
+                </el-switch>
+            </div>
+
             <ve-table
                 fixed-header
                 border-y
@@ -20,12 +30,18 @@
 <script>
 /* import Footer from "@/comp/layout/footer.vue"; */
 import Mock from "mockjs";
+import locale from "../comp/locale";
+import I18nMixins from "../comp/mixins/i18n-mixins";
 export default {
     components: {
         /* Footer */
     },
+    mixins: [I18nMixins],
     data() {
         return {
+            columnFixed: true,
+
+            // ---------------table options---------------
             cellStyleOption: {
                 bodyCellClass: ({ row, column, rowIndex }) => {
                     if (column.field === "proficiency") {
@@ -37,17 +53,27 @@ export default {
                 // 是否开启
                 enable: true
             },
-            columns: [
+            tableData: []
+        };
+    },
+    computed: {
+        // current local
+        currentLocal() {
+            return locale[this.currentDocLang]["completeDemo"];
+        },
+
+        columns() {
+            let columns = [
                 {
                     field: "rowIndex",
                     key: "a",
                     title: "#",
                     width: 50,
-                    fixed: "left"
+                    fixed: this.columnFixed ? "left" : ""
                 },
                 {
                     title: "Basic Info",
-                    fixed: "left",
+                    fixed: this.columnFixed ? "left" : "",
                     children: [
                         {
                             field: "name",
@@ -73,7 +99,7 @@ export default {
                                 return (
                                     <i
                                         style="font-size:20px;color:#666;"
-                                        class={"iconfont " + iconName}
+                                        class={"demo-sex iconfont " + iconName}
                                     />
                                 );
                             }
@@ -189,7 +215,7 @@ export default {
                     key: "h",
                     title: "Status",
                     width: 55,
-                    fixed: "right",
+                    fixed: this.columnFixed ? "right" : "",
                     align: "left",
                     renderBodyCell: ({ row, column, rowIndex }, h) => {
                         const cellData = row[column.field];
@@ -218,14 +244,15 @@ export default {
                         );
                     }
                 }
-            ],
-            tableData: []
-        };
+            ];
+
+            return columns;
+        }
     },
     methods: {
-        getRandom(min, max) {
-            return Math.floor(Math.random() * (max - min) + min);
-        },
+        // column fixed change
+        columnFixedChange() {},
+
         initData() {
             const PROFESSIONS = [
                 "Project Manager",
@@ -264,6 +291,21 @@ export default {
     background: #fff;
     margin-top: 62px;
     padding: 10px;
+
+    .operation {
+        margin: 30px 0;
+    }
+
+    // demo sex field
+    .demo-sex {
+        &.icon-male {
+            color: #91d5ff !important;
+        }
+
+        &.icon-female {
+            color: #ffadd2 !important;
+        }
+    }
 
     // proficiency filed custom cell style
     .table-body-cell-proficiency {
