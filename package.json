@@ -16,6 +16,9 @@
     "type": "git",
     "url": "git+https://github.com/huangshuwei/vue-easytable.git"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "files": [
     "libs"
   ],
