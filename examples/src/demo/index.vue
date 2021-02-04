@@ -185,11 +185,38 @@ export default {
                     align: "left"
                 },
                 {
-                    field: "zip",
+                    field: "status",
                     key: "h",
-                    title: "Zip",
-                    width: 50,
-                    fixed: "right"
+                    title: "Status",
+                    width: 55,
+                    fixed: "right",
+                    align: "left",
+                    renderBodyCell: ({ row, column, rowIndex }, h) => {
+                        const cellData = row[column.field];
+
+                        const STATUS = [
+                            {
+                                name: "Working",
+                                color: "#48a4ef"
+                            },
+                            {
+                                name: "Meeting",
+                                color: "#d8899c"
+                            },
+                            { name: "Trip", color: "#a88cd9" }
+                        ];
+
+                        const state = STATUS[cellData];
+
+                        return (
+                            <span
+                                class="status-span"
+                                style={"color:" + state.color}
+                            >
+                                {state.name}
+                            </span>
+                        );
+                    }
                 }
             ],
             tableData: []
@@ -220,7 +247,7 @@ export default {
                     proficiency: Mock.Random.natural(5, 85),
                     skills: Mock.Random.natural(0, 4),
                     address: Mock.Random.county(true),
-                    zip: Mock.Random.zip()
+                    status: Mock.Random.natural(0, 2)
                 });
             }
 
@@ -271,6 +298,7 @@ export default {
         display: inline-block;
         margin-right: 5px;
         padding: 3px 8px;
+        border-radius: 4px;
         color: #333;
     }
 }
