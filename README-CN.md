@@ -35,7 +35,7 @@
 
 ## API & 文档
 
-[官方文档](http://doc.huangsw.com/vue-easytable)
+[官方文档](http://doc.huangsw.com/vue-easytable/)
 
 ## 功能支持
 
@@ -63,6 +63,90 @@
 - [更多](http://doc.huangsw.com/vue-easytable)
 
 如果没有你想要的的功能，[请告诉我们](http://doc.huangsw.com/issue-template-generater/#/zh)
+
+## 安装
+
+```
+npm install vue-easytable
+```
+
+or
+
+```
+yarn add vue-easytable
+```
+
+## 使用
+
+Write the following in mian.js：
+
+```
+import Vue from "vue";
+import "vue-easytable/libs/theme-default/index.css";
+import VueEasytable from "vue-easytable";
+
+Vue.use(VueEasytable);
+
+new Vue({
+  el: "#app",
+  render: (h) => h(App),
+});
+```
+
+Example:
+
+```
+<template>
+  <ve-table :columns="columns" :table-data="tableData" />
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        columns: [
+          { field: "name", key: "a", title: "Name", align: "center" },
+          { field: "date", key: "b", title: "Date", align: "left" },
+          { field: "hobby", key: "c", title: "Hobby", align: "right" },
+          { field: "address", key: "d", title: "Address" },
+        ],
+        tableData: [
+          {
+            name: "John",
+            date: "1900-05-20",
+            hobby: "coding and coding repeat",
+            address: "No.1 Century Avenue, Shanghai",
+          },
+          {
+            name: "Dickerson",
+            date: "1910-06-20",
+            hobby: "coding and coding repeat",
+            address: "No.1 Century Avenue, Beijing",
+          },
+          {
+            name: "Larsen",
+            date: "2000-07-20",
+            hobby: "coding and coding repeat",
+            address: "No.1 Century Avenue, Chongqing",
+          },
+          {
+            name: "Geneva",
+            date: "2010-08-20",
+            hobby: "coding and coding repeat",
+            address: "No.1 Century Avenue, Xiamen",
+          },
+          {
+            name: "Jami",
+            date: "2020-09-20",
+            hobby: "coding and coding repeat",
+            address: "No.1 Century Avenue, Shenzhen",
+          },
+        ],
+      };
+    },
+  };
+</script>
+```
 
 ## 开发计划
 

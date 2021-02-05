@@ -35,34 +35,118 @@ Based on vue2.x flexible table components.
 
 ## API & Examples
 
-[Official documents](http://doc.huangsw.com/vue-easytable)
+[Official documents](http://doc.huangsw.com/vue-easytable/)
 
 ## Supports
 
-- [x] [Internationalization](http://doc.huangsw.com/vue-easytable/#/zh/doc/locale)
-- [x] [Theme Custom & Built in theme](http://doc.huangsw.com/vue-easytable/#/zh/doc/theme)
-- [x] [Virtual Scroll](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/virtual-scroll)
-- [x] [Column Fixed](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/column-fixed)
-- [x] [Header Fixed](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/header-fixed)
-- [x] [Header Grouping](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/header-grouping)
-- [x] [Filter](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/header-filter)
-- [x] [Sort](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/header-sort)
-- [x] [Cell Style](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/cell-style)
-- [x] [Cell Custom](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/cell-custom)
-- [x] [Cell Span](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/cell-span)
-- [x] [Cell Selection(keyboard operation)](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/cell-selection)
-- [x] [Cell Ellipsis](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/cell-ellipsis)
-- [x] [Row Radio](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/row-radio)
-- [x] [Row Checkbox](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/row-checkbox)
-- [x] [Row Expand](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/row-expand)
-- [x] [Row Style](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/row-style)
-- [x] [Footer Summary](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/footer-summary)
-- [x] [Event Custom](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/event-custom)
-- [x] [Loading component](http://doc.huangsw.com/vue-easytable/#/zh/doc/base/loading)
-- [x] [Pagination component](http://doc.huangsw.com/vue-easytable/#/zh/doc/base/pagination)
+- [x] [Internationalization](http://doc.huangsw.com/vue-easytable/#/en/doc/locale)
+- [x] [Theme Custom & Built in theme](http://doc.huangsw.com/vue-easytable/#/en/doc/theme)
+- [x] [Virtual Scroll](http://doc.huangsw.com/vue-easytable/#/en/doc/table/virtual-scroll)
+- [x] [Column Fixed](http://doc.huangsw.com/vue-easytable/#/en/doc/table/column-fixed)
+- [x] [Header Fixed](http://doc.huangsw.com/vue-easytable/#/en/doc/table/header-fixed)
+- [x] [Header Grouping](http://doc.huangsw.com/vue-easytable/#/en/doc/table/header-grouping)
+- [x] [Filter](http://doc.huangsw.com/vue-easytable/#/en/doc/table/header-filter)
+- [x] [Sort](http://doc.huangsw.com/vue-easytable/#/en/doc/table/header-sort)
+- [x] [Cell Style](http://doc.huangsw.com/vue-easytable/#/en/doc/table/cell-style)
+- [x] [Cell Custom](http://doc.huangsw.com/vue-easytable/#/en/doc/table/cell-custom)
+- [x] [Cell Span](http://doc.huangsw.com/vue-easytable/#/en/doc/table/cell-span)
+- [x] [Cell Selection(keyboard operation)](http://doc.huangsw.com/vue-easytable/#/en/doc/table/cell-selection)
+- [x] [Cell Ellipsis](http://doc.huangsw.com/vue-easytable/#/en/doc/table/cell-ellipsis)
+- [x] [Row Radio](http://doc.huangsw.com/vue-easytable/#/en/doc/table/row-radio)
+- [x] [Row Checkbox](http://doc.huangsw.com/vue-easytable/#/en/doc/table/row-checkbox)
+- [x] [Row Expand](http://doc.huangsw.com/vue-easytable/#/en/doc/table/row-expand)
+- [x] [Row Style](http://doc.huangsw.com/vue-easytable/#/en/doc/table/row-style)
+- [x] [Footer Summary](http://doc.huangsw.com/vue-easytable/#/en/doc/table/footer-summary)
+- [x] [Event Custom](http://doc.huangsw.com/vue-easytable/#/en/doc/table/event-custom)
+- [x] [Loading component](http://doc.huangsw.com/vue-easytable/#/en/doc/base/loading)
+- [x] [Pagination component](http://doc.huangsw.com/vue-easytable/#/en/doc/base/pagination)
 - [More](http://doc.huangsw.com/vue-easytable)
 
 If there is no feature you want, [Please Tell Us](http://doc.huangsw.com/issue-template-generater/#/en)
+
+## Install
+
+```
+npm install vue-easytable
+```
+
+or
+
+```
+yarn add vue-easytable
+```
+
+## Usage
+
+Write the following in mian.js：
+
+```
+import Vue from "vue";
+import "vue-easytable/libs/theme-default/index.css";
+import VueEasytable from "vue-easytable";
+
+Vue.use(VueEasytable);
+
+new Vue({
+  el: "#app",
+  render: (h) => h(App),
+});
+```
+
+Example:
+
+```
+<template>
+  <ve-table :columns="columns" :table-data="tableData" />
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        columns: [
+          { field: "name", key: "a", title: "Name", align: "center" },
+          { field: "date", key: "b", title: "Date", align: "left" },
+          { field: "hobby", key: "c", title: "Hobby", align: "right" },
+          { field: "address", key: "d", title: "Address" },
+        ],
+        tableData: [
+          {
+            name: "John",
+            date: "1900-05-20",
+            hobby: "coding and coding repeat",
+            address: "No.1 Century Avenue, Shanghai",
+          },
+          {
+            name: "Dickerson",
+            date: "1910-06-20",
+            hobby: "coding and coding repeat",
+            address: "No.1 Century Avenue, Beijing",
+          },
+          {
+            name: "Larsen",
+            date: "2000-07-20",
+            hobby: "coding and coding repeat",
+            address: "No.1 Century Avenue, Chongqing",
+          },
+          {
+            name: "Geneva",
+            date: "2010-08-20",
+            hobby: "coding and coding repeat",
+            address: "No.1 Century Avenue, Xiamen",
+          },
+          {
+            name: "Jami",
+            date: "2020-09-20",
+            hobby: "coding and coding repeat",
+            address: "No.1 Century Avenue, Shenzhen",
+          },
+        ],
+      };
+    },
+  };
+</script>
+```
 
 ## Todo List
 
