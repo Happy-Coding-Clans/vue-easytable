@@ -28,7 +28,9 @@ export default {
             runInline: "在线运行"
         },
         completeDemo: {
-            columnFixed: "列固定："
+            columnFixed: "列固定：",
+            loading: "Loading:",
+            expand: "行展开"
         }
     },
     en: {
@@ -56,7 +58,9 @@ export default {
             runInline: "Open in CodePen"
         },
         completeDemo: {
-            columnFixed: "Fixed Columns:"
+            columnFixed: "Fixed Columns:",
+            loading: "Loading:",
+            expand: "Row Expand"
         }
     }
 };

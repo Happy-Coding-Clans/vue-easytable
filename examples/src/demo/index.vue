@@ -2,16 +2,46 @@
     <div>
         <div class="site-demo-container">
             <div class="operation">
-                {{ currentLocal["columnFixed"] }}
-                <el-switch
-                    v-model="columnFixed"
-                    active-color="#1890ff"
-                    inactive-color="rgba(0,0,0,.25)"
-                >
-                </el-switch>
+                <el-row :gutter="20">
+                    <el-col :span="3">
+                        {{ currentLocal["columnFixed"] }}
+                        <el-switch
+                            v-model="enableColumnFixed"
+                            :active-color="switchActiveColor"
+                            :inactive-color="switchInactiveColor"
+                        >
+                        </el-switch>
+                    </el-col>
+                    <el-col :span="3">
+                        {{ currentLocal["loading"] }}
+                        <el-switch
+                            v-model="enableLoading"
+                            :active-color="switchActiveColor"
+                            :inactive-color="switchInactiveColor"
+                            @change="switchLoading"
+                        >
+                        </el-switch>
+                    </el-col>
+                    <el-col :span="3"
+                        >{{ currentLocal["expand"] }}
+                        <el-switch
+                            v-model="enableExpand"
+                            :active-color="switchActiveColor"
+                            :inactive-color="switchInactiveColor"
+                            @change="switchLoading"
+                        >
+                        </el-switch
+                    ></el-col>
+                    <el-col :span="3"><div></div></el-col>
+                    <el-col :span="3"><div></div></el-col>
+                    <el-col :span="3"><div></div></el-col>
+                    <el-col :span="3"><div></div></el-col>
+                    <el-col :span="3"><div></div></el-col>
+                </el-row>
             </div>
 
             <ve-table
+                id="demo-loading-container"
                 fixed-header
                 border-y
                 :max-height="600"
@@ -21,6 +51,7 @@
                 :table-data="tableData"
                 row-key-field-name="rowKey"
                 :cell-style-option="cellStyleOption"
+                :expand-option="expandOption"
             />
         </div>
         <!-- <Footer /> -->
@@ -39,9 +70,15 @@ export default {
     mixins: [I18nMixins],
     data() {
         return {
-            columnFixed: true,
+            switchActiveColor: "#1890ff",
+            switchInactiveColor: "rgba(0,0,0,.25)",
+
+            enableColumnFixed: true,
+            enableLoading: false,
+            enableExpand: true,
 
             // ---------------table options---------------
+            tableData: [],
             cellStyleOption: {
                 bodyCellClass: ({ row, column, rowIndex }) => {
                     if (column.field === "proficiency") {
@@ -53,7 +90,18 @@ export default {
                 // 是否开启
                 enable: true
             },
-            tableData: []
+            expandOption: {
+                render: ({ row, column, rowIndex }, h) => {
+                    return (
+                        <p>
+                            Hello everyone, My name is{" "}
+                            <span style="font-weight:bold;">{row.name}</span>,
+                            I'm a {row.profession}.<br /> And I'm living in{" "}
+                            {row.address}.
+                        </p>
+                    );
+                }
+            }
         };
     },
     computed: {
@@ -63,17 +111,31 @@ export default {
         },
 
         columns() {
-            let columns = [
-                {
-                    field: "rowIndex",
-                    key: "a",
-                    title: "#",
-                    width: 50,
-                    fixed: this.columnFixed ? "left" : ""
-                },
+            let columns = [];
+
+            if (this.enableExpand) {
+                columns.push({
+                    field: "expand",
+                    key: "expand",
+                    title: "",
+                    width: 30,
+                    fixed: this.enableColumnFixed ? "left" : "",
+                    type: "expand"
+                });
+            }
+
+            columns.push({
+                field: "rowIndex",
+                key: "a",
+                title: "#",
+                width: 30,
+                fixed: this.enableColumnFixed ? "left" : ""
+            });
+
+            columns = columns.concat([
                 {
                     title: "Basic Info",
-                    fixed: this.columnFixed ? "left" : "",
+                    fixed: this.enableColumnFixed ? "left" : "",
                     children: [
                         {
                             field: "name",
@@ -215,7 +277,7 @@ export default {
                     key: "h",
                     title: "Status",
                     width: 55,
-                    fixed: this.columnFixed ? "right" : "",
+                    fixed: this.enableColumnFixed ? "right" : "",
                     align: "left",
                     renderBodyCell: ({ row, column, rowIndex }, h) => {
                         const cellData = row[column.field];
@@ -244,14 +306,25 @@ export default {
                         );
                     }
                 }
-            ];
+            ]);
 
             return columns;
         }
     },
     methods: {
-        // column fixed change
-        columnFixedChange() {},
+        /* showLoading() {
+            this.loadingInstance.show();
+        },
+        closeLoading() {
+            this.loadingInstance.close();
+        }, */
+        switchLoading() {
+            if (this.enableLoading) {
+                this.loadingInstance.show();
+            } else {
+                this.loadingInstance.close();
+            }
+        },
 
         initData() {
             const PROFESSIONS = [
@@ -283,6 +356,14 @@ export default {
     },
     created() {
         this.initData();
+    },
+    mounted() {
+        this.loadingInstance = this.$veLoading({
+            target: document.querySelector("#demo-loading-container"),
+            // 等同于
+            // target:"#loading-container"
+            name: "grid"
+        });
     }
 };
 </script>
