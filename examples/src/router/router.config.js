@@ -8,12 +8,12 @@ export default [
     {
         path: "/",
         meta: { keepAlive: true, hide: true },
-        redirect: "/en/doc"
+        redirect: "/en"
     }, // 默认路由
     {
         path: "/zh",
         component: emptyLayout,
-        redirect: "/zh/doc",
+        redirect: "/zh/demo",
         children: [
             {
                 path: "demo",
@@ -32,7 +32,7 @@ export default [
     {
         path: "/en",
         component: emptyLayout,
-        redirect: "/en/doc",
+        redirect: "/en/demo",
         children: [
             {
                 path: "demo",
