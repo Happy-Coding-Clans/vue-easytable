@@ -76,6 +76,33 @@ export default {
             }
 
             return result;
+        },
+
+        // is last left fixed column
+        lastLeftFixedColumn() {
+            let result = null;
+
+            const fixedLeftColumns = this.colgroups.filter(
+                x => x.fixed === "left"
+            );
+
+            if (fixedLeftColumns.length > 0) {
+                result = fixedLeftColumns[fixedLeftColumns.length - 1].field;
+            }
+
+            return result;
+        },
+
+        // expand td class
+        expandTdClass() {
+            let result = {
+                [clsName("expand-td")]: true
+            };
+
+            if (this.lastLeftFixedColumn) {
+                result[clsName("fixed-left")] = true;
+            }
+            return result;
         }
     },
     methods: {
@@ -96,13 +123,18 @@ export default {
         }
     },
     render(h) {
-        const { columnCount, getExpandRowContent, expanRowStyle } = this;
+        const {
+            columnCount,
+            getExpandRowContent,
+            expanRowStyle,
+            expandTdClass
+        } = this;
 
         let content = getExpandRowContent(h);
 
         let result = (
             <tr class={this.expanRowClass}>
-                <td class={clsName("expand-td")} colSpan={columnCount}>
+                <td class={expandTdClass} colSpan={columnCount}>
                     {content}
                 </td>
             </tr>
