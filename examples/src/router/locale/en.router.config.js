@@ -233,6 +233,12 @@ const config = [
                 meta: { keepAlive: true }
             },
             {
+                path: "loading",
+                component: () => import("@/docs/en/ve-table/loading/main.vue"),
+                name: "Enable Loading",
+                meta: { keepAlive: true }
+            },
+            {
                 path: "virtual-scroll",
                 component: () =>
                     import("@/docs/en/ve-table/virtual-scroll/main.vue"),
@@ -253,8 +259,8 @@ const config = [
                 meta: { keepAlive: true }
             }
         ]
-    },
-   /*  {
+    }
+    /*  {
         path: "other",
         name: "辅助组件",
         component: emptyLayout,
