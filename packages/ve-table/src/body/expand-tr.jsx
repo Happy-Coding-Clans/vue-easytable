@@ -79,8 +79,7 @@ export default {
         // expand row class
         expanRowClass() {
             let result = {
-                [clsName("expand-tr")]: true,
-                [clsName("expand-tr-show")]: this.isRowExpanded
+                [clsName("expand-tr")]: true
             };
             return result;
         },
