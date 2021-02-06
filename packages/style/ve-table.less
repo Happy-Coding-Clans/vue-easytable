@@ -52,7 +52,7 @@
         height: @ve-table-head-row-height;
         th.ve-table-header-th {
           background-color: @ve-table-header-background-color;
-          padding: 10px;
+          padding: @ve-table-head-row-td-padding;
           font-weight: 500;
           color: @ve-table-head-text-color;
         }
@@ -68,10 +68,13 @@
         td.ve-table-expand-td {
           background-color: @ve-table-body-background-color;
           color: @ve-table-body-text-color;
-          padding: 10px;
           // hack content fill td height
           //height: 1px;
           height: inherit;
+        }
+
+        td.ve-table-body-td {
+          padding: @ve-table-body-row-td-padding;
         }
       }
 
@@ -115,7 +118,7 @@
         td.ve-table-footer-td {
           background-color: @ve-table-foot-background-color;
           color: @ve-table-foot-text-color;
-          padding: 10px;
+          padding: @ve-table-foot-row-td-padding;
         }
       }
     }
@@ -322,10 +325,11 @@
 
         // expand row
         .ve-table-expand-tr {
-          .ve-table-fixed-left {
+          .ve-table-expand-td-content {
             position: sticky;
             z-index: @ve-fixed-body-cell-index;
-            left: 10px;
+            left: 0px;
+            padding: @ve-table-body-row-td-padding;
           }
         }
       }
