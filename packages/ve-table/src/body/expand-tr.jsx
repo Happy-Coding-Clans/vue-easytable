@@ -1,4 +1,5 @@
 import { clsName } from "../util";
+import { store } from "../util/store";
 import { COMPS_NAME, COLUMN_TYPES } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 
@@ -58,58 +59,56 @@ export default {
         currentRowKey() {
             return this.rowData[this.rowKeyFieldName];
         },
-        // expand row class
-        expanRowClass() {
-            let result = {
-                [clsName("expand-tr")]: true
-            };
+        // is row expanded
+        isRowExpanded() {
+            let result = false;
 
             const { expandOption, expandedRowkeys, currentRowKey } = this;
 
             // defalut expand all rows
             if (expandOption.defaultExpandAllRows) {
-                result[clsName("expand-tr-show")] = true;
+                result = true;
             }
             // defaultExpandedRowKeys includes currentRowKey
             else if (expandedRowkeys.includes(currentRowKey)) {
-                result[clsName("expand-tr-show")] = true;
+                result = true;
             }
 
+            return result;
+        },
+        // expand row class
+        expanRowClass() {
+            let result = {
+                [clsName("expand-tr")]: true,
+                [clsName("expand-tr-show")]: this.isRowExpanded
+            };
             return result;
         },
 
         // is last left fixed column
-        lastLeftFixedColumn() {
-            let result = null;
-
-            const fixedLeftColumns = this.colgroups.filter(
-                x => x.fixed === "left"
-            );
-
-            if (fixedLeftColumns.length > 0) {
-                result = fixedLeftColumns[fixedLeftColumns.length - 1].field;
-            }
-
-            return result;
+        hasLeftFixedColumn() {
+            return this.colgroups.some(x => x.fixed === "left");
         },
 
-        // expand td class
-        expandTdClass() {
-            let result = {
-                [clsName("expand-td")]: true
-            };
+        // expand td content style
+        expandTdContentStyle() {
+            let result = {};
 
-            if (this.lastLeftFixedColumn) {
-                result[clsName("fixed-left")] = true;
+            if (this.hasLeftFixedColumn) {
+                // table width
+                if (store.tableViewportWidth) {
+                    result["width"] = store.tableViewportWidth + "px";
+                }
             }
+
             return result;
         }
     },
     methods: {
-        // 获取展开行的内容
+        // get expande row content
         getExpandRowContent(h) {
             const { expandOption } = this;
-            return (
+            let result =
                 expandOption.render &&
                 expandOption.render(
                     {
@@ -118,27 +117,37 @@ export default {
                         rowIndex: this.rowIndex
                     },
                     h
-                )
-            );
+                );
+
+            return result;
         }
     },
     render(h) {
         const {
+            isRowExpanded,
             columnCount,
             getExpandRowContent,
             expanRowStyle,
             expandTdClass
         } = this;
 
-        let content = getExpandRowContent(h);
+        let result = null;
 
-        let result = (
-            <tr class={this.expanRowClass}>
-                <td class={expandTdClass} colSpan={columnCount}>
-                    {content}
-                </td>
-            </tr>
-        );
+        if (isRowExpanded) {
+            let content = getExpandRowContent(h);
+            result = (
+                <tr class={this.expanRowClass}>
+                    <td class={clsName("expand-td")} colSpan={columnCount}>
+                        <div
+                            class={clsName("expand-td-content")}
+                            style={this.expandTdContentStyle}
+                        >
+                            {content}
+                        </div>
+                    </td>
+                </tr>
+            );
+        }
 
         return result;
     }
