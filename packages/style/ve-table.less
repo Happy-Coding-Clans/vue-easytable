@@ -138,11 +138,13 @@
 
     // virtual scroll phantom
     .ve-table-virtual-phantom {
-      position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      z-index: @ve-virtual-phantom-index;
+      &.ve-table-virtual-scroll {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        z-index: @ve-virtual-phantom-index;
+      }
     }
 
     // 固定列效果

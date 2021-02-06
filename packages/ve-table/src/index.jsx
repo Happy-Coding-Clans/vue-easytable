@@ -763,10 +763,9 @@ export default {
             2、
             has left fixed column and expand option（resolve expand row content sticky）
             */
-            if (
-                this.isVirtualScroll ||
-                (this.hasLeftFixedColumn && this.expandOption)
-            ) {
+            const { isVirtualScroll, hasLeftFixedColumn, expandOption } = this;
+
+            if (isVirtualScroll || (hasLeftFixedColumn && expandOption)) {
                 const props = {
                     props: {
                         tagName: "div"
@@ -786,7 +785,10 @@ export default {
                 content = (
                     <div
                         ref={this.virtualPhantomRef}
-                        class={clsName("virtual-phantom")}
+                        class={[
+                            clsName("virtual-phantom"),
+                            isVirtualScroll ? clsName("virtual-scroll") : ""
+                        ]}
                     >
                         <VueDomResizeObserver {...props} />
                     </div>
