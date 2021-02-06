@@ -29,8 +29,10 @@ export default {
         },
         completeDemo: {
             columnFixed: "列固定：",
-            loading: "Loading:",
-            expand: "行展开"
+            loading: "Loading：",
+            expand: "行展开：",
+            radio: "行单选：",
+            checkbox: "行多选："
         }
     },
     en: {
@@ -60,7 +62,9 @@ export default {
         completeDemo: {
             columnFixed: "Fixed Columns:",
             loading: "Loading:",
-            expand: "Row Expand"
+            expand: "Row Expand:",
+            radio: "Row Radio:",
+            checkbox: "Row Checkbox:"
         }
     }
 };

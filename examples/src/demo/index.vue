@@ -22,18 +22,36 @@
                         >
                         </el-switch>
                     </el-col>
-                    <el-col :span="3"
-                        >{{ currentLocal["expand"] }}
+                    <el-col :span="3">
+                        {{ currentLocal["expand"] }}
                         <el-switch
                             v-model="enableExpand"
                             :active-color="switchActiveColor"
                             :inactive-color="switchInactiveColor"
                             @change="switchLoading"
                         >
-                        </el-switch
-                    ></el-col>
-                    <el-col :span="3"><div></div></el-col>
-                    <el-col :span="3"><div></div></el-col>
+                        </el-switch>
+                    </el-col>
+                    <el-col :span="3">
+                        {{ currentLocal["radio"] }}
+                        <el-switch
+                            v-model="enableRowRadio"
+                            :active-color="switchActiveColor"
+                            :inactive-color="switchInactiveColor"
+                            @change="switchLoading"
+                        >
+                        </el-switch>
+                    </el-col>
+                    <el-col :span="3">
+                        {{ currentLocal["checkbox"] }}
+                        <el-switch
+                            v-model="enableRowCheckbox"
+                            :active-color="switchActiveColor"
+                            :inactive-color="switchInactiveColor"
+                            @change="switchLoading"
+                        >
+                        </el-switch>
+                    </el-col>
                     <el-col :span="3"><div></div></el-col>
                     <el-col :span="3"><div></div></el-col>
                     <el-col :span="3"><div></div></el-col>
@@ -52,6 +70,8 @@
                 row-key-field-name="rowKey"
                 :cell-style-option="cellStyleOption"
                 :expand-option="expandOption"
+                :radio-option="radioOption"
+                :checkbox-optipon="checkboxOptipon"
             />
         </div>
         <!-- <Footer /> -->
@@ -76,6 +96,8 @@ export default {
             enableColumnFixed: true,
             enableLoading: false,
             enableExpand: true,
+            enableRowRadio: false,
+            enableRowCheckbox: false,
 
             // ---------------table options---------------
             tableData: [],
@@ -89,6 +111,21 @@ export default {
             virtualScrollOption: {
                 // 是否开启
                 enable: true
+            },
+            radioOption: {
+                selectedRowChange: ({ row }) => {
+                    console.log(row);
+                }
+            },
+            checkboxOptipon: {
+                // row select change event
+                selectedRowChange: ({ row, isSelected, selectedRowKeys }) => {
+                    console.log(row, isSelected, selectedRowKeys);
+                },
+                // selected all change event
+                selectedAllChange: ({ isSelected, selectedRowKeys }) => {
+                    console.log(isSelected, selectedRowKeys);
+                }
             },
             expandOption: {
                 render: ({ row, column, rowIndex }, h) => {
@@ -112,6 +149,28 @@ export default {
 
         columns() {
             let columns = [];
+
+            if (this.enableRowRadio) {
+                columns.push({
+                    field: "radio",
+                    key: "radio",
+                    title: "",
+                    width: 30,
+                    fixed: this.enableColumnFixed ? "left" : "",
+                    type: "radio"
+                });
+            }
+
+            if (this.enableRowCheckbox) {
+                columns.push({
+                    field: "checkbox",
+                    key: "checkbox",
+                    title: "",
+                    width: 30,
+                    fixed: this.enableColumnFixed ? "left" : "",
+                    type: "checkbox"
+                });
+            }
 
             if (this.enableExpand) {
                 columns.push({
