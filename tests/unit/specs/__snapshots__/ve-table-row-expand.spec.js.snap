@@ -38,9 +38,11 @@ exports[`veTable row expand expandOption expandedRowKeys(controllable attr) 1`] 
               <!---->No.1 Century Avenue, Shanghai
             </td>
           </tr>
-          <tr class="ve-table-expand-tr ve-table-expand-tr-show">
+          <tr class="ve-table-expand-tr">
             <td colspan="4" class="ve-table-expand-td">
-              <p>My name is<span style="color: rgb(24, 144, 255);">John</span>,I'm living in No.1 Century Avenue, Shanghai</p>
+              <div class="ve-table-expand-td-content">
+                <p>My name is<span style="color: rgb(24, 144, 255);">John</span>,I'm living in No.1 Century Avenue, Shanghai</p>
+              </div>
             </td>
           </tr>
           <tr row-key="1002" class="ve-table-body-tr">
@@ -55,9 +57,11 @@ exports[`veTable row expand expandOption expandedRowKeys(controllable attr) 1`] 
               <!---->No.1 Century Avenue, Beijing
             </td>
           </tr>
-          <tr class="ve-table-expand-tr ve-table-expand-tr-show">
+          <tr class="ve-table-expand-tr">
             <td colspan="4" class="ve-table-expand-td">
-              <p>My name is<span style="color: rgb(24, 144, 255);">Dickerson</span>,I'm living in No.1 Century Avenue, Beijing</p>
+              <div class="ve-table-expand-td-content">
+                <p>My name is<span style="color: rgb(24, 144, 255);">Dickerson</span>,I'm living in No.1 Century Avenue, Beijing</p>
+              </div>
             </td>
           </tr>
           <tr row-key="1003" class="ve-table-body-tr">
@@ -72,9 +76,11 @@ exports[`veTable row expand expandOption expandedRowKeys(controllable attr) 1`] 
               <!---->No.1 Century Avenue, Chongqing
             </td>
           </tr>
-          <tr class="ve-table-expand-tr ve-table-expand-tr-show">
+          <tr class="ve-table-expand-tr">
             <td colspan="4" class="ve-table-expand-td">
-              <p>My name is<span style="color: rgb(24, 144, 255);">Larsen</span>,I'm living in No.1 Century Avenue, Chongqing</p>
+              <div class="ve-table-expand-td-content">
+                <p>My name is<span style="color: rgb(24, 144, 255);">Larsen</span>,I'm living in No.1 Century Avenue, Chongqing</p>
+              </div>
             </td>
           </tr>
           <tr row-key="1004" class="ve-table-body-tr">
@@ -89,11 +95,7 @@ exports[`veTable row expand expandOption expandedRowKeys(controllable attr) 1`] 
               <!---->No.1 Century Avenue, Xiamen
             </td>
           </tr>
-          <tr class="ve-table-expand-tr">
-            <td colspan="4" class="ve-table-expand-td">
-              <p>My name is<span style="color: rgb(24, 144, 255);">Geneva</span>,I'm living in No.1 Century Avenue, Xiamen</p>
-            </td>
-          </tr>
+          <!---->
           <tr row-key="1005" class="ve-table-body-tr">
             <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;"><span class="ve-table-row-expand-icon"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
             <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
@@ -106,11 +108,7 @@ exports[`veTable row expand expandOption expandedRowKeys(controllable attr) 1`] 
               <!---->No.1 Century Avenue, Shenzhen
             </td>
           </tr>
-          <tr class="ve-table-expand-tr">
-            <td colspan="4" class="ve-table-expand-td">
-              <p>My name is<span style="color: rgb(24, 144, 255);">Jami</span>,I'm living in No.1 Century Avenue, Shenzhen</p>
-            </td>
-          </tr>
+          <!---->
         </tbody>
         <tfoot class="ve-table-fixed-footer ve-table-footer"></tfoot>
       </table>
@@ -156,8 +154,10 @@ exports[`veTable row expand render 1`] = `
             <!---->No.1 Century Avenue, Shanghai
           </td>
         </tr>
-        <tr class="ve-table-expand-tr ve-table-expand-tr-show">
-          <td colspan="4" class="ve-table-expand-td"></td>
+        <tr class="ve-table-expand-tr">
+          <td colspan="4" class="ve-table-expand-td">
+            <div class="ve-table-expand-td-content"></div>
+          </td>
         </tr>
         <tr row-key="1002" class="ve-table-body-tr">
           <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;"></td>
@@ -177,8 +177,10 @@ exports[`veTable row expand render 1`] = `
             <!---->No.1 Century Avenue, Chongqing
           </td>
         </tr>
-        <tr class="ve-table-expand-tr ve-table-expand-tr-show">
-          <td colspan="4" class="ve-table-expand-td"></td>
+        <tr class="ve-table-expand-tr">
+          <td colspan="4" class="ve-table-expand-td">
+            <div class="ve-table-expand-td-content"></div>
+          </td>
         </tr>
         <tr row-key="1004" class="ve-table-body-tr">
           <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;"><span class="ve-table-row-expand-icon"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
@@ -192,9 +194,7 @@ exports[`veTable row expand render 1`] = `
             <!---->No.1 Century Avenue, Xiamen
           </td>
         </tr>
-        <tr class="ve-table-expand-tr">
-          <td colspan="4" class="ve-table-expand-td"></td>
-        </tr>
+        <!---->
         <tr row-key="1005" class="ve-table-body-tr">
           <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;"><span class="ve-table-row-expand-icon"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
           <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">
@@ -207,9 +207,7 @@ exports[`veTable row expand render 1`] = `
             <!---->No.1 Century Avenue, Shenzhen
           </td>
         </tr>
-        <tr class="ve-table-expand-tr">
-          <td colspan="4" class="ve-table-expand-td"></td>
-        </tr>
+        <!---->
       </tbody>
       <tfoot class="ve-table-fixed-footer ve-table-footer"></tfoot>
     </table>

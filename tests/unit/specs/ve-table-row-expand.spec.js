@@ -116,13 +116,8 @@ describe("veTable row expand", () => {
             }
         });
 
-        expect(
-            wrapper
-                .findAll(".ve-table-expand-tr")
-                .at(0)
-                .find(".ve-table-expand-tr-show")
-                .exists()
-        ).toBe(false);
+        // 默认不渲染节点
+        expect(wrapper.find(".ve-table-expand-tr").exists()).toBe(false);
 
         wrapper
             .findAll(".ve-table-body-tr")
@@ -136,9 +131,20 @@ describe("veTable row expand", () => {
             wrapper
                 .findAll(".ve-table-expand-tr")
                 .at(0)
-                .find(".ve-table-expand-tr-show")
+                .find(".ve-table-expand-td .ve-table-expand-td-content")
                 .exists()
         ).toBe(true);
+
+        wrapper
+            .findAll(".ve-table-body-tr")
+            .at(0)
+            .find(".ve-table-row-expand-icon")
+            .trigger("click");
+
+        await later();
+
+        // 折叠后销毁节点
+        expect(wrapper.find(".ve-table-expand-tr").exists()).toBe(false);
     });
 
     it("trigger type:cell", async () => {
@@ -162,14 +168,6 @@ describe("veTable row expand", () => {
             }
         });
 
-        expect(
-            wrapper
-                .findAll(".ve-table-expand-tr")
-                .at(0)
-                .find(".ve-table-expand-tr-show")
-                .exists()
-        ).toBe(false);
-
         wrapper
             .findAll(".ve-table-body-tr")
             .at(0)
@@ -183,12 +181,12 @@ describe("veTable row expand", () => {
             wrapper
                 .findAll(".ve-table-expand-tr")
                 .at(0)
-                .find(".ve-table-expand-tr-show")
+                .find(".ve-table-expand-td .ve-table-expand-td-content")
                 .exists()
         ).toBe(true);
     });
 
-    it("trigger type:cell", async () => {
+    it("trigger type:row", async () => {
         const wrapper = mount(veTable, {
             propsData: {
                 columns: COLUMNS,
@@ -209,14 +207,6 @@ describe("veTable row expand", () => {
             }
         });
 
-        expect(
-            wrapper
-                .findAll(".ve-table-expand-tr")
-                .at(0)
-                .find(".ve-table-expand-tr-show")
-                .exists()
-        ).toBe(false);
-
         wrapper
             .findAll(".ve-table-body-tr")
             .at(0)
@@ -228,7 +218,7 @@ describe("veTable row expand", () => {
             wrapper
                 .findAll(".ve-table-expand-tr")
                 .at(0)
-                .find(".ve-table-expand-tr-show")
+                .find(".ve-table-expand-td .ve-table-expand-td-content")
                 .exists()
         ).toBe(true);
     });
@@ -262,7 +252,7 @@ describe("veTable row expand", () => {
             wrapper
                 .findAll(".ve-table-body-tr")
                 .at(1)
-                .find(".ve-table-expand-tr")
+                .find(".ve-table-row-expand-icon")
                 .exists()
         ).toBe(false);
     });
@@ -290,17 +280,17 @@ describe("veTable row expand", () => {
 
         expect(
             wrapper
-                .findAll(".ve-table-expand-tr")
+                .findAll(".ve-table-body-tr")
                 .at(0)
-                .find(".ve-table-expand-tr-show")
+                .find(".ve-table-row-expand-icon")
                 .exists()
         ).toBe(true);
 
         expect(
             wrapper
-                .findAll(".ve-table-expand-tr")
+                .findAll(".ve-table-body-tr")
                 .at(2)
-                .find(".ve-table-expand-tr-show")
+                .find(".ve-table-row-expand-icon")
                 .exists()
         ).toBe(true);
     });
@@ -326,7 +316,7 @@ describe("veTable row expand", () => {
             }
         });
 
-        expect(wrapper.findAll(".ve-table-expand-tr-show").length).toBe(5);
+        expect(wrapper.findAll(".ve-table-row-expand-icon").length).toBe(5);
     });
 
     it("expandOption beforeExpandRowChange event", async () => {
@@ -373,13 +363,7 @@ describe("veTable row expand", () => {
         expect(mockFn).toHaveBeenCalledWith(false);
 
         await later();
-        expect(
-            wrapper
-                .findAll(".ve-table-expand-tr")
-                .at(0)
-                .find(".ve-table-expand-tr-show")
-                .exists()
-        ).toBe(false);
+        expect(wrapper.findAll(".ve-table-expand-tr").exists()).toBe(false);
 
         wrapper
             .findAll(".ve-table-body-tr")
@@ -393,8 +377,9 @@ describe("veTable row expand", () => {
         expect(
             wrapper
                 .findAll(".ve-table-expand-tr")
-                .at(1)
-                .find(".ve-table-expand-tr-show")
+                // 只要一行
+                .at(0)
+                .find(".ve-table-expand-td .ve-table-expand-td-content")
                 .exists()
         ).toBe(true);
     });
@@ -499,7 +484,7 @@ describe("veTable row expand", () => {
             wrapper
                 .findAll(".ve-table-expand-tr")
                 .at(0)
-                .find(".ve-table-expand-tr-show")
+                .find(".ve-table-expand-td .ve-table-expand-td-content")
                 .exists()
         ).toBe(true);
 
@@ -510,8 +495,8 @@ describe("veTable row expand", () => {
         expect(
             wrapper
                 .findAll(".ve-table-expand-tr")
-                .at(2)
-                .find(".ve-table-expand-tr-show")
+                .at(1)
+                .find(".ve-table-expand-td .ve-table-expand-td-content")
                 .exists()
         ).toBe(true);
 
