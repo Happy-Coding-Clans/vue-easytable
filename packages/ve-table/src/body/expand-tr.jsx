@@ -85,7 +85,7 @@ export default {
             return result;
         },
 
-        // is last left fixed column
+        // has left fixed column
         hasLeftFixedColumn() {
             return this.colgroups.some(x => x.fixed === "left");
         },

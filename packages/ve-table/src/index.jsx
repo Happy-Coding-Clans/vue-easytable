@@ -14,6 +14,8 @@ import Footer from "./footer";
 import { KEY_CODES } from "../../src/utils/constant";
 import { isEmptyValue } from "../../src/utils/index";
 import clickoutside from "../../src/directives/clickoutside";
+import { mutations } from "./util/store";
+import VueDomResizeObserver from "../../src/comps/resize-observer";
 
 // virtual scroll positions
 let virtualScrollPositions = [
@@ -404,6 +406,10 @@ export default {
             return this.colgroups.some(
                 x => x.fixed === "left" || x.fixed === "right"
             );
+        },
+        // is last left fixed column
+        hasLeftFixedColumn() {
+            return this.colgroups.some(x => x.fixed === "left");
         }
     },
     watch: {
@@ -751,12 +757,39 @@ export default {
         getVirtualViewPhantom() {
             let content = null;
 
-            if (this.isVirtualScroll) {
+            /*
+            1、is virtualScroll
+            or
+            2、
+            has left fixed column and expand option（resolve expand row content sticky）
+            */
+            if (
+                this.isVirtualScroll ||
+                (this.hasLeftFixedColumn && this.expandOption)
+            ) {
+                const props = {
+                    props: {
+                        tagName: "div"
+                    },
+                    style: {
+                        width: "100%"
+                    },
+                    on: {
+                        "on-dom-resize-change": ({ width }) => {
+                            mutations.setStore({
+                                tableViewportWidth: width
+                            });
+                        }
+                    }
+                };
+
                 content = (
                     <div
                         ref={this.virtualPhantomRef}
                         class={clsName("virtual-phantom")}
-                    ></div>
+                    >
+                        <VueDomResizeObserver {...props} />
+                    </div>
                 );
             }
 
