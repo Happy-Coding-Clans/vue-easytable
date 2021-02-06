@@ -3,7 +3,7 @@
 exports[`veTable virtual scroll render same row height 1`] = `
 <div class="ve-table">
   <div class="ve-table-container ve-table-border-around ve-table-virtual-scroll" style="max-height: 500px; height: 500px;">
-    <div class="ve-table-virtual-phantom">
+    <div class="ve-table-virtual-phantom ve-table-virtual-scroll">
       <div style="width: 100%;"></div>
     </div>
     <table class="ve-table-content ve-table-border-x">
