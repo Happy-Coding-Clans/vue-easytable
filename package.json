@@ -45,7 +45,7 @@
   },
   "peerDependencies": {
     "lodash": "^4.17.20",
-    "vue": "^2.6.11"
+    "vue": ">= 2.6.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.8",
