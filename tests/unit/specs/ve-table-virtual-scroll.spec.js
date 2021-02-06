@@ -396,7 +396,7 @@ describe("veTable virtual scroll", () => {
 
         await later();
 
-        expect(wrapper.find(".ve-table-expand-tr").exists()).toBe(true);
+        expect(wrapper.find(".ve-table-row-expand-icon").exists()).toBe(true);
 
         // default buffer=1
         expect(wrapper.findAll(".ve-table-body-tr").length).toBeGreaterThan(
