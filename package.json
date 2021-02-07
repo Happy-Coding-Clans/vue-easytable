@@ -1,6 +1,6 @@
 {
   "name": "vue-easytable",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "main": "libs/main.js",
   "description": "Vue table component",
   "keywords": [
@@ -20,7 +20,8 @@
     "registry": "https://registry.npmjs.org/"
   },
   "files": [
-    "libs"
+    "libs",
+    "packages"
   ],
   "scripts": {
     "test": "cross-env NODE_ENV=test BABEL_ENV=test jest --config jest.config.js",
