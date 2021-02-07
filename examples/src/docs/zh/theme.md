@@ -32,7 +32,7 @@ vue-easytable 的样式使用了 Less 作为开发语言，并定义了一系列
 建创建一个单独的 less 变量文件，例如 vue-easytable-variables.less，引入这个文件覆盖 var.less 里的变量。
 
 ```
-@import '~vue-easytable/libs/theme-default/var.less'; // 引入官方提供的 less 样式入口文件
+@import '~vue-easytable/packages/theme-default/index.less'; // 引入官方提供的 less 样式入口文件
 @import 'your-theme-file.less'; // 用于覆盖上面定义的变量
 ```
 
@@ -53,7 +53,7 @@ Vue.use(VueEasytable)
 建创建一个单独的 less 变量文件，例如 vue-easytable-variables.less，引入这个文件覆盖 var.less 里的变量。
 
 ```
-@import '~vue-easytable/libs/theme-dark/var.less'; // 引入官方提供的 less 样式入口文件
+@import '~vue-easytable/packages/theme-dark/index.less'; // 引入官方提供的 less 样式入口文件
 @import 'your-theme-file.less'; // 用于覆盖上面定义的变量
 ```
 

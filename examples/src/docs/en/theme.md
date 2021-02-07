@@ -34,7 +34,7 @@ If the theme you need is close to the blue theme,You can choose to customize acc
 Create a less variable file,For example "vue-easytable-variables.less",Introduce this file overlay var.less The variables in.
 
 ```
-@import '~vue-easytable/libs/theme-default/var.less'; // import the official less style entry file
+@import '~vue-easytable/packages/theme-default/index.less'; // import the official less style entry file
 @import 'your-theme-file.less'; // Used to override the variables defined above
 ```
 
@@ -55,7 +55,7 @@ If the theme you need is close to the dark theme,You can choose to customize acc
 Create a less variable file,For example "vue-easytable-variables.less",Introduce this file overlay var.less The variables in.
 
 ```
-@import '~vue-easytable/libs/theme-dark/var.less'; // import the official less style entry file
+@import '~vue-easytable/packages/theme-dark/index.less'; // import the official less style entry file
 @import 'your-theme-file.less'; // Used to override the variables defined above
 ```
 
