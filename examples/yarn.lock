@@ -9968,6 +9968,11 @@ text-table@^0.2.0:
   resolved "https://registry.npm.taobao.org/text-table/download/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
+theme-switcher-tool@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.npm.taobao.org/theme-switcher-tool/download/theme-switcher-tool-1.0.3.tgz?cache=0&sync_timestamp=1612715162617&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftheme-switcher-tool%2Fdownload%2Ftheme-switcher-tool-1.0.3.tgz#91ce64a9b920a5e7c139e85b5052aacc46c9828a"
+  integrity sha1-kc5kqbkgpefBOehbUFKqzEbJgoo=
+
 thenify-all@^1.0.0:
   version "1.6.0"
   resolved "https://registry.npm.taobao.org/thenify-all/download/thenify-all-1.6.0.tgz#1a1918d402d8fc3f98fbf234db0bcc8cc10e9726"

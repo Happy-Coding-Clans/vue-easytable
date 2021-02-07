@@ -28,6 +28,7 @@ export default {
             runInline: "在线运行"
         },
         completeDemo: {
+            theme: "暗黑主题：",
             columnFixed: "列固定：",
             loading: "Loading：",
             expand: "行展开：",
@@ -60,6 +61,7 @@ export default {
             runInline: "Open in CodePen"
         },
         completeDemo: {
+            theme: "Dark Theme:",
             columnFixed: "Fixed Columns:",
             loading: "Loading:",
             expand: "Row Expand:",

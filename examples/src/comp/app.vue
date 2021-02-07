@@ -137,13 +137,14 @@
 <script>
 import locale from "./locale";
 import I18nMixins from "./mixins/i18n-mixins";
+import ThemeSwitchMixins from "./mixins/theme-switch-mixins.js";
 import clickoutside from "./directives/clickoutside.js";
 
 export default {
     directives: {
         "click-outside": clickoutside
     },
-    mixins: [I18nMixins],
+    mixins: [I18nMixins, ThemeSwitchMixins],
     data() {
         return {
             title: "vue-easytable",

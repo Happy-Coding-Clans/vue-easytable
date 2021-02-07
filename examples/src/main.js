@@ -45,8 +45,18 @@ import zhCN from "../../libs/locale/lang/zh-CN";
 import enUS from "../../libs/locale/lang/en-US";
 VeLocale.use(zhCN); */
 
-// dev
-import "../../packages/theme-default/index.less";
+// 设置当前环境
+window.env = process.env.NODE_ENV === "development" ? "dev" : "pro";
+
+/*
+dev mode
+1、生产环境使用已发布的样式文件，参考 theme-switch-mixins.js
+*/
+
+if (window.env === "dev") {
+    require("../../packages/theme-default/index.less");
+}
+
 import {
     VeCheckbox,
     VeDropdown,
@@ -78,9 +88,6 @@ Vue.use(vueEasytable); */
 /* import "../../libs/theme-default/index.css";
 import vueEasytable from "../../libs/main.js";
 Vue.use(vueEasytable); */
-
-// 设置当前环境
-window.env = process.env.NODE_ENV === "development" ? "dev" : "pro";
 
 router.beforeEach((to, from, next) => {
     NProgress.start();

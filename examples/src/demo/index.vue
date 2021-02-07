@@ -4,6 +4,17 @@
             <div class="operation">
                 <el-row :gutter="20">
                     <el-col :span="3">
+                        {{ currentLocal["theme"] }}
+                        <el-switch
+                            v-model="enableDarkTheme"
+                            :active-color="switchActiveColor"
+                            :inactive-color="switchInactiveColor"
+                            @change="switchTheme"
+                        >
+                        </el-switch>
+                    </el-col>
+
+                    <el-col :span="3">
                         {{ currentLocal["columnFixed"] }}
                         <el-switch
                             v-model="enableColumnFixed"
@@ -28,7 +39,6 @@
                             v-model="enableExpand"
                             :active-color="switchActiveColor"
                             :inactive-color="switchInactiveColor"
-                            @change="switchLoading"
                         >
                         </el-switch>
                     </el-col>
@@ -38,7 +48,6 @@
                             v-model="enableRowRadio"
                             :active-color="switchActiveColor"
                             :inactive-color="switchInactiveColor"
-                            @change="switchLoading"
                         >
                         </el-switch>
                     </el-col>
@@ -48,11 +57,9 @@
                             v-model="enableRowCheckbox"
                             :active-color="switchActiveColor"
                             :inactive-color="switchInactiveColor"
-                            @change="switchLoading"
                         >
                         </el-switch>
                     </el-col>
-                    <el-col :span="3"><div></div></el-col>
                     <el-col :span="3"><div></div></el-col>
                     <el-col :span="3"><div></div></el-col>
                 </el-row>
@@ -83,16 +90,18 @@
 import Mock from "mockjs";
 import locale from "../comp/locale";
 import I18nMixins from "../comp/mixins/i18n-mixins";
+import ThemeSwitchMixins from "../comp/mixins/theme-switch-mixins.js";
 export default {
     components: {
         /* Footer */
     },
-    mixins: [I18nMixins],
+    mixins: [I18nMixins, ThemeSwitchMixins],
     data() {
         return {
             switchActiveColor: "#1890ff",
             switchInactiveColor: "rgba(0,0,0,.25)",
 
+            enableDarkTheme: false,
             enableColumnFixed: true,
             enableLoading: false,
             enableExpand: true,
@@ -114,17 +123,17 @@ export default {
             },
             radioOption: {
                 selectedRowChange: ({ row }) => {
-                    console.log(row);
+                    //console.log(row);
                 }
             },
             checkboxOptipon: {
                 // row select change event
                 selectedRowChange: ({ row, isSelected, selectedRowKeys }) => {
-                    console.log(row, isSelected, selectedRowKeys);
+                    //console.log(row, isSelected, selectedRowKeys);
                 },
                 // selected all change event
                 selectedAllChange: ({ isSelected, selectedRowKeys }) => {
-                    console.log(isSelected, selectedRowKeys);
+                    //console.log(isSelected, selectedRowKeys);
                 }
             },
             expandOption: {
@@ -371,6 +380,20 @@ export default {
         }
     },
     methods: {
+        // switch theme
+        switchTheme() {
+            this.loadingInstance.show();
+
+            const themeName = this.enableDarkTheme
+                ? "theme-dark"
+                : "theme-default";
+
+            this.switchThemeMix(themeName).finally(() => {
+                this.loadingInstance.close();
+            });
+        },
+
+        // switch loading
         switchLoading() {
             if (this.enableLoading) {
                 this.loadingInstance.show();
