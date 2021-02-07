@@ -371,12 +371,6 @@ export default {
         }
     },
     methods: {
-        /* showLoading() {
-            this.loadingInstance.show();
-        },
-        closeLoading() {
-            this.loadingInstance.close();
-        }, */
         switchLoading() {
             if (this.enableLoading) {
                 this.loadingInstance.show();
