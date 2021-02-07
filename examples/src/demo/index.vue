@@ -440,6 +440,9 @@ export default {
             // target:"#loading-container"
             name: "grid"
         });
+    },
+    destroyed() {
+        this.switchThemeMix("theme-default");
     }
 };
 </script>

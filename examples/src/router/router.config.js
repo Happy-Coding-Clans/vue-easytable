@@ -19,7 +19,7 @@ export default [
                 path: "demo",
                 component: () => import("../demo/index.vue"),
                 name: "示例",
-                meta: { keepAlive: true, hide: true }
+                meta: { keepAlive: false, hide: true }
             },
             {
                 path: "doc",
@@ -38,7 +38,7 @@ export default [
                 path: "demo",
                 component: () => import("../demo/index.vue"),
                 name: "示例",
-                meta: { keepAlive: true, hide: true }
+                meta: { keepAlive: false, hide: true }
             },
             {
                 path: "doc",
