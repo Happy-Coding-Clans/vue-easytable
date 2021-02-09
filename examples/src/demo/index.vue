@@ -65,19 +65,9 @@
                         <el-col :span="3"></el-col>
                     </el-row>
                 </div>
-                <div class="operation-item">
+              <!--   <div class="operation-item">
                     <el-row :gutter="20">
-                        <el-col :span="3">
-                            <!--  {{ currentLocal["sort"] }}
-                            <el-switch
-                                v-model="enableSort"
-                                :active-color="switchActiveColor"
-                                :inactive-color="switchInactiveColor"
-                                @change="switchTheme"
-                            >
-                            </el-switch> -->
-                        </el-col>
-
+                        <el-col :span="3"></el-col>
                         <el-col :span="3"></el-col>
                         <el-col :span="3"></el-col>
                         <el-col :span="3"></el-col>
@@ -86,7 +76,7 @@
                         <el-col :span="3"></el-col>
                         <el-col :span="3"></el-col>
                     </el-row>
-                </div>
+                </div> -->
             </div>
 
             <ve-table
@@ -134,7 +124,10 @@ export default {
             enableRowCheckbox: false,
 
             // ---------------table options---------------
+            sourceData: [],
             tableData: [],
+            // filter condition
+            filterConditions: [],
             cellStyleOption: {
                 bodyCellClass: ({ row, column, rowIndex }) => {
                     if (column.field === "proficiency") {
@@ -227,7 +220,10 @@ export default {
                 key: "a",
                 title: "#",
                 width: 30,
-                fixed: this.enableColumnFixed ? "left" : ""
+                fixed: this.enableColumnFixed ? "left" : "",
+                renderBodyCell: ({ row, column, rowIndex }, h) => {
+                    return ++rowIndex;
+                }
             });
 
             columns = columns.concat([
@@ -379,6 +375,28 @@ export default {
                     width: 55,
                     fixed: this.enableColumnFixed ? "right" : "",
                     align: "left",
+                    // filter
+                    filter: {
+                        filterList: [
+                            { value: 0, label: "Working", selected: false },
+                            { value: 1, label: "Metting", selected: false },
+                            { value: 2, label: "Traveling", selected: false }
+                        ],
+                        isMultiple: true,
+                        // filter confirm hook
+                        filterConfirm: filterList => {
+                            const values = filterList
+                                .filter(x => x.selected)
+                                .map(x => x.value);
+                            this.searchByNameField(values);
+                        },
+                        // filter reset hook
+                        filterReset: filterList => {
+                            this.searchByNameField([]);
+                        }
+                        // max height
+                        //maxHeight: 120
+                    },
                     renderBodyCell: ({ row, column, rowIndex }, h) => {
                         const cellData = row[column.field];
 
@@ -412,30 +430,46 @@ export default {
         }
     },
     methods: {
-        sortChange(params) {
-            this.tableData.sort((a, b) => {
-                const sortFileld1 = "sex";
-                const sortFileld2 = "proficiency";
-
-                if (params[sortFileld1]) {
-                    if (params[sortFileld1] === "asc") {
-                        return a[sortFileld1] - b[sortFileld1];
-                    } else if (params[sortFileld1] === "desc") {
-                        return b[sortFileld1] - a[sortFileld1];
-                    } else {
-                        return 0;
-                    }
-                } else if (params[sortFileld2]) {
-                    if (params[sortFileld2] === "asc") {
-                        return a[sortFileld2] - b[sortFileld2];
-                    } else if (params[sortFileld2] === "desc") {
-                        return b[sortFileld2] - a[sortFileld2];
-                    } else {
-                        return 0;
-                    }
-                }
-            });
+        // search by name field
+        searchByNameField(values) {
+            this.filterConditions = values;
+            this.filter();
         },
+
+        //
+        filter() {
+            const values = this.filterConditions;
+            this.tableData = this.sourceData
+                .slice(0)
+                .filter(x => values.length === 0 || values.includes(x.status));
+        },
+
+        // sort change
+        sortChange(params) {
+            const sortFileld1 = "sex";
+            const sortFileld2 = "proficiency";
+
+            if (params[sortFileld1] || params[sortFileld2]) {
+                this.tableData.sort((a, b) => {
+                    if (params[sortFileld1]) {
+                        if (params[sortFileld1] === "asc") {
+                            return a[sortFileld1] - b[sortFileld1];
+                        } else if (params[sortFileld1] === "desc") {
+                            return b[sortFileld1] - a[sortFileld1];
+                        }
+                    } else if (params[sortFileld2]) {
+                        if (params[sortFileld2] === "asc") {
+                            return a[sortFileld2] - b[sortFileld2];
+                        } else if (params[sortFileld2] === "desc") {
+                            return b[sortFileld2] - a[sortFileld2];
+                        }
+                    }
+                });
+            } else {
+                this.resetTableData();
+            }
+        },
+
         // switch theme
         switchTheme() {
             this.loadingInstance.show();
@@ -458,7 +492,13 @@ export default {
             }
         },
 
-        initData() {
+        // reset table data
+        resetTableData() {
+            this.tableData = this.sourceData.slice(0);
+            this.filter();
+        },
+
+        initSourceData() {
             const PROFESSIONS = [
                 "Project Manager",
                 "User Interface Designer",
@@ -483,11 +523,12 @@ export default {
                 });
             }
 
-            this.tableData = data;
+            this.sourceData = data;
+            this.resetTableData();
         }
     },
     created() {
-        this.initData();
+        this.initSourceData();
     },
     mounted() {
         this.loadingInstance = this.$veLoading({
