@@ -13,15 +13,25 @@ export default {
          * @param  {Number}     distance            浮层元素和控制元素的上下间距
          */
         layerAdjustmentOnce(layerElement, targetElement, distance) {
-            var viewportOffset = getViewportOffset(targetElement),
-                layerElemHeight =
-                    typeof layerElement.getBoundingClientRect !== "undefined"
-                        ? layerElement.getBoundingClientRect().height
-                        : layerElement.clientHeight;
+            const viewportOffset = getViewportOffset(targetElement);
 
-            if (viewportOffset.bottom < layerElemHeight) {
+            let layerLeftDistance = 0;
+            let layerHeight = 0;
+            let layerWidth = 0;
+
+            if (layerElement) {
+                if (layerElement.getBoundingClientRect) {
+                    layerHeight = layerElement.getBoundingClientRect().height;
+                    layerWidth = layerElement.getBoundingClientRect().width;
+                } else {
+                    layerHeight = layerElement.clientHeight;
+                    layerWidth = layerElement.clientWidth;
+                }
+            }
+
+            if (viewportOffset.bottom < layerHeight) {
                 layerElement.style.top =
-                    viewportOffset.top - layerElemHeight - distance + "px";
+                    viewportOffset.top - layerHeight - distance + "px";
             } else {
                 layerElement.style.top =
                     viewportOffset.top +
@@ -30,7 +40,20 @@ export default {
                     "px";
             }
 
-            layerElement.style.left = viewportOffset.left + "px";
+            const { left: viewportLeft, right: viewportRight } = viewportOffset;
+
+            layerLeftDistance = viewportLeft;
+
+            // 右侧距离不够时，弹出层居左显示
+            if (
+                viewportRight <= layerWidth &&
+                layerLeftDistance >= layerWidth
+            ) {
+                layerLeftDistance =
+                    layerLeftDistance - layerWidth + targetElement.clientWidth;
+            }
+
+            layerElement.style.left = layerLeftDistance + "px";
         },
 
         /*
