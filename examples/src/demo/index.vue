@@ -2,67 +2,91 @@
     <div>
         <div class="site-demo-container">
             <div class="operation">
-                <el-row :gutter="20">
-                    <el-col :span="3">
-                        {{ currentLocal["theme"] }}
-                        <el-switch
-                            v-model="enableDarkTheme"
-                            :active-color="switchActiveColor"
-                            :inactive-color="switchInactiveColor"
-                            @change="switchTheme"
-                        >
-                        </el-switch>
-                    </el-col>
+                <div class="operation-item">
+                    <el-row :gutter="20">
+                        <el-col :span="3">
+                            {{ currentLocal["theme"] }}
+                            <el-switch
+                                v-model="enableDarkTheme"
+                                :active-color="switchActiveColor"
+                                :inactive-color="switchInactiveColor"
+                                @change="switchTheme"
+                            >
+                            </el-switch>
+                        </el-col>
 
-                    <el-col :span="3">
-                        {{ currentLocal["columnFixed"] }}
-                        <el-switch
-                            v-model="enableColumnFixed"
-                            :active-color="switchActiveColor"
-                            :inactive-color="switchInactiveColor"
-                        >
-                        </el-switch>
-                    </el-col>
-                    <el-col :span="3">
-                        {{ currentLocal["loading"] }}
-                        <el-switch
-                            v-model="enableLoading"
-                            :active-color="switchActiveColor"
-                            :inactive-color="switchInactiveColor"
-                            @change="switchLoading"
-                        >
-                        </el-switch>
-                    </el-col>
-                    <el-col :span="3">
-                        {{ currentLocal["expand"] }}
-                        <el-switch
-                            v-model="enableExpand"
-                            :active-color="switchActiveColor"
-                            :inactive-color="switchInactiveColor"
-                        >
-                        </el-switch>
-                    </el-col>
-                    <el-col :span="3">
-                        {{ currentLocal["radio"] }}
-                        <el-switch
-                            v-model="enableRowRadio"
-                            :active-color="switchActiveColor"
-                            :inactive-color="switchInactiveColor"
-                        >
-                        </el-switch>
-                    </el-col>
-                    <el-col :span="3">
-                        {{ currentLocal["checkbox"] }}
-                        <el-switch
-                            v-model="enableRowCheckbox"
-                            :active-color="switchActiveColor"
-                            :inactive-color="switchInactiveColor"
-                        >
-                        </el-switch>
-                    </el-col>
-                    <el-col :span="3"><div></div></el-col>
-                    <el-col :span="3"><div></div></el-col>
-                </el-row>
+                        <el-col :span="3">
+                            {{ currentLocal["columnFixed"] }}
+                            <el-switch
+                                v-model="enableColumnFixed"
+                                :active-color="switchActiveColor"
+                                :inactive-color="switchInactiveColor"
+                            >
+                            </el-switch>
+                        </el-col>
+                        <el-col :span="3">
+                            {{ currentLocal["loading"] }}
+                            <el-switch
+                                v-model="enableLoading"
+                                :active-color="switchActiveColor"
+                                :inactive-color="switchInactiveColor"
+                                @change="switchLoading"
+                            >
+                            </el-switch>
+                        </el-col>
+                        <el-col :span="3">
+                            {{ currentLocal["expand"] }}
+                            <el-switch
+                                v-model="enableExpand"
+                                :active-color="switchActiveColor"
+                                :inactive-color="switchInactiveColor"
+                            >
+                            </el-switch>
+                        </el-col>
+                        <el-col :span="3">
+                            {{ currentLocal["radio"] }}
+                            <el-switch
+                                v-model="enableRowRadio"
+                                :active-color="switchActiveColor"
+                                :inactive-color="switchInactiveColor"
+                            >
+                            </el-switch>
+                        </el-col>
+                        <el-col :span="3">
+                            {{ currentLocal["checkbox"] }}
+                            <el-switch
+                                v-model="enableRowCheckbox"
+                                :active-color="switchActiveColor"
+                                :inactive-color="switchInactiveColor"
+                            >
+                            </el-switch>
+                        </el-col>
+                        <el-col :span="3"></el-col>
+                        <el-col :span="3"></el-col>
+                    </el-row>
+                </div>
+                <div class="operation-item">
+                    <el-row :gutter="20">
+                        <el-col :span="3">
+                            <!--  {{ currentLocal["sort"] }}
+                            <el-switch
+                                v-model="enableSort"
+                                :active-color="switchActiveColor"
+                                :inactive-color="switchInactiveColor"
+                                @change="switchTheme"
+                            >
+                            </el-switch> -->
+                        </el-col>
+
+                        <el-col :span="3"></el-col>
+                        <el-col :span="3"></el-col>
+                        <el-col :span="3"></el-col>
+                        <el-col :span="3"></el-col>
+                        <el-col :span="3"></el-col>
+                        <el-col :span="3"></el-col>
+                        <el-col :span="3"></el-col>
+                    </el-row>
+                </div>
             </div>
 
             <ve-table
@@ -71,6 +95,7 @@
                 border-y
                 :max-height="600"
                 :scroll-width="2000"
+                :sort-option="sortOption"
                 :virtual-scroll-option="virtualScrollOption"
                 :columns="columns"
                 :table-data="tableData"
@@ -120,6 +145,11 @@ export default {
             virtualScrollOption: {
                 // 是否开启
                 enable: true
+            },
+            sortOption: {
+                sortChange: params => {
+                    this.sortChange(params);
+                }
             },
             radioOption: {
                 selectedRowChange: ({ row }) => {
@@ -218,6 +248,7 @@ export default {
                             title: "Sex",
                             width: 50,
                             align: "center",
+                            sortBy: "",
                             renderBodyCell: ({ row, column, rowIndex }, h) => {
                                 const cellData = row[column.field];
 
@@ -255,6 +286,7 @@ export default {
                                     key: "e",
                                     title: "Proficiency",
                                     width: 150,
+                                    sortBy: "",
                                     renderBodyCell: (
                                         { row, column, rowIndex },
                                         h
@@ -380,6 +412,30 @@ export default {
         }
     },
     methods: {
+        sortChange(params) {
+            this.tableData.sort((a, b) => {
+                const sortFileld1 = "sex";
+                const sortFileld2 = "proficiency";
+
+                if (params[sortFileld1]) {
+                    if (params[sortFileld1] === "asc") {
+                        return a[sortFileld1] - b[sortFileld1];
+                    } else if (params[sortFileld1] === "desc") {
+                        return b[sortFileld1] - a[sortFileld1];
+                    } else {
+                        return 0;
+                    }
+                } else if (params[sortFileld2]) {
+                    if (params[sortFileld2] === "asc") {
+                        return a[sortFileld2] - b[sortFileld2];
+                    } else if (params[sortFileld2] === "desc") {
+                        return b[sortFileld2] - a[sortFileld2];
+                    } else {
+                        return 0;
+                    }
+                }
+            });
+        },
         // switch theme
         switchTheme() {
             this.loadingInstance.show();
@@ -454,6 +510,10 @@ export default {
 
     .operation {
         margin: 30px 0;
+
+        .operation-item {
+            height: 50px;
+        }
     }
 
     // demo sex field
