@@ -14,7 +14,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/huangshuwei/vue-easytable.git"
+    "url": "git+https://github.com/Happy-Coding-Clans/vue-easytable.git"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -109,7 +109,7 @@
     ]
   },
   "bugs": {
-    "url": "https://github.com/huangshuwei/vue-easytable/issues"
+    "url": "https://github.com/Happy-Coding-Clans/vue-easytable/issues"
   },
-  "homepage": "https://github.com/huangshuwei/vue-easytable/blob/master/README.md"
+  "homepage": "https://github.com/Happy-Coding-Clans/vue-easytable/blob/master/README.md"
 }
