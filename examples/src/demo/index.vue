@@ -221,9 +221,9 @@ export default {
                 title: "#",
                 width: 30,
                 fixed: this.enableColumnFixed ? "left" : "",
-                renderBodyCell: ({ row, column, rowIndex }, h) => {
+                /* renderBodyCell: ({ row, column, rowIndex }, h) => {
                     return ++rowIndex;
-                }
+                } */
             });
 
             columns = columns.concat([
@@ -244,7 +244,7 @@ export default {
                             title: "Sex",
                             width: 50,
                             align: "center",
-                            sortBy: "",
+                            //sortBy: "",
                             renderBodyCell: ({ row, column, rowIndex }, h) => {
                                 const cellData = row[column.field];
 
@@ -282,7 +282,7 @@ export default {
                                     key: "e",
                                     title: "Proficiency",
                                     width: 150,
-                                    sortBy: "",
+                                    //sortBy: "",
                                     renderBodyCell: (
                                         { row, column, rowIndex },
                                         h
@@ -376,7 +376,7 @@ export default {
                     fixed: this.enableColumnFixed ? "right" : "",
                     align: "left",
                     // filter
-                    filter: {
+                   /*  filter: {
                         filterList: [
                             { value: 0, label: "Working", selected: false },
                             { value: 1, label: "Metting", selected: false },
@@ -396,7 +396,7 @@ export default {
                         }
                         // max height
                         //maxHeight: 120
-                    },
+                    }, */
                     renderBodyCell: ({ row, column, rowIndex }, h) => {
                         const cellData = row[column.field];
 
