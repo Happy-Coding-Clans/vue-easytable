@@ -21,13 +21,22 @@
   export default {
     data() {
       return {
+        scrollStartIndex: 0,
         virtualScrollOption: {
           // 是否开启
           enable: true,
+          scrolling: this.scrolling,
         },
 
         columns: [
-          { field: "name", key: "b", title: "Name", width: 200, align: "left" },
+          {
+            field: "name",
+            key: "b",
+            title: "Name",
+            width: 200,
+            align: "left",
+            renderBodyCell: this.renderRowIndex,
+          },
           { field: "hobby", key: "c", title: "Hobby", width: 300, align: "left" },
           { field: "address", key: "d", title: "Address", width: "", align: "left" },
         ],
@@ -35,8 +44,30 @@
       };
     },
     methods: {
-      getRandom(min, max) {
-        return Math.floor(Math.random() * (max - min) + min);
+      // virtual scrolling
+      scrolling({
+        scrollStartIndex,
+        visibleStartIndex,
+        visibleEndIndex,
+        visibleAboveCount,
+        visibleBelowCount,
+      }) {
+        this.scrollStartIndex = scrollStartIndex;
+        console.log(
+          scrollStartIndex,
+          visibleStartIndex,
+          visibleEndIndex,
+          visibleAboveCount,
+          visibleBelowCount
+        );
+      },
+      renderRowIndex({ row, column, rowIndex }) {
+        console.log(rowIndex);
+        return (
+          <span class="text-bold" style="color:#1890ff;">
+            {rowIndex + this.scrollStartIndex + 1}
+          </span>
+        );
       },
       initData() {
         let data = [];

@@ -4,7 +4,7 @@ import {
     clsName,
     getNotFixedTotalWidthByColumnKey
 } from "./util";
-import { getValByUnit } from "../../src/utils/index.js";
+import { getValByUnit, isFunction } from "../../src/utils/index.js";
 import emitter from "../../src/mixins/emitter";
 import { COMPS_NAME, EMIT_EVENTS, COMPS_CUSTOM_ATTRS } from "./util/constant";
 import Colgroup from "./colgroup";
@@ -908,20 +908,44 @@ export default {
             this.setScrolling();
 
             if (this.isVirtualScroll) {
-                const { virtualScrollVisibleCount: visibleCount } = this;
+                const {
+                    virtualScrollVisibleCount: visibleCount,
+                    virtualScrollOption,
+                    virtualScrollAboveCount: visibleAboveCount,
+                    virtualScrollBelowCount: visibleBelowCount
+                } = this;
 
                 //当前滚动位置
                 let scrollTop = tableContainerRef.scrollTop;
 
                 //此时的开始索引
-                this.virtualScrollStartIndex = this.getVirtualScrollStartIndex(
+                let visibleStartIndex = this.getVirtualScrollStartIndex(
                     scrollTop
                 );
+                this.virtualScrollStartIndex = visibleStartIndex;
+
                 //此时的结束索引
-                this.virtualScrollEndIndex =
+                let visibleEndIndex =
                     this.virtualScrollStartIndex + visibleCount;
+                this.virtualScrollEndIndex = visibleEndIndex;
+
                 //此时的偏移量
                 this.setVirtualScrollStartOffset();
+
+                const { scrolling } = virtualScrollOption;
+                if (isFunction(scrolling)) {
+                    let scrollStartIndex =
+                        visibleStartIndex - visibleAboveCount;
+
+                    scrolling({
+                        scrollStartIndex:
+                            scrollStartIndex > 0 ? scrollStartIndex : 0,
+                        visibleStartIndex,
+                        visibleEndIndex,
+                        visibleAboveCount,
+                        visibleBelowCount
+                    });
+                }
             }
         },
         // init virtual scroll

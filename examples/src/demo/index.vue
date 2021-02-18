@@ -65,7 +65,7 @@
                         <el-col :span="3"></el-col>
                     </el-row>
                 </div>
-              <!--   <div class="operation-item">
+                <!--   <div class="operation-item">
                     <el-row :gutter="20">
                         <el-col :span="3"></el-col>
                         <el-col :span="3"></el-col>
@@ -126,6 +126,7 @@ export default {
             // ---------------table options---------------
             sourceData: [],
             tableData: [],
+            scrollStartIndex: 0,
             // filter condition
             filterConditions: [],
             cellStyleOption: {
@@ -137,7 +138,8 @@ export default {
             },
             virtualScrollOption: {
                 // 是否开启
-                enable: true
+                enable: true,
+                scrolling: this.scrolling
             },
             sortOption: {
                 sortChange: params => {
@@ -221,9 +223,7 @@ export default {
                 title: "#",
                 width: 30,
                 fixed: this.enableColumnFixed ? "left" : "",
-                /* renderBodyCell: ({ row, column, rowIndex }, h) => {
-                    return ++rowIndex;
-                } */
+                renderBodyCell: this.renderRowIndex
             });
 
             columns = columns.concat([
@@ -244,7 +244,7 @@ export default {
                             title: "Sex",
                             width: 50,
                             align: "center",
-                            //sortBy: "",
+                            sortBy: "",
                             renderBodyCell: ({ row, column, rowIndex }, h) => {
                                 const cellData = row[column.field];
 
@@ -282,7 +282,7 @@ export default {
                                     key: "e",
                                     title: "Proficiency",
                                     width: 150,
-                                    //sortBy: "",
+                                    sortBy: "",
                                     renderBodyCell: (
                                         { row, column, rowIndex },
                                         h
@@ -336,8 +336,8 @@ export default {
                                                 name: "Python",
                                                 color: "#d8899c"
                                             },
-                                            { name: "java", color: "#a88cd9" },
-                                            { name: "C++", color: "#88d317" }
+                                            { name: "java", color: "#a88cd9" }
+                                            /* { name: "C++", color: "#88d317" } */
                                         ];
 
                                         const skills = LANGS.slice(0, cellData);
@@ -376,7 +376,7 @@ export default {
                     fixed: this.enableColumnFixed ? "right" : "",
                     align: "left",
                     // filter
-                   /*  filter: {
+                    filter: {
                         filterList: [
                             { value: 0, label: "Working", selected: false },
                             { value: 1, label: "Metting", selected: false },
@@ -396,7 +396,7 @@ export default {
                         }
                         // max height
                         //maxHeight: 120
-                    }, */
+                    },
                     renderBodyCell: ({ row, column, rowIndex }, h) => {
                         const cellData = row[column.field];
 
@@ -430,6 +430,21 @@ export default {
         }
     },
     methods: {
+        // virtual scrolling
+        scrolling({
+            scrollStartIndex,
+            visibleStartIndex,
+            visibleEndIndex,
+            visibleAboveCount,
+            visibleBelowCount
+        }) {
+            this.scrollStartIndex = scrollStartIndex;
+        },
+
+        renderRowIndex({ row, column, rowIndex }) {
+            return <span>{rowIndex + this.scrollStartIndex + 1}</span>;
+        },
+
         // search by name field
         searchByNameField(values) {
             this.filterConditions = values;
@@ -517,7 +532,7 @@ export default {
                     sex: Mock.Random.boolean() ? 1 : 2,
                     profession: PROFESSIONS[Mock.Random.natural(0, 5)],
                     proficiency: Mock.Random.natural(5, 85),
-                    skills: Mock.Random.natural(0, 4),
+                    skills: Mock.Random.natural(0, 3),
                     address: Mock.Random.county(true),
                     status: Mock.Random.natural(0, 2)
                 });
