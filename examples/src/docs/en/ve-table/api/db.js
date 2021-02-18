@@ -602,6 +602,14 @@ export const db = {
                 type: "<code>Number</code>",
                 optionalVal: "-",
                 default: "42"
+            },
+            {
+                param: "scrolling",
+                desc: `滚动回调事件。`,
+                type:
+                    "<code>Function({scrollStartIndex,visibleStartIndex,visibleEndIndex,visibleAboveCount,visibleBelowCount})</code>",
+                optionalVal: "-",
+                default: "42"
             }
             /* {
                 param: "bufferScale",
