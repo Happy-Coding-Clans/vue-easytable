@@ -126,7 +126,7 @@ export default {
             // ---------------table options---------------
             sourceData: [],
             tableData: [],
-            scrollStartIndex: 0,
+            startRowIndex: 0,
             // filter condition
             filterConditions: [],
             cellStyleOption: {
@@ -432,17 +432,17 @@ export default {
     methods: {
         // virtual scrolling
         scrolling({
-            scrollStartIndex,
+            startRowIndex,
             visibleStartIndex,
             visibleEndIndex,
             visibleAboveCount,
             visibleBelowCount
         }) {
-            this.scrollStartIndex = scrollStartIndex;
+            this.startRowIndex = startRowIndex;
         },
 
         renderRowIndex({ row, column, rowIndex }) {
-            return <span>{rowIndex + this.scrollStartIndex + 1}</span>;
+            return <span>{rowIndex + this.startRowIndex + 1}</span>;
         },
 
         // search by name field

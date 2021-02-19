@@ -19,7 +19,7 @@
   export default {
     data() {
       return {
-        scrollStartIndex: 0,
+        startRowIndex: 0,
         virtualScrollOption: {
           // 是否开启
           enable: true,
@@ -44,15 +44,15 @@
     methods: {
       // virtual scrolling
       scrolling({
-        scrollStartIndex,
+        startRowIndex,
         visibleStartIndex,
         visibleEndIndex,
         visibleAboveCount,
         visibleBelowCount,
       }) {
-        this.scrollStartIndex = scrollStartIndex;
+        this.startRowIndex = startRowIndex;
         /* console.log(
-          scrollStartIndex,
+          startRowIndex,
           visibleStartIndex,
           visibleEndIndex,
           visibleAboveCount,
@@ -62,7 +62,7 @@
       renderRowIndex({ row, column, rowIndex }) {
         return (
           <span class="text-bold" style="color:#1890ff;">
-            {rowIndex + this.scrollStartIndex + 1}
+            {rowIndex + this.startRowIndex + 1}
           </span>
         );
       },

@@ -21,7 +21,6 @@
   export default {
     data() {
       return {
-        scrollStartIndex: 0,
         virtualScrollOption: {
           // 是否开启
           enable: true,
