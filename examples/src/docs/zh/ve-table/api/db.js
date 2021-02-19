@@ -599,7 +599,7 @@ export const db = {
                 desc: `滚动回调事件。`,
                 type: "Function({startRowIndex,visibleStartIndex,visibleEndIndex,visibleAboveCount,visibleBelowCount})",
                 optionalVal: "-",
-                default: "42"
+                default: "-"
             }
             /* {
                 param: "bufferScale",

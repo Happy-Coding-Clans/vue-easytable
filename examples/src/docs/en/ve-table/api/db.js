@@ -607,9 +607,9 @@ export const db = {
                 param: "scrolling",
                 desc: `滚动回调事件。`,
                 type:
-                    "Function({scrollStartIndex,visibleStartIndex,visibleEndIndex,visibleAboveCount,visibleBelowCount})",
+                    "Function({startRowIndex,visibleStartIndex,visibleEndIndex,visibleAboveCount,visibleBelowCount})",
                 optionalVal: "-",
-                default: "42"
+                default: "-"
             }
             /* {
                 param: "bufferScale",
