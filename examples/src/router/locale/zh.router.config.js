@@ -235,7 +235,7 @@ const config = [
                 component: () =>
                     import("@/docs/zh/ve-table/virtual-scroll/main.vue"),
                 name: "虚拟滚动",
-                meta: { keepAlive: true }
+                meta: { keepAlive: false }
             },
             {
                 path: "event-custom",

@@ -243,7 +243,7 @@ const config = [
                 component: () =>
                     import("@/docs/en/ve-table/virtual-scroll/main.vue"),
                 name: "Virtual Scroll",
-                meta: { keepAlive: true }
+                meta: { keepAlive: false }
             },
             {
                 path: "event-custom",
