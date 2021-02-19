@@ -25,6 +25,7 @@
           enable: true,
         },
         columns: [
+          { field: "index", key: "a", title: "#", width: 100, align: "left" },
           {
             field: "name",
             key: "b",
@@ -48,21 +49,23 @@
       initData() {
         let data = [];
         for (let i = 0; i < 10000; i++) {
-          let value = i;
+          let value = "";
           if (i % 2 === 0) {
             const rowCount = this.getRandom(3, 5);
 
             for (let i = 0; i < rowCount; i++) {
               value += `this is the long word.<br />`;
             }
+          } else {
+            value = `name${i}`;
           }
 
           data.push({
             rowKey: i,
+            index: i,
             name: value,
-            date: i,
-            hobby: i,
-            address: i,
+            hobby: `hobby${i}`,
+            address: `address${i}`,
           });
         }
 

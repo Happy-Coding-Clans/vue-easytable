@@ -43,7 +43,7 @@
             // type=checkbox
             type: "checkbox",
             title: "",
-            width: 50,
+            width: 100,
             align: "center",
           },
           {
@@ -68,10 +68,9 @@
         for (let i = 0; i < 10000; i++) {
           data.push({
             rowKey: i,
-            name: i,
-            date: i,
-            hobby: i,
-            address: i,
+            name: `name${i}`,
+            hobby: `hobby${i}`,
+            address: `address${i}`,
           });
         }
 

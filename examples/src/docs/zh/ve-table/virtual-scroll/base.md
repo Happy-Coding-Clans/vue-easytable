@@ -24,6 +24,7 @@
           enable: true,
         },
         columns: [
+          { field: "index", key: "a", title: "#", width: 100, align: "left" },
           { field: "name", key: "b", title: "Name", width: 200, align: "left" },
           { field: "hobby", key: "c", title: "Hobby", width: 300, align: "left" },
           { field: "address", key: "d", title: "Address", width: "", align: "left" },
@@ -37,10 +38,10 @@
         for (let i = 0; i < 10000; i++) {
           data.push({
             rowKey: i,
-            name: i,
-            date: i,
-            hobby: i,
-            address: i,
+            index: i,
+            name: `name${i}`,
+            hobby: `hobby${i}`,
+            address:`address${i}`,
           });
         }
 

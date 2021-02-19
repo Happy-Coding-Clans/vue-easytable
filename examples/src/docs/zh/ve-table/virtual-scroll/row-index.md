@@ -1,15 +1,13 @@
-:::anchor Combination Row Expand
+:::anchor 行号问题
 
-:::demo Row expand, Need specify `rowKeyFieldName` property
+:::demo 1、表格设置了虚拟滚动，footer 汇总自动支持，无需额外配置
 
 ```html
 <template>
   <div>
     <ve-table
-      fixed-header
       :max-height="500"
       :virtual-scroll-option="virtualScrollOption"
-      :expand-option="expandOption"
       :columns="columns"
       :table-data="tableData"
       row-key-field-name="rowKey"
@@ -21,40 +19,21 @@
   export default {
     data() {
       return {
+        scrollStartIndex: 0,
         virtualScrollOption: {
           // 是否开启
           enable: true,
-        },
-        expandOption: {
-          render: ({ row, column, rowIndex }, h) => {
-            return (
-              <p>
-                My name is <span style="color:#1890ff;">{row.name}</span>,I'm living in{" "}
-                {row.address}
-              </p>
-            );
-          },
+          scrolling: this.scrolling,
         },
 
         columns: [
-          {
-            field: "",
-            key: "a",
-            // type=expand
-            type: "expand",
-            title: "",
-            width: 50,
-            align: "center",
-          },
           {
             field: "name",
             key: "b",
             title: "Name",
             width: 200,
             align: "left",
-            renderBodyCell: ({ row }, h) => {
-              return <span domPropsInnerHTML={row.name}></span>;
-            },
+            renderBodyCell: this.renderRowIndex,
           },
           { field: "hobby", key: "c", title: "Hobby", width: 300, align: "left" },
           { field: "address", key: "d", title: "Address", width: "", align: "left" },
@@ -63,14 +42,39 @@
       };
     },
     methods: {
+      // virtual scrolling
+      scrolling({
+        scrollStartIndex,
+        visibleStartIndex,
+        visibleEndIndex,
+        visibleAboveCount,
+        visibleBelowCount,
+      }) {
+        this.scrollStartIndex = scrollStartIndex;
+        /* console.log(
+          scrollStartIndex,
+          visibleStartIndex,
+          visibleEndIndex,
+          visibleAboveCount,
+          visibleBelowCount
+        ); */
+      },
+      renderRowIndex({ row, column, rowIndex }) {
+        return (
+          <span class="text-bold" style="color:#1890ff;">
+            {rowIndex + this.scrollStartIndex + 1}
+          </span>
+        );
+      },
       initData() {
         let data = [];
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 1000; i++) {
           data.push({
             rowKey: i,
-            name: `name${i}`,
-            hobby: `hobby${i}`,
-            address: `address${i}`,
+            name: i,
+            date: i,
+            hobby: i,
+            address: i,
           });
         }
 
