@@ -934,12 +934,12 @@ export default {
 
                 const { scrolling } = virtualScrollOption;
                 if (isFunction(scrolling)) {
-                    let scrollStartIndex =
+                    let startRowIndex =
                         visibleStartIndex - visibleAboveCount;
 
                     scrolling({
-                        scrollStartIndex:
-                            scrollStartIndex > 0 ? scrollStartIndex : 0,
+                        startRowIndex:
+                            startRowIndex > 0 ? startRowIndex : 0,
                         visibleStartIndex,
                         visibleEndIndex,
                         visibleAboveCount,
