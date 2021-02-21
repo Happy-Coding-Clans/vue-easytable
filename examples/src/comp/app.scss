@@ -45,7 +45,7 @@ $--right-content-index: 1;
   .main-banner {
     width: 100%;
     position: fixed;
-    top: 0;
+    top: 2px;
     height: 60px;
     background-color: #fff;
     z-index: $--header-index;
@@ -102,8 +102,7 @@ $--right-content-index: 1;
                 padding: 8px 0;
                 border: 1px solid #d1dbe5;
                 background-color: #fff;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12),
-                  0 0 6px rgba(0, 0, 0, 0.04);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
 
                 &.dropdown-pannel-show {
                   display: block;
