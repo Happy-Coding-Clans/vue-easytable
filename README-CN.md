@@ -1,7 +1,7 @@
 [![npm](https://img.shields.io/npm/v/vue-easytable.svg)](https://www.npmjs.com/package/vue-easytable)
 [![vue2](https://img.shields.io/badge/vue-2.6+-brightgreen.svg)](https://vuejs.org/)
 [![NPM downloads](https://img.shields.io/npm/dm/vue-easytable.svg?style=flat)](https://npmjs.org/package/vue-easytable)
-[![codecov](https://codecov.io/gh/huangshuwei/vue-easytable/branch/master/graph/badge.svg)](https://codecov.io/gh/huangshuwei/vue-easytable)
+[![codecov](https://codecov.io/gh/Happy-Coding-Clans/vue-easytable/branch/master/graph/badge.svg?token=UJy3LHInUn)](https://codecov.io/gh/Happy-Coding-Clans/vue-easytable)
 [![Build Status](https://travis-ci.com/Happy-Coding-Clans/vue-easytable.svg?branch=master)](https://travis-ci.com/Happy-Coding-Clans/vue-easytable)
 [![license](https://img.shields.io/npm/l/vue-easytable.svg?maxAge=2592000)](http://www.opensource.org/licenses/mit-license.php)
 [![chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/gBm3k6r)
