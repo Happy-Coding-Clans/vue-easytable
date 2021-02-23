@@ -36,15 +36,30 @@
                     controlText
                 }}</span>
             </transition>
+            <!--    <transition name="text-slide">
+                <div
+                    v-show="hovering || isExpanded"
+                    size="small"
+                    type="text"
+                    class="slide-content online-edit-btn"
+                >
+                    {{ demoLangInfo.runInline }}
+                </div>
+            </transition> -->
             <transition name="text-slide">
                 <div
                     v-show="hovering || isExpanded"
                     size="small"
                     type="text"
-                    class="slide-content codePenBtn"
-                    @click.stop="goCodepen"
+                    class="slide-content online-edit-btn"
                 >
-                    {{ demoLangInfo.runInline }}
+                    <CodeSandBoxOnline
+                        :btn-name="demoLangInfo['openInCodeSandBox'] || ''"
+                        :version="onlineExample.version"
+                        :example-tpl="onlineExample.html"
+                        :example-script="onlineExample.script"
+                        :example-style="onlineExample.style"
+                    />
                 </div>
             </transition>
         </div>
@@ -58,12 +73,15 @@ import { version } from "../../../package.json";
 
 import locale from "./locale";
 import I18nMixins from "./mixins/i18n-mixins";
+import CodeSandBoxOnline from "@/comp/online-edit/code-sand-box/index.jsx";
 
 export default {
+    components: { CodeSandBoxOnline },
     mixins: [I18nMixins],
     data() {
         return {
-            codepen: {
+            onlineExample: {
+                version: "",
                 script: "",
                 html: "",
                 style: ""
@@ -136,53 +154,6 @@ export default {
     },
 
     methods: {
-        goCodepen() {
-            const { script, html, style } = this.codepen;
-            const resourcesTpl =
-                "<scr" +
-                'ipt src="//unpkg.com/vue/dist/vue.js"></scr' +
-                "ipt>" +
-                "\n<scr" +
-                `ipt src="//unpkg.com/vue-easytable@${version}/libs/umd/index.js"></scr` +
-                "ipt>";
-            let jsTpl = (script || "")
-                .replace(/export default/, "var Main =")
-                .trim();
-            let htmlTpl = `${resourcesTpl}\n<div id="app">\n${html.trim()}\n</div>`;
-            let cssTpl = `@import url("//unpkg.com/vue-easytable@${version}/libs/theme-default/index.css");\n${(
-                style || ""
-            ).trim()}\n`;
-            jsTpl = jsTpl
-                ? jsTpl +
-                  "\nvar Ctor = Vue.extend(Main)\nnew Ctor().$mount('#app')"
-                : "new Vue().$mount('#app')";
-            const data = {
-                js: jsTpl,
-                css: cssTpl,
-                html: htmlTpl
-            };
-            const form =
-                document.getElementById("fiddle-form") ||
-                document.createElement("form");
-            while (form.firstChild) {
-                form.removeChild(form.firstChild);
-            }
-            form.method = "POST";
-            form.action = "https://codepen.io/pen/define/";
-            form.target = "_blank";
-            form.style.display = "none";
-
-            const input = document.createElement("input");
-            input.setAttribute("name", "data");
-            input.setAttribute("type", "hidden");
-            input.setAttribute("value", JSON.stringify(data));
-
-            form.appendChild(input);
-            document.body.appendChild(form);
-
-            form.submit();
-        },
-
         scrollHandler() {
             const {
                 top,
@@ -205,6 +176,7 @@ export default {
     },
 
     created() {
+        this.onlineExample.version = version;
         const highlight = this.$slots.highlight;
         if (highlight && highlight[0]) {
             let code = "";
@@ -216,9 +188,9 @@ export default {
                 }
             }
             if (code) {
-                this.codepen.html = stripTemplate(code);
-                this.codepen.script = stripScript(code);
-                this.codepen.style = stripStyle(code);
+                this.onlineExample.html = stripTemplate(code);
+                this.onlineExample.script = stripScript(code);
+                this.onlineExample.style = stripStyle(code);
             }
         }
     },
@@ -395,7 +367,7 @@ export default {
             transform: translateX(10px);
         }
 
-        .codePenBtn {
+        .online-edit-btn {
             line-height: 44px;
             position: absolute;
             top: 0;

@@ -25,7 +25,8 @@ export default {
             description: "功能描述",
             expandCode: "展开代码",
             foldCode: "收起代码",
-            runInline: "在线运行"
+            openInCodepen: "在 Codepen 中编辑",
+            openInCodeSandBox: "在 CodeSandBox 中编辑"
         },
         completeDemo: {
             theme: "暗黑主题：",
@@ -58,7 +59,8 @@ export default {
             description: "Code Description",
             expandCode: "Expand Code",
             foldCode: "Hide Code",
-            runInline: "Open in CodePen"
+            openInCodepen: "Edit in Codepen",
+            openInCodeSandBox: "Edit in CodeSandBox"
         },
         completeDemo: {
             theme: "Dark Theme:",
