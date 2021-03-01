@@ -1,6 +1,6 @@
-:::anchor row stripe
+:::anchor Row Stripe
 
-:::demo Turn on row stripe with attribute `stripe`
+:::demo Enable the row stripe with attribute `stripe`
 
 ```html
 <template>

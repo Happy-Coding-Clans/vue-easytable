@@ -1,6 +1,6 @@
 :::anchor Row Click highlight
 
-:::demo By default, line click highlight is on. Must set `row-key-field-name`
+:::demo By default, line click highlight is on, Must set `row-key-field-name`
 
 ```html
 <template>
