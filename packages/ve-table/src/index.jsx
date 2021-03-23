@@ -17,15 +17,6 @@ import clickoutside from "../../src/directives/clickoutside";
 import { mutations } from "./util/store";
 import VueDomResizeObserver from "../../src/comps/resize-observer";
 
-// virtual scroll positions
-let virtualScrollPositions = [
-    /* {
-    rowKey: 0, // 当前行数据索引
-    top: 0, // 距离上一个项的高度
-    bottom: 100, // 距离下一个项的高度
-    height: 100 // 自身高度
-  } */
-];
 export default {
     name: COMPS_NAME.VE_TABLE,
     directives: {
@@ -197,6 +188,17 @@ export default {
             colgroups: [],
             //  groupColumns
             groupColumns: [],
+            /*
+            // virtual scroll positions（非响应式）
+            virtualScrollPositions = [
+                {
+                    rowKey: 0, // 当前行数据索引
+                    top: 0, // 距离上一个项的高度
+                    bottom: 100, // 距离下一个项的高度
+                    height: 100 // 自身高度
+                }
+            ],
+            */
             // virtual scroll start index
             virtualScrollStartIndex: 0,
             // virtual scroll end index
@@ -813,7 +815,7 @@ export default {
                         ? virtualScrollOption.minRowHeight
                         : defaultVirtualScrollMinRowHeight;
 
-                virtualScrollPositions = cloneTableData.map((item, index) => ({
+                this.virtualScrollPositions = cloneTableData.map((item, index) => ({
                     rowKey: item[rowKeyFieldName],
                     height: minRowHeight,
                     top: index * minRowHeight,
@@ -823,24 +825,23 @@ export default {
         },
         // list item height change
         bodyTrHeightChange({ rowKey, height }) {
-            const positions = virtualScrollPositions;
 
             //获取真实元素大小，修改对应的尺寸缓存
-            const index = positions.findIndex(x => x.rowKey === rowKey);
+            const index = this.virtualScrollPositions.findIndex(x => x.rowKey === rowKey);
 
-            let oldHeight = positions[index].height;
+            let oldHeight = this.virtualScrollPositions[index].height;
             let dValue = oldHeight - height;
             //存在差值
             if (dValue) {
-                positions[index].bottom = positions[index].bottom - dValue;
-                positions[index].height = height;
-                for (let k = index + 1; k < positions.length; k++) {
-                    positions[k].top = positions[k - 1].bottom;
-                    positions[k].bottom = positions[k].bottom - dValue;
+                this.virtualScrollPositions[index].bottom = this.virtualScrollPositions[index].bottom - dValue;
+                this.virtualScrollPositions[index].height = height;
+                for (let k = index + 1; k < this.virtualScrollPositions.length; k++) {
+                    this.virtualScrollPositions[k].top = this.virtualScrollPositions[k - 1].bottom;
+                    this.virtualScrollPositions[k].bottom = this.virtualScrollPositions[k].bottom - dValue;
                 }
 
                 //更新列表总高度
-                let totalHeight = positions[positions.length - 1].bottom;
+                let totalHeight = this.virtualScrollPositions[this.virtualScrollPositions.length - 1].bottom;
                 this.$refs[this.virtualPhantomRef].style.height =
                     totalHeight + "px";
 
@@ -855,16 +856,14 @@ export default {
                 virtualScrollAboveCount: aboveCount
             } = this;
 
-            const positions = virtualScrollPositions;
-
             let startOffset;
             if (start >= 1) {
                 let size =
-                    positions[start].top -
-                    (positions[start - aboveCount]
-                        ? positions[start - aboveCount].top
+                this.virtualScrollPositions[start].top -
+                    (this.virtualScrollPositions[start - aboveCount]
+                        ? this.virtualScrollPositions[start - aboveCount].top
                         : 0);
-                startOffset = positions[start - 1].bottom - size;
+                startOffset = this.virtualScrollPositions[start - 1].bottom - size;
             } else {
                 startOffset = 0;
             }
@@ -875,7 +874,7 @@ export default {
         // get virtual scroll start index
         getVirtualScrollStartIndex(scrollTop = 0) {
             return this.virtualScrollBinarySearch(
-                virtualScrollPositions,
+                this.virtualScrollPositions,
                 scrollTop
             );
         },
@@ -934,12 +933,10 @@ export default {
 
                 const { scrolling } = virtualScrollOption;
                 if (isFunction(scrolling)) {
-                    let startRowIndex =
-                        visibleStartIndex - visibleAboveCount;
+                    let startRowIndex = visibleStartIndex - visibleAboveCount;
 
                     scrolling({
-                        startRowIndex:
-                            startRowIndex > 0 ? startRowIndex : 0,
+                        startRowIndex: startRowIndex > 0 ? startRowIndex : 0,
                         visibleStartIndex,
                         visibleEndIndex,
                         visibleAboveCount,
