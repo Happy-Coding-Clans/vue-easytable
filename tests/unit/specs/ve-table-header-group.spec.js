@@ -11,9 +11,9 @@ describe("veTable header group", () => {
             col3: "3",
             col4: "4",
             col5: "5",
-            col6: "6",
-            col7: "7",
-            col8: "8"
+            col6: "6"
+            /* col7: "7",
+            col8: "8" */
         },
         {
             rowkey: 1,
@@ -22,9 +22,9 @@ describe("veTable header group", () => {
             col3: "3",
             col4: "4",
             col5: "5",
-            col6: "6",
-            col7: "7",
-            col8: "8"
+            col6: "6"
+            /*  col7: "7",
+            col8: "8" */
         }
     ];
 
@@ -79,8 +79,8 @@ describe("veTable header group", () => {
                     width: 140
                 }
             ]
-        },
-        {
+        }
+        /*  {
             field: "col7",
             key: "g",
             title: "col7",
@@ -91,7 +91,7 @@ describe("veTable header group", () => {
             key: "h",
             title: "col8",
             width: 160
-        }
+        } */
     ];
 
     it("render", () => {
@@ -106,7 +106,38 @@ describe("veTable header group", () => {
         expect(wrapper.html()).toMatchSnapshot();
     });
 
-    it("test colspan and rowspan", () => {
+    it("row last column", () => {
+        const wrapper = mount(veTable, {
+            propsData: {
+                borderY: true,
+                columns: TABLE_COLUMNS,
+                tableData: TABLE_DATA,
+                rowKeyFieldName: "rowkey"
+            }
+        });
+
+        const trEls = wrapper.findAll(".ve-table-header-tr");
+
+        // first row last column
+        expect(
+            trEls
+                .at(0)
+                .findAll(".ve-table-header-th")
+                .at(2)
+                .classes()
+        ).toContain("ve-table-last-column");
+
+        // second row last column
+        expect(
+            trEls
+                .at(1)
+                .findAll(".ve-table-header-th")
+                .at(3)
+                .classes()
+        ).toContain("ve-table-last-column");
+    });
+
+    it("colspan and rowspan", () => {
         const wrapper = mount(veTable, {
             propsData: {
                 columns: TABLE_COLUMNS,
@@ -120,7 +151,7 @@ describe("veTable header group", () => {
 
         /* first tr ths */
         const firstTrThEls = trEls.at(0).findAll(".ve-table-header-th");
-        expect(firstTrThEls.length).toBe(5);
+        expect(firstTrThEls.length).toBe(3);
         expect(firstTrThEls.at(0).attributes("rowspan")).toBe("3");
         expect(firstTrThEls.at(0).attributes("colspan")).toBe("1");
 
@@ -129,12 +160,6 @@ describe("veTable header group", () => {
 
         expect(firstTrThEls.at(2).attributes("rowspan")).toBe("1");
         expect(firstTrThEls.at(2).attributes("colspan")).toBe("3");
-
-        expect(firstTrThEls.at(3).attributes("rowspan")).toBe("3");
-        expect(firstTrThEls.at(3).attributes("colspan")).toBe("1");
-
-        expect(firstTrThEls.at(4).attributes("rowspan")).toBe("3");
-        expect(firstTrThEls.at(4).attributes("colspan")).toBe("1");
 
         /* second tr ths */
         const secondTrThEls = trEls.at(1).findAll(".ve-table-header-th");
