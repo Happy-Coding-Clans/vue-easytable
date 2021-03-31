@@ -119,8 +119,25 @@ export default {
         },
         // is last column
         isLastCloumn() {
+            let result = false;
+
             const { colgroups, groupColumnItem: column } = this;
-            return colgroups[colgroups.length - 1].field === column.field;
+
+            const lastColumnKey = colgroups[colgroups.length - 1].key;
+
+            const keys = column._keys.split("|");
+
+            if (keys.length) {
+                if (keys.length === 1) {
+                    if (keys[0] === lastColumnKey) {
+                        result = true;
+                    }
+                } else if (keys[keys.length - 2] === lastColumnKey) {
+                    result = true;
+                }
+            }
+
+            return result;
         }
     },
     methods: {
