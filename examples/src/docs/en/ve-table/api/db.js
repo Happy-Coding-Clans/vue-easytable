@@ -605,7 +605,7 @@ export const db = {
             },
             {
                 param: "scrolling",
-                desc: `滚动回调事件。`,
+                desc: `Scrolling callback events.`,
                 type:
                     "Function({startRowIndex,visibleStartIndex,visibleEndIndex,visibleAboveCount,visibleBelowCount})",
                 optionalVal: "-",
