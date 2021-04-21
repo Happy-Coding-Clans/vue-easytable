@@ -253,6 +253,13 @@ const config = [
                 meta: { keepAlive: true }
             },
             {
+                path: "data-empty",
+                component: () =>
+                    import("@/docs/en/ve-table/data-empty/main.vue"),
+                name: "Data Empty",
+                meta: { keepAlive: true }
+            },
+            {
                 path: "api",
                 component: () => import("@/docs/en/ve-table/api/main.vue"),
                 name: "API",
