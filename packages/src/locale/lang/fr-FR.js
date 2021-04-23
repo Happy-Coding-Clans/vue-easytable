@@ -4,8 +4,8 @@ export default {
         page: "",
         itemsPerPage: " / page",
         total: total => `Total ${total}`,
-        prev5: "Avancer de 5 pages",
-        next5: "Reculer de 5 pages"
+        prev5: "Reculer de 5 pages",
+        next5: "Avancer de 5 pages"
     },
     table: {
         confirmFilter: "Confirmer",
