@@ -10,6 +10,22 @@
 
 [English](./README.md) | **中文**
 
+**English** | [中文](./README-CN.md)
+
+<p>
+  <a href="https://www.patreon.com/huangshuwei" target="_blank">
+    <img src="https://c5.patreon.com/external/logo/become_a_patron_button.png" alt="Become a Patreon">
+  </a>
+</p>
+
+## Sponsors
+
+<h3 align="center">Gold Sponsor</h3>
+
+<h3 align="center">Silver Sponsor</h3>
+
+<h3 align="center">Generous Sponsor</h3>
+
 ## 介绍
 
 一个基于 Vue2.x 的表格组件
