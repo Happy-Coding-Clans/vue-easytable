@@ -10,8 +10,6 @@
 
 [English](./README.md) | **中文**
 
-**English** | [中文](./README-CN.md)
-
 <p>
   <a href="https://www.patreon.com/huangshuwei" target="_blank">
     <img src="https://c5.patreon.com/external/logo/become_a_patron_button.png" alt="Become a Patreon">
