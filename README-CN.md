@@ -41,7 +41,7 @@
 - 新增 loading 组件
 - 新增单元测试。覆盖率 > 85%
 - 文档更新
-- 更多内容请查看 [官方文档](http://doc.huangsw.com/vue-easytable/#/zh/doc/intro)
+- 更多内容请查看 [官方文档](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/intro)
 
 ## 特点
 
@@ -51,34 +51,34 @@
 
 ## API & 文档
 
-[官方文档](http://doc.huangsw.com/vue-easytable/)
+[官方文档](http://happy-coding-clans.github.io/vue-easytable/)
 
 ## 功能支持
 
-- [x] [国际化](http://doc.huangsw.com/vue-easytable/#/zh/doc/locale)
-- [x] [主题定制 & 内置主题](http://doc.huangsw.com/vue-easytable/#/zh/doc/theme)
-- [x] [虚拟滚动](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/virtual-scroll)
-- [x] [固定列](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/column-fixed)
-- [x] [固定表头](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/header-fixed)
-- [x] [表头分组](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/header-grouping)
-- [x] [筛选](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/header-filter)
-- [x] [排序](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/header-sort)
-- [x] [单元格样式](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/cell-style)
-- [x] [单元格自定义](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/cell-custom)
-- [x] [单元格合并](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/cell-span)
-- [x] [单元格选择（键盘操作）](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/cell-selection)
-- [x] [单元格省略](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/cell-ellipsis)
-- [x] [行单选](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/row-radio)
-- [x] [行多选](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/row-checkbox)
-- [x] [行展开](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/row-expand)
-- [x] [行样式](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/row-style)
-- [x] [footer 汇总](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/footer-summary)
-- [x] [自定义事件](http://doc.huangsw.com/vue-easytable/#/zh/doc/table/event-custom)
-- [x] [内置 loading 组件](http://doc.huangsw.com/vue-easytable/#/zh/doc/base/loading)
-- [x] [内置分页组件](http://doc.huangsw.com/vue-easytable/#/zh/doc/base/pagination)
-- [更多](http://doc.huangsw.com/vue-easytable)
+- [x] [国际化](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/locale)
+- [x] [主题定制 & 内置主题](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/theme)
+- [x] [虚拟滚动](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/virtual-scroll)
+- [x] [固定列](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/column-fixed)
+- [x] [固定表头](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-fixed)
+- [x] [表头分组](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-grouping)
+- [x] [筛选](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-filter)
+- [x] [排序](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-sort)
+- [x] [单元格样式](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-style)
+- [x] [单元格自定义](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-custom)
+- [x] [单元格合并](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-span)
+- [x] [单元格选择（键盘操作）](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection)
+- [x] [单元格省略](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-ellipsis)
+- [x] [行单选](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-radio)
+- [x] [行多选](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-checkbox)
+- [x] [行展开](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-expand)
+- [x] [行样式](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-style)
+- [x] [footer 汇总](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/footer-summary)
+- [x] [自定义事件](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/event-custom)
+- [x] [内置 loading 组件](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/base/loading)
+- [x] [内置分页组件](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/base/pagination)
+- [更多](http://happy-coding-clans.github.io/vue-easytable)
 
-如果没有你想要的的功能，[请告诉我们](http://doc.huangsw.com/issue-template-generater/#/zh)
+如果没有你想要的的功能，[请告诉我们](http://happy-coding-clans.github.io/issue-template-generater/#/zh)
 
 ## 安装
 

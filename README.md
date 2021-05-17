@@ -41,7 +41,7 @@ Based on vue2.x flexible table components.
 - Support Loading component
 - Add Unit test > 85% coverage
 - Official document update
-- For more information, Refer to [official document ](http://doc.huangsw.com/vue-easytable/#/en/doc/intro)
+- For more information, Refer to [official document ](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/intro)
 
 ## Features
 
@@ -51,34 +51,34 @@ Based on vue2.x flexible table components.
 
 ## API & Examples
 
-[Official documents](http://doc.huangsw.com/vue-easytable/)
+[Official documents](http://happy-coding-clans.github.io/vue-easytable/)
 
 ## Supports
 
-- [x] [Internationalization](http://doc.huangsw.com/vue-easytable/#/en/doc/locale)
-- [x] [Theme Custom & Built in theme](http://doc.huangsw.com/vue-easytable/#/en/doc/theme)
-- [x] [Virtual Scroll](http://doc.huangsw.com/vue-easytable/#/en/doc/table/virtual-scroll)
-- [x] [Column Fixed](http://doc.huangsw.com/vue-easytable/#/en/doc/table/column-fixed)
-- [x] [Header Fixed](http://doc.huangsw.com/vue-easytable/#/en/doc/table/header-fixed)
-- [x] [Header Grouping](http://doc.huangsw.com/vue-easytable/#/en/doc/table/header-grouping)
-- [x] [Filter](http://doc.huangsw.com/vue-easytable/#/en/doc/table/header-filter)
-- [x] [Sort](http://doc.huangsw.com/vue-easytable/#/en/doc/table/header-sort)
-- [x] [Cell Style](http://doc.huangsw.com/vue-easytable/#/en/doc/table/cell-style)
-- [x] [Cell Custom](http://doc.huangsw.com/vue-easytable/#/en/doc/table/cell-custom)
-- [x] [Cell Span](http://doc.huangsw.com/vue-easytable/#/en/doc/table/cell-span)
-- [x] [Cell Selection(keyboard operation)](http://doc.huangsw.com/vue-easytable/#/en/doc/table/cell-selection)
-- [x] [Cell Ellipsis](http://doc.huangsw.com/vue-easytable/#/en/doc/table/cell-ellipsis)
-- [x] [Row Radio](http://doc.huangsw.com/vue-easytable/#/en/doc/table/row-radio)
-- [x] [Row Checkbox](http://doc.huangsw.com/vue-easytable/#/en/doc/table/row-checkbox)
-- [x] [Row Expand](http://doc.huangsw.com/vue-easytable/#/en/doc/table/row-expand)
-- [x] [Row Style](http://doc.huangsw.com/vue-easytable/#/en/doc/table/row-style)
-- [x] [Footer Summary](http://doc.huangsw.com/vue-easytable/#/en/doc/table/footer-summary)
-- [x] [Event Custom](http://doc.huangsw.com/vue-easytable/#/en/doc/table/event-custom)
-- [x] [Loading component](http://doc.huangsw.com/vue-easytable/#/en/doc/base/loading)
-- [x] [Pagination component](http://doc.huangsw.com/vue-easytable/#/en/doc/base/pagination)
-- [More](http://doc.huangsw.com/vue-easytable)
+- [x] [Internationalization](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/locale)
+- [x] [Theme Custom & Built in theme](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/theme)
+- [x] [Virtual Scroll](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/virtual-scroll)
+- [x] [Column Fixed](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/column-fixed)
+- [x] [Header Fixed](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/header-fixed)
+- [x] [Header Grouping](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/header-grouping)
+- [x] [Filter](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/header-filter)
+- [x] [Sort](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/header-sort)
+- [x] [Cell Style](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-style)
+- [x] [Cell Custom](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-custom)
+- [x] [Cell Span](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-span)
+- [x] [Cell Selection(keyboard operation)](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-selection)
+- [x] [Cell Ellipsis](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-ellipsis)
+- [x] [Row Radio](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/row-radio)
+- [x] [Row Checkbox](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/row-checkbox)
+- [x] [Row Expand](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/row-expand)
+- [x] [Row Style](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/row-style)
+- [x] [Footer Summary](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/footer-summary)
+- [x] [Event Custom](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/event-custom)
+- [x] [Loading component](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/base/loading)
+- [x] [Pagination component](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/base/pagination)
+- [More](http://happy-coding-clans.github.io/vue-easytable)
 
-If there is no feature you want, [Please Tell Us](http://doc.huangsw.com/issue-template-generater/#/en)
+If there is no feature you want, [Please Tell Us](http://happy-coding-clans.github.io/issue-template-generater/#/en)
 
 ## Install
 
