@@ -18,6 +18,7 @@ jobs:
         with:
           node-version: "10.x"
       - run: |
+          npm install
           cd examples
           npm install
           npm run build
