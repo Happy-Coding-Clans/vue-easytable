@@ -1,6 +1,7 @@
 // 列配置类型1
 const columnsType1 = [
     {
+        key: "a",
         field: "param",
         title: "参数",
         width: "10%",
@@ -11,6 +12,7 @@ const columnsType1 = [
         }
     },
     {
+        key: "b",
         field: "desc",
         title: "说明",
         width: "60%",
@@ -20,6 +22,7 @@ const columnsType1 = [
         }
     },
     {
+        key: "c",
         field: "type",
         title: "类型",
         width: "10%",
@@ -29,6 +32,7 @@ const columnsType1 = [
         }
     },
     {
+        key: "d",
         field: "optionalVal",
         title: "可选值",
         width: "10%",
@@ -38,6 +42,7 @@ const columnsType1 = [
         }
     },
     {
+        key: "e",
         field: "default",
         title: "默认值",
         width: "10%",
@@ -597,7 +602,8 @@ export const db = {
             {
                 param: "scrolling",
                 desc: `滚动回调事件。`,
-                type: "Function({startRowIndex,visibleStartIndex,visibleEndIndex,visibleAboveCount,visibleBelowCount})",
+                type:
+                    "Function({startRowIndex,visibleStartIndex,visibleEndIndex,visibleAboveCount,visibleBelowCount})",
                 optionalVal: "-",
                 default: "-"
             }
