@@ -1,6 +1,7 @@
 // 列配置类型1
 const columnsType1 = [
     {
+        key: "a",
         field: "param",
         title: "Parameters",
         width: "10%",
@@ -11,6 +12,7 @@ const columnsType1 = [
         }
     },
     {
+        key: "b",
         field: "desc",
         title: "Description",
         width: "60%",
@@ -20,6 +22,7 @@ const columnsType1 = [
         }
     },
     {
+        key: "c",
         field: "type",
         title: "Type",
         width: "10%",
@@ -29,6 +32,7 @@ const columnsType1 = [
         }
     },
     {
+        key: "d",
         field: "optionalVal",
         title: "Optional",
         width: "10%",
@@ -38,6 +42,7 @@ const columnsType1 = [
         }
     },
     {
+        key: "e",
         field: "default",
         title: "Default",
         width: "10%",
