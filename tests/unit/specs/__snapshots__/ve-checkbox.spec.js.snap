@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`veCheckbox render normal 1`] = `<label class="ve-checkbox" style="display: inline-block;"><span class="ve-checkbox-content ve-checkbox-checked"><input type="checkbox" class="ve-checkbox-input" value="orange"><span class="ve-checkbox-inner"></span></span><span class="ve-checkbox-label">orange</span></label>`;
-
-exports[`veCheckbox render with disabled 1`] = `<label class="ve-checkbox" style="display: inline-block;"><span class="ve-checkbox-content ve-checkbox-checked ve-checkbox-indeterminate"><input type="checkbox" class="ve-checkbox-input" value="orange"><span class="ve-checkbox-inner"></span></span><span class="ve-checkbox-label">orange</span></label>`;
-
-exports[`veCheckbox render with indeterminate 1`] = `<label class="ve-checkbox" style="display: inline-block;"><span class="ve-checkbox-content ve-checkbox-checked ve-checkbox-disabled"><input type="checkbox" class="ve-checkbox-input" value="orange"><span class="ve-checkbox-inner"></span></span><span class="ve-checkbox-label">orange</span></label>`;

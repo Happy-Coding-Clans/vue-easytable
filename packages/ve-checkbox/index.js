@@ -1,7 +1,0 @@
-import VeCheckbox from "./src/index";
-
-VeCheckbox.install = function(Vue) {
-    Vue.component(VeCheckbox.name, VeCheckbox);
-};
-
-export default VeCheckbox;
