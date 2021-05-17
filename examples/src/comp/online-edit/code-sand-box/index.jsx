@@ -38,8 +38,12 @@ Vue.config.productionTip = false;
 
 // import default theme
 import "vue-easytable/libs/theme-default/index.css";
+
 // import vue-easytable library
 import VueEasytable from "vue-easytable";
+
+// for online edit
+import "vue-easytable/libs/font/iconfont.css";
 
 Vue.use(VueEasytable);
 
@@ -132,7 +136,7 @@ new Vue({
                             JSON.stringify(getCodesanboxPrefillConfig())
                         )}
                     />
-                    { btnName }
+                    {btnName}
                 </form>
             </div>
         );
