@@ -157,12 +157,13 @@ export default {
             //switch version option
             switchVersionOptions: [
                 {
-                    value: "http://doc.huangsw.com/vue-easytable/",
+                    value:
+                        "https://happy-coding-clans.github.io/vue-easytable/",
                     label: "2.x"
                 },
                 {
                     value:
-                        "http://doc.huangsw.com/vue-easytable/1.7.2/app.html",
+                        " https://happy-coding-clans.github.io/vue-easytable/1.7.2/app.html",
                     label: "1.x"
                 }
             ],
