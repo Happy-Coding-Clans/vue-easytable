@@ -8,7 +8,7 @@
                         style="font-size:20px"
                         class="icon iconfont icon-table"
                     ></i
-                    >&nbsp;{{ getTitle() }}-
+                    >&nbsp;{{ getTitle() }}--
                 </div>
                 <!-- menus -->
                 <div class="main-banner-menus-container">
