@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+    paths:
+      - ".github/workflows/deploy-docs.yml"
+      - "examples/**"
 
 jobs:
   build-deploy:
