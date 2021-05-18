@@ -199,9 +199,9 @@ describe("veDropdown", () => {
         expect(wrapper.find(".ve-dropdown-dd-show").exists()).toBe(true);
 
         wrapper.setProps({ hideByItemClick: true });
-
+        await later(100);
         wrapper.find(".ve-dropdown-items-li").trigger("click");
-        await later(250);
+        await later(150);
         expect(wrapper.find(".ve-dropdown-dd-show").exists()).toBe(false);
     });
 
