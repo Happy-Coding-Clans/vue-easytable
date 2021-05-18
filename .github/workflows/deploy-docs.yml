@@ -19,7 +19,7 @@ jobs:
       - name: build
         uses: actions/setup-node@v1
         with:
-          node-version: "10.x"
+          node-version: "12.x"
       - run: |
           npm install
           cd examples
