@@ -30,9 +30,11 @@ jobs:
           npm install
 
       - name: Build doc
-        run: npm run build
+        run: |
+          cd examples
+          npm run build
 
-      - name: deploy
+      - name: Deploy Doc
         uses: peaceiris/actions-gh-pages@v2.5.0
         env:
           ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
