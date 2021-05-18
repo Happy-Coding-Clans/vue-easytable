@@ -16,15 +16,21 @@ jobs:
         with:
           ref: master
 
-      - name: build
+      - name: Setup Node
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - run: |
-          npm install
+
+      - name: Install outer env
+        run: npm install
+
+      - name: Install innner env
+        run: |
           cd examples
           npm install
-          npm run build
+
+      - name: Build doc
+        run: npm run build
 
       - name: deploy
         uses: peaceiris/actions-gh-pages@v2.5.0
