@@ -286,5 +286,8 @@ describe("vePagination", () => {
         expect(
             wrapper.find(".ve-pagination-li-active.ve-pagination-li").text()
         ).toBe("2");
+
+        expect(wrapper.emitted("on-page-number-change").length).toEqual(1);
+        expect(wrapper.emitted("on-page-number-change")[0]).toEqual([2]);
     });
 });

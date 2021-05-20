@@ -96,7 +96,7 @@ export default {
                     if (event.keyCode !== 13) return;
 
                     var val = this.$parent.getValidNum(event.target.value);
-                    this.$parent.newPageIndex = val;
+                    this.$parent.jumpPageHandler(val);
                 }
             },
             render(h) {
