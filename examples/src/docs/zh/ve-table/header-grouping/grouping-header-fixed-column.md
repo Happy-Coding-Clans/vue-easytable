@@ -67,7 +67,18 @@
               },
             ],
           },
-          { field: "col7", key: "g", title: "col7", width: 50, fixed: "right" },
+          {
+            title: "col7",
+            fixed: "right",
+            children: [
+              {
+                title: "col7-1",
+                field: "col7",
+                key: "g",
+                width: 50,
+              },
+            ],
+          },
           { field: "col8", key: "h", title: "col8", width: 50, fixed: "right" },
         ],
         tableData: [],
