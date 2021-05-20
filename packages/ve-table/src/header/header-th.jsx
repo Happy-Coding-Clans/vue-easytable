@@ -204,23 +204,26 @@ export default {
                 if (fixed === "left") {
                     key = keys[0];
                 } else if (fixed === "right") {
-                    key = keys.length === 0 ? keys[0] : keys[keys.length - 1];
-                }
-                // column index
-                const columnIndex = colgroups.findIndex(x => x.key === key);
-                if (
-                    (fixed === "left" && columnIndex > 0) ||
-                    (fixed === "right" && columnIndex < colgroups.length - 1)
-                ) {
-                    totalWidth = getFixedTotalWidthByColumnKey(
-                        colgroups,
-                        key,
-                        fixed
-                    );
-
-                    totalWidth = getValByUnit(totalWidth);
+                    key = keys.length === 1 ? keys[0] : keys[keys.length - 2];
                 }
 
+                if (key) {
+                    // column index
+                    const columnIndex = colgroups.findIndex(x => x.key === key);
+                    if (
+                        (fixed === "left" && columnIndex > 0) ||
+                        (fixed === "right" &&
+                            columnIndex < colgroups.length - 1)
+                    ) {
+                        totalWidth = getFixedTotalWidthByColumnKey(
+                            colgroups,
+                            key,
+                            fixed
+                        );
+
+                        totalWidth = getValByUnit(totalWidth);
+                    }
+                }
                 result["left"] = fixed === "left" ? totalWidth : "";
                 result["right"] = fixed === "right" ? totalWidth : "";
             }

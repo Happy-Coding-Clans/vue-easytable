@@ -11,9 +11,12 @@ describe("veTable header group", () => {
             col3: "3",
             col4: "4",
             col5: "5",
-            col6: "6"
-            /* col7: "7",
-            col8: "8" */
+            col6: "6",
+            col7: "7",
+            col8: "8",
+            "col9-1": "9-1",
+            "col9-2": "9-2",
+            "col10-1": "10-1"
         },
         {
             rowkey: 1,
@@ -22,9 +25,12 @@ describe("veTable header group", () => {
             col3: "3",
             col4: "4",
             col5: "5",
-            col6: "6"
-            /*  col7: "7",
-            col8: "8" */
+            col6: "6",
+            col7: "7",
+            col8: "8",
+            "col9-1": "9-1",
+            "col9-2": "9-2",
+            "col10-1": "10-1"
         }
     ];
 
@@ -184,5 +190,202 @@ describe("veTable header group", () => {
 
         expect(thirdTrThEls.at(1).attributes("rowspan")).toBe("1");
         expect(thirdTrThEls.at(1).attributes("colspan")).toBe("1");
+    });
+
+    it("width right column fixed section1", () => {
+        /**
+         * +------------------------------+
+         * |        | Title2   | Title3   |
+         * | Title1 |----------|----------|
+         * |        | Title2-1 | Title3-1 |
+         * +------------------------------+
+         */
+
+        const wrapper = mount(veTable, {
+            propsData: {
+                borderY: true,
+                columns: [
+                    { field: "col1", key: "a", title: "Title1" },
+                    {
+                        title: "Title2",
+                        fixed: "right",
+                        key: "b",
+                        children: [
+                            {
+                                field: "col2-1",
+                                key: "b-1",
+                                title: "Title2-1",
+                                width: 200
+                            }
+                        ]
+                    },
+                    {
+                        title: "Title3",
+                        fixed: "right",
+                        key: "c",
+                        children: [
+                            {
+                                field: "col10-1",
+                                key: "c-1",
+                                title: "Title3-1",
+                                width: 200
+                            }
+                        ]
+                    }
+                ],
+                tableData: TABLE_DATA,
+                rowKeyFieldName: "rowkey"
+            }
+        });
+
+        const trEls = wrapper.findAll(".ve-table-header-tr");
+
+        // first row first fixed column
+        const firtRowFirstFixedColumn = trEls
+            .at(0)
+            .findAll(".ve-table-header-th")
+            .at(1);
+
+        expect(firtRowFirstFixedColumn.classes()).toEqual([
+            "ve-table-header-th",
+            "ve-table-fixed-right",
+            "ve-table-first-right-fixed-column"
+        ]);
+        expect(firtRowFirstFixedColumn.attributes("style")).toContain(
+            "right: 200px;"
+        );
+
+        // first row last fixed column
+        const firstRowLastFixedColumn = trEls
+            .at(0)
+            .findAll(".ve-table-header-th")
+            .at(2);
+
+        expect(firstRowLastFixedColumn.classes()).toEqual([
+            "ve-table-header-th",
+            "ve-table-fixed-right",
+            "ve-table-last-column"
+        ]);
+        expect(firstRowLastFixedColumn.attributes("style")).toContain(
+            "right: 0px;"
+        );
+
+        // second row first fixed column
+        const secondRowFirstFixedColumn = trEls
+            .at(1)
+            .findAll(".ve-table-header-th")
+            .at(0);
+
+        expect(secondRowFirstFixedColumn.classes()).toEqual([
+            "ve-table-header-th",
+            "ve-table-fixed-right",
+            "ve-table-first-right-fixed-column"
+        ]);
+        expect(secondRowFirstFixedColumn.attributes("style")).toContain(
+            "right: 200px;"
+        );
+
+        // second row last fixed column
+        const secondRowLastFixedColumn = trEls
+            .at(1)
+            .findAll(".ve-table-header-th")
+            .at(1);
+
+        expect(secondRowLastFixedColumn.classes()).toEqual([
+            "ve-table-header-th",
+            "ve-table-fixed-right",
+            "ve-table-last-column"
+        ]);
+        expect(secondRowLastFixedColumn.attributes("style")).toContain(
+            "right: 0px;"
+        );
+    });
+
+    it("width right column fixed section2", () => {
+        /**
+         * +------------------------------+
+         * |        |       Title2        |
+         * | Title1 |----------|----------|
+         * |        | Title2-1 | Title2-2 |
+         * +------------------------------+
+         */
+
+        const wrapper = mount(veTable, {
+            propsData: {
+                borderY: true,
+                columns: [
+                    { field: "col1", key: "a", title: "Title1" },
+                    {
+                        title: "Title2",
+                        fixed: "right",
+                        key: "b",
+                        children: [
+                            {
+                                field: "col9-1",
+                                key: "b-1",
+                                title: "Title2-1",
+                                width: 200
+                            },
+                            {
+                                field: "col9-2",
+                                key: "b-2",
+                                title: "Title2-2",
+                                width: 200
+                            }
+                        ]
+                    }
+                ],
+                tableData: TABLE_DATA,
+                rowKeyFieldName: "rowkey"
+            }
+        });
+
+        const trEls = wrapper.findAll(".ve-table-header-tr");
+
+        // first row first fixed column
+        const firtRowFirstFixedColumn = trEls
+            .at(0)
+            .findAll(".ve-table-header-th")
+            .at(1);
+
+        expect(firtRowFirstFixedColumn.classes()).toEqual([
+            "ve-table-header-th",
+            "ve-table-fixed-right",
+            "ve-table-first-right-fixed-column",
+            "ve-table-last-column"
+        ]);
+        expect(firtRowFirstFixedColumn.attributes("style")).toContain(
+            "right: 0px;"
+        );
+
+        // second row first fixed column
+        const secondRowFirstFixedColumn = trEls
+            .at(1)
+            .findAll(".ve-table-header-th")
+            .at(0);
+
+        expect(secondRowFirstFixedColumn.classes()).toEqual([
+            "ve-table-header-th",
+            "ve-table-fixed-right",
+            "ve-table-first-right-fixed-column"
+        ]);
+        expect(secondRowFirstFixedColumn.attributes("style")).toContain(
+            "right: 200px;"
+        );
+
+        // second row last fixed column
+        const secondRowLastFixedColumn = trEls
+            .at(1)
+            .findAll(".ve-table-header-th")
+            .at(1);
+
+        expect(secondRowLastFixedColumn.classes()).toEqual([
+            "ve-table-header-th",
+            "ve-table-fixed-right",
+            "ve-table-last-column"
+        ]);
+        expect(secondRowLastFixedColumn.attributes("style")).toContain(
+            "right: 0px;"
+        );
     });
 });
