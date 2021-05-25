@@ -182,7 +182,7 @@ If you want to contribute,just create a [Pull Request](https://github.com/huangs
 
 ## Discussion group
 
-[Join in Discord Chat Room](https://discord.gg/gBm3k6r)
+[Join in gitter Chat Room](https://gitter.im/vue-easytable/community)
 
 ## License
 
