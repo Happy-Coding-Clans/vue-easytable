@@ -28,7 +28,7 @@
 
 Based on vue2.x flexible table components.
 
-## v2.0 New Version [![npm](https://img.shields.io/npm/v/vue-easytable.svg)](https://www.npmjs.com/package/vue-easytable)
+## v2.0 New Version [![npm](https://img.shields.io/npm/v/vue-easytable.svg)](https://www.npmjs.com/package/vue-easytable) [![Join the chat at https://gitter.im/vue-easytable/community](https://badges.gitter.im/vue-easytable/community.svg)](https://gitter.im/vue-easytable/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 - Complete rewriting of version 1.0. Based on JSX syntax rewriting、Parameter naming normalization、Event naming normalization, etc
 - Support International
