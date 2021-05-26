@@ -1,5 +1,7 @@
 module.exports = {
     presets: [
+        // vue0cli 配合 @vue/babel-preset-jsx 使用。否则使用 babel-plugin-transform-vue-jsx
+        ["@vue/babel-preset-jsx"],
         [
             "@vue/app",
             {
@@ -16,7 +18,6 @@ module.exports = {
     ],
     comments: false,
     plugins: [
-        "transform-vue-jsx",
         [
             "component",
             {

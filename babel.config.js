@@ -3,7 +3,7 @@ module.exports = {
     plugins: ["transform-vue-jsx"],
     env: {
         test: {
-            presets: [["env", { targets: { node: "current" } }]],
+            presets: [["env", { targets: { node: "current" } }]]
             /* plugins: ["istanbul"] */
         }
     }
