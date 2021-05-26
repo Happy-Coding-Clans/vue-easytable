@@ -35,9 +35,9 @@ jobs:
       - name: Build doc
         run: |
           cd examples
-          npm run build
+          npx vue-cli-service build
 
-      - name: Deploy Doc
+      - name: Deploy Doc 🚀
         uses: peaceiris/actions-gh-pages@v2.5.0
         env:
           ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
