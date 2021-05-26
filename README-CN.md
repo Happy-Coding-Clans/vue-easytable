@@ -4,6 +4,7 @@
 [![codecov](https://codecov.io/gh/Happy-Coding-Clans/vue-easytable/branch/master/graph/badge.svg?token=UJy3LHInUn)](https://codecov.io/gh/Happy-Coding-Clans/vue-easytable)
 [![Build Status](https://travis-ci.com/Happy-Coding-Clans/vue-easytable.svg?branch=master)](https://travis-ci.com/Happy-Coding-Clans/vue-easytable)
 [![license](https://img.shields.io/npm/l/vue-easytable.svg?maxAge=2592000)](http://www.opensource.org/licenses/mit-license.php)
+[![Discord](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/gBm3k6r)
 [![Gitter](https://badges.gitter.im/vue-easytable/community.svg)](https://gitter.im/vue-easytable/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 # vue-easytable
@@ -182,7 +183,9 @@ Example:
 
 ## Discussion 讨论组
 
-[加入 gitter 讨论](https://gitter.im/vue-easytable/community)
+
+- [加入 gitter 讨论](https://gitter.im/vue-easytable/community)
+- [加入 discord 讨论](https://discord.gg/gBm3k6r)
 
 ## License
 
