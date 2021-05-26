@@ -22,17 +22,11 @@ jobs:
         with:
           node-version: "12.x"
 
-      - name: Install outer env
-        run: npm install
-
-      - name: Install innner env
-        run: |
-          cd examples
-          npm install
-
       - name: Build doc
         run: |
+          npm install
           cd examples
+          npm install
           npm run build
 
       - name: Deploy Doc
