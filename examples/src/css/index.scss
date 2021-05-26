@@ -83,9 +83,9 @@ h2,
 h3 {
   color: rgba(0, 0, 0, 0.85);
   font-weight: 500;
-  font-family: Avenir, -apple-system, BlinkMacSystemFont, segoe ui, Roboto,
-    helvetica neue, Arial, noto sans, sans-serif, apple color emoji,
-    segoe ui emoji, segoe ui symbol, noto color emoji, sans-serif;
+  font-family: Avenir, -apple-system, BlinkMacSystemFont, segoe ui, Roboto, helvetica neue, Arial,
+    noto sans, sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol, noto color emoji,
+    sans-serif;
 }
 
 h3 {
@@ -95,8 +95,7 @@ h3 {
 /*进度条 satrt*/
 #nprogress .bar {
   height: 4px;
-  background: #27c4f5
-    linear-gradient(to right, #27c4f5, #a307ba, #fd8d32, #70c050, #27c4f5) !important;
+  background: #27c4f5 linear-gradient(to right, #27c4f5, #a307ba, #fd8d32, #70c050, #27c4f5) !important;
   background-size: 500%;
   animation: 2s linear infinite barprogress, 0.3s fadein;
   width: 100%;
@@ -195,6 +194,17 @@ h3 {
   padding: 10px 20px !important;
   font-size: 14px;
   border-radius: 3px;
+
+  &:hover {
+    background: #66b1ff;
+    border-color: #66b1ff;
+    color: #fff;
+  }
+  &:active {
+    background: #409eff;
+    border-color: #409eff;
+    color: #fff;
+  }
 }
 
 /*展示实例 end*/
