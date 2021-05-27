@@ -38,7 +38,7 @@ jobs:
 
       - name: Deploy Doc 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.1
-        width:
+        with:
           branch: gh-pages
           folder: ./examples/dist
           clean: false
