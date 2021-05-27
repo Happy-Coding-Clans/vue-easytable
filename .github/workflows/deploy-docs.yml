@@ -37,8 +37,8 @@ jobs:
           npx vue-cli-service build
 
       - name: Deploy Doc 🚀
-        uses: peaceiris/actions-gh-pages@v2.5.0
-        env:
-          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ./examples/dist
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        width:
+          branch: gh-pages
+          folder: ./examples/dist
+          clean: false
