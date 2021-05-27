@@ -11,6 +11,7 @@
             :border-y="false"
             row-key-field-name="rowKey"
             :expand-option="expandOption"
+            :cell-selection-option="cellSelectionOption"
         />
     </div>
 </template>
@@ -43,7 +44,12 @@ export default {
         }
     },
     data() {
-        return {};
+        return {
+            cellSelectionOption: {
+                // default true
+                enable: false
+            }
+        };
     },
     computed: {
         getAnchor() {
