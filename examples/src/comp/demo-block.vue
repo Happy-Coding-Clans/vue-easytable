@@ -5,9 +5,18 @@
         @mouseenter="hovering = true"
         @mouseleave="hovering = false"
     >
-        <div class="source">
-            <slot name="source"></slot>
-        </div>
+        <vue-lazy-container
+            class="source-code-container"
+            tag-name="div"
+            @change="visibilityChange"
+        >
+            <div v-if="isDemoRendered" class="source">
+                <slot name="source"></slot>
+            </div>
+            <div v-else class="source-empty">
+                Loading...
+            </div>
+        </vue-lazy-container>
         <div v-if="$slots.default" class="description">
             <div class="title-container">
                 <span class="title"> {{ demoLangInfo.description }}</span>
@@ -89,7 +98,9 @@ export default {
             hovering: false,
             isExpanded: false,
             fixedControl: false,
-            scrollParent: null
+            scrollParent: null,
+            // 是否示例渲染完成
+            isDemoRendered: false
         };
     },
 
@@ -154,6 +165,16 @@ export default {
     },
 
     methods: {
+        // visibility change
+        visibilityChange(entry, observer, id) {
+            const { isIntersecting } = entry;
+
+            // visibility
+            if (isIntersecting) {
+                this.isDemoRendered = true;
+            }
+        },
+        // scroll handler
         scrollHandler() {
             const {
                 top,
@@ -237,8 +258,20 @@ export default {
         float: right;
     }
 
-    .source {
-        padding: 24px;
+    .source-code-container {
+        min-height: 250px;
+        .source {
+            padding: 24px;
+        }
+        .source-empty {
+            min-height: 250px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #666;
+        }
     }
 
     .description {

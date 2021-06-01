@@ -20,6 +20,7 @@
     "nprogress": "^0.2.0",
     "regenerator-runtime": "^0.13.7",
     "theme-switcher-tool": "^1.0.3",
+    "vue-lazy-container": "^1.1.1",
     "vue-router": "^3.2.0",
     "vue-template-compiler": "^2.6.11"
   },

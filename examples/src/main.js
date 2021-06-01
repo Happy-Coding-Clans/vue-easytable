@@ -23,10 +23,15 @@ import Anchor from "@/comp/anchor.vue";
 Vue.component("demo-block", DemoBlock);
 Vue.component("anchor", Anchor);
 
+// 仅用作示例
 import { Switch, Row, Col } from "element-ui";
 Vue.use(Switch);
 Vue.use(Row);
 Vue.use(Col);
+
+// vue-lazy-container
+import VueLazyContainer from "vue-lazy-container";
+Vue.use(VueLazyContainer);
 
 // product
 /* import "../../libs/theme-default/index.css";
