@@ -15,7 +15,7 @@
       :columns="columns"
       :table-data="tableData"
       row-key-field-name="rowKey"
-      :checkbox-optipon="checkboxOptipon"
+      :checkbox-option="checkboxOption"
     />
   </div>
 </template>
@@ -24,7 +24,7 @@
   export default {
     data() {
       return {
-        checkboxOptipon: {
+        checkboxOption: {
           // 可控属性
           selectedRowKeys: [1003],
           // 行选择改变事件
@@ -93,11 +93,11 @@
     methods: {
       // 给可控属性重新赋值
       changeSelectedRowKeys(keys) {
-        this.checkboxOptipon.selectedRowKeys = keys;
+        this.checkboxOption.selectedRowKeys = keys;
       },
       // 切换选中行
       selectedSwitch(key) {
-        let selectedRowKeys = this.checkboxOptipon.selectedRowKeys;
+        let selectedRowKeys = this.checkboxOption.selectedRowKeys;
 
         const rowKeyIndex = selectedRowKeys.indexOf(key);
 
@@ -109,11 +109,11 @@
       },
       // 选中全部
       selectedAll() {
-        this.checkboxOptipon.selectedRowKeys = this.tableData.map((x) => x.rowKey);
+        this.checkboxOption.selectedRowKeys = this.tableData.map((x) => x.rowKey);
       },
       // 取消选中全部
       unselectedAll() {
-        this.checkboxOptipon.selectedRowKeys = [];
+        this.checkboxOption.selectedRowKeys = [];
       },
     },
   };

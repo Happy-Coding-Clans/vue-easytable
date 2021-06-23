@@ -10,7 +10,7 @@
       :columns="columns"
       :table-data="tableData"
       row-key-field-name="rowKey"
-      :checkbox-optipon="checkboxOptipon"
+      :checkbox-option="checkboxOption"
     />
   </div>
 </template>
@@ -19,7 +19,7 @@
   export default {
     data() {
       return {
-        checkboxOptipon: {
+        checkboxOption: {
           defaultSelectedRowKeys: [1001, 1003, 1004],
           // 行选择改变事件
           selectedRowChange: ({ row, isSelected, selectedRowKeys }) => {

@@ -10,7 +10,7 @@
       :columns="columns"
       :table-data="tableData"
       row-key-field-name="rowKey"
-      :checkbox-optipon="checkboxOptipon"
+      :checkbox-option="checkboxOption"
     />
   </div>
 </template>
@@ -19,7 +19,7 @@
   export default {
     data() {
       return {
-        checkboxOptipon: {
+        checkboxOption: {
           // 禁用的选择（禁止勾选或者禁止取消勾选）
           disableSelectedRowKeys: [1002, 1005],
           // 默认选择

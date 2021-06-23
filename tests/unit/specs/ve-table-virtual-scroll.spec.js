@@ -272,7 +272,7 @@ describe("veTable virtual scroll", () => {
                     // 是否开启
                     enable: true
                 },
-                checkboxOptipon: {},
+                checkboxOption: {},
                 maxHeight: MAX_HEIGHT,
                 rowKeyFieldName: "rowKey"
             }

@@ -12,7 +12,7 @@ export default {
     mixins: [emitter],
     props: {
         // checkbox option
-        checkboxOptipon: {
+        checkboxOption: {
             type: Object,
             default: function() {
                 return null;
@@ -30,8 +30,8 @@ export default {
     methods: {
         // selected change
         selectedChange(isSelected) {
-            const { checkboxOptipon } = this;
-            const { selectedRowKeys } = checkboxOptipon;
+            const { checkboxOption } = this;
+            const { selectedRowKeys } = checkboxOption;
 
             this.isSelected = isSelected;
 

@@ -35,7 +35,7 @@ export default {
             required: true
         },
         // checkbox option
-        checkboxOptipon: {
+        checkboxOption: {
             type: Object,
             default: function() {
                 return null;
@@ -111,7 +111,7 @@ export default {
             fixedHeader,
             rowIndex,
             trHeightChange,
-            checkboxOptipon,
+            checkboxOption,
             sortOption,
             sortColumns,
             cellStyleOption,
@@ -179,7 +179,7 @@ export default {
                             headerRows,
                             fixedHeader,
                             rowIndex,
-                            checkboxOptipon,
+                            checkboxOption,
                             sortOption,
                             sortColumns,
                             cellStyleOption,

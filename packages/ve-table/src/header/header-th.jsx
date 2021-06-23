@@ -40,7 +40,7 @@ export default {
             required: true
         },
         // checkbox option
-        checkboxOptipon: {
+        checkboxOption: {
             type: Object,
             default: function() {
                 return null;
@@ -253,15 +253,15 @@ export default {
         getCheckboxContent() {
             let result = null;
 
-            const { checkboxOptipon } = this;
+            const { checkboxOption } = this;
 
             if (this.groupColumnItem.type === COLUMN_TYPES.CHECKBOX) {
-                if (!checkboxOptipon.hideSelectAll) {
+                if (!checkboxOption.hideSelectAll) {
                     // checkbox content props
                     const checkboxProps = {
                         props: {
                             column: this.groupColumnItem,
-                            checkboxOptipon: this.checkboxOptipon
+                            checkboxOption: this.checkboxOption
                         }
                     };
 

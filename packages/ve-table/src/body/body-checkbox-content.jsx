@@ -12,7 +12,7 @@ export default {
     mixins: [emitter],
     props: {
         // checkbox option
-        checkboxOptipon: {
+        checkboxOption: {
             type: Object,
             default: function() {
                 return null;
@@ -39,13 +39,13 @@ export default {
         disabled() {
             let result = false;
 
-            const { checkboxOptipon, rowKey } = this;
+            const { checkboxOption, rowKey } = this;
 
-            if (!checkboxOptipon) {
+            if (!checkboxOption) {
                 return;
             }
 
-            const { disableSelectedRowKeys } = checkboxOptipon;
+            const { disableSelectedRowKeys } = checkboxOption;
 
             if (
                 Array.isArray(disableSelectedRowKeys) &&
@@ -59,11 +59,11 @@ export default {
 
         // 是否是受控属性（取决于selectedRowKeys）
         isControlledProp() {
-            const { checkboxOptipon } = this;
+            const { checkboxOption } = this;
 
             return (
-                checkboxOptipon &&
-                Array.isArray(checkboxOptipon.selectedRowKeys)
+                checkboxOption &&
+                Array.isArray(checkboxOption.selectedRowKeys)
             );
         }
     },
@@ -95,7 +95,7 @@ export default {
 
         // selected change
         selectedChange(isSelected) {
-            const { checkboxOptipon, rowKey, isControlledProp } = this;
+            const { checkboxOption, rowKey, isControlledProp } = this;
 
             // 非受控
             if (!isControlledProp) {

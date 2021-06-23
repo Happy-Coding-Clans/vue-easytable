@@ -47,7 +47,7 @@ export default {
             }
         },
         // checkbox option
-        checkboxOptipon: {
+        checkboxOption: {
             type: Object,
             default: function() {
                 return null;
@@ -177,12 +177,12 @@ export default {
         disableCheckboxSelectedRowKeys() {
             let result = [];
 
-            const { checkboxOptipon, internalCheckboxSelectedRowKeys } = this;
+            const { checkboxOption, internalCheckboxSelectedRowKeys } = this;
 
-            if (!checkboxOptipon) {
+            if (!checkboxOption) {
                 return result;
             }
-            const { disableSelectedRowKeys } = checkboxOptipon;
+            const { disableSelectedRowKeys } = checkboxOption;
 
             if (
                 internalCheckboxSelectedRowKeys.length > 0 &&
@@ -203,12 +203,12 @@ export default {
         disableCheckboxUnselectedRowKeys() {
             let result = [];
 
-            const { checkboxOptipon, internalCheckboxSelectedRowKeys } = this;
+            const { checkboxOption, internalCheckboxSelectedRowKeys } = this;
 
-            if (!checkboxOptipon) {
+            if (!checkboxOption) {
                 return result;
             }
-            const { disableSelectedRowKeys } = checkboxOptipon;
+            const { disableSelectedRowKeys } = checkboxOption;
 
             if (
                 internalCheckboxSelectedRowKeys.length > 0 &&
@@ -280,14 +280,14 @@ export default {
             }
         },
         // watch checkbox option
-        checkboxOptipon: {
+        checkboxOption: {
             handler: function() {
                 this.initInternalCheckboxSelectedRowKeys();
             },
             immediate: true
         },
         // watch selectedRowKeys
-        "checkboxOptipon.selectedRowKeys": {
+        "checkboxOption.selectedRowKeys": {
             handler: function(val) {
                 this.resetInternalCheckboxSelectedRowKeys();
             }
@@ -578,9 +578,9 @@ export default {
         // init internal Checkbox SelectedRowKeys
         initInternalCheckboxSelectedRowKeys() {
             let result = [];
-            const { checkboxOptipon, rowData, allRowKeys } = this;
+            const { checkboxOption, rowData, allRowKeys } = this;
 
-            if (!checkboxOptipon) {
+            if (!checkboxOption) {
                 return false;
             }
 
@@ -588,7 +588,7 @@ export default {
                 selectedRowKeys,
                 defaultSelectedAllRows,
                 defaultSelectedRowKeys
-            } = checkboxOptipon;
+            } = checkboxOption;
 
             if (Array.isArray(selectedRowKeys)) {
                 result = selectedRowKeys;
@@ -601,7 +601,7 @@ export default {
         },
         // reset internalCheckboxSelectedRowKeys by selectedRowKeys
         resetInternalCheckboxSelectedRowKeys() {
-            this.internalCheckboxSelectedRowKeys = this.checkboxOptipon.selectedRowKeys.slice(
+            this.internalCheckboxSelectedRowKeys = this.checkboxOption.selectedRowKeys.slice(
                 0
             );
         },
@@ -614,11 +614,11 @@ export default {
          */
         checkboxSelectedRowChange({ rowKey, isSelected }) {
             const {
-                checkboxOptipon,
+                checkboxOption,
                 internalCheckboxSelectedRowKeys,
                 rowKeyFieldName
             } = this;
-            const { selectedRowChange, selectedRowKeys } = checkboxOptipon;
+            const { selectedRowChange, selectedRowKeys } = checkboxOption;
 
             let internalCheckboxSelectedRowKeysTemp = internalCheckboxSelectedRowKeys.slice(
                 0
@@ -660,13 +660,13 @@ export default {
          */
         checkboxSelectedAllChange({ isSelected }) {
             const {
-                checkboxOptipon,
+                checkboxOption,
                 internalCheckboxSelectedRowKeys,
                 allRowKeys,
                 disableCheckboxSelectedRowKeys,
                 disableCheckboxUnselectedRowKeys
             } = this;
-            const { selectedAllChange, selectedRowKeys } = checkboxOptipon;
+            const { selectedAllChange, selectedRowKeys } = checkboxOption;
 
             let internalCheckboxSelectedRowKeysTemp = internalCheckboxSelectedRowKeys.slice(
                 0
@@ -760,7 +760,7 @@ export default {
             this.tdClick(params);
         });
 
-        if (this.checkboxOptipon) {
+        if (this.checkboxOption) {
             // 这里 nextTick 解决由于子组件先初始化，导致父组件无法接收消息的问题
             this.$nextTick(() => {
                 this.sendToCheckboxAll();
@@ -784,7 +784,7 @@ export default {
             isExpandRow,
             getExpandRowComp,
             expandedRowkeys,
-            checkboxOptipon,
+            checkboxOption,
             radioOption,
             rowKeyFieldName,
             tdSizeChange,
@@ -829,7 +829,7 @@ export default {
                             colgroups,
                             expandOption,
                             expandedRowkeys,
-                            checkboxOptipon,
+                            checkboxOption,
                             radioOption,
                             rowKeyFieldName,
                             expandRowChange,

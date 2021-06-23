@@ -143,7 +143,7 @@ export default {
             isExpandRow,
             getExpandRowComp,
             expandedRowkeys,
-            checkboxOptipon,
+            checkboxOption,
             rowKeyFieldName,
             rowIndex,
             rowData,

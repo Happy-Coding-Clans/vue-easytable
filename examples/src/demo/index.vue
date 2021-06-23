@@ -93,7 +93,7 @@
                 :cell-style-option="cellStyleOption"
                 :expand-option="expandOption"
                 :radio-option="radioOption"
-                :checkbox-optipon="checkboxOptipon"
+                :checkbox-option="checkboxOption"
             />
         </div>
         <!-- <Footer /> -->
@@ -151,7 +151,7 @@ export default {
                     //console.log(row);
                 }
             },
-            checkboxOptipon: {
+            checkboxOption: {
                 // row select change event
                 selectedRowChange: ({ row, isSelected, selectedRowKeys }) => {
                     //console.log(row, isSelected, selectedRowKeys);

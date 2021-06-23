@@ -126,7 +126,7 @@ export default {
             }
         },
         // checkbox option
-        checkboxOptipon: {
+        checkboxOption: {
             type: Object,
             default: function() {
                 return null;
@@ -1038,7 +1038,7 @@ export default {
             cloneTableData,
             tdWidthChange,
             expandOption,
-            checkboxOptipon,
+            checkboxOption,
             radioOption,
             rowKeyFieldName,
             virtualScrollOption,
@@ -1056,7 +1056,7 @@ export default {
                 groupColumns,
                 colgroups,
                 fixedHeader,
-                checkboxOptipon,
+                checkboxOption,
                 sortOption,
                 cellStyleOption,
                 eventCustomOption: this.eventCustomOption,
@@ -1071,7 +1071,7 @@ export default {
                 columnsOptionResetTime: this.columnsOptionResetTime,
                 colgroups,
                 expandOption,
-                checkboxOptipon,
+                checkboxOption,
                 cloneTableData,
                 rowKeyFieldName,
                 radioOption,

@@ -68,7 +68,7 @@ export default {
         checkbox
         */
         // checkbox option
-        checkboxOptipon: {
+        checkboxOption: {
             type: Object,
             default: function() {
                 return null;
@@ -356,7 +356,7 @@ export default {
                 const checkboxProps = {
                     props: {
                         column: this.column,
-                        checkboxOptipon: this.checkboxOptipon,
+                        checkboxOption: this.checkboxOption,
                         rowKey: this.rowData[this.rowKeyFieldName],
                         internalCheckboxSelectedRowKeys: this
                             .internalCheckboxSelectedRowKeys

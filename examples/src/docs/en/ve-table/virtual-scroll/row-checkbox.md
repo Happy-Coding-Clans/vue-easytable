@@ -9,7 +9,7 @@
       fixed-header
       :max-height="500"
       :virtual-scroll-option="virtualScrollOption"
-      :checkbox-optipon="checkboxOptipon"
+      :checkbox-option="checkboxOption"
       :columns="columns"
       :table-data="tableData"
       row-key-field-name="rowKey"
@@ -25,7 +25,7 @@
           // 是否开启
           enable: true,
         },
-        checkboxOptipon: {
+        checkboxOption: {
           // 行选择改变事件
           selectedRowChange: ({ row, isSelected, selectedRowKeys }) => {
             console.log(row, isSelected, selectedRowKeys);
