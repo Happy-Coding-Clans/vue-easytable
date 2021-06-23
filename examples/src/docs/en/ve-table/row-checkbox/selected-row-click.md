@@ -11,7 +11,7 @@ This example is row click trigger selection. You can also achieve column click s
       :columns="columns"
       :table-data="tableData"
       row-key-field-name="rowKey"
-      :checkbox-optipon="checkboxOptipon"
+      :checkbox-option="checkboxOption"
       :event-custom-option="eventCustomOption"
     />
   </div>
@@ -31,7 +31,7 @@ This example is row click trigger selection. You can also achieve column click s
             };
           },
         },
-        checkboxOptipon: {
+        checkboxOption: {
           // 可控属性
           selectedRowKeys: [1003],
           // 行选择改变事件
@@ -98,11 +98,11 @@ This example is row click trigger selection. You can also achieve column click s
     methods: {
       // 给可控属性重新赋值
       changeSelectedRowKeys(keys) {
-        this.checkboxOptipon.selectedRowKeys = keys;
+        this.checkboxOption.selectedRowKeys = keys;
       },
       // 行点击触发
       changeSelectedRowKeysByRowClick(currentRowKey) {
-        const { selectedRowKeys } = this.checkboxOptipon;
+        const { selectedRowKeys } = this.checkboxOption;
 
         if (selectedRowKeys.includes(currentRowKey)) {
           const rowKeyIndex = selectedRowKeys.indexOf(currentRowKey);

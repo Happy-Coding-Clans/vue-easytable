@@ -55,7 +55,7 @@ export default {
         checkbox
         */
         // checkbox option
-        checkboxOptipon: {
+        checkboxOption: {
             type: Object,
             default: function() {
                 return null;
@@ -196,7 +196,7 @@ export default {
             isExpandRow,
             getExpandRowComp,
             expandedRowkeys,
-            checkboxOptipon,
+            checkboxOption,
             rowKeyFieldName,
             rowIndex,
             rowData,
@@ -219,7 +219,7 @@ export default {
                         colgroups,
                         expandOption,
                         expandedRowkeys,
-                        checkboxOptipon,
+                        checkboxOption,
                         rowKeyFieldName,
                         isExpandRow,
                         internalCheckboxSelectedRowKeys,

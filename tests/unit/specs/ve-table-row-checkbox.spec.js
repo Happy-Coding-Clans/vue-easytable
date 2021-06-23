@@ -79,7 +79,7 @@ describe("veTable row checkbox", () => {
             propsData: {
                 columns: COLUMNS,
                 tableData: TABLE_DATA,
-                checkboxOptipon: {},
+                checkboxOption: {},
                 rowKeyFieldName: "rowKey"
             }
         });
@@ -92,7 +92,7 @@ describe("veTable row checkbox", () => {
             propsData: {
                 columns: COLUMNS,
                 tableData: TABLE_DATA,
-                checkboxOptipon: {},
+                checkboxOption: {},
                 rowKeyFieldName: "rowKey"
             }
         });
@@ -110,7 +110,7 @@ describe("veTable row checkbox", () => {
             propsData: {
                 columns: COLUMNS,
                 tableData: TABLE_DATA,
-                checkboxOptipon: {
+                checkboxOption: {
                     defaultSelectedRowKeys: [1001, 1003, 1004]
                 },
                 rowKeyFieldName: "rowKey"
@@ -140,7 +140,7 @@ describe("veTable row checkbox", () => {
             propsData: {
                 columns: COLUMNS,
                 tableData: TABLE_DATA,
-                checkboxOptipon: {
+                checkboxOption: {
                     // 禁用的选择（禁止勾选或者禁止取消勾选）
                     disableSelectedRowKeys: [1002, 1005],
                     // 默认选择
@@ -190,7 +190,7 @@ describe("veTable row checkbox", () => {
             propsData: {
                 columns: COLUMNS,
                 tableData: TABLE_DATA,
-                checkboxOptipon: {
+                checkboxOption: {
                     // 可控属性
                     selectedRowKeys: [1003]
                 },
@@ -215,7 +215,7 @@ describe("veTable row checkbox", () => {
         ).toBe(1);
 
         wrapper.setProps({
-            checkboxOptipon: {
+            checkboxOption: {
                 selectedRowKeys: [1003, 1004]
             }
         });
@@ -234,7 +234,7 @@ describe("veTable row checkbox", () => {
             propsData: {
                 columns: COLUMNS,
                 tableData: TABLE_DATA,
-                checkboxOptipon: {
+                checkboxOption: {
                     // 可控属性
                     hideSelectAll: true
                 },
@@ -249,14 +249,14 @@ describe("veTable row checkbox", () => {
         );
     });
 
-    it("checkboxOptipon selectedRowChange event", async () => {
+    it("checkboxOption selectedRowChange event", async () => {
         const mockFn = jest.fn();
 
         const wrapper = mount(veTable, {
             propsData: {
                 columns: COLUMNS,
                 tableData: TABLE_DATA,
-                checkboxOptipon: {
+                checkboxOption: {
                     selectedRowChange: ({
                         row,
                         isSelected,
@@ -283,14 +283,14 @@ describe("veTable row checkbox", () => {
         expect(mockFn).toHaveBeenCalledWith(TABLE_DATA[0], true, [1001]);
     });
 
-    it("checkboxOptipon selectedAllChange event", async () => {
+    it("checkboxOption selectedAllChange event", async () => {
         const mockFn = jest.fn();
 
         const wrapper = mount(veTable, {
             propsData: {
                 columns: COLUMNS,
                 tableData: TABLE_DATA,
-                checkboxOptipon: {
+                checkboxOption: {
                     selectedAllChange: ({ isSelected, selectedRowKeys }) => {
                         mockFn(isSelected, selectedRowKeys);
                     }
