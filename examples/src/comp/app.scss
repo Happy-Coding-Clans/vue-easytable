@@ -186,6 +186,8 @@ $--right-content-index: 1;
       overflow-x: hidden;
       overflow-y: hidden;
       border-right: 1px solid #eee;
+      z-index: 99;
+      background-color: #fff;
 
       &:hover {
         overflow-y: auto;
