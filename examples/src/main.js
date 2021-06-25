@@ -37,6 +37,7 @@ Vue.use(VueLazyContainer);
 /* import "../../libs/theme-default/index.css";
 import {
     VeCheckbox,
+    VeCheckboxGroup,
     VeDropdown,
     VeIcon,
     VeLoading,
@@ -64,6 +65,7 @@ if (window.env === "dev") {
 
 import {
     VeCheckbox,
+    VeCheckboxGroup,
     VeDropdown,
     VeIcon,
     VeLoading,
@@ -75,6 +77,7 @@ import {
 } from "../../packages/index.js";
 
 Vue.use(VeCheckbox);
+Vue.use(VeCheckboxGroup);
 Vue.use(VeDropdown);
 Vue.use(VeIcon);
 Vue.use(VePagination);
