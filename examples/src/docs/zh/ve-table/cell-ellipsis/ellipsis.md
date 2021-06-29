@@ -26,7 +26,9 @@
             title: "Address",
             align: "left",
             width: "40%",
-            ellipsis: {},
+            ellipsis: {
+              showTitle: true
+            },
           },
         ],
         // table data

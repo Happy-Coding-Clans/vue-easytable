@@ -29,6 +29,7 @@ At present, this function only supports browser with [-webkit-line-clamp attribu
             align: "left",
             width: "40%",
             ellipsis: {
+              showTitle: true,
               lineClamp: 2,
             },
           },

@@ -28,6 +28,7 @@
             align: "left",
             width: "40%",
             ellipsis: {
+              showTitle: true,
               lineClamp: 2,
             },
           },

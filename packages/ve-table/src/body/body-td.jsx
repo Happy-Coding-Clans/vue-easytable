@@ -5,7 +5,8 @@ import { getFixedTotalWidthByColumnKey, clsName, getRowKey } from "../util";
 import {
     getValByUnit,
     isEmptyValue,
-    isNumber
+    isNumber,
+    isBoolean
 } from "../../../src/utils/index.js";
 
 import {
@@ -316,11 +317,14 @@ export default {
 
             // ellipisis
             if (column.ellipsis) {
-                const { lineClamp } = column.ellipsis;
+                const { lineClamp, showTitle } = column.ellipsis;
+
+                // default true
+                const isShowTitle = isBoolean(showTitle) ? showTitle : true;
 
                 content = (
                     <span
-                        title={content}
+                        title={isShowTitle ? content : ""}
                         style={this.getEllipsisContentStyle()}
                         class={clsName("body-td-span-ellipsis")}
                     >
