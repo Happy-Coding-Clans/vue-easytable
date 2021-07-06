@@ -1,6 +1,6 @@
 ## vue-easytable
 
-Based on vue2.x flexible table components. [![npm](https://img.shields.io/npm/v/vue-easytable.svg)](https://www.npmjs.com/package/vue-easytable)
+Based on vue2.x flexible table components.
 ### Features
 
 - Easy to use
