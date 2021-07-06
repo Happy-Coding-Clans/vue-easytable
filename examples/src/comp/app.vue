@@ -8,7 +8,7 @@
                         style="font-size:20px"
                         class="icon iconfont icon-table"
                     ></i
-                    >&nbsp;{{ getTitle() }}
+                    >&nbsp;vue-easytable
                 </div>
                 <!-- menus -->
                 <div class="main-banner-menus-container">
@@ -139,6 +139,7 @@ import locale from "./locale";
 import I18nMixins from "./mixins/i18n-mixins";
 import ThemeSwitchMixins from "./mixins/theme-switch-mixins.js";
 import clickoutside from "./directives/clickoutside.js";
+import { version } from "../../../package.json";
 
 export default {
     directives: {
@@ -147,7 +148,6 @@ export default {
     mixins: [I18nMixins, ThemeSwitchMixins],
     data() {
         return {
-            title: "vue-easytable",
             //switch lang option
             switchLangOptions: [
                 { value: "en", label: "English" },
@@ -159,7 +159,7 @@ export default {
                 {
                     value:
                         "https://happy-coding-clans.github.io/vue-easytable/",
-                    label: "2.x"
+                    label: version
                 },
                 {
                     value:
@@ -168,7 +168,7 @@ export default {
                 }
             ],
             showVersionDropdown: false,
-            currentDocVersion: "2.x"
+            currentDocVersion: version
         };
     },
     computed: {
@@ -211,9 +211,6 @@ export default {
             setTimeout(() => {
                 this.showVersionDropdown = false;
             }, 150);
-        },
-        getTitle() {
-            return window.env !== "dev" ? this.title : "";
         },
         // go ro router path
         gotoRouter(item) {
