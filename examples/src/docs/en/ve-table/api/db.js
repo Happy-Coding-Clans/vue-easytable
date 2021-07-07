@@ -262,7 +262,7 @@ export const db = {
             {
                 param: "width",
                 desc:
-                    "<code>Number</code>width pixel value；<code>String</code>width percentage",
+                    "<code>Number</code>width pixel value；<code>String</code>width percentage(<a href='#/en/doc/table/column-width?anchor=chang-wen-ben-po-pi-bu-ju'>width not working?</a>)",
                 type: `<code>String</code>、<code>Number</code>`,
                 optionalVal: "-",
                 default: "-",
