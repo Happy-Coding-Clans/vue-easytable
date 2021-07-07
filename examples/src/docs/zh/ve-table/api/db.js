@@ -253,7 +253,7 @@ export const db = {
             {
                 param: "width",
                 desc:
-                    "<code>Number</code>指定像素；<code>String</code>指定百分比",
+                    "<code>Number</code>指定像素；<code>String</code>指定百分比（<a href='#/zh/doc/table/column-width?anchor=chang-wen-ben-po-pi-bu-ju'>指定了也不生效？</a>）",
                 type: `<code>String</code>、<code>Number</code>`,
                 optionalVal: "-",
                 default: "-",
