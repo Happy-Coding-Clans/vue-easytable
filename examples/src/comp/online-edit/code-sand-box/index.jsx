@@ -34,8 +34,6 @@ export default {
 import Vue from "vue";
 import Example from "./Example.vue";
 
-Vue.config.productionTip = false;
-
 // import default theme
 import "vue-easytable/libs/theme-default/index.css";
 
@@ -45,7 +43,16 @@ import VueEasytable from "vue-easytable";
 // for online edit
 import "vue-easytable/libs/font/iconfont.css";
 
+// only used by examples
+import { RadioButton, RadioGroup } from "element-ui";
+import 'element-ui/lib/theme-chalk/index.css';
+
 Vue.use(VueEasytable);
+
+Vue.use(RadioButton);
+Vue.use(RadioGroup);
+
+Vue.config.productionTip = false;
 
 new Vue({
   render: (h) => h(Example)
@@ -75,14 +82,15 @@ new Vue({
                 title: `vue-easytable@${version} example`,
                 main: "main.js",
                 dependencies: {
-                    "@vue/cli-plugin-babel": "4.5.11",
                     vue: "^2.6.11",
-                    "vue-easytable": version
+                    "vue-template-compiler": "^2.6.11",
+                    "vue-easytable": version,
+                    "element-ui": "^2.15.0"
                 },
                 devDependencies: {
+                    "@vue/cli-plugin-babel": "4.5.11",
                     "@vue/cli-plugin-eslint": "4.1.1",
-                    "@vue/cli-service": "4.1.1",
-                    "vue-template-compiler": "^2.6.11"
+                    "@vue/cli-service": "4.1.1"
                 },
                 scripts: {
                     serve: "vue-cli-service serve",
