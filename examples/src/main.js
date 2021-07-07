@@ -24,10 +24,12 @@ Vue.component("demo-block", DemoBlock);
 Vue.component("anchor", Anchor);
 
 // 仅用作示例
-import { Switch, Row, Col } from "element-ui";
+import { Switch, Row, Col, RadioButton, RadioGroup } from "element-ui";
 Vue.use(Switch);
 Vue.use(Row);
 Vue.use(Col);
+Vue.use(RadioButton);
+Vue.use(RadioGroup);
 
 // vue-lazy-container
 import VueLazyContainer from "vue-lazy-container";

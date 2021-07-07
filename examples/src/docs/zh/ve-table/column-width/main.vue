@@ -6,6 +6,7 @@
         <PercentWidth />
         <PxWidth />
         <FixedWidth />
+        <LongWord />
     </div>
 </template>
 <script>
@@ -14,6 +15,7 @@ import NoWidth from "./no-width.md";
 import PercentWidth from "./percent-width.md";
 import PxWidth from "./px-width.md";
 import FixedWidth from "./fixed-width.md";
+import LongWord from "./long-word.md";
 
 export default {
     name: "basic-main",
@@ -22,7 +24,8 @@ export default {
         NoWidth,
         PercentWidth,
         PxWidth,
-        FixedWidth
+        FixedWidth,
+        LongWord
     }
 };
 </script>
