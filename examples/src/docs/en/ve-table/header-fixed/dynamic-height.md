@@ -1,6 +1,6 @@
-:::anchor 动态高度
+:::anchor Dynamic Height
 
-:::demo 1、你可以使用 [calc css 函数](<https://developer.mozilla.org/en-US/docs/Web/CSS/calc()>) 实现表格动态高度。如 `max-height="calc(100vh - 10px)"` 或者 `max-height="calc(100% - 10px)"` 等<br>2、你可以改变浏览器高度试试
+:::demo 1、You can use the [calc CSS function](<https://developer.mozilla.org/en-US/docs/Web/CSS/calc()>) to achieve the dynamic height of the table. Such as `max-height="calc(100vh - 10px)"` or `max-height="calc(100% - 10px)"` etc.<br>2、You can try it by changing the height of the browser.
 
 ```html
 <template>

@@ -4,6 +4,7 @@
         <Explain />
         <Base />
         <AutoHeight />
+        <DynamicHeight />
         <HeaderFixedDisabled />
     </div>
 </template>
@@ -11,6 +12,7 @@
 import Explain from "./explain.md";
 import Base from "./base.md";
 import AutoHeight from "./auto-height.md";
+import DynamicHeight from "./dynamic-height.md";
 import HeaderFixedDisabled from "./header-fixed-disabled.md";
 
 export default {
@@ -19,6 +21,7 @@ export default {
         Explain,
         Base,
         AutoHeight,
+        DynamicHeight,
         HeaderFixedDisabled
     }
 };
