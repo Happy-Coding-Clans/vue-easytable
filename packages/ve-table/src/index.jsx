@@ -974,11 +974,15 @@ export default {
 
         // table blur
         tableBlur() {
-            // reset cell selection key data
-            this.cellSelectionKeyData = {
-                rowKey: "",
-                columnKey: ""
-            };
+            const { rowKey, columnKey } = this.cellSelectionKeyData;
+
+            if (!isEmptyValue(rowKey) || !isEmptyValue(columnKey)) {
+                // reset cell selection key data
+                this.cellSelectionKeyData = {
+                    rowKey: "",
+                    columnKey: ""
+                };
+            }
         }
     },
     mounted() {
