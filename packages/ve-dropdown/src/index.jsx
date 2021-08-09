@@ -8,105 +8,105 @@ import { clsName } from "./util/index";
 export default {
     name: COMPS_NAME.VE_DROPDOWN,
     directives: {
-        "click-outside": clickoutside
+        "click-outside": clickoutside,
     },
     mixins: [layerAdjustment],
     props: {
         // 如果是select 组件将特殊处理
         isSelect: {
             type: Boolean,
-            default: false
+            default: false,
         },
         showOperation: {
             type: Boolean,
-            default: false
+            default: false,
         },
 
         width: {
             type: Number,
-            default: 90
+            default: 90,
         },
 
         // select的最大宽度(超出隐藏)
         maxWidth: {
             type: Number,
-            default: 0
+            default: 0,
         },
         // max height
         maxHeight: {
             type: Number,
-            default: 1000
+            default: 1000,
         },
 
         // 如果为true 会包含 checkbox
         isMultiple: {
             type: Boolean,
-            default: false
+            default: false,
         },
 
         // 用户传入v-model 的值 [{value/label/selected}]
         value: {
             type: [Array],
-            default: null
+            default: null,
         },
 
         // 文本居中方式 left|center|right
         textAlign: {
             type: String,
-            default: "left"
+            default: "left",
         },
 
         // 是否支持输入input
         isInput: {
             type: Boolean,
-            default: false
+            default: false,
         },
         // confirm filter text
         confirmFilterText: {
             type: String,
-            default: ""
+            default: "",
         },
         // confirm filter text
         resetFilterText: {
             type: String,
-            default: ""
+            default: "",
         },
         // hide by single selection item click
         hideByItemClick: {
             type: Boolean,
-            default: false
+            default: false,
         },
         // is show radio when single selection
         showRadio: {
             type: Boolean,
-            default: false
+            default: false,
         },
         // 当 isControlled=true ,visible 生效
         visible: {
             type: Boolean,
-            default: false
+            default: false,
         },
         // is controlled
         isControlled: {
             type: Boolean,
-            default: false
+            default: false,
         },
         // is custom content
         isCustomContent: {
             type: Boolean,
-            default: false
+            default: false,
         },
         // instance between dropdown items and trigger element
         instance: {
             type: Number,
-            default: 12
-        }
+            default: 12,
+        },
     },
     data() {
         return {
             internalVisible: false,
             internalOptions: [],
-            inputValue: ""
+            inputValue: "",
         };
     },
     computed: {
@@ -130,8 +130,8 @@ export default {
         // selected labels
         selectedLabels() {
             return this.internalOptions
-                .filter(x => x.selected)
-                .map(x => {
+                .filter((x) => x.selected)
+                .map((x) => {
                     if (x.selected) {
                         return x.label;
                     }
@@ -141,7 +141,7 @@ export default {
         operationFilterClass() {
             let result = null;
             result = {
-                [clsName("filter-disable")]: this.selectedLabels.length === 0
+                [clsName("filter-disable")]: this.selectedLabels.length === 0,
             };
 
             return result;
@@ -150,14 +150,14 @@ export default {
         dropdownItemsClass() {
             return {
                 [clsName("dd")]: true,
-                [clsName("dd-show")]: this.isDropdownVisible
+                [clsName("dd-show")]: this.isDropdownVisible,
             };
-        }
+        },
     },
     watch: {
-        value: function(val) {
+        value: function (val) {
             this.init();
-        }
+        },
     },
     methods: {
         // 初始化
@@ -179,8 +179,8 @@ export default {
 
         // operation filter reset
         reset() {
-            if (this.internalOptions.some(x => x.selected)) {
-                this.internalOptions.map(x => {
+            if (this.internalOptions.some((x) => x.selected)) {
+                this.internalOptions.map((x) => {
                     if (x.selected) {
                         x.selected = false;
                     }
@@ -232,7 +232,7 @@ export default {
             } else {
                 this.showDropDown();
 
-                this.$nextTick(x => {
+                this.$nextTick((x) => {
                     this.dropDownClick();
                 });
             }
@@ -240,7 +240,7 @@ export default {
 
         // single select option click
         singleSelectOptionClick(e, item) {
-            this.internalOptions = this.internalOptions.map(x => {
+            this.internalOptions = this.internalOptions.map((x) => {
                 if (item.label === x.label) {
                     x.selected = true;
                 } else {
@@ -298,7 +298,7 @@ export default {
             });
 
             this.$emit(EMIT_EVENTS.ITEM_SELECT_CHANGE, this.internalOptions);
-        }
+        },
     },
 
     created() {
@@ -324,7 +324,7 @@ export default {
             isDropdownVisible,
             showOperation,
             clickOutside,
-            isCustomContent
+            isCustomContent,
         } = this;
 
         let content = "";
@@ -337,12 +337,12 @@ export default {
                         isControlled: true,
                         label: item.label,
                         showLine: item.showLine,
-                        isSelected: item.selected
+                        isSelected: item.selected,
                     },
                     on: {
-                        "on-checked-change": isChecked =>
-                            this.checkedChangeControl(item, isChecked)
-                    }
+                        "on-checked-change": (isChecked) =>
+                            this.checkedChangeControl(item, isChecked),
+                    },
                 };
 
                 return (
@@ -351,7 +351,7 @@ export default {
                         class={[
                             clsName("items-multiple"),
                             clsName("items-li"),
-                            getTextAlignClass()
+                            getTextAlignClass(),
                         ]}
                     >
                         <VeCheckbox {...checkboxProps} />
@@ -363,11 +363,11 @@ export default {
                 const radioProps = {
                     props: {
                         isControlled: true,
-                        isSelected: item.selected
+                        isSelected: item.selected,
                     },
                     on: {
-                        "on-radio-change": () => {}
-                    }
+                        "on-radio-change": () => {},
+                    },
                 };
 
                 return (
@@ -375,9 +375,9 @@ export default {
                         key={index}
                         class={[
                             clsName("items-li"),
-                            item.selected ? "active" : ""
+                            item.selected ? "active" : "",
                         ]}
-                        on-click={e => singleSelectOptionClick(e, item)}
+                        on-click={(e) => singleSelectOptionClick(e, item)}
                     >
                         <a
                             class={[clsName("items-li-a"), getTextAlignClass()]}
@@ -399,9 +399,9 @@ export default {
             directives: [
                 {
                     name: "click-outside",
-                    value: this.dropdownBlur
-                }
-            ]
+                    value: this.dropdownBlur,
+                },
+            ],
         };
 
         return (
@@ -420,7 +420,7 @@ export default {
                         class={clsName("items")}
                         style={{
                             "min-width": width + "px",
-                            "max-width": getMaxWidth + "px"
+                            "max-width": getMaxWidth + "px",
                         }}
                     >
                         {/* custome content */}
@@ -430,7 +430,7 @@ export default {
                             <div>
                                 <div
                                     style={{
-                                        "max-height": maxHeight + "px"
+                                        "max-height": maxHeight + "px",
                                     }}
                                     class={clsName("items-warpper")}
                                 >
@@ -441,7 +441,7 @@ export default {
                                         <a
                                             class={[
                                                 clsName("operation-item"),
-                                                this.operationFilterClass
+                                                this.operationFilterClass,
                                             ]}
                                             href="javascript:void(0)"
                                             on-click={reset}
@@ -463,5 +463,5 @@ export default {
                 </dd>
             </dl>
         );
-    }
+    },
 };

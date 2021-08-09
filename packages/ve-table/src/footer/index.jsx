@@ -6,65 +6,65 @@ export default {
     props: {
         colgroups: {
             type: Array,
-            required: true
+            required: true,
         },
         footerData: {
             type: Array,
-            required: true
+            required: true,
         },
         hasFixedColumn: {
             type: Boolean,
-            default: false
+            default: false,
         },
         allRowKeys: {
             type: Array,
-            required: true
+            required: true,
         },
         rowKeyFieldName: {
             type: String,
-            default: null
+            default: null,
         },
         // cell style option
         cellStyleOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // event custom option
         eventCustomOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // footer rows
         footerRows: {
             type: Array,
-            default: function() {
+            default: function () {
                 return [];
-            }
+            },
         },
         // fixed footer
         fixedFooter: {
             type: Boolean,
-            default: true
+            default: true,
         },
         // cell span option
         cellSpanOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
-        }
+            },
+        },
     },
     computed: {
         // footer class
         footerClass() {
             return {
-                [clsName("fixed-footer")]: this.fixedFooter
+                [clsName("fixed-footer")]: this.fixedFooter,
             };
-        }
+        },
     },
     methods: {
         // get tr key
@@ -76,7 +76,7 @@ export default {
                 result = rowData[rowKeyFieldName];
             }
             return result;
-        }
+        },
     },
     render() {
         const { colgroups, rowKeyFieldName, cellStyleOption } = this;
@@ -95,13 +95,13 @@ export default {
                             footerRows: this.footerRows,
                             fixedFooter: this.fixedFooter,
                             cellSpanOption: this.cellSpanOption,
-                            eventCustomOption:this.eventCustomOption
-                        }
+                            eventCustomOption: this.eventCustomOption,
+                        },
                     };
 
                     return <FooterTr {...trProps} />;
                 })}
             </tfoot>
         );
-    }
+    },
 };

@@ -10,45 +10,45 @@ export default {
         // expand column
         expandColumn: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         colgroups: {
             type: Array,
-            required: true
+            required: true,
         },
         // expand row option
         expandOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // expanded row keys
         expandedRowkeys: {
             type: Array,
-            default: function() {
+            default: function () {
                 return [];
-            }
+            },
         },
         rowData: {
             type: Object,
-            required: true
+            required: true,
         },
         rowIndex: {
             type: Number,
-            required: true
+            required: true,
         },
         rowKeyFieldName: {
             type: String,
-            default: null
+            default: null,
         },
         // is virtual scroll
         isVirtualScroll: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
     computed: {
         // get column count
@@ -79,14 +79,14 @@ export default {
         // expand row class
         expanRowClass() {
             let result = {
-                [clsName("expand-tr")]: true
+                [clsName("expand-tr")]: true,
             };
             return result;
         },
 
         // has left fixed column
         hasLeftFixedColumn() {
-            return this.colgroups.some(x => x.fixed === "left");
+            return this.colgroups.some((x) => x.fixed === "left");
         },
 
         // expand td content style
@@ -101,7 +101,7 @@ export default {
             }
 
             return result;
-        }
+        },
     },
     methods: {
         // get expande row content
@@ -113,13 +113,13 @@ export default {
                     {
                         row: this.rowData,
                         column: this.expandColumn,
-                        rowIndex: this.rowIndex
+                        rowIndex: this.rowIndex,
                     },
-                    h
+                    h,
                 );
 
             return result;
-        }
+        },
     },
     render(h) {
         const {
@@ -127,7 +127,7 @@ export default {
             columnCount,
             getExpandRowContent,
             expanRowStyle,
-            expandTdClass
+            expandTdClass,
         } = this;
 
         let result = null;
@@ -149,5 +149,5 @@ export default {
         }
 
         return result;
-    }
+    },
 };

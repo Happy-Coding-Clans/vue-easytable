@@ -3,7 +3,7 @@ import {
     COMPS_NAME,
     EMIT_EVENTS,
     COLUMN_TYPES,
-    EXPAND_TRIGGER_TYPES
+    EXPAND_TRIGGER_TYPES,
 } from "../util/constant";
 import { clsName } from "../util";
 import emitter from "../../../src/mixins/emitter";
@@ -14,16 +14,16 @@ export default {
         // checkbox option
         checkboxOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
-        }
+            },
+        },
     },
     data() {
         return {
             // is selected
             isSelected: false,
-            isIndeterminate: false
+            isIndeterminate: false,
         };
     },
 
@@ -39,8 +39,8 @@ export default {
                 COMPS_NAME.VE_TABLE,
                 EMIT_EVENTS.CHECKBOX_SELECTED_ALL_CHANGE,
                 {
-                    isSelected
-                }
+                    isSelected,
+                },
             );
         },
 
@@ -48,11 +48,11 @@ export default {
         setSelectedAllInfo({ isSelected, isIndeterminate }) {
             this.isSelected = isSelected;
             this.isIndeterminate = isIndeterminate;
-        }
+        },
     },
     mounted() {
         // receive selected all info
-        this.$on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_INFO, params => {
+        this.$on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_INFO, (params) => {
             this.setSelectedAllInfo(params);
         });
     },
@@ -64,14 +64,14 @@ export default {
             props: {
                 isControlled: true,
                 isSelected: isSelected,
-                indeterminate: isIndeterminate
+                indeterminate: isIndeterminate,
             },
             on: {
-                "on-checked-change": isSelectedParam =>
-                    selectedChange(isSelectedParam)
-            }
+                "on-checked-change": (isSelectedParam) =>
+                    selectedChange(isSelectedParam),
+            },
         };
 
         return <VeCheckbox {...checkboxProps} />;
-    }
+    },
 };

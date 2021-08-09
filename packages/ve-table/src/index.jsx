@@ -2,7 +2,7 @@ import { cloneDeep } from "lodash";
 import {
     initGroupColumns,
     clsName,
-    getNotFixedTotalWidthByColumnKey
+    getNotFixedTotalWidthByColumnKey,
 } from "./util";
 import { getValByUnit, isFunction } from "../../src/utils/index.js";
 import emitter from "../../src/mixins/emitter";
@@ -20,139 +20,139 @@ import VueDomResizeObserver from "../../src/comps/resize-observer";
 export default {
     name: COMPS_NAME.VE_TABLE,
     directives: {
-        "click-outside": clickoutside
+        "click-outside": clickoutside,
     },
     mixins: [emitter],
     props: {
         tableData: {
             required: true,
-            type: Array
+            type: Array,
         },
         footerData: {
             type: Array,
-            default: function() {
+            default: function () {
                 return [];
-            }
+            },
         },
         columns: {
             type: Array,
-            required: true
+            required: true,
         },
         // row key field for row expand、row selection
         rowKeyFieldName: {
             type: String,
-            default: null
+            default: null,
         },
         // table scroll width
         scrollWidth: {
             type: [Number, String],
-            default: null
+            default: null,
         },
         // table max height
         maxHeight: {
             type: [Number, String],
-            default: null
+            default: null,
         },
         // fixed header
         fixedHeader: {
             type: Boolean,
-            default: true
+            default: true,
         },
         // fixed footer
         fixedFooter: {
             type: Boolean,
-            default: true
+            default: true,
         },
         // border around
         borderAround: {
             type: Boolean,
-            default: true
+            default: true,
         },
         // border horizontal
         borderX: {
             type: Boolean,
-            default: true
+            default: true,
         },
         // border vertical
         borderY: {
             type: Boolean,
-            default: false
+            default: false,
         },
         // event custom option
         eventCustomOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // cell style option
         cellStyleOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // cell span option
         cellSpanOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // row style option
         rowStyleOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // virual scroll
         virtualScrollOption: {
             type: Object,
-            default: null
+            default: null,
         },
         // sort option
         sortOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // expand row option
         expandOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // checkbox option
         checkboxOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // radio option
         radioOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // cell selection option
         cellSelectionOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // edit opttion
         editOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
-        }
+            },
+        },
     },
     data() {
         return {
@@ -214,8 +214,8 @@ export default {
             // cell selection key
             cellSelectionKeyData: {
                 rowKey: "",
-                columnKey: ""
-            }
+                columnKey: "",
+            },
         };
     },
 
@@ -227,7 +227,7 @@ export default {
             const { cloneTableData, rowKeyFieldName } = this;
 
             if (rowKeyFieldName) {
-                result = cloneTableData.map(x => {
+                result = cloneTableData.map((x) => {
                     return x[rowKeyFieldName];
                 });
             }
@@ -241,7 +241,7 @@ export default {
             const {
                 isVirtualScroll,
                 virtualScrollOption,
-                defaultVirtualScrollMinRowHeight
+                defaultVirtualScrollMinRowHeight,
             } = this;
 
             if (isVirtualScroll && this.maxHeight) {
@@ -261,7 +261,7 @@ export default {
                 virtualScrollOption,
                 virtualScrollStartIndex,
                 virtualScrollVisibleCount,
-                defaultVirtualScrollBufferScale
+                defaultVirtualScrollBufferScale,
             } = this;
             if (isVirtualScroll) {
                 const bufferScale =
@@ -271,7 +271,7 @@ export default {
 
                 result = Math.min(
                     virtualScrollStartIndex,
-                    bufferScale * virtualScrollVisibleCount
+                    bufferScale * virtualScrollVisibleCount,
                 );
             }
             return result;
@@ -286,7 +286,7 @@ export default {
                 virtualScrollEndIndex,
                 virtualScrollVisibleCount,
                 cloneTableData,
-                defaultVirtualScrollBufferScale
+                defaultVirtualScrollBufferScale,
             } = this;
             if (isVirtualScroll) {
                 const bufferScale =
@@ -296,7 +296,7 @@ export default {
 
                 result = Math.min(
                     cloneTableData.length - virtualScrollEndIndex,
-                    bufferScale * virtualScrollVisibleCount
+                    bufferScale * virtualScrollVisibleCount,
                 );
             }
 
@@ -312,7 +312,7 @@ export default {
                 virtualScrollEndIndex: endIndex,
                 virtualScrollBelowCount: belowCount,
                 virtualScrollAboveCount: aboveCount,
-                cloneTableData
+                cloneTableData,
             } = this;
             if (isVirtualScroll) {
                 let start = startIndex - aboveCount;
@@ -333,7 +333,7 @@ export default {
                     virtualScrollHeight = maxHeight;
                 } else {
                     console.error(
-                        "maxHeight prop is required when 'virtualScrollOption.enable = true'"
+                        "maxHeight prop is required when 'virtualScrollOption.enable = true'",
                     );
                 }
             }
@@ -341,20 +341,20 @@ export default {
             return {
                 "max-height": maxHeight,
                 // if virtual scroll
-                height: virtualScrollHeight
+                height: virtualScrollHeight,
             };
         },
         // table style
         tableStyle() {
             return {
-                width: getValByUnit(this.scrollWidth)
+                width: getValByUnit(this.scrollWidth),
             };
         },
         // table class
         tableClass() {
             return {
                 [clsName("border-x")]: this.borderX,
-                [clsName("border-y")]: this.borderY
+                [clsName("border-y")]: this.borderY,
             };
         },
         // table container class
@@ -363,7 +363,7 @@ export default {
                 borderAround,
                 isVirtualScroll,
                 isLeftScrolling,
-                isRightScrolling
+                isRightScrolling,
             } = this;
 
             return {
@@ -371,7 +371,7 @@ export default {
                 [clsName("border-around")]: borderAround,
                 [clsName("virtual-scroll")]: isVirtualScroll,
                 [clsName("container-left-scrolling")]: isLeftScrolling,
-                [clsName("container-right-scrolling")]: isRightScrolling
+                [clsName("container-right-scrolling")]: isRightScrolling,
             };
         },
         // table body class
@@ -393,7 +393,7 @@ export default {
             result = {
                 [clsName("stripe")]: stripe === true, // 默认不开启
                 [clsName("row-hover")]: hoverHighlight !== false, // 默认开启
-                [clsName("row-highlight")]: clickHighlight !== false // 默认开启
+                [clsName("row-highlight")]: clickHighlight !== false, // 默认开启
             };
 
             return result;
@@ -406,20 +406,20 @@ export default {
         // has fixed column
         hasFixedColumn() {
             return this.colgroups.some(
-                x => x.fixed === "left" || x.fixed === "right"
+                (x) => x.fixed === "left" || x.fixed === "right",
             );
         },
         // is last left fixed column
         hasLeftFixedColumn() {
-            return this.colgroups.some(x => x.fixed === "left");
-        }
+            return this.colgroups.some((x) => x.fixed === "left");
+        },
     },
     watch: {
         tableData: {
             handler() {
                 this.initTableData();
             },
-            immediate: true
+            immediate: true,
         },
         columns: {
             handler(newVal, oldVal) {
@@ -429,7 +429,7 @@ export default {
                 this.initColumns();
                 this.initGroupColumns();
             },
-            immediate: true
+            immediate: true,
         },
         // group columns change watch
         groupColumns: {
@@ -438,7 +438,7 @@ export default {
                     this.initHeaderRows();
                 }
             },
-            immediate: true
+            immediate: true,
         },
         // footerData
         footerData: {
@@ -447,15 +447,15 @@ export default {
                     this.initFooterRows();
                 }
             },
-            immediate: true
+            immediate: true,
         },
         // watch clone table data
         cloneTableData: {
             handler() {
                 this.initVirtualScrollPositions();
             },
-            immediate: true
-        }
+            immediate: true,
+        },
     },
 
     methods: {
@@ -464,7 +464,7 @@ export default {
             const { groupColumns } = this;
 
             if (Array.isArray(groupColumns)) {
-                this.headerRows = groupColumns.map(x => {
+                this.headerRows = groupColumns.map((x) => {
                     return { rowHeight: 0 };
                 });
             }
@@ -475,7 +475,7 @@ export default {
             const { footerData } = this;
 
             if (Array.isArray(footerData)) {
-                this.footerRows = footerData.map(x => {
+                this.footerRows = footerData.map((x) => {
                     return { rowHeight: 0 };
                 });
             }
@@ -493,7 +493,7 @@ export default {
 
         // td width change
         tdWidthChange(colWidths) {
-            this.colgroups = this.colgroups.map(item => {
+            this.colgroups = this.colgroups.map((item) => {
                 // map
                 item._realTimeWidth = colWidths.get(item.key);
                 return item;
@@ -535,8 +535,8 @@ export default {
                 COMPS_NAME.VE_TABLE_BODY,
                 EMIT_EVENTS.CHECKBOX_SELECTED_ALL_CHANGE,
                 {
-                    isSelected
-                }
+                    isSelected,
+                },
             );
         },
 
@@ -552,8 +552,8 @@ export default {
                 EMIT_EVENTS.CHECKBOX_SELECTED_ALL_INFO,
                 {
                     isSelected,
-                    isIndeterminate
-                }
+                    isIndeterminate,
+                },
             );
         },
 
@@ -573,7 +573,7 @@ export default {
                 cellSelectionKeyData,
                 colgroups,
                 allRowKeys,
-                rowKeyFieldName
+                rowKeyFieldName,
             } = this;
 
             const { keyCode } = event;
@@ -581,7 +581,9 @@ export default {
             const { rowKey, columnKey } = cellSelectionKeyData;
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(columnKey)) {
-                let columnIndex = colgroups.findIndex(x => x.key === columnKey);
+                let columnIndex = colgroups.findIndex(
+                    (x) => x.key === columnKey,
+                );
                 let rowIndex = allRowKeys.indexOf(rowKey);
                 if (keyCode === KEY_CODES.ARROW_LEFT) {
                     event.preventDefault();
@@ -638,7 +640,7 @@ export default {
                     const totalWidth = getNotFixedTotalWidthByColumnKey({
                         colgroups,
                         columnKey: nextColumn.key,
-                        direction: "left"
+                        direction: "left",
                     });
                     const diff = scrollLeft - totalWidth;
                     if (diff > 0) {
@@ -655,7 +657,7 @@ export default {
                     const totalWidth = getNotFixedTotalWidthByColumnKey({
                         colgroups,
                         columnKey: nextColumn.key,
-                        direction: "right"
+                        direction: "right",
                     });
                     const diff = scrollRight - totalWidth;
                     if (diff > 0) {
@@ -678,18 +680,16 @@ export default {
 
             const {
                 clientHeight: containerClientHeight,
-                scrollTop: containerScrollTop
+                scrollTop: containerScrollTop,
             } = tableContainerRef;
 
             const nextRowEl = this.$el.querySelector(
-                `tbody tr[${COMPS_CUSTOM_ATTRS.BODY_ROW_KEY}="${nextRowKey}"]`
+                `tbody tr[${COMPS_CUSTOM_ATTRS.BODY_ROW_KEY}="${nextRowKey}"]`,
             );
 
             if (nextRowEl) {
-                const {
-                    offsetTop: trOffsetTop,
-                    clientHeight: trClientHeight
-                } = nextRowEl;
+                const { offsetTop: trOffsetTop, clientHeight: trClientHeight } =
+                    nextRowEl;
 
                 // arrow up
                 if (keyCode === KEY_CODES.ARROW_UP) {
@@ -697,7 +697,7 @@ export default {
                         (total, currentVal) => {
                             return currentVal.rowHeight + total;
                         },
-                        0
+                        0,
                     );
 
                     let diff = 0;
@@ -726,7 +726,7 @@ export default {
                         (total, currentVal) => {
                             return currentVal.rowHeight + total;
                         },
-                        0
+                        0,
                     );
 
                     let diff = 0;
@@ -770,18 +770,18 @@ export default {
             if (isVirtualScroll || (hasLeftFixedColumn && expandOption)) {
                 const props = {
                     props: {
-                        tagName: "div"
+                        tagName: "div",
                     },
                     style: {
-                        width: "100%"
+                        width: "100%",
                     },
                     on: {
                         "on-dom-resize-change": ({ width }) => {
                             mutations.setStore({
-                                tableViewportWidth: width
+                                tableViewportWidth: width,
                             });
-                        }
-                    }
+                        },
+                    },
                 };
 
                 content = (
@@ -789,7 +789,7 @@ export default {
                         ref={this.virtualPhantomRef}
                         class={[
                             clsName("virtual-phantom"),
-                            isVirtualScroll ? clsName("virtual-scroll") : ""
+                            isVirtualScroll ? clsName("virtual-scroll") : "",
                         ]}
                     >
                         <VueDomResizeObserver {...props} />
@@ -807,7 +807,7 @@ export default {
                     virtualScrollOption,
                     rowKeyFieldName,
                     cloneTableData,
-                    defaultVirtualScrollMinRowHeight
+                    defaultVirtualScrollMinRowHeight,
                 } = this;
 
                 const minRowHeight =
@@ -815,33 +815,46 @@ export default {
                         ? virtualScrollOption.minRowHeight
                         : defaultVirtualScrollMinRowHeight;
 
-                this.virtualScrollPositions = cloneTableData.map((item, index) => ({
-                    rowKey: item[rowKeyFieldName],
-                    height: minRowHeight,
-                    top: index * minRowHeight,
-                    bottom: (index + 1) * minRowHeight
-                }));
+                this.virtualScrollPositions = cloneTableData.map(
+                    (item, index) => ({
+                        rowKey: item[rowKeyFieldName],
+                        height: minRowHeight,
+                        top: index * minRowHeight,
+                        bottom: (index + 1) * minRowHeight,
+                    }),
+                );
             }
         },
         // list item height change
         bodyTrHeightChange({ rowKey, height }) {
-
             //获取真实元素大小，修改对应的尺寸缓存
-            const index = this.virtualScrollPositions.findIndex(x => x.rowKey === rowKey);
+            const index = this.virtualScrollPositions.findIndex(
+                (x) => x.rowKey === rowKey,
+            );
 
             let oldHeight = this.virtualScrollPositions[index].height;
             let dValue = oldHeight - height;
             //存在差值
             if (dValue) {
-                this.virtualScrollPositions[index].bottom = this.virtualScrollPositions[index].bottom - dValue;
+                this.virtualScrollPositions[index].bottom =
+                    this.virtualScrollPositions[index].bottom - dValue;
                 this.virtualScrollPositions[index].height = height;
-                for (let k = index + 1; k < this.virtualScrollPositions.length; k++) {
-                    this.virtualScrollPositions[k].top = this.virtualScrollPositions[k - 1].bottom;
-                    this.virtualScrollPositions[k].bottom = this.virtualScrollPositions[k].bottom - dValue;
+                for (
+                    let k = index + 1;
+                    k < this.virtualScrollPositions.length;
+                    k++
+                ) {
+                    this.virtualScrollPositions[k].top =
+                        this.virtualScrollPositions[k - 1].bottom;
+                    this.virtualScrollPositions[k].bottom =
+                        this.virtualScrollPositions[k].bottom - dValue;
                 }
 
                 //更新列表总高度
-                let totalHeight = this.virtualScrollPositions[this.virtualScrollPositions.length - 1].bottom;
+                let totalHeight =
+                    this.virtualScrollPositions[
+                        this.virtualScrollPositions.length - 1
+                    ].bottom;
                 this.$refs[this.virtualPhantomRef].style.height =
                     totalHeight + "px";
 
@@ -853,17 +866,18 @@ export default {
         setVirtualScrollStartOffset() {
             const {
                 virtualScrollStartIndex: start,
-                virtualScrollAboveCount: aboveCount
+                virtualScrollAboveCount: aboveCount,
             } = this;
 
             let startOffset;
             if (start >= 1) {
                 let size =
-                this.virtualScrollPositions[start].top -
+                    this.virtualScrollPositions[start].top -
                     (this.virtualScrollPositions[start - aboveCount]
                         ? this.virtualScrollPositions[start - aboveCount].top
                         : 0);
-                startOffset = this.virtualScrollPositions[start - 1].bottom - size;
+                startOffset =
+                    this.virtualScrollPositions[start - 1].bottom - size;
             } else {
                 startOffset = 0;
             }
@@ -875,7 +889,7 @@ export default {
         getVirtualScrollStartIndex(scrollTop = 0) {
             return this.virtualScrollBinarySearch(
                 this.virtualScrollPositions,
-                scrollTop
+                scrollTop,
             );
         },
         // virtual scroll binary search
@@ -911,16 +925,15 @@ export default {
                     virtualScrollVisibleCount: visibleCount,
                     virtualScrollOption,
                     virtualScrollAboveCount: visibleAboveCount,
-                    virtualScrollBelowCount: visibleBelowCount
+                    virtualScrollBelowCount: visibleBelowCount,
                 } = this;
 
                 //当前滚动位置
                 let scrollTop = tableContainerRef.scrollTop;
 
                 //此时的开始索引
-                let visibleStartIndex = this.getVirtualScrollStartIndex(
-                    scrollTop
-                );
+                let visibleStartIndex =
+                    this.getVirtualScrollStartIndex(scrollTop);
                 this.virtualScrollStartIndex = visibleStartIndex;
 
                 //此时的结束索引
@@ -940,7 +953,7 @@ export default {
                         visibleStartIndex,
                         visibleEndIndex,
                         visibleAboveCount,
-                        visibleBelowCount
+                        visibleBelowCount,
                     });
                 }
             }
@@ -980,19 +993,19 @@ export default {
                 // reset cell selection key data
                 this.cellSelectionKeyData = {
                     rowKey: "",
-                    columnKey: ""
+                    columnKey: "",
                 };
             }
-        }
+        },
     },
     mounted() {
         // receive row selected change
-        this.$on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_CHANGE, params => {
+        this.$on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_CHANGE, (params) => {
             this.selectedAllChange(params);
         });
 
         // receive selected all info
-        this.$on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_INFO, params => {
+        this.$on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_INFO, (params) => {
             this.setSelectedAllInfo(params);
         });
 
@@ -1001,7 +1014,7 @@ export default {
             EMIT_EVENTS.HEADER_TR_HEIGHT_CHANGE,
             ({ rowIndex, height }) => {
                 this.headerTrHeightChange({ rowIndex, height });
-            }
+            },
         );
 
         // receive virtual scroll row height change
@@ -1014,7 +1027,7 @@ export default {
             EMIT_EVENTS.Footer_TR_HEIGHT_CHANGE,
             ({ rowIndex, height }) => {
                 this.footTrHeightChange({ rowIndex, height });
-            }
+            },
         );
 
         // add key down event listener
@@ -1049,7 +1062,7 @@ export default {
             isVirtualScroll,
             virtualScrollVisibleData,
             sortOption,
-            cellStyleOption
+            cellStyleOption,
         } = this;
 
         // header props
@@ -1064,8 +1077,8 @@ export default {
                 sortOption,
                 cellStyleOption,
                 eventCustomOption: this.eventCustomOption,
-                headerRows: this.headerRows
-            }
+                headerRows: this.headerRows,
+            },
         };
 
         // body props
@@ -1089,13 +1102,13 @@ export default {
                 hasFixedColumn: this.hasFixedColumn,
                 cellSelectionKeyData: this.cellSelectionKeyData,
                 allRowKeys: this.allRowKeys,
-                editOption: this.editOption
+                editOption: this.editOption,
             },
             on: {
                 [EMIT_EVENTS.BODY_TD_WIDTH_CHANGE]: tdWidthChange,
-                [EMIT_EVENTS.CELL_SELECTION_KEY_CHANGE]: this
-                    .cellSelectionKeyChange
-            }
+                [EMIT_EVENTS.CELL_SELECTION_KEY_CHANGE]:
+                    this.cellSelectionKeyChange,
+            },
         };
 
         // footer props
@@ -1111,8 +1124,8 @@ export default {
                 eventCustomOption: this.eventCustomOption,
                 hasFixedColumn: this.hasFixedColumn,
                 allRowKeys: this.allRowKeys,
-                footerRows: this.footerRows
-            }
+                footerRows: this.footerRows,
+            },
         };
 
         // container props
@@ -1121,14 +1134,14 @@ export default {
             class: this.tableContainerClass,
             style: tableContainerStyle,
             on: {
-                scroll: this.tableContainerScrollHandler
+                scroll: this.tableContainerScrollHandler,
             },
             directives: [
                 {
                     name: "click-outside",
-                    value: this.tableBlur
-                }
-            ]
+                    value: this.tableBlur,
+                },
+            ],
         };
 
         return (
@@ -1153,5 +1166,5 @@ export default {
                 </div>
             </div>
         );
-    }
+    },
 };

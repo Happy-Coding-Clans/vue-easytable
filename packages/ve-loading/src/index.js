@@ -17,7 +17,7 @@ const defaultOptions = {
     target: "",
     lock: false,
     // parent “__parent__”会被忽略
-    parent__: null
+    parent__: null,
 };
 
 // parent relative class
@@ -28,7 +28,7 @@ const PARENT_LOCK_CLASS = clsName("parent-lock");
 const LoadingConstructor = Vue.extend(VeLoading);
 
 // show
-LoadingConstructor.prototype.show = function() {
+LoadingConstructor.prototype.show = function () {
     Vue.nextTick(() => {
         if (this.lock) {
             addClass(this.parent__, PARENT_LOCK_CLASS);
@@ -38,7 +38,7 @@ LoadingConstructor.prototype.show = function() {
 };
 
 // close
-LoadingConstructor.prototype.close = function() {
+LoadingConstructor.prototype.close = function () {
     Vue.nextTick(() => {
         if (this.lock) {
             removeClass(this.parent__, PARENT_LOCK_CLASS);
@@ -48,7 +48,7 @@ LoadingConstructor.prototype.close = function() {
 };
 
 // destroy
-LoadingConstructor.prototype.destroy = function() {
+LoadingConstructor.prototype.destroy = function () {
     const target = this.fullscreen ? document.body : this.target;
 
     removeClass(this.parent__, PARENT_RELATIVE_CLASS);
@@ -65,7 +65,7 @@ LoadingConstructor.prototype.destroy = function() {
 function createInstance(options = {}) {
     return new LoadingConstructor({
         el: document.createElement("div"),
-        data: options
+        data: options,
     });
 }
 

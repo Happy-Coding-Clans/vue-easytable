@@ -8,35 +8,35 @@ export default {
     props: {
         column: {
             type: Object,
-            required: true
+            required: true,
         },
         // expand row option
         expandOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         rowData: {
             type: Object,
-            required: true
+            required: true,
         },
         // expanded row keys
         expandedRowkeys: {
             type: Array,
-            default: function() {
+            default: function () {
                 return [];
-            }
+            },
         },
         rowKeyFieldName: {
             type: String,
-            default: null
+            default: null,
         },
         // row expand click event
         cellClick: {
             type: Function,
-            default: null
-        }
+            default: null,
+        },
     },
     computed: {
         // is row expanded
@@ -48,7 +48,7 @@ export default {
                 expandOption,
                 rowData,
                 expandedRowkeys,
-                rowKeyFieldName
+                rowKeyFieldName,
             } = this;
 
             if (column.type === COLUMN_TYPES.EXPAND) {
@@ -62,9 +62,9 @@ export default {
         expandRowIconContainerClass() {
             return {
                 [clsName("row-expand-icon")]: true,
-                [clsName("expand-icon-collapsed")]: this.isExpanded
+                [clsName("expand-icon-collapsed")]: this.isExpanded,
             };
-        }
+        },
     },
     render() {
         let content = null;
@@ -74,7 +74,7 @@ export default {
         if (column.type === COLUMN_TYPES.EXPAND) {
             content = (
                 <span
-                    onClick={e => cellClick(e)}
+                    onClick={(e) => cellClick(e)}
                     class={expandRowIconContainerClass}
                 >
                     <VeIcon name={ICON_NAMES.RIGHT_ARROW} />
@@ -82,5 +82,5 @@ export default {
             );
         }
         return content;
-    }
+    },
 };

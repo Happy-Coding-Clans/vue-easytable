@@ -114,7 +114,7 @@ export function getChildCompsByName(context, name) {
     let childrens = context.$children;
 
     while (childrens && childrens.length > 0) {
-        childrens.forEach(child => {
+        childrens.forEach((child) => {
             childrens = child.$children ? child.$children : null;
 
             if (child.$options.name === name) {
@@ -156,6 +156,6 @@ export function getViewportOffset(element) {
         right: window.document.documentElement.clientWidth - box.width - left,
         bottom: window.document.documentElement.clientHeight - box.height - top,
         right2: window.document.documentElement.clientWidth - left,
-        bottom2: window.document.documentElement.clientHeight - top
+        bottom2: window.document.documentElement.clientHeight - top,
     };
 }

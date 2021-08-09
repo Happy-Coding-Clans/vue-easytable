@@ -8,7 +8,7 @@ import { isFunction } from "../utils/index";
  * @return {array<function>}
  */
 export function createI18N(compName) {
-    return function(path, ...args) {
+    return function (path, ...args) {
         let result = "";
 
         const messages = locale.getMessage();
@@ -18,7 +18,7 @@ export function createI18N(compName) {
             result = isFunction(message) ? message(...args) : message;
         } else {
             console.error(
-                `can't find ${compName} in ${JSON.stringify(messages)}`
+                `can't find ${compName} in ${JSON.stringify(messages)}`,
             );
         }
 

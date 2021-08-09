@@ -5,18 +5,18 @@ export default {
     props: {
         colgroups: {
             type: Array,
-            required: true
-        }
+            required: true,
+        },
     },
     methods: {
         getValByUnit(width) {
             return getValByUnit(width);
-        }
+        },
     },
     render() {
         return (
             <colgroup>
-                {this.colgroups.map(item => {
+                {this.colgroups.map((item) => {
                     return (
                         <col
                             key={item.key}
@@ -26,5 +26,5 @@ export default {
                 })}
             </colgroup>
         );
-    }
+    },
 };

@@ -9,7 +9,7 @@ const { resolve, basename } = path;
 const localePath = resolve(__dirname, "../packages/src/locale/lang");
 const fileList = fse.readdirSync(localePath);
 
-const transform = function(filename, name, cb) {
+const transform = function (filename, name, cb) {
     const moduleId = `${libraryName}/lang/${name}`;
     const moduleValue = `${libraryName}.lang.${name}`;
 
@@ -21,9 +21,9 @@ const transform = function(filename, name, cb) {
                     "@babel/preset-env",
                     {
                         loose: true,
-                        modules: false
-                    }
-                ]
+                        modules: false,
+                    },
+                ],
             ],
             plugins: [
                 "@babel/plugin-external-helpers",
@@ -31,27 +31,27 @@ const transform = function(filename, name, cb) {
                     "@babel/plugin-transform-modules-umd",
                     {
                         globals: {
-                            [moduleId]: moduleValue
+                            [moduleId]: moduleValue,
                         },
-                        exactGlobals: true
-                    }
-                ]
+                        exactGlobals: true,
+                    },
+                ],
             ],
-            moduleId: moduleId
+            moduleId: moduleId,
         },
-        cb
+        cb,
     );
 };
 
 fileList
-    .filter(function(file) {
+    .filter(function (file) {
         return /\.js$/.test(file);
     })
-    .forEach(function(file) {
+    .forEach(function (file) {
         const saveName = basename(file, ".js");
         const name = saveName.replace("-", "");
 
-        transform(file, name, function(err, result) {
+        transform(file, name, function (err, result) {
             if (err) {
                 console.error(err);
             } else {
@@ -59,12 +59,12 @@ fileList
 
                 code = code.replace(
                     `global.${libraryName}.lang.${name} = mod.exports`,
-                    `global.${libraryName}.lang.${name} = mod.exports.default`
+                    `global.${libraryName}.lang.${name} = mod.exports.default`,
                 );
 
                 const filePath = path.join(
                     __dirname,
-                    `../libs/locale/lang/${saveName}.js`
+                    `../libs/locale/lang/${saveName}.js`,
                 );
 
                 fse.ensureFileSync(filePath);

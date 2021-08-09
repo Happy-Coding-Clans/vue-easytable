@@ -15,65 +15,65 @@ export default {
         // group columns item
         groupColumn: {
             type: Array,
-            required: true
+            required: true,
         },
         // group column item
         groupColumnItem: {
             type: Object,
-            required: true
+            required: true,
         },
         colgroups: {
             type: Array,
-            required: true
+            required: true,
         },
         headerRows: {
             type: Array,
-            default: function() {
+            default: function () {
                 return [];
-            }
+            },
         },
         fixedHeader: {
-            type: Boolean
+            type: Boolean,
         },
         rowIndex: {
             type: Number,
-            required: true
+            required: true,
         },
         // checkbox option
         checkboxOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // sort option
         sortOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // sort columns
         sortColumns: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // cell style option
         cellStyleOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // event custom option
         eventCustomOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
-        }
+            },
+        },
     },
     computed: {
         // is last left fixed column
@@ -86,10 +86,10 @@ export default {
 
             if (fixed === "left") {
                 const leftFixedColumns = groupColumn.filter(
-                    x => x.fixed === "left"
+                    (x) => x.fixed === "left",
                 );
                 const index = leftFixedColumns.findIndex(
-                    x => x._keys === _keys
+                    (x) => x._keys === _keys,
                 );
 
                 if (index === leftFixedColumns.length - 1) {
@@ -108,7 +108,7 @@ export default {
 
             if (fixed === "right") {
                 const leftFixedColumns = groupColumn.filter(
-                    x => x.fixed === "right"
+                    (x) => x.fixed === "right",
                 );
 
                 if (leftFixedColumns[0]._keys === _keys) {
@@ -138,7 +138,7 @@ export default {
             }
 
             return result;
-        }
+        },
     },
     methods: {
         /*
@@ -152,17 +152,13 @@ export default {
                 [clsName("fixed-left")]: fixed === "left",
                 [clsName("fixed-right")]: fixed === "right",
                 [clsName("last-left-fixed-column")]: this.isLastLeftFixedColumn,
-                [clsName("first-right-fixed-column")]: this
-                    .isfirstRightFixedColumn,
-                [clsName("last-column")]: this.isLastCloumn
+                [clsName("first-right-fixed-column")]:
+                    this.isfirstRightFixedColumn,
+                [clsName("last-column")]: this.isLastCloumn,
             };
 
-            const {
-                cellStyleOption,
-                rowData,
-                groupColumnItem,
-                rowIndex
-            } = this;
+            const { cellStyleOption, rowData, groupColumnItem, rowIndex } =
+                this;
 
             if (
                 cellStyleOption &&
@@ -170,7 +166,7 @@ export default {
             ) {
                 const customClass = cellStyleOption.headerCellClass({
                     column: groupColumnItem,
-                    rowIndex
+                    rowIndex,
                 });
                 if (customClass) {
                     result[customClass] = true;
@@ -209,7 +205,9 @@ export default {
 
                 if (key) {
                     // column index
-                    const columnIndex = colgroups.findIndex(x => x.key === key);
+                    const columnIndex = colgroups.findIndex(
+                        (x) => x.key === key,
+                    );
                     if (
                         (fixed === "left" && columnIndex > 0) ||
                         (fixed === "right" &&
@@ -218,7 +216,7 @@ export default {
                         totalWidth = getFixedTotalWidthByColumnKey(
                             colgroups,
                             key,
-                            fixed
+                            fixed,
                         );
 
                         totalWidth = getValByUnit(totalWidth);
@@ -238,7 +236,7 @@ export default {
                                 ? currentVal.rowHeight + total
                                 : total;
                         },
-                        0
+                        0,
                     );
                 }
                 rowHeight = getValByUnit(rowHeight);
@@ -261,8 +259,8 @@ export default {
                     const checkboxProps = {
                         props: {
                             column: this.groupColumnItem,
-                            checkboxOption: this.checkboxOption
-                        }
+                            checkboxOption: this.checkboxOption,
+                        },
                     };
 
                     result = <HeaderCheckboxContent {...checkboxProps} />;
@@ -288,7 +286,7 @@ export default {
 
             this.dispatch(COMPS_NAME.VE_TABLE_THADER, EMIT_EVENTS.SORT_CHANGE, {
                 currentField,
-                sortResult
+                sortResult,
             });
         },
 
@@ -305,8 +303,8 @@ export default {
                 const props = {
                     class: clsName("sort"),
                     on: {
-                        click: () => this.sortChange()
-                    }
+                        click: () => this.sortChange(),
+                    },
                 };
 
                 result = (
@@ -315,7 +313,7 @@ export default {
                             class={[
                                 clsName("sort-icon"),
                                 clsName("sort-icon-top"),
-                                sortBy === "asc" ? "active" : ""
+                                sortBy === "asc" ? "active" : "",
                             ]}
                             name={ICON_NAMES.SORT_TOP_ARROW}
                         />
@@ -323,7 +321,7 @@ export default {
                             class={[
                                 clsName("sort-icon"),
                                 clsName("sort-icon-bottom"),
-                                sortBy === "desc" ? "active" : ""
+                                sortBy === "desc" ? "active" : "",
                             ]}
                             name={ICON_NAMES.SORT_BOTTOM_ARROW}
                         />
@@ -344,8 +342,8 @@ export default {
                 // filter content props
                 const filterProps = {
                     props: {
-                        column: this.groupColumnItem
-                    }
+                        column: this.groupColumnItem,
+                    },
                 };
                 result = <HeaderFilterContent {...filterProps} />;
             }
@@ -362,8 +360,8 @@ export default {
                 // filter content props
                 const filterProps = {
                     props: {
-                        column: this.groupColumnItem
-                    }
+                        column: this.groupColumnItem,
+                    },
                 };
                 result = <HeaderFilterCustomContent {...filterProps} />;
             }
@@ -389,7 +387,7 @@ export default {
         // mouseleave
         cellMouseleave(e, fn) {
             fn && fn(e);
-        }
+        },
     },
     render(h) {
         const {
@@ -397,25 +395,20 @@ export default {
             getTheadThClass,
             getTheadThStyle,
             rowIndex,
-            eventCustomOption
+            eventCustomOption,
         } = this;
 
         let content;
 
         if (typeof groupColumnItem.renderHeaderCell === "function") {
-            const {
-                _keys,
-                _level,
-                _colspan,
-                _rowspan,
-                ...column
-            } = groupColumnItem;
+            const { _keys, _level, _colspan, _rowspan, ...column } =
+                groupColumnItem;
 
             const renderResult = groupColumnItem.renderHeaderCell(
                 {
-                    column
+                    column,
                 },
-                h
+                h,
             );
             content = renderResult;
         } else {
@@ -431,30 +424,25 @@ export default {
                 : {};
         }
 
-        const {
-            click,
-            dblclick,
-            contextmenu,
-            mouseenter,
-            mouseleave
-        } = customEvents;
+        const { click, dblclick, contextmenu, mouseenter, mouseleave } =
+            customEvents;
 
         const events = {
-            click: e => {
+            click: (e) => {
                 this.cellClick(e, click);
             },
-            dblclick: e => {
+            dblclick: (e) => {
                 this.cellDblclick(e, dblclick);
             },
-            contextmenu: e => {
+            contextmenu: (e) => {
                 this.cellContextmenu(e, contextmenu);
             },
-            mouseenter: e => {
+            mouseenter: (e) => {
                 this.cellMouseenter(e, mouseenter);
             },
-            mouseleave: e => {
+            mouseleave: (e) => {
                 this.cellMouseleave(e, mouseleave);
-            }
+            },
         };
 
         const thProps = {
@@ -462,9 +450,9 @@ export default {
             class: getTheadThClass(groupColumnItem),
             attrs: {
                 rowspan: groupColumnItem._rowspan,
-                colspan: groupColumnItem._colspan
+                colspan: groupColumnItem._colspan,
             },
-            on: events
+            on: events,
         };
 
         return (
@@ -480,5 +468,5 @@ export default {
                 {this.getFilterCustomContent()}
             </th>
         );
-    }
+    },
 };

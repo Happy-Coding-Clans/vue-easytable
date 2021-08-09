@@ -9,66 +9,66 @@ export default {
     props: {
         columnsOptionResetTime: {
             type: Number,
-            default: 0
+            default: 0,
         },
         // group columns item
         groupColumn: {
             type: Array,
-            required: true
+            required: true,
         },
         headerRows: {
             type: Array,
-            default: function() {
+            default: function () {
                 return [];
-            }
+            },
         },
         colgroups: {
             type: Array,
-            required: true
+            required: true,
         },
         fixedHeader: {
             type: Boolean,
-            required: true
+            required: true,
         },
         rowIndex: {
             type: Number,
-            required: true
+            required: true,
         },
         // checkbox option
         checkboxOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // sort option
         sortOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // sort columns
         sortColumns: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // cell style option
         cellStyleOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // event custom option
         eventCustomOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
-        }
+            },
+        },
     },
     methods: {
         // tr height change
@@ -78,8 +78,8 @@ export default {
                 EMIT_EVENTS.HEADER_TR_HEIGHT_CHANGE,
                 {
                     rowIndex: this.rowIndex,
-                    height: height
-                }
+                    height: height,
+                },
             );
         },
         // click
@@ -101,7 +101,7 @@ export default {
         // mouseleave
         rowMouseleave(e, fn) {
             fn && fn(e);
-        }
+        },
     },
     render() {
         const {
@@ -115,7 +115,7 @@ export default {
             sortOption,
             sortColumns,
             cellStyleOption,
-            eventCustomOption
+            eventCustomOption,
         } = this;
 
         // custom on cell event
@@ -125,50 +125,45 @@ export default {
             customEvents = headerRowEvents ? headerRowEvents({ rowIndex }) : {};
         }
 
-        const {
-            click,
-            dblclick,
-            contextmenu,
-            mouseenter,
-            mouseleave
-        } = customEvents;
+        const { click, dblclick, contextmenu, mouseenter, mouseleave } =
+            customEvents;
 
         const events = {
-            click: e => {
+            click: (e) => {
                 this.rowClick(e, click);
             },
-            dblclick: e => {
+            dblclick: (e) => {
                 this.rowDblclick(e, dblclick);
             },
-            contextmenu: e => {
+            contextmenu: (e) => {
                 this.rowContextmenu(e, contextmenu);
             },
-            mouseenter: e => {
+            mouseenter: (e) => {
                 this.rowMouseenter(e, mouseenter);
             },
-            mouseleave: e => {
+            mouseleave: (e) => {
                 this.rowMouseleave(e, mouseleave);
-            }
+            },
         };
 
         const trProps = {
             key: getDomResizeObserverCompKey(
                 rowIndex,
-                this.columnsOptionResetTime
+                this.columnsOptionResetTime,
             ),
             class: clsName("header-tr"),
             props: {
-                tagName: "tr"
+                tagName: "tr",
             },
             on: {
-                "on-dom-resize-change": trHeightChange
+                "on-dom-resize-change": trHeightChange,
             },
-            nativeOn: events
+            nativeOn: events,
         };
 
         return (
             <VueDomResizeObserver {...trProps}>
-                {groupColumn.map(groupColumnItem => {
+                {groupColumn.map((groupColumnItem) => {
                     // th props
                     const thProps = {
                         key: groupColumnItem.key,
@@ -183,13 +178,13 @@ export default {
                             sortOption,
                             sortColumns,
                             cellStyleOption,
-                            eventCustomOption: this.eventCustomOption
-                        }
+                            eventCustomOption: this.eventCustomOption,
+                        },
                     };
 
                     return <HeaderTh {...thProps} />;
                 })}
             </VueDomResizeObserver>
         );
-    }
+    },
 };

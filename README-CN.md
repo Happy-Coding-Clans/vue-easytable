@@ -31,24 +31,25 @@
 
 ## v2.0 新版本 [![npm](https://img.shields.io/npm/v/vue-easytable.svg)](https://www.npmjs.com/package/vue-easytable)
 
-- 对 1.0 版本彻底重构。基于 jsx 语法重写、参数命名规范化、事件命名规范化等
-- 增加对国际化支持
-- 新增定制主题 & 内置两套主题
-- 新增虚拟滚动
-- 新增行展开
-- 新增自定义单元格内容。基于 `render`函数
-- 新增自定义事件
-- 新增单元格省略
-- 新增 loading 组件
-- 新增单元测试。覆盖率 > 85%
-- 文档更新
-- 更多内容请查看 [官方文档](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/intro)
+-   对 1.0 版本彻底重构。基于 jsx 语法重写、参数命名规范化、事件命名规范化等
+-   增加对国际化支持
+-   新增定制主题 & 内置两套主题
+-   新增虚拟滚动
+-   新增行展开
+-   新增自定义单元格内容。基于 `render`函数
+-   新增自定义事件
+-   新增单元格省略
+-   新增 loading 组件
+-   新增单元测试。覆盖率 > 85%
+-   文档更新
+-   更多内容请查看
+    [官方文档](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/intro)
 
 ## 特点
 
-- 使用简单
-- 功能强大
-- 单元测试覆盖率大于 85%
+-   使用简单
+-   功能强大
+-   单元测试覆盖率大于 85%
 
 ## API & 文档
 
@@ -56,30 +57,31 @@
 
 ## 功能支持
 
-- [x] [国际化](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/locale)
-- [x] [主题定制 & 内置主题](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/theme)
-- [x] [虚拟滚动](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/virtual-scroll)
-- [x] [固定列](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/column-fixed)
-- [x] [固定表头](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-fixed)
-- [x] [表头分组](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-grouping)
-- [x] [筛选](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-filter)
-- [x] [排序](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-sort)
-- [x] [单元格样式](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-style)
-- [x] [单元格自定义](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-custom)
-- [x] [单元格合并](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-span)
-- [x] [单元格选择（键盘操作）](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection)
-- [x] [单元格省略](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-ellipsis)
-- [x] [行单选](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-radio)
-- [x] [行多选](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-checkbox)
-- [x] [行展开](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-expand)
-- [x] [行样式](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-style)
-- [x] [footer 汇总](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/footer-summary)
-- [x] [自定义事件](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/event-custom)
-- [x] [内置 loading 组件](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/base/loading)
-- [x] [内置分页组件](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/base/pagination)
-- [更多](http://happy-coding-clans.github.io/vue-easytable)
+-   [x] [国际化](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/locale)
+-   [x] [主题定制 & 内置主题](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/theme)
+-   [x] [虚拟滚动](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/virtual-scroll)
+-   [x] [固定列](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/column-fixed)
+-   [x] [固定表头](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-fixed)
+-   [x] [表头分组](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-grouping)
+-   [x] [筛选](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-filter)
+-   [x] [排序](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-sort)
+-   [x] [单元格样式](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-style)
+-   [x] [单元格自定义](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-custom)
+-   [x] [单元格合并](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-span)
+-   [x] [单元格选择（键盘操作）](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection)
+-   [x] [单元格省略](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-ellipsis)
+-   [x] [行单选](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-radio)
+-   [x] [行多选](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-checkbox)
+-   [x] [行展开](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-expand)
+-   [x] [行样式](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-style)
+-   [x] [footer 汇总](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/footer-summary)
+-   [x] [自定义事件](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/event-custom)
+-   [x] [内置 loading 组件](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/base/loading)
+-   [x] [内置分页组件](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/base/pagination)
+-   [更多](http://happy-coding-clans.github.io/vue-easytable)
 
-如果没有你想要的的功能，[请告诉我们](http://happy-coding-clans.github.io/issue-template-generater/#/zh)
+如果没有你想要的的功能
+，[请告诉我们](http://happy-coding-clans.github.io/issue-template-generater/#/zh)
 
 ## 安装
 
@@ -171,7 +173,7 @@ Example:
 
 ## 支持环境
 
-- 现代浏览器和 IE10 及以上
+-   现代浏览器和 IE10 及以上
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -179,13 +181,13 @@ Example:
 
 ## 如何贡献
 
-如果你希望参与贡献，欢迎 [Pull Request](https://github.com/huangshuwei/vue-easytable/pulls)
+如果你希望参与贡献，欢迎
+[Pull Request](https://github.com/huangshuwei/vue-easytable/pulls)
 
 ## Discussion 讨论组
 
-
-- [加入 gitter 讨论](https://gitter.im/vue-easytable/community)
-- [加入 discord 讨论](https://discord.gg/gBm3k6r)
+-   [加入 gitter 讨论](https://gitter.im/vue-easytable/community)
+-   [加入 discord 讨论](https://discord.gg/gBm3k6r)
 
 ## License
 

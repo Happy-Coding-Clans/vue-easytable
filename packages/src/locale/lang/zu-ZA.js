@@ -3,12 +3,12 @@ export default {
         goto: "Iya ku",
         page: "",
         itemsPerPage: " / Emakhasi",
-        total: total => `Okuphelele ${total}`,
+        total: (total) => `Okuphelele ${total}`,
         prev5: "5 Esedlule Emakhasi",
-        next5: "5 Emakhasi Lalandzelako"
+        next5: "5 Emakhasi Lalandzelako",
     },
     table: {
         confirmFilter: "Qiniseka",
-        resetFilter: "Setha Kabusha"
-    }
+        resetFilter: "Setha Kabusha",
+    },
 };

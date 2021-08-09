@@ -7,54 +7,54 @@ export default {
     props: {
         columnsOptionResetTime: {
             type: Number,
-            default: 0
+            default: 0,
         },
         groupColumns: {
             type: Array,
-            required: true
+            required: true,
         },
         colgroups: {
             type: Array,
-            required: true
+            required: true,
         },
         fixedHeader: {
             type: Boolean,
-            required: true
+            required: true,
         },
         headerRows: {
             type: Array,
-            default: function() {
+            default: function () {
                 return [];
-            }
+            },
         },
         // checkbox option
         checkboxOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // sort option
         sortOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // cell style option
         cellStyleOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // event custom option
         eventCustomOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
-        }
+            },
+        },
     },
     data() {
         return {
@@ -62,16 +62,16 @@ export default {
             sort columns
             不要使用computed代替，属性动态添加会造成响应式问题
             */
-            sortColumns: {}
+            sortColumns: {},
         };
     },
     computed: {
         // header class
         headerClass() {
             return {
-                [clsName("fixed-header")]: this.fixedHeader
+                [clsName("fixed-header")]: this.fixedHeader,
             };
-        }
+        },
     },
     watch: {
         // watch colgroups
@@ -79,8 +79,8 @@ export default {
             handler() {
                 this.initSortColumns();
             },
-            immediate: true
-        }
+            immediate: true,
+        },
     },
     methods: {
         // sort change
@@ -106,17 +106,17 @@ export default {
         initSortColumns() {
             const { colgroups } = this;
             let sortColumns = {};
-            colgroups.forEach(item => {
+            colgroups.forEach((item) => {
                 if (typeof item.sortBy === "string") {
                     sortColumns[item.field] = item.sortBy;
                 }
             });
             this.sortColumns = sortColumns;
-        }
+        },
     },
     mounted() {
         // receive sort change
-        this.$on(EMIT_EVENTS.SORT_CHANGE, params => {
+        this.$on(EMIT_EVENTS.SORT_CHANGE, (params) => {
             this.sortChange(params);
         });
     },
@@ -132,7 +132,7 @@ export default {
             checkboxOption,
             sortOption,
             sortColumns,
-            cellStyleOption
+            cellStyleOption,
         } = this;
 
         return (
@@ -141,8 +141,7 @@ export default {
                     const trProps = {
                         key: rowIndex,
                         props: {
-                            columnsOptionResetTime: this
-                                .columnsOptionResetTime,
+                            columnsOptionResetTime: this.columnsOptionResetTime,
                             groupColumn,
                             headerRows,
                             colgroups,
@@ -152,12 +151,12 @@ export default {
                             sortOption,
                             sortColumns,
                             cellStyleOption,
-                            eventCustomOption: this.eventCustomOption
-                        }
+                            eventCustomOption: this.eventCustomOption,
+                        },
                     };
                     return <HeaderTr {...trProps} />;
                 })}
             </thead>
         );
-    }
+    },
 };

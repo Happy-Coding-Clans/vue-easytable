@@ -6,14 +6,14 @@ import {
     getValByUnit,
     isEmptyValue,
     isNumber,
-    isBoolean
+    isBoolean,
 } from "../../../src/utils/index.js";
 
 import {
     COMPS_NAME,
     COLUMN_TYPES,
     EXPAND_TRIGGER_TYPES,
-    EMIT_EVENTS
+    EMIT_EVENTS,
 } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 
@@ -23,24 +23,24 @@ export default {
     props: {
         rowData: {
             type: Object,
-            required: true
+            required: true,
         },
         column: {
             type: Object,
-            required: true
+            required: true,
         },
         rowIndex: {
             type: Number,
-            required: true
+            required: true,
         },
         colgroups: {
             type: Array,
-            required: true
+            required: true,
         },
 
         rowKeyFieldName: {
             type: String,
-            default: null
+            default: null,
         },
         /*
         expand
@@ -48,21 +48,21 @@ export default {
         // expand row option
         expandOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // is expand row
         isExpandRow: {
             type: Boolean,
-            required: true
+            required: true,
         },
         // expanded row keys
         expandedRowkeys: {
             type: Array,
-            default: function() {
+            default: function () {
                 return [];
-            }
+            },
         },
 
         /*
@@ -71,15 +71,15 @@ export default {
         // checkbox option
         checkboxOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         internalCheckboxSelectedRowKeys: {
             type: Array,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
 
         /*
@@ -87,49 +87,49 @@ export default {
         */
         radioOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         internalRadioSelectedRowKey: {
             type: [String, Number],
-            default: null
+            default: null,
         },
         // cell style option
         cellStyleOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // event custom option
         eventCustomOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // cell selection key data
         cellSelectionKeyData: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // cell span option
         cellSpanOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // edit opttion
         editOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
-        }
+            },
+        },
     },
     computed: {
         // is last left fixed column
@@ -143,10 +143,10 @@ export default {
             if (fixed === "left") {
                 const { field } = column;
                 const leftFixedColumns = colgroups.filter(
-                    x => x.fixed === "left"
+                    (x) => x.fixed === "left",
                 );
                 const index = leftFixedColumns.findIndex(
-                    x => x.field === field
+                    (x) => x.field === field,
                 );
 
                 if (index === leftFixedColumns.length - 1) {
@@ -166,7 +166,7 @@ export default {
             if (fixed === "right") {
                 const { field } = column;
                 const leftFixedColumns = colgroups.filter(
-                    x => x.fixed === "right"
+                    (x) => x.fixed === "right",
                 );
 
                 if (leftFixedColumns[0].field === field) {
@@ -194,7 +194,7 @@ export default {
             if (fixed) {
                 let totalWidth = 0;
                 // column index
-                const columnIndex = colgroups.findIndex(x => x.key === key);
+                const columnIndex = colgroups.findIndex((x) => x.key === key);
                 if (
                     (fixed === "left" && columnIndex > 0) ||
                     (fixed === "right" && columnIndex < colgroups.length - 1)
@@ -202,7 +202,7 @@ export default {
                     totalWidth = getFixedTotalWidthByColumnKey(
                         colgroups,
                         key,
-                        fixed
+                        fixed,
                     );
 
                     totalWidth = getValByUnit(totalWidth);
@@ -223,7 +223,7 @@ export default {
             const { fixed } = this.column;
 
             let result = {
-                [clsName("body-td")]: true
+                [clsName("body-td")]: true,
             };
 
             const {
@@ -232,19 +232,17 @@ export default {
                 column,
                 rowIndex,
                 cellSelectionKeyData,
-                rowKeyFieldName
+                rowKeyFieldName,
             } = this;
 
             // column fixed
             if (fixed) {
                 result[clsName("fixed-left")] = fixed === "left";
                 result[clsName("fixed-right")] = fixed === "right";
-                result[
-                    clsName("last-left-fixed-column")
-                ] = this.isLastLeftFixedColumn;
-                result[
-                    clsName("first-right-fixed-column")
-                ] = this.isfirstRightFixedColumn;
+                result[clsName("last-left-fixed-column")] =
+                    this.isLastLeftFixedColumn;
+                result[clsName("first-right-fixed-column")] =
+                    this.isfirstRightFixedColumn;
             }
 
             // cell style option
@@ -255,7 +253,7 @@ export default {
                 const customClass = cellStyleOption.bodyCellClass({
                     row: rowData,
                     column,
-                    rowIndex
+                    rowIndex,
                 });
                 if (customClass) {
                     result[customClass] = true;
@@ -274,7 +272,7 @@ export default {
             }
 
             return result;
-        }
+        },
     },
     methods: {
         // get ellipsis content style
@@ -305,9 +303,9 @@ export default {
                     {
                         row: rowData,
                         column,
-                        rowIndex
+                        rowIndex,
                     },
-                    h
+                    h,
                 );
 
                 content = renderResult;
@@ -362,9 +360,9 @@ export default {
                         column: this.column,
                         checkboxOption: this.checkboxOption,
                         rowKey: this.rowData[this.rowKeyFieldName],
-                        internalCheckboxSelectedRowKeys: this
-                            .internalCheckboxSelectedRowKeys
-                    }
+                        internalCheckboxSelectedRowKeys:
+                            this.internalCheckboxSelectedRowKeys,
+                    },
                 };
 
                 return <BodyCheckboxContent {...checkboxProps} />;
@@ -381,9 +379,9 @@ export default {
                         column: this.column,
                         radioOption: this.radioOption,
                         rowKey: this.rowData[this.rowKeyFieldName],
-                        internalRadioSelectedRowKey: this
-                            .internalRadioSelectedRowKey
-                    }
+                        internalRadioSelectedRowKey:
+                            this.internalRadioSelectedRowKey,
+                    },
                 };
 
                 return <BodyRadioContent {...radioProps} />;
@@ -404,7 +402,7 @@ export default {
                     const result = bodyCellSpan({
                         row: rowData,
                         column,
-                        rowIndex
+                        rowIndex,
                     });
 
                     if (typeof result === "object") {
@@ -424,7 +422,7 @@ export default {
 
             this.dispatch(COMPS_NAME.VE_TABLE_BODY, EMIT_EVENTS.BODY_TD_CLICK, {
                 rowData,
-                column
+                column,
             });
 
             if (column.type !== COLUMN_TYPES.EXPAND) {
@@ -465,7 +463,7 @@ export default {
         // mouseleave
         cellMouseleave(e, fn) {
             fn && fn(e);
-        }
+        },
     },
     render(h) {
         const {
@@ -477,7 +475,7 @@ export default {
             expandedRowkeys,
             rowKeyFieldName,
             eventCustomOption,
-            rowIndex
+            rowIndex,
         } = this;
 
         // expand icon props
@@ -488,8 +486,8 @@ export default {
                 expandOption,
                 expandedRowkeys,
                 rowKeyFieldName,
-                cellClick
-            }
+                cellClick,
+            },
         };
 
         const { rowspan, colspan } = this.getCellSpan();
@@ -507,30 +505,25 @@ export default {
                 : {};
         }
 
-        const {
-            click,
-            dblclick,
-            contextmenu,
-            mouseenter,
-            mouseleave
-        } = customEvents;
+        const { click, dblclick, contextmenu, mouseenter, mouseleave } =
+            customEvents;
 
         const events = {
-            click: e => {
+            click: (e) => {
                 this.cellClick(e, click);
             },
-            dblclick: e => {
+            dblclick: (e) => {
                 this.cellDblclick(e, dblclick);
             },
-            contextmenu: e => {
+            contextmenu: (e) => {
                 this.cellContextmenu(e, contextmenu);
             },
-            mouseenter: e => {
+            mouseenter: (e) => {
                 this.cellMouseenter(e, mouseenter);
             },
-            mouseleave: e => {
+            mouseleave: (e) => {
                 this.cellMouseleave(e, mouseleave);
-            }
+            },
         };
 
         // td props
@@ -539,9 +532,9 @@ export default {
             style: this.bodyTdStyle,
             attrs: {
                 rowspan,
-                colspan
+                colspan,
             },
-            on: events
+            on: events,
         };
 
         return (
@@ -556,5 +549,5 @@ export default {
                 {this.getRenderContent(h)}
             </td>
         );
-    }
+    },
 };

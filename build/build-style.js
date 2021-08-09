@@ -13,8 +13,8 @@ function compileThemeDefault() {
         src("./../packages/theme-default/*.less")
             .pipe(
                 less({
-                    plugins: [autoprefixer]
-                })
+                    plugins: [autoprefixer],
+                }),
             )
             /*.pipe(cssmin())*/
             .pipe(dest("./../libs/theme-default"))
@@ -27,8 +27,8 @@ function compileThemeDark() {
         src("./../packages/theme-dark/*.less")
             .pipe(
                 less({
-                    plugins: [autoprefixer]
-                })
+                    plugins: [autoprefixer],
+                }),
             )
             /* .pipe(cssmin()) */
             .pipe(dest("./../libs/theme-dark"))

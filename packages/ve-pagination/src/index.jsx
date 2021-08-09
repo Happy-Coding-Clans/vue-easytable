@@ -19,7 +19,7 @@ export default {
                         {t("total", this.$parent.total)}
                     </span>
                 );
-            }
+            },
         },
 
         Prev: {
@@ -32,7 +32,7 @@ export default {
                                 ? clsName("disabled")
                                 : "",
                             clsName("li"),
-                            clsName("prev")
+                            clsName("prev"),
                         ]}
                     >
                         <a>
@@ -40,7 +40,7 @@ export default {
                         </a>
                     </li>
                 );
-            }
+            },
         },
 
         Pager,
@@ -55,7 +55,7 @@ export default {
                                 ? clsName("disabled")
                                 : "",
                             clsName("li"),
-                            clsName("next")
+                            clsName("next"),
                         ]}
                     >
                         <a>
@@ -63,7 +63,7 @@ export default {
                         </a>
                     </li>
                 );
-            }
+            },
         },
 
         Sizer: {
@@ -81,13 +81,13 @@ export default {
             methods: {
                 handleChange(items) {
                     if (Array.isArray(items) && items.length > 0) {
-                        let item = items.find(x => x.selected);
+                        let item = items.find((x) => x.selected);
                         if (item) {
                             this.$parent.pageSizeChangeHandler(item.value);
                         }
                     }
-                }
-            }
+                },
+            },
         },
 
         Jumper: {
@@ -97,7 +97,7 @@ export default {
 
                     var val = this.$parent.getValidNum(event.target.value);
                     this.$parent.jumpPageHandler(val);
-                }
+                },
             },
             render(h) {
                 return (
@@ -112,48 +112,48 @@ export default {
                         &nbsp;{t("page")}&nbsp;
                     </span>
                 );
-            }
-        }
+            },
+        },
     },
     props: {
         layout: {
             type: Array,
             default() {
                 return ["total", "prev", "pager", "next", "sizer", "jumper"];
-            }
+            },
         },
 
         // 总条数
         total: {
             type: Number,
-            required: true
+            required: true,
         },
 
         // 当前页
         pageIndex: {
             type: Number,
-            default: 1
+            default: 1,
         },
 
         // 最多显示几个数字按钮
         pagingCount: {
             type: Number,
-            default: 5
+            default: 5,
         },
 
         // 每页大小
         pageSize: {
             type: Number,
-            default: 10
+            default: 10,
         },
 
         // 每页大小下拉配置
         pageSizeOption: {
             type: Array,
-            default: function() {
+            default: function () {
                 return [10, 20, 30];
-            }
-        }
+            },
+        },
     },
     data() {
         return {
@@ -162,7 +162,7 @@ export default {
                     ? parseInt(this.pageIndex)
                     : 1,
 
-            newPageSize: this.pageSize
+            newPageSize: this.pageSize,
         };
     },
 
@@ -171,7 +171,7 @@ export default {
             return Math.ceil(this.total / this.newPageSize);
         },
         newPageSizeOption() {
-            return this.pageSizeOption.map(x => {
+            return this.pageSizeOption.map((x) => {
                 var temp = {};
 
                 temp.value = x;
@@ -182,16 +182,16 @@ export default {
 
                 return temp;
             });
-        }
+        },
     },
     watch: {
-        pageIndex: function(newVal, oldVal) {
+        pageIndex: function (newVal, oldVal) {
             this.newPageIndex = newVal;
         },
 
-        pageSize: function(newVal, oldVal) {
+        pageSize: function (newVal, oldVal) {
             this.newPageSize = newVal;
-        }
+        },
     },
 
     methods: {
@@ -237,7 +237,7 @@ export default {
 
         // 改变页面大小
         pageSizeChangeHandler() {
-            let item = this.newPageSizeOption.find(x => x.selected);
+            let item = this.newPageSizeOption.find((x) => x.selected);
 
             if (item) {
                 this.newPageSize = item.value;
@@ -259,7 +259,7 @@ export default {
             if (this.pageSize > 0) {
                 this.newPageSize = this.pageSize;
             }
-        }
+        },
     },
     render(h) {
         let template = <ul class="ve-pagination"></ul>;
@@ -278,17 +278,17 @@ export default {
             ),
             next: <next></next>,
             sizer: <sizer></sizer>,
-            jumper: <jumper onJumpPageHandler={this.jumpPageHandler}></jumper>
+            jumper: <jumper onJumpPageHandler={this.jumpPageHandler}></jumper>,
         };
 
         // https://github.com/ElemeFE/element/issues/10033
         // https://github.com/ElemeFE/element/issues/9587
         template.children = template.children || [];
 
-        this.layout.forEach(item => {
+        this.layout.forEach((item) => {
             template.children.push(comps[item]);
         });
 
         return template;
-    }
+    },
 };

@@ -1,6 +1,6 @@
 import VeSelect from "./src/index.jsx";
 
-VeSelect.install = function(Vue) {
+VeSelect.install = function (Vue) {
     Vue.component(VeSelect.name, VeSelect);
 };
 

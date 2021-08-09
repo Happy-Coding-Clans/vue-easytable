@@ -3,7 +3,7 @@ import {
     COMPS_NAME,
     EMIT_EVENTS,
     COLUMN_TYPES,
-    EXPAND_TRIGGER_TYPES
+    EXPAND_TRIGGER_TYPES,
 } from "../util/constant";
 import { clsName } from "../util";
 import emitter from "../../../src/mixins/emitter";
@@ -14,22 +14,22 @@ export default {
         // checkbox option
         radioOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         rowKey: {
             type: [String, Number],
-            required: true
+            required: true,
         },
         internalRadioSelectedRowKey: {
             type: [String, Number],
-            default: null
-        }
+            default: null,
+        },
     },
     data() {
         return {
-            isSelected: false
+            isSelected: false,
         };
     },
     computed: {
@@ -63,16 +63,16 @@ export default {
                 radioOption &&
                 Object.keys(radioOption).includes("selectedRowKey")
             );
-        }
+        },
     },
     watch: {
         // watch internal radio SelectedRowKey
         internalRadioSelectedRowKey: {
-            handler: function() {
+            handler: function () {
                 this.initSelected();
             },
-            immediate: true
-        }
+            immediate: true,
+        },
     },
     methods: {
         // init selected
@@ -93,10 +93,10 @@ export default {
                 COMPS_NAME.VE_TABLE_BODY,
                 EMIT_EVENTS.RADIO_SELECTED_ROW_CHANGE,
                 {
-                    rowKey: this.rowKey
-                }
+                    rowKey: this.rowKey,
+                },
             );
-        }
+        },
     },
     render() {
         const { isSelected, selectedChange, label, disabled } = this;
@@ -106,13 +106,13 @@ export default {
             props: {
                 isControlled: true,
                 isSelected,
-                disabled
+                disabled,
             },
             on: {
-                "on-radio-change": () => selectedChange()
-            }
+                "on-radio-change": () => selectedChange(),
+            },
         };
 
         return <VeRadio {...radioProps} />;
-    }
+    },
 };

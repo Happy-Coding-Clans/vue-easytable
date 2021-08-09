@@ -1,6 +1,6 @@
 import VeRadio from "./src/index";
 
-VeRadio.install = function(Vue) {
+VeRadio.install = function (Vue) {
     Vue.component(VeRadio.name, VeRadio);
 };
 

@@ -19,7 +19,7 @@ export default {
             return {
                 [clsName("overlay")]: true,
                 [clsName("fixed")]: fullscreen,
-                [clsName("hide")]: !visible
+                [clsName("hide")]: !visible,
             };
         },
 
@@ -28,9 +28,9 @@ export default {
             const { overlayBackgroundColor } = this;
 
             return {
-                "background-color": overlayBackgroundColor
+                "background-color": overlayBackgroundColor,
             };
-        }
+        },
     },
 
     render() {
@@ -40,8 +40,8 @@ export default {
             props: {
                 width,
                 height,
-                color
-            }
+                color,
+            },
         };
 
         return (
@@ -59,5 +59,5 @@ export default {
                 </div>
             </div>
         );
-    }
+    },
 };

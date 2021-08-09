@@ -7,16 +7,16 @@ export default {
     props: {
         color: {
             type: String,
-            required: true
+            required: true,
         },
         width: {
             type: [Number, String],
-            required: true
+            required: true,
         },
         height: {
             type: [Number, String],
-            required: true
-        }
+            required: true,
+        },
     },
     computed: {
         // spin style
@@ -25,7 +25,7 @@ export default {
 
             let result = {
                 width: getValByUnit(width),
-                height: getValByUnit(height)
+                height: getValByUnit(height),
             };
 
             return result;
@@ -34,9 +34,9 @@ export default {
             const { color } = this;
 
             return {
-                "background-color": color
+                "background-color": color,
             };
-        }
+        },
     },
     render() {
         const { spinStyle, itemStyle } = this;
@@ -49,5 +49,5 @@ export default {
                 <div style={itemStyle} class={clsName("wave-rect")}></div>
             </div>
         );
-    }
+    },
 };

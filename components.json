@@ -1,13 +1,12 @@
-
 {
-"ve-checkbox":"./packages/ve-checkbox/index.js",
-"ve-checkbox-group":"./packages/ve-checkbox-group/index.js",
-"ve-dropdown":"./packages/ve-dropdown/index.js",
-"ve-icon":"./packages/ve-icon/index.js",
-"ve-loading":"./packages/ve-loading/index.js",
-"ve-locale":"./packages/ve-locale/index.js",
-"ve-pagination":"./packages/ve-pagination/index.js",
-"ve-radio":"./packages/ve-radio/index.js",
-"ve-select":"./packages/ve-select/index.js",
-"ve-table":"./packages/ve-table/index.js"
+    "ve-checkbox": "./packages/ve-checkbox/index.js",
+    "ve-checkbox-group": "./packages/ve-checkbox-group/index.js",
+    "ve-dropdown": "./packages/ve-dropdown/index.js",
+    "ve-icon": "./packages/ve-icon/index.js",
+    "ve-loading": "./packages/ve-loading/index.js",
+    "ve-locale": "./packages/ve-locale/index.js",
+    "ve-pagination": "./packages/ve-pagination/index.js",
+    "ve-radio": "./packages/ve-radio/index.js",
+    "ve-select": "./packages/ve-select/index.js",
+    "ve-table": "./packages/ve-table/index.js"
 }

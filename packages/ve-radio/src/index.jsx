@@ -8,29 +8,29 @@ export default {
         // 当前checkbox 选中状态,实现 v-model
         value: {
             type: [String, Number, Boolean],
-            default: null
+            default: null,
         },
         label: {
             type: String,
-            default: null
+            default: null,
         },
         // is disabled checked
         disabled: Boolean,
         // 是否是可控组件
         isControlled: {
             type: Boolean,
-            default: false
+            default: false,
         },
         // isControlled 为true 时生效
         isSelected: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
     data() {
         return {
             // 当前checkbox 选中状态
-            model: this.value
+            model: this.value,
         };
     },
 
@@ -40,21 +40,21 @@ export default {
                 clsName("container"),
                 {
                     [clsName("checked")]: this.internalIsSelected,
-                    [clsName("disabled")]: this.disabled
-                }
+                    [clsName("disabled")]: this.disabled,
+                },
             ];
         },
 
         // 是否选中
         internalIsSelected() {
             return this.isControlled ? this.isSelected : this.model;
-        }
+        },
     },
 
     watch: {
         value(val) {
             this.updateModelBySingle();
-        }
+        },
     },
 
     methods: {
@@ -87,7 +87,7 @@ export default {
             if (!this.disabled) {
                 this.model = this.value;
             }
-        }
+        },
     },
 
     created() {
@@ -100,7 +100,7 @@ export default {
             model,
             checkedChange,
             getLabelContent,
-            internalIsSelected
+            internalIsSelected,
         } = this;
 
         return (
@@ -119,5 +119,5 @@ export default {
                 <span class={clsName("label")}>{getLabelContent()}</span>
             </label>
         );
-    }
+    },
 };

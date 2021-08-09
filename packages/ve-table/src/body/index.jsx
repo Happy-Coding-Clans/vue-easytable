@@ -8,7 +8,7 @@ import {
     COMPS_NAME,
     EMIT_EVENTS,
     COLUMN_TYPES,
-    EXPAND_TRIGGER_TYPES
+    EXPAND_TRIGGER_TYPES,
 } from "../util/constant";
 
 // cols widths efficient count
@@ -21,106 +21,106 @@ export default {
     props: {
         columnsOptionResetTime: {
             type: Number,
-            default: 0
+            default: 0,
         },
         colgroups: {
             type: Array,
-            required: true
+            required: true,
         },
         cloneTableData: {
             type: Array,
-            required: true
+            required: true,
         },
         hasFixedColumn: {
             type: Boolean,
-            default: false
+            default: false,
         },
         allRowKeys: {
             type: Array,
-            required: true
+            required: true,
         },
         // expand row option
         expandOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // checkbox option
         checkboxOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // radio option
         radioOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // virual scroll
         virtualScrollOption: {
             type: Object,
-            default: null
+            default: null,
         },
         // is virtual scroll
         isVirtualScroll: {
             type: Boolean,
-            default: false
+            default: false,
         },
         // virtual scroll visible data
         virtualScrollVisibleData: {
             type: Array,
-            default: () => []
+            default: () => [],
         },
         rowKeyFieldName: {
             type: String,
-            default: null
+            default: null,
         },
         // cell style option
         cellStyleOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // cell span option
         cellSpanOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // event custom option
         eventCustomOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // cell selection option
         cellSelectionOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // cell selection key data
         cellSelectionKeyData: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // edit opttion
         editOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
-        }
+            },
+        },
     },
     data() {
         return {
@@ -140,7 +140,7 @@ export default {
             */
             internalRadioSelectedRowKey: null,
             // highlight row key
-            highlightRowKey: ""
+            highlightRowKey: "",
         };
     },
     computed: {
@@ -153,7 +153,7 @@ export default {
 
         // expand column
         expandColumn() {
-            return this.colgroups.find(x => x.type === COLUMN_TYPES.EXPAND);
+            return this.colgroups.find((x) => x.type === COLUMN_TYPES.EXPAND);
         },
         /*
         是否是可控行展开
@@ -189,7 +189,7 @@ export default {
                 Array.isArray(disableSelectedRowKeys) &&
                 disableSelectedRowKeys.length > 0
             ) {
-                disableSelectedRowKeys.forEach(rowkey => {
+                disableSelectedRowKeys.forEach((rowkey) => {
                     if (internalCheckboxSelectedRowKeys.includes(rowkey)) {
                         result.push(rowkey);
                     }
@@ -215,7 +215,7 @@ export default {
                 Array.isArray(disableSelectedRowKeys) &&
                 disableSelectedRowKeys.length > 0
             ) {
-                disableSelectedRowKeys.forEach(rowkey => {
+                disableSelectedRowKeys.forEach((rowkey) => {
                     if (!internalCheckboxSelectedRowKeys.includes(rowkey)) {
                         result.push(rowkey);
                     }
@@ -247,7 +247,7 @@ export default {
             const {
                 internalCheckboxSelectedRowKeys,
                 isCheckboxSelectedAll,
-                allRowKeys
+                allRowKeys,
             } = this;
 
             return (
@@ -263,63 +263,63 @@ export default {
                 radioOption &&
                 Object.keys(radioOption).includes("selectedRowKey")
             );
-        }
+        },
     },
     watch: {
         // watch expand Option
         expandOption: {
-            handler: function() {
+            handler: function () {
                 this.initInternalExpandRowKeys();
             },
-            immediate: true
+            immediate: true,
         },
         // watch expandOption expandedRowKeys
         "expandOption.expandedRowKeys": {
-            handler: function(val) {
+            handler: function (val) {
                 this.initInternalExpandRowKeys();
-            }
+            },
         },
         // watch checkbox option
         checkboxOption: {
-            handler: function() {
+            handler: function () {
                 this.initInternalCheckboxSelectedRowKeys();
             },
-            immediate: true
+            immediate: true,
         },
         // watch selectedRowKeys
         "checkboxOption.selectedRowKeys": {
-            handler: function(val) {
+            handler: function (val) {
                 this.resetInternalCheckboxSelectedRowKeys();
-            }
+            },
         },
         // watch internalCheckboxSelectedRowKeys
         internalCheckboxSelectedRowKeys: {
-            handler: function() {
+            handler: function () {
                 // send to checkbox all(in header)
                 this.sendToCheckboxAll();
-            }
+            },
         },
         // watch checkbox option
         radioOption: {
-            handler: function() {
+            handler: function () {
                 this.initInternalRadioSelectedRowKey();
             },
-            immediate: true
+            immediate: true,
         },
         // watch selectedRowKeys
         "radioOption.selectedRowKey": {
-            handler: function(val) {
+            handler: function (val) {
                 this.initInternalRadioSelectedRowKey();
-            }
+            },
         },
         // actual render table data
         actualRenderTableData: {
-            handler: function(val) {
+            handler: function (val) {
                 if (val.length === 0) {
                     this.resetPreparedColsWidthsStatus();
                 }
-            }
-        }
+            },
+        },
     },
     methods: {
         /*
@@ -334,18 +334,17 @@ export default {
                 internalExpandRowkeys,
                 expandedRowkeys,
                 isControlledExpand,
-                rowKeyFieldName
+                rowKeyFieldName,
             } = this;
 
             // deal before expand row method
             if (typeof expandOption.beforeExpandRowChange === "function") {
-                const beforeExpandRowResult = expandOption.beforeExpandRowChange(
-                    {
+                const beforeExpandRowResult =
+                    expandOption.beforeExpandRowChange({
                         beforeExpandedRowKeys: expandedRowkeys,
                         row: rowData,
-                        rowIndex
-                    }
-                );
+                        rowIndex,
+                    });
                 // interrupt execute
                 if (beforeExpandRowResult === false) {
                     return false;
@@ -366,7 +365,7 @@ export default {
                 expandOption.afterExpandRowChange({
                     afterExpandedRowKeys: internalExpandRowkeys,
                     row: rowData,
-                    rowIndex
+                    rowIndex,
                 });
             }
         },
@@ -383,7 +382,7 @@ export default {
                 expandOption,
                 isExpandRow,
                 expandRowChange,
-                rowKeyFieldName
+                rowKeyFieldName,
             } = this;
 
             // 行高亮功能
@@ -427,7 +426,7 @@ export default {
 
                     this.$emit(EMIT_EVENTS.CELL_SELECTION_KEY_CHANGE, {
                         rowKey,
-                        columnKey: column.key
+                        columnKey: column.key,
                     });
                 }
             }
@@ -451,7 +450,7 @@ export default {
                     expandable = expandOption.expandable({
                         row: rowData,
                         column: expandColumn,
-                        rowIndex
+                        rowIndex,
                     });
                 }
 
@@ -503,7 +502,7 @@ export default {
                 cloneTableData,
                 isControlledExpand,
                 rowKeyFieldName,
-                allRowKeys
+                allRowKeys,
             } = this;
 
             if (!expandOption) {
@@ -511,15 +510,13 @@ export default {
             }
 
             if (isControlledExpand) {
-                this.internalExpandRowkeys = expandOption.expandedRowKeys.slice(
-                    0
-                );
+                this.internalExpandRowkeys =
+                    expandOption.expandedRowKeys.slice(0);
             } else if (expandOption.defaultExpandAllRows) {
                 this.internalExpandRowkeys = allRowKeys;
             } else if (expandOption.defaultExpandedRowKeys) {
-                this.internalExpandRowkeys = expandOption.defaultExpandedRowKeys.slice(
-                    0
-                );
+                this.internalExpandRowkeys =
+                    expandOption.defaultExpandedRowKeys.slice(0);
             }
         },
         // get expand row
@@ -536,8 +533,8 @@ export default {
                         rowKeyFieldName: this.rowKeyFieldName,
                         rowData,
                         rowIndex,
-                        isVirtualScroll: this.isVirtualScroll
-                    }
+                        isVirtualScroll: this.isVirtualScroll,
+                    },
                 };
 
                 return <ExpandTr {...expandTrProps} />;
@@ -555,8 +552,8 @@ export default {
                 EMIT_EVENTS.CHECKBOX_SELECTED_ALL_INFO,
                 {
                     isIndeterminate: isCheckboxIndeterminate,
-                    isSelected: isCheckboxSelectedAll
-                }
+                    isSelected: isCheckboxSelectedAll,
+                },
             );
         },
 
@@ -587,7 +584,7 @@ export default {
             const {
                 selectedRowKeys,
                 defaultSelectedAllRows,
-                defaultSelectedRowKeys
+                defaultSelectedRowKeys,
             } = checkboxOption;
 
             if (Array.isArray(selectedRowKeys)) {
@@ -601,9 +598,8 @@ export default {
         },
         // reset internalCheckboxSelectedRowKeys by selectedRowKeys
         resetInternalCheckboxSelectedRowKeys() {
-            this.internalCheckboxSelectedRowKeys = this.checkboxOption.selectedRowKeys.slice(
-                0
-            );
+            this.internalCheckboxSelectedRowKeys =
+                this.checkboxOption.selectedRowKeys.slice(0);
         },
 
         /*
@@ -616,18 +612,16 @@ export default {
             const {
                 checkboxOption,
                 internalCheckboxSelectedRowKeys,
-                rowKeyFieldName
+                rowKeyFieldName,
             } = this;
             const { selectedRowChange, selectedRowKeys } = checkboxOption;
 
-            let internalCheckboxSelectedRowKeysTemp = internalCheckboxSelectedRowKeys.slice(
-                0
-            );
+            let internalCheckboxSelectedRowKeysTemp =
+                internalCheckboxSelectedRowKeys.slice(0);
 
             // will selected
-            const rowKeyIndex = internalCheckboxSelectedRowKeysTemp.indexOf(
-                rowKey
-            );
+            const rowKeyIndex =
+                internalCheckboxSelectedRowKeysTemp.indexOf(rowKey);
             if (isSelected) {
                 // bug fixed:通过行点击触发，导致key重复的问题
                 if (rowKeyIndex === -1) {
@@ -641,15 +635,16 @@ export default {
 
             // 非可控才改变 internalCheckboxSelectedRowKeys
             if (!Array.isArray(selectedRowKeys)) {
-                this.internalCheckboxSelectedRowKeys = internalCheckboxSelectedRowKeysTemp;
+                this.internalCheckboxSelectedRowKeys =
+                    internalCheckboxSelectedRowKeysTemp;
             }
 
             selectedRowChange({
                 row: this.cloneTableData.find(
-                    x => x[rowKeyFieldName] === rowKey
+                    (x) => x[rowKeyFieldName] === rowKey,
                 ),
                 isSelected,
-                selectedRowKeys: internalCheckboxSelectedRowKeysTemp
+                selectedRowKeys: internalCheckboxSelectedRowKeysTemp,
             });
         },
 
@@ -664,19 +659,18 @@ export default {
                 internalCheckboxSelectedRowKeys,
                 allRowKeys,
                 disableCheckboxSelectedRowKeys,
-                disableCheckboxUnselectedRowKeys
+                disableCheckboxUnselectedRowKeys,
             } = this;
             const { selectedAllChange, selectedRowKeys } = checkboxOption;
 
-            let internalCheckboxSelectedRowKeysTemp = internalCheckboxSelectedRowKeys.slice(
-                0
-            );
+            let internalCheckboxSelectedRowKeysTemp =
+                internalCheckboxSelectedRowKeys.slice(0);
             // selected all
             if (isSelected) {
                 // except disable Row Unselected keys
                 let allSelectedKeys = allRowKeys.slice(0);
                 if (disableCheckboxUnselectedRowKeys.length > 0) {
-                    disableCheckboxUnselectedRowKeys.forEach(rowkey => {
+                    disableCheckboxUnselectedRowKeys.forEach((rowkey) => {
                         let index = allSelectedKeys.indexOf(rowkey);
                         if (index > -1) {
                             allSelectedKeys.splice(index, 1);
@@ -687,17 +681,19 @@ export default {
                 internalCheckboxSelectedRowKeysTemp = allSelectedKeys;
             } else {
                 // except disable Row Selected keys
-                internalCheckboxSelectedRowKeysTemp = disableCheckboxSelectedRowKeys;
+                internalCheckboxSelectedRowKeysTemp =
+                    disableCheckboxSelectedRowKeys;
             }
 
             // 非可控才改变 internalCheckboxSelectedRowKeys
             if (!Array.isArray(selectedRowKeys)) {
-                this.internalCheckboxSelectedRowKeys = internalCheckboxSelectedRowKeysTemp;
+                this.internalCheckboxSelectedRowKeys =
+                    internalCheckboxSelectedRowKeysTemp;
             }
 
             selectedAllChange({
                 isSelected,
-                selectedRowKeys: internalCheckboxSelectedRowKeysTemp
+                selectedRowKeys: internalCheckboxSelectedRowKeysTemp,
                 //changeRowKeys:
             });
         },
@@ -719,8 +715,8 @@ export default {
 
             selectedRowChange({
                 row: this.cloneTableData.find(
-                    x => x[rowKeyFieldName] === rowKey
-                )
+                    (x) => x[rowKeyFieldName] === rowKey,
+                ),
             });
         },
         // get tr key
@@ -732,31 +728,31 @@ export default {
                 result = rowData[rowKeyFieldName];
             }
             return result;
-        }
+        },
     },
     mounted() {
         // receive checkbox row selected change from VE_TABLE_BODY_CHECKBOX_CONTENT
-        this.$on(EMIT_EVENTS.CHECKBOX_SELECTED_ROW_CHANGE, params => {
+        this.$on(EMIT_EVENTS.CHECKBOX_SELECTED_ROW_CHANGE, (params) => {
             this.checkboxSelectedRowChange(params);
         });
 
         // receive checkbox row selected change from VE_TABLE_BODY_CHECKBOX_CONTENT
-        this.$on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_CHANGE, params => {
+        this.$on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_CHANGE, (params) => {
             this.checkboxSelectedAllChange(params);
         });
 
         // receive radio row selected change from VE_TABLE_BODY_RADIO_CONTENT
-        this.$on(EMIT_EVENTS.RADIO_SELECTED_ROW_CHANGE, params => {
+        this.$on(EMIT_EVENTS.RADIO_SELECTED_ROW_CHANGE, (params) => {
             this.radioSelectedRowChange(params);
         });
 
         // recieve tr click
-        this.$on(EMIT_EVENTS.BODY_TR_CLICK, params => {
+        this.$on(EMIT_EVENTS.BODY_TR_CLICK, (params) => {
             this.rowClick(params);
         });
 
         // recieve yd click
-        this.$on(EMIT_EVENTS.BODY_TD_CLICK, params => {
+        this.$on(EMIT_EVENTS.BODY_TD_CLICK, (params) => {
             this.tdClick(params);
         });
 
@@ -791,31 +787,31 @@ export default {
             internalCheckboxSelectedRowKeys,
             internalRadioSelectedRowKey,
             isVirtualScroll,
-            cellStyleOption
+            cellStyleOption,
         } = this;
 
         return (
             <tbody>
                 {/* Measure each column width with additional hidden col */}
                 <tr style="height:0;">
-                    {colgroups.map(column => {
+                    {colgroups.map((column) => {
                         const measureTdProps = {
                             key: getDomResizeObserverCompKey(
                                 column.key,
-                                this.columnsOptionResetTime
+                                this.columnsOptionResetTime,
                             ),
                             props: {
                                 tagName: "td",
-                                id: column.key
+                                id: column.key,
                             },
                             on: {
-                                "on-dom-resize-change": tdSizeChange
+                                "on-dom-resize-change": tdSizeChange,
                             },
                             style: {
                                 padding: 0,
                                 border: 0,
-                                height: 0
-                            }
+                                height: 0,
+                            },
                         };
                         return <VueDomResizeObserver {...measureTdProps} />;
                     })}
@@ -838,25 +834,25 @@ export default {
                             isVirtualScroll,
                             isExpandRow: isExpandRow({
                                 rowData,
-                                rowIndex
+                                rowIndex,
                             }),
                             cellStyleOption,
                             cellSpanOption: this.cellSpanOption,
                             highlightRowKey: this.highlightRowKey,
                             eventCustomOption: this.eventCustomOption,
                             cellSelectionKeyData: this.cellSelectionKeyData,
-                            editOption: this.editOption
-                        }
+                            editOption: this.editOption,
+                        },
                     };
 
                     return [
                         // body tr
                         <BodyTr {...trProps} />,
                         // expand row
-                        getExpandRowComp({ rowData, rowIndex })
+                        getExpandRowComp({ rowData, rowIndex }),
                     ];
                 })}
             </tbody>
         );
-    }
+    },
 };

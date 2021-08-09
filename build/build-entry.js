@@ -32,11 +32,11 @@ function buildCompsInstallEntry() {
     ];
 
     const importCompList = Components.map(
-        name => `import ${uppercamelize(name)} from './${name}';`
+        (name) => `import ${uppercamelize(name)} from './${name}';`,
     );
-    const exportList = Components.map(name => `${uppercamelize(name)}`);
+    const exportList = Components.map((name) => `${uppercamelize(name)}`);
     const installList = exportList.filter(
-        name => !~uninstallComponents.indexOf(uppercamelize(name))
+        (name) => !~uninstallComponents.indexOf(uppercamelize(name)),
     );
 
     const content = `${tips}\r\n
@@ -84,22 +84,25 @@ function buildCompsThemeEntry() {
     const outputFileName = ["index.less"];
     const excludesFileNames = ["var.less"];
 
-    themesName.forEach(themeName => {
+    themesName.forEach((themeName) => {
         const dirs = fse.readdirSync(
-            path.resolve(__dirname, `../packages/${themeName}`)
+            path.resolve(__dirname, `../packages/${themeName}`),
         );
 
         const compCssImportList = dirs
-            .filter(name => {
+            .filter((name) => {
                 return (
                     name != outputFileName &&
                     !excludesFileNames.includes(name) &&
                     !isDir(
-                        path.join(__dirname, `../packages/${themeName}/${name}`)
+                        path.join(
+                            __dirname,
+                            `../packages/${themeName}/${name}`,
+                        ),
                     )
                 );
             })
-            .map(name => `@import "./${name}";`);
+            .map((name) => `@import "./${name}";`);
 
         //const compCssImportList = compCssNames.filter(name => `import "./${name}";`);
 
@@ -109,7 +112,7 @@ function buildCompsThemeEntry() {
 
         fse.writeFileSync(
             path.join(__dirname, `../packages/${themeName}/index.less`),
-            content
+            content,
         );
     });
 }

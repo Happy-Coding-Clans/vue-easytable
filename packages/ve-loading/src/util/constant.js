@@ -17,7 +17,7 @@ export const COMPS_NAME = {
     /*  VE_LOADING_CIRCLE: "VeLoadingCircle",
     VE_LOADING_CIRCLE_FADE: "VeLoadingCircleFade", */
     VE_LOADING_GRID: "VeLoadingGrid",
-    VE_LOADING_FOLD: "VeLoadingFold"
+    VE_LOADING_FOLD: "VeLoadingFold",
 };
 
 // spin name
@@ -27,5 +27,5 @@ export const SPIN_NAMES = {
     WAVE: "wave",
     FLOW: "flow",
     BOUNCE: "bounce",
-    PULSE: "pulse"
+    PULSE: "pulse",
 };

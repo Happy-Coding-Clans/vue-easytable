@@ -10,16 +10,16 @@ export default {
         // icon name
         name: {
             type: String,
-            required: true
+            required: true,
         },
         color: {
             type: String,
-            default: null
+            default: null,
         },
         size: {
             type: [Number, String],
-            default: ""
-        }
+            default: "",
+        },
     },
 
     computed: {
@@ -29,7 +29,7 @@ export default {
 
             let result = {
                 color,
-                "font-size": getValByUnit(size)
+                "font-size": getValByUnit(size),
             };
 
             return result;
@@ -43,11 +43,11 @@ export default {
                 console.error(`${name} is not found in ${COMPS_NAME.VE_ICON}.`);
             }
             return `iconfont-vet icon-vet-${name}`;
-        }
+        },
     },
 
     render() {
         const { iconStyle, iconClass } = this;
         return <i style={iconStyle} class={["ve-icon", iconClass]} />;
-    }
+    },
 };

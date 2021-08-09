@@ -1,3 +1,3 @@
 module.exports = {
-    libraryName: "VETable"
+    libraryName: "VETable",
 };

@@ -1,6 +1,6 @@
 import VeCheckbox from "./src/index";
 
-VeCheckbox.install = function(Vue) {
+VeCheckbox.install = function (Vue) {
     Vue.component(VeCheckbox.name, VeCheckbox);
 };
 

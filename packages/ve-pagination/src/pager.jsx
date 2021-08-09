@@ -9,16 +9,16 @@ export default {
     props: {
         pageCount: {
             type: Number,
-            required: true
+            required: true,
         },
         pageIndex: {
             type: Number,
-            required: true
+            required: true,
         },
         pagingCount: {
             type: Number,
-            required: true
-        }
+            required: true,
+        },
     },
     computed: {
         numOffset() {
@@ -76,12 +76,12 @@ export default {
             }
 
             return result;
-        }
+        },
     },
     methods: {
         jumpPage(pageIndex) {
             this.$emit("jumpPageHandler", pageIndex);
-        }
+        },
     },
     render() {
         const {
@@ -91,7 +91,7 @@ export default {
             pagingCount,
             pagingCounts,
             showJumpNext,
-            pageCount
+            pageCount,
         } = this;
 
         return (
@@ -99,7 +99,7 @@ export default {
                 <li
                     class={[
                         pageIndex === 1 ? clsName("li-active") : "",
-                        clsName("li")
+                        clsName("li"),
                     ]}
                     on-click={() => jumpPage(1)}
                 >
@@ -111,7 +111,7 @@ export default {
                         class={[
                             pageIndex === 1 ? "disabled" : "",
                             clsName("li"),
-                            clsName("jump-prev")
+                            clsName("jump-prev"),
                         ]}
                         title={t("prev5", pagingCount)}
                         on-click={() => jumpPage(pageIndex - pagingCount)}
@@ -129,7 +129,7 @@ export default {
                                 number === pageIndex
                                     ? clsName("li-active")
                                     : "",
-                                clsName("li")
+                                clsName("li"),
                             ]}
                             on-click={() => jumpPage(number)}
                         >
@@ -154,7 +154,7 @@ export default {
                     <li
                         class={[
                             pageIndex === pageCount ? clsName("li-active") : "",
-                            clsName("li")
+                            clsName("li"),
                         ]}
                         on-click={() => jumpPage(pageCount)}
                     >
@@ -163,5 +163,5 @@ export default {
                 )}
             </span>
         );
-    }
+    },
 };

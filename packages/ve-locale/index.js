@@ -11,8 +11,8 @@ defineReactive(
     proto,
     "$veTableMessages",
     cloneDeep({
-        lang: defaultLang
-    })
+        lang: defaultLang,
+    }),
 );
 
 export default {
@@ -24,5 +24,5 @@ export default {
     },
     update(lang = {}) {
         merge(proto.$veTableMessages.lang, lang);
-    }
+    },
 };

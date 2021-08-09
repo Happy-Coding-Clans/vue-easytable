@@ -1,6 +1,6 @@
 import VePagination from "./src/index.jsx";
 
-VePagination.install = function(Vue) {
+VePagination.install = function (Vue) {
     Vue.component(VePagination.name, VePagination);
 };
 

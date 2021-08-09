@@ -3,7 +3,7 @@ fork from:
 https://github.com/ElemeFE/element
 */
 
-const trim = function(string) {
+const trim = function (string) {
     return (string || "").replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, "");
 };
 

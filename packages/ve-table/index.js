@@ -1,6 +1,6 @@
-import VeTable from './src/index.jsx';
+import VeTable from "./src/index.jsx";
 
-VeTable.install = function(Vue) {
+VeTable.install = function (Vue) {
     Vue.component(VeTable.name, VeTable);
 };
 

@@ -9,47 +9,47 @@ export default {
     props: {
         width: {
             type: Number,
-            default: 90
+            default: 90,
         },
 
         // select的最大宽度(超出隐藏)
         maxWidth: {
             type: Number,
-            default: 0
+            default: 0,
         },
 
         // 如果为true 会包含 checkbox
         isMultiple: {
             type: Boolean,
-            default: false
+            default: false,
         },
 
         // 用户传入v-model 的值 [{value/label/selected}]
         value: {
             type: Array,
-            default: null
+            default: null,
         },
 
         // 占位符
         placeholder: {
             type: String,
             default: "请选择",
-            validator: function(value) {
+            validator: function (value) {
                 return value.length > 0;
-            }
+            },
         },
 
         // 文本居中方式 left|center|right
         textAlign: {
             type: String,
-            default: "left"
+            default: "left",
         },
 
         // 是否支持输入input
         isInput: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
     data() {
         return {
@@ -59,7 +59,7 @@ export default {
 
             inputValue: "",
             // dorpdown visible
-            dropdownVisible: false
+            dropdownVisible: false,
         };
     },
     computed: {
@@ -67,14 +67,14 @@ export default {
         iconClass() {
             return {
                 [clsName("show")]: this.dropdownVisible,
-                [clsName("toggle-icon")]: true
+                [clsName("toggle-icon")]: true,
             };
-        }
+        },
     },
     watch: {
-        value: function(val) {
+        value: function (val) {
             this.init();
-        }
+        },
     },
     methods: {
         // 初始化
@@ -99,8 +99,8 @@ export default {
         // 当前选中项的label
         selectedLabels() {
             return this.internalOptions
-                .filter(x => x.selected)
-                .map(x => {
+                .filter((x) => x.selected)
+                .map((x) => {
                     if (x.selected) {
                         return x.label;
                     }
@@ -112,7 +112,7 @@ export default {
             // 使用户传入的v-model 生效
             this.$emit("input", this.internalOptions);
             this.$emit(EMIT_EVENTS.SELECT_CHANGE, this.internalOptions);
-        }
+        },
     },
 
     created() {
@@ -132,23 +132,23 @@ export default {
                 isInput: this.isInput,
                 // v-model
                 value: this.internalOptions,
-                hideByItemClick: true
+                hideByItemClick: true,
             },
             style: {
-                width: this.width
+                width: this.width,
             },
             on: {
                 //change: this.dropdownChange,
                 // v-model
-                input: val => {
+                input: (val) => {
                     this.internalOptions = val;
                     this.dropdownChange();
                 },
                 // dropdown visible change
-                "dropdown-visible-change": visible => {
+                "dropdown-visible-change": (visible) => {
                     this.dropdownVisible = visible;
-                }
-            }
+                },
+            },
         };
 
         let content = "";
@@ -181,5 +181,5 @@ export default {
                 </span>
             </VeDropdown>
         );
-    }
+    },
 };

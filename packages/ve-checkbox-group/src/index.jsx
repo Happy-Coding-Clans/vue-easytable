@@ -8,13 +8,13 @@ export default {
             type: Array,
             default() {
                 return [];
-            }
+            },
         },
         // 是否垂直排列显示（当时checkbox组时生效）
         isVerticalShow: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     watch: {
@@ -23,11 +23,11 @@ export default {
             let children = getChildCompsByName(this, COMPS_NAME.VE_CHECKBOX);
 
             if (children.length > 0) {
-                children.forEach(child => {
+                children.forEach((child) => {
                     child.updateModelByGroup(newVal);
                 });
             }
-        }
+        },
     },
 
     methods: {
@@ -45,9 +45,9 @@ export default {
 
             this.$emit("input", this.value);
             this.$emit(EMIT_EVENTS.ON_CHECKED_CHANGE, this.value);
-        }
+        },
     },
     render() {
         return <div class="ve-checkbox-group">{this.$slots.default}</div>;
-    }
+    },
 };

@@ -11,7 +11,7 @@ export const COLUMN_TYPES = {
     // checkbox
     CHECKBOX: "checkbox",
     // radio
-    RADIO: "radio"
+    RADIO: "radio",
 };
 
 // expand row trigger types
@@ -21,7 +21,7 @@ export const EXPAND_TRIGGER_TYPES = {
     // trigger by click cell(td)
     CELL: "cell",
     // trigger by click row
-    ROW: "row"
+    ROW: "row",
 };
 
 // emit events
@@ -55,7 +55,7 @@ export const EMIT_EVENTS = {
     // header filter confirm
     HEADER_FILTER_CONFIRM: "on-filter-confirm",
     // header filter reset
-    HEADER_FILTER_RESET: "on-filter-reset"
+    HEADER_FILTER_RESET: "on-filter-reset",
 };
 
 // comps name
@@ -75,11 +75,11 @@ export const COMPS_NAME = {
     VE_TABLE_BODY_RADIO_CONTENT: "VeTableBodyRadioContent",
     VE_TABLE_HEADER_CHECKBOX_CONTENT: "VeTableHeaderCheckboxContent",
     VE_TABLE_HEADER_FILTER_CONTENT: "VeTableHeaderFilterContent",
-    VE_TABLE_HEADER_FILTER_CUSTOM_CONTENT: "VeTableHeaderFilterCustomContent"
+    VE_TABLE_HEADER_FILTER_CUSTOM_CONTENT: "VeTableHeaderFilterCustomContent",
 };
 
 // comps custom attrs
 export const COMPS_CUSTOM_ATTRS = {
     // body row key
-    BODY_ROW_KEY: "row-key"
+    BODY_ROW_KEY: "row-key",
 };

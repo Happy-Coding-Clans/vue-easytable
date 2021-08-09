@@ -65,12 +65,12 @@ export default {
          * @param  {Number}     distance            浮层元素和控制元素的上下间距
          */
         layerAdjustmentBind(layerElement, targetElement, distance) {
-            var handler = e => {
-                setTimeout(x => {
+            var handler = (e) => {
+                setTimeout((x) => {
                     this.layerAdjustmentOnce(
                         layerElement,
                         targetElement,
-                        distance
+                        distance,
                     );
                 });
             };
@@ -79,10 +79,10 @@ export default {
 
             document.addEventListener("scroll", handler);
             window.addEventListener("resize", handler);
-        }
+        },
     },
     beforeDestroy() {
         document.removeEventListener("scroll", __autoAdjustment__events__);
         window.removeEventListener("resize", __autoAdjustment__events__);
-    }
+    },
 };

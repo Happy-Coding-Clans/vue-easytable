@@ -9,65 +9,65 @@ export default {
     props: {
         rowData: {
             type: Object,
-            required: true
+            required: true,
         },
         rowIndex: {
             type: Number,
-            required: true
+            required: true,
         },
         colgroups: {
             type: Array,
-            required: true
+            required: true,
         },
         rowKeyFieldName: {
             type: String,
-            default: null
+            default: null,
         },
         // cell style option
         cellStyleOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // cell span option
         cellSpanOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // highlight row key
         highlightRowKey: {
             type: [String, Number],
-            default: null
+            default: null,
         },
         // event custom option
         eventCustomOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // cell selection key data
         cellSelectionKeyData: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         // footer rows
         footerRows: {
             type: Array,
-            default: function() {
+            default: function () {
                 return [];
-            }
+            },
         },
         // fixed footer
         fixedFooter: {
             type: Boolean,
-            default: true
-        }
+            default: true,
+        },
     },
     computed: {
         // current row key
@@ -80,11 +80,11 @@ export default {
             let result = null;
 
             result = {
-                [clsName("footer-tr")]: true
+                [clsName("footer-tr")]: true,
             };
 
             return result;
-        }
+        },
     },
 
     methods: {
@@ -100,8 +100,8 @@ export default {
                 EMIT_EVENTS.Footer_TR_HEIGHT_CHANGE,
                 {
                     rowIndex: this.rowIndex,
-                    height: height
-                }
+                    height: height,
+                },
             );
         },
         // click
@@ -130,7 +130,7 @@ export default {
         // mouseleave
         rowMouseleave(e, fn) {
             fn && fn(e);
-        }
+        },
     },
 
     render() {
@@ -151,12 +151,12 @@ export default {
             internalRadioSelectedRowKey,
             radioOption,
             cellStyleOption,
-            eventCustomOption
+            eventCustomOption,
         } = this;
 
         // get td content
         const getTdContent = () => {
-            return colgroups.map(column => {
+            return colgroups.map((column) => {
                 const tdProps = {
                     key: column.key,
                     props: {
@@ -170,8 +170,8 @@ export default {
                         footerRows: this.footerRows,
                         fixedFooter: this.fixedFooter,
                         cellSpanOption: this.cellSpanOption,
-                        eventCustomOption: this.eventCustomOption
-                    }
+                        eventCustomOption: this.eventCustomOption,
+                    },
                 };
                 return <FooterTd {...tdProps} />;
             });
@@ -188,44 +188,39 @@ export default {
                 : {};
         }
 
-        const {
-            click,
-            dblclick,
-            contextmenu,
-            mouseenter,
-            mouseleave
-        } = customEvents;
+        const { click, dblclick, contextmenu, mouseenter, mouseleave } =
+            customEvents;
 
         const events = {
-            click: e => {
+            click: (e) => {
                 this.rowClick(e, click);
             },
-            dblclick: e => {
+            dblclick: (e) => {
                 this.rowDblclick(e, dblclick);
             },
-            contextmenu: e => {
+            contextmenu: (e) => {
                 this.rowContextmenu(e, contextmenu);
             },
-            mouseenter: e => {
+            mouseenter: (e) => {
                 this.rowMouseenter(e, mouseenter);
             },
-            mouseleave: e => {
+            mouseleave: (e) => {
                 this.rowMouseleave(e, mouseleave);
-            }
+            },
         };
 
         const props = {
             class: this.trClass,
             props: {
-                tagName: "tr"
+                tagName: "tr",
             },
             attrs: {
-                [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey
+                [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey,
             },
             nativeOn: events,
             on: {
-                "on-dom-resize-change": this.trHeightChange
-            }
+                "on-dom-resize-change": this.trHeightChange,
+            },
         };
 
         return (
@@ -233,5 +228,5 @@ export default {
                 {getTdContent()}
             </VueDomResizeObserver>
         );
-    }
+    },
 };

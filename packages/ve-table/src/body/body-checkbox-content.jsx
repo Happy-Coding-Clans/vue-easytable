@@ -3,7 +3,7 @@ import {
     COMPS_NAME,
     EMIT_EVENTS,
     COLUMN_TYPES,
-    EXPAND_TRIGGER_TYPES
+    EXPAND_TRIGGER_TYPES,
 } from "../util/constant";
 import { clsName } from "../util";
 import emitter from "../../../src/mixins/emitter";
@@ -14,24 +14,24 @@ export default {
         // checkbox option
         checkboxOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
+            },
         },
         rowKey: {
             type: [String, Number],
-            required: true
+            required: true,
         },
         internalCheckboxSelectedRowKeys: {
             type: Array,
-            default: function() {
+            default: function () {
                 return null;
-            }
-        }
+            },
+        },
     },
     data() {
         return {
-            isSelected: false
+            isSelected: false,
         };
     },
     computed: {
@@ -62,19 +62,18 @@ export default {
             const { checkboxOption } = this;
 
             return (
-                checkboxOption &&
-                Array.isArray(checkboxOption.selectedRowKeys)
+                checkboxOption && Array.isArray(checkboxOption.selectedRowKeys)
             );
-        }
+        },
     },
     watch: {
         // watch internalCheckboxSelectedRowKeys
         internalCheckboxSelectedRowKeys: {
-            handler: function() {
+            handler: function () {
                 this.initSelected();
             },
-            immediate: true
-        }
+            immediate: true,
+        },
     },
     methods: {
         // init selected
@@ -107,10 +106,10 @@ export default {
                 EMIT_EVENTS.CHECKBOX_SELECTED_ROW_CHANGE,
                 {
                     rowKey: this.rowKey,
-                    isSelected
-                }
+                    isSelected,
+                },
             );
-        }
+        },
     },
     render() {
         const { isSelected, selectedChange, label, disabled } = this;
@@ -120,13 +119,13 @@ export default {
             props: {
                 isControlled: true,
                 isSelected: isSelected,
-                disabled
+                disabled,
             },
             on: {
-                "on-checked-change": isSelected => selectedChange(isSelected)
-            }
+                "on-checked-change": (isSelected) => selectedChange(isSelected),
+            },
         };
 
         return <VeCheckbox {...checkboxProps} />;
-    }
+    },
 };

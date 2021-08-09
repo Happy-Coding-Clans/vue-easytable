@@ -10,11 +10,11 @@ const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 const config = require("./config");
 const { libraryName } = require("./common");
 
-module.exports = function(env) {
+module.exports = function (env) {
     return {
         mode: "production",
         entry: {
-            index: ["./packages/index.js"]
+            index: ["./packages/index.js"],
         },
 
         output: {
@@ -25,7 +25,7 @@ module.exports = function(env) {
             libraryExport: "default",
             library: libraryName,
             umdNamedDefine: true,
-            globalObject: "typeof self !== 'undefined' ? self : this"
+            globalObject: "typeof self !== 'undefined' ? self : this",
         },
 
         module: {
@@ -34,7 +34,7 @@ module.exports = function(env) {
                 {
                     test: /\.(js|jsx)$/,
                     use: "babel-loader",
-                    exclude: /node_modules/
+                    exclude: /node_modules/,
                 },
 
                 // vue loader
@@ -42,27 +42,27 @@ module.exports = function(env) {
                     test: /\.vue$/,
                     use: [
                         {
-                            loader: "vue-loader"
-                        }
-                    ]
-                }
-            ]
+                            loader: "vue-loader",
+                        },
+                    ],
+                },
+            ],
         },
 
         optimization: {
-            minimize: true
+            minimize: true,
         },
 
         resolve: {
             extensions: [".js", ".jsx", ".vue"],
             modules: [path.resolve("./node_modules")],
-            alias: config.alias
+            alias: config.alias,
         },
 
         externals: {
-            vue: config.externals.vue
+            vue: config.externals.vue,
         },
 
-        plugins: [new ProgressBarPlugin(), new VueLoaderPlugin()]
+        plugins: [new ProgressBarPlugin(), new VueLoaderPlugin()],
     };
 };

@@ -6,5 +6,5 @@ export const EMIT_EVENTS = {};
 
 // comps name
 export const COMPS_NAME = {
-    VE_ICON: "VeIcon"
+    VE_ICON: "VeIcon",
 };

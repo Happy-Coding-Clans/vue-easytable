@@ -5,7 +5,7 @@ export const store = Vue.observable({
     /*
     table viewport width except scroll bar width
     */
-    tableViewportWidth: 0
+    tableViewportWidth: 0,
 });
 
 // mutation
@@ -13,5 +13,5 @@ export const mutations = {
     // set store
     setStore(payload) {
         Object.assign(store, payload);
-    }
+    },
 };

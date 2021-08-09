@@ -7,16 +7,16 @@ export default {
     props: {
         color: {
             type: String,
-            required: true
+            required: true,
         },
         width: {
             type: [Number, String],
-            required: true
+            required: true,
         },
         height: {
             type: [Number, String],
-            required: true
-        }
+            required: true,
+        },
     },
     computed: {
         // spin style
@@ -26,13 +26,13 @@ export default {
             let result = {
                 width: getValByUnit(width),
                 height: getValByUnit(height),
-                "background-color": color
+                "background-color": color,
             };
 
             return result;
-        }
+        },
     },
     render() {
         return <div style={this.spinStyle} class={clsName("pulse")} />;
-    }
+    },
 };

@@ -11,7 +11,7 @@ const Components = require("../components.json");
 //const TerserPlugin = require("terser-webpack-plugin");
 const config = require("./config");
 
-module.exports = function(env) {
+module.exports = function (env) {
     return {
         mode: "production",
         entry: Components,
@@ -24,17 +24,17 @@ module.exports = function(env) {
             commonjs 分配给 exports 对象;
             commonjs2 分配给 module.exports 对象;
             */
-            libraryTarget: "commonjs2"
+            libraryTarget: "commonjs2",
         },
 
         optimization: {
-            minimize: true
+            minimize: true,
         },
 
         resolve: {
             extensions: [".js", ".jsx", ".vue", ".json"],
             modules: [path.resolve("./node_modules")],
-            alias: config.alias
+            alias: config.alias,
         },
 
         externals: config.externals,
@@ -45,7 +45,7 @@ module.exports = function(env) {
                 {
                     test: /\.(js|jsx)$/,
                     use: "babel-loader",
-                    exclude: /node_modules/
+                    exclude: /node_modules/,
                 },
 
                 // vue loader
@@ -56,11 +56,11 @@ module.exports = function(env) {
                             loader: "vue-loader",
                             options: {
                                 compilerOptions: {
-                                    preserveWhitespace: false
-                                }
-                            }
-                        }
-                    ]
+                                    preserveWhitespace: false,
+                                },
+                            },
+                        },
+                    ],
                 },
 
                 {
@@ -68,16 +68,19 @@ module.exports = function(env) {
                     loader: "url-loader",
                     query: {
                         limit: 10000,
-                        name: path.posix.join("static", "[name].[hash:7].[ext]")
-                    }
-                }
-            ]
+                        name: path.posix.join(
+                            "static",
+                            "[name].[hash:7].[ext]",
+                        ),
+                    },
+                },
+            ],
         },
 
         plugins: [new ProgressBarPlugin(), new VueLoaderPlugin()],
 
         performance: {
-            hints: "warning"
-        }
+            hints: "warning",
+        },
     };
 };

@@ -32,7 +32,7 @@ export function getRowKey(rowData, rowKeyFieldName) {
  */
 export function getDomResizeObserverCompKey(
     originalKey,
-    columnsOptionResetTime
+    columnsOptionResetTime,
 ) {
     let result = originalKey;
 
@@ -51,7 +51,7 @@ export function getDomResizeObserverCompKey(
  * @param {string} fixed - left|right
  */
 export function getFixedTotalWidthByColumnKey(colgroups, columnKey, fixed) {
-    const currentIndex = colgroups.findIndex(x => x.key === columnKey);
+    const currentIndex = colgroups.findIndex((x) => x.key === columnKey);
 
     let result = 0;
 
@@ -84,9 +84,9 @@ export function getFixedTotalWidthByColumnKey(colgroups, columnKey, fixed) {
 export function getNotFixedTotalWidthByColumnKey({
     colgroups,
     columnKey,
-    direction
+    direction,
 }) {
-    const currentIndex = colgroups.findIndex(x => x.key === columnKey);
+    const currentIndex = colgroups.findIndex((x) => x.key === columnKey);
 
     let result = 0;
 
@@ -133,19 +133,19 @@ export function initGroupColumns(cloneColumns) {
             }
         }
         if (column.children) {
-            column.children.forEach(item => {
+            column.children.forEach((item) => {
                 item.fixed = column.fixed;
                 setColumnLevel(item, column);
             });
         }
     };
-    cloneColumns.forEach(column => {
+    cloneColumns.forEach((column) => {
         column._level = 1;
         setColumnLevel(column);
     });
 
     // set colspan and rowspan and keys
-    const setColspanAndRowspanAndKeys = column => {
+    const setColspanAndRowspanAndKeys = (column) => {
         if (column.children) {
             let keys = "";
             let colspan = 0;
@@ -176,13 +176,13 @@ export function initGroupColumns(cloneColumns) {
         groupColumns.push([]);
     }
     // set colgroups and groupColumns
-    const setColgroupsAndGroupColumns = column => {
+    const setColgroupsAndGroupColumns = (column) => {
         // set groupColumns
         const { children, ...groupColumn } = column;
         groupColumns[column._level - 1].push(groupColumn);
 
         if (column.children) {
-            column.children.forEach(item => {
+            column.children.forEach((item) => {
                 setColgroupsAndGroupColumns(item);
             });
         } else {
@@ -193,7 +193,7 @@ export function initGroupColumns(cloneColumns) {
         }
     };
 
-    cloneColumns.forEach(column => {
+    cloneColumns.forEach((column) => {
         setColgroupsAndGroupColumns(column);
     });
 
@@ -203,6 +203,6 @@ export function initGroupColumns(cloneColumns) {
         // set colgroups
         colgroups,
         // set groupColumns
-        groupColumns
+        groupColumns,
     };
 }

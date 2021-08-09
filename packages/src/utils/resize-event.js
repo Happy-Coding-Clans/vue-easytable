@@ -6,11 +6,11 @@ https://github.com/ElemeFE/element
 import ResizeObserver from "resize-observer-polyfill";
 
 /* istanbul ignore next */
-const resizeHandler = function(entries) {
+const resizeHandler = function (entries) {
     for (let entry of entries) {
         const listeners = entry.target.__resizeListeners__ || [];
         if (listeners.length) {
-            listeners.forEach(fn => {
+            listeners.forEach((fn) => {
                 fn(entry.contentRect);
             });
         }
@@ -18,7 +18,7 @@ const resizeHandler = function(entries) {
 };
 
 /* istanbul ignore next */
-export const addResizeListener = function(element, fn) {
+export const addResizeListener = function (element, fn) {
     if (!element.__resizeListeners__) {
         element.__resizeListeners__ = [];
         element.__ro__ = new ResizeObserver(resizeHandler);
@@ -28,11 +28,11 @@ export const addResizeListener = function(element, fn) {
 };
 
 /* istanbul ignore next */
-export const removeResizeListener = function(element, fn) {
+export const removeResizeListener = function (element, fn) {
     if (!element || !element.__resizeListeners__) return;
     element.__resizeListeners__.splice(
         element.__resizeListeners__.indexOf(fn),
-        1
+        1,
     );
     if (!element.__resizeListeners__.length) {
         element.__ro__.disconnect();

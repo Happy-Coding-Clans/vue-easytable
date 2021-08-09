@@ -8,11 +8,11 @@ export default {
         // 当前checkbox 选中状态,实现 v-model
         value: {
             type: [String, Number, Boolean],
-            default: null
+            default: null,
         },
         label: {
             type: [String],
-            default: null
+            default: null,
         },
         // is disabled checked
         disabled: Boolean,
@@ -21,19 +21,19 @@ export default {
         // 是否是可控组件
         isControlled: {
             type: Boolean,
-            default: false
+            default: false,
         },
         // isControlled 为true 时生效
         isSelected: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
     data() {
         return {
             // 当前checkbox 选中状态
             model: this.value,
-            checkboxGroup: {}
+            checkboxGroup: {},
         };
     },
 
@@ -44,8 +44,8 @@ export default {
                 {
                     [clsName("checked")]: this.internalIsSelected,
                     [clsName("disabled")]: this.disabled,
-                    [clsName("indeterminate")]: this.indeterminate
-                }
+                    [clsName("indeterminate")]: this.indeterminate,
+                },
             ];
         },
 
@@ -55,19 +55,19 @@ export default {
                 display:
                     this.checkboxGroup && this.checkboxGroup.isVerticalShow
                         ? "block"
-                        : "inline-block"
+                        : "inline-block",
             };
         },
         // 是否选中
         internalIsSelected() {
             return this.isControlled ? this.isSelected : this.model;
-        }
+        },
     },
 
     watch: {
         value(val) {
             this.updateModelBySingle();
-        }
+        },
     },
 
     methods: {
@@ -93,7 +93,7 @@ export default {
         isCheckBoxGroup() {
             this.checkboxGroup = getParentCompByName(
                 this,
-                COMPS_NAME.VE_CHECKBOX_GROUP
+                COMPS_NAME.VE_CHECKBOX_GROUP,
             );
             return this.checkboxGroup ? true : false;
         },
@@ -139,7 +139,7 @@ export default {
                     this.model = false;
                 }
             }
-        }
+        },
     },
 
     created() {
@@ -153,7 +153,7 @@ export default {
             model,
             checkboxChange,
             getLabelContent,
-            internalIsSelected
+            internalIsSelected,
         } = this;
 
         return (
@@ -172,5 +172,5 @@ export default {
                 <span class={clsName("label")}>{getLabelContent()}</span>
             </label>
         );
-    }
+    },
 };

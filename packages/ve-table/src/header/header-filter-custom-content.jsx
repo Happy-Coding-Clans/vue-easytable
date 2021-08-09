@@ -3,7 +3,7 @@ import {
     COMPS_NAME,
     EMIT_EVENTS,
     COLUMN_TYPES,
-    LOCALE_COMP_NAME
+    LOCALE_COMP_NAME,
 } from "../util/constant";
 import { clsName } from "../util";
 import { createLocale, isFunction, isBoolean } from "../../../src/utils/index";
@@ -17,17 +17,17 @@ export default {
     props: {
         column: {
             type: Object,
-            required: true
-        }
+            required: true,
+        },
     },
     data() {
         return {
-            internalVisible: false
+            internalVisible: false,
         };
     },
     watch: {
         column: {
-            handler: function(column) {
+            handler: function (column) {
                 if (
                     column.filterCustom &&
                     isBoolean(column.filterCustom.defaultVisible)
@@ -36,8 +36,8 @@ export default {
                 }
             },
             immediate: true,
-            deep: true
-        }
+            deep: true,
+        },
     },
     methods: {
         // visible change
@@ -51,7 +51,7 @@ export default {
             const { render } = this.column.filterCustom;
             if (isFunction(render)) {
                 const props = {
-                    slot: "custom-content"
+                    slot: "custom-content",
                 };
 
                 result = (
@@ -59,9 +59,9 @@ export default {
                         {render(
                             {
                                 showFn: this.show,
-                                closeFn: this.close
+                                closeFn: this.close,
                             },
-                            h
+                            h,
                         )}
                     </div>
                 );
@@ -85,7 +85,7 @@ export default {
         },
         show() {
             this.internalVisible = true;
-        }
+        },
     },
     render(h) {
         const { defaultVisible } = this.column.filterCustom;
@@ -94,11 +94,11 @@ export default {
             props: {
                 isCustomContent: true,
                 isControlled: true,
-                visible: this.internalVisible
+                visible: this.internalVisible,
             },
             on: {
-                "on-dropdown-visible-change": this.visibleChange
-            }
+                "on-dropdown-visible-change": this.visibleChange,
+            },
         };
 
         return (
@@ -113,5 +113,5 @@ export default {
                 {this.getCustomContent(h)}
             </VeDropdown>
         );
-    }
+    },
 };

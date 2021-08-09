@@ -3,7 +3,7 @@ import {
     COMPS_NAME,
     EMIT_EVENTS,
     COLUMN_TYPES,
-    LOCALE_COMP_NAME
+    LOCALE_COMP_NAME,
 } from "../util/constant";
 import { clsName } from "../util";
 import { createLocale, isFunction } from "../../../src/utils/index";
@@ -17,24 +17,24 @@ export default {
     props: {
         column: {
             type: Object,
-            required: true
-        }
+            required: true,
+        },
     },
     data() {
         return {
-            filterList: []
+            filterList: [],
         };
     },
     watch: {
         column: {
-            handler: function(column) {
+            handler: function (column) {
                 if (column.filter && Array.isArray(column.filter.filterList)) {
                     this.filterList = column.filter.filterList;
                 }
             },
             immediate: true,
-            deep: true
-        }
+            deep: true,
+        },
     },
     methods: {
         /*
@@ -61,7 +61,7 @@ export default {
                 result = <VeIcon name={ICON_NAMES.FILTER} />;
             }
             return result;
-        }
+        },
     },
     render(h) {
         const { filterList, isMultiple, maxHeight } = this.column.filter;
@@ -73,16 +73,16 @@ export default {
                 isMultiple: isMultiple,
                 showRadio: true, // when single selection
                 confirmFilterText: t("confirmFilter"),
-                resetFilterText: t("resetFilter")
+                resetFilterText: t("resetFilter"),
             },
             on: {
                 [EMIT_EVENTS.HEADER_FILTER_CONFIRM]: this.filterConfirm,
                 [EMIT_EVENTS.HEADER_FILTER_RESET]: this.filterReset,
                 // v-model
-                input: val => {
+                input: (val) => {
                     this.filterList = val;
-                }
-            }
+                },
+            },
         };
 
         if (typeof maxHeight === "number") {
@@ -99,5 +99,5 @@ export default {
                 </span>
             </VeDropdown>
         );
-    }
+    },
 };
