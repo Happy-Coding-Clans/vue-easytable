@@ -4,4 +4,8 @@ examples/*
 
 libs/*
 
-.github
+.github/*
+
+packages/font/*
+
+libs/*
