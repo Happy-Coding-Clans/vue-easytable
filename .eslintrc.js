@@ -2,7 +2,7 @@
 module.exports = {
     root: true,
     env: {
-        node: true
+        node: true,
     },
     extends: ["plugin:vue/essential", "eslint:recommended"],
     rules: {
@@ -42,13 +42,13 @@ module.exports = {
                     "methods",
                     "LIFECYCLE_HOOKS",
                     ["template", "render"],
-                    "renderError"
-                ]
-            }
-        ]
+                    "renderError",
+                ],
+            },
+        ],
     },
     parserOptions: {
-        parser: "babel-eslint"
+        parser: "babel-eslint",
     },
-    globals: {}
+    globals: {},
 };
