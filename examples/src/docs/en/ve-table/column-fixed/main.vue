@@ -34,7 +34,7 @@ export default {
         ColumnFixedLeft,
         ColumnFixedRight,
         ColumnFixedLeftRight,
-        ColumnFixedAutoWidth
-    }
+        ColumnFixedAutoWidth,
+    },
 };
 </script>

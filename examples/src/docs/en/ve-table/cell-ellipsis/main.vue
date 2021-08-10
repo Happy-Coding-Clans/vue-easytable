@@ -23,7 +23,7 @@ export default {
         Base,
         Ellipsis,
         EllipsisLine,
-        API
-    }
+        API,
+    },
 };
 </script>

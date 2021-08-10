@@ -32,7 +32,7 @@ export default {
         HeaderCellStyle,
         HeaderRowStyle,
         FooterRowStyle,
-        API
-    }
+        API,
+    },
 };
 </script>

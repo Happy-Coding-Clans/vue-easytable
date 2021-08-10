@@ -30,7 +30,7 @@ export default {
         BorderAround,
         BorderAll,
         AroundX,
-        AroundY
-    }
+        AroundY,
+    },
 };
 </script>

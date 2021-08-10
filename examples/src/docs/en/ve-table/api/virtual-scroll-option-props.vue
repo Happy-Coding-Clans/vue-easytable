@@ -16,17 +16,17 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Virtual scroll configuration"
+            default: "Virtual scroll configuration",
         },
         desc: {
             type: String,
-            default: "virtualScrollOption"
-        }
+            default: "virtualScrollOption",
+        },
     },
     data() {
         return {
-            db: db
+            db: db,
         };
-    }
+    },
 };
 </script>

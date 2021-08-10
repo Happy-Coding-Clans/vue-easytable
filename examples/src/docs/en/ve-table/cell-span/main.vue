@@ -22,7 +22,7 @@ export default {
         BodyColspan,
         BodyRowspan,
         FooterCellSpan,
-        CustomContent
-    }
+        CustomContent,
+    },
 };
 </script>

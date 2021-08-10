@@ -13,7 +13,7 @@ export default {
     name: "cell-align",
     components: {
         Explain,
-        BasicAlign
-    }
+        BasicAlign,
+    },
 };
 </script>

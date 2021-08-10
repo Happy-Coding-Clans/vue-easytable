@@ -13,7 +13,7 @@ export default {
     name: "cell-selection",
     components: {
         Explain,
-        Base
-    }
+        Base,
+    },
 };
 </script>

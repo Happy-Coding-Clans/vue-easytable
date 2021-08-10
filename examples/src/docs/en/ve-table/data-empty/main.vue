@@ -13,7 +13,7 @@ export default {
     name: "data-empty",
     components: {
         Explain,
-        Basic
-    }
+        Basic,
+    },
 };
 </script>

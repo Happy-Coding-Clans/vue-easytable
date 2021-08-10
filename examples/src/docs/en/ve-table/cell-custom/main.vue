@@ -19,7 +19,7 @@ export default {
         BodyCell,
         HeaderCell,
         FooterCell,
-        More
-    }
+        More,
+    },
 };
 </script>
