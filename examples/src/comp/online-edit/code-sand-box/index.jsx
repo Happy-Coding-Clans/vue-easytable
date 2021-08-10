@@ -75,8 +75,25 @@ new Vue({
             `;
         },
 
+        // get babel content
+        getbabelContent() {
+            return `
+              {
+                "presets": [
+                  "@vue/cli-plugin-babel/preset"
+                ]
+              }
+            
+            `;
+        },
+
         getCodesanboxPrefillConfig() {
-            const { version, getExampleContent, getMainjsContent } = this;
+            const {
+                version,
+                getExampleContent,
+                getMainjsContent,
+                getbabelContent,
+            } = this;
 
             const codesandboxPackage = {
                 title: `vue-easytable@${version} example`,
@@ -86,12 +103,16 @@ new Vue({
                     "vue-template-compiler": "^2.6.11",
                     "vue-easytable": version,
                     "element-ui": "^2.15.0",
-                },
-                devDependencies: {
-                    "@vue/cli-plugin-babel": "4.5.11",
-                    "@vue/cli-plugin-eslint": "4.1.1",
                     "@vue/cli-service": "4.1.1",
+                    "@vue/cli-plugin-babel": "4.5.11",
+                    "@vue/babel-preset-jsx": "1.2.4",
                 },
+                // codesandbox 更新后不支持了
+                // devDependencies: {
+                //     "@vue/cli-plugin-babel": "4.5.11",
+                //     "@vue/cli-plugin-eslint": "4.1.1",
+                //     "@vue/cli-service": "4.1.1",
+                // },
                 scripts: {
                     serve: "vue-cli-service serve",
                     build: "vue-cli-service build",
@@ -105,6 +126,7 @@ new Vue({
                     "package.json": { content: codesandboxPackage },
                     "Example.vue": { content: getExampleContent() },
                     "main.js": { content: getMainjsContent() },
+                    ".babelrc": { content: getbabelContent() },
                 },
             };
 
