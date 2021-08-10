@@ -23,13 +23,13 @@ jobs:
           node-version: "12.x"
 
       - name: Install outer env
-        run: npm install
+        run: yarn
 
       - name: Install innner env
         run: |
           cd examples
-          npm install
-          npm install vue@2.6.12 
+          yarn
+          yarn add vue@2.6.12 
 
       - name: Build doc
         run: |
