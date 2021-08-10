@@ -22,7 +22,7 @@ export default {
         RowStripe,
         HoverHighlight,
         ClickHighlight,
-        API
-    }
+        API,
+    },
 };
 </script>

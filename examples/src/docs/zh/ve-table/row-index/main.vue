@@ -13,7 +13,7 @@ export default {
     name: "basic-main",
     components: {
         Base,
-        Ranking
-    }
+        Ranking,
+    },
 };
 </script>

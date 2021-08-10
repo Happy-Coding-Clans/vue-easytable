@@ -37,7 +37,7 @@ export default {
         ColumnFixed,
         FooterSummary,
         /* RowIndex, */
-        API
-    }
+        API,
+    },
 };
 </script>

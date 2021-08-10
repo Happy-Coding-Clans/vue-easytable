@@ -16,7 +16,7 @@ export default {
     components: {
         Explain,
         GroupingHeader,
-        GroupingHeaderFixedColumn
-    }
+        GroupingHeaderFixedColumn,
+    },
 };
 </script>
