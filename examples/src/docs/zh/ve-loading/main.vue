@@ -24,7 +24,7 @@ export default {
         Fullscreen,
         Custom,
         Collection,
-        Api
-    }
+        Api,
+    },
 };
 </script>

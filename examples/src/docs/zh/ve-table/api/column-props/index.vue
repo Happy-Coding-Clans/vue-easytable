@@ -20,12 +20,12 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "列配置"
+            default: "列配置",
         },
         desc: {
             type: String,
-            default: "columns"
-        }
+            default: "columns",
+        },
     },
     data() {
         return {
@@ -45,9 +45,9 @@ export default {
                     } else if (row["rowKey"] === 55) {
                         return <FilterCustomProps />;
                     }
-                }
-            }
+                },
+            },
         };
-    }
+    },
 };
 </script>

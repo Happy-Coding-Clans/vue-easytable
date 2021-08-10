@@ -16,17 +16,17 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "行多选配置"
+            default: "行多选配置",
         },
         desc: {
             type: String,
-            default: "checkboxOption"
-        }
+            default: "checkboxOption",
+        },
     },
     data() {
         return {
-            db: db
+            db: db,
         };
-    }
+    },
 };
 </script>

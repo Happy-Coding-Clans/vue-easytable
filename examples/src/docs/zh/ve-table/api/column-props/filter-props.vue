@@ -16,17 +16,17 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "筛选"
+            default: "筛选",
         },
         desc: {
             type: String,
-            default: "filter"
-        }
+            default: "filter",
+        },
     },
     data() {
         return {
-            db: db
+            db: db,
         };
-    }
+    },
 };
 </script>

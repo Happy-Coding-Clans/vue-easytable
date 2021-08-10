@@ -16,17 +16,17 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "行展开配置"
+            default: "行展开配置",
         },
         desc: {
             type: String,
-            default: "expandOption"
-        }
+            default: "expandOption",
+        },
     },
     data() {
         return {
-            db: db
+            db: db,
         };
-    }
+    },
 };
 </script>

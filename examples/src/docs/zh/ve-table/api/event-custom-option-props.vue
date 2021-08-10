@@ -16,17 +16,17 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "事件自定义配置"
+            default: "事件自定义配置",
         },
         desc: {
             type: String,
-            default: "eventCustomOption"
-        }
+            default: "eventCustomOption",
+        },
     },
     data() {
         return {
-            db: db
+            db: db,
         };
-    }
+    },
 };
 </script>

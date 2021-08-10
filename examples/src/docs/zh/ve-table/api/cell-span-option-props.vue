@@ -16,17 +16,17 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "单元格合并配置"
+            default: "单元格合并配置",
         },
         desc: {
             type: String,
-            default: "cellSpanOption"
-        }
+            default: "cellSpanOption",
+        },
     },
     data() {
         return {
-            db: db
+            db: db,
         };
-    }
+    },
 };
 </script>

@@ -9,7 +9,7 @@ const columnsType1 = [
         type: "expand",
         renderBodyCell: ({ row, column, rowIndex }, h) => {
             return <span domPropsInnerHTML={row.param}></span>;
-        }
+        },
     },
     {
         key: "b",
@@ -19,7 +19,7 @@ const columnsType1 = [
         align: "left",
         renderBodyCell: ({ row, column, rowIndex }, h) => {
             return <span domPropsInnerHTML={row.desc}></span>;
-        }
+        },
     },
     {
         key: "c",
@@ -29,7 +29,7 @@ const columnsType1 = [
         align: "left",
         renderBodyCell: ({ row, column, rowIndex }, h) => {
             return <span domPropsInnerHTML={row.type}></span>;
-        }
+        },
     },
     {
         key: "d",
@@ -39,7 +39,7 @@ const columnsType1 = [
         align: "left",
         renderBodyCell: ({ row, column, rowIndex }, h) => {
             return <span domPropsInnerHTML={row.optionalVal}></span>;
-        }
+        },
     },
     {
         key: "e",
@@ -49,8 +49,8 @@ const columnsType1 = [
         align: "left",
         renderBodyCell: ({ row, column, rowIndex }, h) => {
             return <span domPropsInnerHTML={row.default}></span>;
-        }
-    }
+        },
+    },
 ];
 
 export const db = {
@@ -62,82 +62,77 @@ export const db = {
                 desc: "表格数据",
                 type: "<code>Array</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "footerData",
-                desc:
-                    "表格footer 汇总数据，数据结构和 <code>tableData</code> 一致",
+                desc: "表格footer 汇总数据，数据结构和 <code>tableData</code> 一致",
                 type: "<code>Array</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "columns",
                 desc: `列配置，具体项见下表 columns 配置`,
                 type: `<code>Array</code>`,
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "fixedHeader",
                 desc: "是否固定表头，默认启用。需要和 `maxHeight`结合使用",
                 type: "<code>Boolean</code>",
                 optionalVal: "-",
-                default: "true"
+                default: "true",
             },
             {
                 param: "fixedFooter",
-                desc:
-                    "是否固定footer 汇总，默认启用。需要和 `maxHeight`结合使用",
+                desc: "是否固定footer 汇总，默认启用。需要和 `maxHeight`结合使用",
                 type: "<code>Boolean</code>",
                 optionalVal: "-",
-                default: "true"
+                default: "true",
             },
             {
                 param: "scrollWidth",
-                desc:
-                    "表格滚动区域的宽（开始出滚动条的宽度）。<code>Number</code>指定像素；<code>String</code>指定百分比",
+                desc: "表格滚动区域的宽（开始出滚动条的宽度）。<code>Number</code>指定像素；<code>String</code>指定百分比",
                 type: "<code>Number</code>、<code>String</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "maxHeight",
-                desc:
-                    "表格的最大高度。<code>Number</code>指定像素；<code>String</code>指定百分比。用于“固定头”或“虚拟滚动”功能",
+                desc: "表格的最大高度。<code>Number</code>指定像素；<code>String</code>指定百分比。用于“固定头”或“虚拟滚动”功能",
                 type: "<code>Number</code>、<code>String</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "rowKeyFieldName",
-                desc:
-                    "指定 row key 的字段名称。用于行展开、行单选、行多选、行点击高亮、虚拟滚动",
+                desc: "指定 row key 的字段名称。用于行展开、行单选、行多选、行点击高亮、虚拟滚动",
                 type: "<code>String</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "borderAround",
                 desc: "是否展示表格外边框",
                 type: "<code>Boolean</code>",
                 optionalVal: "-",
-                default: "true"
+                default: "true",
             },
             {
                 param: "borderX",
                 desc: "是否展示列横向边框",
                 type: "<code>Boolean</code>",
                 optionalVal: "-",
-                default: "true"
+                default: "true",
             },
             {
                 param: "borderY",
                 desc: "是否展示列纵向边框",
                 type: "<code>Boolean</code>",
                 optionalVal: "-",
-                default: "false"
+                default: "false",
             },
 
             {
@@ -145,74 +140,73 @@ export const db = {
                 desc: "单元格合并配置，具体见下表 cellSpanOption 配置",
                 type: "<code>Object</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "cellStyleOption",
                 desc: "单元格样式配置，具体见下表 cellStyleOption 配置",
                 type: "<code>Object</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "rowStyleOption",
                 desc: "行样式配置，具体见下表 rowStyleOption 配置",
                 type: "<code>Object</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "expandOption",
                 desc: "行展开配置，具体见下表 expandOption 配置",
                 type: "<code>Object</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "checkboxOption",
                 desc: "行多选配置，具体见下表 checkboxOption 配置",
                 type: "<code>Object</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "radioOption",
                 desc: "行单选配置，具体见下表 radioOption 配置",
                 type: "<code>Object</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "virtualScrollOption",
-                desc:
-                    "虚拟滚动配置，建议需要一次性展示1000条以上使用。具体见下表 virtualScrollOption 配置。",
+                desc: "虚拟滚动配置，建议需要一次性展示1000条以上使用。具体见下表 virtualScrollOption 配置。",
                 type: "<code>Boolean</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "sortOption",
                 desc: "排序配置，具体见下表 sortOption 配置",
                 type: "<code>Object</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "cellSelectionOption",
                 desc: "单元格选择配置，具体见下表 cellSelectionOption 配置",
                 type: "<code>Object</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "eventCustomOption",
                 desc: `自定义事件配置，具体见下表 eventCustomOption 配置`,
                 type: "<code>Object</code>",
                 optionalVal: "-",
-                default: "-"
-            }
+                default: "-",
+            },
         ],
-        columns: columnsType1
+        columns: columnsType1,
     },
 
     // columns props
@@ -224,7 +218,7 @@ export const db = {
                 type: "<code>String</code>",
                 optionalVal: "-",
                 default: "-",
-                rowKey: 0
+                rowKey: 0,
             },
             {
                 param: "key",
@@ -232,7 +226,7 @@ export const db = {
                 type: "<code>String</code>",
                 optionalVal: "-",
                 default: "-",
-                rowKey: 5
+                rowKey: 5,
             },
             {
                 param: "type",
@@ -240,7 +234,7 @@ export const db = {
                 type: "<code>String</code>",
                 optionalVal: `"expand"、"checkbox"、"radio"`,
                 default: "-",
-                rowKey: 15
+                rowKey: 15,
             },
             {
                 param: "title",
@@ -248,16 +242,15 @@ export const db = {
                 type: "<code>String</code>",
                 optionalVal: "-",
                 default: "-",
-                rowKey: 20
+                rowKey: 20,
             },
             {
                 param: "width",
-                desc:
-                    "<code>Number</code>指定像素；<code>String</code>指定百分比（<a href='#/zh/doc/table/column-width?anchor=chang-wen-ben-po-pi-bu-ju'>指定了也不生效？</a>）",
+                desc: "<code>Number</code>指定像素；<code>String</code>指定百分比（<a href='#/zh/doc/table/column-width?anchor=chang-wen-ben-po-pi-bu-ju'>指定了也不生效？</a>）",
                 type: `<code>String</code>、<code>Number</code>`,
                 optionalVal: "-",
                 default: "-",
-                rowKey: 25
+                rowKey: 25,
             },
             {
                 param: "align",
@@ -265,7 +258,7 @@ export const db = {
                 type: "<code>String</code>",
                 optionalVal: `"left"、"center"、"right"`,
                 default: `"center"`,
-                rowKey: 30
+                rowKey: 30,
             },
             {
                 param: "sortBy",
@@ -273,7 +266,7 @@ export const db = {
                 type: "<code>String</code>",
                 optionalVal: `""、"desc"、"asc"`,
                 default: `""`,
-                rowKey: 31
+                rowKey: 31,
             },
             {
                 param: "renderBodyCell",
@@ -282,7 +275,7 @@ export const db = {
                 type: `<code>Function({row,column,rowIndex},h):VNode</code>`,
                 optionalVal: "-",
                 default: "-",
-                rowKey: 35
+                rowKey: 35,
             },
             {
                 param: "renderHeaderCell",
@@ -291,7 +284,7 @@ export const db = {
                 type: "<code>Function({ column },h):VNode</code>",
                 optionalVal: "-",
                 default: "-",
-                rowKey: 40
+                rowKey: 40,
             },
             {
                 param: "renderFooterCell",
@@ -300,7 +293,7 @@ export const db = {
                 type: `<code>Function({row,column,rowIndex},h):VNode</code>`,
                 optionalVal: "-",
                 default: "-",
-                rowKey: 45
+                rowKey: 45,
             },
             {
                 param: "<span class='expand'>ellipsis</span>",
@@ -308,7 +301,7 @@ export const db = {
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
-                rowKey: 49
+                rowKey: 49,
             },
             {
                 param: "<span class='expand'>filter</span>",
@@ -316,7 +309,7 @@ export const db = {
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
-                rowKey: 50
+                rowKey: 50,
             },
             {
                 param: "<span class='expand'>filterCustom</span>",
@@ -324,8 +317,8 @@ export const db = {
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
-                rowKey: 55
-            }
+                rowKey: 55,
+            },
         ],
         columns: columnsType1,
         //column filter props
@@ -337,45 +330,45 @@ export const db = {
                     2、包含label、value、selected 3 个属性，形如：<code>[{ value: 0, label: "1900-05-20", selected: false }]</code>`,
                     type: "<code>Array</code>",
                     optionalVal: "-",
-                    default: "-"
+                    default: "-",
                 },
                 {
                     param: "isMultiple",
                     desc: `开启筛选项多选。<br>`,
                     type: "<code>Boolean</code>",
                     optionalVal: "-",
-                    default: "false"
+                    default: "false",
                 },
                 {
                     param: "filterConfirm",
                     desc: `1、筛选确认函数。<br>2、接收1个参数，<code>filterList</code>：筛选条件`,
                     type: "<code>Function({filterList})</code>",
                     optionalVal: "-",
-                    default: "-"
+                    default: "-",
                 },
                 {
                     param: "filterReset",
                     desc: `1、筛选重置函数<br>2、接收1个参数，<code>filterList</code>：筛选条件`,
                     type: "<code>Function({filterList})</code>",
                     optionalVal: "-",
-                    default: "-"
+                    default: "-",
                 },
                 {
                     param: "filterIcon",
                     desc: `1、filter 自定义图标渲染函数。<br>2、参数信息。h：createElement 函数的别名`,
                     type: "<code>Function(h):VNode</code>",
                     optionalVal: "-",
-                    default: "-"
+                    default: "-",
                 },
                 {
                     param: "maxHeight",
                     desc: `1、筛选框的最大高度。不包含操作按钮的高度`,
                     type: "<code>Number</code>",
                     optionalVal: "-",
-                    default: "1000"
-                }
+                    default: "1000",
+                },
             ],
-            columns: columnsType1
+            columns: columnsType1,
         },
         //column filter custom props
         filterCustomProps: {
@@ -386,17 +379,17 @@ export const db = {
                     2、渲染函数接收的参数，showFn:显示filter 函数、closeFn:关闭filter的函数、<code>h</code>：createElement 函数的别名`,
                     type: "<code>Function({showFn,closeFn},h):VNode</code>",
                     optionalVal: "-",
-                    default: "-"
+                    default: "-",
                 },
                 {
                     param: "filterIcon",
                     desc: `1、filter 自定义图标渲染函数。<br>2、参数信息。h：createElement 函数的别名`,
                     type: "<code>Function(h):VNode</code>",
                     optionalVal: "-",
-                    default: "-"
-                }
+                    default: "-",
+                },
             ],
-            columns: columnsType1
+            columns: columnsType1,
         },
         // ellipsis
         ellipsisProps: {
@@ -406,18 +399,18 @@ export const db = {
                     desc: `多少行开始省略`,
                     type: "<code>Number</code>",
                     optionalVal: "-",
-                    default: "1"
+                    default: "1",
                 },
                 {
                     param: "showTitle",
                     desc: `是否鼠标悬浮，展示title`,
                     type: "<code>Boolean</code>",
                     optionalVal: "-",
-                    default: "true"
-                }
+                    default: "true",
+                },
             ],
-            columns: columnsType1
-        }
+            columns: columnsType1,
+        },
     },
 
     // 可展开配置
@@ -429,7 +422,7 @@ export const db = {
                 2、渲染函数接收三个参数，<code>row</code>:当前行数据、<code>column</code>:可展开列配置、<code>rowIndex</code>:行索引。`,
                 type: "<code>Function({row,column,rowIndex})</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "render",
@@ -437,46 +430,44 @@ export const db = {
                 2、渲染函数接收的参数，row:当前行数据、column:可展开列配置、rowIndex:行索引、<code>h</code>：createElement 函数的别名`,
                 type: "<code>Function({row,column,rowIndex},h):VNode</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "defaultExpandAllRows",
                 desc: `是否默认展开全部行`,
                 type: "<code>Boolean</code>",
                 optionalVal: "-",
-                default: "false"
+                default: "false",
             },
             {
                 param: "defaultExpandedRowKeys",
                 desc: `默认展开的行key。<code>defaultExpandAllRows</code> 参数和<code>defaultExpandedRowKeys</code> 参数同时存在时，优先使用<code>defaultExpandAllRows</code>`,
                 type: "<code>String[]</code>、<code>Number[]</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "expandedRowKeys",
                 desc: `展开行的可控属性，设置后属性后 <code>defaultExpandAllRows</code>和<code>defaultExpandedRowKeys</code>属性将会失效。具体见相关实例`,
                 type: "<code>String[]</code>、<code>Number[]</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "beforeExpandRowChange",
                 desc: `1、展开切换前的函数，如果返回false 则中断执行。<br>
                 2、函数接收三个参数，<code>beforeExpandedRowKeys</code>:改变前所有展开的key，<code>row</code>:当前的行数据，<code>rowIndex</code>行号`,
-                type:
-                    "<code>Function({beforeExpandedRowKeys,row,rowIndex})</code>",
+                type: "<code>Function({beforeExpandedRowKeys,row,rowIndex})</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "afterExpandRowChange",
                 desc: `1、展开切换后的函数。<br>
                 2、函数接收三个参数，<code>afterExpandedRowKeys</code>:改变后所有展开的key，<code>row</code>:当前的行数据，<code>rowIndex</code>行号`,
-                type:
-                    "<code>Function({afterExpandedRowKeys,row,rowIndex})</code>",
+                type: "<code>Function({afterExpandedRowKeys,row,rowIndex})</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "trigger",
@@ -484,10 +475,10 @@ export const db = {
                 <code>icon</code>：点击展开小图标；<code>cell</code>：点击单元格;<code>row</code>:点击行`,
                 type: "<code>String</code>",
                 optionalVal: `"icon"、"cell"、"row"`,
-                default: `"icon"`
-            }
+                default: `"icon"`,
+            },
         ],
-        columns: columnsType1
+        columns: columnsType1,
     },
 
     // 行多选配置
@@ -498,53 +489,52 @@ export const db = {
                 desc: `	是否默认全部选中`,
                 type: "<code>Boolean</code>",
                 optionalVal: "-",
-                default: "false"
+                default: "false",
             },
             {
                 param: "defaultSelectedRowKeys",
                 desc: `默认选中的行key`,
                 type: "<code>String[]</code>、<code>Number[]</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "disableSelectedRowKeys",
                 desc: `禁止勾选或者禁止取消勾选的行key`,
                 type: "<code>String[]</code>、<code>Number[]</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "selectedRowKeys",
                 desc: `选中行的可控属性，设置后 <code>defaultSelectedAllRows</code> 和 <code>defaultSelectedRowKeys</code> 属性将会失效。具体参考示例`,
                 type: "<code>String[]</code>、<code>Number[]</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "selectedRowChange",
                 desc: `行选中的改变事件。事件接收 3 个参数，row:当前行数据，<code>isSelected</code>当前行是否选中，<code>selectedRowKeys</code>所有选中的 rowkey 信息`,
-                type:
-                    "<code>Function({row, isSelected, selectedRowKeys})</code>",
+                type: "<code>Function({row, isSelected, selectedRowKeys})</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "selectedAllChange",
                 desc: `全选改变事件。事件接收 2 个参数，<code>isSelected</code> 是否全选。<code>selectedRowKeys</code>所有选中的 rowkey 信息`,
                 type: `<code>Function({isSelected, selectedRowKeys})</code>`,
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "hideSelectAll",
                 desc: `是否隐藏全选按钮`,
                 type: "<code>Boolean</code>",
                 optionalVal: "-",
-                default: "false"
-            }
+                default: "false",
+            },
         ],
-        columns: columnsType1
+        columns: columnsType1,
     },
 
     // 行单选配置
@@ -555,31 +545,31 @@ export const db = {
                 desc: `默认选中的行key`,
                 type: "<code>String</code>、<code>Number</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "disableSelectedRowKeys",
                 desc: `禁止勾选或者禁止取消勾选的行key`,
                 type: "<code>String[]</code>、<code>Number[]</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "selectedRowKey",
                 desc: `选中行的可控属性，设置后 <code>defaultSelectedRowKey</code>属性将会失效。具体参考示例`,
                 type: "<code>String</code>、<code>Number</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "selectedRowChange",
                 desc: `行选中的改变事件。事件接收 1 个参数，row:当前行数据`,
                 type: "<code>Function({row})</code>",
                 optionalVal: "-",
-                default: "-"
-            }
+                default: "-",
+            },
         ],
-        columns: columnsType1
+        columns: columnsType1,
     },
 
     // 虚拟滚动设置
@@ -590,23 +580,22 @@ export const db = {
                 desc: `是否开启虚拟滚动`,
                 type: "<code>Boolean</code>",
                 optionalVal: "-",
-                default: "false"
+                default: "false",
             },
             {
                 param: "minRowHeight",
                 desc: `最小行高（px）。值越小，可视化范围显示数据越多，具体根据实际最小高度设置即可`,
                 type: "<code>Number</code>",
                 optionalVal: "-",
-                default: "42"
+                default: "42",
             },
             {
                 param: "scrolling",
                 desc: `滚动回调事件。`,
-                type:
-                    "Function({startRowIndex,visibleStartIndex,visibleEndIndex,visibleAboveCount,visibleBelowCount})",
+                type: "Function({startRowIndex,visibleStartIndex,visibleEndIndex,visibleAboveCount,visibleBelowCount})",
                 optionalVal: "-",
-                default: "-"
-            }
+                default: "-",
+            },
             /* {
                 param: "bufferScale",
                 desc: `缓冲比例。可视范围数据的整数倍，防止滚动过快白屏，默认无缓冲`,
@@ -615,7 +604,7 @@ export const db = {
                 default: "0"
             } */
         ],
-        columns: columnsType1
+        columns: columnsType1,
     },
 
     // 排序设置
@@ -626,24 +615,24 @@ export const db = {
                 desc: `是否开启多字段排序`,
                 type: "<code>Boolean</code>",
                 optionalVal: "-",
-                default: "false"
+                default: "false",
             },
             {
                 param: "sortAlways",
                 desc: `是否开启排序只在升序和降序切换`,
                 type: "<code>Boolean</code>",
                 optionalVal: "-",
-                default: "false"
+                default: "false",
             },
             {
                 param: "sortChange",
                 desc: `排序改变事件。事件接收 1 个参数对象，列的排序规则`,
                 type: "<code>Function({row})</code>",
                 optionalVal: "-",
-                default: "-"
-            }
+                default: "-",
+            },
         ],
-        columns: columnsType1
+        columns: columnsType1,
     },
 
     // 单元格合并配置
@@ -654,17 +643,17 @@ export const db = {
                 desc: `1、body单元格合并函数<br>2、参数信息。<code>row</code>:当前行数据、<code>column</code>:当前列配置、<code>rowIndex</code>:行索引`,
                 type: `<code>Function({row,column,rowIndex})</code>`,
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "footerCellSpan",
                 desc: `1、footer单元格合并函数<br>2、参数信息。<code>row</code>:当前行数据、<code>column</code>:当前列配置、<code>rowIndex</code>:行索引`,
                 type: `<code>Function({row,column,rowIndex})</code>`,
                 optionalVal: "-",
-                default: "-"
-            }
+                default: "-",
+            },
         ],
-        columns: columnsType1
+        columns: columnsType1,
     },
 
     // 事件自定义配置
@@ -675,45 +664,45 @@ export const db = {
                 desc: `1、body 行自定义事件，返回需要自定义的事件。<br>2、接收2个参数。<code>row</code>当前行数据、<code>rowIndex</code>:行索引<br>3、支持自定义事件有 click、dblclick、contextmenu、mouseenter、mouseleave`,
                 type: "<code>Function({row,rowIndx})</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "bodyCellEvents",
                 desc: `1、body 列自定义事件，返回需要自定义的事件。<br>2、接收3个参数。<code>row</code>当前行数据、<code>column</code>:当前列配置、<code>rowIndex</code>:行索引<br>3、支持自定义事件有 click、dblclick、contextmenu、mouseenter、mouseleave`,
                 type: "<code>Function({row,column,rowIndx})</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "headerRowEvents",
                 desc: `1、header 行自定义事件，返回需要自定义的事件。<br>2、接收1个参数。<code>rowIndex</code>：表头行索引<br>3、支持自定义事件有 click、dblclick、contextmenu、mouseenter、mouseleave<br>`,
                 type: "<code>Function({rowIndex})</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "headerCellEvents",
                 desc: `1、header 列自定义事件，返回需要自定义的事件。<br>2、接收2个参数。<code>column</code>:当前列配置、<code>rowIndex</code>:行索引<br>3、支持自定义事件有 click、dblclick、contextmenu、mouseenter、mouseleave`,
                 type: "<code>Function({column,rowIndx})</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "footerRowEvents",
                 desc: `1、footer 行自定义事件，返回需要自定义的事件。<br>2、接收2个参数。<code>row</code>当前行数据、<code>rowIndex</code>:行索引<br>3、支持自定义事件有 click、dblclick、contextmenu、mouseenter、mouseleave`,
                 type: "<code>Function({row,rowIndx})</code>",
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "footerCellEvents",
                 desc: `1、footer 列自定义事件，返回需要自定义的事件。<br>2、接收3个参数。<code>row</code>当前行数据、<code>column</code>:当前列配置、<code>rowIndex</code>:行索引<br>3、支持自定义事件有 click、dblclick、contextmenu、mouseenter、mouseleave`,
                 type: "<code>Function({row,column,rowIndx})</code>",
                 optionalVal: "-",
-                default: "-"
-            }
+                default: "-",
+            },
         ],
-        columns: columnsType1
+        columns: columnsType1,
     },
 
     // 单元格样式配置
@@ -725,7 +714,7 @@ export const db = {
                 2、接收3个参数，<code>row</code>:当前行数据、<code>column</code>:当前列配置、<code>rowIndex</code>:行索引`,
                 type: `<code>Function({row,column,rowIndex})</code>`,
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "headerCellClass",
@@ -733,7 +722,7 @@ export const db = {
                 2、接收2个参数，<code>column</code>:当前列配置、<code>rowIndex</code>:行索引`,
                 type: `<code>Function({column,rowIndex})</code>`,
                 optionalVal: "-",
-                default: "-"
+                default: "-",
             },
             {
                 param: "footerCellClass",
@@ -741,10 +730,10 @@ export const db = {
                 2、接收3个参数，<code>row</code>:当前行数据、<code>column</code>:当前列配置、<code>rowIndex</code>:行索引`,
                 type: `<code>Function({row,column,rowIndex})</code>`,
                 optionalVal: "-",
-                default: "-"
-            }
+                default: "-",
+            },
         ],
-        columns: columnsType1
+        columns: columnsType1,
     },
 
     // 行样式配置
@@ -755,24 +744,24 @@ export const db = {
                 desc: `是否开启行hover 背景高亮`,
                 type: `<code>Boolean</code>`,
                 optionalVal: "-",
-                default: "true"
+                default: "true",
             },
             {
                 param: "clickHighlight",
                 desc: `是否开启行click 背景高亮`,
                 type: `<code>Boolean</code>`,
                 optionalVal: "-",
-                default: "true"
+                default: "true",
             },
             {
                 param: "stripe",
                 desc: `是否开启斑马纹`,
                 type: `<code>Boolean</code>`,
                 optionalVal: "-",
-                default: "false"
-            }
+                default: "false",
+            },
         ],
-        columns: columnsType1
+        columns: columnsType1,
     },
 
     // 单元格选择配置
@@ -783,9 +772,9 @@ export const db = {
                 desc: `是否开启单元格选择`,
                 type: `<code>Boolean</code>`,
                 optionalVal: "-",
-                default: "true"
-            }
+                default: "true",
+            },
         ],
-        columns: columnsType1
-    }
+        columns: columnsType1,
+    },
 };

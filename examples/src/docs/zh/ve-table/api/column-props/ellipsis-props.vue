@@ -16,17 +16,17 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "单元格省略"
+            default: "单元格省略",
         },
         desc: {
             type: String,
-            default: "ellipsis"
-        }
+            default: "ellipsis",
+        },
     },
     data() {
         return {
-            db: db
+            db: db,
         };
-    }
+    },
 };
 </script>

@@ -16,17 +16,17 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "行单选配置"
+            default: "行单选配置",
         },
         desc: {
             type: String,
-            default: "radioOption"
-        }
+            default: "radioOption",
+        },
     },
     data() {
         return {
-            db: db
+            db: db,
         };
-    }
+    },
 };
 </script>
