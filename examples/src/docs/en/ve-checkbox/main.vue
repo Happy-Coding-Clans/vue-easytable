@@ -26,7 +26,7 @@ export default {
         checkboxSingle,
         checkboxMultipleAdvanced,
         checkboxMultipleSimple,
-        API
-    }
+        API,
+    },
 };
 </script>

@@ -1,32 +1,34 @@
 body,
 html {
-  //font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
-  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
-  font-size: 15px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #34495e;
-  background-color: #ffffff;
-  margin: 0;
+    //font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+        Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
+        Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #34495e;
+    background-color: #ffffff;
+    margin: 0;
 }
 
 button,
 input,
 select,
 textarea {
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
 }
 
 a {
-  color: rgb(64, 120, 192);
-  text-decoration-line: none;
-  text-decoration-style: initial;
-  text-decoration-color: initial;
+    color: rgb(64, 120, 192);
+    text-decoration-line: none;
+    text-decoration-style: initial;
+    text-decoration-color: initial;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }

@@ -11,8 +11,7 @@
                                 :active-color="switchActiveColor"
                                 :inactive-color="switchInactiveColor"
                                 @change="switchTheme"
-                            >
-                            </el-switch>
+                            ></el-switch>
                         </el-col>
 
                         <el-col :span="3">
@@ -21,8 +20,7 @@
                                 v-model="enableColumnFixed"
                                 :active-color="switchActiveColor"
                                 :inactive-color="switchInactiveColor"
-                            >
-                            </el-switch>
+                            ></el-switch>
                         </el-col>
                         <el-col :span="3">
                             {{ currentLocal["loading"] }}
@@ -31,8 +29,7 @@
                                 :active-color="switchActiveColor"
                                 :inactive-color="switchInactiveColor"
                                 @change="switchLoading"
-                            >
-                            </el-switch>
+                            ></el-switch>
                         </el-col>
                         <el-col :span="3">
                             {{ currentLocal["expand"] }}
@@ -40,8 +37,7 @@
                                 v-model="enableExpand"
                                 :active-color="switchActiveColor"
                                 :inactive-color="switchInactiveColor"
-                            >
-                            </el-switch>
+                            ></el-switch>
                         </el-col>
                         <el-col :span="3">
                             {{ currentLocal["radio"] }}
@@ -49,8 +45,7 @@
                                 v-model="enableRowRadio"
                                 :active-color="switchActiveColor"
                                 :inactive-color="switchInactiveColor"
-                            >
-                            </el-switch>
+                            ></el-switch>
                         </el-col>
                         <el-col :span="3">
                             {{ currentLocal["checkbox"] }}
@@ -58,8 +53,7 @@
                                 v-model="enableRowCheckbox"
                                 :active-color="switchActiveColor"
                                 :inactive-color="switchInactiveColor"
-                            >
-                            </el-switch>
+                            ></el-switch>
                         </el-col>
                         <el-col :span="3"></el-col>
                         <el-col :span="3"></el-col>
@@ -134,22 +128,22 @@ export default {
                     if (column.field === "proficiency") {
                         return "table-body-cell-proficiency";
                     }
-                }
+                },
             },
             virtualScrollOption: {
                 // 是否开启
                 enable: true,
-                scrolling: this.scrolling
+                scrolling: this.scrolling,
             },
             sortOption: {
-                sortChange: params => {
+                sortChange: (params) => {
                     this.sortChange(params);
-                }
+                },
             },
             radioOption: {
                 selectedRowChange: ({ row }) => {
                     //console.log(row);
-                }
+                },
             },
             checkboxOption: {
                 // row select change event
@@ -159,7 +153,7 @@ export default {
                 // selected all change event
                 selectedAllChange: ({ isSelected, selectedRowKeys }) => {
                     //console.log(isSelected, selectedRowKeys);
-                }
+                },
             },
             expandOption: {
                 render: ({ row, column, rowIndex }, h) => {
@@ -171,8 +165,8 @@ export default {
                             {row.address}.
                         </p>
                     );
-                }
-            }
+                },
+            },
         };
     },
     computed: {
@@ -191,7 +185,7 @@ export default {
                     title: "",
                     width: 30,
                     fixed: this.enableColumnFixed ? "left" : "",
-                    type: "radio"
+                    type: "radio",
                 });
             }
 
@@ -202,7 +196,7 @@ export default {
                     title: "",
                     width: 30,
                     fixed: this.enableColumnFixed ? "left" : "",
-                    type: "checkbox"
+                    type: "checkbox",
                 });
             }
 
@@ -213,7 +207,7 @@ export default {
                     title: "",
                     width: 30,
                     fixed: this.enableColumnFixed ? "left" : "",
-                    type: "expand"
+                    type: "expand",
                 });
             }
 
@@ -223,7 +217,7 @@ export default {
                 title: "#",
                 width: 30,
                 fixed: this.enableColumnFixed ? "left" : "",
-                renderBodyCell: this.renderRowIndex
+                renderBodyCell: this.renderRowIndex,
             });
 
             columns = columns.concat([
@@ -236,7 +230,7 @@ export default {
                             key: "b",
                             title: "Name",
                             width: 100,
-                            align: "left"
+                            align: "left",
                         },
                         {
                             field: "sex",
@@ -259,9 +253,9 @@ export default {
                                         class={"demo-sex iconfont " + iconName}
                                     />
                                 );
-                            }
-                        }
-                    ]
+                            },
+                        },
+                    ],
                 },
                 {
                     title: "Personal Experience",
@@ -272,7 +266,7 @@ export default {
                             field: "profession",
                             key: "d",
                             width: 100,
-                            align: "left"
+                            align: "left",
                         },
                         {
                             title: "IT Skills",
@@ -285,7 +279,7 @@ export default {
                                     sortBy: "",
                                     renderBodyCell: (
                                         { row, column, rowIndex },
-                                        h
+                                        h,
                                     ) => {
                                         const cellData = row[column.field];
 
@@ -313,7 +307,7 @@ export default {
                                                 </span>
                                             </div>
                                         );
-                                    }
+                                    },
                                 },
                                 {
                                     field: "skills",
@@ -323,26 +317,26 @@ export default {
                                     align: "left",
                                     renderBodyCell: (
                                         { row, column, rowIndex },
-                                        h
+                                        h,
                                     ) => {
                                         const cellData = row[column.field];
 
                                         const LANGS = [
                                             {
                                                 name: "Javascript",
-                                                color: "#48a4ef"
+                                                color: "#48a4ef",
                                             },
                                             {
                                                 name: "Python",
-                                                color: "#d8899c"
+                                                color: "#d8899c",
                                             },
-                                            { name: "java", color: "#a88cd9" }
+                                            { name: "java", color: "#a88cd9" },
                                             /* { name: "C++", color: "#88d317" } */
                                         ];
 
                                         const skills = LANGS.slice(0, cellData);
 
-                                        return skills.map(skill => {
+                                        return skills.map((skill) => {
                                             return (
                                                 <span
                                                     class="skill-span"
@@ -355,18 +349,18 @@ export default {
                                                 </span>
                                             );
                                         });
-                                    }
-                                }
-                            ]
-                        }
-                    ]
+                                    },
+                                },
+                            ],
+                        },
+                    ],
                 },
                 {
                     field: "address",
                     key: "g",
                     title: "Address",
                     width: 250,
-                    align: "left"
+                    align: "left",
                 },
                 {
                     field: "status",
@@ -380,20 +374,20 @@ export default {
                         filterList: [
                             { value: 0, label: "Working", selected: false },
                             { value: 1, label: "Metting", selected: false },
-                            { value: 2, label: "Traveling", selected: false }
+                            { value: 2, label: "Traveling", selected: false },
                         ],
                         isMultiple: true,
                         // filter confirm hook
-                        filterConfirm: filterList => {
+                        filterConfirm: (filterList) => {
                             const values = filterList
-                                .filter(x => x.selected)
-                                .map(x => x.value);
+                                .filter((x) => x.selected)
+                                .map((x) => x.value);
                             this.searchByNameField(values);
                         },
                         // filter reset hook
-                        filterReset: filterList => {
+                        filterReset: (filterList) => {
                             this.searchByNameField([]);
-                        }
+                        },
                         // max height
                         //maxHeight: 120
                     },
@@ -403,13 +397,13 @@ export default {
                         const STATUS = [
                             {
                                 name: "Working",
-                                color: "#48a4ef"
+                                color: "#48a4ef",
                             },
                             {
                                 name: "Meeting",
-                                color: "#d8899c"
+                                color: "#d8899c",
                             },
-                            { name: "Traveling", color: "#a88cd9" }
+                            { name: "Traveling", color: "#a88cd9" },
                         ];
 
                         const state = STATUS[cellData];
@@ -422,12 +416,12 @@ export default {
                                 {state.name}
                             </span>
                         );
-                    }
-                }
+                    },
+                },
             ]);
 
             return columns;
-        }
+        },
     },
     methods: {
         // virtual scrolling
@@ -436,7 +430,7 @@ export default {
             visibleStartIndex,
             visibleEndIndex,
             visibleAboveCount,
-            visibleBelowCount
+            visibleBelowCount,
         }) {
             this.startRowIndex = startRowIndex;
         },
@@ -456,7 +450,9 @@ export default {
             const values = this.filterConditions;
             this.tableData = this.sourceData
                 .slice(0)
-                .filter(x => values.length === 0 || values.includes(x.status));
+                .filter(
+                    (x) => values.length === 0 || values.includes(x.status),
+                );
         },
 
         // sort change
@@ -520,7 +516,7 @@ export default {
                 "Front-End Developer",
                 "Testor",
                 "Product Designer",
-                "System Designer"
+                "System Designer",
             ];
 
             let data = [];
@@ -534,13 +530,13 @@ export default {
                     proficiency: Mock.Random.natural(5, 85),
                     skills: Mock.Random.natural(0, 3),
                     address: Mock.Random.county(true),
-                    status: Mock.Random.natural(0, 2)
+                    status: Mock.Random.natural(0, 2),
                 });
             }
 
             this.sourceData = data;
             this.resetTableData();
-        }
+        },
     },
     created() {
         this.initSourceData();
@@ -550,12 +546,12 @@ export default {
             target: document.querySelector("#demo-loading-container"),
             // 等同于
             // target:"#loading-container"
-            name: "grid"
+            name: "grid",
         });
     },
     destroyed() {
         this.switchThemeMix("theme-default");
-    }
+    },
 };
 </script>
 <style lang="less">

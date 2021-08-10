@@ -4,28 +4,28 @@ export default {
     props: {
         btnName: {
             type: String,
-            required: true
+            required: true,
         },
         // vue-easytable version
         version: {
             type: String,
-            required: true
+            required: true,
         },
         // vue tpl
         exampleTpl: {
             type: String,
-            required: true
+            required: true,
         },
         // scripts
         exampleScript: {
             type: String,
-            default: ""
+            default: "",
         },
         // style
         exampleStyle: {
             type: String,
-            required: true
-        }
+            required: true,
+        },
     },
     methods: {
         // get main js content
@@ -85,31 +85,31 @@ new Vue({
                     vue: "^2.6.11",
                     "vue-template-compiler": "^2.6.11",
                     "vue-easytable": version,
-                    "element-ui": "^2.15.0"
+                    "element-ui": "^2.15.0",
                 },
                 devDependencies: {
                     "@vue/cli-plugin-babel": "4.5.11",
                     "@vue/cli-plugin-eslint": "4.1.1",
-                    "@vue/cli-service": "4.1.1"
+                    "@vue/cli-service": "4.1.1",
                 },
                 scripts: {
                     serve: "vue-cli-service serve",
                     build: "vue-cli-service build",
-                    lint: "vue-cli-service lint"
+                    lint: "vue-cli-service lint",
                 },
-                browserslist: ["> 1%", "last 2 versions", "not ie <= 8"]
+                browserslist: ["> 1%", "last 2 versions", "not ie <= 8"],
             };
 
             const codesanboxPrefillConfig = {
                 files: {
                     "package.json": { content: codesandboxPackage },
                     "Example.vue": { content: getExampleContent() },
-                    "main.js": { content: getMainjsContent() }
-                }
+                    "main.js": { content: getMainjsContent() },
+                },
             };
 
             return codesanboxPrefillConfig;
-        }
+        },
     },
     render() {
         const { getCodesanboxPrefillConfig, btnName } = this;
@@ -122,7 +122,7 @@ new Vue({
         }
 
         const fromProps = {
-            ref: "form"
+            ref: "form",
         };
 
         return (
@@ -141,12 +141,12 @@ new Vue({
                         type="hidden"
                         name="parameters"
                         value={compress(
-                            JSON.stringify(getCodesanboxPrefillConfig())
+                            JSON.stringify(getCodesanboxPrefillConfig()),
                         )}
                     />
                     {btnName}
                 </form>
             </div>
         );
-    }
+    },
 };

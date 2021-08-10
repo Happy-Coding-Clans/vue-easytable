@@ -7,13 +7,13 @@ export default {
             {
                 name: "文档",
                 path: "/doc",
-                isRouter: true
+                isRouter: true,
             },
             {
                 name: "示例",
                 path: "/demo",
-                isRouter: true
-            }
+                isRouter: true,
+            },
         ],
         anchorCatalogTitle: "目录",
         // 组件配置多语言跟着文档语言环境走
@@ -26,7 +26,7 @@ export default {
             expandCode: "展开代码",
             foldCode: "收起代码",
             openInCodepen: "在 Codepen 中编辑",
-            openInCodeSandBox: "在 CodeSandBox 中编辑"
+            openInCodeSandBox: "在 CodeSandBox 中编辑",
         },
         completeDemo: {
             theme: "暗黑主题：",
@@ -34,21 +34,21 @@ export default {
             loading: "Loading：",
             expand: "行展开：",
             radio: "行单选：",
-            checkbox: "行多选："
-        }
+            checkbox: "行多选：",
+        },
     },
     en: {
         menus: [
             {
                 name: "Document",
                 path: "/doc",
-                isRouter: true
+                isRouter: true,
             },
             {
                 name: "Demo",
                 path: "/demo",
-                isRouter: true
-            }
+                isRouter: true,
+            },
         ],
         anchorCatalogTitle: "Contents",
         compLang: enUS,
@@ -60,7 +60,7 @@ export default {
             expandCode: "Expand Code",
             foldCode: "Hide Code",
             openInCodepen: "Edit in Codepen",
-            openInCodeSandBox: "Edit in CodeSandBox"
+            openInCodeSandBox: "Edit in CodeSandBox",
         },
         completeDemo: {
             theme: "Dark Theme:",
@@ -68,7 +68,7 @@ export default {
             loading: "Loading:",
             expand: "Row Expand:",
             radio: "Row Radio:",
-            checkbox: "Row Checkbox:"
-        }
-    }
+            checkbox: "Row Checkbox:",
+        },
+    },
 };

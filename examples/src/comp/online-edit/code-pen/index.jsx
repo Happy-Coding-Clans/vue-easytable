@@ -3,23 +3,23 @@ export default {
         // vue-easytable version
         version: {
             type: String,
-            required: true
+            required: true,
         },
         // vue tpl
         exampleTpl: {
             type: String,
-            required: true
+            required: true,
         },
         // scripts
         exampleScript: {
             type: String,
-            default: ""
+            default: "",
         },
         // style
         exampleStyle: {
             type: String,
-            required: true
-        }
+            required: true,
+        },
     },
     methods: {
         goCodepen() {
@@ -45,7 +45,7 @@ export default {
             const data = {
                 js: jsTpl,
                 css: cssTpl,
-                html: htmlTpl
+                html: htmlTpl,
             };
             const form =
                 document.getElementById("fiddle-form") ||
@@ -67,10 +67,10 @@ export default {
             document.body.appendChild(form);
 
             form.submit();
-        }
+        },
     },
 
     render() {
         return <div onClick={this.goCodepen()}>open in codepen</div>;
-    }
+    },
 };
