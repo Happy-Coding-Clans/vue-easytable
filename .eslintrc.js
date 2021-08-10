@@ -20,6 +20,7 @@ module.exports = {
         "vue/require-default-prop": "error",
         "vue/require-prop-types": "error",
         "vue/jsx-uses-vars": "error",
+        "consistent-this": ["error", "that"], // this别名
         "vue/order-in-components": [
             "error",
             {
