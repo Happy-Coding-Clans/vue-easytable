@@ -16,17 +16,17 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Cell merge configuration"
+            default: "Cell merge configuration",
         },
         desc: {
             type: String,
-            default: "cellSpanOption"
-        }
+            default: "cellSpanOption",
+        },
     },
     data() {
         return {
-            db: db
+            db: db,
         };
-    }
+    },
 };
 </script>

@@ -19,7 +19,7 @@ export default {
         Usage,
         SwitchLang,
         CoverLang,
-        Api
-    }
+        Api,
+    },
 };
 </script>

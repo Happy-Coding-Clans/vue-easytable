@@ -16,17 +16,17 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Event custom configuration"
+            default: "Event custom configuration",
         },
         desc: {
             type: String,
-            default: "eventCustomOption"
-        }
+            default: "eventCustomOption",
+        },
     },
     data() {
         return {
-            db: db
+            db: db,
         };
-    }
+    },
 };
 </script>

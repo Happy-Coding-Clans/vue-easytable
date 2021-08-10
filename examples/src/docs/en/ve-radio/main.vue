@@ -20,7 +20,7 @@ export default {
     components: {
         Base,
         Controlled,
-        API
-    }
+        API,
+    },
 };
 </script>

@@ -16,17 +16,17 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Row expand configuration"
+            default: "Row expand configuration",
         },
         desc: {
             type: String,
-            default: "expandOption"
-        }
+            default: "expandOption",
+        },
     },
     data() {
         return {
-            db: db
+            db: db,
         };
-    }
+    },
 };
 </script>

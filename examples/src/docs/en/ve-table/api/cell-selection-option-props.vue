@@ -16,17 +16,17 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Cell selection configuration"
+            default: "Cell selection configuration",
         },
         desc: {
             type: String,
-            default: "cellSelectionOption"
-        }
+            default: "cellSelectionOption",
+        },
     },
     data() {
         return {
-            db: db
+            db: db,
         };
-    }
+    },
 };
 </script>

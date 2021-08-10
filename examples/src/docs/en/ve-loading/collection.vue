@@ -22,18 +22,18 @@ export default {
                 WAVE: "wave",
                 FLOW: "flow",
                 BOUNCE: "bounce",
-                PULSE: "pulse"
-            }
+                PULSE: "pulse",
+            },
         };
     },
     mounted() {
-        Object.values(this.SPIN_NAMES).forEach(spinName => {
+        Object.values(this.SPIN_NAMES).forEach((spinName) => {
             this.$veLoading({
                 target: `#loading-${spinName}`,
-                name: spinName
+                name: spinName,
             }).show();
         });
-    }
+    },
 };
 </script>
 <style lang="less" scoped>

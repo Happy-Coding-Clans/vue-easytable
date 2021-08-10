@@ -22,7 +22,7 @@ export default {
         Usage,
         Base,
         Collection,
-        API
-    }
+        API,
+    },
 };
 </script>

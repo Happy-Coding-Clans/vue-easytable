@@ -54,12 +54,12 @@ export default {
         RadioOption,
         VirtualScrollOption,
         SortOption,
-        CellSelectionOption
+        CellSelectionOption,
     },
     data() {
         return {
-            db: db
+            db: db,
         };
-    }
+    },
 };
 </script>

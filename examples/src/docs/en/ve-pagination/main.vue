@@ -34,7 +34,7 @@ export default {
         PagingConfiguration,
         CallbackEvents,
         LayoutSettings,
-        Api
-    }
+        Api,
+    },
 };
 </script>

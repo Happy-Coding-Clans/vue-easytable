@@ -16,17 +16,17 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Row style configuration"
+            default: "Row style configuration",
         },
         desc: {
             type: String,
-            default: "rowStyleOption"
-        }
+            default: "rowStyleOption",
+        },
     },
     data() {
         return {
-            db: db
+            db: db,
         };
-    }
+    },
 };
 </script>

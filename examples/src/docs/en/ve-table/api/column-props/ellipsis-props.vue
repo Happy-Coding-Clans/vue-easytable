@@ -16,17 +16,17 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Cell ellipsis"
+            default: "Cell ellipsis",
         },
         desc: {
             type: String,
-            default: "ellipsis"
-        }
+            default: "ellipsis",
+        },
     },
     data() {
         return {
-            db: db
+            db: db,
         };
-    }
+    },
 };
 </script>
