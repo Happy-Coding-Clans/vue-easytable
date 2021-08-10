@@ -9,17 +9,17 @@
                             <a
                                 class="main-wrapper-sidebar-link"
                                 href="javascript:javascript:void(0);"
-                                >{{ config.name }}</a
                             >
+                                {{ config.name }}
+                            </a>
                             <ul class="menu-sub">
                                 <router-link
-                                    v-for="(subConfig,
-                                    subIndex) in config.children"
+                                    v-for="(
+                                        subConfig, subIndex
+                                    ) in config.children"
                                     :key="subIndex"
                                     tag="li"
-                                    :to="
-                                        `/${currentDocLang}/doc/${config.path}/${subConfig.path}`
-                                    "
+                                    :to="`/${currentDocLang}/doc/${config.path}/${subConfig.path}`"
                                 >
                                     <a>{{ subConfig.name }}</a>
                                 </router-link>
@@ -55,7 +55,12 @@
         <div>
             <div v-show="showBackTop" class="main-back-top">
                 <i
-                    class="icon iconfont icon-huidaodingbu-copy main-back-top-icon"
+                    class="
+                        icon
+                        iconfont
+                        icon-huidaodingbu-copy
+                        main-back-top-icon
+                    "
                     @click="goBackTop()"
                 />
             </div>
@@ -83,23 +88,23 @@ export default {
         return {
             showBackTop: false,
             catalogData: [],
-            showHide: false // 是否显示内置组件
+            showHide: false, // 是否显示内置组件
         };
     },
     computed: {
         routerConfig() {
             return routers[this.currentDocLang];
-        }
+        },
     },
     watch: {
         $route: {
-            handler: function(to, from) {
+            handler: function (to, from) {
                 this.anchorLink(to);
                 // 显示内置组件
                 this.enableHideComp(to);
             },
-            immediate: true
-        }
+            immediate: true,
+        },
     },
     methods: {
         goBackTop() {
@@ -120,12 +125,12 @@ export default {
             let query = to.query;
 
             if (query && query.anchor) {
-                this.$nextTick(x => {
+                this.$nextTick((x) => {
                     goTobyAnchorId(this, query.anchor);
                 });
             }
 
-            this.$nextTick(x => {
+            this.$nextTick((x) => {
                 let anchorLinkArr = this.$el.querySelectorAll(".anchor-link"),
                     catalogData = [];
 
@@ -133,7 +138,7 @@ export default {
                     for (var i = 0, len = anchorLinkArr.length; i < len; i++) {
                         catalogData.push({
                             id: anchorLinkArr[i].id,
-                            label: anchorLinkArr[i].getAttribute("label")
+                            label: anchorLinkArr[i].getAttribute("label"),
                         });
                     }
                 }
@@ -159,7 +164,7 @@ export default {
             link.rel = "shortcut icon";
             link.href = require("./../../images/favicon.png");
             document.getElementsByTagName("head")[0].appendChild(link);
-        }
+        },
     },
     mounted() {
         document.addEventListener("scroll", this.handleScroll);
@@ -168,6 +173,6 @@ export default {
     },
     beforeDestroy() {
         document.removeEventListener("scroll", this.handleScroll);
-    }
+    },
 };
 </script>

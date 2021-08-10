@@ -18,9 +18,9 @@
                 :title="item.label"
                 class="catalog-li"
             >
-                <a href="javascript:void(0);" @click.stop="goAnchor(item.id)">{{
-                    item.label
-                }}</a>
+                <a href="javascript:void(0);" @click.stop="goAnchor(item.id)">
+                    {{ item.label }}
+                </a>
             </li>
         </ul>
     </div>
@@ -36,23 +36,23 @@ export default {
     props: {
         catalogData: {
             type: Array,
-            required: true
+            required: true,
         },
         showCatalogList: {
             type: Boolean,
-            default: true
-        }
+            default: true,
+        },
     },
     data() {
         return {
-            showCatalogList2: this.showCatalogList
+            showCatalogList2: this.showCatalogList,
         };
     },
     computed: {
         // catalog title
         catalogTitle() {
             return locale[this.currentDocLang]["anchorCatalogTitle"];
-        }
+        },
     },
     methods: {
         goAnchor(id) {
@@ -61,8 +61,8 @@ export default {
 
         toggleCatalogList() {
             this.showCatalogList2 = !this.showCatalogList2;
-        }
-    }
+        },
+    },
 };
 </script>
 

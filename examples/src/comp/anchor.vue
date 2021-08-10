@@ -8,7 +8,7 @@
                 href="javascript:void(0)"
                 @click.stop="goAnchor()"
             >
-                <i style="font-size:15px" class="icon iconfont icon-ai-link" />
+                <i style="font-size: 15px" class="icon iconfont icon-ai-link" />
             </a>
             <div class="anchor-label">
                 <h3>
@@ -37,28 +37,28 @@ export default {
     props: {
         label: {
             type: String,
-            default: ""
+            default: "",
         },
         // allow edit on github or gitlab etc.
         isEdit: {
             type: Boolean,
-            default: true
+            default: true,
         },
         // isEdit=true 时生效
         fileName: {
             type: String,
-            default: ""
-        }
+            default: "",
+        },
     },
     data() {
         return {
-            id: ""
+            id: "",
         };
     },
     computed: {
         eidtDemoTitle() {
             return locale[this.currentDocLang]["eidtDemoTitle"];
-        }
+        },
     },
     methods: {
         goAnchor() {
@@ -97,13 +97,13 @@ export default {
                     }
                 }
             }
-        }
+        },
     },
     created() {
         if (this.label) {
             this.id = slugify(this.label);
         }
-    }
+    },
 };
 </script>
 

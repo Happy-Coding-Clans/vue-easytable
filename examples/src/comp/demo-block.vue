@@ -13,13 +13,11 @@
             <div v-if="isDemoRendered" class="source">
                 <slot name="source"></slot>
             </div>
-            <div v-else class="source-empty">
-                Loading...
-            </div>
+            <div v-else class="source-empty">Loading...</div>
         </vue-lazy-container>
         <div v-if="$slots.default" class="description">
             <div class="title-container">
-                <span class="title"> {{ demoLangInfo.description }}</span>
+                <span class="title">{{ demoLangInfo.description }}</span>
             </div>
             <div class="content">
                 <slot></slot>
@@ -41,9 +39,9 @@
                 :class="['arraw-slide-icon', iconClass, { hovering: hovering }]"
             ></i>
             <transition name="text-slide">
-                <span v-show="hovering" class="slide-content">{{
-                    controlText
-                }}</span>
+                <span v-show="hovering" class="slide-content">
+                    {{ controlText }}
+                </span>
             </transition>
             <!--    <transition name="text-slide">
                 <div
@@ -93,14 +91,14 @@ export default {
                 version: "",
                 script: "",
                 html: "",
-                style: ""
+                style: "",
             },
             hovering: false,
             isExpanded: false,
             fixedControl: false,
             scrollParent: null,
             // 是否示例渲染完成
-            isDemoRendered: false
+            isDemoRendered: false,
         };
     },
 
@@ -143,7 +141,7 @@ export default {
             }
 
             return result;
-        }
+        },
     },
 
     watch: {
@@ -161,7 +159,7 @@ export default {
                 document.addEventListener("scroll", this.scrollHandler);
                 this.scrollHandler();
             }, 200);
-        }
+        },
     },
 
     methods: {
@@ -176,11 +174,8 @@ export default {
         },
         // scroll handler
         scrollHandler() {
-            const {
-                top,
-                bottom,
-                left
-            } = this.$refs.meta.getBoundingClientRect();
+            const { top, bottom, left } =
+                this.$refs.meta.getBoundingClientRect();
             // 44px 为自身高度
             this.fixedControl =
                 bottom > document.documentElement.clientHeight &&
@@ -193,7 +188,7 @@ export default {
 
         removeScrollHandler() {
             document.removeEventListener("scroll", this.scrollHandler);
-        }
+        },
     },
 
     created() {
@@ -228,7 +223,7 @@ export default {
 
     beforeDestroy() {
         this.removeScrollHandler();
-    }
+    },
 };
 </script>
 

@@ -5,10 +5,10 @@
                 <!-- logo -->
                 <div class="main-banner-logo">
                     <i
-                        style="font-size:20px"
+                        style="font-size: 20px"
                         class="icon iconfont icon-table"
-                    ></i
-                    >&nbsp;vue-easytable
+                    ></i>
+                    &nbsp;vue-easytable
                 </div>
                 <!-- menus -->
                 <div class="main-banner-menus-container">
@@ -18,7 +18,7 @@
                             :key="item.name"
                             :class="[
                                 'main-banner-menu-item',
-                                activeMenuClass(item)
+                                activeMenuClass(item),
                             ]"
                         >
                             <a
@@ -26,8 +26,8 @@
                                 href="javascript:void(0)"
                                 @click="gotoRouter(item)"
                             >
-                                {{ item.name }}</a
-                            >
+                                {{ item.name }}
+                            </a>
                         </span>
 
                         <!-- switch version -->
@@ -41,7 +41,8 @@
                                 <span
                                     class="switch-version"
                                     @click="
-                                        showVersionDropdown = !showVersionDropdown
+                                        showVersionDropdown =
+                                            !showVersionDropdown
                                     "
                                 >
                                     {{ currentDocVersion }}
@@ -63,12 +64,13 @@
                                             {
                                                 active:
                                                     item.label ===
-                                                    currentDocVersion
-                                            }
+                                                    currentDocVersion,
+                                            },
                                         ]"
                                         @click.stop="versionChange(item)"
-                                        >{{ item.label }}</span
                                     >
+                                        {{ item.label }}
+                                    </span>
                                 </div>
                             </div>
                         </span>
@@ -86,7 +88,8 @@
                                     @click="
                                         showLangDropdown = !showLangDropdown
                                     "
-                                    ><i class="icon iconfont icon-translate" />
+                                >
+                                    <i class="icon iconfont icon-translate" />
                                     <i class="icon iconfont icon-dropdown" />
                                 </span>
                                 <div
@@ -105,12 +108,13 @@
                                             {
                                                 active:
                                                     item.value ===
-                                                    currentDocLang
-                                            }
+                                                    currentDocLang,
+                                            },
                                         ]"
                                         @click.stop="langChange(item)"
-                                        >{{ item.label }}</span
                                     >
+                                        {{ item.label }}
+                                    </span>
                                 </div>
                             </div>
                         </span>
@@ -120,8 +124,8 @@
                                 class="main-banner-menu-link"
                                 href="https://github.com/huangshuwei/vue-easytable"
                             >
-                                <i class="icon iconfont icon-github"></i
-                            ></a>
+                                <i class="icon iconfont icon-github"></i>
+                            </a>
                         </span>
                     </div>
                 </div>
@@ -143,7 +147,7 @@ import { version } from "../../../package.json";
 
 export default {
     directives: {
-        "click-outside": clickoutside
+        "click-outside": clickoutside,
     },
     mixins: [I18nMixins, ThemeSwitchMixins],
     data() {
@@ -151,36 +155,34 @@ export default {
             //switch lang option
             switchLangOptions: [
                 { value: "en", label: "English" },
-                { value: "zh", label: "简体中文" }
+                { value: "zh", label: "简体中文" },
             ],
             showLangDropdown: false,
             //switch version option
             switchVersionOptions: [
                 {
-                    value:
-                        "https://happy-coding-clans.github.io/vue-easytable/",
-                    label: version
+                    value: "https://happy-coding-clans.github.io/vue-easytable/",
+                    label: version,
                 },
                 {
-                    value:
-                        " https://happy-coding-clans.github.io/vue-easytable/1.7.2/app.html",
-                    label: "1.x"
-                }
+                    value: " https://happy-coding-clans.github.io/vue-easytable/1.7.2/app.html",
+                    label: "1.x",
+                },
             ],
             showVersionDropdown: false,
-            currentDocVersion: version
+            currentDocVersion: version,
         };
     },
     computed: {
         // menus
         menus() {
             return locale[this.currentDocLang]["menus"];
-        }
+        },
     },
     watch: {
         currentDocLang() {
             this.$veLocale.use(locale[this.currentDocLang]["compLang"]);
-        }
+        },
     },
     methods: {
         // lang change
@@ -192,7 +194,7 @@ export default {
             if (matched[0].path !== `/${lang}`) {
                 const path = this.$route.path.replace(
                     this.currentDocLang,
-                    lang
+                    lang,
                 );
                 this.$router.push(path);
                 this.$veLocale.use(locale[lang]["compLang"]);
@@ -226,13 +228,13 @@ export default {
                 matched &&
                 matched.length > 0 &&
                 matched.some(
-                    x => x.path === `/${this.currentDocLang}${item.path}`
+                    (x) => x.path === `/${this.currentDocLang}${item.path}`,
                 )
             ) {
                 result = "link-active";
             }
             return result;
-        }
-    }
+        },
+    },
 };
 </script>

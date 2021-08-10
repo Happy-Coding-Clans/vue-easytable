@@ -22,40 +22,40 @@ export default {
     props: {
         desc: {
             type: String,
-            required: true
+            required: true,
         },
         anchor: {
             type: String,
-            default: null
+            default: null,
         },
         tableData: {
             type: Array,
-            required: true
+            required: true,
         },
         columns: {
             type: Array,
-            required: true
+            required: true,
         },
         expandOption: {
             type: Object,
-            default: function() {
+            default: function () {
                 return null;
-            }
-        }
+            },
+        },
     },
     data() {
         return {
             cellSelectionOption: {
                 // default true
-                enable: false
-            }
+                enable: false,
+            },
         };
     },
     computed: {
         getAnchor() {
             return this.anchor ? this.anchor : this.desc;
-        }
-    }
+        },
+    },
 };
 </script>
 <style lang="less">
