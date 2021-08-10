@@ -25,7 +25,7 @@ export default {
         PercentWidth,
         PxWidth,
         FixedWidth,
-        LongWord
-    }
+        LongWord,
+    },
 };
 </script>

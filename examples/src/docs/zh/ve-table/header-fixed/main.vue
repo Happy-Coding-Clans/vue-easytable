@@ -22,7 +22,7 @@ export default {
         Base,
         AutoHeight,
         DynamicHeight,
-        HeaderFixedDisabled
-    }
+        HeaderFixedDisabled,
+    },
 };
 </script>

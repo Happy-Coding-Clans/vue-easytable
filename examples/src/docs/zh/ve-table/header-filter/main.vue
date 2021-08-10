@@ -25,7 +25,7 @@ export default {
         MutilFilter,
         MixtureFilter,
         CustomIcon,
-        API
-    }
+        API,
+    },
 };
 </script>

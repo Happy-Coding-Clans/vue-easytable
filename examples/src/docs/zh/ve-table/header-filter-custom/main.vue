@@ -19,7 +19,7 @@ export default {
         Explain,
         SingleFilter,
         CustomIcon,
-        API
-    }
+        API,
+    },
 };
 </script>

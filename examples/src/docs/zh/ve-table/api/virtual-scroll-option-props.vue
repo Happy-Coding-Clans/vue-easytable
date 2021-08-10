@@ -16,17 +16,17 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "虚拟滚动配置"
+            default: "虚拟滚动配置",
         },
         desc: {
             type: String,
-            default: "virtualScrollOption"
-        }
+            default: "virtualScrollOption",
+        },
     },
     data() {
         return {
-            db: db
+            db: db,
         };
-    }
+    },
 };
 </script>

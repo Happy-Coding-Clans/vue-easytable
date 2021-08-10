@@ -37,7 +37,7 @@ export default {
         OnFooterCell,
         FooterFixed,
         FooterColumnFixed,
-        VirtualScroll
-    }
+        VirtualScroll,
+    },
 };
 </script>

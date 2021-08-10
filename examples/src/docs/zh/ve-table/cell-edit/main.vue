@@ -15,7 +15,7 @@ export default {
     name: "basic-main",
     components: {
         Explain,
-        Base
-    }
+        Base,
+    },
 };
 </script>

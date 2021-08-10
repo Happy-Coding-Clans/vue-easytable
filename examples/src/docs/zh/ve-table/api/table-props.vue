@@ -16,17 +16,17 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "表格配置"
+            default: "表格配置",
         },
         desc: {
             type: String,
-            default: "Table props"
-        }
+            default: "Table props",
+        },
     },
     data() {
         return {
-            db: db
+            db: db,
         };
-    }
+    },
 };
 </script>

@@ -31,7 +31,7 @@ export default {
         OnHeaderCell,
         OnFooterRow,
         OnFooterCell,
-        API
-    }
+        API,
+    },
 };
 </script>
