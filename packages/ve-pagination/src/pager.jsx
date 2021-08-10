@@ -46,31 +46,30 @@ export default {
 
         // 当前要显示的数字按钮集合
         pagingCounts() {
-            let vm = this,
-                startNum,
+            let startNum,
                 result = [],
-                showJumpPrev = vm.showJumpPrev,
-                showJumpNext = vm.showJumpNext;
+                showJumpPrev = this.showJumpPrev,
+                showJumpNext = this.showJumpNext;
 
             if (showJumpPrev && !showJumpNext) {
-                startNum = vm.pageCount - vm.pagingCount;
-                for (let i = startNum; i < vm.pageCount; i++) {
+                startNum = this.pageCount - this.pagingCount;
+                for (let i = startNum; i < this.pageCount; i++) {
                     result.push(i);
                 }
             } else if (!showJumpPrev && showJumpNext) {
-                for (let i = 2; i < vm.pagingCount + 2; i++) {
+                for (let i = 2; i < this.pagingCount + 2; i++) {
                     result.push(i);
                 }
             } else if (showJumpPrev && showJumpNext) {
                 for (
-                    let i = vm.pageIndex - vm.numOffset;
-                    i <= vm.pageIndex + vm.numOffset;
+                    let i = this.pageIndex - this.numOffset;
+                    i <= this.pageIndex + this.numOffset;
                     i++
                 ) {
                     result.push(i);
                 }
             } else {
-                for (let i = 2; i < vm.pageCount; i++) {
+                for (let i = 2; i < this.pageCount; i++) {
                     result.push(i);
                 }
             }
