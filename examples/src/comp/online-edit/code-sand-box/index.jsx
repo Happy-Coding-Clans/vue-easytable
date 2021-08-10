@@ -133,7 +133,6 @@ new Vue({
                     method="POST"
                     target="_blank"
                     onClick={() => {
-                        console.log(getCodesanboxPrefillConfig());
                         this.$refs[fromProps.ref].submit();
                     }}
                 >
