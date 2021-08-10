@@ -40,7 +40,7 @@ export default {
         ExpandEvent,
         ExpandChart,
         ExpandTable,
-        API
-    }
+        API,
+    },
 };
 </script>

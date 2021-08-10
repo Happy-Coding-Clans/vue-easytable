@@ -18,7 +18,7 @@ import performance from "./performance.md";
 export default {
     name: "test",
     components: {
-        performance
-    }
+        performance,
+    },
 };
 </script>

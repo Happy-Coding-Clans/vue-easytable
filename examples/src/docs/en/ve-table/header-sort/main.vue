@@ -22,7 +22,7 @@ export default {
         SingleSort,
         MultiSort,
         SortAlways,
-        API
-    }
+        API,
+    },
 };
 </script>

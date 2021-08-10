@@ -34,7 +34,7 @@ export default {
         SelectedControl,
         SelectedRowClick,
         SelectedAllHide,
-        API
-    }
+        API,
+    },
 };
 </script>

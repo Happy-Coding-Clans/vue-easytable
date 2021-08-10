@@ -34,10 +34,10 @@ export default {
                 SORT_TOP_ARROW: "sort-top-arrow",
                 SORT_BOTTOM_ARROW: "sort-bottom-arrow",
 
-                SEARCH: "search"
-            }
+                SEARCH: "search",
+            },
         };
-    }
+    },
 };
 </script>
 

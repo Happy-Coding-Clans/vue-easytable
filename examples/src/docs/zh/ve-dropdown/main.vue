@@ -34,7 +34,7 @@ export default {
         MultipleSelect,
         Operation,
         CustomContent,
-        API
-    }
+        API,
+    },
 };
 </script>

@@ -38,7 +38,7 @@ export default {
         RowExpand,
         ColumnFixed,
         FooterSummary,
-        API
-    }
+        API,
+    },
 };
 </script>
