@@ -1,7 +1,7 @@
 /* doc lang */
 export const DOC_LANG = {
     EN: "en",
-    ZH: "zh"
+    ZH: "zh",
 };
 
 // doc lang cookie

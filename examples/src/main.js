@@ -75,7 +75,7 @@ import {
     VePagination,
     VeRadio,
     VeSelect,
-    VeTable
+    VeTable,
 } from "../../packages/index.js";
 
 Vue.use(VeCheckbox);
@@ -120,5 +120,5 @@ router.afterEach(() => {
 new Vue({
     el: "#app",
     router,
-    render: h => h(APP)
+    render: (h) => h(APP),
 });

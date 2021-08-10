@@ -8,7 +8,7 @@ export default [
     {
         path: "/",
         meta: { keepAlive: true, hide: true },
-        redirect: "/en"
+        redirect: "/en",
     }, // 默认路由
     {
         path: "/zh",
@@ -19,15 +19,15 @@ export default [
                 path: "demo",
                 component: () => import("../demo/index.vue"),
                 name: "示例",
-                meta: { keepAlive: false, hide: true }
+                meta: { keepAlive: false, hide: true },
             },
             {
                 path: "doc",
                 component: docLayout,
                 redirect: "/zh/doc/intro",
-                children: routers.zh
-            }
-        ]
+                children: routers.zh,
+            },
+        ],
     },
     {
         path: "/en",
@@ -38,14 +38,14 @@ export default [
                 path: "demo",
                 component: () => import("../demo/index.vue"),
                 name: "示例",
-                meta: { keepAlive: false, hide: true }
+                meta: { keepAlive: false, hide: true },
             },
             {
                 path: "doc",
                 component: docLayout,
                 redirect: "/en/doc/intro",
-                children: routers.en
-            }
-        ]
-    }
+                children: routers.en,
+            },
+        ],
+    },
 ];

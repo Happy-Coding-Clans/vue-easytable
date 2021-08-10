@@ -7,5 +7,5 @@ Vue.use(VueRouter);
 
 export default new VueRouter({
     linkActiveClass: "active",
-    routes: routerConfig
+    routes: routerConfig,
 });

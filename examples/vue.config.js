@@ -7,14 +7,14 @@ module.exports = {
     // 发布资源文件引用方式
     publicPath: "./",
     devServer: {
-        port: PORT
+        port: PORT,
     },
 
     transpileDependencies: ["highlight.js"],
 
     runtimeCompiler: true,
 
-    configureWebpack: config => {
+    configureWebpack: (config) => {
         return {
             devtool: "source-map",
             module: {
@@ -26,30 +26,30 @@ module.exports = {
                                 loader: "vue-loader",
                                 options: {
                                     compilerOptions: {
-                                        preserveWhitespace: false
-                                    }
-                                }
+                                        preserveWhitespace: false,
+                                    },
+                                },
                             },
                             {
                                 loader: path.resolve(
                                     __dirname,
                                     //`./build/md-loader/index.js?v=${new Date().getTime()}` // disable loader cache.
-                                    `./build/md-loader/index.js` // disable loader cache.
-                                )
-                            }
-                        ]
-                    }
-                ]
+                                    `./build/md-loader/index.js`, // disable loader cache.
+                                ),
+                            },
+                        ],
+                    },
+                ],
             },
             resolve: {
                 alias: {
                     // 需要和组件库 alias 名称一致
-                    "vue-easytable": path.resolve(__dirname, "../")
-                }
+                    "vue-easytable": path.resolve(__dirname, "../"),
+                },
             },
             plugins: [
-                new OpenBrowserPlugin({ url: `http://localhost:${PORT}` })
-            ]
+                new OpenBrowserPlugin({ url: `http://localhost:${PORT}` }),
+            ],
         };
-    }
+    },
 };

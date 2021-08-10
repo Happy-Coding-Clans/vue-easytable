@@ -30,7 +30,7 @@ export function goTobyAnchorId(context, id) {
     context.$router
         .replace({
             path: context.$route.path,
-            query: { anchor: id }
+            query: { anchor: id },
         })
         .finally(() => {
             context.$nextTick(() => {
