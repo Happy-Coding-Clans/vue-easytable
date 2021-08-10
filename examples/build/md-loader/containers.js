@@ -19,7 +19,7 @@ module.exports = (md, options) => {
         `;
             }
             return "</demo-block>";
-        }
+        },
     });
 
     md.use(mdContainer, "anchor", {
@@ -35,7 +35,7 @@ module.exports = (md, options) => {
         `;
             }
             return "";
-        }
+        },
     });
 
     md.use(mdContainer, "tip");

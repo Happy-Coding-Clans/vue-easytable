@@ -23,7 +23,7 @@ function stripTemplate(content) {
 function pad(source) {
     return source
         .split(/\r?\n/)
-        .map(line => `  ${line}`)
+        .map((line) => `  ${line}`)
         .join("\n");
 }
 
@@ -32,12 +32,12 @@ function genInlineComponentText(template, script) {
     const finalOptions = {
         source: `<div>${template}</div>`,
         filename: "inline-component", // TODO：这里有待调整
-        compiler
+        compiler,
     };
     const compiled = compileTemplate(finalOptions);
     // tips
     if (compiled.tips && compiled.tips.length) {
-        compiled.tips.forEach(tip => {
+        compiled.tips.forEach((tip) => {
             console.warn(tip);
         });
     }
@@ -45,8 +45,8 @@ function genInlineComponentText(template, script) {
     if (compiled.errors && compiled.errors.length) {
         console.error(
             `\n  Error compiling template:\n${pad(compiled.source)}\n` +
-                compiled.errors.map(e => `  - ${e}`).join("\n") +
-                "\n"
+                compiled.errors.map((e) => `  - ${e}`).join("\n") +
+                "\n",
         );
     }
     let demoComponentContent = `
@@ -58,7 +58,7 @@ function genInlineComponentText(template, script) {
     if (script) {
         script = script.replace(
             /export\s+default/,
-            "const democomponentExport ="
+            "const democomponentExport =",
         );
     } else {
         script = "const democomponentExport = {}";
@@ -79,5 +79,5 @@ module.exports = {
     stripScript,
     stripStyle,
     stripTemplate,
-    genInlineComponentText
+    genInlineComponentText,
 };

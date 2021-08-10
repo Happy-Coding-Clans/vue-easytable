@@ -7,13 +7,14 @@ const {
     stripScript,
     stripStyle,
     stripTemplate,
-    genInlineComponentText
+    genInlineComponentText,
 } = require("./util");
 const md = require("./config");
 // https://regexr.com/47jlq
-const IMPORT_RE = /import\s+?(?:(?:(?:[\w*\s{},]*)\s+from\s+?)|)(?:(?:".*?")|(?:'.*?'))[\s]*?(?:;|$|)/g;
+const IMPORT_RE =
+    /import\s+?(?:(?:(?:[\w*\s{},]*)\s+from\s+?)|)(?:(?:".*?")|(?:'.*?'))[\s]*?(?:;|$|)/g;
 
-module.exports = function(source) {
+module.exports = function (source) {
     const content = md.renderContent(source, path.basename(this.resourcePath));
 
     const startTag = "<!--element-demo:";
@@ -35,7 +36,7 @@ module.exports = function(source) {
 
         const commentContent = content.slice(
             commentStart + startTagLen,
-            commentEnd
+            commentEnd,
         );
         const html = stripTemplate(commentContent);
         // add style
@@ -54,10 +55,10 @@ module.exports = function(source) {
 
         const demoComponentName = `element-demo${id}`;
         htmlOutput.push(
-            `<template slot="source"><${demoComponentName} /></template>`
+            `<template slot="source"><${demoComponentName} /></template>`,
         );
         componenetsString += `${JSON.stringify(
-            demoComponentName
+            demoComponentName,
         )}: ${demoComponentContent},`;
 
         // 重新计算下一次的位置

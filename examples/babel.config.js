@@ -8,13 +8,13 @@ module.exports = {
                 useBuiltIns: "entry",
                 corejs: 3,
                 targets: {
-                    ie: "11"
+                    ie: "11",
                 },
                 jsx: {
-                    injectH: false
-                }
-            }
-        ]
+                    injectH: false,
+                },
+            },
+        ],
     ],
     comments: false,
     plugins: [
@@ -22,8 +22,8 @@ module.exports = {
             "component",
             {
                 libraryName: "element-ui",
-                styleLibraryName: "theme-chalk"
-            }
-        ]
-    ]
+                styleLibraryName: "theme-chalk",
+            },
+        ],
+    ],
 };
