@@ -77,8 +77,8 @@
                 id="demo-loading-container"
                 fixed-header
                 border-y
-                :max-height="600"
-                :scroll-width="2000"
+                max-height="calc(100vh - 210px)"
+                scroll-width="calc(100vw + 300px)"
                 :sort-option="sortOption"
                 :virtual-scroll-option="virtualScrollOption"
                 :columns="columns"
