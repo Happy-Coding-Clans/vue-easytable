@@ -14,6 +14,11 @@ export default {
                 path: "/demo",
                 isRouter: true,
             },
+            {
+                name: "更新日志",
+                path: "https://github.com/Happy-Coding-Clans/vue-easytable/releases",
+                isRouter: false,
+            },
         ],
         anchorCatalogTitle: "目录",
         // 组件配置多语言跟着文档语言环境走
@@ -48,6 +53,11 @@ export default {
                 name: "Demo",
                 path: "/demo",
                 isRouter: true,
+            },
+            {
+                name: "Changelog",
+                path: "https://github.com/Happy-Coding-Clans/vue-easytable/releases",
+                isRouter: false,
             },
         ],
         anchorCatalogTitle: "Contents",

@@ -216,9 +216,13 @@ export default {
         },
         // go ro router path
         gotoRouter(item) {
-            this.$router
-                .push({ path: `/${this.currentDocLang}${item.path}` })
-                .catch(() => {});
+            if (item.isRouter) {
+                this.$router
+                    .push({ path: `/${this.currentDocLang}${item.path}` })
+                    .catch(() => {});
+            } else {
+                window.open(item.path, "_blank");
+            }
         },
         activeMenuClass(item) {
             let result = "";
