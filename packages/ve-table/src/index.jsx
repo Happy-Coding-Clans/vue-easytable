@@ -216,7 +216,11 @@ export default {
                 rowKey: "",
                 columnKey: "",
             },
-            // table offest height
+            /*
+            table offest height（开启虚拟滚动时使用）
+            1、当 :max-height="500" 时使用 max-height 
+            2、当 max-height="calc(100vh - 210px)" 或者 max-height="80%" 时使用 tableOffestHeight
+            */
             tableOffestHeight: 0,
         };
     },
@@ -244,16 +248,21 @@ export default {
                 isVirtualScroll,
                 virtualScrollOption,
                 defaultVirtualScrollMinRowHeight,
+                maxHeight,
                 tableOffestHeight,
             } = this;
 
-            if (isVirtualScroll && tableOffestHeight) {
+            if (isVirtualScroll && maxHeight) {
                 const minRowHeight = isNumber(virtualScrollOption.minRowHeight)
                     ? virtualScrollOption.minRowHeight
                     : defaultVirtualScrollMinRowHeight;
 
-                // 修复当动态高度 max-height="calc(100vh - 210px)" 时无法计算的问题
-                result = Math.ceil(tableOffestHeight / minRowHeight);
+                if (isNumber(maxHeight)) {
+                    result = Math.ceil(maxHeight / minRowHeight);
+                } else if (tableOffestHeight) {
+                    // 修复当动态高度 当 max-height="calc(100vh - 210px)" 或者 max-height="80%" 时无法计算的问题
+                    result = Math.ceil(tableOffestHeight / minRowHeight);
+                }
             }
             return result;
         },
