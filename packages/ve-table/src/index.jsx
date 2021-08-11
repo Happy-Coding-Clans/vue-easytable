@@ -4,7 +4,7 @@ import {
     clsName,
     getNotFixedTotalWidthByColumnKey,
 } from "./util";
-import { getValByUnit, isFunction } from "../../src/utils/index.js";
+import { getValByUnit, isFunction, isNumber } from "../../src/utils/index.js";
 import emitter from "../../src/mixins/emitter";
 import { COMPS_NAME, EMIT_EVENTS, COMPS_CUSTOM_ATTRS } from "./util/constant";
 import Colgroup from "./colgroup";
@@ -216,6 +216,8 @@ export default {
                 rowKey: "",
                 columnKey: "",
             },
+            // table offest height
+            tableOffestHeight: 0,
         };
     },
 
@@ -242,14 +244,16 @@ export default {
                 isVirtualScroll,
                 virtualScrollOption,
                 defaultVirtualScrollMinRowHeight,
+                tableOffestHeight,
             } = this;
 
-            if (isVirtualScroll && this.maxHeight) {
-                const minRowHeight =
-                    typeof virtualScrollOption.minRowHeight === "number"
-                        ? virtualScrollOption.minRowHeight
-                        : defaultVirtualScrollMinRowHeight;
-                result = Math.ceil(this.maxHeight / minRowHeight);
+            if (isVirtualScroll && tableOffestHeight) {
+                const minRowHeight = isNumber(virtualScrollOption.minRowHeight)
+                    ? virtualScrollOption.minRowHeight
+                    : defaultVirtualScrollMinRowHeight;
+
+                // 修复当动态高度 max-height="calc(100vh - 210px)" 时无法计算的问题
+                result = Math.ceil(tableOffestHeight / minRowHeight);
             }
             return result;
         },
@@ -264,10 +268,9 @@ export default {
                 defaultVirtualScrollBufferScale,
             } = this;
             if (isVirtualScroll) {
-                const bufferScale =
-                    typeof virtualScrollOption.bufferScale === "number"
-                        ? virtualScrollOption.bufferScale
-                        : defaultVirtualScrollBufferScale;
+                const bufferScale = isNumber(virtualScrollOption.bufferScale)
+                    ? virtualScrollOption.bufferScale
+                    : defaultVirtualScrollBufferScale;
 
                 result = Math.min(
                     virtualScrollStartIndex,
@@ -289,10 +292,9 @@ export default {
                 defaultVirtualScrollBufferScale,
             } = this;
             if (isVirtualScroll) {
-                const bufferScale =
-                    typeof virtualScrollOption.bufferScale === "number"
-                        ? virtualScrollOption.bufferScale
-                        : defaultVirtualScrollBufferScale;
+                const bufferScale = isNumber(virtualScrollOption.bufferScale)
+                    ? virtualScrollOption.bufferScale
+                    : defaultVirtualScrollBufferScale;
 
                 result = Math.min(
                     cloneTableData.length - virtualScrollEndIndex,
@@ -810,10 +812,9 @@ export default {
                     defaultVirtualScrollMinRowHeight,
                 } = this;
 
-                const minRowHeight =
-                    typeof virtualScrollOption.minRowHeight === "number"
-                        ? virtualScrollOption.minRowHeight
-                        : defaultVirtualScrollMinRowHeight;
+                const minRowHeight = isNumber(virtualScrollOption.minRowHeight)
+                    ? virtualScrollOption.minRowHeight
+                    : defaultVirtualScrollMinRowHeight;
 
                 this.virtualScrollPositions = cloneTableData.map(
                     (item, index) => ({
@@ -1144,8 +1145,21 @@ export default {
             ],
         };
 
+        // wrapper container props
+        const wrapperContainerProps = {
+            class: "ve-table",
+            props: {
+                tagName: "div",
+            },
+            on: {
+                "on-dom-resize-change": ({ height }) => {
+                    this.tableOffestHeight = height;
+                },
+            },
+        };
+
         return (
-            <div class="ve-table">
+            <VueDomResizeObserver {...wrapperContainerProps}>
                 <div {...containerProps}>
                     {/* virtual view phantom */}
                     {this.getVirtualViewPhantom()}
@@ -1164,7 +1178,7 @@ export default {
                         <Footer {...footerProps} />
                     </table>
                 </div>
-            </div>
+            </VueDomResizeObserver>
         );
     },
 };
