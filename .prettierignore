@@ -9,3 +9,9 @@ libs/*
 examples/dist
 
 *.md
+
+# auto gererated by build/build-entry.js
+components.json
+packages/theme-dark/index.less
+packages/theme-default/index.less
+packages/index.js
