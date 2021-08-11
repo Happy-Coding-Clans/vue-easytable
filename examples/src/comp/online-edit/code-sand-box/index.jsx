@@ -78,12 +78,11 @@ new Vue({
         // get babel content
         getbabelContent() {
             return `
-              {
-                "presets": [
-                  "@vue/cli-plugin-babel/preset"
-                ]
-              }
-            
+{
+    "presets": [
+        "@vue/cli-plugin-babel/preset"
+    ]
+}
             `;
         },
 
