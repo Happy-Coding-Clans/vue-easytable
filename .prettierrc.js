@@ -8,7 +8,7 @@ module.exports = {
     trailingComma: "all", // 去除对象最末尾元素跟随的逗号
     arrowParens: "always", // 箭头函数，只有一个参数的时候，也需要括号
     rangeStart: 0, // 每个文件格式化的范围是文件的全部内容
-    proseWrap: "always", // 当超出print width（上面有这个参数）时就折行
+    proseWrap: "preserve", // 文本超出换行规则。当超出print width（上面有这个参数）时就折行
     endOfLine: "lf", // 换行符使用 lf
     bracketSpacing: true, // 是否在对象属性添加空格
     jsxBracketSameLine: false, // 将 > 多行 JSX 元素放在最后一行的末尾，而不是单独放在下一行（不适用于自闭元素）,默认false,这里选择>不另起一行
