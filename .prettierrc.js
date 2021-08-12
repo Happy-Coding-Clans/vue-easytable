@@ -15,4 +15,12 @@ module.exports = {
     htmlWhitespaceSensitivity: "ignore", // 指定 HTML 文件的全局空白区域敏感度, "ignore" - 空格被认为是不敏感的
     jsxSingleQuote: false, // jsx 不使用单引号，而使用双引号
     trailingComma: "all", // 在多行逗号分隔的语法结构中，尽可能打印尾随逗号(例如，单行数组从来不使用尾随逗号)
+    overrides: [
+        {
+            files: "*.md",
+            options: {
+                proseWrap: "preserve",
+            },
+        },
+    ],
 };
