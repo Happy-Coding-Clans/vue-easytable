@@ -79,6 +79,13 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
+                path: "table-width",
+                component: () =>
+                    import("@/docs/en/ve-table/table-width/main.vue"),
+                name: "Table Width",
+                meta: { keepAlive: true },
+            },
+            {
                 path: "border",
                 component: () => import("@/docs/en/ve-table/border/main.vue"),
                 name: "Border",

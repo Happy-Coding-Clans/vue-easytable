@@ -1,17 +1,10 @@
-:::anchor 表格高度固定
+:::anchor Dynamic Table Width(calc css function)
 
-:::demo
+:::demo 1、You can use [calc css function](<https://developer.mozilla.org/en-US/docs/Web/CSS/calc()>) to achieve table dynamic width<br>2、Try changing the browser width to see the effect
 
 ```html
 <template>
-    <ve-table
-        style="width:900px;height:1000px;"
-        :columns="columns"
-        :table-data="tableData"
-        :border-around="true"
-        :border-x="true"
-        :border-y="true"
-    />
+    <ve-table style="width:calc(55vw - 10px);" :columns="columns" :table-data="tableData" />
 </template>
 
 <script>
@@ -19,10 +12,10 @@
         data() {
             return {
                 columns: [
-                    { field: "name", key: "a", title: "Name 100px", width: 100 },
-                    { field: "date", key: "b", title: "Tel 200px", width: 200 },
-                    { field: "hobby", key: "c", title: "Hobby 300px", width: 300 },
-                    { field: "address", key: "d", title: "Address 300px", width: 300 },
+                    { field: "name", key: "a", title: "Name", width: 100 },
+                    { field: "date", key: "b", title: "Tel", width: 200 },
+                    { field: "hobby", key: "c", title: "Hobby", width: 300 },
+                    { field: "address", key: "d", title: "Address", width: 300 },
                 ],
                 tableData: [
                     {
