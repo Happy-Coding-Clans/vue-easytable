@@ -1,10 +1,10 @@
-:::anchor Dynamic Table Width(percentage)
+:::anchor Auto Width
 
-:::demo 1、You can use percentage values to achieve a fixed width of the table. like `style="width:80%"`<br>2、Try changing the browser width to see the effect
+:::demo If the table width is not set, it is equivalent to `style="width:100%;"`
 
 ```html
 <template>
-    <ve-table style="width:80%" :columns="columns" :table-data="tableData" />
+    <ve-table :columns="columns" :table-data="tableData" />
 </template>
 
 <script>
