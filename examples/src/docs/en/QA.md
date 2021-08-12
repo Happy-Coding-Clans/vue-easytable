@@ -35,10 +35,10 @@ A:Too much text in a cell destroys the layout,This can be controlled by style [w
 
 ```html
 <template>
-  <ve-table
-    style="word-break: break-all"
-    :columns="columns"
-    :table-data="tableData"
-  />
+    <ve-table
+        style="word-break: break-all"
+        :columns="columns"
+:table-data="tableData"
+    />
 </template>
 ```
