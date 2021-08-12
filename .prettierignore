@@ -8,8 +8,6 @@ libs/*
 
 examples/dist
 
-*.md
-
 # auto gererated by build/build-entry.js
 components.json
 packages/theme-dark/index.less
