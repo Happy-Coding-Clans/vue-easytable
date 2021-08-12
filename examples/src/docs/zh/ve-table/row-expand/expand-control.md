@@ -5,9 +5,7 @@
 ```html
 <template>
     <div>
-        <button class="button-demo" @click="expandSwitch(1003)">
-            第3行展开切换
-        </button>
+        <button class="button-demo" @click="expandSwitch(1003)">第3行展开切换</button>
         <button class="button-demo" @click="expandAll()">展开全部</button>
         <button class="button-demo" @click="foldAll()">折叠全部</button>
         <br />
@@ -31,18 +29,13 @@
                     render: ({ row, column, rowIndex }, h) => {
                         return (
                             <p>
-                                My name is{" "}
-                                <span style="color:#1890ff;">{row.name}</span>
+                                My name is <span style="color:#1890ff;">{row.name}</span>
                                 ,I'm living in {row.address}
                             </p>
                         );
                     },
                     // 重新赋值处理
-                    afterExpandRowChange: ({
-                        afterExpandedRowKeys,
-                        row,
-                        rowIndex,
-                    }) => {
+                    afterExpandRowChange: ({ afterExpandedRowKeys, row, rowIndex }) => {
                         this.changeExpandedRowKeys(afterExpandedRowKeys);
                     },
                 },
@@ -124,8 +117,7 @@
             },
             // 切换展开行
             expandSwitch(key) {
-                const rowKeyIndex =
-                    this.expandOption.expandedRowKeys.indexOf(key);
+                const rowKeyIndex = this.expandOption.expandedRowKeys.indexOf(key);
 
                 if (rowKeyIndex > -1) {
                     this.expandOption.expandedRowKeys.splice(rowKeyIndex, 1);
@@ -135,9 +127,7 @@
             },
             // 展开全部
             expandAll() {
-                this.expandOption.expandedRowKeys = this.tableData.map(
-                    (x) => x.rowKey,
-                );
+                this.expandOption.expandedRowKeys = this.tableData.map((x) => x.rowKey);
             },
             // 折叠全部
             foldAll() {

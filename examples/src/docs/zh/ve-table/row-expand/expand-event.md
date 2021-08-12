@@ -26,28 +26,19 @@
                     render: ({ row, column, rowIndex }, h) => {
                         return (
                             <p>
-                                My name is{" "}
-                                <span style="color:#1890ff;">{row.name}</span>
+                                My name is <span style="color:#1890ff;">{row.name}</span>
                                 ,I'm living in {row.address}
                             </p>
                         );
                     },
-                    beforeExpandRowChange: ({
-                        beforeExpandedRowKeys,
-                        row,
-                        rowIndex,
-                    }) => {
+                    beforeExpandRowChange: ({ beforeExpandedRowKeys, row, rowIndex }) => {
                         if (row["rowKey"] === 1001) {
                             alert("切换前的事件。返回false可中断展开切换");
                             return false;
                         }
                         return true;
                     },
-                    afterExpandRowChange: ({
-                        afterExpandedRowKeys,
-                        row,
-                        rowIndex,
-                    }) => {
+                    afterExpandRowChange: ({ afterExpandedRowKeys, row, rowIndex }) => {
                         alert("切换后的事件");
                     },
                 },

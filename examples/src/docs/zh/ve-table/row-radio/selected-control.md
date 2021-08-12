@@ -5,9 +5,7 @@
 ```html
 <template>
     <div>
-        <button class="button-demo" @click="selectedSwitch(1002)">
-            第二行选中切换
-        </button>
+        <button class="button-demo" @click="selectedSwitch(1002)">第二行选中切换</button>
         <button class="button-demo" @click="unselected()">取消选中</button>
         <br />
         <br />

@@ -26,9 +26,7 @@
                         return {
                             click: (event) => {
                                 const currentRowKey = row["rowKey"];
-                                this.changeSelectedRowKeysByRowClick(
-                                    currentRowKey,
-                                );
+                                this.changeSelectedRowKeysByRowClick(currentRowKey);
                             },
                         };
                     },
@@ -37,11 +35,7 @@
                     // 可控属性
                     selectedRowKeys: [1003],
                     // 行选择改变事件
-                    selectedRowChange: ({
-                        row,
-                        isSelected,
-                        selectedRowKeys,
-                    }) => {},
+                    selectedRowChange: ({ row, isSelected, selectedRowKeys }) => {},
                     // 全选改变事件
                     selectedAllChange: ({ isSelected, selectedRowKeys }) => {
                         this.changeSelectedRowKeys(selectedRowKeys);

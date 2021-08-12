@@ -5,11 +5,7 @@
 ```html
 <template>
     <div>
-        <ve-table
-            :row-style-option="rowStyleOption"
-            :columns="columns"
-            :table-data="tableData"
-        />
+        <ve-table :row-style-option="rowStyleOption" :columns="columns" :table-data="tableData" />
     </div>
 </template>
 

@@ -26,9 +26,7 @@
                         return {
                             click: (event) => {
                                 const currentRowKey = row["rowKey"];
-                                this.changeSelectedRowKeyByRowClick(
-                                    currentRowKey,
-                                );
+                                this.changeSelectedRowKeyByRowClick(currentRowKey);
                             },
                         };
                     },

@@ -11,11 +11,7 @@
         <button class="button-demo" @click="close()">关闭 Loading</button>
         <br />
         <br />
-        <ve-table
-            id="loading-container"
-            :columns="columns"
-            :table-data="tableData"
-        />
+        <ve-table id="loading-container" :columns="columns" :table-data="tableData" />
     </div>
 </template>
 <script>

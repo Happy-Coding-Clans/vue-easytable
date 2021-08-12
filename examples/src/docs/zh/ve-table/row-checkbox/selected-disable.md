@@ -25,11 +25,7 @@
                     // 默认选择
                     defaultSelectedRowKeys: [1001, 1003, 1004, 1005],
                     // 行选择改变事件
-                    selectedRowChange: ({
-                        row,
-                        isSelected,
-                        selectedRowKeys,
-                    }) => {
+                    selectedRowChange: ({ row, isSelected, selectedRowKeys }) => {
                         console.log(row, isSelected, selectedRowKeys);
                     },
                     // 全选改变事件
