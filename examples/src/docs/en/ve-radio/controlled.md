@@ -7,11 +7,7 @@
             <div class="bold">受控单选</div>
             <button class="button-demo" @click="test()">测试</button>
             <br />
-            <ve-radio
-                isControlled
-                @on-radio-change="radioChange"
-                :isSelected="radioVal"
-            >
+            <ve-radio isControlled @on-radio-change="radioChange" :isSelected="radioVal">
                 Radio
             </ve-radio>
             <div>{{radioVal}}</div>

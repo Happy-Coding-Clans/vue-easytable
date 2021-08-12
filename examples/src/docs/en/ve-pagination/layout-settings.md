@@ -7,10 +7,7 @@
     <div>
         <div>
             <div class="mb20 bold">Don't display page number button</div>
-            <ve-pagination
-                :total="600"
-                :layout="['total', 'prev', 'next', 'sizer', 'jumper']"
-            />
+            <ve-pagination :total="600" :layout="['total', 'prev', 'next', 'sizer', 'jumper']" />
         </div>
         <div>
             <div class="mt30 mb20 bold">Adjust display order</div>

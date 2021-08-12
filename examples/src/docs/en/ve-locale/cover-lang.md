@@ -7,9 +7,7 @@ Use Locale.update method to modify the default configs.
 <template>
     <div>
         <div>
-            <button class="button-demo" @click="coverLang()">
-                Override Config
-            </button>
+            <button class="button-demo" @click="coverLang()">Override Config</button>
             <br />
             <br />
         </div>

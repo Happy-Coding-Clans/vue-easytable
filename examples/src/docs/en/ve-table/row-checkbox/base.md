@@ -21,11 +21,7 @@
             return {
                 checkboxOption: {
                     // row select change event
-                    selectedRowChange: ({
-                        row,
-                        isSelected,
-                        selectedRowKeys,
-                    }) => {
+                    selectedRowChange: ({ row, isSelected, selectedRowKeys }) => {
                         console.log(row, isSelected, selectedRowKeys);
                     },
                     // selected all change event

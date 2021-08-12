@@ -28,28 +28,13 @@
                                 console.log("dblclick::", row, rowIndex, event);
                             },
                             contextmenu: (event) => {
-                                console.log(
-                                    "contextmenu::",
-                                    row,
-                                    rowIndex,
-                                    event,
-                                );
+                                console.log("contextmenu::", row, rowIndex, event);
                             },
                             mouseenter: (event) => {
-                                console.log(
-                                    "mouseenter::",
-                                    row,
-                                    rowIndex,
-                                    event,
-                                );
+                                console.log("mouseenter::", row, rowIndex, event);
                             },
                             mouseleave: (event) => {
-                                console.log(
-                                    "mouseleave::",
-                                    row,
-                                    rowIndex,
-                                    event,
-                                );
+                                console.log("mouseleave::", row, rowIndex, event);
                             },
                         };
                     },

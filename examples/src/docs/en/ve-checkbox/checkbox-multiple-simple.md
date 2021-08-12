@@ -69,18 +69,14 @@
             // 是否全部选中
             hasAllChecked() {
                 return this.checkboxGroupInitValues.every((x) => {
-                    return (
-                        this.checkboxGroupDefaultValue2.indexOf(x.label) > -1
-                    );
+                    return this.checkboxGroupDefaultValue2.indexOf(x.label) > -1;
                 });
             },
 
             // 判断是否有部分选中
             hasPartChecked() {
                 return this.checkboxGroupInitValues.some((x) => {
-                    return (
-                        this.checkboxGroupDefaultValue2.indexOf(x.label) > -1
-                    );
+                    return this.checkboxGroupDefaultValue2.indexOf(x.label) > -1;
                 });
             },
         },

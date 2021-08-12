@@ -43,11 +43,7 @@
                         title: "Number",
                         align: "center",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            return (
-                                (this.pageIndex - 1) * this.pageSize +
-                                rowIndex +
-                                1
-                            );
+                            return (this.pageIndex - 1) * this.pageSize + rowIndex + 1;
                         },
                     },
                     { field: "name", key: "b", title: "Name", align: "center" },
@@ -61,10 +57,7 @@
             // table data
             tableData() {
                 const { pageIndex, pageSize } = this;
-                return DB_DATA.slice(
-                    (pageIndex - 1) * pageSize,
-                    pageIndex * pageSize,
-                );
+                return DB_DATA.slice((pageIndex - 1) * pageSize, pageIndex * pageSize);
             },
             // total count
             totalCount() {

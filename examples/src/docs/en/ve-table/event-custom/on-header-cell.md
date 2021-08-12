@@ -25,36 +25,16 @@
                                 console.log("click::", column, rowIndex, event);
                             },
                             dblclick: (event) => {
-                                console.log(
-                                    "dblclick::",
-                                    column,
-                                    rowIndex,
-                                    event,
-                                );
+                                console.log("dblclick::", column, rowIndex, event);
                             },
                             contextmenu: (event) => {
-                                console.log(
-                                    "contextmenu::",
-                                    column,
-                                    rowIndex,
-                                    event,
-                                );
+                                console.log("contextmenu::", column, rowIndex, event);
                             },
                             mouseenter: (event) => {
-                                console.log(
-                                    "mouseenter::",
-                                    column,
-                                    rowIndex,
-                                    event,
-                                );
+                                console.log("mouseenter::", column, rowIndex, event);
                             },
                             mouseleave: (event) => {
-                                console.log(
-                                    "mouseleave::",
-                                    column,
-                                    rowIndex,
-                                    event,
-                                );
+                                console.log("mouseleave::", column, rowIndex, event);
                             },
                         };
                     },

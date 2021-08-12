@@ -9,9 +9,7 @@
             Second Row Switch Selection
         </button>
         <button class="button-demo" @click="selectedAll()">Select All</button>
-        <button class="button-demo" @click="unselectedAll()">
-            Deselect all
-        </button>
+        <button class="button-demo" @click="unselectedAll()">Deselect all</button>
         <br />
         <br />
         <ve-table
@@ -32,11 +30,7 @@
                     // 可控属性
                     selectedRowKeys: [1003],
                     // 行选择改变事件
-                    selectedRowChange: ({
-                        row,
-                        isSelected,
-                        selectedRowKeys,
-                    }) => {
+                    selectedRowChange: ({ row, isSelected, selectedRowKeys }) => {
                         this.changeSelectedRowKeys(selectedRowKeys);
                     },
                     // 全选改变事件
@@ -135,9 +129,7 @@
             },
             // 选中全部
             selectedAll() {
-                this.checkboxOption.selectedRowKeys = this.tableData.map(
-                    (x) => x.rowKey,
-                );
+                this.checkboxOption.selectedRowKeys = this.tableData.map((x) => x.rowKey);
             },
             // 取消选中全部
             unselectedAll() {

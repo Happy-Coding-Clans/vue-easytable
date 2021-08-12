@@ -47,12 +47,7 @@
                     { disabled: false, label: "水蜜桃2" },
                 ],
 
-                checkboxGroupDefaultValue: [
-                    "南瓜",
-                    "哈密瓜",
-                    "水蜜桃",
-                    "哈密瓜2",
-                ],
+                checkboxGroupDefaultValue: ["南瓜", "哈密瓜", "水蜜桃", "哈密瓜2"],
 
                 indeterminate: true,
                 checkedAllModel: false,
@@ -79,10 +74,7 @@
                 let result = [];
 
                 this.checkboxGroupInitValues.filter((x) => {
-                    if (
-                        x.disabled &&
-                        this.checkboxGroupDefaultValue.indexOf(x.label) > -1
-                    ) {
+                    if (x.disabled && this.checkboxGroupDefaultValue.indexOf(x.label) > -1) {
                         result.push(x.label);
                     }
                 });
@@ -94,10 +86,7 @@
                 let result = [];
 
                 this.checkboxGroupInitValues.filter((x) => {
-                    if (
-                        x.disabled &&
-                        this.checkboxGroupDefaultValue.indexOf(x.label) === -1
-                    ) {
+                    if (x.disabled && this.checkboxGroupDefaultValue.indexOf(x.label) === -1) {
                         result.push(x.label);
                     }
                 });

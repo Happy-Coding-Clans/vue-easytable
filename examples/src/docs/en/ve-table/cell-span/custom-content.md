@@ -32,9 +32,7 @@
                             if (column.field === "name") {
                                 if (rowIndex === 1) {
                                     return (
-                                        <span style="color:#1890ff;">
-                                            this is custom content
-                                        </span>
+                                        <span style="color:#1890ff;">this is custom content</span>
                                     );
                                 }
                             }
@@ -52,9 +50,7 @@
                             if (rowIndex === 1) {
                                 if (column.field === "date") {
                                     return (
-                                        <span style="color:#1890ff;">
-                                            this is custom content
-                                        </span>
+                                        <span style="color:#1890ff;">this is custom content</span>
                                     );
                                 }
                             }

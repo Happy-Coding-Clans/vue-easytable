@@ -11,11 +11,7 @@ More about Loading, Please refer to [Loading component](#/en/doc/base/loading)
         <button class="button-demo" @click="close()">Close</button>
         <br />
         <br />
-        <ve-table
-            id="loading-container"
-            :columns="columns"
-            :table-data="tableData"
-        />
+        <ve-table id="loading-container" :columns="columns" :table-data="tableData" />
     </div>
 </template>
 <script>

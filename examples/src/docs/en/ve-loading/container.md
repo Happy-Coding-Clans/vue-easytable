@@ -10,11 +10,7 @@ Display the Loading effect in containers such as tables
         <button class="button-demo" @click="close()">Close</button>
         <br />
         <br />
-        <ve-table
-            id="loading-container"
-            :columns="columns"
-            :table-data="tableData"
-        />
+        <ve-table id="loading-container" :columns="columns" :table-data="tableData" />
     </div>
 </template>
 <script>

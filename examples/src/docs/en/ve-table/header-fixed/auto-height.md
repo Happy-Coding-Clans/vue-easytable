@@ -4,12 +4,7 @@
 
 ```html
 <template>
-    <ve-table
-        :max-height="200"
-        fixed-header
-        :columns="columns"
-        :table-data="tableData"
-    />
+    <ve-table :max-height="200" fixed-header :columns="columns" :table-data="tableData" />
 </template>
 
 <script>
