@@ -38,7 +38,7 @@ A:Too much text in a cell destroys the layout,This can be controlled by style [w
     <ve-table
         style="word-break: break-all"
         :columns="columns"
-:table-data="tableData"
+        :table-data="tableData"
     />
 </template>
 ```
