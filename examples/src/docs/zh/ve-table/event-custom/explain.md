@@ -3,12 +3,12 @@
 2、支持 body、header、footer 行和列 事件自定义<br>
 3、支持以下事件自定义
 
-- click
-- dblclick
-- contextmen
-- mouseenter
-- mouseleave
-  :::
+-   click
+-   dblclick
+-   contextmen
+-   mouseenter
+-   mouseleave
+    :::
 
 配置代码速览
 

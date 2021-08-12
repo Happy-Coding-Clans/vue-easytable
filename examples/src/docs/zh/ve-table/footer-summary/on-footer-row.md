@@ -4,103 +4,136 @@
 
 ```html
 <template>
-  <div>
-    打开F12 查看 console 信息
-    <ve-table
-      border-y
-      fixed-header
-      :max-height="300"
-      :columns="columns"
-      :table-data="tableData"
-      :footer-data="footerData"
-      rowKeyFieldName="rowkey"
-      :event-custom-option="eventCustomOption"
-    />
-  </div>
+    <div>
+        打开F12 查看 console 信息
+        <ve-table
+            border-y
+            fixed-header
+            :max-height="300"
+            :columns="columns"
+            :table-data="tableData"
+            :footer-data="footerData"
+            rowKeyFieldName="rowkey"
+            :event-custom-option="eventCustomOption"
+        />
+    </div>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        eventCustomOption: {
-          footerRowEvents: ({ row, rowIndex }) => {
+    export default {
+        data() {
             return {
-              click: (event) => {
-                console.log("click::", row, rowIndex, event);
-              },
-              dblclick: (event) => {
-                console.log("dblclick::", row, rowIndex, event);
-              },
-              contextmenu: (event) => {
-                console.log("contextmenu::", row, rowIndex, event);
-              },
-              mouseenter: (event) => {
-                console.log("mouseenter::", row, rowIndex, event);
-              },
-              mouseleave: (event) => {
-                console.log("mouseleave::", row, rowIndex, event);
-              },
+                eventCustomOption: {
+                    footerRowEvents: ({ row, rowIndex }) => {
+                        return {
+                            click: (event) => {
+                                console.log("click::", row, rowIndex, event);
+                            },
+                            dblclick: (event) => {
+                                console.log("dblclick::", row, rowIndex, event);
+                            },
+                            contextmenu: (event) => {
+                                console.log(
+                                    "contextmenu::",
+                                    row,
+                                    rowIndex,
+                                    event,
+                                );
+                            },
+                            mouseenter: (event) => {
+                                console.log(
+                                    "mouseenter::",
+                                    row,
+                                    rowIndex,
+                                    event,
+                                );
+                            },
+                            mouseleave: (event) => {
+                                console.log(
+                                    "mouseleave::",
+                                    row,
+                                    rowIndex,
+                                    event,
+                                );
+                            },
+                        };
+                    },
+                },
+                columns: [
+                    {
+                        field: "",
+                        key: "a",
+                        title: "",
+                        width: 50,
+                        align: "center",
+                        renderBodyCell: ({ row, column, rowIndex }, h) => {
+                            return ++rowIndex;
+                        },
+                    },
+                    {
+                        field: "name",
+                        key: "b",
+                        title: "Name",
+                        width: 200,
+                        align: "left",
+                    },
+                    {
+                        field: "hobby",
+                        key: "c",
+                        title: "Hobby",
+                        width: 300,
+                        align: "left",
+                    },
+                    {
+                        field: "address",
+                        key: "d",
+                        title: "Address",
+                        width: "",
+                        align: "left",
+                    },
+                ],
+                tableData: [],
             };
-          },
         },
-        columns: [
-          {
-            field: "",
-            key: "a",
-            title: "",
-            width: 50,
-            align: "center",
-            renderBodyCell: ({ row, column, rowIndex }, h) => {
-              return ++rowIndex;
+        methods: {
+            initTableData() {
+                let data = [];
+                for (let i = 0; i < 15; i++) {
+                    data.push({
+                        rowkey: i,
+                        name: i,
+                        date: i,
+                        hobby: i,
+                        address: i,
+                    });
+                }
+                this.tableData = data;
             },
-          },
-          { field: "name", key: "b", title: "Name", width: 200, align: "left" },
-          { field: "hobby", key: "c", title: "Hobby", width: 300, align: "left" },
-          { field: "address", key: "d", title: "Address", width: "", align: "left" },
-        ],
-        tableData: [],
-      };
-    },
-    methods: {
-      initTableData() {
-        let data = [];
-        for (let i = 0; i < 15; i++) {
-          data.push({
-            rowkey: i,
-            name: i,
-            date: i,
-            hobby: i,
-            address: i,
-          });
-        }
-        this.tableData = data;
-      },
 
-      initFooterData() {
-        this.footerData = [
-          {
-            rowkey: 0,
-            name: "平均值",
-            date: 213,
-            hobby: 355,
-            address: 189,
-          },
-          {
-            rowkey: 1,
-            name: "汇总值",
-            date: 1780,
-            hobby: 890,
-            address: 2988,
-          },
-        ];
-      },
-    },
-    created() {
-      this.initTableData();
-      this.initFooterData();
-    },
-  };
+            initFooterData() {
+                this.footerData = [
+                    {
+                        rowkey: 0,
+                        name: "平均值",
+                        date: 213,
+                        hobby: 355,
+                        address: 189,
+                    },
+                    {
+                        rowkey: 1,
+                        name: "汇总值",
+                        date: 1780,
+                        hobby: 890,
+                        address: 2988,
+                    },
+                ];
+            },
+        },
+        created() {
+            this.initTableData();
+            this.initFooterData();
+        },
+    };
 </script>
 ```
 

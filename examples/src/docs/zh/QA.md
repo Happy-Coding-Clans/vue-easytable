@@ -30,15 +30,13 @@ renderBodyCell: ({ row, column, rowIndex },h) => {
 Q:为什么当单元格内容过多时，设置的宽度不生效
 
 A:当单元格文本内容过多时会破坏布局，此时可以通过样式 [word-break](https://developer.mozilla.org/zh-CN/docs/Web/CSS/word-break) 控制（[具体参考这个示例](#/zh/doc/table/column-width?anchor=long-text-destroys-layout)），如：
+
 ```html
 <template>
-  <ve-table
-    style="word-break: break-all"
-    :columns="columns"
-    :table-data="tableData"
-  />
+    <ve-table
+        style="word-break: break-all"
+        :columns="columns"
+        :table-data="tableData"
+    />
 </template>
 ```
-
-
-

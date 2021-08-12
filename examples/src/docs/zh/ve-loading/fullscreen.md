@@ -4,37 +4,37 @@
 
 ```html
 <template>
-  <div>
-    <button class="button-demo" @click="show()">开启 Loading</button>
-  </div>
+    <div>
+        <button class="button-demo" @click="show()">开启 Loading</button>
+    </div>
 </template>
 <script>
-  export default {
-    data() {
-      return {
-        loadingInstance: null,
-      };
-    },
-    methods: {
-      show() {
-        this.loadingInstance.show();
+    export default {
+        data() {
+            return {
+                loadingInstance: null,
+            };
+        },
+        methods: {
+            show() {
+                this.loadingInstance.show();
 
-        setTimeout(() => {
-          this.loadingInstance.close();
-        }, 2000);
-      },
-    },
-    mounted() {
-      this.loadingInstance = this.$veLoading({
-        fullscreen: true,
-        name: "bounce",
-        lock: true,
-      });
-    },
-    destroyed() {
-      this.loadingInstance.destroy();
-    },
-  };
+                setTimeout(() => {
+                    this.loadingInstance.close();
+                }, 2000);
+            },
+        },
+        mounted() {
+            this.loadingInstance = this.$veLoading({
+                fullscreen: true,
+                name: "bounce",
+                lock: true,
+            });
+        },
+        destroyed() {
+            this.loadingInstance.destroy();
+        },
+    };
 </script>
 ```
 

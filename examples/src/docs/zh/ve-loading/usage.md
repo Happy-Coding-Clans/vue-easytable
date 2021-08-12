@@ -10,9 +10,9 @@ import { veLoading } from "vue-easytable";
 
 ```javascript
 veLoading({
-  target: "#loading-1",
-  name: "grid",
-  tip: "loading...",
+    target: "#loading-1",
+    name: "grid",
+    tip: "loading...",
 });
 ```
 
@@ -30,8 +30,8 @@ Vue.prototype.$veLoading = veLoading;
 
 ```javascript
 this.$veLoading({
-  target: "#loading-1",
-  name: "grid",
-  tip: "loading...",
+    target: "#loading-1",
+    name: "grid",
+    tip: "loading...",
 });
 ```

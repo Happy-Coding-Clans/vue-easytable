@@ -20,9 +20,9 @@ Use `Locale.update` method to modify the default configs.
 import { VeLocale } from "vue-easytable";
 
 const lang = {
-  pagination: {
-    goto: "goto",
-  },
+    pagination: {
+        goto: "goto",
+    },
 };
 
 VeLocale.update(lang);

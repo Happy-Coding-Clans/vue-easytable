@@ -5,31 +5,32 @@
 
 ```html
 <template>
-  <div>
     <div>
-      <button class="button-demo" @click="englishLang()">英文</button>
-      <button class="button-demo" @click="chineseLang()">中文</button>
-      <br /><br />
+        <div>
+            <button class="button-demo" @click="englishLang()">英文</button>
+            <button class="button-demo" @click="chineseLang()">中文</button>
+            <br />
+            <br />
+        </div>
+        <div>
+            <ve-pagination :total="600" />
+        </div>
     </div>
-    <div>
-      <ve-pagination :total="600" />
-    </div>
-  </div>
 </template>
 <script>
-  import zhCN from "vue-easytable/libs/locale/lang/zh-CN";
-  import enUS from "vue-easytable/libs/locale/lang/en-US";
+    import zhCN from "vue-easytable/libs/locale/lang/zh-CN";
+    import enUS from "vue-easytable/libs/locale/lang/en-US";
 
-  export default {
-    methods: {
-      englishLang() {
-        this.$veLocale.use(enUS);
-      },
-      chineseLang() {
-        this.$veLocale.use(zhCN);
-      },
-    },
-  };
+    export default {
+        methods: {
+            englishLang() {
+                this.$veLocale.use(enUS);
+            },
+            chineseLang() {
+                this.$veLocale.use(zhCN);
+            },
+        },
+    };
 </script>
 ```
 

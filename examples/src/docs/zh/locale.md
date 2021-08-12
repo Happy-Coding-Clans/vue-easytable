@@ -20,9 +20,9 @@ VeLocale.use(enUS);
 import { VeLocale } from "vue-easytable";
 
 const lang = {
-  pagination: {
-    goto: "跳转到",
-  },
+    pagination: {
+        goto: "跳转到",
+    },
 };
 
 VeLocale.update(lang);

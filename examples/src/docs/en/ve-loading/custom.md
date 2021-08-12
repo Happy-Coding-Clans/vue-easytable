@@ -5,41 +5,46 @@ You can also customize the loading text, background color and size
 
 ```html
 <template>
-  <div>
-    <button class="button-demo" @click="show()">Open</button>
-    <button class="button-demo" @click="close()">Close</button><br /><br />
-    <div id="custom-loading-container" style="width:100%;height:250px;background-color:#2980b9;" />
-  </div>
+    <div>
+        <button class="button-demo" @click="show()">Open</button>
+        <button class="button-demo" @click="close()">Close</button>
+        <br />
+        <br />
+        <div
+            id="custom-loading-container"
+            style="width:100%;height:250px;background-color:#2980b9;"
+        />
+    </div>
 </template>
 <script>
-  export default {
-    data() {
-      return {
-        loadingInstance: null,
-      };
-    },
-    methods: {
-      show() {
-        this.loadingInstance.show();
-      },
-      close() {
-        this.loadingInstance.close();
-      },
-    },
-    mounted() {
-      this.loadingInstance = this.$veLoading({
-        target: document.querySelector("#custom-loading-container"),
-        name: "wave",
-        color: "#fff",
-        tip: "loading...",
-        overlayBackgroundColor: "rgba(255, 255, 255, 0.1)",
-      });
-      this.show();
-    },
-    destroyed() {
-      this.loadingInstance.destroy();
-    },
-  };
+    export default {
+        data() {
+            return {
+                loadingInstance: null,
+            };
+        },
+        methods: {
+            show() {
+                this.loadingInstance.show();
+            },
+            close() {
+                this.loadingInstance.close();
+            },
+        },
+        mounted() {
+            this.loadingInstance = this.$veLoading({
+                target: document.querySelector("#custom-loading-container"),
+                name: "wave",
+                color: "#fff",
+                tip: "loading...",
+                overlayBackgroundColor: "rgba(255, 255, 255, 0.1)",
+            });
+            this.show();
+        },
+        destroyed() {
+            this.loadingInstance.destroy();
+        },
+    };
 </script>
 ```
 

@@ -3,12 +3,12 @@
 2、Support body, header, footer row and column event customization<br>
 3、The following event customization is supported
 
-- click
-- dblclick
-- contextmen
-- mouseenter
-- mouseleave
-  :::
+-   click
+-   dblclick
+-   contextmen
+-   mouseenter
+-   mouseleave
+    :::
 
 Quick view of configuration code
 

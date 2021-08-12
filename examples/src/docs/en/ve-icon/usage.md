@@ -13,6 +13,6 @@ use
 
 ```javascript
 <template>
-  <ve-icon name="double-right-arrow" />;
+    <ve-icon name="double-right-arrow" />;
 </template>
 ```

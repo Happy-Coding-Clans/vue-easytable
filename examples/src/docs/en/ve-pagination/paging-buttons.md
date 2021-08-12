@@ -3,7 +3,7 @@
 
 ```html
 <template>
-  <ve-pagination :total="600" :paging-count="6" />
+    <ve-pagination :total="600" :paging-count="6" />
 </template>
 ```
 

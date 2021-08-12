@@ -13,6 +13,6 @@ Vue.use(VeIcon);
 
 ```javascript
 <template>
-  <ve-icon name="double-right-arrow" />;
+    <ve-icon name="double-right-arrow" />;
 </template>
 ```
