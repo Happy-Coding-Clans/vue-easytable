@@ -5,9 +5,7 @@
     <div>
         <div>
             <div class="bold">单选</div>
-            <ve-radio @on-radio-change="radioChange" v-model="radioVal">
-                Radio
-            </ve-radio>
+            <ve-radio @on-radio-change="radioChange" v-model="radioVal">Radio</ve-radio>
             <div>{{radioVal}}</div>
         </div>
 

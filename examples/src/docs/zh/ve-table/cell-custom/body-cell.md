@@ -4,12 +4,7 @@
 
 ```html
 <template>
-    <ve-table
-        style="width:100%"
-        border-y
-        :columns="columns"
-        :table-data="tableData"
-    />
+    <ve-table style="width:100%" border-y :columns="columns" :table-data="tableData" />
 </template>
 
 <script>
@@ -68,9 +63,7 @@
                         align: "left",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
                             const text = row[column.field];
-                            return (
-                                <input style="width:100%" value={text}></input>
-                            );
+                            return <input style="width:100%" value={text}></input>;
                         },
                     },
                     {
@@ -91,9 +84,7 @@
                                     &nbsp;
                                     <button
                                         class="button-demo"
-                                        on-click={() =>
-                                            this.deleteRow(rowIndex)
-                                        }
+                                        on-click={() => this.deleteRow(rowIndex)}
                                     >
                                         Delete
                                     </button>

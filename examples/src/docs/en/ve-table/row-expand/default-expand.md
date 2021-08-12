@@ -30,8 +30,7 @@
                     render: ({ row, column, rowIndex }, h) => {
                         return (
                             <p>
-                                My name is{" "}
-                                <span style="color:#1890ff;">{row.name}</span>
+                                My name is <span style="color:#1890ff;">{row.name}</span>
                                 ,I'm living in {row.address}
                             </p>
                         );

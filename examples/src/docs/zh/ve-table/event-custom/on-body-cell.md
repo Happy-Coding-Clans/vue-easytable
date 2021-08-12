@@ -22,49 +22,19 @@
                     bodyCellEvents: ({ row, column, rowIndex }) => {
                         return {
                             click: (event) => {
-                                console.log(
-                                    "click::",
-                                    row,
-                                    column,
-                                    rowIndex,
-                                    event,
-                                );
+                                console.log("click::", row, column, rowIndex, event);
                             },
                             dblclick: (event) => {
-                                console.log(
-                                    "dblclick::",
-                                    row,
-                                    column,
-                                    rowIndex,
-                                    event,
-                                );
+                                console.log("dblclick::", row, column, rowIndex, event);
                             },
                             contextmenu: (event) => {
-                                console.log(
-                                    "contextmenu::",
-                                    row,
-                                    column,
-                                    rowIndex,
-                                    event,
-                                );
+                                console.log("contextmenu::", row, column, rowIndex, event);
                             },
                             mouseenter: (event) => {
-                                console.log(
-                                    "mouseenter::",
-                                    row,
-                                    column,
-                                    rowIndex,
-                                    event,
-                                );
+                                console.log("mouseenter::", row, column, rowIndex, event);
                             },
                             mouseleave: (event) => {
-                                console.log(
-                                    "mouseleave::",
-                                    row,
-                                    column,
-                                    rowIndex,
-                                    event,
-                                );
+                                console.log("mouseleave::", row, column, rowIndex, event);
                             },
                         };
                     },

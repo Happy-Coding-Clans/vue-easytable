@@ -34,26 +34,19 @@ filterIcon 回调函数，支持返回自定义的 icon。此处使用了内置�
                                     <div class="custom-name-filter">
                                         <input
                                             value={this.searchValue}
-                                            on-input={(e) =>
-                                                (this.searchValue =
-                                                    e.target.value)
-                                            }
+                                            on-input={(e) => (this.searchValue = e.target.value)}
                                             placeholder="Search name"
                                         />
                                         <div class="custom-name-filter-operation">
                                             <span
                                                 class="name-filter-cancel"
-                                                on-click={() =>
-                                                    this.searchCancel(closeFn)
-                                                }
+                                                on-click={() => this.searchCancel(closeFn)}
                                             >
                                                 取消
                                             </span>
                                             <span
                                                 class="name-filter-confirm"
-                                                on-click={() =>
-                                                    this.searchConfirm(closeFn)
-                                                }
+                                                on-click={() => this.searchConfirm(closeFn)}
                                             >
                                                 查询
                                             </span>
@@ -138,9 +131,7 @@ filterIcon 回调函数，支持返回自定义的 icon。此处使用了内置�
                 this.tableData = this.sourceData.filter(
                     (x) =>
                         !searchValue.length ||
-                        x.name
-                            .toLowerCase()
-                            .includes(searchValue.toLowerCase()),
+                        x.name.toLowerCase().includes(searchValue.toLowerCase()),
                 );
             },
 

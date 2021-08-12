@@ -164,9 +164,7 @@
         },
         created() {
             // default search by names
-            this.searchData.names = NAME_FILTER_LIST.filter(
-                (x) => x.selected,
-            ).map((x) => x.label);
+            this.searchData.names = NAME_FILTER_LIST.filter((x) => x.selected).map((x) => x.label);
         },
     };
 </script>

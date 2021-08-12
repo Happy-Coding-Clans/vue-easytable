@@ -88,9 +88,7 @@
                 let startTime = window.performance.now();
                 setTimeout(() => {
                     this.msg =
-                        "render took: " +
-                        (window.performance.now() - startTime).toFixed(2) +
-                        "ms";
+                        "render took: " + (window.performance.now() - startTime).toFixed(2) + "ms";
                 }, 0);
             },
             unmount() {
@@ -98,9 +96,7 @@
                 let startTime = window.performance.now();
                 setTimeout(() => {
                     this.msg =
-                        "unmount took: " +
-                        (window.performance.now() - startTime).toFixed(2) +
-                        "ms";
+                        "unmount took: " + (window.performance.now() - startTime).toFixed(2) + "ms";
                 }, 0);
             },
         },
