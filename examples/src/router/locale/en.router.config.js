@@ -86,6 +86,13 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
+                path: "table-height",
+                component: () =>
+                    import("@/docs/en/ve-table/table-height/main.vue"),
+                name: "Table Height",
+                meta: { keepAlive: true },
+            },
+            {
                 path: "border",
                 component: () => import("@/docs/en/ve-table/border/main.vue"),
                 name: "Border",

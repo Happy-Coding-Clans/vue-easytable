@@ -85,13 +85,13 @@ const config = [
                 name: "表格宽度",
                 meta: { keepAlive: true },
             },
-            /* {
+            {
                 path: "table-height",
                 component: () =>
                     import("@/docs/zh/ve-table/table-height/main.vue"),
                 name: "表格高度",
                 meta: { keepAlive: true },
-            }, */
+            },
             {
                 path: "border",
                 component: () => import("@/docs/zh/ve-table/border/main.vue"),

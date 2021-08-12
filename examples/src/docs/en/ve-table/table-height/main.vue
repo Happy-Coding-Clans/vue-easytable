@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>表格高度</h2>
+        <h2>Table Height</h2>
         <Explain />
         <AutoHeight />
         <FixedHeight />

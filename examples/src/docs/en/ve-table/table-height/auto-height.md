@@ -1,17 +1,10 @@
-:::anchor 表格高度固定
+:::anchor Auto Table Height
 
-:::demo
+:::demo When the table height is not set, the table height is auto height
 
 ```html
 <template>
-    <ve-table
-        :max-height="300"
-        :columns="columns"
-        :table-data="tableData"
-        :border-around="true"
-        :border-x="true"
-        :border-y="true"
-    />
+    <ve-table :columns="columns" :table-data="tableData" />
 </template>
 
 <script>
@@ -19,10 +12,10 @@
         data() {
             return {
                 columns: [
-                    { field: "name", key: "a", title: "Name", width: 100 },
-                    { field: "date", key: "b", title: "Tel", width: 200 },
-                    { field: "hobby", key: "c", title: "Hobby", width: 300 },
-                    { field: "address", key: "d", title: "Address", width: 300 },
+                    { field: "name", key: "a", title: "Name", align: "center" },
+                    { field: "date", key: "b", title: "Date", align: "left" },
+                    { field: "hobby", key: "c", title: "Hobby", align: "center" },
+                    { field: "address", key: "d", title: "Address", align: "left" },
                 ],
                 tableData: [],
             };
@@ -30,7 +23,7 @@
         methods: {
             initTableData() {
                 let data = [];
-                for (let i = 0; i < 20; i++) {
+                for (let i = 0; i < 2; i++) {
                     data.push({
                         name: i,
                         date: i,

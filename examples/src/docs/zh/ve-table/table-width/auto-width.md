@@ -1,6 +1,6 @@
-:::anchor Auto Table Width
+:::anchor 表格自动宽度
 
-:::demo If the table width is not set, it is equivalent to `style="width:100%;"`
+:::demo 如果不设置表格宽度，等同于`style="width:100%;"`
 
 ```html
 <template>

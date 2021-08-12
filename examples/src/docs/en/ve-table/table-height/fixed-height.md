@@ -1,4 +1,4 @@
-:::anchor 表格高度固定
+:::anchor Fixed Table Height
 
 :::demo
 
