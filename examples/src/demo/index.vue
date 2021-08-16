@@ -78,7 +78,7 @@
                 fixed-header
                 border-y
                 max-height="calc(100vh - 210px)"
-                scroll-width="calc(100vw + 300px)"
+                scroll-width="calc(120vw)"
                 :sort-option="sortOption"
                 :virtual-scroll-option="virtualScrollOption"
                 :columns="columns"

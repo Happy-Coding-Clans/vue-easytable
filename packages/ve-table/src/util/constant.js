@@ -83,3 +83,8 @@ export const COMPS_CUSTOM_ATTRS = {
     // body row key
     BODY_ROW_KEY: "row-key",
 };
+
+// table methods
+export const TABLE_METHODS = {
+    SCROLL: "scroll",
+};

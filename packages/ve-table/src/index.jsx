@@ -6,7 +6,12 @@ import {
 } from "./util";
 import { getValByUnit, isFunction, isNumber } from "../../src/utils/index.js";
 import emitter from "../../src/mixins/emitter";
-import { COMPS_NAME, EMIT_EVENTS, COMPS_CUSTOM_ATTRS } from "./util/constant";
+import {
+    COMPS_NAME,
+    EMIT_EVENTS,
+    COMPS_CUSTOM_ATTRS,
+    TABLE_METHODS,
+} from "./util/constant";
 import Colgroup from "./colgroup";
 import Header from "./header";
 import Body from "./body";
@@ -1006,6 +1011,11 @@ export default {
                     columnKey: "",
                 };
             }
+        },
+
+        // table scroll
+        [TABLE_METHODS.SCROLL](options) {
+            this.$refs[this.tableContainerRef].scroll(options);
         },
     },
     mounted() {

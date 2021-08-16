@@ -1,4 +1,4 @@
-tests/*
+tests/unit/coverage
 
 .github/*
 
