@@ -75,6 +75,7 @@
 
             <ve-table
                 id="demo-loading-container"
+                ref="tableRef"
                 fixed-header
                 border-y
                 max-height="calc(100vh - 210px)"
@@ -443,6 +444,8 @@ export default {
         searchByNameField(values) {
             this.filterConditions = values;
             this.filter();
+            // scroll to top
+            this.$refs["tableRef"].scrollTo({ top: 0 });
         },
 
         //
