@@ -4,7 +4,12 @@ import {
     clsName,
     getNotFixedTotalWidthByColumnKey,
 } from "./util";
-import { getValByUnit, isFunction, isNumber } from "../../src/utils/index.js";
+import {
+    getValByUnit,
+    isFunction,
+    isNumber,
+    scrollTo,
+} from "../../src/utils/index.js";
 import emitter from "../../src/mixins/emitter";
 import {
     COMPS_NAME,
@@ -1013,9 +1018,9 @@ export default {
             }
         },
 
-        // table scroll
-        [TABLE_METHODS.SCROLL](options) {
-            this.$refs[this.tableContainerRef].scroll(options);
+        // table scrollTo
+        [TABLE_METHODS.SCROLL_TO](option) {
+            scrollTo(this.$refs[this.tableContainerRef], option);
         },
     },
     mounted() {

@@ -86,5 +86,5 @@ export const COMPS_CUSTOM_ATTRS = {
 
 // table methods
 export const TABLE_METHODS = {
-    SCROLL: "scroll",
+    SCROLL_TO: "scrollTo",
 };
