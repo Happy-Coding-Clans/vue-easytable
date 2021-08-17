@@ -3,8 +3,8 @@
         <tpl
             :desc="desc"
             :anchor="anchor"
-            :table-data="db.table.data"
-            :columns="db.table.columns"
+            :table-data="db.instanceMethods.data"
+            :columns="db.instanceMethods.columns"
         />
     </div>
 </template>
@@ -16,11 +16,11 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Table configuration",
+            default: "Table Instance Methods",
         },
         desc: {
             type: String,
-            default: "Table Props",
+            default: "Table Instance Methods",
         },
     },
     data() {

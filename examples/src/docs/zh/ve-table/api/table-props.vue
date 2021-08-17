@@ -20,7 +20,7 @@ export default {
         },
         desc: {
             type: String,
-            default: "Table props",
+            default: "Table Props",
         },
     },
     data() {

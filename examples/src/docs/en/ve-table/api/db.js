@@ -53,6 +53,51 @@ const columnsType1 = [
     },
 ];
 
+// 列配置类型2（应用于实例方法）
+const columnsType2 = [
+    // {
+    //     key: "a",
+    //     field: "param",
+    //     title: "参数",
+    //     width: "10%",
+    //     align: "left",
+    //     type: "expand",
+    //     renderBodyCell: ({ row, column, rowIndex }, h) => {
+    //         return <span domPropsInnerHTML={row.param}></span>;
+    //     },
+    // },
+    {
+        key: "b",
+        field: "name",
+        title: "方法名",
+        width: "10%",
+        align: "left",
+        renderBodyCell: ({ row, column, rowIndex }, h) => {
+            return <span domPropsInnerHTML={row.name}></span>;
+        },
+    },
+    {
+        key: "c",
+        field: "desc",
+        title: "说明",
+        width: "70%",
+        align: "left",
+        renderBodyCell: ({ row, column, rowIndex }, h) => {
+            return <span domPropsInnerHTML={row.desc}></span>;
+        },
+    },
+    {
+        key: "d",
+        field: "param",
+        title: "参数",
+        width: "20%",
+        align: "left",
+        renderBodyCell: ({ row, column, rowIndex }, h) => {
+            return <span domPropsInnerHTML={row.param}></span>;
+        },
+    },
+];
+
 export const db = {
     // table props option
     table: {
@@ -411,6 +456,18 @@ export const db = {
             ],
             columns: columnsType1,
         },
+    },
+
+    // instance methods
+    instanceMethods: {
+        data: [
+            {
+                name: "scrollTop",
+                desc: `Scrolls the table to the specified position`,
+                param: "Refer to <a href='https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollTo'> MDN scrollTo</a>",
+            },
+        ],
+        columns: columnsType2,
     },
 
     // 可展开配置

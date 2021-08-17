@@ -24,7 +24,7 @@ export default {
         },
         desc: {
             type: String,
-            default: "columns",
+            default: "Columns",
         },
     },
     data() {

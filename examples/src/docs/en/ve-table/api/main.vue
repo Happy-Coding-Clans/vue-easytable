@@ -5,6 +5,8 @@
         <TableProps />
         <!-- columns -->
         <ColumnProps />
+        <!-- instance methods -->
+        <InstanceMethods />
         <!-- cell Span Option -->
         <CellSpanOption />
         <!-- cell Style Option -->
@@ -31,6 +33,7 @@
 import { db } from "./db";
 import TableProps from "./table-props";
 import ColumnProps from "./column-props";
+import InstanceMethods from "./instance-methods";
 import ExpandOption from "./expand-option-props";
 import CheckboxOption from "./checkbox-option-props";
 import RadioOption from "./radio-option-props";
@@ -45,6 +48,7 @@ export default {
     components: {
         TableProps,
         ColumnProps,
+        InstanceMethods,
         CellSpanOption,
         EventCustomOption,
         CellStyleOption,
