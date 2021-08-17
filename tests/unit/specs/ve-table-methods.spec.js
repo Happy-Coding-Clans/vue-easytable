@@ -1,5 +1,6 @@
 import { mount } from "@vue/test-utils";
 import veTable from "@/ve-table";
+import { later, mockScrollTo } from "../util";
 
 describe("veTable methods", () => {
     const TABLE_DATA = [
@@ -57,7 +58,7 @@ describe("veTable methods", () => {
         { field: "address", key: "d", title: "Address" },
     ];
 
-    it("scroll method", () => {
+    it("scroll method", async () => {
         const wrapper = mount(veTable, {
             propsData: {
                 columns: COLUMNS,
@@ -66,14 +67,15 @@ describe("veTable methods", () => {
             },
         });
 
-        expect(0).toEqual(0);
+        await later();
 
-        // expect(wrapper.find(".ve-table-container").scrollTop).toBeGreaterThan(
-        //     100,
-        // );
+        const scrollToFn = mockScrollTo();
 
-        // wrapper.vm.scroll({ top: 10 });
+        const option = { top: 100 };
 
-        // expect(wrapper.find(".ve-table-container").scrollTop).toEqual(10);
+        wrapper.vm.scrollTo(option);
+
+        expect(scrollToFn).toBeCalled();
+        expect(scrollToFn).toHaveBeenCalledWith(option);
     });
 });
