@@ -126,6 +126,22 @@ export function getChildCompsByName(context, name) {
     return result;
 }
 
+/*
+ * @scrollTo
+ * @desc element scrollTo https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollTo
+ * @param {element} el - element
+ * @param {object} option - scroll option
+ */
+export function scrollTo(el, option) {
+    if (isFunction(el.scrollTo)) {
+        el.scrollTo(option);
+    } else {
+        const { top, left } = option;
+        el.scrollTop = top;
+        el.scrollLeft = left;
+    }
+}
+
 /*获取当前元素的left、top偏移
  *   left：元素最左侧距离文档左侧的距离
  *   top:元素最顶端距离文档顶端的距离
