@@ -274,6 +274,13 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
+                path: "instance-methods",
+                component: () =>
+                    import("@/docs/en/ve-table/instance-methods/main.vue"),
+                name: "Instance methods",
+                meta: { keepAlive: true },
+            },
+            {
                 path: "api",
                 component: () => import("@/docs/en/ve-table/api/main.vue"),
                 name: "API",
