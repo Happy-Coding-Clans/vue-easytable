@@ -70,7 +70,7 @@ const columnsType2 = [
         key: "b",
         field: "name",
         title: "方法名",
-        width: "10%",
+        width: "15%",
         align: "left",
         renderBodyCell: ({ row, column, rowIndex }, h) => {
             return <span domPropsInnerHTML={row.name}></span>;
@@ -80,7 +80,7 @@ const columnsType2 = [
         key: "c",
         field: "desc",
         title: "说明",
-        width: "70%",
+        width: "65%",
         align: "left",
         renderBodyCell: ({ row, column, rowIndex }, h) => {
             return <span domPropsInnerHTML={row.desc}></span>;

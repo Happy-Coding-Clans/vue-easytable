@@ -69,8 +69,8 @@ const columnsType2 = [
     {
         key: "b",
         field: "name",
-        title: "方法名",
-        width: "10%",
+        title: "Methods Name",
+        width: "15%",
         align: "left",
         renderBodyCell: ({ row, column, rowIndex }, h) => {
             return <span domPropsInnerHTML={row.name}></span>;
@@ -79,8 +79,8 @@ const columnsType2 = [
     {
         key: "c",
         field: "desc",
-        title: "说明",
-        width: "70%",
+        title: "Description",
+        width: "65%",
         align: "left",
         renderBodyCell: ({ row, column, rowIndex }, h) => {
             return <span domPropsInnerHTML={row.desc}></span>;
@@ -89,7 +89,7 @@ const columnsType2 = [
     {
         key: "d",
         field: "param",
-        title: "参数",
+        title: "Parameters",
         width: "20%",
         align: "left",
         renderBodyCell: ({ row, column, rowIndex }, h) => {
