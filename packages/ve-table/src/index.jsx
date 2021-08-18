@@ -15,7 +15,7 @@ import {
     COMPS_NAME,
     EMIT_EVENTS,
     COMPS_CUSTOM_ATTRS,
-    TABLE_METHODS,
+    INSTANCE_METHODS,
 } from "./util/constant";
 import Colgroup from "./colgroup";
 import Header from "./header";
@@ -1019,7 +1019,7 @@ export default {
         },
 
         // table scrollTo
-        [TABLE_METHODS.SCROLL_TO](option) {
+        [INSTANCE_METHODS.SCROLL_TO](option) {
             scrollTo(this.$refs[this.tableContainerRef], option);
         },
     },

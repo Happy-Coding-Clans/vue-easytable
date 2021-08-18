@@ -84,7 +84,7 @@ export const COMPS_CUSTOM_ATTRS = {
     BODY_ROW_KEY: "row-key",
 };
 
-// table methods
-export const TABLE_METHODS = {
+// instance methods
+export const INSTANCE_METHODS = {
     SCROLL_TO: "scrollTo",
 };
