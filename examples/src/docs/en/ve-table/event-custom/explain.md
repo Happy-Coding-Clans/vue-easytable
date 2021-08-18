@@ -8,7 +8,8 @@
 -   contextmen
 -   mouseenter
 -   mouseleave
-    :::
+
+:::
 
 Quick view of configuration code
 
