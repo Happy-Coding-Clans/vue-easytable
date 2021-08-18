@@ -10,7 +10,7 @@ describe("veLoading", () => {
         WAVE: "wave",
         FLOW: "flow",
         BOUNCE: "bounce",
-        PULSE: "pulse"
+        PULSE: "pulse",
     };
 
     it("render normal", () => {
@@ -18,18 +18,18 @@ describe("veLoading", () => {
             render() {
                 return (
                     <div>
-                        {Object.values(SPIN_NAMES).map(name => {
+                        {Object.values(SPIN_NAMES).map((name) => {
                             return <div id={"loading-" + name} />;
                         })}
                     </div>
                 );
-            }
+            },
         });
 
-        Object.values(SPIN_NAMES).forEach(spinName => {
+        Object.values(SPIN_NAMES).forEach((spinName) => {
             veLoading({
                 target: wrapper.vm.$el.querySelector(`#loading-${spinName}`),
-                name: spinName
+                name: spinName,
             }).show();
         });
 
@@ -40,14 +40,14 @@ describe("veLoading", () => {
         const instance = veLoading({
             fullscreen: true,
             name: "bounce",
-            lock: true
+            lock: true,
         });
 
         await later();
 
         // body
         expect(
-            document.body.classList.contains("ve-loading-parent-relative")
+            document.body.classList.contains("ve-loading-parent-relative"),
         ).toBe(true);
 
         const loadingEl = document.querySelector(".ve-loading");
@@ -65,7 +65,7 @@ describe("veLoading", () => {
         const instance = veLoading({
             fullscreen: true,
             name: "bounce",
-            lock: true
+            lock: true,
         });
 
         await later();
@@ -83,14 +83,14 @@ describe("veLoading", () => {
                         <div class="loading-item"></div>
                     </div>
                 );
-            }
+            },
         });
 
         const tip = "loading...";
         const instance = veLoading({
             target: wrapper.vm.$el.querySelector(".loading-item"),
             name: "pulse",
-            tip: tip
+            tip: tip,
         });
 
         expect(wrapper.find(".ve-loading-spin-tip").text()).toBe(tip);
@@ -104,18 +104,18 @@ describe("veLoading", () => {
                         <div class="loading-item"></div>
                     </div>
                 );
-            }
+            },
         });
 
         const bgColor = "rgba(255, 255, 255, 0.1)";
         const instance = veLoading({
             target: wrapper.vm.$el.querySelector(".loading-item"),
             name: "pulse",
-            overlayBackgroundColor: bgColor
+            overlayBackgroundColor: bgColor,
         });
 
         expect(wrapper.find(".ve-loading").attributes("style")).toBe(
-            `background-color: ${bgColor};`
+            `background-color: ${bgColor};`,
         );
     });
 
@@ -127,12 +127,12 @@ describe("veLoading", () => {
                         <div class="loading-item"></div>
                     </div>
                 );
-            }
+            },
         });
 
         const instance = veLoading({
             target: wrapper.vm.$el.querySelector(".loading-item"),
-            name: "pulse"
+            name: "pulse",
         });
 
         await later();
@@ -155,12 +155,12 @@ describe("veLoading", () => {
                         <div class="loading-item"></div>
                     </div>
                 );
-            }
+            },
         });
 
         const instance = veLoading({
             target: wrapper.vm.$el.querySelector(".loading-item"),
-            name: "pulse"
+            name: "pulse",
         });
 
         expect(wrapper.find(".ve-loading-spin").exists()).toBe(true);

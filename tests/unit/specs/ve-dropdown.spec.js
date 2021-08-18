@@ -7,7 +7,7 @@ describe("veDropdown", () => {
     const DROPDOWN_ITEMS = [
         { value: 0, label: "Apple" },
         { value: 1, label: "Orange", selected: true },
-        { value: 2, label: "Banana" }
+        { value: 2, label: "Banana" },
     ];
 
     it("render normal", () => {
@@ -16,11 +16,11 @@ describe("veDropdown", () => {
                 value: DROPDOWN_ITEMS,
                 showOperation: true,
                 confirmFilterText: "filter",
-                resetFilterText: "reset"
+                resetFilterText: "reset",
             },
             slots: {
-                default: `<div>click me</div>`
-            }
+                default: `<div>click me</div>`,
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -33,11 +33,11 @@ describe("veDropdown", () => {
                 showRadio: true,
                 showOperation: true,
                 confirmFilterText: "filter",
-                resetFilterText: "reset"
+                resetFilterText: "reset",
             },
             slots: {
-                default: `<div>click me</div>`
-            }
+                default: `<div>click me</div>`,
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -50,11 +50,11 @@ describe("veDropdown", () => {
                 isMultiple: true,
                 showOperation: true,
                 confirmFilterText: "filter",
-                resetFilterText: "reset"
+                resetFilterText: "reset",
             },
             slots: {
-                default: `<div>click me</div>`
-            }
+                default: `<div>click me</div>`,
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -63,11 +63,11 @@ describe("veDropdown", () => {
     it("value props", () => {
         const wrapper = mount(veDropdown, {
             propsData: {
-                value: DROPDOWN_ITEMS
+                value: DROPDOWN_ITEMS,
             },
             slots: {
-                default: `<div>click me</div>`
-            }
+                default: `<div>click me</div>`,
+            },
         });
 
         expect(wrapper.findAll(".ve-dropdown-items-li").length).toBe(3);
@@ -77,11 +77,11 @@ describe("veDropdown", () => {
         const wrapper = mount(veDropdown, {
             propsData: {
                 value: DROPDOWN_ITEMS,
-                showOperation: true
+                showOperation: true,
             },
             slots: {
-                default: `<div>click me</div>`
-            }
+                default: `<div>click me</div>`,
+            },
         });
 
         expect(wrapper.find(".ve-dropdown-operation").exists()).toBe(true);
@@ -91,11 +91,11 @@ describe("veDropdown", () => {
         const wrapper = mount(veDropdown, {
             propsData: {
                 value: DROPDOWN_ITEMS,
-                isMultiple: true
+                isMultiple: true,
             },
             slots: {
-                default: `<div>click me</div>`
-            }
+                default: `<div>click me</div>`,
+            },
         });
 
         expect(wrapper.find(".ve-dropdown-items-multiple").exists()).toBe(true);
@@ -105,11 +105,11 @@ describe("veDropdown", () => {
         const wrapper = mount(veDropdown, {
             propsData: {
                 value: DROPDOWN_ITEMS,
-                isMultiple: true
+                isMultiple: true,
             },
             slots: {
-                default: `<div>click me</div>`
-            }
+                default: `<div>click me</div>`,
+            },
         });
 
         expect(wrapper.find(".ve-dropdown-items-multiple").exists()).toBe(true);
@@ -119,15 +119,15 @@ describe("veDropdown", () => {
         const wrapper = mount(veDropdown, {
             propsData: {
                 value: DROPDOWN_ITEMS,
-                textAlign: "center"
+                textAlign: "center",
             },
             slots: {
-                default: `<div>click me</div>`
-            }
+                default: `<div>click me</div>`,
+            },
         });
 
         expect(wrapper.find(".ve-dropdown-items-li-a-center").exists()).toBe(
-            true
+            true,
         );
     });
 
@@ -137,16 +137,16 @@ describe("veDropdown", () => {
                 value: DROPDOWN_ITEMS,
                 showOperation: true,
                 confirmFilterText: "ok",
-                resetFilterText: "cancel"
+                resetFilterText: "cancel",
             },
             slots: {
-                default: `<div>click me</div>`
-            }
+                default: `<div>click me</div>`,
+            },
         });
 
         expect(wrapper.find(".ve-dropdown-operation").text()).toContain("ok");
         expect(wrapper.find(".ve-dropdown-operation").text()).toContain(
-            "cancel"
+            "cancel",
         );
     });
 
@@ -154,11 +154,11 @@ describe("veDropdown", () => {
         const wrapper = mount(veDropdown, {
             propsData: {
                 value: DROPDOWN_ITEMS,
-                showRadio: true
+                showRadio: true,
             },
             slots: {
-                default: `<div>click me</div>`
-            }
+                default: `<div>click me</div>`,
+            },
         });
 
         expect(wrapper.findAll(".ve-radio").length).toBe(3);
@@ -169,11 +169,11 @@ describe("veDropdown", () => {
             propsData: {
                 value: DROPDOWN_ITEMS,
                 isControlled: true,
-                visible: true
+                visible: true,
             },
             slots: {
-                default: `<div>click me</div>`
-            }
+                default: `<div>click me</div>`,
+            },
         });
 
         expect(wrapper.find(".ve-dropdown-dd-show").exists()).toBe(true);
@@ -183,11 +183,11 @@ describe("veDropdown", () => {
         const wrapper = mount(veDropdown, {
             propsData: {
                 value: DROPDOWN_ITEMS,
-                hideByItemClick: false
+                hideByItemClick: false,
             },
             slots: {
-                default: `<div class="btn">click me</div>`
-            }
+                default: `<div class="btn">click me</div>`,
+            },
         });
 
         wrapper.find(".btn").trigger("click");
@@ -209,11 +209,11 @@ describe("veDropdown", () => {
         const wrapper = mount(veDropdown, {
             propsData: {
                 value: DROPDOWN_ITEMS,
-                isCustomContent: true
+                isCustomContent: true,
             },
             slots: {
-                "custom-content": `<div class="custom-content-slot">this is custom content</div>`
-            }
+                "custom-content": `<div class="custom-content-slot">this is custom content</div>`,
+            },
         });
 
         expect(wrapper.find(".custom-content-slot").exists()).toBe(true);
@@ -222,28 +222,25 @@ describe("veDropdown", () => {
     it("on-item-select-change emit", async () => {
         const wrapper = mount(veDropdown, {
             propsData: {
-                value: DROPDOWN_ITEMS
+                value: DROPDOWN_ITEMS,
             },
             slots: {
-                default: `<div class="btn">click me</div>`
-            }
+                default: `<div class="btn">click me</div>`,
+            },
         });
 
         wrapper.find(".btn").trigger("click");
         await later(100);
 
         // 改变选项
-        wrapper
-            .findAll(".ve-dropdown-items-li")
-            .at(1)
-            .trigger("click");
+        wrapper.findAll(".ve-dropdown-items-li").at(1).trigger("click");
 
         await later();
 
         let items = [
             { value: 0, label: "Apple", selected: false },
             { value: 1, label: "Orange", selected: true },
-            { value: 2, label: "Banana", selected: false }
+            { value: 2, label: "Banana", selected: false },
         ];
 
         expect(wrapper.emitted("on-item-select-change")[0]).toEqual([items]);
@@ -252,11 +249,11 @@ describe("veDropdown", () => {
     it("visible change emit", async () => {
         const wrapper = mount(veDropdown, {
             propsData: {
-                value: DROPDOWN_ITEMS
+                value: DROPDOWN_ITEMS,
             },
             slots: {
-                default: `<div class="btn">click me</div>`
-            }
+                default: `<div class="btn">click me</div>`,
+            },
         });
 
         wrapper.find(".btn").trigger("click");
@@ -267,10 +264,10 @@ describe("veDropdown", () => {
 
         expect(wrapper.emitted("on-dropdown-visible-change").length).toEqual(2);
         expect(wrapper.emitted("on-dropdown-visible-change")[0]).toEqual([
-            true
+            true,
         ]);
         expect(wrapper.emitted("on-dropdown-visible-change")[1]).toEqual([
-            false
+            false,
         ]);
     });
 
@@ -278,7 +275,7 @@ describe("veDropdown", () => {
         let items = [
             { value: 0, label: "Apple", selected: false },
             { value: 1, label: "Orange", selected: true },
-            { value: 2, label: "Banana", selected: false }
+            { value: 2, label: "Banana", selected: false },
         ];
 
         const wrapper = mount(veDropdown, {
@@ -286,11 +283,11 @@ describe("veDropdown", () => {
                 value: items,
                 showOperation: true,
                 confirmFilterText: "ok",
-                resetFilterText: "cancel"
+                resetFilterText: "cancel",
             },
             slots: {
-                default: `<div class="btn">click me</div>`
-            }
+                default: `<div class="btn">click me</div>`,
+            },
         });
 
         await later();
@@ -299,25 +296,19 @@ describe("veDropdown", () => {
         await later();
 
         // 改变选项
-        wrapper
-            .findAll(".ve-dropdown-items-li")
-            .at(0)
-            .trigger("click");
+        wrapper.findAll(".ve-dropdown-items-li").at(0).trigger("click");
 
         await later();
 
         // confirm btn click
-        wrapper
-            .findAll(".ve-dropdown-operation-item")
-            .at(1)
-            .trigger("click");
+        wrapper.findAll(".ve-dropdown-operation-item").at(1).trigger("click");
 
         await later();
 
         expect(wrapper.emitted("on-filter-confirm").length).toEqual(1);
         expect(
-            wrapper.emitted("on-filter-confirm")[0][0].find(x => x.selected)
-                .label
+            wrapper.emitted("on-filter-confirm")[0][0].find((x) => x.selected)
+                .label,
         ).toEqual("Apple");
     });
 
@@ -325,7 +316,7 @@ describe("veDropdown", () => {
         let items = [
             { value: 0, label: "Apple", selected: false },
             { value: 1, label: "Orange", selected: true },
-            { value: 2, label: "Banana", selected: false }
+            { value: 2, label: "Banana", selected: false },
         ];
 
         const wrapper = mount(veDropdown, {
@@ -333,11 +324,11 @@ describe("veDropdown", () => {
                 value: items,
                 showOperation: true,
                 confirmFilterText: "ok",
-                resetFilterText: "cancel"
+                resetFilterText: "cancel",
             },
             slots: {
-                default: `<div class="btn">click me</div>`
-            }
+                default: `<div class="btn">click me</div>`,
+            },
         });
 
         await later();
@@ -346,17 +337,14 @@ describe("veDropdown", () => {
         await later();
 
         // reset btn click
-        wrapper
-            .findAll(".ve-dropdown-operation-item")
-            .at(0)
-            .trigger("click");
+        wrapper.findAll(".ve-dropdown-operation-item").at(0).trigger("click");
 
         await later();
 
         expect(wrapper.emitted("on-filter-reset").length).toEqual(1);
         expect(
-            wrapper.emitted("on-filter-reset")[0][0].filter(x => x.selected)
-                .length
+            wrapper.emitted("on-filter-reset")[0][0].filter((x) => x.selected)
+                .length,
         ).toEqual(0);
     });
 
@@ -364,7 +352,7 @@ describe("veDropdown", () => {
         let items = [
             { value: 0, label: "Apple", selected: true },
             { value: 1, label: "Orange", selected: true },
-            { value: 2, label: "Banana", selected: false }
+            { value: 2, label: "Banana", selected: false },
         ];
 
         const wrapper = mount(veDropdown, {
@@ -373,11 +361,11 @@ describe("veDropdown", () => {
                 isMultiple: true,
                 showOperation: true,
                 confirmFilterText: "ok",
-                resetFilterText: "cancel"
+                resetFilterText: "cancel",
             },
             slots: {
-                default: `<div class="btn">click me</div>`
-            }
+                default: `<div class="btn">click me</div>`,
+            },
         });
 
         await later();
@@ -386,25 +374,19 @@ describe("veDropdown", () => {
         await later();
 
         // 改变选项
-        wrapper
-            .findAll(".ve-checkbox")
-            .at(2)
-            .trigger("click");
+        wrapper.findAll(".ve-checkbox").at(2).trigger("click");
 
         await later();
 
         // confirm btn click
-        wrapper
-            .findAll(".ve-dropdown-operation-item")
-            .at(1)
-            .trigger("click");
+        wrapper.findAll(".ve-dropdown-operation-item").at(1).trigger("click");
 
         await later();
 
         expect(wrapper.emitted("on-filter-confirm").length).toEqual(1);
         expect(
-            wrapper.emitted("on-filter-confirm")[0][0].filter(x => x.selected)
-                .length
+            wrapper.emitted("on-filter-confirm")[0][0].filter((x) => x.selected)
+                .length,
         ).toEqual(3);
     });
 
@@ -412,7 +394,7 @@ describe("veDropdown", () => {
         let items = [
             { value: 0, label: "Apple", selected: true },
             { value: 1, label: "Orange", selected: true },
-            { value: 2, label: "Banana", selected: false }
+            { value: 2, label: "Banana", selected: false },
         ];
 
         const wrapper = mount(veDropdown, {
@@ -421,11 +403,11 @@ describe("veDropdown", () => {
                 isMultiple: true,
                 showOperation: true,
                 confirmFilterText: "ok",
-                resetFilterText: "cancel"
+                resetFilterText: "cancel",
             },
             slots: {
-                default: `<div class="btn">click me</div>`
-            }
+                default: `<div class="btn">click me</div>`,
+            },
         });
 
         await later();
@@ -434,17 +416,14 @@ describe("veDropdown", () => {
         await later();
 
         // reset btn click
-        wrapper
-            .findAll(".ve-dropdown-operation-item")
-            .at(0)
-            .trigger("click");
+        wrapper.findAll(".ve-dropdown-operation-item").at(0).trigger("click");
 
         await later();
 
         expect(wrapper.emitted("on-filter-reset").length).toEqual(1);
         expect(
-            wrapper.emitted("on-filter-reset")[0][0].filter(x => x.selected)
-                .length
+            wrapper.emitted("on-filter-reset")[0][0].filter((x) => x.selected)
+                .length,
         ).toEqual(0);
     });
 });

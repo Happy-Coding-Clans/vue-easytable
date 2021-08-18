@@ -10,36 +10,36 @@ describe("veTable header filter", () => {
             date: "1900-05-20",
             hobby: "coding and coding repeat",
             address: "No.1 Century Avenue, Shanghai",
-            rowkey: 0
+            rowkey: 0,
         },
         {
             name: "Dickerson",
             date: "1910-06-20",
             hobby: "coding and coding repeat",
             address: "No.1 Century Avenue, Beijing",
-            rowkey: 1
+            rowkey: 1,
         },
         {
             name: "Larsen",
             date: "2000-07-20",
             hobby: "coding and coding repeat",
             address: "No.1 Century Avenue, Chongqing",
-            rowkey: 2
+            rowkey: 2,
         },
         {
             name: "Geneva",
             date: "2010-08-20",
             hobby: "coding and coding repeat",
             address: "No.1 Century Avenue, Xiamen",
-            rowkey: 3
+            rowkey: 3,
         },
         {
             name: "Jami",
             date: "2020-09-20",
             hobby: "coding and coding repeat",
             address: "No.1 Century Avenue, Shenzhen",
-            rowkey: 4
-        }
+            rowkey: 4,
+        },
     ];
 
     const mockFilterFn = jest.fn();
@@ -51,7 +51,7 @@ describe("veTable header filter", () => {
             key: "a",
             title: "Name",
             align: "left",
-            width: "15%"
+            width: "15%",
         },
         {
             field: "date",
@@ -66,32 +66,32 @@ describe("veTable header filter", () => {
                     { value: 1, label: "1910-06-20", selected: false },
                     { value: 2, label: "2000-07-20", selected: false },
                     { value: 3, label: "2010-08-20", selected: false },
-                    { value: 4, label: "2020-09-20", selected: false }
+                    { value: 4, label: "2020-09-20", selected: false },
                 ],
                 // filter confirm hook
-                filterConfirm: filterList => {
+                filterConfirm: (filterList) => {
                     mockFilterFn(filterList);
                 },
                 // filter reset hook
-                filterReset: filterList => {
+                filterReset: (filterList) => {
                     mockFilterFn(filterList);
-                }
-            }
+                },
+            },
         },
         {
             field: "hobby",
             key: "c",
             title: "Hobby",
             align: "center",
-            width: "30%"
+            width: "30%",
         },
         {
             field: "address",
             key: "d",
             title: "Address",
             align: "left",
-            width: "40%"
-        }
+            width: "40%",
+        },
     ];
 
     // filter multiple
@@ -109,42 +109,42 @@ describe("veTable header filter", () => {
                     { value: 1, label: "Dickerson", selected: false },
                     { value: 2, label: "Larsen", selected: false },
                     { value: 3, label: "Geneva", selected: false },
-                    { value: 4, label: "Jami", selected: false }
+                    { value: 4, label: "Jami", selected: false },
                 ],
                 isMultiple: true,
                 // filter confirm hook
-                filterConfirm: filterList => {
+                filterConfirm: (filterList) => {
                     mockFilterFn(filterList);
                 },
                 // filter reset hook
-                filterReset: filterList => {
+                filterReset: (filterList) => {
                     mockFilterFn(filterList);
                 },
                 // max height
-                maxHeight: 120
-            }
+                maxHeight: 120,
+            },
         },
         {
             field: "date",
             key: "b",
             title: "Date",
             align: "left",
-            width: "15%"
+            width: "15%",
         },
         {
             field: "hobby",
             key: "c",
             title: "Hobby",
             align: "center",
-            width: "30%"
+            width: "30%",
         },
         {
             field: "address",
             key: "d",
             title: "Address",
             align: "left",
-            width: "40%"
-        }
+            width: "40%",
+        },
     ];
 
     // filter custom icon
@@ -154,7 +154,7 @@ describe("veTable header filter", () => {
             key: "a",
             title: "Name",
             align: "left",
-            width: "15%"
+            width: "15%",
         },
         {
             field: "date",
@@ -169,39 +169,39 @@ describe("veTable header filter", () => {
                     { value: 1, label: "1910-06-20", selected: false },
                     { value: 2, label: "2000-07-20", selected: false },
                     { value: 3, label: "2010-08-20", selected: false },
-                    { value: 4, label: "2020-09-20", selected: false }
+                    { value: 4, label: "2020-09-20", selected: false },
                 ],
                 // filter confirm hook
-                filterConfirm: filterList => {
+                filterConfirm: (filterList) => {
                     const labels = filterList
-                        .filter(x => x.selected)
-                        .map(x => x.label);
+                        .filter((x) => x.selected)
+                        .map((x) => x.label);
                     this.searchByDateField(labels);
                 },
                 // filter reset hook
-                filterReset: filterList => {
+                filterReset: (filterList) => {
                     this.searchByDateField([]);
                 },
                 // custom filter icon
-                filterIcon: h => {
+                filterIcon: (h) => {
                     return <veIcon name="search" />;
-                }
-            }
+                },
+            },
         },
         {
             field: "hobby",
             key: "c",
             title: "Hobby",
             align: "center",
-            width: "30%"
+            width: "30%",
         },
         {
             field: "address",
             key: "d",
             title: "Address",
             align: "left",
-            width: "40%"
-        }
+            width: "40%",
+        },
     ];
 
     it("render single filter", () => {
@@ -209,8 +209,8 @@ describe("veTable header filter", () => {
             propsData: {
                 columns: TABLE_COLUMNS_FILTER_SINGLE,
                 tableData: TABLE_DATA,
-                rowKeyFieldName: "rowkey"
-            }
+                rowKeyFieldName: "rowkey",
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -221,8 +221,8 @@ describe("veTable header filter", () => {
             propsData: {
                 columns: TABLE_COLUMNS_FILTER_MULTIPLE,
                 tableData: TABLE_DATA,
-                rowKeyFieldName: "rowkey"
-            }
+                rowKeyFieldName: "rowkey",
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -233,8 +233,8 @@ describe("veTable header filter", () => {
             propsData: {
                 columns: TABLE_COLUMNS_CUSTOM_ICON,
                 tableData: TABLE_DATA,
-                rowKeyFieldName: "rowkey"
-            }
+                rowKeyFieldName: "rowkey",
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -245,8 +245,8 @@ describe("veTable header filter", () => {
             propsData: {
                 columns: TABLE_COLUMNS_FILTER_SINGLE,
                 tableData: TABLE_DATA,
-                rowKeyFieldName: "rowkey"
-            }
+                rowKeyFieldName: "rowkey",
+            },
         });
 
         const callBackConfirmData = [
@@ -254,7 +254,7 @@ describe("veTable header filter", () => {
             { value: 1, label: "1910-06-20", selected: false },
             { value: 2, label: "2000-07-20", selected: false },
             { value: 3, label: "2010-08-20", selected: false },
-            { value: 4, label: "2020-09-20", selected: false }
+            { value: 4, label: "2020-09-20", selected: false },
         ];
 
         const callBackResetData = [
@@ -262,22 +262,16 @@ describe("veTable header filter", () => {
             { value: 1, label: "1910-06-20", selected: false },
             { value: 2, label: "2000-07-20", selected: false },
             { value: 3, label: "2010-08-20", selected: false },
-            { value: 4, label: "2020-09-20", selected: false }
+            { value: 4, label: "2020-09-20", selected: false },
         ];
 
         // 改变选项
-        wrapper
-            .findAll(".ve-dropdown-items-li")
-            .at(0)
-            .trigger("click");
+        wrapper.findAll(".ve-dropdown-items-li").at(0).trigger("click");
 
         await later();
 
         // confirm btn click
-        wrapper
-            .findAll(".ve-dropdown-operation-item")
-            .at(1)
-            .trigger("click");
+        wrapper.findAll(".ve-dropdown-operation-item").at(1).trigger("click");
 
         await later();
 
@@ -285,10 +279,7 @@ describe("veTable header filter", () => {
         expect(mockFilterFn).toHaveBeenCalledWith(callBackConfirmData);
 
         // reset btn click
-        wrapper
-            .findAll(".ve-dropdown-operation-item")
-            .at(0)
-            .trigger("click");
+        wrapper.findAll(".ve-dropdown-operation-item").at(0).trigger("click");
 
         await later();
 
@@ -301,8 +292,8 @@ describe("veTable header filter", () => {
             propsData: {
                 columns: TABLE_COLUMNS_FILTER_MULTIPLE,
                 tableData: TABLE_DATA,
-                rowKeyFieldName: "rowkey"
-            }
+                rowKeyFieldName: "rowkey",
+            },
         });
 
         const callBackConfirmData = [
@@ -310,7 +301,7 @@ describe("veTable header filter", () => {
             { value: 1, label: "Dickerson", selected: true },
             { value: 2, label: "Larsen", selected: false },
             { value: 3, label: "Geneva", selected: false },
-            { value: 4, label: "Jami", selected: false }
+            { value: 4, label: "Jami", selected: false },
         ];
 
         const callBackResetData = [
@@ -318,22 +309,16 @@ describe("veTable header filter", () => {
             { value: 1, label: "Dickerson", selected: false },
             { value: 2, label: "Larsen", selected: false },
             { value: 3, label: "Geneva", selected: false },
-            { value: 4, label: "Jami", selected: false }
+            { value: 4, label: "Jami", selected: false },
         ];
 
         // 改变选项
-        wrapper
-            .findAll(".ve-checkbox")
-            .at(1)
-            .trigger("click");
+        wrapper.findAll(".ve-checkbox").at(1).trigger("click");
 
         await later();
 
         // confirm btn click
-        wrapper
-            .findAll(".ve-dropdown-operation-item")
-            .at(1)
-            .trigger("click");
+        wrapper.findAll(".ve-dropdown-operation-item").at(1).trigger("click");
 
         await later();
 
@@ -341,10 +326,7 @@ describe("veTable header filter", () => {
         expect(mockFilterFn).toHaveBeenCalledWith(callBackConfirmData);
 
         // reset btn click
-        wrapper
-            .findAll(".ve-dropdown-operation-item")
-            .at(0)
-            .trigger("click");
+        wrapper.findAll(".ve-dropdown-operation-item").at(0).trigger("click");
 
         await later();
 

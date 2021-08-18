@@ -1,4 +1,3 @@
-
 // key codes
 export const KEY_CODES = {
     ENTER: 13,
@@ -6,5 +5,5 @@ export const KEY_CODES = {
     UP: 38,
     DOWN: 40,
     LEFT: 37,
-    RIGHT: 39
+    RIGHT: 39,
 };

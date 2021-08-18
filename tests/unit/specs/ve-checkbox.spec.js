@@ -7,8 +7,8 @@ describe("veCheckbox", () => {
         const wrapper = mount(veCheckbox, {
             propsData: {
                 value: true,
-                label: "orange"
-            }
+                label: "orange",
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -19,8 +19,8 @@ describe("veCheckbox", () => {
             propsData: {
                 value: true,
                 label: "orange",
-                disabled: true
-            }
+                disabled: true,
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -31,8 +31,8 @@ describe("veCheckbox", () => {
             propsData: {
                 value: true,
                 label: "orange",
-                indeterminate: true
-            }
+                indeterminate: true,
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -42,8 +42,8 @@ describe("veCheckbox", () => {
         const wrapper = mount(veCheckbox, {
             propsData: {
                 value: true,
-                label: "orange"
-            }
+                label: "orange",
+            },
         });
 
         expect(wrapper.find(".ve-checkbox-checked").exists()).toBe(true);
@@ -53,8 +53,8 @@ describe("veCheckbox", () => {
         const wrapper = mount(veCheckbox, {
             propsData: {
                 value: true,
-                label: "orange"
-            }
+                label: "orange",
+            },
         });
 
         expect(wrapper.find(".ve-checkbox-label").text()).toBe("orange");
@@ -63,8 +63,8 @@ describe("veCheckbox", () => {
     it("label content slot", () => {
         const wrapper = mount(veCheckbox, {
             slots: {
-                default: "orange"
-            }
+                default: "orange",
+            },
         });
 
         expect(wrapper.find(".ve-checkbox-label").text()).toBe("orange");
@@ -74,8 +74,8 @@ describe("veCheckbox", () => {
         const wrapper = mount(veCheckbox, {
             propsData: {
                 disabled: true,
-                label: "orange"
-            }
+                label: "orange",
+            },
         });
 
         expect(wrapper.find(".ve-checkbox-disabled").exists()).toBe(true);
@@ -86,8 +86,8 @@ describe("veCheckbox", () => {
             propsData: {
                 value: true,
                 disabled: true,
-                label: "orange"
-            }
+                label: "orange",
+            },
         });
         expect(wrapper.find(".ve-checkbox-checked").exists()).toBe(true);
     });
@@ -96,8 +96,8 @@ describe("veCheckbox", () => {
         const wrapper = mount(veCheckbox, {
             propsData: {
                 indeterminate: true,
-                label: "orange"
-            }
+                label: "orange",
+            },
         });
         expect(wrapper.find(".ve-checkbox-indeterminate").exists()).toBe(true);
     });
@@ -106,8 +106,8 @@ describe("veCheckbox", () => {
         const wrapper = mount(veCheckbox, {
             propsData: {
                 isControlled: true,
-                label: "orange"
-            }
+                label: "orange",
+            },
         });
 
         await wrapper.setProps({ isSelected: true });
@@ -122,8 +122,8 @@ describe("veCheckbox", () => {
             propsData: {
                 isControlled: true,
                 isSelected: true,
-                label: "orange"
-            }
+                label: "orange",
+            },
         });
 
         expect(wrapper.find(".ve-checkbox-checked").exists()).toBe(true);
@@ -135,9 +135,9 @@ describe("veCheckbox", () => {
             <ve-checkbox v-model="checkboxValue">orange</ve-checkbox>`,
             data() {
                 return {
-                    checkboxValue: false
+                    checkboxValue: false,
                 };
-            }
+            },
         });
 
         wrapper.find(".ve-checkbox").trigger("click");
@@ -149,8 +149,8 @@ describe("veCheckbox", () => {
         const wrapper = mount(veCheckbox, {
             propsData: {
                 value: false,
-                label: "orange"
-            }
+                label: "orange",
+            },
         });
 
         wrapper.find(".ve-checkbox").trigger("click");

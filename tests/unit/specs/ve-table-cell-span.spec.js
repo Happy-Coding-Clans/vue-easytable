@@ -8,32 +8,32 @@ describe("veTable cell span", () => {
             name: "John",
             date: "1900-05-20",
             hobby: "coding",
-            address: "No.1 Century Avenue, Shanghai"
+            address: "No.1 Century Avenue, Shanghai",
         },
         {
             name: "Dickerson",
             date: "1910-06-20",
             hobby: "coding",
-            address: "No.1 Century Avenue, Beijing"
+            address: "No.1 Century Avenue, Beijing",
         },
         {
             name: "Larsen",
             date: "2000-07-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Chongqing"
+            address: "No.1 Century Avenue, Chongqing",
         },
         {
             name: "Geneva",
             date: "2010-08-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Xiamen"
+            address: "No.1 Century Avenue, Xiamen",
         },
         {
             name: "Jami",
             date: "2020-09-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Shenzhen"
-        }
+            address: "No.1 Century Avenue, Shenzhen",
+        },
     ];
 
     const FOOTER_DATA = [
@@ -42,15 +42,15 @@ describe("veTable cell span", () => {
             name: "平均值",
             date: 213,
             hobby: 355,
-            address: 189
+            address: 189,
         },
         {
             rowkey: 1,
             name: "汇总值",
             date: 1780,
             hobby: 890,
-            address: 2988
-        }
+            address: 2988,
+        },
     ];
 
     const COLUMNS = [
@@ -72,7 +72,7 @@ describe("veTable cell span", () => {
                 }
 
                 return row[column.field];
-            }
+            },
         },
         {
             field: "date",
@@ -92,16 +92,16 @@ describe("veTable cell span", () => {
                 }
 
                 return row[column.field];
-            }
+            },
         },
         {
             field: "hobby",
             key: "c",
             title: "Hobby",
             width: 200,
-            align: "right"
+            align: "right",
         },
-        { field: "address", key: "d", title: "Address", width: "" }
+        { field: "address", key: "d", title: "Address", width: "" },
     ];
 
     const wrapper = mount({
@@ -120,8 +120,8 @@ describe("veTable cell span", () => {
                 footerData: FOOTER_DATA,
                 cellSpanOption: {
                     bodyCellSpan: this.bodyCellSpan,
-                    footerCellSpan: this.footerCellSpan
-                }
+                    footerCellSpan: this.footerCellSpan,
+                },
             };
         },
         methods: {
@@ -132,14 +132,14 @@ describe("veTable cell span", () => {
                     if (column.field === "date") {
                         return {
                             rowspan: 1,
-                            colspan: 2
+                            colspan: 2,
                         };
                     }
                     // does not need to be rendered
                     else if (column.field === "hobby") {
                         return {
                             rowspan: 0,
-                            colspan: 0
+                            colspan: 0,
                         };
                     }
                 }
@@ -149,14 +149,14 @@ describe("veTable cell span", () => {
                     if (rowIndex === 1) {
                         return {
                             rowspan: 2,
-                            colspan: 1
+                            colspan: 1,
                         };
                     }
                     // does not need to be rendered
                     else if (rowIndex === 2) {
                         return {
                             rowspan: 0,
-                            colspan: 0
+                            colspan: 0,
                         };
                     }
                 }
@@ -167,19 +167,19 @@ describe("veTable cell span", () => {
                     if (column.field === "date") {
                         return {
                             rowspan: 1,
-                            colspan: 2
+                            colspan: 2,
                         };
                     }
                     // does not need to be rendered
                     else if (column.field === "hobby") {
                         return {
                             rowspan: 0,
-                            colspan: 0
+                            colspan: 0,
                         };
                     }
                 }
-            }
-        }
+            },
+        },
     });
 
     it("render", () => {
@@ -190,31 +190,19 @@ describe("veTable cell span", () => {
         const spanTrEl = wrapper.findAll(".ve-table-body-tr").at(1);
 
         expect(
-            spanTrEl
-                .findAll(".ve-table-body-td")
-                .at(0)
-                .attributes("rowspan")
+            spanTrEl.findAll(".ve-table-body-td").at(0).attributes("rowspan"),
         ).toBe("2");
 
         expect(
-            spanTrEl
-                .findAll(".ve-table-body-td")
-                .at(0)
-                .attributes("colspan")
+            spanTrEl.findAll(".ve-table-body-td").at(0).attributes("colspan"),
         ).toBe("1");
 
         expect(
-            spanTrEl
-                .findAll(".ve-table-body-td")
-                .at(1)
-                .attributes("rowspan")
+            spanTrEl.findAll(".ve-table-body-td").at(1).attributes("rowspan"),
         ).toBe("1");
 
         expect(
-            spanTrEl
-                .findAll(".ve-table-body-td")
-                .at(1)
-                .attributes("colspan")
+            spanTrEl.findAll(".ve-table-body-td").at(1).attributes("colspan"),
         ).toBe("2");
     });
 
@@ -222,17 +210,11 @@ describe("veTable cell span", () => {
         const spanTrEl = wrapper.findAll(".ve-table-footer-tr").at(0);
 
         expect(
-            spanTrEl
-                .findAll(".ve-table-footer-td")
-                .at(1)
-                .attributes("rowspan")
+            spanTrEl.findAll(".ve-table-footer-td").at(1).attributes("rowspan"),
         ).toBe("1");
 
         expect(
-            spanTrEl
-                .findAll(".ve-table-footer-td")
-                .at(1)
-                .attributes("colspan")
+            spanTrEl.findAll(".ve-table-footer-td").at(1).attributes("colspan"),
         ).toBe("2");
     });
 });

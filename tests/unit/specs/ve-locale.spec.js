@@ -24,12 +24,12 @@ describe("veLocale", () => {
                             "prev",
                             "pager",
                             "next",
-                            "jumper"
+                            "jumper",
                         ]}
                     />
                 </div>
             );
-        }
+        },
     });
     it("render with zhCN", async () => {
         veLocale.use(zhCN);
@@ -50,8 +50,8 @@ describe("veLocale", () => {
     it("render by update method", async () => {
         const lang = {
             pagination: {
-                goto: "跳转到"
-            }
+                goto: "跳转到",
+            },
         };
 
         veLocale.update(lang);

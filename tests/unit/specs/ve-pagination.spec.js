@@ -19,7 +19,7 @@ describe("vePagination", () => {
                                 "prev",
                                 "next",
                                 "sizer",
-                                "jumper"
+                                "jumper",
                             ]}
                         />
                         <vePagination
@@ -30,12 +30,12 @@ describe("vePagination", () => {
                                 "prev",
                                 "pager",
                                 "next",
-                                "jumper"
+                                "jumper",
                             ]}
                         />
                     </div>
                 );
-            }
+            },
         });
         expect(wrapper.html()).toMatchSnapshot();
     });
@@ -44,8 +44,8 @@ describe("vePagination", () => {
         const wrapper = mount(vePagination, {
             propsData: {
                 total: 300,
-                layout: ["total", "prev", "next", "sizer", "jumper"]
-            }
+                layout: ["total", "prev", "next", "sizer", "jumper"],
+            },
         });
 
         // except pager
@@ -55,8 +55,8 @@ describe("vePagination", () => {
     it("total prop", () => {
         const wrapper = mount(vePagination, {
             propsData: {
-                total: 300
-            }
+                total: 300,
+            },
         });
         expect(wrapper.find(".ve-pagination-total").text()).toContain("300");
     });
@@ -65,8 +65,8 @@ describe("vePagination", () => {
         const wrapper = mount(vePagination, {
             propsData: {
                 total: 600,
-                pageIndex: 5
-            }
+                pageIndex: 5,
+            },
         });
 
         expect(wrapper.find(".ve-pagination-li-active").text()).toBe("5");
@@ -77,8 +77,8 @@ describe("vePagination", () => {
             propsData: {
                 total: 600,
                 pageSizeOption: [5, 10, 15],
-                pageSize: 15
-            }
+                pageSize: 15,
+            },
         });
 
         const pageSizeOptionEl = wrapper.findAll(".ve-dropdown-items-li");
@@ -93,12 +93,12 @@ describe("vePagination", () => {
             propsData: {
                 total: 600,
                 pagingCount: 7,
-                pageIndex: 10
-            }
+                pageIndex: 10,
+            },
         });
 
         expect(
-            wrapper.findAll(".ve-pagination-pager .ve-pagination-li").length
+            wrapper.findAll(".ve-pagination-pager .ve-pagination-li").length,
         ).toBe(11);
     });
 
@@ -107,34 +107,34 @@ describe("vePagination", () => {
             propsData: {
                 total: 600,
                 pageSizeOption: [5, 10, 15],
-                pageSize: 15
-            }
+                pageSize: 15,
+            },
         });
 
         expect(wrapper.find(".ve-dropdown-items-li.active").text()).toContain(
-            "15"
+            "15",
         );
     });
 
     it("pageIndex change", async () => {
         const wrapper = mount(vePagination, {
             propsData: {
-                total: 600
-            }
+                total: 600,
+            },
         });
 
         await wrapper.setProps({ pageIndex: 2 });
 
         expect(
-            wrapper.find(".ve-pagination-li-active.ve-pagination-li").text()
+            wrapper.find(".ve-pagination-li-active.ve-pagination-li").text(),
         ).toBe("2");
     });
 
     it("page number btn click operation", async () => {
         const wrapper = mount(vePagination, {
             propsData: {
-                total: 600
-            }
+                total: 600,
+            },
         });
 
         wrapper
@@ -148,19 +148,19 @@ describe("vePagination", () => {
         expect(wrapper.emitted("on-page-number-change")[0]).toEqual([6]);
 
         expect(
-            wrapper.find(".ve-pagination-li-active.ve-pagination-li").text()
+            wrapper.find(".ve-pagination-li-active.ve-pagination-li").text(),
         ).toBe("6");
 
         expect(wrapper.find(".ve-pagination-goto-input").element.value).toBe(
-            "6"
+            "6",
         );
     });
 
     it("next page number btn click operation", async () => {
         const wrapper = mount(vePagination, {
             propsData: {
-                total: 600
-            }
+                total: 600,
+            },
         });
 
         wrapper.find(".ve-pagination-next").trigger("click");
@@ -171,7 +171,7 @@ describe("vePagination", () => {
         expect(wrapper.emitted("on-page-number-change")[0]).toEqual([2]);
 
         expect(
-            wrapper.find(".ve-pagination-li-active.ve-pagination-li").text()
+            wrapper.find(".ve-pagination-li-active.ve-pagination-li").text(),
         ).toBe("2");
     });
 
@@ -179,8 +179,8 @@ describe("vePagination", () => {
         const wrapper = mount(vePagination, {
             propsData: {
                 total: 600,
-                pageIndex: 10
-            }
+                pageIndex: 10,
+            },
         });
 
         wrapper.find(".ve-pagination-prev").trigger("click");
@@ -191,15 +191,15 @@ describe("vePagination", () => {
         expect(wrapper.emitted("on-page-number-change")[0]).toEqual([9]);
 
         expect(
-            wrapper.find(".ve-pagination-li-active.ve-pagination-li").text()
+            wrapper.find(".ve-pagination-li-active.ve-pagination-li").text(),
         ).toBe("9");
     });
 
     it("next5 click operation", async () => {
         const wrapper = mount(vePagination, {
             propsData: {
-                total: 600
-            }
+                total: 600,
+            },
         });
 
         wrapper.find(".ve-pagination-jump-next").trigger("click");
@@ -210,7 +210,7 @@ describe("vePagination", () => {
         expect(wrapper.emitted("on-page-number-change")[0]).toEqual([6]);
 
         expect(
-            wrapper.find(".ve-pagination-li-active.ve-pagination-li").text()
+            wrapper.find(".ve-pagination-li-active.ve-pagination-li").text(),
         ).toBe("6");
     });
 
@@ -218,8 +218,8 @@ describe("vePagination", () => {
         const wrapper = mount(vePagination, {
             propsData: {
                 total: 600,
-                pageIndex: 10
-            }
+                pageIndex: 10,
+            },
         });
 
         wrapper.find(".ve-pagination-jump-prev").trigger("click");
@@ -230,7 +230,7 @@ describe("vePagination", () => {
         expect(wrapper.emitted("on-page-number-change")[0]).toEqual([5]);
 
         expect(
-            wrapper.find(".ve-pagination-li-active.ve-pagination-li").text()
+            wrapper.find(".ve-pagination-li-active.ve-pagination-li").text(),
         ).toBe("5");
     });
 
@@ -239,20 +239,17 @@ describe("vePagination", () => {
             propsData: {
                 total: 600,
                 pageSizeOption: [5, 10, 15],
-                pageSize: 5
-            }
+                pageSize: 5,
+            },
         });
 
-        wrapper
-            .findAll(".ve-dropdown-items-li")
-            .at(1)
-            .trigger("click");
+        wrapper.findAll(".ve-dropdown-items-li").at(1).trigger("click");
 
         expect(wrapper.emitted("on-page-size-change").length).toEqual(1);
         expect(wrapper.emitted("on-page-size-change")[0]).toEqual([10]);
 
         expect(
-            wrapper.find(".ve-pagination-li-active.ve-pagination-li").text()
+            wrapper.find(".ve-pagination-li-active.ve-pagination-li").text(),
         ).toBe("1");
     });
 
@@ -262,8 +259,8 @@ describe("vePagination", () => {
         const wrapper = mount(vePagination, {
             propsData: {
                 total: 600,
-                pageSize: 5
-            }
+                pageSize: 5,
+            },
         });
 
         const textInput = wrapper.find(".ve-pagination-goto-input");
@@ -273,7 +270,7 @@ describe("vePagination", () => {
 
         textInput.element.addEventListener("keyup", mockFn);
         textInput.element.dispatchEvent(
-            new KeyboardEvent("keyup", { keyCode: KEY_CODES.ENTER })
+            new KeyboardEvent("keyup", { keyCode: KEY_CODES.ENTER }),
         );
         /* textInput.trigger("keyup", {
             keyCode: 13
@@ -284,7 +281,7 @@ describe("vePagination", () => {
         expect(mockFn).toBeCalled();
 
         expect(
-            wrapper.find(".ve-pagination-li-active.ve-pagination-li").text()
+            wrapper.find(".ve-pagination-li-active.ve-pagination-li").text(),
         ).toBe("2");
 
         expect(wrapper.emitted("on-page-number-change").length).toEqual(1);

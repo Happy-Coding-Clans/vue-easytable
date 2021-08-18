@@ -9,36 +9,36 @@ describe("veTable row checkbox", () => {
             name: "John",
             date: "1900-05-20",
             hobby: "coding",
-            address: "No.1 Century Avenue, Shanghai"
+            address: "No.1 Century Avenue, Shanghai",
         },
         {
             rowKey: 1002,
             name: "Dickerson",
             date: "1910-06-20",
             hobby: "coding",
-            address: "No.1 Century Avenue, Beijing"
+            address: "No.1 Century Avenue, Beijing",
         },
         {
             rowKey: 1003,
             name: "Larsen",
             date: "2000-07-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Chongqing"
+            address: "No.1 Century Avenue, Chongqing",
         },
         {
             rowKey: 1004,
             name: "Geneva",
             date: "2010-08-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Xiamen"
+            address: "No.1 Century Avenue, Xiamen",
         },
         {
             rowKey: 1005,
             name: "Jami",
             date: "2020-09-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Shenzhen"
-        }
+            address: "No.1 Century Avenue, Shenzhen",
+        },
     ];
 
     const COLUMNS = [
@@ -49,29 +49,29 @@ describe("veTable row checkbox", () => {
             type: "checkbox",
             title: "",
             width: 50,
-            align: "center"
+            align: "center",
         },
         {
             field: "name",
             key: "b",
             title: "Name",
             width: 200,
-            align: "left"
+            align: "left",
         },
         {
             field: "hobby",
             key: "c",
             title: "Hobby",
             width: 300,
-            align: "left"
+            align: "left",
         },
         {
             field: "address",
             key: "d",
             title: "Address",
             width: "",
-            align: "left"
-        }
+            align: "left",
+        },
     ];
 
     it("render", () => {
@@ -80,8 +80,8 @@ describe("veTable row checkbox", () => {
                 columns: COLUMNS,
                 tableData: TABLE_DATA,
                 checkboxOption: {},
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -93,15 +93,15 @@ describe("veTable row checkbox", () => {
                 columns: COLUMNS,
                 tableData: TABLE_DATA,
                 checkboxOption: {},
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         expect(wrapper.find(".ve-table-header-tr .ve-checkbox").exists()).toBe(
-            true
+            true,
         );
         expect(wrapper.find(".ve-table-body-tr .ve-checkbox").exists()).toBe(
-            true
+            true,
         );
     });
 
@@ -111,10 +111,10 @@ describe("veTable row checkbox", () => {
                 columns: COLUMNS,
                 tableData: TABLE_DATA,
                 checkboxOption: {
-                    defaultSelectedRowKeys: [1001, 1003, 1004]
+                    defaultSelectedRowKeys: [1001, 1003, 1004],
                 },
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         await later();
@@ -122,16 +122,16 @@ describe("veTable row checkbox", () => {
         expect(
             wrapper
                 .find(
-                    ".ve-table-header-tr .ve-checkbox .ve-checkbox-indeterminate"
+                    ".ve-table-header-tr .ve-checkbox .ve-checkbox-indeterminate",
                 )
-                .exists()
+                .exists(),
         ).toBe(true);
 
         // checked count
         expect(
             wrapper.findAll(
-                ".ve-table-body-tr .ve-checkbox .ve-checkbox-checked"
-            ).length
+                ".ve-table-body-tr .ve-checkbox .ve-checkbox-checked",
+            ).length,
         ).toBe(3);
     });
 
@@ -144,10 +144,10 @@ describe("veTable row checkbox", () => {
                     // 禁用的选择（禁止勾选或者禁止取消勾选）
                     disableSelectedRowKeys: [1002, 1005],
                     // 默认选择
-                    defaultSelectedRowKeys: [1001, 1003, 1004, 1005]
+                    defaultSelectedRowKeys: [1001, 1003, 1004, 1005],
                 },
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         await later();
@@ -155,23 +155,23 @@ describe("veTable row checkbox", () => {
         expect(
             wrapper
                 .find(
-                    ".ve-table-header-tr .ve-checkbox .ve-checkbox-indeterminate"
+                    ".ve-table-header-tr .ve-checkbox .ve-checkbox-indeterminate",
                 )
-                .exists()
+                .exists(),
         ).toBe(true);
 
         // checked count
         expect(
             wrapper.findAll(
-                ".ve-table-body-tr .ve-checkbox .ve-checkbox-checked"
-            ).length
+                ".ve-table-body-tr .ve-checkbox .ve-checkbox-checked",
+            ).length,
         ).toBe(4);
 
         // disable checked count
         expect(
             wrapper.findAll(
-                ".ve-table-body-tr .ve-checkbox .ve-checkbox-checked.ve-checkbox-disabled"
-            ).length
+                ".ve-table-body-tr .ve-checkbox .ve-checkbox-checked.ve-checkbox-disabled",
+            ).length,
         ).toBe(1);
 
         // disable unchecked count
@@ -181,7 +181,7 @@ describe("veTable row checkbox", () => {
                 .at(1)
                 .find(".ve-checkbox-content")
                 .classes()
-                .includes("ve-checkbox-checked")
+                .includes("ve-checkbox-checked"),
         ).toBe(false);
     });
 
@@ -192,10 +192,10 @@ describe("veTable row checkbox", () => {
                 tableData: TABLE_DATA,
                 checkboxOption: {
                     // 可控属性
-                    selectedRowKeys: [1003]
+                    selectedRowKeys: [1003],
                 },
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         await later();
@@ -203,29 +203,29 @@ describe("veTable row checkbox", () => {
         expect(
             wrapper
                 .find(
-                    ".ve-table-header-tr .ve-checkbox .ve-checkbox-indeterminate"
+                    ".ve-table-header-tr .ve-checkbox .ve-checkbox-indeterminate",
                 )
-                .exists()
+                .exists(),
         ).toBe(true);
 
         expect(
             wrapper.findAll(
-                ".ve-table-body-tr .ve-checkbox .ve-checkbox-checked"
-            ).length
+                ".ve-table-body-tr .ve-checkbox .ve-checkbox-checked",
+            ).length,
         ).toBe(1);
 
         wrapper.setProps({
             checkboxOption: {
-                selectedRowKeys: [1003, 1004]
-            }
+                selectedRowKeys: [1003, 1004],
+            },
         });
 
         await later();
 
         expect(
             wrapper.findAll(
-                ".ve-table-body-tr .ve-checkbox .ve-checkbox-checked"
-            ).length
+                ".ve-table-body-tr .ve-checkbox .ve-checkbox-checked",
+            ).length,
         ).toBe(2);
     });
 
@@ -236,16 +236,16 @@ describe("veTable row checkbox", () => {
                 tableData: TABLE_DATA,
                 checkboxOption: {
                     // 可控属性
-                    hideSelectAll: true
+                    hideSelectAll: true,
                 },
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         await later();
 
         expect(wrapper.find(".ve-table-header-tr .ve-checkbox").exists()).toBe(
-            false
+            false,
         );
     });
 
@@ -260,13 +260,13 @@ describe("veTable row checkbox", () => {
                     selectedRowChange: ({
                         row,
                         isSelected,
-                        selectedRowKeys
+                        selectedRowKeys,
                     }) => {
                         mockFn(row, isSelected, selectedRowKeys);
-                    }
+                    },
                 },
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         wrapper
@@ -293,10 +293,10 @@ describe("veTable row checkbox", () => {
                 checkboxOption: {
                     selectedAllChange: ({ isSelected, selectedRowKeys }) => {
                         mockFn(isSelected, selectedRowKeys);
-                    }
+                    },
                 },
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         wrapper
@@ -309,12 +309,9 @@ describe("veTable row checkbox", () => {
         await later();
 
         expect(mockFn).toHaveBeenCalled();
-        expect(mockFn).toHaveBeenCalledWith(true, [
-            1001,
-            1002,
-            1003,
-            1004,
-            1005
-        ]);
+        expect(mockFn).toHaveBeenCalledWith(
+            true,
+            [1001, 1002, 1003, 1004, 1005],
+        );
     });
 });

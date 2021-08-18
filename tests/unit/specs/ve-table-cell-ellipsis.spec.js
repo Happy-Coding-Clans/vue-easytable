@@ -10,7 +10,7 @@ describe("veTable cell ellipsis", () => {
             hobby: "coding and coding repeat",
             address:
                 "No.1 Century Avenue, Shanghai,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text",
-            rowkey: 0
+            rowkey: 0,
         },
         {
             name: "Dickerson",
@@ -18,7 +18,7 @@ describe("veTable cell ellipsis", () => {
             hobby: "coding and coding repeat",
             address:
                 "No.1 Century Avenue, Beijing,this is a long text,this is a long text,this is a long text,this is a long text",
-            rowkey: 1
+            rowkey: 1,
         },
         {
             name: "Larsen",
@@ -26,7 +26,7 @@ describe("veTable cell ellipsis", () => {
             hobby: "coding and coding repeat",
             address:
                 "No.1 Century Avenue, Chongqing,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text",
-            rowkey: 2
+            rowkey: 2,
         },
         {
             name: "Geneva",
@@ -34,15 +34,15 @@ describe("veTable cell ellipsis", () => {
             hobby: "coding and coding repeat",
             address:
                 "No.1 Century Avenue, Xiamen,this is a long text,this is a long text",
-            rowkey: 3
+            rowkey: 3,
         },
         {
             name: "Jami",
             date: "2020-09-20",
             hobby: "coding and coding repeat",
             address: "No.1 Century Avenue, Shenzhen",
-            rowkey: 4
-        }
+            rowkey: 4,
+        },
     ];
 
     const COLUMNS = [
@@ -51,21 +51,21 @@ describe("veTable cell ellipsis", () => {
             key: "a",
             title: "Name",
             align: "left",
-            width: "15%"
+            width: "15%",
         },
         {
             field: "date",
             key: "b",
             title: "Date",
             align: "left",
-            width: "15%"
+            width: "15%",
         },
         {
             field: "hobby",
             key: "c",
             title: "Hobby",
             align: "center",
-            width: "30%"
+            width: "30%",
         },
         {
             field: "address",
@@ -73,8 +73,8 @@ describe("veTable cell ellipsis", () => {
             title: "Address",
             align: "left",
             width: "40%",
-            ellipsis: {}
-        }
+            ellipsis: {},
+        },
     ];
 
     it("render single line ellipsis", () => {
@@ -82,8 +82,8 @@ describe("veTable cell ellipsis", () => {
             propsData: {
                 columns: COLUMNS,
                 tableData: TABLE_DATA,
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
         expect(wrapper.html()).toMatchSnapshot();
     });
@@ -97,21 +97,21 @@ describe("veTable cell ellipsis", () => {
                         key: "a",
                         title: "Name",
                         align: "left",
-                        width: "15%"
+                        width: "15%",
                     },
                     {
                         field: "date",
                         key: "b",
                         title: "Date",
                         align: "left",
-                        width: "15%"
+                        width: "15%",
                     },
                     {
                         field: "hobby",
                         key: "c",
                         title: "Hobby",
                         align: "center",
-                        width: "30%"
+                        width: "30%",
                     },
                     {
                         field: "address",
@@ -120,15 +120,15 @@ describe("veTable cell ellipsis", () => {
                         align: "left",
                         width: "40%",
                         ellipsis: {
-                            lineClamp: 3
-                        }
-                    }
+                            lineClamp: 3,
+                        },
+                    },
                 ],
                 // table data
                 tableData: TABLE_DATA,
                 rowKeyFieldName: "rowKey",
-                fixedHeader: true
-            }
+                fixedHeader: true,
+            },
         });
 
         await later();
@@ -139,7 +139,7 @@ describe("veTable cell ellipsis", () => {
                 .findAll(".ve-table-body-td")
                 .at(3)
                 .find(".ve-table-body-td-span-ellipsis")
-                .exists()
+                .exists(),
         ).toBe(true);
 
         // doesn't support -webkit-line-clamp style attr

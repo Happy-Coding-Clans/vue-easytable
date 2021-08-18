@@ -9,36 +9,36 @@ describe("veTable row expand", () => {
             name: "John",
             date: "1900-05-20",
             hobby: "coding",
-            address: "No.1 Century Avenue, Shanghai"
+            address: "No.1 Century Avenue, Shanghai",
         },
         {
             rowKey: 1002,
             name: "Dickerson",
             date: "1910-06-20",
             hobby: "coding",
-            address: "No.1 Century Avenue, Beijing"
+            address: "No.1 Century Avenue, Beijing",
         },
         {
             rowKey: 1003,
             name: "Larsen",
             date: "2000-07-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Chongqing"
+            address: "No.1 Century Avenue, Chongqing",
         },
         {
             rowKey: 1004,
             name: "Geneva",
             date: "2010-08-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Xiamen"
+            address: "No.1 Century Avenue, Xiamen",
         },
         {
             rowKey: 1005,
             name: "Jami",
             date: "2020-09-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Shenzhen"
-        }
+            address: "No.1 Century Avenue, Shenzhen",
+        },
     ];
 
     const COLUMNS = [
@@ -49,29 +49,29 @@ describe("veTable row expand", () => {
             type: "expand",
             title: "",
             width: 50,
-            align: "center"
+            align: "center",
         },
         {
             field: "name",
             key: "b",
             title: "Name",
             width: 200,
-            align: "left"
+            align: "left",
         },
         {
             field: "hobby",
             key: "c",
             title: "Hobby",
             width: 300,
-            align: "left"
+            align: "left",
         },
         {
             field: "address",
             key: "d",
             title: "Address",
             width: "",
-            align: "left"
-        }
+            align: "left",
+        },
     ];
 
     it("render", () => {
@@ -87,10 +87,10 @@ describe("veTable row expand", () => {
                         if (row["rowKey"] === 1002) {
                             return false;
                         }
-                    }
+                    },
                 },
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -110,10 +110,10 @@ describe("veTable row expand", () => {
                                 ,I'm living in {row.address}
                             </p>
                         );
-                    }
+                    },
                 },
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         // 默认不渲染节点
@@ -132,7 +132,7 @@ describe("veTable row expand", () => {
                 .findAll(".ve-table-expand-tr")
                 .at(0)
                 .find(".ve-table-expand-td .ve-table-expand-td-content")
-                .exists()
+                .exists(),
         ).toBe(true);
 
         wrapper
@@ -162,10 +162,10 @@ describe("veTable row expand", () => {
                                 ,I'm living in {row.address}
                             </p>
                         );
-                    }
+                    },
                 },
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         wrapper
@@ -182,7 +182,7 @@ describe("veTable row expand", () => {
                 .findAll(".ve-table-expand-tr")
                 .at(0)
                 .find(".ve-table-expand-td .ve-table-expand-td-content")
-                .exists()
+                .exists(),
         ).toBe(true);
     });
 
@@ -201,16 +201,13 @@ describe("veTable row expand", () => {
                                 ,I'm living in {row.address}
                             </p>
                         );
-                    }
+                    },
                 },
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
-        wrapper
-            .findAll(".ve-table-body-tr")
-            .at(0)
-            .trigger("click");
+        wrapper.findAll(".ve-table-body-tr").at(0).trigger("click");
 
         await later();
 
@@ -219,7 +216,7 @@ describe("veTable row expand", () => {
                 .findAll(".ve-table-expand-tr")
                 .at(0)
                 .find(".ve-table-expand-td .ve-table-expand-td-content")
-                .exists()
+                .exists(),
         ).toBe(true);
     });
 
@@ -242,10 +239,10 @@ describe("veTable row expand", () => {
                                 ,I'm living in {row.address}
                             </p>
                         );
-                    }
+                    },
                 },
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         expect(
@@ -253,7 +250,7 @@ describe("veTable row expand", () => {
                 .findAll(".ve-table-body-tr")
                 .at(1)
                 .find(".ve-table-row-expand-icon")
-                .exists()
+                .exists(),
         ).toBe(false);
     });
 
@@ -272,10 +269,10 @@ describe("veTable row expand", () => {
                                 ,I'm living in {row.address}
                             </p>
                         );
-                    }
+                    },
                 },
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         expect(
@@ -283,7 +280,7 @@ describe("veTable row expand", () => {
                 .findAll(".ve-table-body-tr")
                 .at(0)
                 .find(".ve-table-row-expand-icon")
-                .exists()
+                .exists(),
         ).toBe(true);
 
         expect(
@@ -291,7 +288,7 @@ describe("veTable row expand", () => {
                 .findAll(".ve-table-body-tr")
                 .at(2)
                 .find(".ve-table-row-expand-icon")
-                .exists()
+                .exists(),
         ).toBe(true);
     });
 
@@ -310,10 +307,10 @@ describe("veTable row expand", () => {
                                 ,I'm living in {row.address}
                             </p>
                         );
-                    }
+                    },
                 },
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         expect(wrapper.findAll(".ve-table-row-expand-icon").length).toBe(5);
@@ -339,7 +336,7 @@ describe("veTable row expand", () => {
                     beforeExpandRowChange: ({
                         beforeExpandedRowKeys,
                         row,
-                        rowIndex
+                        rowIndex,
                     }) => {
                         if (row["rowKey"] === 1001) {
                             mockFn(false);
@@ -347,11 +344,11 @@ describe("veTable row expand", () => {
                         }
                         mockFn(true);
                         return true;
-                    }
+                    },
                 },
 
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         wrapper
@@ -380,7 +377,7 @@ describe("veTable row expand", () => {
                 // 只要一行
                 .at(0)
                 .find(".ve-table-expand-td .ve-table-expand-td-content")
-                .exists()
+                .exists(),
         ).toBe(true);
     });
 
@@ -404,14 +401,14 @@ describe("veTable row expand", () => {
                     afterExpandRowChange: ({
                         afterExpandedRowKeys,
                         row,
-                        rowIndex
+                        rowIndex,
                     }) => {
                         mockFn();
-                    }
+                    },
                 },
 
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         wrapper
@@ -457,14 +454,14 @@ describe("veTable row expand", () => {
                         afterExpandRowChange: ({
                             afterExpandedRowKeys,
                             row,
-                            rowIndex
+                            rowIndex,
                         }) => {
                             mockFn(afterExpandedRowKeys);
                             this.changeExpandedRowKeys(afterExpandedRowKeys);
-                        }
+                        },
                     },
                     columns: COLUMNS,
-                    tableData: TABLE_DATA
+                    tableData: TABLE_DATA,
                 };
             },
             methods: {
@@ -476,8 +473,8 @@ describe("veTable row expand", () => {
                 // 切换展开行
                 expandRow(key) {
                     this.expandOption.expandedRowKeys.push(key);
-                }
-            }
+                },
+            },
         });
 
         expect(
@@ -485,7 +482,7 @@ describe("veTable row expand", () => {
                 .findAll(".ve-table-expand-tr")
                 .at(0)
                 .find(".ve-table-expand-td .ve-table-expand-td-content")
-                .exists()
+                .exists(),
         ).toBe(true);
 
         wrapper.find(".button-demo").trigger("click");
@@ -497,7 +494,7 @@ describe("veTable row expand", () => {
                 .findAll(".ve-table-expand-tr")
                 .at(1)
                 .find(".ve-table-expand-td .ve-table-expand-td-content")
-                .exists()
+                .exists(),
         ).toBe(true);
 
         wrapper

@@ -8,32 +8,32 @@ describe("veTable cell align", () => {
             name: "John",
             date: "1900-05-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Shanghai"
+            address: "No.1 Century Avenue, Shanghai",
         },
         {
             name: "Dickerson",
             date: "1910-06-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Beijing"
+            address: "No.1 Century Avenue, Beijing",
         },
         {
             name: "Larsen",
             date: "2000-07-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Chongqing"
+            address: "No.1 Century Avenue, Chongqing",
         },
         {
             name: "Geneva",
             date: "2010-08-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Xiamen"
+            address: "No.1 Century Avenue, Xiamen",
         },
         {
             name: "Jami",
             date: "2020-09-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Shenzhen"
-        }
+            address: "No.1 Century Avenue, Shenzhen",
+        },
     ];
 
     const columns = [
@@ -41,26 +41,26 @@ describe("veTable cell align", () => {
             field: "name",
             key: "a",
             title: "Name",
-            align: "center"
+            align: "center",
         },
         {
             field: "date",
             key: "b",
             title: "Date",
-            align: "left"
+            align: "left",
         },
         {
             field: "hobby",
             key: "c",
             title: "Hobby",
-            align: "right"
+            align: "right",
         },
         {
             field: "address",
             key: "d",
             title: "Address",
-            align: "left"
-        }
+            align: "left",
+        },
     ];
 
     it("render", () => {
@@ -77,9 +77,9 @@ describe("veTable cell align", () => {
             data() {
                 return {
                     columns: columns,
-                    tableData: TABLE_DATA
+                    tableData: TABLE_DATA,
                 };
-            }
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -99,17 +99,17 @@ describe("veTable cell align", () => {
             data() {
                 return {
                     columns: columns,
-                    tableData: TABLE_DATA
+                    tableData: TABLE_DATA,
                 };
-            }
+            },
         });
 
         // th
         const thEls = wrapper.findAll(
-            ".ve-table-header-tr .ve-table-header-th"
+            ".ve-table-header-tr .ve-table-header-th",
         );
         expect(thEls.at(0).attributes("style")).toContain(
-            "text-align: center;"
+            "text-align: center;",
         );
         expect(thEls.at(1).attributes("style")).toContain("text-align: left;");
         expect(thEls.at(2).attributes("style")).toContain("text-align: right;");
@@ -120,7 +120,7 @@ describe("veTable cell align", () => {
             .at(0)
             .findAll(".ve-table-body-td");
         expect(tdEls.at(0).attributes("style")).toContain(
-            "text-align: center;"
+            "text-align: center;",
         );
         expect(tdEls.at(1).attributes("style")).toContain("text-align: left;");
         expect(tdEls.at(2).attributes("style")).toContain("text-align: right;");

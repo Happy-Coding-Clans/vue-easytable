@@ -10,7 +10,7 @@ describe("veIcon", () => {
             <ve-icon name="double-right-arrow" />
             <ve-icon name="double-right-arrow" color="blue" />
             <ve-icon name="double-right-arrow" :size="40" />
-          </div>`
+          </div>`,
         });
         expect(wrapper.html()).toMatchSnapshot();
     });
@@ -19,8 +19,8 @@ describe("veIcon", () => {
         const wrapper = mount(veIcon, {
             propsData: {
                 name: "double-right-arrow",
-                color: "red"
-            }
+                color: "red",
+            },
         });
 
         expect(wrapper.attributes("style")).toBe("color: red;");
@@ -30,8 +30,8 @@ describe("veIcon", () => {
         const wrapper = mount(veIcon, {
             propsData: {
                 name: "double-right-arrow",
-                size: 50
-            }
+                size: 50,
+            },
         });
         expect(wrapper.attributes("style")).toBe("font-size: 50px;");
     });
@@ -53,11 +53,11 @@ describe("veIcon", () => {
         it("warning on error icon name", () => {
             const wrapper = mount(veIcon, {
                 propsData: {
-                    name: errorIconName
-                }
+                    name: errorIconName,
+                },
             });
             expect(errorSpy).toBeCalledWith(
-                `${errorIconName} is not found in VeIcon.`
+                `${errorIconName} is not found in VeIcon.`,
             );
         });
     });

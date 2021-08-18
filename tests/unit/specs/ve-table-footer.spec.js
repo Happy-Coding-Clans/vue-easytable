@@ -9,36 +9,36 @@ describe("veTable footer", () => {
             name: "John",
             date: "1900-05-20",
             hobby: "coding",
-            address: "No.1 Century Avenue, Shanghai"
+            address: "No.1 Century Avenue, Shanghai",
         },
         {
             rowKey: 1002,
             name: "Dickerson",
             date: "1910-06-20",
             hobby: "coding",
-            address: "No.1 Century Avenue, Beijing"
+            address: "No.1 Century Avenue, Beijing",
         },
         {
             rowKey: 1003,
             name: "Larsen",
             date: "2000-07-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Chongqing"
+            address: "No.1 Century Avenue, Chongqing",
         },
         {
             rowKey: 1004,
             name: "Geneva",
             date: "2010-08-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Xiamen"
+            address: "No.1 Century Avenue, Xiamen",
         },
         {
             rowKey: 1005,
             name: "Jami",
             date: "2020-09-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Shenzhen"
-        }
+            address: "No.1 Century Avenue, Shenzhen",
+        },
     ];
 
     const FOOTER_DATA = [
@@ -47,15 +47,15 @@ describe("veTable footer", () => {
             name: "平均值",
             date: 213,
             hobby: 355,
-            address: 189
+            address: 189,
         },
         {
             rowkey: 1,
             name: "汇总值",
             date: 1780,
             hobby: 890,
-            address: 2988
-        }
+            address: 2988,
+        },
     ];
 
     const COLUMNS = [
@@ -71,21 +71,21 @@ describe("veTable footer", () => {
                         {row.name}
                     </span>
                 );
-            }
+            },
         },
         {
             field: "date",
             key: "b",
             title: "Date",
-            align: "left"
+            align: "left",
         },
         {
             field: "hobby",
             key: "c",
             title: "Hobby",
-            align: "center"
+            align: "center",
         },
-        { field: "address", key: "d", title: "Address", align: "left" }
+        { field: "address", key: "d", title: "Address", align: "left" },
     ];
 
     it("render", () => {
@@ -94,8 +94,8 @@ describe("veTable footer", () => {
                 columns: COLUMNS,
                 tableData: TABLE_DATA,
                 footerData: FOOTER_DATA,
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -107,8 +107,8 @@ describe("veTable footer", () => {
                 columns: COLUMNS,
                 tableData: TABLE_DATA,
                 footerData: FOOTER_DATA,
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         expect(
@@ -116,7 +116,7 @@ describe("veTable footer", () => {
                 .findAll(".ve-table-footer-tr")
                 .at(0)
                 .findAll(".ve-table-footer-td .text-bold")
-                .exists()
+                .exists(),
         ).toBe(true);
     });
 
@@ -136,9 +136,9 @@ describe("veTable footer", () => {
                         if (column.field === "date" && rowIndex === 1) {
                             return "table-footer-cell-class2";
                         }
-                    }
-                }
-            }
+                    },
+                },
+            },
         });
 
         expect(
@@ -148,7 +148,7 @@ describe("veTable footer", () => {
                 .findAll(".ve-table-footer-td")
                 .at(3)
                 .find(".table-footer-cell-class1")
-                .exists()
+                .exists(),
         ).toBe(true);
 
         expect(
@@ -158,7 +158,7 @@ describe("veTable footer", () => {
                 .findAll(".ve-table-footer-td")
                 .at(1)
                 .find(".table-footer-cell-class2")
-                .exists()
+                .exists(),
         ).toBe(true);
     });
 
@@ -175,20 +175,20 @@ describe("veTable footer", () => {
                             if (column.field === "date") {
                                 return {
                                     rowspan: 1,
-                                    colspan: 2
+                                    colspan: 2,
                                 };
                             }
                             // does not need to be rendered
                             else if (column.field === "hobby") {
                                 return {
                                     rowspan: 0,
-                                    colspan: 0
+                                    colspan: 0,
                                 };
                             }
                         }
-                    }
-                }
-            }
+                    },
+                },
+            },
         });
 
         const tdEl = wrapper
@@ -218,25 +218,25 @@ describe("veTable footer", () => {
                 eventCustomOption: {
                     footerRowEvents: ({ row, rowIndex }) => {
                         return {
-                            click: event => {
+                            click: (event) => {
                                 mockClickFn(row, rowIndex, event);
                             },
-                            dblclick: event => {
+                            dblclick: (event) => {
                                 mockDblclickFn(row, rowIndex, event);
                             },
-                            contextmenu: event => {
+                            contextmenu: (event) => {
                                 mockContextmenuFn(row, rowIndex, event);
                             },
-                            mouseenter: event => {
+                            mouseenter: (event) => {
                                 mockMouseenterFn(row, rowIndex, event);
                             },
-                            mouseleave: event => {
+                            mouseleave: (event) => {
                                 mockMouseleaveFn(row, rowIndex, event);
-                            }
+                            },
                         };
-                    }
-                }
-            }
+                    },
+                },
+            },
         });
 
         const firstTrEl = wrapper.findAll(".ve-table-footer-tr").at(0);
@@ -245,35 +245,35 @@ describe("veTable footer", () => {
         expect(mockClickFn).toBeCalledWith(
             FOOTER_DATA[0],
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
 
         firstTrEl.trigger("dblclick");
         expect(mockDblclickFn).toBeCalledWith(
             FOOTER_DATA[0],
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
 
         firstTrEl.trigger("contextmenu");
         expect(mockContextmenuFn).toBeCalledWith(
             FOOTER_DATA[0],
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
 
         firstTrEl.trigger("mouseenter");
         expect(mockMouseenterFn).toBeCalledWith(
             FOOTER_DATA[0],
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
 
         firstTrEl.trigger("mouseleave");
         expect(mockMouseleaveFn).toBeCalledWith(
             FOOTER_DATA[0],
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
     });
 
@@ -293,25 +293,25 @@ describe("veTable footer", () => {
                 eventCustomOption: {
                     footerCellEvents: ({ row, column, rowIndex }) => {
                         return {
-                            click: event => {
+                            click: (event) => {
                                 mockClickFn(row, column, rowIndex, event);
                             },
-                            dblclick: event => {
+                            dblclick: (event) => {
                                 mockDblclickFn(row, column, rowIndex, event);
                             },
-                            contextmenu: event => {
+                            contextmenu: (event) => {
                                 mockContextmenuFn(row, column, rowIndex, event);
                             },
-                            mouseenter: event => {
+                            mouseenter: (event) => {
                                 mockMouseenterFn(row, column, rowIndex, event);
                             },
-                            mouseleave: event => {
+                            mouseleave: (event) => {
                                 mockMouseleaveFn(row, column, rowIndex, event);
-                            }
+                            },
                         };
-                    }
-                }
-            }
+                    },
+                },
+            },
         });
 
         const firstTrTdEl = wrapper
@@ -325,7 +325,7 @@ describe("veTable footer", () => {
             FOOTER_DATA[0],
             expect.any(Object),
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
 
         firstTrTdEl.trigger("dblclick");
@@ -333,7 +333,7 @@ describe("veTable footer", () => {
             FOOTER_DATA[0],
             expect.any(Object),
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
 
         firstTrTdEl.trigger("contextmenu");
@@ -341,7 +341,7 @@ describe("veTable footer", () => {
             FOOTER_DATA[0],
             expect.any(Object),
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
 
         firstTrTdEl.trigger("mouseenter");
@@ -349,7 +349,7 @@ describe("veTable footer", () => {
             FOOTER_DATA[0],
             expect.any(Object),
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
 
         firstTrTdEl.trigger("mouseleave");
@@ -357,7 +357,7 @@ describe("veTable footer", () => {
             FOOTER_DATA[0],
             expect.any(Object),
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
     });
 
@@ -368,12 +368,12 @@ describe("veTable footer", () => {
                 tableData: TABLE_DATA,
                 footerData: FOOTER_DATA,
                 rowKeyFieldName: "rowKey",
-                fixedFooter: false
-            }
+                fixedFooter: false,
+            },
         });
 
         expect(
-            wrapper.findAll(".ve-table-fixed-footer .ve-table-footer").exists()
+            wrapper.findAll(".ve-table-fixed-footer .ve-table-footer").exists(),
         ).toBe(false);
     });
 
@@ -387,19 +387,19 @@ describe("veTable footer", () => {
                         title: "Name",
                         align: "center",
                         fixed: "left",
-                        width: 200
+                        width: 200,
                     },
                     {
                         field: "date",
                         key: "b",
                         title: "Date",
-                        align: "left"
+                        align: "left",
                     },
                     {
                         field: "hobby",
                         key: "c",
                         title: "Hobby",
-                        align: "center"
+                        align: "center",
                     },
                     {
                         field: "address",
@@ -407,33 +407,33 @@ describe("veTable footer", () => {
                         title: "Address",
                         align: "left",
                         fixed: "right",
-                        width: 200
-                    }
+                        width: 200,
+                    },
                 ],
                 tableData: TABLE_DATA,
                 footerData: FOOTER_DATA,
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         expect(
-            wrapper.find(".ve-table-header-th.ve-table-fixed-left").exists()
+            wrapper.find(".ve-table-header-th.ve-table-fixed-left").exists(),
         ).toBe(true);
 
         expect(
             wrapper
                 .find(
-                    ".ve-table-body-td.ve-table-fixed-left.ve-table-last-left-fixed-column"
+                    ".ve-table-body-td.ve-table-fixed-left.ve-table-last-left-fixed-column",
                 )
-                .exists()
+                .exists(),
         ).toBe(true);
 
         expect(
             wrapper
                 .find(
-                    ".ve-table-body-td.ve-table-fixed-right.ve-table-first-right-fixed-column"
+                    ".ve-table-body-td.ve-table-fixed-right.ve-table-first-right-fixed-column",
                 )
-                .exists()
+                .exists(),
         ).toBe(true);
     });
 });

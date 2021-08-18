@@ -10,36 +10,36 @@ describe("veTable cell selection", () => {
             date: "1900-05-20",
             hobby: "coding",
             address: "No.1 Century Avenue, Shanghai",
-            rowKey: "1"
+            rowKey: "1",
         },
         {
             name: "Dickerson",
             date: "1910-06-20",
             hobby: "coding",
             address: "No.1 Century Avenue, Beijing",
-            rowKey: "2"
+            rowKey: "2",
         },
         {
             name: "Larsen",
             date: "2000-07-20",
             hobby: "coding and coding repeat",
             address: "No.1 Century Avenue, Chongqing",
-            rowKey: "3"
+            rowKey: "3",
         },
         {
             name: "Geneva",
             date: "2010-08-20",
             hobby: "coding and coding repeat",
             address: "No.1 Century Avenue, Xiamen",
-            rowKey: "4"
+            rowKey: "4",
         },
         {
             name: "Jami",
             date: "2020-09-20",
             hobby: "coding and coding repeat",
             address: "No.1 Century Avenue, Shenzhen",
-            rowKey: "5"
-        }
+            rowKey: "5",
+        },
     ];
 
     const COLUMNS = [
@@ -48,23 +48,23 @@ describe("veTable cell selection", () => {
             key: "a",
             title: "Name",
             align: "left",
-            width: "20%"
+            width: "20%",
         },
         {
             field: "date",
             key: "b",
             title: "Date",
             align: "left",
-            width: "20%"
+            width: "20%",
         },
         {
             field: "hobby",
             key: "c",
             title: "Hobby",
             align: "center",
-            width: "30%"
+            width: "30%",
         },
-        { field: "address", key: "d", title: "Address", width: "30%" }
+        { field: "address", key: "d", title: "Address", width: "30%" },
     ];
 
     const WRAPPER = mount(veTable, {
@@ -73,10 +73,10 @@ describe("veTable cell selection", () => {
             tableData: TABLE_DATA,
             cellSelectionOption: {
                 // default true
-                enable: true
+                enable: true,
             },
-            rowKeyFieldName: "rowKey"
-        }
+            rowKeyFieldName: "rowKey",
+        },
     });
 
     it("render", () => {
@@ -102,7 +102,7 @@ describe("veTable cell selection", () => {
 
         document.addEventListener("keydown", mockFn);
         document.dispatchEvent(
-            new KeyboardEvent("keydown", { keyCode: KEY_CODES.DOWN })
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.DOWN }),
         );
         /* WRAPPER.trigger("keydown", {
             keyCode: 40
@@ -111,7 +111,7 @@ describe("veTable cell selection", () => {
         await later();
         expect(mockFn).toBeCalled();
         expect(firstTrTdEl.find(".ve-table-cell-selection").exists()).toBe(
-            false
+            false,
         );
 
         expect(
@@ -119,11 +119,11 @@ describe("veTable cell selection", () => {
                 .at(1)
                 .findAll(".ve-table-body-td")
                 .at(2)
-                .classes()
+                .classes(),
         ).toContain("ve-table-cell-selection");
 
         document.dispatchEvent(
-            new KeyboardEvent("keydown", { keyCode: KEY_CODES.LEFT })
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.LEFT }),
         );
 
         await later();
@@ -132,11 +132,11 @@ describe("veTable cell selection", () => {
                 .at(1)
                 .findAll(".ve-table-body-td")
                 .at(1)
-                .classes()
+                .classes(),
         ).toContain("ve-table-cell-selection");
 
         document.dispatchEvent(
-            new KeyboardEvent("keydown", { keyCode: KEY_CODES.UP })
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.UP }),
         );
 
         await later();
@@ -145,11 +145,11 @@ describe("veTable cell selection", () => {
                 .at(0)
                 .findAll(".ve-table-body-td")
                 .at(1)
-                .classes()
+                .classes(),
         ).toContain("ve-table-cell-selection");
 
         document.dispatchEvent(
-            new KeyboardEvent("keydown", { keyCode: KEY_CODES.RIGHT })
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.RIGHT }),
         );
 
         await later();
@@ -158,7 +158,7 @@ describe("veTable cell selection", () => {
                 .at(0)
                 .findAll(".ve-table-body-td")
                 .at(2)
-                .classes()
+                .classes(),
         ).toContain("ve-table-cell-selection");
     });
 

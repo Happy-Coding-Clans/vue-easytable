@@ -9,36 +9,36 @@ describe("veTable header paging", () => {
             age: 25,
             weight: 66,
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Shanghai"
+            address: "No.1 Century Avenue, Shanghai",
         },
         {
             name: "Dickerson",
             age: 20,
             weight: 70,
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Beijing"
+            address: "No.1 Century Avenue, Beijing",
         },
         {
             name: "Larsen",
             age: 18,
             weight: 65,
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Chongqing"
+            address: "No.1 Century Avenue, Chongqing",
         },
         {
             name: "Geneva",
             age: 17,
             weight: 80,
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Xiamen"
+            address: "No.1 Century Avenue, Xiamen",
         },
         {
             name: "Jami",
             age: 26,
             weight: 72,
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Shenzhen"
-        }
+            address: "No.1 Century Avenue, Shenzhen",
+        },
     ];
 
     it("render single field paging", () => {
@@ -47,29 +47,29 @@ describe("veTable header paging", () => {
                 field: "name",
                 key: "a",
                 title: "Name",
-                align: "left"
+                align: "left",
             },
             {
                 field: "age",
                 key: "b",
                 title: "Age",
                 align: "center",
-                sortBy: ""
+                sortBy: "",
             },
             {
                 field: "weight",
                 key: "c",
                 title: "Weight(kg)",
                 align: "center",
-                sortBy: "asc"
+                sortBy: "asc",
             },
             {
                 field: "hobby",
                 key: "d",
                 title: "Hobby",
-                align: "center"
+                align: "center",
             },
-            { field: "address", key: "e", title: "Address", align: "left" }
+            { field: "address", key: "e", title: "Address", align: "left" },
         ];
 
         const wrapper = mount({
@@ -88,10 +88,10 @@ describe("veTable header paging", () => {
                     columns: columns,
                     tableData: TABLE_DATA,
                     sortOption: {
-                        sortChange: params => {}
-                    }
+                        sortChange: (params) => {},
+                    },
                 };
-            }
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -103,29 +103,29 @@ describe("veTable header paging", () => {
                 field: "name",
                 key: "a",
                 title: "Name",
-                align: "left"
+                align: "left",
             },
             {
                 field: "age",
                 key: "b",
                 title: "Age",
                 align: "center",
-                sortBy: ""
+                sortBy: "",
             },
             {
                 field: "weight",
                 key: "c",
                 title: "Weight(kg)",
                 align: "center",
-                sortBy: "asc"
+                sortBy: "asc",
             },
             {
                 field: "hobby",
                 key: "d",
                 title: "Hobby",
-                align: "center"
+                align: "center",
             },
-            { field: "address", key: "e", title: "Address", align: "left" }
+            { field: "address", key: "e", title: "Address", align: "left" },
         ];
 
         const wrapper = mount({
@@ -145,10 +145,10 @@ describe("veTable header paging", () => {
                     tableData: TABLE_DATA,
                     sortOption: {
                         multipleSort: true,
-                        sortChange: params => {}
-                    }
+                        sortChange: (params) => {},
+                    },
                 };
-            }
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -160,35 +160,35 @@ describe("veTable header paging", () => {
                 field: "name",
                 key: "a",
                 title: "Name",
-                align: "left"
+                align: "left",
             },
             {
                 field: "age",
                 key: "b",
                 title: "Age",
                 align: "center",
-                sortBy: ""
+                sortBy: "",
             },
             {
                 field: "weight",
                 key: "c",
                 title: "Weight(kg)",
                 align: "center",
-                sortBy: "asc"
+                sortBy: "asc",
             },
             {
                 field: "hobby",
                 key: "d",
                 title: "Hobby",
-                align: "center"
+                align: "center",
             },
-            { field: "address", key: "e", title: "Address", align: "left" }
+            { field: "address", key: "e", title: "Address", align: "left" },
         ];
 
         const mockFn = jest.fn();
         const callBackData = {
             age: "asc",
-            weight: ""
+            weight: "",
         };
 
         const wrapper = mount(veTable, {
@@ -196,21 +196,16 @@ describe("veTable header paging", () => {
                 columns: columns,
                 tableData: TABLE_DATA,
                 sortOption: {
-                    sortChange: params => {
+                    sortChange: (params) => {
                         mockFn(params);
-                    }
+                    },
                 },
-                rowKeyFieldName: "rowkey"
-            }
+                rowKeyFieldName: "rowkey",
+            },
         });
 
         const thEls = wrapper.findAll(".ve-table-header-tr th");
-        expect(
-            thEls
-                .at(1)
-                .find(".ve-table-sort")
-                .exists()
-        ).toBe(true);
+        expect(thEls.at(1).find(".ve-table-sort").exists()).toBe(true);
 
         expect(
             thEls
@@ -218,13 +213,10 @@ describe("veTable header paging", () => {
                 .findAll(".ve-table-sort .ve-table-sort-icon")
                 .at(0)
                 .find(".active")
-                .exists()
+                .exists(),
         ).toBe(true);
 
-        thEls
-            .at(1)
-            .find(".ve-table-sort")
-            .trigger("click");
+        thEls.at(1).find(".ve-table-sort").trigger("click");
 
         await later();
 
@@ -237,7 +229,7 @@ describe("veTable header paging", () => {
                 .findAll(".ve-table-sort .ve-table-sort-icon")
                 .at(0)
                 .find(".active")
-                .exists()
+                .exists(),
         ).toBe(true);
     });
 
@@ -247,35 +239,35 @@ describe("veTable header paging", () => {
                 field: "name",
                 key: "a",
                 title: "Name",
-                align: "left"
+                align: "left",
             },
             {
                 field: "age",
                 key: "b",
                 title: "Age",
                 align: "center",
-                sortBy: ""
+                sortBy: "",
             },
             {
                 field: "weight",
                 key: "c",
                 title: "Weight(kg)",
                 align: "center",
-                sortBy: "asc"
+                sortBy: "asc",
             },
             {
                 field: "hobby",
                 key: "d",
                 title: "Hobby",
-                align: "center"
+                align: "center",
             },
-            { field: "address", key: "e", title: "Address", align: "left" }
+            { field: "address", key: "e", title: "Address", align: "left" },
         ];
 
         const mockFn = jest.fn();
         const callBackData = {
             age: "asc",
-            weight: "asc"
+            weight: "asc",
         };
 
         const wrapper = mount(veTable, {
@@ -284,21 +276,16 @@ describe("veTable header paging", () => {
                 tableData: TABLE_DATA,
                 sortOption: {
                     multipleSort: true,
-                    sortChange: params => {
+                    sortChange: (params) => {
                         mockFn(params);
-                    }
+                    },
                 },
-                rowKeyFieldName: "rowkey"
-            }
+                rowKeyFieldName: "rowkey",
+            },
         });
 
         const thEls = wrapper.findAll(".ve-table-header-tr th");
-        expect(
-            thEls
-                .at(1)
-                .find(".ve-table-sort")
-                .exists()
-        ).toBe(true);
+        expect(thEls.at(1).find(".ve-table-sort").exists()).toBe(true);
 
         expect(
             thEls
@@ -306,13 +293,10 @@ describe("veTable header paging", () => {
                 .findAll(".ve-table-sort .ve-table-sort-icon")
                 .at(0)
                 .find(".active")
-                .exists()
+                .exists(),
         ).toBe(true);
 
-        thEls
-            .at(1)
-            .find(".ve-table-sort")
-            .trigger("click");
+        thEls.at(1).find(".ve-table-sort").trigger("click");
 
         await later();
 
@@ -320,7 +304,7 @@ describe("veTable header paging", () => {
         expect(mockFn).toHaveBeenCalledWith(callBackData);
 
         expect(
-            wrapper.findAll(".ve-table-sort .ve-table-sort-icon.active").length
+            wrapper.findAll(".ve-table-sort .ve-table-sort-icon.active").length,
         ).toBe(2);
     });
 
@@ -330,29 +314,29 @@ describe("veTable header paging", () => {
                 field: "name",
                 key: "a",
                 title: "Name",
-                align: "left"
+                align: "left",
             },
             {
                 field: "age",
                 key: "b",
                 title: "Age",
                 align: "center",
-                sortBy: ""
+                sortBy: "",
             },
             {
                 field: "weight",
                 key: "c",
                 title: "Weight(kg)",
                 align: "center",
-                sortBy: "asc"
+                sortBy: "asc",
             },
             {
                 field: "hobby",
                 key: "d",
                 title: "Hobby",
-                align: "center"
+                align: "center",
             },
-            { field: "address", key: "e", title: "Address", align: "left" }
+            { field: "address", key: "e", title: "Address", align: "left" },
         ];
 
         const mockFn = jest.fn();
@@ -363,38 +347,32 @@ describe("veTable header paging", () => {
                 tableData: TABLE_DATA,
                 sortOption: {
                     sortAlways: true,
-                    sortChange: params => {
+                    sortChange: (params) => {
                         mockFn(params);
-                    }
+                    },
                 },
-                rowKeyFieldName: "rowkey"
-            }
+                rowKeyFieldName: "rowkey",
+            },
         });
 
         const thEls = wrapper.findAll(".ve-table-header-tr th");
 
-        thEls
-            .at(1)
-            .find(".ve-table-sort")
-            .trigger("click");
+        thEls.at(1).find(".ve-table-sort").trigger("click");
 
         await later();
 
         expect(mockFn).toHaveBeenCalledWith({
             age: "asc",
-            weight: ""
+            weight: "",
         });
 
-        thEls
-            .at(1)
-            .find(".ve-table-sort")
-            .trigger("click");
+        thEls.at(1).find(".ve-table-sort").trigger("click");
 
         await later();
 
         expect(mockFn).toHaveBeenCalledWith({
             age: "desc",
-            weight: ""
+            weight: "",
         });
     });
 });

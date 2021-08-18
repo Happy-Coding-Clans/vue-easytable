@@ -7,14 +7,14 @@ describe("veSelect", () => {
     const SELECT_ITEMS = [
         { value: 0, label: "Apple" },
         { value: 1, label: "Orange", selected: true },
-        { value: 2, label: "Banana" }
+        { value: 2, label: "Banana" },
     ];
 
     it("render by value prop", () => {
         const wrapper = mount({
             render() {
                 return <veSelect value={SELECT_ITEMS} placeholder="姓名" />;
-            }
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -30,7 +30,7 @@ describe("veSelect", () => {
                         isMultiple
                     />
                 );
-            }
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -42,7 +42,7 @@ describe("veSelect", () => {
                 return (
                     <veSelect value={SELECT_ITEMS} placeholder="姓名" isInput />
                 );
-            }
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -52,12 +52,12 @@ describe("veSelect", () => {
         const wrapper = mount(veSelect, {
             propsData: {
                 value: SELECT_ITEMS,
-                width: 120
-            }
+                width: 120,
+            },
         });
 
         expect(
-            wrapper.find(".ve-dropdown-dt-selected").attributes("style")
+            wrapper.find(".ve-dropdown-dt-selected").attributes("style"),
         ).toBe("width: 120px;");
     });
 
@@ -65,8 +65,8 @@ describe("veSelect", () => {
         const wrapper = mount(veSelect, {
             propsData: {
                 value: SELECT_ITEMS,
-                isMultiple: true
-            }
+                isMultiple: true,
+            },
         });
 
         expect(wrapper.findAll(".ve-dropdown-items-multiple").length).toBe(3);
@@ -76,8 +76,8 @@ describe("veSelect", () => {
         const wrapper = mount(veSelect, {
             propsData: {
                 value: SELECT_ITEMS,
-                isInput: true
-            }
+                isInput: true,
+            },
         });
 
         expect(wrapper.find(".ve-select-input").exists()).toBe(true);
@@ -86,19 +86,16 @@ describe("veSelect", () => {
     it("on-select-change emit event", async () => {
         const wrapper = mount(veSelect, {
             propsData: {
-                value: SELECT_ITEMS
-            }
+                value: SELECT_ITEMS,
+            },
         });
 
-        wrapper
-            .findAll(".ve-dropdown-items-li")
-            .at(1)
-            .trigger("click");
+        wrapper.findAll(".ve-dropdown-items-li").at(1).trigger("click");
 
         expect(wrapper.emitted("on-select-change").length).toEqual(1);
         expect(
-            wrapper.emitted("on-select-change")[0][0].find(x => x.selected)
-                .label
+            wrapper.emitted("on-select-change")[0][0].find((x) => x.selected)
+                .label,
         ).toBe("Orange");
     });
 });

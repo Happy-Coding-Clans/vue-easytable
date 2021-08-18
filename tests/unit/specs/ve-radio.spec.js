@@ -33,9 +33,9 @@ describe("veRadio", () => {
             data() {
                 return {
                     checked: true,
-                    unChecked: false
+                    unChecked: false,
                 };
-            }
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -44,8 +44,8 @@ describe("veRadio", () => {
     it("value prop", async () => {
         const wrapper = mount(veRadio, {
             propsData: {
-                value: false
-            }
+                value: false,
+            },
         });
 
         expect(wrapper.find(".ve-radio-checked").exists()).toBe(false);
@@ -59,8 +59,8 @@ describe("veRadio", () => {
     it("disable prop", () => {
         const wrapper = mount(veRadio, {
             propsData: {
-                value: true
-            }
+                value: true,
+            },
         });
 
         expect(wrapper.find(".ve-radio-checked").exists()).toBe(true);
@@ -70,8 +70,8 @@ describe("veRadio", () => {
         const wrapper = mount(veRadio, {
             propsData: {
                 value: false,
-                label: "test"
-            }
+                label: "test",
+            },
         });
 
         expect(wrapper.find(".ve-radio-label").text()).toContain("test");
@@ -81,8 +81,8 @@ describe("veRadio", () => {
         const wrapper = mount(veRadio, {
             propsData: {
                 isControlled: true,
-                isSelected: false
-            }
+                isSelected: false,
+            },
         });
 
         expect(wrapper.find(".ve-radio-checked").exists()).toBe(false);
@@ -111,8 +111,8 @@ describe("veRadio", () => {
         const wrapper = mount(veRadio, {
             propsData: {
                 value: false,
-                label: "test"
-            }
+                label: "test",
+            },
         });
 
         wrapper.trigger("click");

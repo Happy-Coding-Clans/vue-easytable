@@ -8,32 +8,32 @@ describe("veTable custom events", () => {
             name: "John",
             date: "1900-05-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Shanghai"
+            address: "No.1 Century Avenue, Shanghai",
         },
         {
             name: "Dickerson",
             date: "1910-06-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Beijing"
+            address: "No.1 Century Avenue, Beijing",
         },
         {
             name: "Larsen",
             date: "2000-07-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Chongqing"
+            address: "No.1 Century Avenue, Chongqing",
         },
         {
             name: "Geneva",
             date: "2010-08-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Xiamen"
+            address: "No.1 Century Avenue, Xiamen",
         },
         {
             name: "Jami",
             date: "2020-09-20",
             hobby: "coding and coding repeat",
-            address: "No.1 Century Avenue, Shenzhen"
-        }
+            address: "No.1 Century Avenue, Shenzhen",
+        },
     ];
 
     const COLUMNS = [
@@ -41,21 +41,21 @@ describe("veTable custom events", () => {
             field: "name",
             key: "a",
             title: "Name",
-            align: "center"
+            align: "center",
         },
         {
             field: "date",
             key: "b",
             title: "Date",
-            align: "left"
+            align: "left",
         },
         {
             field: "hobby",
             key: "c",
             title: "Hobby",
-            align: "right"
+            align: "right",
         },
-        { field: "address", key: "d", title: "Address" }
+        { field: "address", key: "d", title: "Address" },
     ];
 
     it("header custom row events", () => {
@@ -73,25 +73,25 @@ describe("veTable custom events", () => {
                 eventCustomOption: {
                     headerRowEvents: ({ rowIndex }) => {
                         return {
-                            click: event => {
+                            click: (event) => {
                                 mockClickFn(rowIndex, event);
                             },
-                            dblclick: event => {
+                            dblclick: (event) => {
                                 mockDblclickFn(rowIndex, event);
                             },
-                            contextmenu: event => {
+                            contextmenu: (event) => {
                                 mockContextmenuFn(rowIndex, event);
                             },
-                            mouseenter: event => {
+                            mouseenter: (event) => {
                                 mockMouseenterFn(rowIndex, event);
                             },
-                            mouseleave: event => {
+                            mouseleave: (event) => {
                                 mockMouseleaveFn(rowIndex, event);
-                            }
+                            },
                         };
-                    }
-                }
-            }
+                    },
+                },
+            },
         });
 
         const firstTrEl = wrapper.findAll(".ve-table-header-tr").at(0);
@@ -127,25 +127,25 @@ describe("veTable custom events", () => {
                 eventCustomOption: {
                     headerCellEvents: ({ column, rowIndex }) => {
                         return {
-                            click: event => {
+                            click: (event) => {
                                 mockClickFn(column, rowIndex, event);
                             },
-                            dblclick: event => {
+                            dblclick: (event) => {
                                 mockDblclickFn(column, rowIndex, event);
                             },
-                            contextmenu: event => {
+                            contextmenu: (event) => {
                                 mockContextmenuFn(column, rowIndex, event);
                             },
-                            mouseenter: event => {
+                            mouseenter: (event) => {
                                 mockMouseenterFn(column, rowIndex, event);
                             },
-                            mouseleave: event => {
+                            mouseleave: (event) => {
                                 mockMouseleaveFn(column, rowIndex, event);
-                            }
+                            },
                         };
-                    }
-                }
-            }
+                    },
+                },
+            },
         });
 
         const firstTrThEl = wrapper
@@ -160,35 +160,35 @@ describe("veTable custom events", () => {
         expect(mockClickFn).toBeCalledWith(
             expect.any(Object),
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
 
         firstTrThEl.trigger("dblclick");
         expect(mockDblclickFn).toBeCalledWith(
             expect.any(Object),
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
 
         firstTrThEl.trigger("contextmenu");
         expect(mockContextmenuFn).toBeCalledWith(
             expect.any(Object),
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
 
         firstTrThEl.trigger("mouseenter");
         expect(mockMouseenterFn).toBeCalledWith(
             expect.any(Object),
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
 
         firstTrThEl.trigger("mouseleave");
         expect(mockMouseleaveFn).toBeCalledWith(
             expect.any(Object),
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
     });
 
@@ -207,25 +207,25 @@ describe("veTable custom events", () => {
                 eventCustomOption: {
                     bodyRowEvents: ({ row, rowIndex }) => {
                         return {
-                            click: event => {
+                            click: (event) => {
                                 mockClickFn(row, rowIndex, event);
                             },
-                            dblclick: event => {
+                            dblclick: (event) => {
                                 mockDblclickFn(row, rowIndex, event);
                             },
-                            contextmenu: event => {
+                            contextmenu: (event) => {
                                 mockContextmenuFn(row, rowIndex, event);
                             },
-                            mouseenter: event => {
+                            mouseenter: (event) => {
                                 mockMouseenterFn(row, rowIndex, event);
                             },
-                            mouseleave: event => {
+                            mouseleave: (event) => {
                                 mockMouseleaveFn(row, rowIndex, event);
-                            }
+                            },
                         };
-                    }
-                }
-            }
+                    },
+                },
+            },
         });
 
         const firstTrEl = wrapper.findAll(".ve-table-body-tr").at(0);
@@ -234,35 +234,35 @@ describe("veTable custom events", () => {
         expect(mockClickFn).toBeCalledWith(
             expect.any(Object),
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
 
         firstTrEl.trigger("dblclick");
         expect(mockDblclickFn).toBeCalledWith(
             expect.any(Object),
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
 
         firstTrEl.trigger("contextmenu");
         expect(mockContextmenuFn).toBeCalledWith(
             expect.any(Object),
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
 
         firstTrEl.trigger("mouseenter");
         expect(mockMouseenterFn).toBeCalledWith(
             expect.any(Object),
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
 
         firstTrEl.trigger("mouseleave");
         expect(mockMouseleaveFn).toBeCalledWith(
             expect.any(Object),
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
     });
 
@@ -281,25 +281,25 @@ describe("veTable custom events", () => {
                 eventCustomOption: {
                     bodyCellEvents: ({ row, column, rowIndex }) => {
                         return {
-                            click: event => {
+                            click: (event) => {
                                 mockClickFn(row, column, rowIndex, event);
                             },
-                            dblclick: event => {
+                            dblclick: (event) => {
                                 mockDblclickFn(row, column, rowIndex, event);
                             },
-                            contextmenu: event => {
+                            contextmenu: (event) => {
                                 mockContextmenuFn(row, column, rowIndex, event);
                             },
-                            mouseenter: event => {
+                            mouseenter: (event) => {
                                 mockMouseenterFn(row, column, rowIndex, event);
                             },
-                            mouseleave: event => {
+                            mouseleave: (event) => {
                                 mockMouseleaveFn(row, column, rowIndex, event);
-                            }
+                            },
                         };
-                    }
-                }
-            }
+                    },
+                },
+            },
         });
 
         const firstTrThEl = wrapper
@@ -315,7 +315,7 @@ describe("veTable custom events", () => {
             TABLE_DATA[0],
             expect.any(Object),
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
 
         firstTrThEl.trigger("dblclick");
@@ -323,7 +323,7 @@ describe("veTable custom events", () => {
             TABLE_DATA[0],
             expect.any(Object),
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
 
         firstTrThEl.trigger("contextmenu");
@@ -331,7 +331,7 @@ describe("veTable custom events", () => {
             TABLE_DATA[0],
             expect.any(Object),
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
 
         firstTrThEl.trigger("mouseenter");
@@ -339,7 +339,7 @@ describe("veTable custom events", () => {
             TABLE_DATA[0],
             expect.any(Object),
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
 
         firstTrThEl.trigger("mouseleave");
@@ -347,7 +347,7 @@ describe("veTable custom events", () => {
             TABLE_DATA[0],
             expect.any(Object),
             0,
-            expect.any(Object)
+            expect.any(Object),
         );
     });
 });

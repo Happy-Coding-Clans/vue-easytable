@@ -11,7 +11,7 @@ describe("veTable virtual scroll", () => {
             name: i,
             date: i,
             hobby: i,
-            address: i
+            address: i,
         });
     }
 
@@ -37,7 +37,7 @@ describe("veTable virtual scroll", () => {
             name: value,
             date: i,
             hobby: i,
-            address: i
+            address: i,
         });
     }
 
@@ -56,31 +56,31 @@ describe("veTable virtual scroll", () => {
                         key: "b",
                         title: "Name",
                         width: 200,
-                        align: "left"
+                        align: "left",
                     },
                     {
                         field: "hobby",
                         key: "c",
                         title: "Hobby",
                         width: 300,
-                        align: "left"
+                        align: "left",
                     },
                     {
                         field: "address",
                         key: "d",
                         title: "Address",
                         width: "",
-                        align: "left"
-                    }
+                        align: "left",
+                    },
                 ],
                 tableData: TABLE_DATA_SAME_ROW_HEIGHT,
                 virtualScrollOption: {
                     // 是否开启
-                    enable: true
+                    enable: true,
                 },
                 maxHeight: MAX_HEIGHT,
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -95,31 +95,31 @@ describe("veTable virtual scroll", () => {
                         key: "b",
                         title: "Name",
                         width: 200,
-                        align: "left"
+                        align: "left",
                     },
                     {
                         field: "hobby",
                         key: "c",
                         title: "Hobby",
                         width: 300,
-                        align: "left"
+                        align: "left",
                     },
                     {
                         field: "address",
                         key: "d",
                         title: "Address",
                         width: "",
-                        align: "left"
-                    }
+                        align: "left",
+                    },
                 ],
                 tableData: TABLE_DATA_SAME_ROW_HEIGHT,
                 virtualScrollOption: {
                     // 是否开启
-                    enable: false
+                    enable: false,
                 },
                 maxHeight: MAX_HEIGHT,
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         expect(wrapper.find(".ve-table-virtual-scroll").exists()).toBe(false);
@@ -127,8 +127,8 @@ describe("veTable virtual scroll", () => {
         wrapper.setProps({
             virtualScrollOption: {
                 // 是否开启
-                enable: true
-            }
+                enable: true,
+            },
         });
 
         await later();
@@ -136,7 +136,7 @@ describe("veTable virtual scroll", () => {
         const tableContainerEl = wrapper.find(".ve-table-container");
 
         expect(tableContainerEl.attributes("style")).toBe(
-            "max-height: 500px; height: 500px;"
+            "max-height: 500px; height: 500px;",
         );
 
         expect(wrapper.find(".ve-table-virtual-scroll").exists()).toBe(true);
@@ -152,42 +152,42 @@ describe("veTable virtual scroll", () => {
                         key: "b",
                         title: "Name",
                         width: 200,
-                        align: "left"
+                        align: "left",
                     },
                     {
                         field: "hobby",
                         key: "c",
                         title: "Hobby",
                         width: 300,
-                        align: "left"
+                        align: "left",
                     },
                     {
                         field: "address",
                         key: "d",
                         title: "Address",
                         width: "",
-                        align: "left"
-                    }
+                        align: "left",
+                    },
                 ],
                 tableData: TABLE_DATA_SAME_ROW_HEIGHT,
                 virtualScrollOption: {
                     // 是否开启
-                    enable: true
+                    enable: true,
                 },
                 maxHeight: MAX_HEIGHT,
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         await later();
 
         // default buffer=1
         expect(wrapper.findAll(".ve-table-body-tr").length).toBeGreaterThan(
-            MIN_TABLE_ROW_COUNT
+            MIN_TABLE_ROW_COUNT,
         );
 
         expect(wrapper.findAll(".ve-table-body-tr").length).toBeLessThan(
-            MAX_TABLE_ROW_COUNT
+            MAX_TABLE_ROW_COUNT,
         );
     });
 
@@ -200,42 +200,42 @@ describe("veTable virtual scroll", () => {
                         key: "b",
                         title: "Name",
                         width: 200,
-                        align: "left"
+                        align: "left",
                     },
                     {
                         field: "hobby",
                         key: "c",
                         title: "Hobby",
                         width: 300,
-                        align: "left"
+                        align: "left",
                     },
                     {
                         field: "address",
                         key: "d",
                         title: "Address",
                         width: "",
-                        align: "left"
-                    }
+                        align: "left",
+                    },
                 ],
                 tableData: TABLE_DATA_DIFFERENT_ROW_HEIGHT,
                 virtualScrollOption: {
                     // 是否开启
-                    enable: true
+                    enable: true,
                 },
                 maxHeight: MAX_HEIGHT,
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         await later();
 
         // default buffer=1
         expect(wrapper.findAll(".ve-table-body-tr").length).toBeGreaterThan(
-            MIN_TABLE_ROW_COUNT
+            MIN_TABLE_ROW_COUNT,
         );
 
         expect(wrapper.findAll(".ve-table-body-tr").length).toBeLessThan(
-            MAX_TABLE_ROW_COUNT
+            MAX_TABLE_ROW_COUNT,
         );
     });
 
@@ -250,32 +250,32 @@ describe("veTable virtual scroll", () => {
                         width: 200,
                         align: "left",
                         // type=checkbox
-                        type: "checkbox"
+                        type: "checkbox",
                     },
                     {
                         field: "hobby",
                         key: "c",
                         title: "Hobby",
                         width: 300,
-                        align: "left"
+                        align: "left",
                     },
                     {
                         field: "address",
                         key: "d",
                         title: "Address",
                         width: "",
-                        align: "left"
-                    }
+                        align: "left",
+                    },
                 ],
                 tableData: TABLE_DATA_SAME_ROW_HEIGHT,
                 virtualScrollOption: {
                     // 是否开启
-                    enable: true
+                    enable: true,
                 },
                 checkboxOption: {},
                 maxHeight: MAX_HEIGHT,
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         await later();
@@ -284,11 +284,11 @@ describe("veTable virtual scroll", () => {
 
         // default buffer=1
         expect(wrapper.findAll(".ve-table-body-tr").length).toBeGreaterThan(
-            MIN_TABLE_ROW_COUNT
+            MIN_TABLE_ROW_COUNT,
         );
 
         expect(wrapper.findAll(".ve-table-body-tr").length).toBeLessThan(
-            MAX_TABLE_ROW_COUNT
+            MAX_TABLE_ROW_COUNT,
         );
     });
 
@@ -303,32 +303,32 @@ describe("veTable virtual scroll", () => {
                         width: 200,
                         align: "left",
                         // type=radio
-                        type: "radio"
+                        type: "radio",
                     },
                     {
                         field: "hobby",
                         key: "c",
                         title: "Hobby",
                         width: 300,
-                        align: "left"
+                        align: "left",
                     },
                     {
                         field: "address",
                         key: "d",
                         title: "Address",
                         width: "",
-                        align: "left"
-                    }
+                        align: "left",
+                    },
                 ],
                 tableData: TABLE_DATA_SAME_ROW_HEIGHT,
                 virtualScrollOption: {
                     // 是否开启
-                    enable: true
+                    enable: true,
                 },
                 radioOption: {},
                 maxHeight: MAX_HEIGHT,
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         await later();
@@ -337,11 +337,11 @@ describe("veTable virtual scroll", () => {
 
         // default buffer=1
         expect(wrapper.findAll(".ve-table-body-tr").length).toBeGreaterThan(
-            MIN_TABLE_ROW_COUNT
+            MIN_TABLE_ROW_COUNT,
         );
 
         expect(wrapper.findAll(".ve-table-body-tr").length).toBeLessThan(
-            MAX_TABLE_ROW_COUNT
+            MAX_TABLE_ROW_COUNT,
         );
     });
 
@@ -356,27 +356,27 @@ describe("veTable virtual scroll", () => {
                         width: 200,
                         align: "left",
                         // type=expand
-                        type: "expand"
+                        type: "expand",
                     },
                     {
                         field: "hobby",
                         key: "c",
                         title: "Hobby",
                         width: 300,
-                        align: "left"
+                        align: "left",
                     },
                     {
                         field: "address",
                         key: "d",
                         title: "Address",
                         width: "",
-                        align: "left"
-                    }
+                        align: "left",
+                    },
                 ],
                 tableData: TABLE_DATA_SAME_ROW_HEIGHT,
                 virtualScrollOption: {
                     // 是否开启
-                    enable: true
+                    enable: true,
                 },
                 expandOption: {
                     render: ({ row, column, rowIndex }, h) => {
@@ -387,11 +387,11 @@ describe("veTable virtual scroll", () => {
                                 ,I'm living in {row.address}
                             </p>
                         );
-                    }
+                    },
                 },
                 maxHeight: MAX_HEIGHT,
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         await later();
@@ -400,11 +400,11 @@ describe("veTable virtual scroll", () => {
 
         // default buffer=1
         expect(wrapper.findAll(".ve-table-body-tr").length).toBeGreaterThan(
-            MIN_TABLE_ROW_COUNT
+            MIN_TABLE_ROW_COUNT,
         );
 
         expect(wrapper.findAll(".ve-table-body-tr").length).toBeLessThan(
-            MAX_TABLE_ROW_COUNT
+            MAX_TABLE_ROW_COUNT,
         );
     });
 
@@ -418,14 +418,14 @@ describe("veTable virtual scroll", () => {
                         title: "Name",
                         width: 200,
                         align: "left",
-                        fixed: "left"
+                        fixed: "left",
                     },
                     {
                         field: "hobby",
                         key: "c",
                         title: "Hobby",
                         width: 300,
-                        align: "left"
+                        align: "left",
                     },
                     {
                         field: "address",
@@ -433,56 +433,56 @@ describe("veTable virtual scroll", () => {
                         title: "Address",
                         width: "",
                         align: "left",
-                        fixed: "right"
-                    }
+                        fixed: "right",
+                    },
                 ],
                 tableData: TABLE_DATA_SAME_ROW_HEIGHT,
                 virtualScrollOption: {
                     // 是否开启
-                    enable: true
+                    enable: true,
                 },
                 maxHeight: MAX_HEIGHT,
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         await later();
 
         const thEls = wrapper.findAll(
-            ".ve-table-header .ve-table-header-tr .ve-table-header-th"
+            ".ve-table-header .ve-table-header-tr .ve-table-header-th",
         );
 
         expect(thEls.at(0).classes()).toContain("ve-table-fixed-left");
         expect(thEls.at(0).classes()).toContain(
-            "ve-table-last-left-fixed-column"
+            "ve-table-last-left-fixed-column",
         );
 
         expect(thEls.at(2).classes()).toContain("ve-table-fixed-right");
         expect(thEls.at(2).classes()).toContain(
-            "ve-table-first-right-fixed-column"
+            "ve-table-first-right-fixed-column",
         );
 
         const tdEls = wrapper.findAll(
-            ".ve-table-header .ve-table-header-tr .ve-table-header-th"
+            ".ve-table-header .ve-table-header-tr .ve-table-header-th",
         );
 
         expect(tdEls.at(0).classes()).toContain("ve-table-fixed-left");
         expect(tdEls.at(0).classes()).toContain(
-            "ve-table-last-left-fixed-column"
+            "ve-table-last-left-fixed-column",
         );
 
         expect(tdEls.at(2).classes()).toContain("ve-table-fixed-right");
         expect(tdEls.at(2).classes()).toContain(
-            "ve-table-first-right-fixed-column"
+            "ve-table-first-right-fixed-column",
         );
 
         // default buffer=1
         expect(wrapper.findAll(".ve-table-body-tr").length).toBeGreaterThan(
-            MIN_TABLE_ROW_COUNT
+            MIN_TABLE_ROW_COUNT,
         );
 
         expect(wrapper.findAll(".ve-table-body-tr").length).toBeLessThan(
-            MAX_TABLE_ROW_COUNT
+            MAX_TABLE_ROW_COUNT,
         );
     });
 
@@ -496,14 +496,14 @@ describe("veTable virtual scroll", () => {
                         title: "Name",
                         width: 200,
                         align: "left",
-                        fixed: "left"
+                        fixed: "left",
                     },
                     {
                         field: "hobby",
                         key: "c",
                         title: "Hobby",
                         width: 300,
-                        align: "left"
+                        align: "left",
                     },
                     {
                         field: "address",
@@ -511,8 +511,8 @@ describe("veTable virtual scroll", () => {
                         title: "Address",
                         width: "",
                         align: "left",
-                        fixed: "right"
-                    }
+                        fixed: "right",
+                    },
                 ],
                 tableData: TABLE_DATA_SAME_ROW_HEIGHT,
                 footerData: [
@@ -521,38 +521,38 @@ describe("veTable virtual scroll", () => {
                         name: "平均值",
                         date: 1100,
                         hobby: 1200,
-                        address: 1300
+                        address: 1300,
                     },
                     {
                         rowKey: 1,
                         name: "汇总值",
                         date: 701000,
                         hobby: 801000,
-                        address: 801000
-                    }
+                        address: 801000,
+                    },
                 ],
                 virtualScrollOption: {
                     // 是否开启
-                    enable: true
+                    enable: true,
                 },
                 maxHeight: MAX_HEIGHT,
-                rowKeyFieldName: "rowKey"
-            }
+                rowKeyFieldName: "rowKey",
+            },
         });
 
         await later();
 
         expect(
-            wrapper.findAll(".ve-table-footer-tr .ve-table-footer-td").length
+            wrapper.findAll(".ve-table-footer-tr .ve-table-footer-td").length,
         ).toBe(6);
 
         // default buffer=1
         expect(wrapper.findAll(".ve-table-body-tr").length).toBeGreaterThan(
-            MIN_TABLE_ROW_COUNT
+            MIN_TABLE_ROW_COUNT,
         );
 
         expect(wrapper.findAll(".ve-table-body-tr").length).toBeLessThan(
-            MAX_TABLE_ROW_COUNT
+            MAX_TABLE_ROW_COUNT,
         );
     });
 });

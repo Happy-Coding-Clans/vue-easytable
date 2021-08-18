@@ -16,7 +16,7 @@ describe("veTable header group", () => {
             col8: "8",
             "col9-1": "9-1",
             "col9-2": "9-2",
-            "col10-1": "10-1"
+            "col10-1": "10-1",
         },
         {
             rowkey: 1,
@@ -30,8 +30,8 @@ describe("veTable header group", () => {
             col8: "8",
             "col9-1": "9-1",
             "col9-2": "9-2",
-            "col10-1": "10-1"
-        }
+            "col10-1": "10-1",
+        },
     ];
 
     const TABLE_COLUMNS = [
@@ -39,7 +39,7 @@ describe("veTable header group", () => {
             field: "col1",
             key: "a",
             title: "col1",
-            width: "10%"
+            width: "10%",
         },
         {
             title: "col2-col3",
@@ -48,15 +48,15 @@ describe("veTable header group", () => {
                     field: "col2",
                     key: "b",
                     title: "col2",
-                    width: 100
+                    width: 100,
                 },
                 {
                     field: "col3",
                     key: "c",
                     title: "col3",
-                    width: 110
-                }
-            ]
+                    width: 110,
+                },
+            ],
         },
         {
             title: "col4-col5-col6",
@@ -68,24 +68,24 @@ describe("veTable header group", () => {
                             field: "col4",
                             key: "d",
                             title: "col4",
-                            width: 130
+                            width: 130,
                         },
                         {
                             field: "col5",
                             key: "e",
                             title: "col5",
-                            width: 140
-                        }
-                    ]
+                            width: 140,
+                        },
+                    ],
                 },
                 {
                     title: "col6",
                     field: "col6",
                     key: "f",
-                    width: 140
-                }
-            ]
-        }
+                    width: 140,
+                },
+            ],
+        },
         /*  {
             field: "col7",
             key: "g",
@@ -105,8 +105,8 @@ describe("veTable header group", () => {
             propsData: {
                 columns: TABLE_COLUMNS,
                 tableData: TABLE_DATA,
-                rowKeyFieldName: "rowkey"
-            }
+                rowKeyFieldName: "rowkey",
+            },
         });
 
         expect(wrapper.html()).toMatchSnapshot();
@@ -118,28 +118,20 @@ describe("veTable header group", () => {
                 borderY: true,
                 columns: TABLE_COLUMNS,
                 tableData: TABLE_DATA,
-                rowKeyFieldName: "rowkey"
-            }
+                rowKeyFieldName: "rowkey",
+            },
         });
 
         const trEls = wrapper.findAll(".ve-table-header-tr");
 
         // first row last column
         expect(
-            trEls
-                .at(0)
-                .findAll(".ve-table-header-th")
-                .at(2)
-                .classes()
+            trEls.at(0).findAll(".ve-table-header-th").at(2).classes(),
         ).toContain("ve-table-last-column");
 
         // second row last column
         expect(
-            trEls
-                .at(1)
-                .findAll(".ve-table-header-th")
-                .at(3)
-                .classes()
+            trEls.at(1).findAll(".ve-table-header-th").at(3).classes(),
         ).toContain("ve-table-last-column");
     });
 
@@ -148,8 +140,8 @@ describe("veTable header group", () => {
             propsData: {
                 columns: TABLE_COLUMNS,
                 tableData: TABLE_DATA,
-                rowKeyFieldName: "rowkey"
-            }
+                rowKeyFieldName: "rowkey",
+            },
         });
 
         const trEls = wrapper.findAll(".ve-table-header-tr");
@@ -215,9 +207,9 @@ describe("veTable header group", () => {
                                 field: "col2-1",
                                 key: "b-1",
                                 title: "Title2-1",
-                                width: 200
-                            }
-                        ]
+                                width: 200,
+                            },
+                        ],
                     },
                     {
                         title: "Title3",
@@ -228,14 +220,14 @@ describe("veTable header group", () => {
                                 field: "col10-1",
                                 key: "c-1",
                                 title: "Title3-1",
-                                width: 200
-                            }
-                        ]
-                    }
+                                width: 200,
+                            },
+                        ],
+                    },
                 ],
                 tableData: TABLE_DATA,
-                rowKeyFieldName: "rowkey"
-            }
+                rowKeyFieldName: "rowkey",
+            },
         });
 
         const trEls = wrapper.findAll(".ve-table-header-tr");
@@ -249,10 +241,10 @@ describe("veTable header group", () => {
         expect(firtRowFirstFixedColumn.classes()).toEqual([
             "ve-table-header-th",
             "ve-table-fixed-right",
-            "ve-table-first-right-fixed-column"
+            "ve-table-first-right-fixed-column",
         ]);
         expect(firtRowFirstFixedColumn.attributes("style")).toContain(
-            "right: 200px;"
+            "right: 200px;",
         );
 
         // first row last fixed column
@@ -264,10 +256,10 @@ describe("veTable header group", () => {
         expect(firstRowLastFixedColumn.classes()).toEqual([
             "ve-table-header-th",
             "ve-table-fixed-right",
-            "ve-table-last-column"
+            "ve-table-last-column",
         ]);
         expect(firstRowLastFixedColumn.attributes("style")).toContain(
-            "right: 0px;"
+            "right: 0px;",
         );
 
         // second row first fixed column
@@ -279,10 +271,10 @@ describe("veTable header group", () => {
         expect(secondRowFirstFixedColumn.classes()).toEqual([
             "ve-table-header-th",
             "ve-table-fixed-right",
-            "ve-table-first-right-fixed-column"
+            "ve-table-first-right-fixed-column",
         ]);
         expect(secondRowFirstFixedColumn.attributes("style")).toContain(
-            "right: 200px;"
+            "right: 200px;",
         );
 
         // second row last fixed column
@@ -294,10 +286,10 @@ describe("veTable header group", () => {
         expect(secondRowLastFixedColumn.classes()).toEqual([
             "ve-table-header-th",
             "ve-table-fixed-right",
-            "ve-table-last-column"
+            "ve-table-last-column",
         ]);
         expect(secondRowLastFixedColumn.attributes("style")).toContain(
-            "right: 0px;"
+            "right: 0px;",
         );
     });
 
@@ -324,20 +316,20 @@ describe("veTable header group", () => {
                                 field: "col9-1",
                                 key: "b-1",
                                 title: "Title2-1",
-                                width: 200
+                                width: 200,
                             },
                             {
                                 field: "col9-2",
                                 key: "b-2",
                                 title: "Title2-2",
-                                width: 200
-                            }
-                        ]
-                    }
+                                width: 200,
+                            },
+                        ],
+                    },
                 ],
                 tableData: TABLE_DATA,
-                rowKeyFieldName: "rowkey"
-            }
+                rowKeyFieldName: "rowkey",
+            },
         });
 
         const trEls = wrapper.findAll(".ve-table-header-tr");
@@ -352,10 +344,10 @@ describe("veTable header group", () => {
             "ve-table-header-th",
             "ve-table-fixed-right",
             "ve-table-first-right-fixed-column",
-            "ve-table-last-column"
+            "ve-table-last-column",
         ]);
         expect(firtRowFirstFixedColumn.attributes("style")).toContain(
-            "right: 0px;"
+            "right: 0px;",
         );
 
         // second row first fixed column
@@ -367,10 +359,10 @@ describe("veTable header group", () => {
         expect(secondRowFirstFixedColumn.classes()).toEqual([
             "ve-table-header-th",
             "ve-table-fixed-right",
-            "ve-table-first-right-fixed-column"
+            "ve-table-first-right-fixed-column",
         ]);
         expect(secondRowFirstFixedColumn.attributes("style")).toContain(
-            "right: 200px;"
+            "right: 200px;",
         );
 
         // second row last fixed column
@@ -382,10 +374,10 @@ describe("veTable header group", () => {
         expect(secondRowLastFixedColumn.classes()).toEqual([
             "ve-table-header-th",
             "ve-table-fixed-right",
-            "ve-table-last-column"
+            "ve-table-last-column",
         ]);
         expect(secondRowLastFixedColumn.attributes("style")).toContain(
-            "right: 0px;"
+            "right: 0px;",
         );
     });
 });
