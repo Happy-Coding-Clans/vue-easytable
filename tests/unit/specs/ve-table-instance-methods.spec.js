@@ -2,7 +2,7 @@ import { mount } from "@vue/test-utils";
 import veTable from "@/ve-table";
 import { later, mockScrollTo } from "../util";
 
-describe("veTable methods", () => {
+describe("veTable instance methods", () => {
     const TABLE_DATA = [
         {
             name: "John",
