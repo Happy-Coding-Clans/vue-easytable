@@ -10,7 +10,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <span>
                 Created by
-                <a href="https://github.com/huangshuwei">huangsw</a>
+                <a href="https://github.com/huangshuwei">huangshuwei</a>
             </span>
         </div>
     </div>
