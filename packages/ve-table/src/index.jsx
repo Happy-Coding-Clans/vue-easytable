@@ -944,16 +944,13 @@ export default {
         tableContainerScrollHandler() {
             const tableContainerRef = this.$refs[this.tableContainerRef];
 
-            this.setScrolling();
+            this.setScrolling(tableContainerRef);
 
             if (this.isVirtualScroll) {
                 const {
                     virtualScrollVisibleCount: visibleCount,
                     virtualScrollOption,
                 } = this;
-
-                const visibleAboveCount = this.getVirtualScrollAboveCount();
-                const visibleBelowCount = this.getVirtualScrollBelowCount();
 
                 //当前滚动位置
                 let scrollTop = tableContainerRef.scrollTop;
@@ -974,6 +971,9 @@ export default {
 
                 const { scrolling } = virtualScrollOption;
                 if (isFunction(scrolling)) {
+                    const visibleAboveCount = this.getVirtualScrollAboveCount();
+                    const visibleBelowCount = this.getVirtualScrollBelowCount();
+
                     let startRowIndex = visibleStartIndex - visibleAboveCount;
 
                     scrolling({
@@ -1002,9 +1002,7 @@ export default {
         },
 
         // set scrolling
-        setScrolling() {
-            const tableContainerRef = this.$refs[this.tableContainerRef];
-
+        setScrolling(tableContainerRef) {
             const { scrollWidth, clientWidth, scrollLeft } = tableContainerRef;
 
             this.isLeftScrolling = scrollLeft > 0;
@@ -1014,7 +1012,7 @@ export default {
         // init scrolling
         initScrolling() {
             if (this.hasFixedColumn) {
-                this.setScrolling();
+                this.setScrolling(this.$refs[this.tableContainerRef]);
             }
         },
 
