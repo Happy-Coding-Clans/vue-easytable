@@ -416,77 +416,6 @@ export default {
     },
 
     methods: {
-        // set virtual scroll visible data
-        setVirtualScrollVisibleData() {
-            const { isVirtualScroll, cloneTableData } = this;
-
-            const startIndex =
-                this.$options.customOption.virtualScrollStartIndex;
-            const endIndex = this.$options.customOption.virtualScrollEndIndex;
-
-            const aboveCount = this.getVirtualScrollAboveCount();
-            const belowCount = this.getVirtualScrollBelowCount();
-
-            let start = startIndex - aboveCount;
-            let end = endIndex + belowCount;
-
-            this.virtualScrollVisibleData = cloneTableData.slice(start, end);
-        },
-
-        // get virtual scroll above count
-        getVirtualScrollAboveCount() {
-            let result = 0;
-            const {
-                isVirtualScroll,
-                virtualScrollOption,
-                virtualScrollVisibleCount,
-                defaultVirtualScrollBufferScale,
-            } = this;
-
-            const virtualScrollStartIndex =
-                this.$options.customOption.virtualScrollStartIndex;
-
-            if (isVirtualScroll) {
-                const bufferScale = isNumber(virtualScrollOption.bufferScale)
-                    ? virtualScrollOption.bufferScale
-                    : defaultVirtualScrollBufferScale;
-
-                result = Math.min(
-                    virtualScrollStartIndex,
-                    bufferScale * virtualScrollVisibleCount,
-                );
-            }
-            return result;
-        },
-
-        // get virtual scroll bellow count
-        getVirtualScrollBelowCount() {
-            let result = 0;
-
-            const {
-                isVirtualScroll,
-                virtualScrollOption,
-                virtualScrollVisibleCount,
-                cloneTableData,
-                defaultVirtualScrollBufferScale,
-            } = this;
-
-            const virtualScrollEndIndex =
-                this.$options.customOption.virtualScrollEndIndex;
-
-            if (isVirtualScroll) {
-                const bufferScale = isNumber(virtualScrollOption.bufferScale)
-                    ? virtualScrollOption.bufferScale
-                    : defaultVirtualScrollBufferScale;
-
-                result = Math.min(
-                    cloneTableData.length - virtualScrollEndIndex,
-                    bufferScale * virtualScrollVisibleCount,
-                );
-            }
-
-            return result;
-        },
         // int header rows
         initHeaderRows() {
             const { groupColumns } = this;
@@ -781,6 +710,78 @@ export default {
                     }
                 }
             }
+        },
+
+        // set virtual scroll visible data
+        setVirtualScrollVisibleData() {
+            const { isVirtualScroll, cloneTableData } = this;
+
+            const startIndex =
+                this.$options.customOption.virtualScrollStartIndex;
+            const endIndex = this.$options.customOption.virtualScrollEndIndex;
+
+            const aboveCount = this.getVirtualScrollAboveCount();
+            const belowCount = this.getVirtualScrollBelowCount();
+
+            let start = startIndex - aboveCount;
+            let end = endIndex + belowCount;
+
+            this.virtualScrollVisibleData = cloneTableData.slice(start, end);
+        },
+
+        // get virtual scroll above count
+        getVirtualScrollAboveCount() {
+            let result = 0;
+            const {
+                isVirtualScroll,
+                virtualScrollOption,
+                virtualScrollVisibleCount,
+                defaultVirtualScrollBufferScale,
+            } = this;
+
+            const virtualScrollStartIndex =
+                this.$options.customOption.virtualScrollStartIndex;
+
+            if (isVirtualScroll) {
+                const bufferScale = isNumber(virtualScrollOption.bufferScale)
+                    ? virtualScrollOption.bufferScale
+                    : defaultVirtualScrollBufferScale;
+
+                result = Math.min(
+                    virtualScrollStartIndex,
+                    bufferScale * virtualScrollVisibleCount,
+                );
+            }
+            return result;
+        },
+
+        // get virtual scroll bellow count
+        getVirtualScrollBelowCount() {
+            let result = 0;
+
+            const {
+                isVirtualScroll,
+                virtualScrollOption,
+                virtualScrollVisibleCount,
+                cloneTableData,
+                defaultVirtualScrollBufferScale,
+            } = this;
+
+            const virtualScrollEndIndex =
+                this.$options.customOption.virtualScrollEndIndex;
+
+            if (isVirtualScroll) {
+                const bufferScale = isNumber(virtualScrollOption.bufferScale)
+                    ? virtualScrollOption.bufferScale
+                    : defaultVirtualScrollBufferScale;
+
+                result = Math.min(
+                    cloneTableData.length - virtualScrollEndIndex,
+                    bufferScale * virtualScrollVisibleCount,
+                );
+            }
+
+            return result;
         },
 
         // get virtual phantom
