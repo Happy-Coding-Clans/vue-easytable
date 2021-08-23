@@ -408,9 +408,12 @@ export default {
         },
         // watch clone table data
         cloneTableData: {
-            handler() {
+            handler(newVal, oldVal) {
                 this.initVirtualScrollPositions();
-                this.initVirtualScroll();
+                // 第一次不需要触发，仅数据变更触发
+                if (oldVal) {
+                    this.initVirtualScroll();
+                }
             },
             immediate: true,
         },
