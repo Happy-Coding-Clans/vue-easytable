@@ -410,6 +410,7 @@ export default {
         cloneTableData: {
             handler() {
                 this.initVirtualScrollPositions();
+                this.initVirtualScroll();
             },
             immediate: true,
         },
