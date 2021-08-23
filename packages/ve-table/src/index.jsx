@@ -214,7 +214,7 @@ export default {
             // default virtual scroll buffer scale
             defaultVirtualScrollBufferScale: 0,
             // default virtual scroll min row height
-            defaultVirtualScrollMinRowHeight: 42,
+            defaultVirtualScrollMinRowHeight: 40,
             // is scrolling left
             isLeftScrolling: false,
             // is scrolling right
@@ -878,17 +878,21 @@ export default {
                         this.virtualScrollPositions[k].bottom - dValue;
                 }
 
-                //更新列表总高度
-                let totalHeight =
-                    this.virtualScrollPositions[
-                        this.virtualScrollPositions.length - 1
-                    ].bottom;
-                this.$refs[this.virtualPhantomRef].style.height =
-                    totalHeight + "px";
+                // 更新 virtual phantom 列表总高度
+                this.setVirtualPhantomHeight();
 
                 //更新真实偏移量
                 this.setVirtualScrollStartOffset();
             }
+        },
+        // 更新 virtual phantom 列表总高度
+        setVirtualPhantomHeight() {
+            let totalHeight =
+                this.virtualScrollPositions[
+                    this.virtualScrollPositions.length - 1
+                ].bottom;
+            this.$refs[this.virtualPhantomRef].style.height =
+                totalHeight + "px";
         },
         // set virtual scroll start offset
         setVirtualScrollStartOffset() {
@@ -1001,6 +1005,7 @@ export default {
                     startIndex + this.virtualScrollVisibleCount;
 
                 this.setVirtualScrollVisibleData();
+                this.setVirtualPhantomHeight();
             }
         },
 
