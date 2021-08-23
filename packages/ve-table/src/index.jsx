@@ -1004,7 +1004,7 @@ export default {
                 this.$options.customOption.virtualScrollEndIndex =
                     startIndex + this.virtualScrollVisibleCount;
 
-                this.setVirtualScrollVisibleData();
+                this.tableContainerScrollHandler();
                 this.setVirtualPhantomHeight();
             }
         },
