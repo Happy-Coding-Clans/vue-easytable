@@ -910,7 +910,9 @@ export default {
             }
 
             //this.$refs[this.tableContentRef].style.transform = `translate3d(0,${startOffset}px,0)`;
-            this.$refs[this.tableContentRef].style.top = `${startOffset}px`;
+            window.requestAnimationFrame(() => {
+                this.$refs[this.tableContentRef].style.top = `${startOffset}px`;
+            });
         },
         // get virtual scroll start index
         getVirtualScrollStartIndex(scrollTop = 0) {
