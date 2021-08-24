@@ -220,8 +220,8 @@ export default {
             */
             // virtual scroll visible data
             virtualScrollVisibleData: [],
-            // default virtual scroll buffer scale
-            defaultVirtualScrollBufferScale: 0,
+            // default virtual scroll buffer count
+            defaultVirtualScrollBufferCount: 3,
             // default virtual scroll min row height
             defaultVirtualScrollMinRowHeight: 40,
             // is scrolling left
@@ -764,24 +764,15 @@ export default {
         // get virtual scroll above count
         getVirtualScrollAboveCount() {
             let result = 0;
-            const {
-                isVirtualScroll,
-                virtualScrollOption,
-                virtualScrollVisibleCount,
-                defaultVirtualScrollBufferScale,
-            } = this;
+            const { isVirtualScroll, defaultVirtualScrollBufferCount } = this;
 
             const virtualScrollStartIndex =
                 this.$options.customOption.virtualScrollStartIndex;
 
             if (isVirtualScroll) {
-                const bufferScale = isNumber(virtualScrollOption.bufferScale)
-                    ? virtualScrollOption.bufferScale
-                    : defaultVirtualScrollBufferScale;
-
                 result = Math.min(
                     virtualScrollStartIndex,
-                    bufferScale * virtualScrollVisibleCount,
+                    defaultVirtualScrollBufferCount,
                 );
             }
             return result;
@@ -793,23 +784,17 @@ export default {
 
             const {
                 isVirtualScroll,
-                virtualScrollOption,
-                virtualScrollVisibleCount,
                 cloneTableData,
-                defaultVirtualScrollBufferScale,
+                defaultVirtualScrollBufferCount,
             } = this;
 
             const virtualScrollEndIndex =
                 this.$options.customOption.virtualScrollEndIndex;
 
             if (isVirtualScroll) {
-                const bufferScale = isNumber(virtualScrollOption.bufferScale)
-                    ? virtualScrollOption.bufferScale
-                    : defaultVirtualScrollBufferScale;
-
                 result = Math.min(
                     cloneTableData.length - virtualScrollEndIndex,
-                    bufferScale * virtualScrollVisibleCount,
+                    defaultVirtualScrollBufferCount,
                 );
             }
 
@@ -946,11 +931,14 @@ export default {
 
             const aboveCount = this.getVirtualScrollAboveCount();
 
+            const { fixedRowHeight } = this.virtualScrollOption;
+
             let startOffset = 0;
             if (this.isVirtualScrollFixedRowHeight) {
                 startOffset =
                     scrollTop -
-                    (scrollTop % this.virtualScrollOption.fixedRowHeight);
+                    aboveCount * fixedRowHeight -
+                    (scrollTop % fixedRowHeight);
             } else {
                 if (start >= 1) {
                     let size =
