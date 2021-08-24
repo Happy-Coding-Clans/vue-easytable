@@ -221,7 +221,7 @@ export default {
             // virtual scroll visible data
             virtualScrollVisibleData: [],
             // default virtual scroll buffer count
-            defaultVirtualScrollBufferCount: 3,
+            defaultVirtualScrollBufferCount: 1,
             // default virtual scroll min row height
             defaultVirtualScrollMinRowHeight: 40,
             // is scrolling left
