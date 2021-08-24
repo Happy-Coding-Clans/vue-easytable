@@ -47,7 +47,7 @@ describe("veTable virtual scroll", () => {
     const MIN_TABLE_ROW_COUNT = (MAX_HEIGHT / MIN_ROW_HEIGHT) * 2;
     const MAX_TABLE_ROW_COUNT = (MAX_HEIGHT / MIN_ROW_HEIGHT) * 2 + 5;
 
-    it("render same row height", () => {
+    it("render same row height", async () => {
         const wrapper = mount(veTable, {
             propsData: {
                 columns: [
@@ -82,6 +82,10 @@ describe("veTable virtual scroll", () => {
                 rowKeyFieldName: "rowKey",
             },
         });
+
+        wrapper.triggerResizeObserver({ width: MAX_HEIGHT });
+
+        await later();
 
         expect(wrapper.html()).toMatchSnapshot();
     });
@@ -121,6 +125,10 @@ describe("veTable virtual scroll", () => {
                 rowKeyFieldName: "rowKey",
             },
         });
+
+        wrapper.triggerResizeObserver({ width: MAX_HEIGHT });
+
+        await later();
 
         expect(wrapper.find(".ve-table-virtual-scroll").exists()).toBe(false);
 
@@ -173,11 +181,14 @@ describe("veTable virtual scroll", () => {
                 virtualScrollOption: {
                     // 是否开启
                     enable: true,
+                    bufferScale: 1,
                 },
                 maxHeight: MAX_HEIGHT,
                 rowKeyFieldName: "rowKey",
             },
         });
+
+        wrapper.triggerResizeObserver({ width: MAX_HEIGHT });
 
         await later();
 
@@ -221,11 +232,14 @@ describe("veTable virtual scroll", () => {
                 virtualScrollOption: {
                     // 是否开启
                     enable: true,
+                    bufferScale: 1,
                 },
                 maxHeight: MAX_HEIGHT,
                 rowKeyFieldName: "rowKey",
             },
         });
+
+        wrapper.triggerResizeObserver({ width: MAX_HEIGHT });
 
         await later();
 
@@ -271,12 +285,15 @@ describe("veTable virtual scroll", () => {
                 virtualScrollOption: {
                     // 是否开启
                     enable: true,
+                    bufferScale: 1,
                 },
                 checkboxOption: {},
                 maxHeight: MAX_HEIGHT,
                 rowKeyFieldName: "rowKey",
             },
         });
+
+        wrapper.triggerResizeObserver({ width: MAX_HEIGHT });
 
         await later();
 
@@ -324,12 +341,15 @@ describe("veTable virtual scroll", () => {
                 virtualScrollOption: {
                     // 是否开启
                     enable: true,
+                    bufferScale: 1,
                 },
                 radioOption: {},
                 maxHeight: MAX_HEIGHT,
                 rowKeyFieldName: "rowKey",
             },
         });
+
+        wrapper.triggerResizeObserver({ width: MAX_HEIGHT });
 
         await later();
 
@@ -377,6 +397,7 @@ describe("veTable virtual scroll", () => {
                 virtualScrollOption: {
                     // 是否开启
                     enable: true,
+                    bufferScale: 1,
                 },
                 expandOption: {
                     render: ({ row, column, rowIndex }, h) => {
@@ -393,6 +414,8 @@ describe("veTable virtual scroll", () => {
                 rowKeyFieldName: "rowKey",
             },
         });
+
+        wrapper.triggerResizeObserver({ width: MAX_HEIGHT });
 
         await later();
 
@@ -440,11 +463,14 @@ describe("veTable virtual scroll", () => {
                 virtualScrollOption: {
                     // 是否开启
                     enable: true,
+                    bufferScale: 1,
                 },
                 maxHeight: MAX_HEIGHT,
                 rowKeyFieldName: "rowKey",
             },
         });
+
+        wrapper.triggerResizeObserver({ width: MAX_HEIGHT });
 
         await later();
 
@@ -534,11 +560,14 @@ describe("veTable virtual scroll", () => {
                 virtualScrollOption: {
                     // 是否开启
                     enable: true,
+                    bufferScale: 1,
                 },
                 maxHeight: MAX_HEIGHT,
                 rowKeyFieldName: "rowKey",
             },
         });
+
+        wrapper.triggerResizeObserver({ width: MAX_HEIGHT });
 
         await later();
 

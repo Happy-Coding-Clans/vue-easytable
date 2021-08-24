@@ -3,7 +3,7 @@
 exports[`veTable virtual scroll render same row height 1`] = `
 <div class="ve-table">
   <div class="ve-table-container ve-table-border-around ve-table-virtual-scroll" style="max-height: 500px; height: 500px;">
-    <div class="ve-table-virtual-phantom ve-table-virtual-scroll">
+    <div class="ve-table-virtual-phantom ve-table-virtual-scroll" style="height: 40000px;">
       <div style="width: 100%;"></div>
     </div>
     <table class="ve-table-content ve-table-border-x">
@@ -84,6 +84,11 @@ exports[`veTable virtual scroll render same row height 1`] = `
           <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">11</td>
           <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">11</td>
           <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">11</td>
+        </tr>
+        <tr row-key="12" class="ve-table-body-tr">
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">12</td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">12</td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">12</td>
         </tr>
       </tbody>
       <tfoot class="ve-table-fixed-footer ve-table-footer"></tfoot>
