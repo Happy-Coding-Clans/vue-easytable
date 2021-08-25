@@ -11,10 +11,6 @@ import {
     EXPAND_TRIGGER_TYPES,
 } from "../util/constant";
 
-// cols widths efficient count
-let colsWidthsEfficientCount = 0;
-// has init columns widths 此属性可优化固定列表格初始化渲染慢问题
-let hasPreparedColsWidths = false;
 export default {
     name: COMPS_NAME.VE_TABLE_BODY,
     mixins: [emitter],
@@ -142,6 +138,13 @@ export default {
             // highlight row key
             highlightRowKey: "",
         };
+    },
+    // 存储非响应式数据
+    customOption: {
+        // cols widths efficient count
+        colsWidthsEfficientCount: 0,
+        // has init columns widths 此属性可优化固定列表格初始化渲染慢问题
+        hasPreparedColsWidths: false,
     },
     computed: {
         // actual render table data
@@ -475,15 +478,17 @@ export default {
                 colsWidths.set(key, width);
 
                 // 优化固定列表格初始化渲染速度慢问题
-                if (!hasPreparedColsWidths) {
+                if (!this.$options.customOption.hasPreparedColsWidths) {
                     if (cloneTableData.length > 0) {
-                        if (++colsWidthsEfficientCount === colgroups.length) {
-                            hasPreparedColsWidths = true;
+                        if (
+                            ++this.$options.customOption
+                                .colsWidthsEfficientCount === colgroups.length
+                        ) {
+                            this.$options.customOption.hasPreparedColsWidths = true;
                         }
                     }
                 }
-
-                if (hasPreparedColsWidths) {
+                if (this.$options.customOption.hasPreparedColsWidths) {
                     this.$emit(EMIT_EVENTS.BODY_TD_WIDTH_CHANGE, colsWidths);
                 }
             }
@@ -491,8 +496,8 @@ export default {
 
         // reset prepared column widths status
         resetPreparedColsWidthsStatus() {
-            colsWidthsEfficientCount = 0;
-            hasPreparedColsWidths = false;
+            this.$options.customOption.colsWidthsEfficientCount = 0;
+            this.$options.customOption.hasPreparedColsWidths = false;
         },
 
         // init internal expand row keys
