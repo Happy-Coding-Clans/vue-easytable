@@ -872,6 +872,7 @@ export default {
                 );
             }
         },
+
         // list item height change
         bodyTrHeightChange({ rowKey, height }) {
             // 固定高度时不处理
@@ -1160,6 +1161,7 @@ export default {
             rowKeyFieldName,
             virtualScrollOption,
             isVirtualScroll,
+            isVirtualScrollFixedRowHeight,
             virtualScrollVisibleData,
             sortOption,
             cellStyleOption,
@@ -1194,6 +1196,7 @@ export default {
                 radioOption,
                 virtualScrollOption,
                 isVirtualScroll,
+                isVirtualScrollFixedRowHeight,
                 virtualScrollVisibleData,
                 cellStyleOption,
                 cellSpanOption: this.cellSpanOption,
