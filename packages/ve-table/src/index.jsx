@@ -1065,6 +1065,7 @@ export default {
                 const { scrollWidth, clientWidth, scrollLeft } =
                     tableContainerRef;
 
+                // 仅横向滚动需要处理
                 if (
                     this.$options.customOption
                         .previewTableContainerScrollLeft !== scrollLeft
