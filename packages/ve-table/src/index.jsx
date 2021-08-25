@@ -247,6 +247,8 @@ export default {
         virtualScrollStartIndex: 0,
         //结束索引
         virtualScrollEndIndex: 0,
+        // preview table container scrollLeft （处理左列或右列固定效果）
+        previewTableContainerScrollLeft: null,
     },
     computed: {
         // return row keys
@@ -1058,17 +1060,27 @@ export default {
 
         // set scrolling
         setScrolling(tableContainerRef) {
-            const { scrollWidth, clientWidth, scrollLeft } = tableContainerRef;
+            if (this.hasFixedColumn) {
+                const { scrollWidth, clientWidth, scrollLeft } =
+                    tableContainerRef;
 
-            this.isLeftScrolling = scrollLeft > 0;
-            this.isRightScrolling = scrollWidth - clientWidth > scrollLeft;
+                if (
+                    this.$options.customOption
+                        .previewTableContainerScrollLeft !== scrollLeft
+                ) {
+                    this.$options.customOption.previewTableContainerScrollLeft =
+                        scrollLeft;
+
+                    this.isLeftScrolling = scrollLeft > 0;
+                    this.isRightScrolling =
+                        scrollWidth - clientWidth > scrollLeft;
+                }
+            }
         },
 
         // init scrolling
         initScrolling() {
-            if (this.hasFixedColumn) {
-                this.setScrolling(this.$refs[this.tableContainerRef]);
-            }
+            this.setScrolling(this.$refs[this.tableContainerRef]);
         },
 
         // table blur
