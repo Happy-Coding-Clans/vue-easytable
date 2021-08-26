@@ -8,7 +8,7 @@ module.exports = {
     rules: {
         "no-console": "off",
         "no-debugger": "off",
-        "no-unused-vars": "off",
+        "no-unused-vars": "warn",
         "no-useless-escape": "off",
         // plugin:vue/recommended 规则
         "vue/attributes-order": "error",
