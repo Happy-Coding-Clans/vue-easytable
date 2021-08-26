@@ -455,7 +455,7 @@ export default {
             const { groupColumns } = this;
 
             if (Array.isArray(groupColumns)) {
-                this.headerRows = groupColumns.map((x) => {
+                this.headerRows = groupColumns.map(() => {
                     return { rowHeight: 0 };
                 });
             }
@@ -466,7 +466,7 @@ export default {
             const { footerData } = this;
 
             if (Array.isArray(footerData)) {
-                this.footerRows = footerData.map((x) => {
+                this.footerRows = footerData.map(() => {
                     return { rowHeight: 0 };
                 });
             }
@@ -560,12 +560,7 @@ export default {
         },
         // cell direction
         cellDirection(event) {
-            const {
-                cellSelectionKeyData,
-                colgroups,
-                allRowKeys,
-                rowKeyFieldName,
-            } = this;
+            const { cellSelectionKeyData, colgroups, allRowKeys } = this;
 
             const { keyCode } = event;
 
@@ -748,7 +743,7 @@ export default {
 
         // set virtual scroll visible data
         setVirtualScrollVisibleData() {
-            const { isVirtualScroll, cloneTableData } = this;
+            const { cloneTableData } = this;
 
             const startIndex =
                 this.$options.customOption.virtualScrollStartIndex;
