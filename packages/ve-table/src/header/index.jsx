@@ -1,5 +1,4 @@
-import { getFixedTotalWidthByColumnKey, clsName } from "../util";
-import { getValByUnit } from "../../../src/utils/index.js";
+import { clsName } from "../util";
 import HeaderTr from "./header-tr";
 import { COMPS_NAME, EMIT_EVENTS } from "../util/constant";
 export default {
@@ -124,8 +123,6 @@ export default {
         const {
             headerClass,
             groupColumns,
-            getTheadThClass,
-            getTheadThStyle,
             colgroups,
             fixedHeader,
             headerRows,

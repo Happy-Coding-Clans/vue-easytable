@@ -43,13 +43,7 @@ export default {
         isExpanded() {
             let result = false;
 
-            const {
-                column,
-                expandOption,
-                rowData,
-                expandedRowkeys,
-                rowKeyFieldName,
-            } = this;
+            const { column, rowData, expandedRowkeys, rowKeyFieldName } = this;
 
             if (column.type === COLUMN_TYPES.EXPAND) {
                 const rowKey = rowData[rowKeyFieldName];

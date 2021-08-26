@@ -194,12 +194,9 @@ export default {
     render() {
         const {
             colgroups,
-            cloneTableData,
             expandOption,
-            rowExpandClick,
             expandRowChange,
             isExpandRow,
-            getExpandRowComp,
             expandedRowkeys,
             checkboxOption,
             rowKeyFieldName,

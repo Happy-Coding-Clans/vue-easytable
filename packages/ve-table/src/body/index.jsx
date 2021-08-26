@@ -1,8 +1,7 @@
 import BodyTr from "./body-tr";
 import ExpandTr from "./expand-tr";
 import VueDomResizeObserver from "../../../src/comps/resize-observer";
-import { clsName, getDomResizeObserverCompKey } from "../util";
-import { getValByUnit } from "../../../src/utils/index.js";
+import { getDomResizeObserverCompKey } from "../util";
 import emitter from "../../../src/mixins/emitter";
 import {
     COMPS_NAME,
@@ -252,11 +251,7 @@ export default {
         },
         // is checkbox indeterminate
         isCheckboxIndeterminate() {
-            const {
-                internalCheckboxSelectedRowKeys,
-                isCheckboxSelectedAll,
-                allRowKeys,
-            } = this;
+            const { internalCheckboxSelectedRowKeys, allRowKeys } = this;
 
             return (
                 internalCheckboxSelectedRowKeys.length > 0 &&
@@ -283,7 +278,7 @@ export default {
         },
         // watch expandOption expandedRowKeys
         "expandOption.expandedRowKeys": {
-            handler: function (val) {
+            handler: function () {
                 this.initInternalExpandRowKeys();
             },
         },
@@ -296,7 +291,7 @@ export default {
         },
         // watch selectedRowKeys
         "checkboxOption.selectedRowKeys": {
-            handler: function (val) {
+            handler: function () {
                 this.resetInternalCheckboxSelectedRowKeys();
             },
         },
@@ -316,7 +311,7 @@ export default {
         },
         // watch selectedRowKeys
         "radioOption.selectedRowKey": {
-            handler: function (val) {
+            handler: function () {
                 this.initInternalRadioSelectedRowKey();
             },
         },
@@ -341,7 +336,6 @@ export default {
                 expandOption,
                 internalExpandRowkeys,
                 expandedRowkeys,
-                isControlledExpand,
                 rowKeyFieldName,
             } = this;
 
@@ -386,7 +380,6 @@ export default {
          */
         rowClick({ rowData, rowIndex }) {
             const {
-                column,
                 expandOption,
                 isExpandRow,
                 expandRowChange,
@@ -449,7 +442,7 @@ export default {
         isExpandRow({ rowData, rowIndex }) {
             let result = false;
 
-            const { colgroups, expandColumn, expandOption } = this;
+            const { expandColumn, expandOption } = this;
 
             if (expandColumn && expandOption) {
                 // 是否允许展开
@@ -507,13 +500,7 @@ export default {
 
         // init internal expand row keys
         initInternalExpandRowKeys() {
-            const {
-                expandOption,
-                cloneTableData,
-                isControlledExpand,
-                rowKeyFieldName,
-                allRowKeys,
-            } = this;
+            const { expandOption, isControlledExpand, allRowKeys } = this;
 
             if (!expandOption) {
                 return false;
@@ -585,7 +572,7 @@ export default {
         // init internal Checkbox SelectedRowKeys
         initInternalCheckboxSelectedRowKeys() {
             let result = [];
-            const { checkboxOption, rowData, allRowKeys } = this;
+            const { checkboxOption, allRowKeys } = this;
 
             if (!checkboxOption) {
                 return false;
@@ -785,7 +772,6 @@ export default {
             colgroups,
             actualRenderTableData,
             expandOption,
-            rowClick,
             expandRowChange,
             isExpandRow,
             getExpandRowComp,

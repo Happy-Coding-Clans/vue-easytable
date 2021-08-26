@@ -1,10 +1,5 @@
 import VeDropdown from "vue-easytable/packages/ve-dropdown";
-import {
-    COMPS_NAME,
-    EMIT_EVENTS,
-    COLUMN_TYPES,
-    LOCALE_COMP_NAME,
-} from "../util/constant";
+import { COMPS_NAME, EMIT_EVENTS, LOCALE_COMP_NAME } from "../util/constant";
 import { clsName } from "../util";
 import { createLocale, isFunction } from "../../../src/utils/index";
 import VeIcon from "vue-easytable/packages/ve-icon";

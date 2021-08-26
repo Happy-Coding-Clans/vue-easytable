@@ -1,10 +1,5 @@
 import VeCheckbox from "vue-easytable/packages/ve-checkbox";
-import {
-    COMPS_NAME,
-    EMIT_EVENTS,
-    COLUMN_TYPES,
-    EXPAND_TRIGGER_TYPES,
-} from "../util/constant";
+import { COMPS_NAME, EMIT_EVENTS } from "../util/constant";
 import { clsName } from "../util";
 import emitter from "../../../src/mixins/emitter";
 export default {
@@ -94,7 +89,7 @@ export default {
 
         // selected change
         selectedChange(isSelected) {
-            const { checkboxOption, rowKey, isControlledProp } = this;
+            const { isControlledProp } = this;
 
             // 非受控
             if (!isControlledProp) {
@@ -112,7 +107,7 @@ export default {
         },
     },
     render() {
-        const { isSelected, selectedChange, label, disabled } = this;
+        const { isSelected, selectedChange, disabled } = this;
 
         const checkboxProps = {
             class: clsName("checkbox-wrapper"),

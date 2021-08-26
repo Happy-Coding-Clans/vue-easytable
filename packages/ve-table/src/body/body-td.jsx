@@ -1,13 +1,8 @@
 import BodyCheckboxContent from "./body-checkbox-content";
 import BodyRadioContent from "./body-radio-content";
 import ExpandTrIcon from "./expand-tr-icon";
-import { getFixedTotalWidthByColumnKey, clsName, getRowKey } from "../util";
-import {
-    getValByUnit,
-    isEmptyValue,
-    isNumber,
-    isBoolean,
-} from "../../../src/utils/index.js";
+import { getFixedTotalWidthByColumnKey, clsName } from "../util";
+import { getValByUnit, isNumber, isBoolean } from "../../../src/utils/index.js";
 
 import {
     COMPS_NAME,
@@ -138,7 +133,7 @@ export default {
 
             const { colgroups, column } = this;
 
-            const { fixed, field } = column;
+            const { fixed } = column;
 
             if (fixed === "left") {
                 const { field } = column;
@@ -161,7 +156,7 @@ export default {
 
             const { colgroups, column } = this;
 
-            const { fixed, field } = column;
+            const { fixed } = column;
 
             if (fixed === "right") {
                 const { field } = column;
@@ -185,7 +180,7 @@ export default {
 
             let result = {};
 
-            const { colgroups, column } = this;
+            const { colgroups } = this;
 
             // text align
             result["text-align"] = align || "center";
@@ -315,7 +310,7 @@ export default {
 
             // ellipisis
             if (column.ellipsis) {
-                const { lineClamp, showTitle } = column.ellipsis;
+                const { showTitle } = column.ellipsis;
 
                 // default true
                 const isShowTitle = isBoolean(showTitle) ? showTitle : true;
