@@ -449,6 +449,7 @@ export default {
                 }
                 this.initColumns();
                 this.initGroupColumns();
+                this.initScrolling();
             },
             immediate: true,
         },
