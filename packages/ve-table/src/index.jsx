@@ -444,12 +444,15 @@ export default {
         },
         columns: {
             handler(newVal, oldVal) {
-                if (newVal != oldVal) {
-                    this.columnsOptionResetTime++;
-                }
                 this.initColumns();
                 this.initGroupColumns();
-                this.initScrolling();
+
+                // 排除首次
+                if (newVal != oldVal && oldVal) {
+                    this.columnsOptionResetTime++;
+                    // 需要等待 initColumns 和 initGroupColumns 先执行
+                    this.initScrolling();
+                }
             },
             immediate: true,
         },
