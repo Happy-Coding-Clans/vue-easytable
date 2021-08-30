@@ -23,3 +23,34 @@ export function mockScrollTo() {
     Element.prototype.scrollTo = fn;
     return fn;
 }
+
+/*
+ * @mockElementMeasurement
+ * @desc mock element measurement
+ */
+export function mockElementMeasurement(key, value) {
+    Object.defineProperty(HTMLElement.prototype, key, {
+        configurable: true,
+        value: value,
+    });
+}
+
+/*
+ * @clearMockElementMeasurement
+ * @desc clear mock element measurement
+ */
+export function clearMockElementMeasurement(key) {
+    // const originalValue = Object.getOwnPropertyDescriptor(
+    //     HTMLElement.prototype,
+    //     key,
+    // );
+
+    const originalValue = {
+        value: 1200,
+        writable: false,
+        enumerable: false,
+        configurable: true,
+    };
+
+    Object.defineProperty(HTMLElement.prototype, key, originalValue);
+}
