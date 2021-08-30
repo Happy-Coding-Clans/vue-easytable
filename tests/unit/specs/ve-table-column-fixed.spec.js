@@ -184,10 +184,21 @@ describe("veTable column fixed", () => {
             ]),
         );
 
-        //await wrapper.setProps({ columns: COLUMNS_FIXED_CHANGE });
+        await wrapper.setProps({ columns: COLUMNS_FIXED_CHANGE });
+
+        const thEls2 = wrapper.findAll(
+            ".ve-table-header .ve-table-header-tr .ve-table-header-th",
+        );
+
+        expect(thEls2.at(0).classes()).toEqual(
+            expect.arrayContaining([
+                "ve-table-fixed-left",
+                "ve-table-last-left-fixed-column",
+            ]),
+        );
     });
 
-    it("header fixed right", () => {
+    it("header fixed right", async () => {
         const wrapper = mount(veTable, {
             propsData: {
                 columns: COLUMNS,
@@ -206,9 +217,22 @@ describe("veTable column fixed", () => {
             ]),
         );
         expect(thEls.at(9 - 0).classes()).toContain("ve-table-fixed-right");
+
+        await wrapper.setProps({ columns: COLUMNS_FIXED_CHANGE });
+
+        const thEls2 = wrapper.findAll(
+            ".ve-table-header .ve-table-header-tr .ve-table-header-th",
+        );
+
+        expect(thEls2.at(9 - 0).classes()).toEqual(
+            expect.arrayContaining([
+                "ve-table-first-right-fixed-column",
+                "ve-table-fixed-right",
+            ]),
+        );
     });
 
-    it("column fixed left", () => {
+    it("column fixed left", async () => {
         const wrapper = mount(veTable, {
             propsData: {
                 columns: COLUMNS,
@@ -228,9 +252,23 @@ describe("veTable column fixed", () => {
                 "ve-table-fixed-left",
             ]),
         );
+
+        await wrapper.setProps({ columns: COLUMNS_FIXED_CHANGE });
+
+        const tdEls2 = wrapper
+            .findAll(".ve-table-body .ve-table-body-tr")
+            .at(0)
+            .findAll(".ve-table-body-td");
+
+        expect(tdEls2.at(0).classes()).toEqual(
+            expect.arrayContaining([
+                "ve-table-last-left-fixed-column",
+                "ve-table-fixed-left",
+            ]),
+        );
     });
 
-    it("column fixed right", () => {
+    it("column fixed right", async () => {
         const wrapper = mount(veTable, {
             propsData: {
                 columns: COLUMNS,
@@ -250,5 +288,19 @@ describe("veTable column fixed", () => {
             ]),
         );
         expect(tdEls.at(9 - 0).classes()).toContain("ve-table-fixed-right");
+
+        await wrapper.setProps({ columns: COLUMNS_FIXED_CHANGE });
+
+        const tdEls2 = wrapper
+            .findAll(".ve-table-body .ve-table-body-tr")
+            .at(0)
+            .findAll(".ve-table-body-td");
+
+        expect(tdEls.at(9 - 0).classes()).toEqual(
+            expect.arrayContaining([
+                "ve-table-first-right-fixed-column",
+                "ve-table-fixed-right",
+            ]),
+        );
     });
 });
