@@ -110,6 +110,50 @@ describe("veTable column fixed", () => {
         },
     ];
 
+    // 固定列改变
+    const COLUMNS_FIXED_CHANGE = [
+        {
+            field: "col1",
+            key: "a",
+            title: "Title1",
+            fixed: "left",
+        },
+        {
+            field: "col2",
+            key: "b",
+            title: "Title2",
+        },
+        {
+            field: "col3",
+            key: "c",
+            title: "Title3",
+        },
+        { field: "col4", key: "d", title: "Title4" },
+        { field: "col5", key: "e", title: "Title5" },
+        { field: "col6", key: "f", title: "Title6" },
+        {
+            field: "col7",
+            key: "g",
+            title: "Title7",
+        },
+        {
+            field: "col8",
+            key: "h",
+            title: "Title8",
+        },
+        {
+            field: "col9",
+            key: "i",
+            title: "Title9",
+        },
+        {
+            field: "col10",
+            key: "j",
+            title: "Title10",
+            fixed: "right",
+        },
+    ];
+
     it("renders normal", () => {
         const wrapper = mount({
             render() {
@@ -120,7 +164,7 @@ describe("veTable column fixed", () => {
         expect(wrapper.html()).toMatchSnapshot();
     });
 
-    it("header fixed left", () => {
+    it("header fixed left", async () => {
         const wrapper = mount(veTable, {
             propsData: {
                 columns: COLUMNS,
@@ -133,9 +177,14 @@ describe("veTable column fixed", () => {
         );
 
         expect(thEls.at(0).classes()).toContain("ve-table-fixed-left");
-        expect(thEls.at(1).classes()).toContain(
-            "ve-table-last-left-fixed-column",
+        expect(thEls.at(1).classes()).toEqual(
+            expect.arrayContaining([
+                "ve-table-fixed-left",
+                "ve-table-last-left-fixed-column",
+            ]),
         );
+
+        //await wrapper.setProps({ columns: COLUMNS_FIXED_CHANGE });
     });
 
     it("header fixed right", () => {
@@ -150,8 +199,11 @@ describe("veTable column fixed", () => {
             ".ve-table-header .ve-table-header-tr .ve-table-header-th",
         );
 
-        expect(thEls.at(9 - 1).classes()).toContain(
-            "ve-table-first-right-fixed-column",
+        expect(thEls.at(9 - 1).classes()).toEqual(
+            expect.arrayContaining([
+                "ve-table-first-right-fixed-column",
+                "ve-table-fixed-right",
+            ]),
         );
         expect(thEls.at(9 - 0).classes()).toContain("ve-table-fixed-right");
     });
@@ -170,8 +222,11 @@ describe("veTable column fixed", () => {
             .findAll(".ve-table-body-td");
 
         expect(tdEls.at(0).classes()).toContain("ve-table-fixed-left");
-        expect(tdEls.at(1).classes()).toContain(
-            "ve-table-last-left-fixed-column",
+        expect(tdEls.at(1).classes()).toEqual(
+            expect.arrayContaining([
+                "ve-table-last-left-fixed-column",
+                "ve-table-fixed-left",
+            ]),
         );
     });
 
@@ -188,8 +243,11 @@ describe("veTable column fixed", () => {
             .at(0)
             .findAll(".ve-table-body-td");
 
-        expect(tdEls.at(9 - 1).classes()).toContain(
-            "ve-table-first-right-fixed-column",
+        expect(tdEls.at(9 - 1).classes()).toEqual(
+            expect.arrayContaining([
+                "ve-table-first-right-fixed-column",
+                "ve-table-fixed-right",
+            ]),
         );
         expect(tdEls.at(9 - 0).classes()).toContain("ve-table-fixed-right");
     });
