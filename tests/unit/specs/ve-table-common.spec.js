@@ -16,7 +16,7 @@ describe("veTable common", () => {
         clearMockElementMeasurement("clientWidth");
     });
 
-    it("horizontal scroll state", async () => {
+    it("horizontal scroll effect", async () => {
         mockElementMeasurement("scrollWidth", 1200);
         mockElementMeasurement("clientWidth", 900);
 
