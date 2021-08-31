@@ -11,8 +11,6 @@ import blue theme style
 import "vue-easytable/libs/theme-default/index.css";
 ```
 
-example：
-
 #### Use Dark Theme
 
 import dark theme style
@@ -20,8 +18,6 @@ import dark theme style
 ```
 import "vue-easytable/libs/theme-dark/index.css";
 ```
-
-example：
 
 :::anchor Theme Custom
 

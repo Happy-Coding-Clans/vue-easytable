@@ -11,15 +11,11 @@
 import "vue-easytable/libs/theme-default/index.css";
 ```
 
-示例：
-
 #### 使用暗黑主题
 
 ```
 import "vue-easytable/libs/theme-dark/index.css";
 ```
-
-示例：
 
 :::anchor 主题定制
 
