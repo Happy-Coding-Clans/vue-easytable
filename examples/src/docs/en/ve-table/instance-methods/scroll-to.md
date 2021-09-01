@@ -1,6 +1,6 @@
 :::anchor scrollTo
 
-:::demo 1、Params refer to [scrollTo](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollTo)
+:::demo 1、Scroll the table to the specified location(px)<br>2、Params refer to [scrollTo](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollTo)
 
 ```html
 <template>

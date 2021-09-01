@@ -482,6 +482,9 @@ export default {
             } else {
                 this.resetTableData();
             }
+
+            // scroll to top
+            this.$refs["tableRef"].scrollTo({ top: 0 });
         },
 
         // switch theme

@@ -108,8 +108,6 @@ export default {
         rowClick(e, fn) {
             fn && fn(e);
 
-            const { rowData, rowIndex } = this;
-
             /*   this.dispatch(COMPS_NAME.VE_TABLE_BODY, EMIT_EVENTS.BODY_TR_CLICK, {
                 rowData,
                 rowIndex
@@ -136,20 +134,9 @@ export default {
     render() {
         const {
             colgroups,
-            cloneTableData,
-            expandOption,
-            rowExpandClick,
-            expandRowChange,
-            isExpandRow,
-            getExpandRowComp,
-            expandedRowkeys,
-            checkboxOption,
             rowKeyFieldName,
             rowIndex,
             rowData,
-            internalCheckboxSelectedRowKeys,
-            internalRadioSelectedRowKey,
-            radioOption,
             cellStyleOption,
             eventCustomOption,
         } = this;
@@ -176,8 +163,6 @@ export default {
                 return <FooterTd {...tdProps} />;
             });
         };
-
-        let result = null;
 
         // custom on row event
         let customEvents = {};

@@ -1,12 +1,7 @@
 import { getFixedTotalWidthByColumnKey, clsName } from "../util";
 import { getValByUnit } from "../../../src/utils/index.js";
 
-import {
-    COMPS_NAME,
-    COLUMN_TYPES,
-    EXPAND_TRIGGER_TYPES,
-    EMIT_EVENTS,
-} from "../util/constant";
+import { COMPS_NAME } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 
 export default {
@@ -81,7 +76,7 @@ export default {
 
             const { colgroups, column } = this;
 
-            const { fixed, field } = column;
+            const { fixed } = column;
 
             if (fixed === "left") {
                 const { field } = column;
@@ -104,7 +99,7 @@ export default {
 
             const { colgroups, column } = this;
 
-            const { fixed, field } = column;
+            const { fixed } = column;
 
             if (fixed === "right") {
                 const { field } = column;
@@ -306,29 +301,7 @@ export default {
         },
     },
     render(h) {
-        const {
-            column,
-            cellClick,
-            rowData,
-            isExpandRow,
-            expandOption,
-            expandedRowkeys,
-            rowKeyFieldName,
-            rowIndex,
-            eventCustomOption,
-        } = this;
-
-        // expand icon props
-        const expandIconProps = {
-            props: {
-                rowData,
-                column,
-                expandOption,
-                expandedRowkeys,
-                rowKeyFieldName,
-                cellClick,
-            },
-        };
+        const { column, rowData, rowIndex, eventCustomOption } = this;
 
         const { rowspan, colspan } = this.getCellSpan();
         if (!rowspan || !colspan) {

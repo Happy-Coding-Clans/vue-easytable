@@ -1,16 +1,9 @@
 import VeDropdown from "vue-easytable/packages/ve-dropdown";
-import {
-    COMPS_NAME,
-    EMIT_EVENTS,
-    COLUMN_TYPES,
-    LOCALE_COMP_NAME,
-} from "../util/constant";
+import { COMPS_NAME } from "../util/constant";
 import { clsName } from "../util";
-import { createLocale, isFunction, isBoolean } from "../../../src/utils/index";
+import { isFunction, isBoolean } from "../../../src/utils/index";
 import VeIcon from "vue-easytable/packages/ve-icon";
 import { ICON_NAMES } from "../../../src/utils/constant";
-
-const t = createLocale(LOCALE_COMP_NAME);
 
 export default {
     name: COMPS_NAME.VE_TABLE_HEADER_FILTER_CUSTOM_CONTENT,
@@ -88,8 +81,6 @@ export default {
         },
     },
     render(h) {
-        const { defaultVisible } = this.column.filterCustom;
-
         const compProps = {
             props: {
                 isCustomContent: true,

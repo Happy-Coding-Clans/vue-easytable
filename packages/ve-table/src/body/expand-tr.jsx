@@ -1,6 +1,6 @@
 import { clsName } from "../util";
 import { store } from "../util/store";
-import { COMPS_NAME, COLUMN_TYPES } from "../util/constant";
+import { COMPS_NAME } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 
 export default {
@@ -122,13 +122,7 @@ export default {
         },
     },
     render(h) {
-        const {
-            isRowExpanded,
-            columnCount,
-            getExpandRowContent,
-            expanRowStyle,
-            expandTdClass,
-        } = this;
+        const { isRowExpanded, columnCount, getExpandRowContent } = this;
 
         let result = null;
 

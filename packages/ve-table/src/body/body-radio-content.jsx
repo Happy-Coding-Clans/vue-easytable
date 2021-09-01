@@ -1,10 +1,5 @@
 import VeRadio from "vue-easytable/packages/ve-radio";
-import {
-    COMPS_NAME,
-    EMIT_EVENTS,
-    COLUMN_TYPES,
-    EXPAND_TRIGGER_TYPES,
-} from "../util/constant";
+import { COMPS_NAME, EMIT_EVENTS } from "../util/constant";
 import { clsName } from "../util";
 import emitter from "../../../src/mixins/emitter";
 export default {
@@ -82,7 +77,7 @@ export default {
 
         // selected change
         selectedChange() {
-            const { radioOption, rowKey, isControlledProp } = this;
+            const { isControlledProp } = this;
 
             // 非受控
             if (!isControlledProp) {
@@ -99,7 +94,7 @@ export default {
         },
     },
     render() {
-        const { isSelected, selectedChange, label, disabled } = this;
+        const { isSelected, selectedChange, disabled } = this;
 
         const radioProps = {
             class: clsName("radio-wrapper"),

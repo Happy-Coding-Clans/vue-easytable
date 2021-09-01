@@ -1,10 +1,5 @@
 import VeCheckbox from "vue-easytable/packages/ve-checkbox";
-import {
-    COMPS_NAME,
-    EMIT_EVENTS,
-    COLUMN_TYPES,
-    EXPAND_TRIGGER_TYPES,
-} from "../util/constant";
+import { COMPS_NAME, EMIT_EVENTS } from "../util/constant";
 import { clsName } from "../util";
 import emitter from "../../../src/mixins/emitter";
 export default {
@@ -30,9 +25,6 @@ export default {
     methods: {
         // selected change
         selectedChange(isSelected) {
-            const { checkboxOption } = this;
-            const { selectedRowKeys } = checkboxOption;
-
             this.isSelected = isSelected;
 
             this.dispatch(

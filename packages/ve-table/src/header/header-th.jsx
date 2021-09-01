@@ -157,8 +157,7 @@ export default {
                 [clsName("last-column")]: this.isLastCloumn,
             };
 
-            const { cellStyleOption, rowData, groupColumnItem, rowIndex } =
-                this;
+            const { cellStyleOption, groupColumnItem, rowIndex } = this;
 
             if (
                 cellStyleOption &&
@@ -401,8 +400,7 @@ export default {
         let content;
 
         if (typeof groupColumnItem.renderHeaderCell === "function") {
-            const { _keys, _level, _colspan, _rowspan, ...column } =
-                groupColumnItem;
+            const { ...column } = groupColumnItem;
 
             const renderResult = groupColumnItem.renderHeaderCell(
                 {

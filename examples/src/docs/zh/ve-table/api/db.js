@@ -462,9 +462,14 @@ export const db = {
     instanceMethods: {
         data: [
             {
-                name: "scrollTop",
+                name: "scrollTo",
                 desc: `使表格滚动到指定的位置`,
                 param: "参考<a href='https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollTo'> MDN scrollTo</a>",
+            },
+            {
+                name: "scrollToRowKey",
+                desc: `将表格滚动到行为rowKey的位置`,
+                param: "{rowKey}",
             },
         ],
         columns: columnsType2,
