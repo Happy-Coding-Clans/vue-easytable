@@ -20,7 +20,7 @@ jobs:
       uses: bahmutov/npm-install@v1
 
     - name: Run test cases
-      run: npm test:cover
+      run: npm run test:cover
 
     - name: Upload coverage to Codecov  
       uses: codecov/codecov-action@v2
