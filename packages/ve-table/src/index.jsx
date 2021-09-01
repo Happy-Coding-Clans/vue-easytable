@@ -593,8 +593,6 @@ export default {
                     event.preventDefault();
                     if (rowIndex > 0) {
                         const nextRowKey = allRowKeys[rowIndex - 1];
-                        this.cellSelectionKeyData.rowKey = nextRowKey;
-
                         this.rowToVisible(KEY_CODES.ARROW_UP, nextRowKey);
                     }
                 } else if (keyCode === KEY_CODES.ARROW_DOWN) {
@@ -602,8 +600,6 @@ export default {
 
                     if (rowIndex < allRowKeys.length - 1) {
                         const nextRowKey = allRowKeys[rowIndex + 1];
-                        this.cellSelectionKeyData.rowKey = nextRowKey;
-
                         this.rowToVisible(KEY_CODES.ARROW_DOWN, nextRowKey);
                     }
                 }
@@ -742,6 +738,8 @@ export default {
                         tableContainerRef.scrollTop = containerScrollTop + diff;
                     }
                 }
+                // 解决滚动过快导致选中框消失的问题
+                this.cellSelectionKeyData.rowKey = nextRowKey;
             }
         },
 
