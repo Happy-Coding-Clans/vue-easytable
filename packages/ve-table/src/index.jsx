@@ -9,6 +9,7 @@ import {
     isFunction,
     isNumber,
     scrollTo,
+    isEmptyValue,
 } from "../../src/utils/index.js";
 import emitter from "../../src/mixins/emitter";
 import {
@@ -22,7 +23,6 @@ import Header from "./header";
 import Body from "./body";
 import Footer from "./footer";
 import { KEY_CODES } from "../../src/utils/constant";
-import { isEmptyValue } from "../../src/utils/index";
 import clickoutside from "../../src/directives/clickoutside";
 import { mutations } from "./util/store";
 import VueDomResizeObserver from "../../src/comps/resize-observer";
@@ -1051,6 +1051,47 @@ export default {
         // table scrollTo
         [INSTANCE_METHODS.SCROLL_TO](option) {
             scrollTo(this.$refs[this.tableContainerRef], option);
+        },
+        // table scroll to rowKey
+        [INSTANCE_METHODS.SCROLL_TO_ROW_KEY]({ rowKey }) {
+            if (isEmptyValue(rowKey)) {
+                console.warn("Row key can't be empty!");
+                return false;
+            }
+
+            let scrollTop = 0;
+
+            const { isVirtualScroll, headerRows } = this;
+
+            const tableContainerRef = this.$refs[this.tableContainerRef];
+
+            if (isVirtualScroll) {
+                const position = this.virtualScrollPositions.find(
+                    (x) => x.rowKey === rowKey,
+                );
+
+                if (position) {
+                    scrollTop = position.top;
+                }
+            } else {
+                const rowEl = this.$el.querySelector(
+                    `tbody tr[${COMPS_CUSTOM_ATTRS.BODY_ROW_KEY}="${rowKey}"]`,
+                );
+
+                const totalHeaderHeight = headerRows.reduce(
+                    (total, currentVal) => {
+                        return currentVal.rowHeight + total;
+                    },
+                    0,
+                );
+
+                scrollTop = rowEl.offsetTop - totalHeaderHeight;
+            }
+
+            scrollTo(tableContainerRef, {
+                top: scrollTop,
+                behavior: "smooth",
+            });
         },
     },
     mounted() {

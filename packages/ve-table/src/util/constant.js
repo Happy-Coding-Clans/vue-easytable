@@ -86,5 +86,8 @@ export const COMPS_CUSTOM_ATTRS = {
 
 // instance methods
 export const INSTANCE_METHODS = {
+    // scroll to pixels
     SCROLL_TO: "scrollTo",
+    // scroll to rowKey
+    SCROLL_TO_ROW_KEY: "scrollToRowKey",
 };
