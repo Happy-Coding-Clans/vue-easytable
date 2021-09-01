@@ -1,0 +1,28 @@
+name: test-coverage-upload
+# This workflow is triggered on pushes to the repository.
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "tests/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+
+    - name: Install dependencies
+      uses: bahmutov/npm-install@v1
+
+    - name: Run test cases
+      run: npm test:cover
+
+    - name: Upload coverage to Codecov  
+      uses: codecov/codecov-action@v2
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
