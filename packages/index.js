@@ -1,6 +1,5 @@
 // This file is auto gererated by build/build-entry.js
 
-import Vue from 'vue';
 import VeCheckbox from './ve-checkbox';
 import VeCheckboxGroup from './ve-checkbox-group';
 import VeDropdown from './ve-dropdown';

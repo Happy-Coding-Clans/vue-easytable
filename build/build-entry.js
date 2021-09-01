@@ -40,7 +40,6 @@ function buildCompsInstallEntry() {
     );
 
     const content = `${tips}\r\n
-import Vue from 'vue';
 ${importCompList.join("\n")}
 
 
