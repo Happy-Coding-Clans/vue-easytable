@@ -15,8 +15,7 @@ Breaking Changes
 
 Feature
 
--   sad
--   dasd
+-   添加 scrollToRowKey 实例方法
 
 Bug Fixes
 
