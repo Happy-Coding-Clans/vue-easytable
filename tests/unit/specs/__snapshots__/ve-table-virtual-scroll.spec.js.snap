@@ -90,6 +90,11 @@ exports[`veTable virtual scroll render same row height 1`] = `
           <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">12</td>
           <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">12</td>
         </tr>
+        <tr row-key="13" class="ve-table-body-tr">
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">13</td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">13</td>
+          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">13</td>
+        </tr>
       </tbody>
       <tfoot class="ve-table-fixed-footer ve-table-footer"></tfoot>
     </table>

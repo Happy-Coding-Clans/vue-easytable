@@ -43,9 +43,10 @@ describe("veTable virtual scroll", () => {
 
     //
     const MAX_HEIGHT = 500;
-    const MIN_ROW_HEIGHT = 42;
-    const MIN_TABLE_ROW_COUNT = (MAX_HEIGHT / MIN_ROW_HEIGHT) * 2;
-    const MAX_TABLE_ROW_COUNT = (MAX_HEIGHT / MIN_ROW_HEIGHT) * 2 + 5;
+    const MIN_ROW_HEIGHT = 40;
+    const TABLE_ROW_COUNT = Math.ceil(MAX_HEIGHT / MIN_ROW_HEIGHT) + 1;
+    // const MIN_TABLE_ROW_COUNT = Math.floor(MAX_HEIGHT / MIN_ROW_HEIGHT);
+    // const MAX_TABLE_ROW_COUNT = Math.ceil(MAX_HEIGHT / MIN_ROW_HEIGHT) + 2;
 
     it("render same row height", async () => {
         const wrapper = mount(veTable, {
@@ -181,7 +182,6 @@ describe("veTable virtual scroll", () => {
                 virtualScrollOption: {
                     // 是否开启
                     enable: true,
-                    bufferScale: 1,
                 },
                 maxHeight: MAX_HEIGHT,
                 rowKeyFieldName: "rowKey",
@@ -192,13 +192,8 @@ describe("veTable virtual scroll", () => {
 
         await later();
 
-        // default buffer=1
-        expect(wrapper.findAll(".ve-table-body-tr").length).toBeGreaterThan(
-            MIN_TABLE_ROW_COUNT,
-        );
-
-        expect(wrapper.findAll(".ve-table-body-tr").length).toBeLessThan(
-            MAX_TABLE_ROW_COUNT,
+        expect(wrapper.findAll(".ve-table-body-tr").length).toBe(
+            TABLE_ROW_COUNT,
         );
     });
 
@@ -232,7 +227,6 @@ describe("veTable virtual scroll", () => {
                 virtualScrollOption: {
                     // 是否开启
                     enable: true,
-                    bufferScale: 1,
                 },
                 maxHeight: MAX_HEIGHT,
                 rowKeyFieldName: "rowKey",
@@ -243,13 +237,8 @@ describe("veTable virtual scroll", () => {
 
         await later();
 
-        // default buffer=1
-        expect(wrapper.findAll(".ve-table-body-tr").length).toBeGreaterThan(
-            MIN_TABLE_ROW_COUNT,
-        );
-
-        expect(wrapper.findAll(".ve-table-body-tr").length).toBeLessThan(
-            MAX_TABLE_ROW_COUNT,
+        expect(wrapper.findAll(".ve-table-body-tr").length).toBe(
+            TABLE_ROW_COUNT,
         );
     });
 
@@ -285,7 +274,6 @@ describe("veTable virtual scroll", () => {
                 virtualScrollOption: {
                     // 是否开启
                     enable: true,
-                    bufferScale: 1,
                 },
                 checkboxOption: {},
                 maxHeight: MAX_HEIGHT,
@@ -299,13 +287,8 @@ describe("veTable virtual scroll", () => {
 
         expect(wrapper.find(".ve-checkbox").exists()).toBe(true);
 
-        // default buffer=1
-        expect(wrapper.findAll(".ve-table-body-tr").length).toBeGreaterThan(
-            MIN_TABLE_ROW_COUNT,
-        );
-
-        expect(wrapper.findAll(".ve-table-body-tr").length).toBeLessThan(
-            MAX_TABLE_ROW_COUNT,
+        expect(wrapper.findAll(".ve-table-body-tr").length).toBe(
+            TABLE_ROW_COUNT,
         );
     });
 
@@ -341,7 +324,6 @@ describe("veTable virtual scroll", () => {
                 virtualScrollOption: {
                     // 是否开启
                     enable: true,
-                    bufferScale: 1,
                 },
                 radioOption: {},
                 maxHeight: MAX_HEIGHT,
@@ -355,13 +337,8 @@ describe("veTable virtual scroll", () => {
 
         expect(wrapper.find(".ve-radio").exists()).toBe(true);
 
-        // default buffer=1
-        expect(wrapper.findAll(".ve-table-body-tr").length).toBeGreaterThan(
-            MIN_TABLE_ROW_COUNT,
-        );
-
-        expect(wrapper.findAll(".ve-table-body-tr").length).toBeLessThan(
-            MAX_TABLE_ROW_COUNT,
+        expect(wrapper.findAll(".ve-table-body-tr").length).toBe(
+            TABLE_ROW_COUNT,
         );
     });
 
@@ -397,7 +374,6 @@ describe("veTable virtual scroll", () => {
                 virtualScrollOption: {
                     // 是否开启
                     enable: true,
-                    bufferScale: 1,
                 },
                 expandOption: {
                     render: ({ row, column, rowIndex }, h) => {
@@ -421,13 +397,8 @@ describe("veTable virtual scroll", () => {
 
         expect(wrapper.find(".ve-table-row-expand-icon").exists()).toBe(true);
 
-        // default buffer=1
-        expect(wrapper.findAll(".ve-table-body-tr").length).toBeGreaterThan(
-            MIN_TABLE_ROW_COUNT,
-        );
-
-        expect(wrapper.findAll(".ve-table-body-tr").length).toBeLessThan(
-            MAX_TABLE_ROW_COUNT,
+        expect(wrapper.findAll(".ve-table-body-tr").length).toBe(
+            TABLE_ROW_COUNT,
         );
     });
 
@@ -463,7 +434,6 @@ describe("veTable virtual scroll", () => {
                 virtualScrollOption: {
                     // 是否开启
                     enable: true,
-                    bufferScale: 1,
                 },
                 maxHeight: MAX_HEIGHT,
                 rowKeyFieldName: "rowKey",
@@ -502,13 +472,8 @@ describe("veTable virtual scroll", () => {
             "ve-table-first-right-fixed-column",
         );
 
-        // default buffer=1
-        expect(wrapper.findAll(".ve-table-body-tr").length).toBeGreaterThan(
-            MIN_TABLE_ROW_COUNT,
-        );
-
-        expect(wrapper.findAll(".ve-table-body-tr").length).toBeLessThan(
-            MAX_TABLE_ROW_COUNT,
+        expect(wrapper.findAll(".ve-table-body-tr").length).toBe(
+            TABLE_ROW_COUNT,
         );
     });
 
@@ -560,7 +525,6 @@ describe("veTable virtual scroll", () => {
                 virtualScrollOption: {
                     // 是否开启
                     enable: true,
-                    bufferScale: 1,
                 },
                 maxHeight: MAX_HEIGHT,
                 rowKeyFieldName: "rowKey",
@@ -575,13 +539,8 @@ describe("veTable virtual scroll", () => {
             wrapper.findAll(".ve-table-footer-tr .ve-table-footer-td").length,
         ).toBe(6);
 
-        // default buffer=1
-        expect(wrapper.findAll(".ve-table-body-tr").length).toBeGreaterThan(
-            MIN_TABLE_ROW_COUNT,
-        );
-
-        expect(wrapper.findAll(".ve-table-body-tr").length).toBeLessThan(
-            MAX_TABLE_ROW_COUNT,
+        expect(wrapper.findAll(".ve-table-body-tr").length).toBe(
+            TABLE_ROW_COUNT,
         );
     });
 });
