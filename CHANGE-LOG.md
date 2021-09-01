@@ -22,6 +22,7 @@ Bug Fixes
 
 -   修复虚拟滚动功能最小高度 `minRowHeight`值与表格行高一样，滚动条高度没撑开的问题
 -   修复虚拟滚动功能，浏览器窗口大小改变表格白屏的问题
+-   修复长时间键盘操作（keycode 38 = Up）导致选中框消失的的问题
 
 Performance Improvements
 
