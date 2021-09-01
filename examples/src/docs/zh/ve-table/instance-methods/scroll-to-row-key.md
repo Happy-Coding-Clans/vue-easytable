@@ -1,17 +1,14 @@
-:::anchor scrollTo 滚动方法
+:::anchor scrollToRowKey 滚动方法
 
-:::demo 1、将表格滚动到指定位置（px）<br>2、参数请参考 [scrollTo](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollTo)
+:::demo 1、将表格滚动到行为 rowKey 的位置
 
 ```html
 <template>
     <div>
         <div style="margin-bottom:20px;line-height:3.0;">
-            <button class="button-demo" @click="scrollY(1000)">垂直滚动到1000px</button>
-            <button class="button-demo" @click="scrollY(500)">垂直滚动到500px</button>
-            <button class="button-demo" @click="scrollY(0)">垂直滚动到0px</button>
-            <button class="button-demo" @click="scrollX(500)">水平滚动到300px</button>
-            <button class="button-demo" @click="scrollX(300)">水平滚动到200px</button>
-            <button class="button-demo" @click="scrollX(0)">水平滚动到0px</button>
+            <button class="button-demo" @click="scrollToRowKey(30)">滚动到rowKey为30的行</button>
+            <button class="button-demo" @click="scrollToRowKey(50)">滚动到rowKey为50的行</button>
+            <button class="button-demo" @click="scrollToRowKey(0)">滚动到rowKey为0的行</button>
         </div>
         <ve-table
             ref="tableRef"
@@ -125,12 +122,8 @@
                 this.tableData = data;
             },
             // scroll y
-            scrollY(val) {
-                this.$refs["tableRef"].scrollTo({ top: val, behavior: "smooth" });
-            },
-            // scroll x
-            scrollX(val) {
-                this.$refs["tableRef"].scrollTo({ left: val, behavior: "smooth" });
+            scrollToRowKey(rowKey) {
+                this.$refs["tableRef"].scrollToRowKey({ rowKey: rowKey });
             },
         },
         created() {

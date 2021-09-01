@@ -462,9 +462,14 @@ export const db = {
     instanceMethods: {
         data: [
             {
-                name: "scrollTop",
+                name: "scrollTo",
                 desc: `Scrolls the table to the specified position`,
                 param: "Refer to <a href='https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollTo'> MDN scrollTo</a>",
+            },
+            {
+                name: "scrollToRowKey",
+                desc: `Scroll the table to the location of the row key`,
+                param: "{rowKey}",
             },
         ],
         columns: columnsType2,
