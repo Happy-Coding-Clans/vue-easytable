@@ -275,32 +275,18 @@ export default {
                 defaultVirtualScrollMinRowHeight,
                 maxHeight,
                 tableOffestHeight,
-                isVirtualScrollFixedRowHeight,
             } = this;
 
             if (isVirtualScroll && maxHeight) {
-                const { fixedRowHeight } = virtualScrollOption;
+                const minRowHeight = isNumber(virtualScrollOption.minRowHeight)
+                    ? virtualScrollOption.minRowHeight
+                    : defaultVirtualScrollMinRowHeight;
 
-                // fixed row height
-                if (isVirtualScrollFixedRowHeight) {
-                    if (isNumber(maxHeight)) {
-                        result = Math.ceil(maxHeight / fixedRowHeight);
-                    } else if (tableOffestHeight) {
-                        result = Math.ceil(tableOffestHeight / fixedRowHeight);
-                    }
-                } else {
-                    const minRowHeight = isNumber(
-                        virtualScrollOption.minRowHeight,
-                    )
-                        ? virtualScrollOption.minRowHeight
-                        : defaultVirtualScrollMinRowHeight;
-
-                    if (isNumber(maxHeight)) {
-                        result = Math.ceil(maxHeight / minRowHeight);
-                    } else if (tableOffestHeight) {
-                        // 修复当动态高度 当 max-height="calc(100vh - 210px)" 或者 max-height="80%" 时无法计算的问题
-                        result = Math.ceil(tableOffestHeight / minRowHeight);
-                    }
+                if (isNumber(maxHeight)) {
+                    result = Math.ceil(maxHeight / minRowHeight);
+                } else if (tableOffestHeight) {
+                    // 修复当动态高度 当 max-height="calc(100vh - 210px)" 或者 max-height="80%" 时无法计算的问题
+                    result = Math.ceil(tableOffestHeight / minRowHeight);
                 }
             }
             return result;
@@ -384,11 +370,6 @@ export default {
         isVirtualScroll() {
             const { virtualScrollOption } = this;
             return virtualScrollOption && virtualScrollOption.enable;
-        },
-        // is virtual scroll fixed row height
-        isVirtualScrollFixedRowHeight() {
-            const { virtualScrollOption } = this;
-            return virtualScrollOption && virtualScrollOption.isFixedRowHeight;
         },
         // has fixed column
         hasFixedColumn() {
@@ -847,7 +828,7 @@ export default {
 
         // init virtual scroll positions
         initVirtualScrollPositions() {
-            if (this.isVirtualScroll && !this.isVirtualScrollFixedRowHeight) {
+            if (this.isVirtualScroll) {
                 const {
                     virtualScrollOption,
                     rowKeyFieldName,
@@ -872,11 +853,6 @@ export default {
 
         // list item height change
         bodyTrHeightChange({ rowKey, height }) {
-            // 固定高度时不处理
-            if (this.isVirtualScrollFixedRowHeight) {
-                return false;
-            }
-
             //获取真实元素大小，修改对应的尺寸缓存
             const index = this.virtualScrollPositions.findIndex(
                 (x) => x.rowKey === rowKey,
@@ -911,45 +887,30 @@ export default {
         setVirtualPhantomHeight() {
             let totalHeight = 0;
 
-            if (this.isVirtualScrollFixedRowHeight) {
-                totalHeight =
-                    this.cloneTableData.length *
-                    this.virtualScrollOption.fixedRowHeight;
-            } else {
-                totalHeight =
-                    this.virtualScrollPositions[
-                        this.virtualScrollPositions.length - 1
-                    ].bottom;
-            }
+            totalHeight =
+                this.virtualScrollPositions[
+                    this.virtualScrollPositions.length - 1
+                ].bottom;
 
             this.$refs[this.virtualPhantomRef].style.height =
                 totalHeight + "px";
         },
         // set virtual scroll start offset
-        setVirtualScrollStartOffset(scrollTop = 0) {
+        setVirtualScrollStartOffset() {
             const start = this.$options.customOption.virtualScrollStartIndex;
 
             const aboveCount = this.getVirtualScrollAboveCount();
 
-            const { fixedRowHeight } = this.virtualScrollOption;
-
             let startOffset = 0;
-            if (this.isVirtualScrollFixedRowHeight) {
+
+            if (start >= 1) {
+                let size =
+                    this.virtualScrollPositions[start].top -
+                    (this.virtualScrollPositions[start - aboveCount]
+                        ? this.virtualScrollPositions[start - aboveCount].top
+                        : 0);
                 startOffset =
-                    scrollTop -
-                    aboveCount * fixedRowHeight -
-                    (scrollTop % fixedRowHeight);
-            } else {
-                if (start >= 1) {
-                    let size =
-                        this.virtualScrollPositions[start].top -
-                        (this.virtualScrollPositions[start - aboveCount]
-                            ? this.virtualScrollPositions[start - aboveCount]
-                                  .top
-                            : 0);
-                    startOffset =
-                        this.virtualScrollPositions[start - 1].bottom - size;
-                }
+                    this.virtualScrollPositions[start - 1].bottom - size;
             }
 
             //this.$refs[this.tableContentRef].style.transform = `translate3d(0,${startOffset}px,0)`;
@@ -959,18 +920,10 @@ export default {
         },
         // get virtual scroll start index
         getVirtualScrollStartIndex(scrollTop = 0) {
-            let result;
-            if (this.isVirtualScrollFixedRowHeight) {
-                result = Math.floor(
-                    scrollTop / this.virtualScrollOption.fixedRowHeight,
-                );
-            } else {
-                result = this.virtualScrollBinarySearch(
-                    this.virtualScrollPositions,
-                    scrollTop,
-                );
-            }
-            return result;
+            return this.virtualScrollBinarySearch(
+                this.virtualScrollPositions,
+                scrollTop,
+            );
         },
         // virtual scroll binary search
         virtualScrollBinarySearch(list, value) {
@@ -1021,7 +974,7 @@ export default {
                     visibleEndIndex;
 
                 //此时的偏移量
-                this.setVirtualScrollStartOffset(scrollTop);
+                this.setVirtualScrollStartOffset();
 
                 const { scrolling } = virtualScrollOption;
                 if (isFunction(scrolling)) {
@@ -1159,7 +1112,6 @@ export default {
             rowKeyFieldName,
             virtualScrollOption,
             isVirtualScroll,
-            isVirtualScrollFixedRowHeight,
             virtualScrollVisibleData,
             sortOption,
             cellStyleOption,
@@ -1194,7 +1146,6 @@ export default {
                 radioOption,
                 virtualScrollOption,
                 isVirtualScroll,
-                isVirtualScrollFixedRowHeight,
                 virtualScrollVisibleData,
                 cellStyleOption,
                 cellSpanOption: this.cellSpanOption,

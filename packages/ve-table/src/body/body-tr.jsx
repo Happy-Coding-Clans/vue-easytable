@@ -86,11 +86,6 @@ export default {
             type: Boolean,
             default: false,
         },
-        // is virtual scroll fixed row height
-        isVirtualScrollFixedRowHeight: {
-            type: Boolean,
-            default: false,
-        },
         // cell style option
         cellStyleOption: {
             type: Object,
@@ -274,7 +269,7 @@ export default {
             },
         };
 
-        if (this.isVirtualScroll && !this.isVirtualScrollFixedRowHeight) {
+        if (this.isVirtualScroll) {
             const props = {
                 class: this.trClass,
                 props: {

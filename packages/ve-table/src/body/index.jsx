@@ -65,11 +65,6 @@ export default {
             type: Boolean,
             default: false,
         },
-        // is virtual scroll fixed row height
-        isVirtualScrollFixedRowHeight: {
-            type: Boolean,
-            default: false,
-        },
         // virtual scroll visible data
         virtualScrollVisibleData: {
             type: Array,
@@ -783,7 +778,6 @@ export default {
             internalCheckboxSelectedRowKeys,
             internalRadioSelectedRowKey,
             isVirtualScroll,
-            isVirtualScrollFixedRowHeight,
             cellStyleOption,
         } = this;
 
@@ -829,7 +823,6 @@ export default {
                             internalCheckboxSelectedRowKeys,
                             internalRadioSelectedRowKey,
                             isVirtualScroll,
-                            isVirtualScrollFixedRowHeight,
                             isExpandRow: isExpandRow({
                                 rowData,
                                 rowIndex,
