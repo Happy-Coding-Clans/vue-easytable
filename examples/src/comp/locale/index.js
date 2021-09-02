@@ -34,6 +34,21 @@ export default {
             openInCodeSandBox: "在 CodeSandBox 中编辑",
         },
         completeDemo: {
+            dataRowsOption: [
+                {
+                    value: "1000",
+                    label: "1000 行",
+                },
+                {
+                    value: "10000",
+                    label: "10,000 行",
+                },
+                {
+                    value: "100000",
+                    label: "100,000 行",
+                },
+            ],
+            dataRows: "数据量：",
             theme: "暗黑主题：",
             columnFixed: "列固定：",
             loading: "Loading：",
@@ -73,6 +88,21 @@ export default {
             openInCodeSandBox: "Edit in CodeSandBox",
         },
         completeDemo: {
+            dataRowsOption: [
+                {
+                    value: "1000",
+                    label: "1000 Rows",
+                },
+                {
+                    value: "10000",
+                    label: "10,000 Rows",
+                },
+                {
+                    value: "100000",
+                    label: "100,000 Rows",
+                },
+            ],
+            dataRows: "Data Rows:",
             theme: "Dark Theme:",
             columnFixed: "Fixed Columns:",
             loading: "Loading:",

@@ -4,20 +4,36 @@
             <div class="operation">
                 <div class="operation-item">
                     <el-row :gutter="20">
-                        <el-col :span="3">
-                            {{ currentLocal["theme"] }}
-                            <el-switch
-                                v-model="enableDarkTheme"
-                                :active-color="switchActiveColor"
-                                :inactive-color="switchInactiveColor"
-                                @change="switchTheme"
-                            ></el-switch>
+                        <el-col :span="4">
+                            {{ currentLocal["dataRows"] }}
+                            <el-select
+                                v-model="dataRow"
+                                style="width: 60%"
+                                size="small"
+                                @change="dataRowChange"
+                            >
+                                <el-option
+                                    v-for="item in currentLocal[
+                                        'dataRowsOption'
+                                    ]"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                ></el-option>
+                            </el-select>
                         </el-col>
-
                         <el-col :span="3">
                             {{ currentLocal["columnFixed"] }}
                             <el-switch
                                 v-model="enableColumnFixed"
+                                :active-color="switchActiveColor"
+                                :inactive-color="switchInactiveColor"
+                            ></el-switch>
+                        </el-col>
+                        <el-col :span="3">
+                            {{ currentLocal["expand"] }}
+                            <el-switch
+                                v-model="enableExpand"
                                 :active-color="switchActiveColor"
                                 :inactive-color="switchInactiveColor"
                             ></el-switch>
@@ -29,14 +45,6 @@
                                 :active-color="switchActiveColor"
                                 :inactive-color="switchInactiveColor"
                                 @change="switchLoading"
-                            ></el-switch>
-                        </el-col>
-                        <el-col :span="3">
-                            {{ currentLocal["expand"] }}
-                            <el-switch
-                                v-model="enableExpand"
-                                :active-color="switchActiveColor"
-                                :inactive-color="switchInactiveColor"
                             ></el-switch>
                         </el-col>
                         <el-col :span="3">
@@ -55,8 +63,16 @@
                                 :inactive-color="switchInactiveColor"
                             ></el-switch>
                         </el-col>
-                        <el-col :span="3"></el-col>
-                        <el-col :span="3"></el-col>
+                        <el-col :span="3">
+                            {{ currentLocal["theme"] }}
+                            <el-switch
+                                v-model="enableDarkTheme"
+                                :active-color="switchActiveColor"
+                                :inactive-color="switchInactiveColor"
+                                @change="switchTheme"
+                            ></el-switch>
+                        </el-col>
+                        <el-col :span="2"></el-col>
                     </el-row>
                 </div>
                 <!--   <div class="operation-item">
@@ -108,6 +124,7 @@ export default {
     mixins: [I18nMixins, ThemeSwitchMixins],
     data() {
         return {
+            dataRow: 1000,
             switchActiveColor: "#1890ff",
             switchInactiveColor: "rgba(0,0,0,.25)",
 
@@ -515,6 +532,15 @@ export default {
             this.filter();
         },
 
+        // data row change
+        dataRowChange() {
+            setTimeout(() => {
+                this.initSourceData();
+                // scroll to top
+                this.$refs["tableRef"].scrollTo({ top: 0 });
+            });
+        },
+
         initSourceData() {
             const PROFESSIONS = [
                 "Project Manager",
@@ -526,7 +552,9 @@ export default {
             ];
 
             let data = [];
-            for (let i = 0; i < 10000; i++) {
+
+            const dataRow = this.dataRow;
+            for (let i = 0; i < dataRow; i++) {
                 data.push({
                     rowKey: i,
                     rowIndex: i + 1,
@@ -567,10 +595,11 @@ export default {
     padding: 10px;
 
     .operation {
-        margin: 30px 0;
+        margin: 10px 0;
 
         .operation-item {
             height: 50px;
+            line-height: 50px;
         }
     }
 
