@@ -7,6 +7,12 @@ vx.x.x(TPL)
 -   Style
 -   Dependencies Changes
 
+V2.7.1
+
+### Bug Fixes
+
+-   修复设置了禁止选中，点击全选仍然会选中的问题 #397
+
 V2.7.0
 
 ### Breaking Changes
