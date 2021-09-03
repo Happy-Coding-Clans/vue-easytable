@@ -213,7 +213,6 @@ export default {
             const { disableSelectedRowKeys } = checkboxOption;
 
             if (
-                internalCheckboxSelectedRowKeys.length > 0 &&
                 Array.isArray(disableSelectedRowKeys) &&
                 disableSelectedRowKeys.length > 0
             ) {
@@ -683,11 +682,12 @@ export default {
                     internalCheckboxSelectedRowKeysTemp;
             }
 
-            selectedAllChange({
-                isSelected,
-                selectedRowKeys: internalCheckboxSelectedRowKeysTemp,
-                //changeRowKeys:
-            });
+            selectedAllChange &&
+                selectedAllChange({
+                    isSelected,
+                    selectedRowKeys: internalCheckboxSelectedRowKeysTemp,
+                    //changeRowKeys:
+                });
         },
 
         /*
