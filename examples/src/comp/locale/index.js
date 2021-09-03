@@ -36,15 +36,15 @@ export default {
         completeDemo: {
             dataRowsOption: [
                 {
-                    value: "1000",
+                    value: 1000,
                     label: "1000 行",
                 },
                 {
-                    value: "10000",
+                    value: 10000,
                     label: "10,000 行",
                 },
                 {
-                    value: "100000",
+                    value: 100000,
                     label: "100,000 行",
                 },
             ],
@@ -90,15 +90,15 @@ export default {
         completeDemo: {
             dataRowsOption: [
                 {
-                    value: "1000",
+                    value: 1000,
                     label: "1000 Rows",
                 },
                 {
-                    value: "10000",
+                    value: 10000,
                     label: "10,000 Rows",
                 },
                 {
-                    value: "100000",
+                    value: 100000,
                     label: "100,000 Rows",
                 },
             ],
