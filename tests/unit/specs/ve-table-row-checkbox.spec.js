@@ -135,7 +135,7 @@ describe("veTable row checkbox", () => {
         ).toBe(3);
     });
 
-    it("check disable selected keys", async () => {
+    it("check disable selected keys with defaultSelectedRowKeys", async () => {
         const wrapper = mount(veTable, {
             propsData: {
                 columns: COLUMNS,
@@ -179,6 +179,119 @@ describe("veTable row checkbox", () => {
             wrapper
                 .findAll(".ve-table-body-tr")
                 .at(1)
+                .find(".ve-checkbox-content")
+                .classes()
+                .includes("ve-checkbox-checked"),
+        ).toBe(false);
+    });
+
+    it("check disable selected keys", async () => {
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                checkboxOption: {
+                    // 禁用的选择（禁止勾选或者禁止取消勾选）
+                    disableSelectedRowKeys: [1002, 1005],
+                    // 默认选择
+                    //defaultSelectedRowKeys: [1001, 1003, 1004, 1005],
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        await later();
+
+        expect(
+            wrapper
+                .find(
+                    ".ve-table-header-tr .ve-checkbox .ve-checkbox-indeterminate",
+                )
+                .exists(),
+        ).toBe(false);
+
+        // checked count
+        expect(
+            wrapper.findAll(
+                ".ve-table-body-tr .ve-checkbox .ve-checkbox-checked",
+            ).length,
+        ).toBe(0);
+
+        // disable checked count
+        expect(
+            wrapper.findAll(
+                ".ve-table-body-tr .ve-checkbox .ve-checkbox-checked.ve-checkbox-disabled",
+            ).length,
+        ).toBe(0);
+
+        // disable unchecked count
+        expect(
+            wrapper
+                .findAll(".ve-table-body-tr")
+                .at(1)
+                .find(".ve-checkbox-content")
+                .classes()
+                .includes("ve-checkbox-checked"),
+        ).toBe(false);
+    });
+
+    it("select all event with check disable selected keys", async () => {
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                checkboxOption: {
+                    // 禁用的选择（禁止勾选或者禁止取消勾选）
+                    disableSelectedRowKeys: [1002, 1005],
+                    // 默认选择
+                    //defaultSelectedRowKeys: [1001, 1003, 1004, 1005],
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        await later();
+
+        // select all
+        wrapper
+            .findAll(".ve-table-header-tr")
+            .at(0)
+            .findAll(".ve-table-header-th")
+            .at(0)
+            .find(".ve-checkbox")
+            .trigger("click");
+
+        await later();
+
+        expect(
+            wrapper
+                .find(
+                    ".ve-table-header-tr .ve-checkbox .ve-checkbox-indeterminate",
+                )
+                .exists(),
+        ).toBe(true);
+
+        // checked count
+        expect(
+            wrapper.findAll(
+                ".ve-table-body-tr .ve-checkbox .ve-checkbox-checked",
+            ).length,
+        ).toBe(3);
+
+        // disable unchecked count
+        expect(
+            wrapper
+                .findAll(".ve-table-body-tr")
+                .at(1)
+                .find(".ve-checkbox-content")
+                .classes()
+                .includes("ve-checkbox-checked"),
+        ).toBe(false);
+
+        expect(
+            wrapper
+                .findAll(".ve-table-body-tr")
+                .at(4)
                 .find(".ve-checkbox-content")
                 .classes()
                 .includes("ve-checkbox-checked"),
