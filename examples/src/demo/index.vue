@@ -94,7 +94,7 @@
                 ref="tableRef"
                 fixed-header
                 border-y
-                max-height="calc(100vh - 210px)"
+                max-height="calc(100vh - 160px)"
                 scroll-width="calc(120vw)"
                 :sort-option="sortOption"
                 :virtual-scroll-option="virtualScrollOption"
