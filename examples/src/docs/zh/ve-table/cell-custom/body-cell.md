@@ -15,8 +15,7 @@
                     {
                         field: "",
                         key: "a",
-                        title: "Row Number",
-                        width: 200,
+                        title: "#",
                         align: "center",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
                             return (
@@ -30,14 +29,12 @@
                         field: "date",
                         key: "b",
                         title: "Date",
-                        width: 200,
                         align: "center",
                     },
                     {
                         field: "hobby",
                         key: "c",
                         title: "Hobby",
-                        width: 300,
                         align: "left",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
                             const text = row[column.field];
