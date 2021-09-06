@@ -7,6 +7,12 @@ vx.x.x(TPL)
 -   Style
 -   Dependencies Changes
 
+V2.8.0
+
+### Feature
+
+-   编译支持 IE11 浏览器
+
 V2.7.1
 
 ### Bug Fixes
