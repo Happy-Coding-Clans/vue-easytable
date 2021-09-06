@@ -3401,6 +3401,11 @@ core-js@^2.4.0:
   resolved "https://registry.nlark.com/core-js/download/core-js-2.6.12.tgz?cache=0&sync_timestamp=1621969909314&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcore-js%2Fdownload%2Fcore-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
   integrity sha1-2TM9+nsGXjR8xWgiGdb2kIWcwuw=
 
+core-js@^3.17.2:
+  version "3.17.2"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.17.2.tgz#f960eae710dc62c29cca93d5332e3660e289db10"
+  integrity sha512-XkbXqhcXeMHPRk2ItS+zQYliAMilea2euoMsnpRRdDad6b2VY6CQQcwz1K8AnWesfw4p165RzY0bTnr3UrbYiA==
+
 core-js@^3.6.5:
   version "3.13.0"
   resolved "https://registry.nlark.com/core-js/download/core-js-3.13.0.tgz?cache=0&sync_timestamp=1621969909314&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcore-js%2Fdownload%2Fcore-js-3.13.0.tgz#58ca436bf01d6903aee3d364089868d0d89fe58d"
@@ -11028,11 +11033,12 @@ vue-jest@^3.0.5:
     tsconfig "^7.0.0"
     vue-template-es2015-compiler "^1.6.0"
 
-vue-lazy-container@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/vue-lazy-container/-/vue-lazy-container-1.1.1.tgz#40721df4f15e7967c17d4385ecf23433eeca594a"
-  integrity sha512-tpE0lafi+tPlVyzAvuouYI+dmZ3xbsSWMuRI0FhawVN5gAvwTjgBxNL7m/VsMZ4arfDGBa3NwR63aE36vz1qyA==
+vue-lazy-container@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/vue-lazy-container/-/vue-lazy-container-1.2.0.tgz#b62da34b8b80b5d02e6804636f8ddbb270164fb7"
+  integrity sha512-2CWKu+Uj6iuQbBB8vpkcXlBgxVrdgbIIfPVnvG77gCm1M+8JR+DzbdXHkrU9FzF0yqRdxmjTvyiOlkiRDbEzwQ==
   dependencies:
+    core-js "^3.17.2"
     intersection-observer "^0.12.0"
 
 vue-loader@^15.9.2:
