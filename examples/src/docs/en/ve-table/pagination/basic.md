@@ -40,7 +40,7 @@
                     {
                         field: "",
                         key: "a",
-                        title: "Number",
+                        title: "#",
                         align: "center",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
                             return (this.pageIndex - 1) * this.pageSize + rowIndex + 1;
