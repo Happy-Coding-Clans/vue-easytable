@@ -1,4 +1,4 @@
-:::anchor 单条件筛选
+:::anchor
 
 :::demo 1
 
@@ -20,7 +20,14 @@
             return {
                 // edit option 可控单元格编辑
                 editOption: {
-                    activeRowkey: "1",
+                    // full row edit
+                    fullRowEdit: false,
+                    // double click edit
+                    doubleClickEdit: true,
+                    // cell value change
+                    cellValueChange: ({ row, column, newColumnValue }) => {},
+                    // row value change
+                    rowValueChange: ({ row, column, newRowValue }) => {},
                 },
                 columns: [
                     {
