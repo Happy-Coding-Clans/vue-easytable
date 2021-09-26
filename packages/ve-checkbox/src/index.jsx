@@ -65,7 +65,7 @@ export default {
     },
 
     watch: {
-        value(val) {
+        value() {
             this.updateModelBySingle();
         },
     },
@@ -150,7 +150,6 @@ export default {
             checkboxStyle,
             label,
             checkboxClass,
-            model,
             checkboxChange,
             getLabelContent,
             internalIsSelected,

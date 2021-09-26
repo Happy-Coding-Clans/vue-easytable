@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VeLoading from "./loading.jsx";
-import { hasClass, addClass, removeClass } from "../../src/utils/dom";
+import { addClass, removeClass } from "../../src/utils/dom";
 import { clsName } from "./util";
 import { SPIN_NAMES, COMPS_NAME } from "../src/util/constant";
 
@@ -49,8 +49,6 @@ LoadingConstructor.prototype.close = function () {
 
 // destroy
 LoadingConstructor.prototype.destroy = function () {
-    const target = this.fullscreen ? document.body : this.target;
-
     removeClass(this.parent__, PARENT_RELATIVE_CLASS);
     removeClass(this.parent__, PARENT_LOCK_CLASS);
 
