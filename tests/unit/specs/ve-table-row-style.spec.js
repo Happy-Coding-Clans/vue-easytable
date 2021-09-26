@@ -5,35 +5,35 @@ import { later } from "../util";
 describe("veTable row style", () => {
     const TABLE_DATA = [
         {
-            rowKey: 1001,
+            rowKey: 0,
             name: "John",
             date: "1900-05-20",
             hobby: "coding",
             address: "No.1 Century Avenue, Shanghai",
         },
         {
-            rowKey: 1002,
+            rowKey: 1,
             name: "Dickerson",
             date: "1910-06-20",
             hobby: "coding",
             address: "No.1 Century Avenue, Beijing",
         },
         {
-            rowKey: 1003,
+            rowKey: 2,
             name: "Larsen",
             date: "2000-07-20",
             hobby: "coding and coding repeat",
             address: "No.1 Century Avenue, Chongqing",
         },
         {
-            rowKey: 1004,
+            rowKey: 3,
             name: "Geneva",
             date: "2010-08-20",
             hobby: "coding and coding repeat",
             address: "No.1 Century Avenue, Xiamen",
         },
         {
-            rowKey: 1005,
+            rowKey: 4,
             name: "Jami",
             date: "2020-09-20",
             hobby: "coding and coding repeat",
@@ -99,5 +99,28 @@ describe("veTable row style", () => {
         expect(wrapper.findAll(".ve-table-stripe").exists()).toBe(true);
         expect(wrapper.findAll(".ve-table-row-hover").exists()).toBe(true);
         expect(wrapper.findAll(".ve-table-row-highlight").exists()).toBe(true);
+    });
+
+    it("row click highlight ", async () => {
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                rowStyleOption: {
+                    stripe: true,
+                    hoverHighlight: true,
+                    clickHighlight: true,
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        const firstTr = wrapper.findAll(".ve-table-body-tr").at(0);
+
+        firstTr.trigger("click");
+
+        await later();
+
+        expect(firstTr.classes()).toContain("ve-table-tr-highlight");
     });
 });

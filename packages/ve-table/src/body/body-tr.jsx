@@ -3,6 +3,7 @@ import { clsName } from "../util";
 import { COMPS_NAME, EMIT_EVENTS, COMPS_CUSTOM_ATTRS } from "../util/constant";
 import VueDomResizeObserver from "../../../src/comps/resize-observer";
 import emitter from "../../../src/mixins/emitter";
+import { isEmptyValue } from "../../../src/utils";
 export default {
     name: COMPS_NAME.VE_TABLE_BODY_TR,
     mixins: [emitter],
@@ -141,7 +142,7 @@ export default {
 
             let isHighlight = false;
 
-            if (highlightRowKey) {
+            if (!isEmptyValue(highlightRowKey)) {
                 if (highlightRowKey === currentRowKey) {
                     isHighlight = true;
                 }

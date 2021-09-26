@@ -7,6 +7,12 @@ Vx.x.x(TPL)
 -   Style
 -   Dependencies Changes
 
+V2.8.2
+
+### Bug Fixes
+
+-   修复行 key 为 0 时，行高亮失效的问题
+
 V2.8.1
 
 ### Bug Fixes
