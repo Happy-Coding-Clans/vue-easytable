@@ -636,7 +636,7 @@ export default {
 
         /*
          * @rowToVisible
-         * @desc  row to visible 上下键暂不支持 虚拟滚动
+         * @desc  row to visible
          * @param {number} keyCode - current keyCode
          * @param {any} nextRowKey - next row key
          */
