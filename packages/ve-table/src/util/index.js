@@ -149,7 +149,7 @@ export function initGroupColumns(cloneColumns) {
         if (column.children) {
             let keys = "";
             let colspan = 0;
-            column.children.forEach((item, itemIndex) => {
+            column.children.forEach((item) => {
                 setColspanAndRowspanAndKeys(item);
 
                 colspan += item._colspan;
@@ -167,7 +167,7 @@ export function initGroupColumns(cloneColumns) {
         }
     };
 
-    cloneColumns.forEach((column, index) => {
+    cloneColumns.forEach((column) => {
         setColspanAndRowspanAndKeys(column);
     });
 
@@ -178,7 +178,7 @@ export function initGroupColumns(cloneColumns) {
     // set colgroups and groupColumns
     const setColgroupsAndGroupColumns = (column) => {
         // set groupColumns
-        const { children, ...groupColumn } = column;
+        const { ...groupColumn } = column;
         groupColumns[column._level - 1].push(groupColumn);
 
         if (column.children) {
@@ -187,7 +187,7 @@ export function initGroupColumns(cloneColumns) {
             });
         } else {
             // set colgroups
-            const { children, ...colgroup } = column;
+            const { ...colgroup } = column;
             colgroup._realTimeWidth = colgroup.width;
             colgroups.push(colgroup);
         }

@@ -1,4 +1,3 @@
-import { getParentCompByName } from "../../src/utils";
 import { clsName } from "./util";
 import { COMPS_NAME, EMIT_EVENTS } from "./util/constant";
 
@@ -52,7 +51,7 @@ export default {
     },
 
     watch: {
-        value(val) {
+        value() {
             this.updateModelBySingle();
         },
     },
@@ -97,7 +96,6 @@ export default {
         const {
             label,
             radioClass,
-            model,
             checkedChange,
             getLabelContent,
             internalIsSelected,

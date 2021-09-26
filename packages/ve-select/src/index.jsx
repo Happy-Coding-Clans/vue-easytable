@@ -72,7 +72,7 @@ export default {
         },
     },
     watch: {
-        value: function (val) {
+        value: function () {
             this.init();
         },
     },

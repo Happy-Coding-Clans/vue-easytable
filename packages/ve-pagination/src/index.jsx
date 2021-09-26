@@ -13,7 +13,7 @@ export default {
 
     components: {
         Total: {
-            render(h) {
+            render() {
                 return (
                     <span class={clsName("total")}>
                         {t("total", this.$parent.total)}
@@ -23,7 +23,7 @@ export default {
         },
 
         Prev: {
-            render(h) {
+            render() {
                 return (
                     <li
                         on-click={this.$parent.prevPage}
@@ -46,7 +46,7 @@ export default {
         Pager,
 
         Next: {
-            render(h) {
+            render() {
                 return (
                     <li
                         on-click={this.$parent.nextPage}
@@ -67,7 +67,7 @@ export default {
         },
 
         Sizer: {
-            render(h) {
+            render() {
                 return (
                     <VeSelect
                         class={clsName("select")}
@@ -99,7 +99,7 @@ export default {
                     this.$parent.jumpPageHandler(val);
                 },
             },
-            render(h) {
+            render() {
                 return (
                     <span class={clsName("goto")}>
                         &nbsp;{t("goto")}&nbsp;
@@ -185,11 +185,11 @@ export default {
         },
     },
     watch: {
-        pageIndex: function (newVal, oldVal) {
+        pageIndex: function (newVal) {
             this.newPageIndex = newVal;
         },
 
-        pageSize: function (newVal, oldVal) {
+        pageSize: function (newVal) {
             this.newPageSize = newVal;
         },
     },
@@ -261,7 +261,7 @@ export default {
             }
         },
     },
-    render(h) {
+    render() {
         let template = <ul class="ve-pagination"></ul>;
 
         var comps = {
