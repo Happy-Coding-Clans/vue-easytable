@@ -886,11 +886,12 @@ export default {
         // 更新 virtual phantom 列表总高度
         setVirtualPhantomHeight() {
             let totalHeight = 0;
-
-            totalHeight =
-                this.virtualScrollPositions[
-                    this.virtualScrollPositions.length - 1
-                ].bottom;
+            if (this.virtualScrollPositions.length) {
+                totalHeight =
+                    this.virtualScrollPositions[
+                        this.virtualScrollPositions.length - 1
+                    ].bottom;
+            }
 
             this.$refs[this.virtualPhantomRef].style.height =
                 totalHeight + "px";
