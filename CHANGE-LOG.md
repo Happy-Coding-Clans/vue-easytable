@@ -1,4 +1,4 @@
-vx.x.x(TPL)
+Vx.x.x(TPL)
 
 -   Breaking Changes
 -   Feature
@@ -6,6 +6,12 @@ vx.x.x(TPL)
 -   Performance Improvements
 -   Style
 -   Dependencies Changes
+
+V2.8.1
+
+### Bug Fixes
+
+-   修复当数据为空时，虚拟滚动功能滚动条高度没有还原的问题 #403
 
 V2.8.0
 
