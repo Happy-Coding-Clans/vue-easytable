@@ -1016,10 +1016,13 @@ export default {
                 const { scrollWidth, clientWidth, scrollLeft } =
                     tableContainerRef;
 
+                const { previewTableContainerScrollLeft: previewScrollLeft } =
+                    this.$options.customOption;
+
                 // 仅横向滚动需要处理
                 if (
-                    this.$options.customOption
-                        .previewTableContainerScrollLeft !== scrollLeft
+                    previewScrollLeft === 0 ||
+                    previewScrollLeft !== scrollLeft
                 ) {
                     this.$options.customOption.previewTableContainerScrollLeft =
                         scrollLeft;
@@ -1248,6 +1251,8 @@ export default {
                 "on-dom-resize-change": ({ height }) => {
                     this.tableOffestHeight = height;
                     this.initVirtualScroll();
+                    // fixed #404
+                    this.initScrolling();
                 },
             },
         };
