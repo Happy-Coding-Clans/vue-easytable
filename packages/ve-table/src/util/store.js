@@ -6,6 +6,24 @@ export const store = Vue.observable({
     table viewport width except scroll bar width
     */
     tableViewportWidth: 0,
+    /* 
+    editing cells
+    [
+        {
+            rowKey:"",
+            colKey:""
+        }
+    ]
+    */
+    editingCells: [],
+    /*
+    editing focus cell
+    {
+        rowKey:"",
+        colKey:""
+    }
+    */
+    editingFocusCell: null,
 });
 
 // mutation

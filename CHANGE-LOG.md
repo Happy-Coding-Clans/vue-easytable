@@ -7,6 +7,12 @@ Vx.x.x(TPL)
 -   Style
 -   Dependencies Changes
 
+V2.8.3
+
+### Bug Fixes
+
+-   修复表格显示隐藏切换，右列固定效果消失的问题 #404
+
 V2.8.2
 
 ### Bug Fixes

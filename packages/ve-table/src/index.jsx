@@ -24,7 +24,7 @@ import Body from "./body";
 import Footer from "./footer";
 import { KEY_CODES } from "../../src/utils/constant";
 import clickoutside from "../../src/directives/clickoutside";
-import { mutations } from "./util/store";
+import { store, mutations } from "./util/store";
 import VueDomResizeObserver from "../../src/comps/resize-observer";
 
 export default {
@@ -1016,10 +1016,13 @@ export default {
                 const { scrollWidth, clientWidth, scrollLeft } =
                     tableContainerRef;
 
+                const { previewTableContainerScrollLeft: previewScrollLeft } =
+                    this.$options.customOption;
+
                 // 仅横向滚动需要处理
                 if (
-                    this.$options.customOption
-                        .previewTableContainerScrollLeft !== scrollLeft
+                    previewScrollLeft === 0 ||
+                    previewScrollLeft !== scrollLeft
                 ) {
                     this.$options.customOption.previewTableContainerScrollLeft =
                         scrollLeft;
@@ -1046,6 +1049,15 @@ export default {
                     rowKey: "",
                     columnKey: "",
                 };
+            }
+        },
+
+        // editing cell blur
+        editingCellBlur({ rowKey, colKey, cellValue }) {
+            const { editOption } = this;
+
+            if (editOption) {
+                const { cellValueChange } = editOption;
             }
         },
 
@@ -1094,6 +1106,62 @@ export default {
                 behavior: "smooth",
             });
         },
+        // start editing cell
+        [INSTANCE_METHODS.START_EDITING_CELL]({ rowKey, colKey, value }) {
+            const { editOption } = this;
+
+            if (!editOption) {
+                return false;
+            }
+
+            let editingCells = store.editingCells;
+            editingCells.push({ rowKey, colKey });
+
+            mutations.setStore({
+                editingCells: editingCells,
+            });
+
+            mutations.setStore({
+                editingFocusCell: {
+                    rowKey,
+                    colKey,
+                },
+            });
+        },
+        // start editing cell
+        [INSTANCE_METHODS.STOP_EDITING_CELL]({ rowKey, colKey }) {
+            const { editOption } = this;
+
+            if (!editOption) {
+                return false;
+            }
+
+            let editingCells = store.editingCells;
+
+            let deleteIndex = -1;
+
+            if (editOption.fullRowEdit) {
+                deleteIndex = editingCells.findIndex((x) => x.rowKey);
+            } else {
+                deleteIndex = editingCells.findIndex(
+                    (x) => x.rowKey === rowKey && x.colKey === colKey,
+                );
+            }
+
+            if (deleteIndex > -1) {
+                editingCells.splice(deleteIndex, 1);
+                mutations.setStore({
+                    editingCells: editingCells,
+                });
+            }
+
+            // mutations.setStore({
+            //     editingFocusCell: {
+            //         rowKey,
+            //         colKey,
+            //     },
+            // });
+        },
     },
     mounted() {
         // receive row selected change
@@ -1124,6 +1192,15 @@ export default {
             EMIT_EVENTS.Footer_TR_HEIGHT_CHANGE,
             ({ rowIndex, height }) => {
                 this.footTrHeightChange({ rowIndex, height });
+            },
+        );
+
+        // receive td edit cell blur
+        this.$on(
+            EMIT_EVENTS.BODY_TD_EDIT_CELL_BLUR,
+            ({ rowKey, colKey, cellValue }) => {
+                console.log("cellValue::", cellValue);
+                this.stopEditingCell({ rowKey, colKey });
             },
         );
 
@@ -1248,6 +1325,8 @@ export default {
                 "on-dom-resize-change": ({ height }) => {
                     this.tableOffestHeight = height;
                     this.initVirtualScroll();
+                    // fixed #404
+                    this.initScrolling();
                 },
             },
         };

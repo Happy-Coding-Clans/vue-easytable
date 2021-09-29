@@ -4,14 +4,19 @@
 
 ```html
 <template>
-    <ve-table
-        rowKeyFieldName="rowkey"
-        :max-height="300"
-        :fixed-header="true"
-        :columns="columns"
-        :table-data="tableData"
-        :editOption="editOption"
-    />
+    <div>
+        <button @click="startEditingCell(0,'name')">单元格1-1</button>
+        <button @click="startEditingCell(1,'date')">单元格2-2</button>
+        <ve-table
+            ref="tableRef"
+            rowKeyFieldName="rowkey"
+            :max-height="300"
+            :fixed-header="true"
+            :columns="columns"
+            :table-data="tableData"
+            :editOption="editOption"
+        />
+    </div>
 </template>
 
 <script>
@@ -24,39 +29,50 @@
                     fullRowEdit: false,
                     // double click edit
                     doubleClickEdit: true,
+                    // auto stop editing when table click outside
+                    autoStopEditingWhenTableClickOutside: false,
+                    // auto stop editing when cell click outside
+                    autoStopEditingWhenCellClickOutside: true,
                     // cell value change
-                    cellValueChange: ({ row, column, newColumnValue }) => {},
+                    cellValueChange: ({ row, column, cellValue }) => {},
                     // row value change
-                    rowValueChange: ({ row, column, newRowValue }) => {},
+                    rowValueChange: ({ row, cellValues }) => {},
                 },
                 columns: [
                     {
                         field: "name",
-                        key: "a",
+                        key: "name",
                         title: "Name",
                         align: "left",
                         width: "15%",
                         edit: {
                             enable: true,
                         },
+                        renderBodyCell: ({ row, column, rowIndex }, h) => {
+                            return (
+                                <span class="text-bold" style="color:#1890ff;">
+                                    {1 + row["name"]}
+                                </span>
+                            );
+                        },
                     },
                     {
                         field: "date",
-                        key: "b",
+                        key: "date",
                         title: "Date",
                         align: "left",
                         width: "15%",
                     },
                     {
                         field: "hobby",
-                        key: "c",
+                        key: "hobby",
                         title: "Hobby",
                         align: "center",
                         width: "30%",
                     },
                     {
                         field: "address",
-                        key: "d",
+                        key: "address",
                         title: "Address",
                         align: "left",
                         width: "40%",
@@ -102,7 +118,12 @@
                 ],
             };
         },
-        methods: {},
+        methods: {
+            // start editing cell
+            startEditingCell(rowKey, colKey) {
+                this.$refs["tableRef"].startEditingCell({ rowKey, colKey });
+            },
+        },
     };
 </script>
 ```

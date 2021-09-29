@@ -38,6 +38,8 @@ export const EMIT_EVENTS = {
     BODY_TR_CLICK: "on-body-tr-click",
     // body td click
     BODY_TD_CLICK: "on-body-td-click",
+    // body td edit cell blur
+    BODY_TD_EDIT_CELL_BLUR: "on-body-td-edit-cell-blur",
     // expand-row-change
     EXPAND_ROW_CHANGE: "on-expand-row-change",
     // checkbox selected row change
@@ -90,4 +92,8 @@ export const INSTANCE_METHODS = {
     SCROLL_TO: "scrollTo",
     // scroll to rowKey
     SCROLL_TO_ROW_KEY: "scrollToRowKey",
+    // start editing cell
+    START_EDITING_CELL: "startEditingCell",
+    // stop editing cell
+    STOP_EDITING_CELL: "stopEditingCell",
 };
