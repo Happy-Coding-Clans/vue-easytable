@@ -5,12 +5,12 @@
 ```html
 <template>
     <div>
-        <button @click="startEditingCell(0,'name')">编辑行1</button>
+        <button @click="startEditingCell(0)">编辑行1</button>
         &nbsp;&nbsp;
-        <button @click="startEditingCell(2,'name','222')">编辑行3-默认值</button>
+        <button @click="startEditingCell(2,'222')">编辑行3-默认值</button>
         &nbsp;&nbsp;
-        <button @click="stopEditingCell(0,'name')">停止编辑行1</button>
-        <button @click="stopEditingCell(2,'date')">停止编辑行3</button>
+        <button @click="stopEditingCell(0)">停止编辑行1</button>
+        <button @click="stopEditingCell(2)">停止编辑行3</button>
         <ve-table
             ref="tableRef"
             rowKeyFieldName="rowkey"
@@ -127,12 +127,12 @@
         },
         methods: {
             // start editing cell
-            startEditingCell(rowKey, colKey, defaultValue) {
-                this.$refs["tableRef"].startEditingCell({ rowKey, colKey, defaultValue });
+            startEditingCell(rowKey, defaultValue) {
+                this.$refs["tableRef"].startEditingCell({ rowKey, defaultValue });
             },
 
-            stopEditingCell(rowKey, colKey) {
-                this.$refs["tableRef"].stopEditingCell({ rowKey, colKey });
+            stopEditingCell(rowKey) {
+                this.$refs["tableRef"].stopEditingCell({ rowKey });
             },
         },
     };
