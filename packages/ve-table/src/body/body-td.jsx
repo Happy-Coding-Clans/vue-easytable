@@ -351,11 +351,7 @@ export default {
             handler(rowData) {
                 const column = this.column;
                 if (column) {
-                    const cellData = rowData[column.field];
-
-                    if (!isEmptyValue(cellData)) {
-                        this.rawCellValue = cellData;
-                    }
+                    this.rawCellValue = rowData[column.field];
                 }
             },
             deep: true,
