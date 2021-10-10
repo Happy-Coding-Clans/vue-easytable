@@ -7,6 +7,12 @@ Vx.x.x(TPL)
 -   Style
 -   Dependencies Changes
 
+V2.9.0
+
+### Bug Fixes
+
+-   修复单元格数据更改，单元格没有重新渲染的问题
+
 V2.8.3
 
 ### Bug Fixes

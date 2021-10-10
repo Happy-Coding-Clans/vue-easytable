@@ -358,6 +358,7 @@ export default {
                     }
                 }
             },
+            deep: true,
             immediate: true,
         },
     },
@@ -454,8 +455,8 @@ export default {
                                 COMPS_NAME.VE_TABLE,
                                 EMIT_EVENTS.BODY_TD_EDIT_CELL_BLUR,
                                 {
-                                    rowKey: currentRowKey,
-                                    colKey: column.key,
+                                    row: rowData,
+                                    column: column,
                                     cellValue: e.target.value,
                                 },
                             );
