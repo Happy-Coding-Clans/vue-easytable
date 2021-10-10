@@ -377,16 +377,36 @@ export default {
 
         // reset editing cell value
         resetEditingCellValue() {
-            const { currentRowKey, column, storeStates, rawCellValue } = this;
+            const {
+                editOption,
+                currentRowKey,
+                column,
+                storeStates,
+                rawCellValue,
+            } = this;
+
+            const { fullRowEdit } = editOption;
 
             const { editingCells } = storeStates;
 
-            const currentCell = editingCells.find(
-                (x) => x.rowKey === currentRowKey && x.colKey === column.key,
-            );
+            let currentCell = null;
+            // 整行编辑
+            if (fullRowEdit) {
+                currentCell = editingCells.find(
+                    (x) => x.rowKey === currentRowKey,
+                );
+            } else {
+                currentCell = editingCells.find(
+                    (x) =>
+                        x.rowKey === currentRowKey && x.colKey === column.key,
+                );
+            }
 
             if (currentCell) {
                 currentCell.row[column.field] = rawCellValue;
+                storeMutations.setStore({
+                    editingCells: editingCells,
+                });
             }
         },
 
