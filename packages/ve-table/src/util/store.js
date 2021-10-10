@@ -1,7 +1,7 @@
 import Vue from "vue";
 
-// store
-export const store = Vue.observable({
+// store states
+export const storeStates = Vue.observable({
     /*
     table viewport width except scroll bar width
     */
@@ -26,10 +26,10 @@ export const store = Vue.observable({
     editingFocusCell: null,
 });
 
-// mutation
-export const mutations = {
+// store mutation
+export const storeMutations = {
     // set store
     setStore(payload) {
-        Object.assign(store, payload);
+        Object.assign(storeStates, payload);
     },
 };

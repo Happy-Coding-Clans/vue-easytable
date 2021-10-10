@@ -24,7 +24,7 @@ import Body from "./body";
 import Footer from "./footer";
 import { KEY_CODES } from "../../src/utils/constant";
 import clickoutside from "../../src/directives/clickoutside";
-import { store, mutations } from "./util/store";
+import { storeStates, storeMutations } from "./util/store";
 import VueDomResizeObserver from "../../src/comps/resize-observer";
 
 export default {
@@ -251,6 +251,10 @@ export default {
         previewTableContainerScrollLeft: null,
     },
     computed: {
+        // store states
+        storeStates() {
+            return storeStates;
+        },
         // return row keys
         allRowKeys() {
             let result = [];
@@ -557,27 +561,27 @@ export default {
                 );
                 let rowIndex = allRowKeys.indexOf(rowKey);
                 if (keyCode === KEY_CODES.ARROW_LEFT) {
-                    event.preventDefault();
+                    //event.preventDefault();
                     if (columnIndex > 0) {
                         const nextColumn = colgroups[columnIndex - 1];
                         this.cellSelectionKeyData.columnKey = nextColumn.key;
                         this.columnToVisible(KEY_CODES.ARROW_LEFT, nextColumn);
                     }
                 } else if (keyCode === KEY_CODES.ARROW_RIGHT) {
-                    event.preventDefault();
+                    //event.preventDefault();
                     if (columnIndex < colgroups.length - 1) {
                         const nextColumn = colgroups[columnIndex + 1];
                         this.cellSelectionKeyData.columnKey = nextColumn.key;
                         this.columnToVisible(KEY_CODES.ARROW_RIGHT, nextColumn);
                     }
                 } else if (keyCode === KEY_CODES.ARROW_UP) {
-                    event.preventDefault();
+                    //event.preventDefault();
                     if (rowIndex > 0) {
                         const nextRowKey = allRowKeys[rowIndex - 1];
                         this.rowToVisible(KEY_CODES.ARROW_UP, nextRowKey);
                     }
                 } else if (keyCode === KEY_CODES.ARROW_DOWN) {
-                    event.preventDefault();
+                    //event.preventDefault();
 
                     if (rowIndex < allRowKeys.length - 1) {
                         const nextRowKey = allRowKeys[rowIndex + 1];
@@ -803,7 +807,7 @@ export default {
                     },
                     on: {
                         "on-dom-resize-change": ({ width }) => {
-                            mutations.setStore({
+                            storeMutations.setStore({
                                 tableViewportWidth: width,
                             });
                         },
@@ -1108,20 +1112,20 @@ export default {
         },
         // start editing cell
         [INSTANCE_METHODS.START_EDITING_CELL]({ rowKey, colKey, value }) {
-            const { editOption } = this;
+            const { editOption, storeStates } = this;
 
             if (!editOption) {
                 return false;
             }
 
-            let editingCells = store.editingCells;
+            let editingCells = storeStates.editingCells;
             editingCells.push({ rowKey, colKey });
 
-            mutations.setStore({
+            storeMutations.setStore({
                 editingCells: editingCells,
             });
 
-            mutations.setStore({
+            storeMutations.setStore({
                 editingFocusCell: {
                     rowKey,
                     colKey,
@@ -1130,13 +1134,13 @@ export default {
         },
         // start editing cell
         [INSTANCE_METHODS.STOP_EDITING_CELL]({ rowKey, colKey }) {
-            const { editOption } = this;
+            const { editOption, storeStates } = this;
 
             if (!editOption) {
                 return false;
             }
 
-            let editingCells = store.editingCells;
+            let editingCells = storeStates.editingCells;
 
             let deleteIndex = -1;
 
@@ -1150,12 +1154,12 @@ export default {
 
             if (deleteIndex > -1) {
                 editingCells.splice(deleteIndex, 1);
-                mutations.setStore({
+                storeMutations.setStore({
                     editingCells: editingCells,
                 });
             }
 
-            // mutations.setStore({
+            // storeMutations.setStore({
             //     editingFocusCell: {
             //         rowKey,
             //         colKey,

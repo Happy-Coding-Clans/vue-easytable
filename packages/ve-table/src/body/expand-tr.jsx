@@ -1,5 +1,5 @@
 import { clsName } from "../util";
-import { store } from "../util/store";
+import { storeStates } from "../util/store";
 import { COMPS_NAME } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 
@@ -51,6 +51,10 @@ export default {
         },
     },
     computed: {
+        // store states
+        storeStates() {
+            return storeStates;
+        },
         // get column count
         columnCount() {
             return this.colgroups.length;
@@ -93,10 +97,12 @@ export default {
         expandTdContentStyle() {
             let result = {};
 
-            if (this.hasLeftFixedColumn) {
+            const { hasLeftFixedColumn, storeStates } = this;
+
+            if (hasLeftFixedColumn) {
                 // table width
-                if (store.tableViewportWidth) {
-                    result["width"] = store.tableViewportWidth + "px";
+                if (storeStates.tableViewportWidth) {
+                    result["width"] = storeStates.tableViewportWidth + "px";
                 }
             }
 

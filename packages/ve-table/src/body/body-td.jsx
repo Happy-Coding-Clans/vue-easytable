@@ -2,7 +2,7 @@ import BodyCheckboxContent from "./body-checkbox-content";
 import BodyRadioContent from "./body-radio-content";
 import ExpandTrIcon from "./expand-tr-icon";
 import { getFixedTotalWidthByColumnKey, clsName } from "../util";
-import { store, mutations } from "../util/store";
+import { storeStates, storeMutations } from "../util/store";
 import {
     getValByUnit,
     isNumber,
@@ -143,9 +143,9 @@ export default {
         };
     },
     computed: {
-        // store
-        store() {
-            return store;
+        // store states
+        storeStates() {
+            return storeStates;
         },
 
         // is last left fixed column
@@ -202,10 +202,10 @@ export default {
         isEditingCell() {
             let result = false;
 
-            const { store, editOption, column, currentRowKey } = this;
+            const { storeStates, editOption, column, currentRowKey } = this;
 
             if (editOption) {
-                const editingCells = store.editingCells;
+                const editingCells = storeStates.editingCells;
                 const { fullRowEdit } = editOption;
 
                 if (editingCells.length) {
@@ -232,11 +232,11 @@ export default {
         isEditingFocusCell() {
             let result = false;
 
-            const { store, editOption, currentRowKey, column } = this;
+            const { storeStates, editOption, currentRowKey, column } = this;
 
             if (editOption) {
-                if (store.editingFocusCell) {
-                    const { rowKey, colKey } = store.editingFocusCell;
+                if (storeStates.editingFocusCell) {
+                    const { rowKey, colKey } = storeStates.editingFocusCell;
                     if (rowKey === currentRowKey && colKey === column.key) {
                         result = true;
                     }
