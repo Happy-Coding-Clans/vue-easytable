@@ -8,10 +8,20 @@ export const storeStates = Vue.observable({
     tableViewportWidth: 0,
     /* 
     editing cells
+    1、full row edit:
     [
         {
             rowKey:"",
-            colKey:""
+            row:null,
+        }
+    ]
+    2、not full row wdit:
+    [
+        {
+            rowKey:"",
+            colKey:"",
+            row:null,
+            column:null
         }
     ]
     */
