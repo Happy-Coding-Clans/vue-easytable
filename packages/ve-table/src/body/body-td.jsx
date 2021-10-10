@@ -204,7 +204,7 @@ export default {
 
             const { storeStates, editOption, column, currentRowKey } = this;
 
-            if (editOption) {
+            if (column.edit && editOption) {
                 const editingCells = storeStates.editingCells;
                 const { fullRowEdit } = editOption;
 
@@ -375,6 +375,21 @@ export default {
             return result;
         },
 
+        // reset editing cell value
+        resetEditingCellValue() {
+            const { currentRowKey, column, storeStates, rawCellValue } = this;
+
+            const { editingCells } = storeStates;
+
+            const currentCell = editingCells.find(
+                (x) => x.rowKey === currentRowKey && x.colKey === column.key,
+            );
+
+            if (currentCell) {
+                currentCell.row[column.field] = rawCellValue;
+            }
+        },
+
         // get render content
         getRenderContent(h) {
             let content = null;
@@ -445,14 +460,16 @@ export default {
                     on: {
                         input: (e) => {
                             this.rawCellValue = e.target.value;
+                            // 重置编辑单元格的值
+                            this.resetEditingCellValue();
                         },
                         blur: (e) => {
                             this.dispatch(
                                 COMPS_NAME.VE_TABLE,
                                 EMIT_EVENTS.BODY_TD_EDIT_CELL_BLUR,
                                 {
-                                    row: rowData,
-                                    column: column,
+                                    rowKey: currentRowKey,
+                                    colKey: column.key,
                                     cellValue: e.target.value,
                                 },
                             );
