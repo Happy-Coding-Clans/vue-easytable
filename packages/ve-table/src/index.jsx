@@ -549,11 +549,23 @@ export default {
         },
         // cell direction
         cellDirection(event) {
-            const { cellSelectionKeyData, colgroups, allRowKeys } = this;
+            const { cellSelectionKeyData, colgroups, allRowKeys, storeStates } =
+                this;
 
             const { keyCode } = event;
 
             const { rowKey, columnKey } = cellSelectionKeyData;
+
+            // 如果是当前编辑的单元格
+            const { editingFocusCell } = storeStates;
+            if (editingFocusCell) {
+                if (
+                    editingFocusCell.rowKey === rowKey &&
+                    editingFocusCell.colKey === columnKey
+                ) {
+                    return false;
+                }
+            }
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(columnKey)) {
                 let columnIndex = colgroups.findIndex(
