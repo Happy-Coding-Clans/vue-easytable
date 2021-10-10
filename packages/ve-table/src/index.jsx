@@ -10,6 +10,8 @@ import {
     isNumber,
     scrollTo,
     isEmptyValue,
+    isBoolean,
+    isDefined,
 } from "../../src/utils/index.js";
 import emitter from "../../src/mixins/emitter";
 import {
@@ -482,11 +484,9 @@ export default {
 
         /*
         init table data
-        暂时不需要克隆，预留的功能
         */
         initTableData() {
-            // this.cloneTableData = cloneDeep(this.tableData);
-            this.cloneTableData = this.tableData;
+            this.cloneTableData = cloneDeep(this.tableData);
         },
         // init columns
         initColumns() {
@@ -573,27 +573,28 @@ export default {
                 );
                 let rowIndex = allRowKeys.indexOf(rowKey);
                 if (keyCode === KEY_CODES.ARROW_LEFT) {
-                    //event.preventDefault();
+                    // 防止外层让其滚动
+                    event.preventDefault();
                     if (columnIndex > 0) {
                         const nextColumn = colgroups[columnIndex - 1];
                         this.cellSelectionKeyData.columnKey = nextColumn.key;
                         this.columnToVisible(KEY_CODES.ARROW_LEFT, nextColumn);
                     }
                 } else if (keyCode === KEY_CODES.ARROW_RIGHT) {
-                    //event.preventDefault();
+                    event.preventDefault();
                     if (columnIndex < colgroups.length - 1) {
                         const nextColumn = colgroups[columnIndex + 1];
                         this.cellSelectionKeyData.columnKey = nextColumn.key;
                         this.columnToVisible(KEY_CODES.ARROW_RIGHT, nextColumn);
                     }
                 } else if (keyCode === KEY_CODES.ARROW_UP) {
-                    //event.preventDefault();
+                    event.preventDefault();
                     if (rowIndex > 0) {
                         const nextRowKey = allRowKeys[rowIndex - 1];
                         this.rowToVisible(KEY_CODES.ARROW_UP, nextRowKey);
                     }
                 } else if (keyCode === KEY_CODES.ARROW_DOWN) {
-                    //event.preventDefault();
+                    event.preventDefault();
 
                     if (rowIndex < allRowKeys.length - 1) {
                         const nextRowKey = allRowKeys[rowIndex + 1];
@@ -1072,8 +1073,90 @@ export default {
         editingCellBlur({ rowKey, colKey, cellValue }) {
             const { editOption } = this;
 
-            if (editOption) {
-                const { cellValueChange } = editOption;
+            const { stopEditingWhenCellsLoseFocus } = editOption;
+
+            if (
+                isBoolean(stopEditingWhenCellsLoseFocus) &&
+                stopEditingWhenCellsLoseFocus === false
+            ) {
+                return false;
+            }
+
+            this.this.saveCellWhenStopEditing({
+                rowKey,
+                colKey,
+                cellValue,
+            });
+
+            // const currentColumn = colgroups.find((x) => x.key === colKey);
+
+            // let currentRow = this.cloneTableData.find(
+            //     (x) => x[rowKeyFieldName] === row[rowKeyFieldName],
+            // );
+
+            // if (currentRow) {
+            //     currentRow[column.key] = cellValue;
+            // }
+
+            // console.log("cellValue::", cellValue);
+            // this.stopEditingCell({
+            //     rowKey: row[rowKeyFieldName],
+            //     colKey: column.key,
+            // });
+
+            // cellValueChange && cellValueChange({ row, column });
+        },
+
+        // save cell when stop editing
+        saveCellWhenStopEditing({ rowKey, colKey }) {
+            const { colgroups, rowKeyFieldName, editOption, storeStates } =
+                this;
+
+            const { cellValueChange, fullRowEdit } = editOption;
+
+            // 全行编辑
+            if (fullRowEdit) {
+                const editingCell = storeStates.editingCells.find(
+                    (x) => x.rowKey == rowKey,
+                );
+
+                if (editingCell) {
+                    const updateIndex = this.cloneTableData.findIndex(
+                        (x) => x[rowKeyFieldName] === rowKey,
+                    );
+
+                    this.cloneTableData.splice(updateIndex, 1, editingCell.row);
+
+                    cellValueChange &&
+                        cellValueChange({
+                            row: editingCell.row,
+                        });
+                }
+            } else {
+                const editingCell = storeStates.editingCells.find(
+                    (x) => x.rowKey == rowKey && x.colKey == colKey,
+                );
+
+                console.log("editingCell:::", editingCell);
+                if (editingCell) {
+                    let currentRow = this.cloneTableData.find(
+                        (x) => x[rowKeyFieldName] === rowKey,
+                    );
+
+                    if (currentRow) {
+                        const currentColumn = colgroups.find(
+                            (x) => x.key === colKey,
+                        );
+
+                        currentRow[currentColumn.field] =
+                            editingCell.row[currentColumn.field];
+                        cellValueChange &&
+                            cellValueChange({
+                                row: currentRow,
+                                column: currentColumn,
+                            });
+                    }
+                }
             }
         },
 
@@ -1123,15 +1206,65 @@ export default {
             });
         },
         // start editing cell
-        [INSTANCE_METHODS.START_EDITING_CELL]({ rowKey, colKey, value }) {
-            const { editOption, storeStates } = this;
+        [INSTANCE_METHODS.START_EDITING_CELL]({
+            rowKey,
+            colKey,
+            defaultValue,
+        }) {
+            const { editOption, storeStates, colgroups, rowKeyFieldName } =
+                this;
 
             if (!editOption) {
                 return false;
             }
 
+            const { fullRowEdit } = editOption;
+
+            let currentRow = this.cloneTableData.find(
+                (x) => x[rowKeyFieldName] === rowKey,
+            );
+
             let editingCells = storeStates.editingCells;
-            editingCells.push({ rowKey, colKey });
+
+            // 整行编辑
+            if (fullRowEdit) {
+                // 是否有可编辑的列
+                if (!colgroups.some((x) => x.edit)) {
+                    return false;
+                }
+
+                // 给每个可编辑的列赋默认值
+                if (isDefined(defaultValue)) {
+                    colgroups.forEach((col) => {
+                        if (col.edit) {
+                            currentRow[col.field] = defaultValue;
+                        }
+                    });
+                }
+
+                editingCells.push({
+                    rowKey,
+                    row: cloneDeep(currentRow),
+                });
+            } else {
+                const currentColumn = colgroups.find((x) => x.key === colKey);
+                // 当前列是否可编辑
+                if (!currentColumn.edit) {
+                    return false;
+                }
+
+                // 给当前列赋默认值
+                if (isDefined(defaultValue)) {
+                    currentRow[currentColumn.field] = defaultValue;
+                }
+
+                editingCells.push({
+                    rowKey,
+                    colKey,
+                    column: currentColumn,
+                    row: cloneDeep(currentRow),
+                });
+            }
 
             storeMutations.setStore({
                 editingCells: editingCells,
@@ -1157,7 +1290,9 @@ export default {
             let deleteIndex = -1;
 
             if (editOption.fullRowEdit) {
-                deleteIndex = editingCells.findIndex((x) => x.rowKey);
+                deleteIndex = editingCells.findIndex(
+                    (x) => x.rowKey === rowKey,
+                );
             } else {
                 deleteIndex = editingCells.findIndex(
                     (x) => x.rowKey === rowKey && x.colKey === colKey,
@@ -1165,6 +1300,11 @@ export default {
             }
 
             if (deleteIndex > -1) {
+                this.saveCellWhenStopEditing({
+                    rowKey,
+                    colKey,
+                });
+
                 editingCells.splice(deleteIndex, 1);
                 storeMutations.setStore({
                     editingCells: editingCells,
@@ -1215,8 +1355,7 @@ export default {
         this.$on(
             EMIT_EVENTS.BODY_TD_EDIT_CELL_BLUR,
             ({ rowKey, colKey, cellValue }) => {
-                console.log("cellValue::", cellValue);
-                this.stopEditingCell({ rowKey, colKey });
+                this.editingCellBlur({ rowKey, colKey, cellValue });
             },
         );
 
