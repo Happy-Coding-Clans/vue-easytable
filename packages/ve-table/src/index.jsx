@@ -241,6 +241,8 @@ export default {
             2、当 max-height="calc(100vh - 210px)" 或者 max-height="80%" 时使用 tableOffestHeight
             */
             tableOffestHeight: 0,
+            // highlight row key
+            highlightRowKey: "",
         };
     },
     // 存储非响应式数据
@@ -1318,6 +1320,10 @@ export default {
             //     },
             // });
         },
+        // set highlight row
+        [INSTANCE_METHODS.SET_HIGHLIGHT_ROW]({ rowKey }) {
+            this.highlightRowKey = rowKey;
+        },
     },
     mounted() {
         // receive row selected change
@@ -1429,11 +1435,14 @@ export default {
                 cellSelectionKeyData: this.cellSelectionKeyData,
                 allRowKeys: this.allRowKeys,
                 editOption: this.editOption,
+                highlightRowKey: this.highlightRowKey,
             },
             on: {
                 [EMIT_EVENTS.BODY_TD_WIDTH_CHANGE]: tdWidthChange,
                 [EMIT_EVENTS.CELL_SELECTION_KEY_CHANGE]:
                     this.cellSelectionKeyChange,
+                [EMIT_EVENTS.HIGHLIGHT_ROW_CHANGE]:
+                    this[INSTANCE_METHODS.SET_HIGHLIGHT_ROW],
             },
         };
 

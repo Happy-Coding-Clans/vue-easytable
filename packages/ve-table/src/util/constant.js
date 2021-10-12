@@ -58,6 +58,8 @@ export const EMIT_EVENTS = {
     HEADER_FILTER_CONFIRM: "on-filter-confirm",
     // header filter reset
     HEADER_FILTER_RESET: "on-filter-reset",
+    // highlight row change
+    HIGHLIGHT_ROW_CHANGE: "on-highlight-row-change",
 };
 
 // comps name
@@ -96,4 +98,6 @@ export const INSTANCE_METHODS = {
     START_EDITING_CELL: "startEditingCell",
     // stop editing cell
     STOP_EDITING_CELL: "stopEditingCell",
+    // set highlight row
+    SET_HIGHLIGHT_ROW: "setHighlightRow",
 };

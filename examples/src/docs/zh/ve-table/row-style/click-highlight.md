@@ -1,11 +1,15 @@
 :::anchor 行 click 高亮
 
-:::demo 默认行 click 高亮效果开启。要设置`row-key-field-name`
+:::demo 1、默认行 click 高亮效果开启。要设置`row-key-field-name`<br>2、可以通过 `setHighlightRow`实例方法设置高亮行
 
 ```html
 <template>
     <div>
+        <button class="button-demo" @click="setHighlightRow(1002)">选中第2行</button>
+        <br />
+        <br />
         <ve-table
+            ref="tableRef"
             :row-style-option="rowStyleOption"
             :columns="columns"
             :table-data="tableData"
@@ -92,6 +96,12 @@
                     },
                 ],
             };
+        },
+        methods: {
+            // set highlight row
+            setHighlightRow(rowKey) {
+                this.$refs["tableRef"].setHighlightRow({ rowKey: rowKey });
+            },
         },
     };
 </script>
