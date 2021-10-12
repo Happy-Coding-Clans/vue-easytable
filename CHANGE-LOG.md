@@ -7,11 +7,17 @@ Vx.x.x(TPL)
 -   Style
 -   Dependencies Changes
 
-V2.9.0
+V2.10.0
 
 ### Bug Fixes
 
 -   修复单元格数据更改，单元格没有重新渲染的问题
+
+V2.9.0
+
+### Feature
+
+-   添加设置行高亮的`setHighlightRow`实例方法。[参考示例]()
 
 V2.8.3
 
