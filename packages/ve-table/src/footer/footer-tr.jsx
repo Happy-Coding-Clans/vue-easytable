@@ -37,11 +37,6 @@ export default {
                 return null;
             },
         },
-        // highlight row key
-        highlightRowKey: {
-            type: [String, Number],
-            default: null,
-        },
         // event custom option
         eventCustomOption: {
             type: Object,
