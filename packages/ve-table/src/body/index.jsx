@@ -88,6 +88,11 @@ export default {
                 return null;
             },
         },
+        // highlight row key
+        highlightRowKey: {
+            type: [String, Number],
+            default: null,
+        },
         // event custom option
         eventCustomOption: {
             type: Object,
@@ -134,8 +139,6 @@ export default {
             1、存储当前单选功能的rowkey 信息
             */
             internalRadioSelectedRowKey: null,
-            // highlight row key
-            highlightRowKey: "",
         };
     },
     // 存储非响应式数据
@@ -383,7 +386,7 @@ export default {
             // 行高亮功能
             if (rowKeyFieldName) {
                 const rowKey = rowData[rowKeyFieldName];
-                this.highlightRowKey = rowKey;
+                this.$emit(EMIT_EVENTS.HIGHLIGHT_ROW_CHANGE, { rowKey });
             }
 
             // 行展开功能

@@ -471,6 +471,11 @@ export const db = {
                 desc: `Scroll the table to the location of the row key`,
                 param: "{rowKey}",
             },
+            {
+                name: "setHighlightRow",
+                desc: `Set highlight row <a href='#/en/doc/table/row-style?anchor=row-click-highlight'>Refer To Demo</a>`,
+                param: "{rowKey}",
+            },
         ],
         columns: columnsType2,
     },

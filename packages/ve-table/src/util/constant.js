@@ -56,6 +56,8 @@ export const EMIT_EVENTS = {
     HEADER_FILTER_CONFIRM: "on-filter-confirm",
     // header filter reset
     HEADER_FILTER_RESET: "on-filter-reset",
+    // highlight row change
+    HIGHLIGHT_ROW_CHANGE: "on-highlight-row-change",
 };
 
 // comps name
@@ -90,4 +92,6 @@ export const INSTANCE_METHODS = {
     SCROLL_TO: "scrollTo",
     // scroll to rowKey
     SCROLL_TO_ROW_KEY: "scrollToRowKey",
+    // set highlight row
+    SET_HIGHLIGHT_ROW: "setHighlightRow",
 };

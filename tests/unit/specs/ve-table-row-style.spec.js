@@ -123,4 +123,27 @@ describe("veTable row style", () => {
 
         expect(firstTr.classes()).toContain("ve-table-tr-highlight");
     });
+
+    it("row highlight by setHighlightRow method", async () => {
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                rowStyleOption: {
+                    stripe: true,
+                    hoverHighlight: true,
+                    clickHighlight: true,
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        wrapper.vm.setHighlightRow({ rowKey: 2 });
+
+        await later();
+
+        const highlightRow = wrapper.findAll(".ve-table-body-tr").at(2);
+
+        expect(highlightRow.classes()).toContain("ve-table-tr-highlight");
+    });
 });

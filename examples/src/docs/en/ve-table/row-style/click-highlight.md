@@ -1,11 +1,15 @@
 :::anchor Row Click highlight
 
-:::demo By default, line click highlight is on, Must set `row-key-field-name`
+:::demo 1、By default, line click highlight is on, Must set `row-key-field-name`<br>2、You can set the highlighted row through the `setHighlightRow` instance method
 
 ```html
 <template>
     <div>
+        <button class="button-demo" @click="setHighlightRow(1002)">Highlight Row 2</button>
+        <br />
+        <br />
         <ve-table
+            ref="tableRef"
             :row-style-option="rowStyleOption"
             :columns="columns"
             :table-data="tableData"
@@ -92,6 +96,12 @@
                     },
                 ],
             };
+        },
+        methods: {
+            // set highlight row
+            setHighlightRow(rowKey) {
+                this.$refs["tableRef"].setHighlightRow({ rowKey: rowKey });
+            },
         },
     };
 </script>

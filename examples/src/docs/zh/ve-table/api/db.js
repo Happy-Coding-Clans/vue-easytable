@@ -471,6 +471,11 @@ export const db = {
                 desc: `将表格滚动到行为rowKey的位置`,
                 param: "{rowKey}",
             },
+            {
+                name: "setHighlightRow",
+                desc: `设置高亮的行 <a href='#/zh/doc/table/row-style?anchor=row-click-highlight'>参考示例</a>`,
+                param: "{rowKey}",
+            },
         ],
         columns: columnsType2,
     },
