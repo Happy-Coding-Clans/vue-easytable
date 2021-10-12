@@ -7,6 +7,12 @@ Vx.x.x(TPL)
 -   Style
 -   Dependencies Changes
 
+V2.9.0
+
+### Feature
+
+-   添加设置行高亮的`setHighlightRow`实例方法。[参考示例]()
+
 V2.8.3
 
 ### Bug Fixes
