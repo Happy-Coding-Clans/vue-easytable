@@ -40,6 +40,8 @@ export const EMIT_EVENTS = {
     BODY_TD_CLICK: "on-body-td-click",
     // body td edit cell blur
     BODY_TD_EDIT_CELL_BLUR: "on-body-td-edit-cell-blur",
+    // body td edit cell value change
+    BODY_TD_EDIT_CELL_VALUE_CHANGE: "on-body-td-edit-cell-value-change",
     // expand-row-change
     EXPAND_ROW_CHANGE: "on-expand-row-change",
     // checkbox selected row change

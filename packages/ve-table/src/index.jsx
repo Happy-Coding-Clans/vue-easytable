@@ -26,7 +26,6 @@ import Body from "./body";
 import Footer from "./footer";
 import { KEY_CODES } from "../../src/utils/constant";
 import clickoutside from "../../src/directives/clickoutside";
-import { storeStates, storeMutations } from "./util/store";
 import VueDomResizeObserver from "../../src/comps/resize-observer";
 
 export default {
@@ -245,6 +244,34 @@ export default {
             tableOffestHeight: 0,
             // highlight row key
             highlightRowKey: "",
+            /* 
+            editing cells
+            1、full row edit:
+            [
+                {
+                    rowKey:"",
+                    row:null,
+                }
+            ]
+            2、not full row wdit:
+            [
+                {
+                    rowKey:"",
+                    colKey:"",
+                    row:null,
+                    column:null
+                }
+            ]
+            */
+            editingCells: [],
+            /*
+            editing focus cell
+            {
+                rowKey:"",
+                colKey:""
+            }
+            */
+            editingFocusCell: null,
         };
     },
     // 存储非响应式数据
@@ -257,10 +284,6 @@ export default {
         previewTableContainerScrollLeft: null,
     },
     computed: {
-        // store states
-        storeStates() {
-            return storeStates;
-        },
         // return row keys
         allRowKeys() {
             let result = [];
@@ -553,15 +576,18 @@ export default {
         },
         // cell direction
         cellDirection(event) {
-            const { cellSelectionKeyData, colgroups, allRowKeys, storeStates } =
-                this;
+            const {
+                cellSelectionKeyData,
+                colgroups,
+                allRowKeys,
+                editingFocusCell,
+            } = this;
 
             const { keyCode } = event;
 
             const { rowKey, columnKey } = cellSelectionKeyData;
 
             // 如果是当前编辑的单元格
-            const { editingFocusCell } = storeStates;
             if (editingFocusCell) {
                 if (
                     editingFocusCell.rowKey === rowKey &&
@@ -1111,14 +1137,14 @@ export default {
 
         // save cell when stop editing
         saveCellWhenStopEditing({ rowKey, colKey }) {
-            const { colgroups, rowKeyFieldName, editOption, storeStates } =
+            const { colgroups, rowKeyFieldName, editOption, editingCells } =
                 this;
 
             const { cellValueChange, fullRowEdit } = editOption;
 
             // 全行编辑
             if (fullRowEdit) {
-                const editingCell = storeStates.editingCells.find(
+                const editingCell = editingCells.find(
                     (x) => x.rowKey == rowKey,
                 );
 
@@ -1135,7 +1161,7 @@ export default {
                         });
                 }
             } else {
-                const editingCell = storeStates.editingCells.find(
+                const editingCell = editingCells.find(
                     (x) => x.rowKey == rowKey && x.colKey == colKey,
                 );
 
@@ -1213,8 +1239,7 @@ export default {
             colKey,
             defaultValue,
         }) {
-            const { editOption, storeStates, colgroups, rowKeyFieldName } =
-                this;
+            const { editOption, colgroups, rowKeyFieldName } = this;
 
             if (!editOption) {
                 return false;
@@ -1225,8 +1250,6 @@ export default {
             let currentRow = this.cloneTableData.find(
                 (x) => x[rowKeyFieldName] === rowKey,
             );
-
-            let editingCells = storeStates.editingCells;
 
             // 整行编辑
             if (fullRowEdit) {
@@ -1244,7 +1267,7 @@ export default {
                     });
                 }
 
-                editingCells.push({
+                this.editingCells.push({
                     rowKey,
                     row: cloneDeep(currentRow),
                 });
@@ -1260,7 +1283,7 @@ export default {
                     currentRow[currentColumn.field] = defaultValue;
                 }
 
-                editingCells.push({
+                this.editingCells.push({
                     rowKey,
                     colKey,
                     column: currentColumn,
@@ -1268,26 +1291,18 @@ export default {
                 });
             }
 
-            storeMutations.setStore({
-                editingCells: editingCells,
-            });
-
-            storeMutations.setStore({
-                editingFocusCell: {
-                    rowKey,
-                    colKey,
-                },
-            });
+            this.editingFocusCell = {
+                rowKey,
+                colKey,
+            };
         },
         // start editing cell
         [INSTANCE_METHODS.STOP_EDITING_CELL]({ rowKey, colKey }) {
-            const { editOption, storeStates } = this;
+            const { editOption, editingCells } = this;
 
             if (!editOption) {
                 return false;
             }
-
-            let editingCells = storeStates.editingCells;
 
             let deleteIndex = -1;
 
@@ -1307,10 +1322,7 @@ export default {
                     colKey,
                 });
 
-                editingCells.splice(deleteIndex, 1);
-                storeMutations.setStore({
-                    editingCells: editingCells,
-                });
+                this.editingCells.splice(deleteIndex, 1);
             }
 
             // storeMutations.setStore({
@@ -1362,6 +1374,14 @@ export default {
             EMIT_EVENTS.BODY_TD_EDIT_CELL_BLUR,
             ({ rowKey, colKey, cellValue }) => {
                 this.editingCellBlur({ rowKey, colKey, cellValue });
+            },
+        );
+
+        // body td edit cell value change
+        this.$on(
+            EMIT_EVENTS.BODY_TD_EDIT_CELL_VALUE_CHANGE,
+            ({ editingCells }) => {
+                this.editingCells = editingCells;
             },
         );
 
@@ -1439,6 +1459,8 @@ export default {
                 allRowKeys: this.allRowKeys,
                 editOption: this.editOption,
                 highlightRowKey: this.highlightRowKey,
+                editingCells: this.editingCells,
+                editingFocusCell: this.editingFocusCell,
             },
             on: {
                 [EMIT_EVENTS.BODY_TD_WIDTH_CHANGE]: tdWidthChange,

@@ -2,13 +2,7 @@ import BodyCheckboxContent from "./body-checkbox-content";
 import BodyRadioContent from "./body-radio-content";
 import ExpandTrIcon from "./expand-tr-icon";
 import { getFixedTotalWidthByColumnKey, clsName } from "../util";
-import { storeStates, storeMutations } from "../util/store";
-import {
-    getValByUnit,
-    isNumber,
-    isBoolean,
-    isEmptyValue,
-} from "../../../src/utils/index.js";
+import { getValByUnit, isNumber, isBoolean } from "../../../src/utils/index.js";
 import focus from "../../../src/directives/focus.js";
 
 import {
@@ -135,6 +129,16 @@ export default {
                 return null;
             },
         },
+        // editing cells
+        editingCells: {
+            type: Array,
+            required: true,
+        },
+        // editing focus cell
+        editingFocusCell: {
+            type: Object,
+            default: null,
+        },
     },
     data() {
         return {
@@ -143,11 +147,6 @@ export default {
         };
     },
     computed: {
-        // store states
-        storeStates() {
-            return storeStates;
-        },
-
         // is last left fixed column
         isLastLeftFixedColumn() {
             let result = false;
@@ -202,10 +201,9 @@ export default {
         isEditingCell() {
             let result = false;
 
-            const { storeStates, editOption, column, currentRowKey } = this;
+            const { editingCells, editOption, column, currentRowKey } = this;
 
             if (column.edit && editOption) {
-                const editingCells = storeStates.editingCells;
                 const { fullRowEdit } = editOption;
 
                 if (editingCells.length) {
@@ -232,11 +230,12 @@ export default {
         isEditingFocusCell() {
             let result = false;
 
-            const { storeStates, editOption, currentRowKey, column } = this;
+            const { editingFocusCell, editOption, currentRowKey, column } =
+                this;
 
             if (editOption) {
-                if (storeStates.editingFocusCell) {
-                    const { rowKey, colKey } = storeStates.editingFocusCell;
+                if (editingFocusCell) {
+                    const { rowKey, colKey } = editingFocusCell;
                     if (rowKey === currentRowKey && colKey === column.key) {
                         result = true;
                     }
@@ -381,13 +380,11 @@ export default {
                 editOption,
                 currentRowKey,
                 column,
-                storeStates,
                 rawCellValue,
+                editingCells,
             } = this;
 
             const { fullRowEdit } = editOption;
-
-            const { editingCells } = storeStates;
 
             let currentCell = null;
             // 整行编辑
@@ -404,9 +401,13 @@ export default {
 
             if (currentCell) {
                 currentCell.row[column.field] = rawCellValue;
-                storeMutations.setStore({
-                    editingCells: editingCells,
-                });
+                this.dispatch(
+                    COMPS_NAME.VE_TABLE,
+                    EMIT_EVENTS.BODY_TD_EDIT_CELL_VALUE_CHANGE,
+                    {
+                        editingCells,
+                    },
+                );
             }
         },
 

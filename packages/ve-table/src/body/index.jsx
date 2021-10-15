@@ -118,12 +118,22 @@ export default {
                 return null;
             },
         },
-        // edit opttion
+        // edit option
         editOption: {
             type: Object,
             default: function () {
                 return null;
             },
+        },
+        // editing cells
+        editingCells: {
+            type: Array,
+            required: true,
+        },
+        // editing focus cell
+        editingFocusCell: {
+            type: Object,
+            default: null,
         },
     },
     data() {
@@ -841,6 +851,8 @@ export default {
                             eventCustomOption: this.eventCustomOption,
                             cellSelectionKeyData: this.cellSelectionKeyData,
                             editOption: this.editOption,
+                            editingCells: this.editingCells,
+                            editingFocusCell: this.editingFocusCell,
                         },
                     };
 
