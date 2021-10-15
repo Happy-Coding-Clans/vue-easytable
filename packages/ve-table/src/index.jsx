@@ -1098,41 +1098,13 @@ export default {
         },
 
         // editing cell blur
-        editingCellBlur({ rowKey, colKey, cellValue }) {
-            const { editOption } = this;
+        editingCellBlur({ rowKey, colKey }) {
+            // 如果是整行编辑，直接返回
 
-            const { stopEditingWhenCellsLoseFocus } = editOption;
-
-            if (
-                isBoolean(stopEditingWhenCellsLoseFocus) &&
-                stopEditingWhenCellsLoseFocus === false
-            ) {
-                return false;
-            }
-
-            this.this.saveCellWhenStopEditing({
+            this[INSTANCE_METHODS.STOP_EDITING_CELL]({
                 rowKey,
                 colKey,
-                cellValue,
             });
-
-            // const currentColumn = colgroups.find((x) => x.key === colKey);
-
-            // let currentRow = this.cloneTableData.find(
-            //     (x) => x[rowKeyFieldName] === row[rowKeyFieldName],
-            // );
-
-            // if (currentRow) {
-            //     currentRow[column.key] = cellValue;
-            // }
-
-            // console.log("cellValue::", cellValue);
-            // this.stopEditingCell({
-            //     rowKey: row[rowKeyFieldName],
-            //     colKey: column.key,
-            // });
-
-            // cellValueChange && cellValueChange({ row, column });
         },
 
         // save cell when stop editing
@@ -1165,7 +1137,6 @@ export default {
                     (x) => x.rowKey == rowKey && x.colKey == colKey,
                 );
 
-                console.log("editingCell:::", editingCell);
                 if (editingCell) {
                     let currentRow = this.cloneTableData.find(
                         (x) => x[rowKeyFieldName] === rowKey,

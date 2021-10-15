@@ -484,14 +484,13 @@ export default {
                             // 重置编辑单元格的值
                             this.resetEditingCellValue();
                         },
-                        blur: (e) => {
+                        blur: () => {
                             this.dispatch(
                                 COMPS_NAME.VE_TABLE,
                                 EMIT_EVENTS.BODY_TD_EDIT_CELL_BLUR,
                                 {
                                     rowKey: currentRowKey,
                                     colKey: column.key,
-                                    cellValue: e.target.value,
                                 },
                             );
                         },
