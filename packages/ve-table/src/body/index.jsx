@@ -14,6 +14,10 @@ export default {
     name: COMPS_NAME.VE_TABLE_BODY,
     mixins: [emitter],
     props: {
+        tableViewportWidth: {
+            type: Number,
+            default: 0,
+        },
         columnsOptionResetTime: {
             type: Number,
             default: 0,
@@ -520,6 +524,7 @@ export default {
             if (this.isExpandRow({ rowData, rowIndex })) {
                 const expandTrProps = {
                     props: {
+                        tableViewportWidth: this.tableViewportWidth,
                         colgroups: this.colgroups,
                         expandOption: this.expandOption,
                         expandedRowkeys: this.expandedRowkeys,

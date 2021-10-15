@@ -2,10 +2,6 @@ import Vue from "vue";
 
 // store states
 export const storeStates = Vue.observable({
-    /*
-    table viewport width except scroll bar width
-    */
-    tableViewportWidth: 0,
     /* 
     editing cells
     1、full row edit:

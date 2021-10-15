@@ -177,6 +177,8 @@ export default {
     },
     data() {
         return {
+            //  table viewport width except scroll bar width
+            tableViewportWidth: 0,
             /*
             列配置变化次数
             依赖columns 配置渲染，都需要重新计算：粘性布局时，重新触发 on-dom-resize-change 事件
@@ -822,9 +824,7 @@ export default {
                     },
                     on: {
                         "on-dom-resize-change": ({ width }) => {
-                            storeMutations.setStore({
-                                tableViewportWidth: width,
-                            });
+                            this.tableViewportWidth = width;
                         },
                     },
                 };
@@ -1377,6 +1377,7 @@ export default {
     },
     render() {
         const {
+            tableViewportWidth,
             tableContainerStyle,
             tableStyle,
             tableClass,
@@ -1402,6 +1403,7 @@ export default {
             class: clsName("header"),
             props: {
                 columnsOptionResetTime: this.columnsOptionResetTime,
+                tableViewportWidth,
                 groupColumns,
                 colgroups,
                 fixedHeader,
@@ -1417,6 +1419,7 @@ export default {
         const bodyProps = {
             class: [clsName("body"), this.tableBodyClass],
             props: {
+                tableViewportWidth,
                 columnsOptionResetTime: this.columnsOptionResetTime,
                 colgroups,
                 expandOption,

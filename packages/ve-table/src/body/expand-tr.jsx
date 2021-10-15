@@ -1,5 +1,4 @@
 import { clsName } from "../util";
-import { storeStates } from "../util/store";
 import { COMPS_NAME } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 
@@ -7,6 +6,10 @@ export default {
     name: COMPS_NAME.VE_TABLE_EXPAND_TR,
     mixins: [emitter],
     props: {
+        tableViewportWidth: {
+            type: Number,
+            default: 0,
+        },
         // expand column
         expandColumn: {
             type: Object,
@@ -51,10 +54,6 @@ export default {
         },
     },
     computed: {
-        // store states
-        storeStates() {
-            return storeStates;
-        },
         // get column count
         columnCount() {
             return this.colgroups.length;
@@ -97,12 +96,12 @@ export default {
         expandTdContentStyle() {
             let result = {};
 
-            const { hasLeftFixedColumn, storeStates } = this;
+            const { hasLeftFixedColumn, tableViewportWidth } = this;
 
             if (hasLeftFixedColumn) {
                 // table width
-                if (storeStates.tableViewportWidth) {
-                    result["width"] = storeStates.tableViewportWidth + "px";
+                if (tableViewportWidth) {
+                    result["width"] = tableViewportWidth + "px";
                 }
             }
 
