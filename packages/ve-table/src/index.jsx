@@ -1159,6 +1159,34 @@ export default {
             }
         },
 
+        /*
+         * @tdClick
+         * @desc  recieve td click event
+         * @param {object} rowData - row data
+         * @param {object} column - column data
+         */
+        tdClick({ rowData, column }) {
+            const { rowKeyFieldName, cellSelectionOption } = this;
+
+            // update cell selection
+            if (
+                !(
+                    cellSelectionOption &&
+                    typeof cellSelectionOption.enable === "boolean" &&
+                    cellSelectionOption.enable === false
+                )
+            ) {
+                if (rowKeyFieldName && column.key) {
+                    const rowKey = rowData[rowKeyFieldName];
+
+                    this.cellSelectionKeyChange({
+                        rowKey,
+                        columnKey: column.key,
+                    });
+                }
+            }
+        },
+
         // table scrollTo
         [INSTANCE_METHODS.SCROLL_TO](option) {
             scrollTo(this.$refs[this.tableContainerRef], option);
@@ -1340,6 +1368,11 @@ export default {
             },
         );
 
+        // recieve td click
+        this.$on(EMIT_EVENTS.BODY_TD_CLICK, (params) => {
+            this.tdClick(params);
+        });
+
         // receive td edit cell blur
         this.$on(
             EMIT_EVENTS.BODY_TD_EDIT_CELL_BLUR,
@@ -1435,8 +1468,6 @@ export default {
             },
             on: {
                 [EMIT_EVENTS.BODY_TD_WIDTH_CHANGE]: tdWidthChange,
-                [EMIT_EVENTS.CELL_SELECTION_KEY_CHANGE]:
-                    this.cellSelectionKeyChange,
                 [EMIT_EVENTS.HIGHLIGHT_ROW_CHANGE]:
                     this[INSTANCE_METHODS.SET_HIGHLIGHT_ROW],
             },

@@ -417,34 +417,6 @@ export default {
         },
 
         /*
-         * @tdClick
-         * @desc  recieve td click event
-         * @param {object} rowData - row data
-         * @param {object} column - column data
-         */
-        tdClick({ rowData, column }) {
-            const { rowKeyFieldName, cellSelectionOption } = this;
-
-            // cell selection option
-            if (
-                !(
-                    cellSelectionOption &&
-                    typeof cellSelectionOption.enable === "boolean" &&
-                    cellSelectionOption.enable === false
-                )
-            ) {
-                if (rowKeyFieldName && column.key) {
-                    const rowKey = rowData[rowKeyFieldName];
-
-                    this.$emit(EMIT_EVENTS.CELL_SELECTION_KEY_CHANGE, {
-                        rowKey,
-                        columnKey: column.key,
-                    });
-                }
-            }
-        },
-
-        /*
          * @isExpandRow
          * @desc  is expand row
          * @param {object} rowData - row data
@@ -759,11 +731,6 @@ export default {
         // recieve tr click
         this.$on(EMIT_EVENTS.BODY_TR_CLICK, (params) => {
             this.rowClick(params);
-        });
-
-        // recieve yd click
-        this.$on(EMIT_EVENTS.BODY_TD_CLICK, (params) => {
-            this.tdClick(params);
         });
 
         if (this.checkboxOption) {

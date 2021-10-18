@@ -484,16 +484,16 @@ export default {
                             // 重置编辑单元格的值
                             this.resetEditingCellValue();
                         },
-                        blur: () => {
-                            this.dispatch(
-                                COMPS_NAME.VE_TABLE,
-                                EMIT_EVENTS.BODY_TD_EDIT_CELL_BLUR,
-                                {
-                                    rowKey: currentRowKey,
-                                    colKey: column.key,
-                                },
-                            );
-                        },
+                        // blur: () => {
+                        //     this.dispatch(
+                        //         COMPS_NAME.VE_TABLE,
+                        //         EMIT_EVENTS.BODY_TD_EDIT_CELL_BLUR,
+                        //         {
+                        //             rowKey: currentRowKey,
+                        //             colKey: column.key,
+                        //         },
+                        //     );
+                        // },
                     },
                 };
 
@@ -572,7 +572,7 @@ export default {
 
             const { column, expandOption, rowData } = this;
 
-            this.dispatch(COMPS_NAME.VE_TABLE_BODY, EMIT_EVENTS.BODY_TD_CLICK, {
+            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_TD_CLICK, {
                 rowData,
                 column,
             });
