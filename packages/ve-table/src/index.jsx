@@ -1367,6 +1367,7 @@ export default {
                 this.editingCells.splice(deleteIndex, 1);
             }
         },
+        // stop all editing cell
         [INSTANCE_METHODS.STOP_ALL_EDITING_CELL]() {
             const { editOption, editingCells } = this;
 
