@@ -1166,7 +1166,14 @@ export default {
          * @param {object} column - column data
          */
         tdClick({ rowData, column }) {
-            const { rowKeyFieldName, cellSelectionOption } = this;
+            const {
+                rowKeyFieldName,
+                cellSelectionOption,
+                editOption,
+                colgroups,
+            } = this;
+
+            const rowKey = rowData[rowKeyFieldName];
 
             // update cell selection
             if (
@@ -1177,11 +1184,46 @@ export default {
                 )
             ) {
                 if (rowKeyFieldName && column.key) {
-                    const rowKey = rowData[rowKeyFieldName];
-
                     this.cellSelectionKeyChange({
                         rowKey,
                         columnKey: column.key,
+                    });
+                }
+            }
+
+            // edit cell
+            if (editOption) {
+                const { fullRowEdit } = editOption;
+
+                const colKey = column.key;
+
+                // 是否开始编辑
+                let isStartEditing = false;
+
+                // 整行编辑
+                if (fullRowEdit) {
+                    // 是否有可编辑的列
+                    if (colgroups.some((x) => x.edit)) {
+                        isStartEditing = true;
+                    }
+                } else {
+                    const currentColumn = colgroups.find(
+                        (x) => x.key === colKey,
+                    );
+                    // 当前列是否可编辑
+                    if (currentColumn.edit) {
+                        isStartEditing = true;
+                    }
+                }
+
+                // 停止所有编辑
+                this[INSTANCE_METHODS.STOP_ALL_EDITING_CELL]();
+
+                if (isStartEditing) {
+                    // 开始编辑
+                    this[INSTANCE_METHODS.START_EDITING_CELL]({
+                        rowKey,
+                        colKey: colKey,
                     });
                 }
             }
@@ -1305,6 +1347,7 @@ export default {
 
             let deleteIndex = -1;
 
+            // 整行编辑
             if (editOption.fullRowEdit) {
                 deleteIndex = editingCells.findIndex(
                     (x) => x.rowKey === rowKey,
@@ -1323,13 +1366,22 @@ export default {
 
                 this.editingCells.splice(deleteIndex, 1);
             }
+        },
+        [INSTANCE_METHODS.STOP_ALL_EDITING_CELL]() {
+            const { editOption, editingCells } = this;
 
-            // storeMutations.setStore({
-            //     editingFocusCell: {
-            //         rowKey,
-            //         colKey,
-            //     },
-            // });
+            if (!editOption) {
+                return false;
+            }
+
+            if (editingCells.length) {
+                editingCells.forEach((item) => {
+                    this[INSTANCE_METHODS.STOP_EDITING_CELL]({
+                        rowKey: item.rowKey,
+                        colKey: item.colKey,
+                    });
+                });
+            }
         },
         // set highlight row
         [INSTANCE_METHODS.SET_HIGHLIGHT_ROW]({ rowKey }) {

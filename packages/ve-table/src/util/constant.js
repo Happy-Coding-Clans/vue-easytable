@@ -100,6 +100,8 @@ export const INSTANCE_METHODS = {
     START_EDITING_CELL: "startEditingCell",
     // stop editing cell
     STOP_EDITING_CELL: "stopEditingCell",
+    // stop all editing cell
+    STOP_ALL_EDITING_CELL: "stopAllEditingCell",
     // set highlight row
     SET_HIGHLIGHT_ROW: "setHighlightRow",
 };
