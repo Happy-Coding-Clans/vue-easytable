@@ -1172,7 +1172,7 @@ export default {
             if (
                 !(
                     cellSelectionOption &&
-                    typeof cellSelectionOption.enable === "boolean" &&
+                    isBoolean(cellSelectionOption.enable) &&
                     cellSelectionOption.enable === false
                 )
             ) {
