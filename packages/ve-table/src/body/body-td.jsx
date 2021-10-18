@@ -207,17 +207,23 @@ export default {
                 const { fullRowEdit } = editOption;
 
                 if (editingCells.length) {
-                    const existRow = editingCells.find(
-                        (x) => x.rowKey == currentRowKey,
-                    );
+                    if (fullRowEdit) {
+                        const existRow = editingCells.find(
+                            (x) => x.rowKey === currentRowKey,
+                        );
 
-                    if (existRow) {
-                        if (fullRowEdit) {
+                        if (existRow) {
                             result = true;
-                        } else {
-                            if (column.key == existRow.colKey) {
-                                result = true;
-                            }
+                        }
+                    } else {
+                        const existCell = editingCells.find(
+                            (x) =>
+                                x.rowKey === currentRowKey &&
+                                x.colKey === column.key,
+                        );
+
+                        if (existCell) {
+                            result = true;
                         }
                     }
                 }
