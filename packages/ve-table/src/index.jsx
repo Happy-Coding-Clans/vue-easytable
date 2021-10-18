@@ -1193,7 +1193,8 @@ export default {
 
             // edit cell
             if (editOption) {
-                const { fullRowEdit } = editOption;
+                const { fullRowEdit, stopEditingWhenCellLoseFocus } =
+                    editOption;
 
                 const colKey = column.key;
 
@@ -1217,7 +1218,13 @@ export default {
                 }
 
                 // 停止所有编辑
-                this[INSTANCE_METHODS.STOP_ALL_EDITING_CELL]();
+                if (
+                    !isBoolean(stopEditingWhenCellLoseFocus) ||
+                    (isBoolean(stopEditingWhenCellLoseFocus) &&
+                        !stopEditingWhenCellLoseFocus)
+                ) {
+                    this[INSTANCE_METHODS.STOP_ALL_EDITING_CELL]();
+                }
 
                 if (isStartEditing) {
                     // 开始编辑
