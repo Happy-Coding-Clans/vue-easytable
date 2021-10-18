@@ -3,7 +3,7 @@
         <div class="main-banner">
             <div class="main-banner-warpper">
                 <!-- logo -->
-                <div class="main-banner-logo">
+                <div v-show="showLogo" class="main-banner-logo">
                     <i
                         style="font-size: 20px"
                         class="icon iconfont icon-table"
@@ -177,6 +177,11 @@ export default {
         // menus
         menus() {
             return locale[this.currentDocLang]["menus"];
+        },
+
+        // show logo
+        showLogo() {
+            return window.env !== "dev";
         },
     },
     watch: {
