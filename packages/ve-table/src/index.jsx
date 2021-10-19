@@ -1160,18 +1160,31 @@ export default {
         },
 
         /*
+         * @tdDoubleClick
+         * @desc  recieve td double click event
+         * @param {object} rowData - row data
+         * @param {object} column - column data
+         */
+        tdDoubleClick({ rowData, column }) {
+            const { editOption } = this;
+
+            if (editOption) {
+                this.editCellByClick({
+                    rowData,
+                    column,
+                    isDoubleClick: true,
+                });
+            }
+        },
+
+        /*
          * @tdClick
          * @desc  recieve td click event
          * @param {object} rowData - row data
          * @param {object} column - column data
          */
         tdClick({ rowData, column }) {
-            const {
-                rowKeyFieldName,
-                cellSelectionOption,
-                editOption,
-                colgroups,
-            } = this;
+            const { rowKeyFieldName, cellSelectionOption, editOption } = this;
 
             const rowKey = rowData[rowKeyFieldName];
 
@@ -1191,42 +1204,69 @@ export default {
                 }
             }
 
-            // edit cell
+            // eidting by single click
             if (editOption) {
-                const { fullRowEdit, stopEditingWhenCellLoseFocus } =
-                    editOption;
+                this.editCellByClick({
+                    rowData,
+                    column,
+                    isDoubleClick: false,
+                });
+            }
+        },
 
-                const colKey = column.key;
+        /*
+         * @editCellByClick
+         * @desc  recieve td click event
+         * @param {object} rowData - row data
+         * @param {object} column - column data
+         */
+        editCellByClick({ rowData, column, isDoubleClick }) {
+            const { rowKeyFieldName, editOption, colgroups } = this;
 
-                // 是否开始编辑
-                let isStartEditing = false;
+            const rowKey = rowData[rowKeyFieldName];
 
-                // 整行编辑
-                if (fullRowEdit) {
-                    // 是否有可编辑的列
-                    if (colgroups.some((x) => x.edit)) {
-                        isStartEditing = true;
-                    }
-                } else {
-                    const currentColumn = colgroups.find(
-                        (x) => x.key === colKey,
-                    );
-                    // 当前列是否可编辑
-                    if (currentColumn.edit) {
-                        isStartEditing = true;
-                    }
+            // edit cell
+            const { fullRowEdit, stopEditingWhenCellLoseFocus } = editOption;
+
+            const colKey = column.key;
+
+            // 是否开始编辑
+            let isStartEditing = false;
+
+            // 整行编辑
+            if (fullRowEdit) {
+                // 是否有可编辑的列
+                if (colgroups.some((x) => x.edit)) {
+                    isStartEditing = true;
                 }
+            } else {
+                const currentColumn = colgroups.find((x) => x.key === colKey);
+                // 当前列是否可编辑
+                if (currentColumn.edit) {
+                    isStartEditing = true;
+                }
+            }
 
-                // 停止所有编辑
+            // 停止所有编辑
+            if (
+                !isBoolean(stopEditingWhenCellLoseFocus) ||
+                (isBoolean(stopEditingWhenCellLoseFocus) &&
+                    stopEditingWhenCellLoseFocus)
+            ) {
+                this[INSTANCE_METHODS.STOP_ALL_EDITING_CELL]();
+            }
+
+            if (isStartEditing) {
+                // 默认为双击编辑
+                let doubleClickEdit = true;
                 if (
-                    !isBoolean(stopEditingWhenCellLoseFocus) ||
-                    (isBoolean(stopEditingWhenCellLoseFocus) &&
-                        !stopEditingWhenCellLoseFocus)
+                    isBoolean(editOption.doubleClickEdit) &&
+                    !editOption.doubleClickEdit
                 ) {
-                    this[INSTANCE_METHODS.STOP_ALL_EDITING_CELL]();
+                    doubleClickEdit = false;
                 }
 
-                if (isStartEditing) {
+                if (doubleClickEdit === isDoubleClick) {
                     // 开始编辑
                     this[INSTANCE_METHODS.START_EDITING_CELL]({
                         rowKey,
@@ -1234,6 +1274,37 @@ export default {
                     });
                 }
             }
+        },
+
+        /*
+         * @setEditingFocusCell
+         * @desc  set editing focus cell
+         * @param {object} rowKey - row key
+         * @param {object} colKey - col key
+         */
+        setEditingFocusCell({ rowKey, colKey }) {
+            this.editingFocusCell = {
+                rowKey,
+                colKey,
+            };
+        },
+
+        /*
+         * @addEditingCells
+         * @desc  add editing cells
+         * @param {object} rowKey - row key
+         * @param {object} colKey - col key
+         * @param {object} column - column
+         * @param {object} row - row data
+         */
+        addEditingCells({ rowKey, colKey, column, row }) {
+            // 当是整行编辑时，colKey 和 column 为null
+            this.editingCells.push({
+                rowKey,
+                row: cloneDeep(row),
+                colKey: colKey ? colKey : null,
+                column: column ? column : null,
+            });
         },
 
         // table scrollTo
@@ -1315,7 +1386,7 @@ export default {
                     });
                 }
 
-                this.editingCells.push({
+                this.addEditingCells({
                     rowKey,
                     row: cloneDeep(currentRow),
                 });
@@ -1331,7 +1402,7 @@ export default {
                     currentRow[currentColumn.field] = defaultValue;
                 }
 
-                this.editingCells.push({
+                this.addEditingCells({
                     rowKey,
                     colKey,
                     column: currentColumn,
@@ -1339,10 +1410,11 @@ export default {
                 });
             }
 
-            this.editingFocusCell = {
+            // set editing focus cell
+            this.setEditingFocusCell({
                 rowKey,
                 colKey,
-            };
+            });
         },
         // start editing cell
         [INSTANCE_METHODS.STOP_EDITING_CELL]({ rowKey, colKey }) {
@@ -1431,6 +1503,11 @@ export default {
         // recieve td click
         this.$on(EMIT_EVENTS.BODY_TD_CLICK, (params) => {
             this.tdClick(params);
+        });
+
+        // recieve td double click
+        this.$on(EMIT_EVENTS.BODY_TD_DOUBLE_CLICK, (params) => {
+            this.tdDoubleClick(params);
         });
 
         // receive td edit cell blur

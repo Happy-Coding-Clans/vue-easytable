@@ -609,6 +609,17 @@ export default {
         // dblclick
         cellDblclick(e, fn) {
             fn && fn(e);
+
+            const { column, rowData } = this;
+
+            this.dispatch(
+                COMPS_NAME.VE_TABLE,
+                EMIT_EVENTS.BODY_TD_DOUBLE_CLICK,
+                {
+                    rowData,
+                    column,
+                },
+            );
         },
         // contextmenu
         cellContextmenu(e, fn) {

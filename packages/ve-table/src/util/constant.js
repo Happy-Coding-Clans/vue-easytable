@@ -38,6 +38,8 @@ export const EMIT_EVENTS = {
     BODY_TR_CLICK: "on-body-tr-click",
     // body td click
     BODY_TD_CLICK: "on-body-td-click",
+    // body td double click
+    BODY_TD_DOUBLE_CLICK: "on-body-td-double-click",
     // body td edit cell blur
     BODY_TD_EDIT_CELL_BLUR: "on-body-td-edit-cell-blur",
     // body td edit cell value change

@@ -5,6 +5,14 @@
 ```html
 <template>
     <div>
+        <button @click="startEditingCell(0,'name')">编辑单元格1-1</button>
+        <button @click="startEditingCell(1,'date')">编辑单元格2-2</button>
+        &nbsp;&nbsp;
+        <button @click="startEditingCell(2,'name','222')">编辑单元格3-1</button>
+        <button @click="startEditingCell(3,'date','')">编辑单元格4-2</button>
+        &nbsp;&nbsp;
+        <button @click="stopEditingCell(0,'name')">停止编辑单元格1-1</button>
+        <button @click="stopEditingCell(1,'date')">停止编辑单元格单元格2-2</button>
         <ve-table
             ref="tableRef"
             rowKeyFieldName="rowkey"
@@ -23,6 +31,14 @@
             return {
                 // edit option 可控单元格编辑
                 editOption: {
+                    // full row edit
+                    fullRowEdit: false,
+                    // double click edit
+                    doubleClickEdit: true,
+                    // auto stop editing when cell lose focus
+                    stopEditingWhenCellLoseFocus: true,
+                    // stop editing when table body click outside
+                    stopEditingWhenTableBodyClickOutside: false,
                     // cell value change
                     cellValueChange: ({ row, column }) => {
                         console.log("cellValueChange row::", row);
@@ -63,7 +79,6 @@
                         title: "Hobby",
                         align: "center",
                         width: "30%",
-                        edit: true,
                     },
                     {
                         field: "address",
