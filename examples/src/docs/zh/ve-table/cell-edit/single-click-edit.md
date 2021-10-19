@@ -1,6 +1,6 @@
-:::anchor
+:::anchor 单击编辑
 
-:::demo 1
+:::demo 可以通过 `doubleClickEdit=false`开启单击编辑单元格
 
 ```html
 <template>
@@ -23,6 +23,8 @@
             return {
                 // edit option 可控单元格编辑
                 editOption: {
+                    // disable double click edit
+                    doubleClickEdit: false,
                     // cell value change
                     cellValueChange: ({ row, column }) => {
                         console.log("cellValueChange row::", row);

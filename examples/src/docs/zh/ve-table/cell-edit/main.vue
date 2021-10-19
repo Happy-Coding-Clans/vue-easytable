@@ -2,7 +2,8 @@
     <div>
         <h2>单元格编辑</h2>
         <Explain />
-        <Base />
+        <DoubleClickEdit />
+        <SingleClickEdit />
         <FullRowWidt />
 
         <!-- <API title="API" anchor="API" desc="filterCustom 自定义筛选配置" /> -->
@@ -10,14 +11,16 @@
 </template>
 <script>
 import Explain from "./explain.md";
-import Base from "./base.md";
+import DoubleClickEdit from "./double-click-edit.md";
+import SingleClickEdit from "./single-click-edit.md";
 import FullRowWidt from "./full-row-edit.md";
 
 export default {
     name: "basic-main",
     components: {
         Explain,
-        Base,
+        DoubleClickEdit,
+        SingleClickEdit,
         FullRowWidt,
     },
 };
