@@ -1098,21 +1098,21 @@ export default {
         },
 
         // editing cell blur
-        editingCellBlur({ rowKey, colKey }) {
-            // 如果是整行编辑，直接返回
+        // editingCellBlur({ rowKey, colKey }) {
+        //     // 如果是整行编辑，直接返回
 
-            this[INSTANCE_METHODS.STOP_EDITING_CELL]({
-                rowKey,
-                colKey,
-            });
-        },
+        //     this[INSTANCE_METHODS.STOP_EDITING_CELL]({
+        //         rowKey,
+        //         colKey,
+        //     });
+        // },
 
         // save cell when stop editing
         saveCellWhenStopEditing({ rowKey, colKey }) {
             const { colgroups, rowKeyFieldName, editOption, editingCells } =
                 this;
 
-            const { cellValueChange, fullRowEdit } = editOption;
+            const { cellValueChange, rowValueChange, fullRowEdit } = editOption;
 
             // 全行编辑
             if (fullRowEdit) {
@@ -1127,8 +1127,8 @@ export default {
 
                     this.cloneTableData.splice(updateIndex, 1, editingCell.row);
 
-                    cellValueChange &&
-                        cellValueChange({
+                    rowValueChange &&
+                        rowValueChange({
                             row: editingCell.row,
                         });
                 }
@@ -1221,7 +1221,8 @@ export default {
          * @param {object} column - column data
          */
         editCellByClick({ rowData, column, isDoubleClick }) {
-            const { rowKeyFieldName, editOption, colgroups } = this;
+            const { rowKeyFieldName, editOption, colgroups, editingFocusCell } =
+                this;
 
             const rowKey = rowData[rowKeyFieldName];
 
@@ -1232,6 +1233,16 @@ export default {
 
             // 是否开始编辑
             let isStartEditing = false;
+
+            // 如果是当前编辑的单元格
+            if (editingFocusCell) {
+                if (
+                    editingFocusCell.rowKey === rowKey &&
+                    editingFocusCell.colKey === colKey
+                ) {
+                    return false;
+                }
+            }
 
             // 整行编辑
             if (fullRowEdit) {
@@ -1511,12 +1522,12 @@ export default {
         });
 
         // receive td edit cell blur
-        this.$on(
-            EMIT_EVENTS.BODY_TD_EDIT_CELL_BLUR,
-            ({ rowKey, colKey, cellValue }) => {
-                this.editingCellBlur({ rowKey, colKey, cellValue });
-            },
-        );
+        // this.$on(
+        //     EMIT_EVENTS.BODY_TD_EDIT_CELL_BLUR,
+        //     ({ rowKey, colKey, cellValue }) => {
+        //         this.editingCellBlur({ rowKey, colKey, cellValue });
+        //     },
+        // );
 
         // body td edit cell value change
         this.$on(
