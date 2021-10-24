@@ -1241,6 +1241,9 @@ export default {
                     editingFocusCell.colKey === colKey
                 ) {
                     return false;
+                } else {
+                    this.editingFocusCell.rowKey = null;
+                    this.editingFocusCell.colKey = null;
                 }
             }
 
