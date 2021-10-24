@@ -1,6 +1,6 @@
 :::anchor 单击编辑
 
-:::demo 可以通过 `doubleClickEdit=false`开启单击编辑单元格
+:::demo 可以通过 `doubleClickEdit=false`关闭双击编辑，开启单击编辑单元格
 
 ```html
 <template>

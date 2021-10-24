@@ -1,6 +1,6 @@
-:::anchor 整行编辑
+:::anchor 可控行编辑
 
-:::demo 1、通过 `fullRowEdit=true`开启整行编辑<br>2、通过 `columns`对象的 `edit`属性控制当前列是否可编辑
+:::demo 1
 
 ```html
 <template>
@@ -27,6 +27,8 @@
                     fullRowEdit: true,
                     // double click edit
                     doubleClickEdit: false,
+                    // auto stop editing when cell lose focus
+                    stopEditingWhenCellsLoseFocus: false,
                     // cell value change
                     cellValueChange: ({ row, column }) => {
                         console.log("cellValueChange row::", row);
@@ -45,13 +47,6 @@
                         align: "left",
                         width: "15%",
                         edit: true,
-                        renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            return (
-                                <span class="text-bold" style="color:#1890ff;">
-                                    {1 + row["name"]}
-                                </span>
-                            );
-                        },
                     },
                     {
                         field: "date",
@@ -66,15 +61,29 @@
                         key: "hobby",
                         title: "Hobby",
                         align: "center",
-                        width: "30%",
+                        width: "25%",
                     },
                     {
                         field: "address",
                         key: "address",
                         title: "Address",
                         align: "left",
-                        width: "40%",
+                        width: "25%",
                         edit: true,
+                    },
+                    {
+                        field: "customField",
+                        key: "customField",
+                        title: "操作",
+                        align: "left",
+                        width: "20%",
+                        renderBodyCell: ({ row, column, rowIndex }, h) => {
+                            return (
+                                <div>
+                                    <button>编辑</button>
+                                </div>
+                            );
+                        },
                     },
                 ],
                 // table data

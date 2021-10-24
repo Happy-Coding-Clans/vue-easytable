@@ -5,6 +5,8 @@
         <DoubleClickEdit />
         <SingleClickEdit />
         <FullRowWidt />
+        <EditControl />
+        <FullRowEditControl />
 
         <!-- <API title="API" anchor="API" desc="filterCustom 自定义筛选配置" /> -->
     </div>
@@ -14,6 +16,8 @@ import Explain from "./explain.md";
 import DoubleClickEdit from "./double-click-edit.md";
 import SingleClickEdit from "./single-click-edit.md";
 import FullRowWidt from "./full-row-edit.md";
+import EditControl from "./edit-control.md";
+import FullRowEditControl from "./full-row-edit-control.md";
 
 export default {
     name: "basic-main",
@@ -22,6 +26,8 @@ export default {
         DoubleClickEdit,
         SingleClickEdit,
         FullRowWidt,
+        EditControl,
+        FullRowEditControl,
     },
 };
 </script>

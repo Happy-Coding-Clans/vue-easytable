@@ -1,10 +1,17 @@
-:::anchor 整行编辑
+:::anchor 可控编辑
 
-:::demo 1、通过 `fullRowEdit=true`开启整行编辑<br>2、通过 `columns`对象的 `edit`属性控制当前列是否可编辑
+:::demo 1
 
 ```html
 <template>
     <div>
+        <button @click="startEditingCell(0,'name')">编辑单元格0-0</button>
+        <button @click="startEditingCell(2,'hobby','')">编辑并清空单元格2-2</button>
+        &nbsp;&nbsp;
+        <button @click="stopEditingCell(0,'name')">停止编辑单元格1-1</button>
+        <button @click="stopEditingCell(2,'hobby')">停止编辑单元格2-2</button>
+        <br />
+        <br />
         <ve-table
             ref="tableRef"
             rowKeyFieldName="rowkey"
@@ -24,9 +31,11 @@
                 // edit option 可控单元格编辑
                 editOption: {
                     // full row edit
-                    fullRowEdit: true,
+                    fullRowEdit: false,
                     // double click edit
-                    doubleClickEdit: false,
+                    doubleClickEdit: true,
+                    // auto stop editing when cell lose focus
+                    stopEditingWhenCellLoseFocus: true,
                     // cell value change
                     cellValueChange: ({ row, column }) => {
                         console.log("cellValueChange row::", row);
@@ -65,8 +74,9 @@
                         field: "hobby",
                         key: "hobby",
                         title: "Hobby",
-                        align: "center",
+                        align: "left",
                         width: "30%",
+                        edit: true,
                     },
                     {
                         field: "address",
@@ -119,12 +129,12 @@
         },
         methods: {
             // start editing cell
-            startEditingCell(rowKey, defaultValue) {
-                this.$refs["tableRef"].startEditingCell({ rowKey, defaultValue });
+            startEditingCell(rowKey, colKey, defaultValue) {
+                this.$refs["tableRef"].startEditingCell({ rowKey, colKey, defaultValue });
             },
 
-            stopEditingCell(rowKey) {
-                this.$refs["tableRef"].stopEditingCell({ rowKey });
+            stopEditingCell(rowKey, colKey) {
+                this.$refs["tableRef"].stopEditingCell({ rowKey, colKey });
             },
         },
     };
