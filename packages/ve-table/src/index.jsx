@@ -12,6 +12,8 @@ import {
     isEmptyValue,
     isBoolean,
     isDefined,
+    isTrue,
+    isFalse,
 } from "../../src/utils/index.js";
 import emitter from "../../src/mixins/emitter";
 import {
@@ -1215,6 +1217,37 @@ export default {
         },
 
         /*
+         * @setEditingFocusCell
+         * @desc  set editing focus cell
+         * @param {object} rowKey - row key
+         * @param {object} colKey - col key
+         */
+        setEditingFocusCell({ rowKey, colKey }) {
+            this.editingFocusCell = {
+                rowKey,
+                colKey,
+            };
+        },
+
+        /*
+         * @addEditingCells
+         * @desc  add editing cells
+         * @param {object} rowKey - row key
+         * @param {object} colKey - col key
+         * @param {object} column - column
+         * @param {object} row - row data
+         */
+        addEditingCells({ rowKey, colKey, column, row }) {
+            // 当是整行编辑时，colKey 和 column 为null
+            this.editingCells.push({
+                rowKey,
+                row: cloneDeep(row),
+                colKey: colKey ? colKey : null,
+                column: column ? column : null,
+            });
+        },
+
+        /*
          * @editCellByClick
          * @desc  recieve td click event
          * @param {object} rowData - row data
@@ -1261,24 +1294,11 @@ export default {
                 }
             }
 
-            // 停止所有编辑
-            if (
-                !isBoolean(stopEditingWhenCellLoseFocus) ||
-                (isBoolean(stopEditingWhenCellLoseFocus) &&
-                    stopEditingWhenCellLoseFocus)
-            ) {
-                this[INSTANCE_METHODS.STOP_ALL_EDITING_CELL]();
-            }
-
             if (isStartEditing) {
                 // 默认为双击编辑
-                let doubleClickEdit = true;
-                if (
-                    isBoolean(editOption.doubleClickEdit) &&
-                    !editOption.doubleClickEdit
-                ) {
-                    doubleClickEdit = false;
-                }
+                let doubleClickEdit = isFalse(editOption.doubleClickEdit)
+                    ? false
+                    : true;
 
                 if (doubleClickEdit === isDoubleClick) {
                     // 开始编辑
@@ -1288,37 +1308,6 @@ export default {
                     });
                 }
             }
-        },
-
-        /*
-         * @setEditingFocusCell
-         * @desc  set editing focus cell
-         * @param {object} rowKey - row key
-         * @param {object} colKey - col key
-         */
-        setEditingFocusCell({ rowKey, colKey }) {
-            this.editingFocusCell = {
-                rowKey,
-                colKey,
-            };
-        },
-
-        /*
-         * @addEditingCells
-         * @desc  add editing cells
-         * @param {object} rowKey - row key
-         * @param {object} colKey - col key
-         * @param {object} column - column
-         * @param {object} row - row data
-         */
-        addEditingCells({ rowKey, colKey, column, row }) {
-            // 当是整行编辑时，colKey 和 column 为null
-            this.editingCells.push({
-                rowKey,
-                row: cloneDeep(row),
-                colKey: colKey ? colKey : null,
-                column: column ? column : null,
-            });
         },
 
         // table scrollTo
@@ -1372,17 +1361,41 @@ export default {
             colKey,
             defaultValue,
         }) {
-            const { editOption, colgroups, rowKeyFieldName } = this;
+            const { editOption, colgroups, rowKeyFieldName, editingFocusCell } =
+                this;
 
             if (!editOption) {
                 return false;
             }
 
-            const { fullRowEdit } = editOption;
+            const { fullRowEdit, stopEditingWhenCellLoseFocus } = editOption;
 
             let currentRow = this.cloneTableData.find(
                 (x) => x[rowKeyFieldName] === rowKey,
             );
+
+            /* 
+            调用API编辑的情况，需要关闭之前编辑的单元格
+            */
+            if (editingFocusCell) {
+                // 整行编辑
+                if (fullRowEdit) {
+                    if (editingFocusCell.rowKey !== rowKey) {
+                        if (!isFalse(stopEditingWhenCellLoseFocus)) {
+                            this[INSTANCE_METHODS.STOP_ALL_EDITING_CELL]();
+                        }
+                    }
+                } else {
+                    if (
+                        editingFocusCell.rowKey !== rowKey &&
+                        editingFocusCell.colKey !== colKey
+                    ) {
+                        if (!isFalse(stopEditingWhenCellLoseFocus)) {
+                            this[INSTANCE_METHODS.STOP_ALL_EDITING_CELL]();
+                        }
+                    }
+                }
+            }
 
             // 整行编辑
             if (fullRowEdit) {

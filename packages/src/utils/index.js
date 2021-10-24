@@ -74,6 +74,24 @@ export function isNumber(val) {
 }
 
 /*
+ * @isTrue
+ * @desc is equal true
+ * @param {any} val
+ */
+export function isTrue(val) {
+    return isBoolean(val) && val;
+}
+
+/*
+ * @isFalse
+ * @desc is equal false
+ * @param {any} val
+ */
+export function isFalse(val) {
+    return isBoolean(val) && !val;
+}
+
+/*
  * @getValByUnit
  * @desc  get value by unit
  * @param {number|string} width - 宽度
