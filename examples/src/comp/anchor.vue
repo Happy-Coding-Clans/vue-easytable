@@ -107,7 +107,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .anchor-container {
     .content {
         &:hover {

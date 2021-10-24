@@ -8,9 +8,9 @@ import router from "@/router/index";
 
 import NProgress from "nprogress"; // Progress 进度条
 
-import "@/css/index.scss";
-import "@/css/custom.scss";
-import "@/comp/app.scss";
+import "@/css/index.less";
+import "@/css/custom.less";
+import "@/comp/app.less";
 
 // Progress 进度条 样式
 import "nprogress/nprogress.css";

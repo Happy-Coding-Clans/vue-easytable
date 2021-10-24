@@ -227,7 +227,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="less">
 .demo-block {
     border: solid 1px #ebebeb;
     border-radius: 3px;
