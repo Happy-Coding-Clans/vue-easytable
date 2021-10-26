@@ -1254,13 +1254,18 @@ export default {
          * @param {object} column - column data
          */
         editCellByClick({ rowData, column, isDoubleClick }) {
-            const { rowKeyFieldName, editOption, colgroups, editingFocusCell } =
-                this;
+            const {
+                rowKeyFieldName,
+                editOption,
+                colgroups,
+                editingFocusCell,
+                editingCells,
+            } = this;
 
             const rowKey = rowData[rowKeyFieldName];
 
             // edit cell
-            const { fullRowEdit, stopEditingWhenCellLoseFocus } = editOption;
+            const { fullRowEdit } = editOption;
 
             const colKey = column.key;
 
@@ -1284,16 +1289,25 @@ export default {
             if (fullRowEdit) {
                 // 是否有可编辑的列
                 if (colgroups.some((x) => x.edit)) {
-                    isStartEditing = true;
+                    // 不是当前在编辑的行
+                    if (!editingCells.some((x) => x.rowKey === rowKey)) {
+                        isStartEditing = true;
+                    }
                 }
             } else {
                 const currentColumn = colgroups.find((x) => x.key === colKey);
                 // 当前列是否可编辑
                 if (currentColumn.edit) {
-                    isStartEditing = true;
+                    // 不是当前在编辑的列
+                    if (
+                        !editingCells.some(
+                            (x) => x.rowKey === rowKey && x.colKey === colKey,
+                        )
+                    ) {
+                        isStartEditing = true;
+                    }
                 }
             }
-
             if (isStartEditing) {
                 // 默认为双击编辑
                 let doubleClickEdit = isFalse(editOption.doubleClickEdit)
@@ -1306,6 +1320,14 @@ export default {
                         rowKey,
                         colKey: colKey,
                     });
+                } else {
+                    if (!fullRowEdit) {
+                        this[INSTANCE_METHODS.STOP_ALL_EDITING_CELL]();
+                    }
+                }
+            } else {
+                if (!fullRowEdit) {
+                    this[INSTANCE_METHODS.STOP_ALL_EDITING_CELL]();
                 }
             }
         },
