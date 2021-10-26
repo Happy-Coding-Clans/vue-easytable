@@ -581,14 +581,14 @@ export const db = {
             },
             {
                 param: "selectedRowChange",
-                desc: `Change event for the selected row. Receive 3 parameter,row:Current row data,<code>isSelected</code>Whether the current row is selected,<code>selectedRowKeys</code>All selected rowkey information`,
+                desc: `Change event for the selected row. Receive 3 parameter,row:Current row data,<code>isSelected</code>Whether the current row is selected,<code>selectedRowKeys</code>All selected rowKey information`,
                 type: "<code>Function({row, isSelected, selectedRowKeys})</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "selectedAllChange",
-                desc: `Select all change events. The event receives 2 parameters,<code>isSelected</code> Select all or not.<code>selectedRowKeys</code>All selected rowkey information`,
+                desc: `Select all change events. The event receives 2 parameters,<code>isSelected</code> Select all or not.<code>selectedRowKeys</code>All selected rowKey information`,
                 type: `<code>Function({isSelected, selectedRowKeys})</code>`,
                 optionalVal: "-",
                 default: "-",

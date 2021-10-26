@@ -7,7 +7,7 @@
     <div>
         <ve-table
             ref="tableRef"
-            rowKeyFieldName="rowkey"
+            rowKeyFieldName="rowKey"
             :max-height="300"
             :fixed-header="true"
             :columns="columns"
@@ -83,35 +83,35 @@
                         date: "1900-05-20",
                         hobby: "coding and coding repeat",
                         address: "No.1 Century Avenue, Shanghai",
-                        rowkey: 0,
+                        rowKey: 0,
                     },
                     {
                         name: "Dickerson",
                         date: "1910-06-20",
                         hobby: "coding and coding repeat",
                         address: "No.1 Century Avenue, Beijing",
-                        rowkey: 1,
+                        rowKey: 1,
                     },
                     {
                         name: "Larsen",
                         date: "2000-07-20",
                         hobby: "coding and coding repeat",
                         address: "No.1 Century Avenue, Chongqing",
-                        rowkey: 2,
+                        rowKey: 2,
                     },
                     {
                         name: "Geneva",
                         date: "2010-08-20",
                         hobby: "coding and coding repeat",
                         address: "No.1 Century Avenue, Xiamen",
-                        rowkey: 3,
+                        rowKey: 3,
                     },
                     {
                         name: "Jami",
                         date: "2020-09-20",
                         hobby: "coding and coding repeat",
                         address: "No.1 Century Avenue, Shenzhen",
-                        rowkey: 4,
+                        rowKey: 4,
                     },
                 ],
             };

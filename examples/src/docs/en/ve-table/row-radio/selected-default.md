@@ -1,6 +1,6 @@
 :::anchor Selected by default
 
-:::demo `defaultSelectedRowKey` sets the default selected rowkey
+:::demo `defaultSelectedRowKey` sets the default selected rowKey
 
 ```html
 <template>

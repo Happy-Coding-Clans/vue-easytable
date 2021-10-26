@@ -581,14 +581,14 @@ export const db = {
             },
             {
                 param: "selectedRowChange",
-                desc: `行选中的改变事件。事件接收 3 个参数，row:当前行数据，<code>isSelected</code>当前行是否选中，<code>selectedRowKeys</code>所有选中的 rowkey 信息`,
+                desc: `行选中的改变事件。事件接收 3 个参数，row:当前行数据，<code>isSelected</code>当前行是否选中，<code>selectedRowKeys</code>所有选中的 rowKey 信息`,
                 type: "<code>Function({row, isSelected, selectedRowKeys})</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "selectedAllChange",
-                desc: `全选改变事件。事件接收 2 个参数，<code>isSelected</code> 是否全选。<code>selectedRowKeys</code>所有选中的 rowkey 信息`,
+                desc: `全选改变事件。事件接收 2 个参数，<code>isSelected</code> 是否全选。<code>selectedRowKeys</code>所有选中的 rowKey 信息`,
                 type: `<code>Function({isSelected, selectedRowKeys})</code>`,
                 optionalVal: "-",
                 default: "-",

@@ -7,12 +7,13 @@
     <div>
         <ve-table
             ref="tableRef"
-            rowKeyFieldName="rowkey"
+            rowKeyFieldName="rowKey"
             :max-height="300"
             :fixed-header="true"
             :columns="columns"
             :table-data="tableData"
             :editOption="editOption"
+            :cell-selection-option="cellSelectionOption"
         />
     </div>
 </template>
@@ -26,9 +27,9 @@
                     // full row edit
                     fullRowEdit: true,
                     // double click edit
-                    doubleClickEdit: false,
+                    doubleClickEdit: true,
                     // auto stop editing when cell lose focus
-                    stopEditingWhenCellsLoseFocus: false,
+                    stopEditingWhenCellLoseFocus: false,
                     // cell value change
                     cellValueChange: ({ row, column }) => {
                         console.log("cellValueChange row::", row);
@@ -39,6 +40,12 @@
                         console.log("rowValueChange row::", row);
                     },
                 },
+                cellSelectionOption: {
+                    // default true
+                    enable: false,
+                },
+                // 当前编辑的行key
+                editRowKeys: [],
                 columns: [
                     {
                         field: "name",
@@ -78,9 +85,30 @@
                         align: "left",
                         width: "20%",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
+                            const { editRowKeys } = this;
+                            const rowKey = row["rowKey"];
+
+                            const isEditingRow = editRowKeys.some((x) => x === rowKey);
+
                             return (
                                 <div>
-                                    <button>编辑</button>
+                                    <a
+                                        style={{
+                                            display: isEditingRow ? "none" : "",
+                                        }}
+                                        href="javascript:void(0)"
+                                        on-click={() => {
+                                            this.editRowKeys.push(rowKey);
+                                        }}
+                                    >
+                                        Edit
+                                    </a>
+                                    {isEditingRow && (
+                                        <span>
+                                            <a href="javascript:void(0)">Save</a>&nbsp;
+                                            <a href="javascript:void(0)">Cancel</a>
+                                        </span>
+                                    )}
                                 </div>
                             );
                         },
@@ -93,40 +121,45 @@
                         date: "1900-05-20",
                         hobby: "coding and coding repeat",
                         address: "No.1 Century Avenue, Shanghai",
-                        rowkey: 0,
+                        rowKey: 0,
                     },
                     {
                         name: "Dickerson",
                         date: "1910-06-20",
                         hobby: "coding and coding repeat",
                         address: "No.1 Century Avenue, Beijing",
-                        rowkey: 1,
+                        rowKey: 1,
                     },
                     {
                         name: "Larsen",
                         date: "2000-07-20",
                         hobby: "coding and coding repeat",
                         address: "No.1 Century Avenue, Chongqing",
-                        rowkey: 2,
+                        rowKey: 2,
                     },
                     {
                         name: "Geneva",
                         date: "2010-08-20",
                         hobby: "coding and coding repeat",
                         address: "No.1 Century Avenue, Xiamen",
-                        rowkey: 3,
+                        rowKey: 3,
                     },
                     {
                         name: "Jami",
                         date: "2020-09-20",
                         hobby: "coding and coding repeat",
                         address: "No.1 Century Avenue, Shenzhen",
-                        rowkey: 4,
+                        rowKey: 4,
                     },
                 ],
             };
         },
         methods: {
+            // edit
+            editRow(rowKey) {
+                this.editRowKeys.push(rowKey);
+            },
+
             // start editing cell
             startEditingCell(rowKey, defaultValue) {
                 this.$refs["tableRef"].startEditingCell({ rowKey, defaultValue });

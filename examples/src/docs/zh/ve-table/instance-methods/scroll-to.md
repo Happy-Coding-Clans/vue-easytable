@@ -21,7 +21,7 @@
             border-y
             :columns="columns"
             :table-data="tableData"
-            rowKeyFieldName="rowkey"
+            rowKeyFieldName="rowKey"
         />
     </div>
 </template>
@@ -111,7 +111,7 @@
                 let data = [];
                 for (let i = 0; i < 80; i++) {
                     data.push({
-                        rowkey: i,
+                        rowKey: i,
                         col1: i,
                         col2: i,
                         col3: i,
