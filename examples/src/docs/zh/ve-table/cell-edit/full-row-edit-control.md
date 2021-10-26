@@ -98,7 +98,7 @@
                                         }}
                                         href="javascript:void(0)"
                                         on-click={() => {
-                                            this.editRowKeys.push(rowKey);
+                                            this.startEditingCell(rowKey);
                                         }}
                                     >
                                         Edit
@@ -106,7 +106,14 @@
                                     {isEditingRow && (
                                         <span>
                                             <a href="javascript:void(0)">Save</a>&nbsp;
-                                            <a href="javascript:void(0)">Cancel</a>
+                                            <a
+                                                href="javascript:void(0)"
+                                                on-click={() => {
+                                                    this.cancelEditingCell(rowKey, row);
+                                                }}
+                                            >
+                                                Cancel
+                                            </a>
                                         </span>
                                     )}
                                 </div>
@@ -155,19 +162,22 @@
             };
         },
         methods: {
-            // edit
-            editRow(rowKey) {
-                this.editRowKeys.push(rowKey);
-            },
-
             // start editing cell
-            startEditingCell(rowKey, defaultValue) {
-                this.$refs["tableRef"].startEditingCell({ rowKey, defaultValue });
+            startEditingCell(rowKey) {
+                this.editRowKeys.push(rowKey);
+                this.$refs["tableRef"].startEditingCell({ rowKey });
             },
 
-            stopEditingCell(rowKey) {
+            // cancel editing cell
+            cancelEditingCell(rowKey, row) {
+                const index = this.editRowKeys.indexOf((x) => x === rowKey);
+                this.editRowKeys.splice(index, 1);
                 this.$refs["tableRef"].stopEditingCell({ rowKey });
+
+                console.log("row::", row);
             },
+
+            saveEditingCell(rowKey) {},
         },
     };
 </script>
