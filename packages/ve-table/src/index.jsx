@@ -1521,7 +1521,7 @@ export default {
 
         // receive footer row height change
         this.$on(
-            EMIT_EVENTS.Footer_TR_HEIGHT_CHANGE,
+            EMIT_EVENTS.FOOTER_TR_HEIGHT_CHANGE,
             ({ rowIndex, height }) => {
                 this.footTrHeightChange({ rowIndex, height });
             },

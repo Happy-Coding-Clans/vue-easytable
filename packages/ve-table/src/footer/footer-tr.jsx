@@ -85,14 +85,14 @@ export default {
     methods: {
         // tr height change
         trHeightChange({ height }) {
-            /*  this.$emit(EMIT_EVENTS.Footer_TR_HEIGHT_CHANGE, {
+            /*  this.$emit(EMIT_EVENTS.FOOTER_TR_HEIGHT_CHANGE, {
                 rowIndex: this.rowIndex,
                 height: height
             }); */
 
             this.dispatch(
                 COMPS_NAME.VE_TABLE,
-                EMIT_EVENTS.Footer_TR_HEIGHT_CHANGE,
+                EMIT_EVENTS.FOOTER_TR_HEIGHT_CHANGE,
                 {
                     rowIndex: this.rowIndex,
                     height: height,

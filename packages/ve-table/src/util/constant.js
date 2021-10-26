@@ -31,7 +31,7 @@ export const EMIT_EVENTS = {
     // header-tr-height-change
     HEADER_TR_HEIGHT_CHANGE: "on-header-tr-height-change",
     // footer-tr-height-change
-    Footer_TR_HEIGHT_CHANGE: "on-footer-tr-height-change",
+    FOOTER_TR_HEIGHT_CHANGE: "on-footer-tr-height-change",
     // body-tr-height-change
     BODY_TR_HEIGHT_CHANGE: "on-body-tr-height-change",
     // body tr click
