@@ -7,6 +7,12 @@ Vx.x.x(TPL)
 -   Style
 -   Dependencies Changes
 
+V2.9.1
+
+### Bug Fixes
+
+-   修复分页组件向前 5 页乱码的问题 #408
+
 V2.9.0
 
 ### Feature
