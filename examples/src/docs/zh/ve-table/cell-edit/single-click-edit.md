@@ -43,13 +43,6 @@
                         align: "left",
                         width: "15%",
                         edit: true,
-                        renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            return (
-                                <span class="text-bold" style="color:#1890ff;">
-                                    {1 + row["name"]}
-                                </span>
-                            );
-                        },
                     },
                     {
                         field: "date",
