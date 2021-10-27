@@ -1210,8 +1210,13 @@ export default {
 
         // toggle editing cell
         toggleEditigCell(event) {
-            const { editOption, colgroups, rowKeyFieldName, editingFocusCell } =
-                this;
+            const {
+                cellSelectionKeyData,
+                editOption,
+                colgroups,
+                editingCells,
+                editingFocusCell,
+            } = this;
 
             const { keyCode } = event;
 
@@ -1219,8 +1224,64 @@ export default {
                 return false;
             }
 
+            const { rowKey, columnKey } = cellSelectionKeyData;
+
+            if (!(isDefined(rowKey) && isDefined(columnKey))) {
+                return false;
+            }
+
+            let startEditing = false;
+            let stopEditing = false;
+
             if (keyCode === KEY_CODES.ENTER) {
-                //
+                // edit cell
+                const { fullRowEdit } = editOption;
+
+                // 整行编辑
+                if (fullRowEdit) {
+                    // 是否有可编辑的列
+                    if (colgroups.some((x) => x.edit)) {
+                        // 不是当前在编辑的行
+                        if (!editingCells.some((x) => x.rowKey === rowKey)) {
+                            if (
+                                editingFocusCell &&
+                                editingFocusCell.rowKey === rowKey
+                            ) {
+                                stopEditing = true;
+                            } else {
+                                startEditing = true;
+                            }
+                        }
+                    }
+                } else {
+                    const currentColumn = colgroups.find(
+                        (x) => x.key === columnKey,
+                    );
+                    // 当前列是否可编辑
+                    if (currentColumn.edit) {
+                        if (
+                            editingFocusCell &&
+                            editingFocusCell.rowKey === rowKey &&
+                            editingFocusCell.colKey === columnKey
+                        ) {
+                            stopEditing = true;
+                        } else {
+                            startEditing = true;
+                        }
+                    }
+                }
+            }
+
+            if (startEditing) {
+                this[INSTANCE_METHODS.START_EDITING_CELL]({
+                    rowKey,
+                    colKey: columnKey,
+                });
+            } else if (stopEditing) {
+                this[INSTANCE_METHODS.STOP_EDITING_CELL]({
+                    rowKey,
+                    colKey: columnKey,
+                });
             }
         },
 
@@ -1288,8 +1349,8 @@ export default {
                 ) {
                     return false;
                 } else {
-                    this.editingFocusCell.rowKey = null;
-                    this.editingFocusCell.colKey = null;
+                    // 清空正在编辑的单元格
+                    this.setEditingFocusCell({ rowKey: null, colKey: null });
                 }
             }
 
@@ -1501,6 +1562,9 @@ export default {
                 });
 
                 this.editingCells.splice(deleteIndex, 1);
+
+                // 清空正在编辑的单元格
+                this.setEditingFocusCell({ rowKey: null, colKey: null });
             }
         },
         // stop all editing cell
