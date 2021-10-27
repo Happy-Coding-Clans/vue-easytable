@@ -575,6 +575,8 @@ export default {
         dealKeydownEvent(event) {
             // cell direction
             this.cellDirection(event);
+            // toggle editing cell
+            this.toggleEditigCell(event);
         },
         // cell direction
         cellDirection(event) {
@@ -1203,6 +1205,22 @@ export default {
                     column,
                     isDoubleClick: false,
                 });
+            }
+        },
+
+        // toggle editing cell
+        toggleEditigCell(event) {
+            const { editOption, colgroups, rowKeyFieldName, editingFocusCell } =
+                this;
+
+            const { keyCode } = event;
+
+            if (!editOption) {
+                return false;
+            }
+
+            if (keyCode === KEY_CODES.ENTER) {
+                //
             }
         },
 
