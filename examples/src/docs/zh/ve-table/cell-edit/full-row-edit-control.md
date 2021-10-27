@@ -105,8 +105,17 @@
                                     </a>
                                     {isEditingRow && (
                                         <span>
-                                            <a href="javascript:void(0)">Save</a>&nbsp;
                                             <a
+                                                href="javascript:void(0)"
+                                                on-click={() => {
+                                                    this.saveEditingCell(rowKey);
+                                                }}
+                                            >
+                                                Save
+                                            </a>
+                                            &nbsp;
+                                            <a
+                                                slot="reference"
                                                 href="javascript:void(0)"
                                                 on-click={() => {
                                                     this.cancelEditingCell(rowKey, row);
@@ -169,15 +178,28 @@
             },
 
             // cancel editing cell
-            cancelEditingCell(rowKey, row) {
-                const index = this.editRowKeys.indexOf((x) => x === rowKey);
-                this.editRowKeys.splice(index, 1);
-                this.$refs["tableRef"].stopEditingCell({ rowKey });
+            cancelEditingCell(rowKey, originalRow) {
+                if (window.confirm("确定要取消吗？")) {
+                    const index = this.editRowKeys.findIndex((x) => x === rowKey);
+                    this.editRowKeys.splice(index, 1);
+                    this.$refs["tableRef"].stopEditingCell({ rowKey });
 
-                console.log("row::", row);
+                    // reset table row data
+                    this.tableData = this.tableData.map((item) => {
+                        if (item.rowKey === originalRow.rowKey) {
+                            item = { ...originalRow };
+                        }
+                        return item;
+                    });
+                }
             },
 
-            saveEditingCell(rowKey) {},
+            // save editing cell
+            saveEditingCell(rowKey) {
+                const index = this.editRowKeys.findIndex((x) => x === rowKey);
+                this.editRowKeys.splice(index, 1);
+                this.$refs["tableRef"].stopEditingCell({ rowKey });
+            },
         },
     };
 </script>
