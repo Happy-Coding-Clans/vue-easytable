@@ -1,6 +1,6 @@
 :::anchor 双击编辑
 
-:::demo 默认为双击开启编辑单元格
+:::demo 1、默认为双击开启编辑单元格<br>2、单元格停止编辑后将触发`cellValueChange`方法，参数`row`为更新后的行数据信息，参数`column`为当前编辑的列信息
 
 ```html
 <template>
@@ -27,10 +27,6 @@
                     cellValueChange: ({ row, column }) => {
                         console.log("cellValueChange row::", row);
                         console.log("cellValueChange column::", column);
-                    },
-                    // row value change
-                    rowValueChange: ({ row }) => {
-                        console.log("rowValueChange row::", row);
                     },
                 },
                 columns: [
