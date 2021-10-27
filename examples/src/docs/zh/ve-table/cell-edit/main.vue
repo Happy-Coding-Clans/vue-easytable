@@ -7,6 +7,7 @@
         <FullRowWidt />
         <EditControl />
         <FullRowEditControl />
+        <CombineElementUi />
 
         <!-- <API title="API" anchor="API" desc="filterCustom 自定义筛选配置" /> -->
     </div>
@@ -18,6 +19,7 @@ import SingleClickEdit from "./single-click-edit.md";
 import FullRowWidt from "./full-row-edit.md";
 import EditControl from "./edit-control.md";
 import FullRowEditControl from "./full-row-edit-control.md";
+import CombineElementUi from "./combine-element-ui.md";
 
 export default {
     name: "basic-main",
@@ -28,6 +30,7 @@ export default {
         FullRowWidt,
         EditControl,
         FullRowEditControl,
+        CombineElementUi,
     },
 };
 </script>

@@ -32,6 +32,8 @@ import {
     RadioGroup,
     Select,
     Option,
+    DatePicker,
+    InputNumber,
 } from "element-ui";
 Vue.use(Switch);
 Vue.use(Row);
@@ -40,6 +42,8 @@ Vue.use(RadioButton);
 Vue.use(RadioGroup);
 Vue.use(Select);
 Vue.use(Option);
+Vue.use(DatePicker);
+Vue.use(InputNumber);
 
 // vue-lazy-container
 import VueLazyContainer from "vue-lazy-container";

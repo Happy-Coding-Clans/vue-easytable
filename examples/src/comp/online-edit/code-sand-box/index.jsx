@@ -44,13 +44,12 @@ import VueEasytable from "vue-easytable";
 import "vue-easytable/libs/font/iconfont.css";
 
 // only used by examples
-import { RadioButton, RadioGroup } from "element-ui";
+import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.use(VueEasytable);
 
-Vue.use(RadioButton);
-Vue.use(RadioGroup);
+Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
 
