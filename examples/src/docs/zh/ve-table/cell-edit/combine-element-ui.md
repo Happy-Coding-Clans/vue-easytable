@@ -1,6 +1,6 @@
 :::anchor 结合 element-ui
 
-:::demo 1、
+:::demo 1、你也可以结合 element-ui 组件做日期、数字、下拉等编辑功能
 
 ```html
 <template>
@@ -41,7 +41,6 @@
                         title: "Name",
                         align: "left",
                         width: "15%",
-                        edit: false,
                     },
                     {
                         field: "date",
@@ -49,7 +48,6 @@
                         title: "Date",
                         align: "left",
                         width: "15%",
-                        edit: false,
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
                             return (
                                 <el-date-picker
@@ -72,7 +70,6 @@
                         title: "Age",
                         align: "center",
                         width: "30%",
-                        edit: false,
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
                             return (
                                 <el-input-number
@@ -81,6 +78,8 @@
                                     value={row["age"]}
                                     on-input={(val) => {
                                         row["age"] = val;
+                                    }}
+                                    on-change={(val) => {
                                         this.cellDataChange(row, column, val);
                                     }}
                                 ></el-input-number>
@@ -88,12 +87,27 @@
                         },
                     },
                     {
-                        field: "address",
-                        key: "address",
-                        title: "Address",
+                        field: "gender",
+                        key: "gender",
+                        title: "Gender",
                         align: "left",
                         width: "40%",
-                        edit: false,
+                        renderBodyCell: ({ row, column, rowIndex }, h) => {
+                            return (
+                                <el-select
+                                    size="small"
+                                    value={row["gender"]}
+                                    on-input={(val) => {
+                                        row["gender"] = val;
+                                        this.cellDataChange(row, column, val);
+                                    }}
+                                    placeholder="请选择"
+                                >
+                                    <el-option label="female" value="female"></el-option>
+                                    <el-option label="male" value="male"></el-option>
+                                </el-select>
+                            );
+                        },
                     },
                 ],
                 // table data
@@ -102,35 +116,35 @@
                         name: "John",
                         date: "1900-05-20",
                         age: 17,
-                        address: "No.1 Century Avenue, Shanghai",
+                        gender: "female",
                         rowKey: 0,
                     },
                     {
                         name: "Dickerson",
                         date: "1910-06-20",
                         age: 20,
-                        address: "No.1 Century Avenue, Beijing",
+                        gender: "male",
                         rowKey: 1,
                     },
                     {
                         name: "Larsen",
                         date: "2000-07-20",
                         age: 22,
-                        address: "No.1 Century Avenue, Chongqing",
+                        gender: "female",
                         rowKey: 2,
                     },
                     {
                         name: "Geneva",
                         date: "2010-08-20",
                         age: 18,
-                        address: "No.1 Century Avenue, Xiamen",
+                        gender: "male",
                         rowKey: 3,
                     },
                     {
                         name: "Jami",
                         date: "2020-09-20",
                         age: 29,
-                        address: "No.1 Century Avenue, Shenzhen",
+                        gender: "female",
                         rowKey: 4,
                     },
                 ],
