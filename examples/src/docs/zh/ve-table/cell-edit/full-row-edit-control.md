@@ -14,6 +14,7 @@
             :table-data="tableData"
             :editOption="editOption"
             :cell-selection-option="cellSelectionOption"
+            :event-custom-option="eventCustomOption"
         />
     </div>
 </template>
@@ -38,6 +39,19 @@
                     // row value change
                     rowValueChange: ({ row }) => {
                         console.log("rowValueChange row::", row);
+                    },
+                },
+                eventCustomOption: {
+                    // body 行事件自定义
+                    bodyRowEvents: ({ row, rowIndex }) => {
+                        return {
+                            dblclick: (event) => {
+                                const rowKey = row["rowKey"];
+                                if (this.editRowKeys.indexOf((x) => x === rowKey) === -1) {
+                                    this.editRowKeys.push(rowKey);
+                                }
+                            },
+                        };
                     },
                 },
                 cellSelectionOption: {
