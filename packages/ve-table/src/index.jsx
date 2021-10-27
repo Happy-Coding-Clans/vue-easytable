@@ -1099,16 +1099,6 @@ export default {
             }
         },
 
-        // editing cell blur
-        // editingCellBlur({ rowKey, colKey }) {
-        //     // 如果是整行编辑，直接返回
-
-        //     this[INSTANCE_METHODS.STOP_EDITING_CELL]({
-        //         rowKey,
-        //         colKey,
-        //     });
-        // },
-
         // save cell when stop editing
         saveCellWhenStopEditing({ rowKey, colKey }) {
             const { colgroups, rowKeyFieldName, editOption, editingCells } =
@@ -1558,14 +1548,6 @@ export default {
         this.$on(EMIT_EVENTS.BODY_TD_DOUBLE_CLICK, (params) => {
             this.tdDoubleClick(params);
         });
-
-        // receive td edit cell blur
-        // this.$on(
-        //     EMIT_EVENTS.BODY_TD_EDIT_CELL_BLUR,
-        //     ({ rowKey, colKey, cellValue }) => {
-        //         this.editingCellBlur({ rowKey, colKey, cellValue });
-        //     },
-        // );
 
         // body td edit cell value change
         this.$on(
