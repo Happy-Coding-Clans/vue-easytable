@@ -491,6 +491,21 @@ export const db = {
                 desc: `设置高亮的行 <a href='#/zh/doc/table/row-style?anchor=row-click-highlight'>参考示例</a>`,
                 param: "{rowKey}",
             },
+            {
+                name: "startEditingCell",
+                desc: `开始单元格编辑  <a href='#/zh/doc/table/cell-edit?anchor=ke-kong-bian-ji'>参考示例</a>`,
+                param: "{rowKey,colKey,defaultValue}",
+            },
+            {
+                name: "stopEditingCell",
+                desc: `停止单元格编辑  <a href='#/zh/doc/table/cell-edit?anchor=ke-kong-bian-ji'>参考示例</a>`,
+                param: "{rowKey,colKey}",
+            },
+            {
+                name: "stopAllEditingCell",
+                desc: `停止所有单元格编辑  <a href='#/zh/doc/table/cell-edit?anchor=ke-kong-bian-ji'>参考示例</a>`,
+                param: "-",
+            },
         ],
         columns: columnsType2,
     },
