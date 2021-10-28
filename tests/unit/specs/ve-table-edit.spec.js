@@ -174,6 +174,52 @@ describe("veTable edit", () => {
         );
     });
 
+    it("full row edit 存在bug", async () => {
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                editOption: {
+                    doubleClickEdit: true,
+                    fullRowEdit: true,
+                    // cell value change
+                    cellValueChange: ({ row, column }) => {},
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        // first cell
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(0)
+            .findAll(".ve-table-body-td")
+            .at(0);
+
+        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
+            false,
+        );
+
+        firstCell.trigger("dblclick");
+
+        await later();
+
+        expect(wrapper.findAll(".ve-table-body-td-edit-input").length).toBe(4);
+
+        // second cell
+        const secondCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(1);
+
+        secondCell.trigger("click");
+
+        await later();
+
+        expect(wrapper.findAll(".ve-table-body-td-edit-input").length).toBe(0);
+    });
+
     it("stop editing when cell lose focus", async () => {
         const wrapper = mount(veTable, {
             propsData: {
@@ -424,28 +470,6 @@ describe("veTable edit", () => {
         await later();
 
         expect(mockFn).toHaveBeenCalledTimes(2);
-        expect(mockFn).toHaveBeenCalledWith(
-            {
-                address: "No.1 Century Avenue, Shanghai",
-                date: "1900-05-20",
-                hobby: "coding and coding repeat",
-                name: "AAA",
-                rowKey: 0,
-            },
-            {
-                _colspan: 1,
-                _keys: "name",
-                _level: 1,
-                _realTimeWidth: "15%",
-                _rowspan: 1,
-                align: "left",
-                edit: true,
-                field: "name",
-                key: "name",
-                title: "Name",
-                width: "15%",
-            },
-        );
     });
 
     it("cell value change", async () => {
