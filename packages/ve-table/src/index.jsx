@@ -1330,7 +1330,7 @@ export default {
             const rowKey = rowData[rowKeyFieldName];
 
             // edit cell
-            const { fullRowEdit } = editOption;
+            const { fullRowEdit, stopEditingWhenCellLoseFocus } = editOption;
 
             const colKey = column.key;
 
@@ -1387,12 +1387,16 @@ export default {
                     });
                 } else {
                     if (!fullRowEdit) {
-                        this[INSTANCE_METHODS.STOP_ALL_EDITING_CELL]();
+                        if (!isFalse(stopEditingWhenCellLoseFocus)) {
+                            this[INSTANCE_METHODS.STOP_ALL_EDITING_CELL]();
+                        }
                     }
                 }
             } else {
                 if (!fullRowEdit) {
-                    this[INSTANCE_METHODS.STOP_ALL_EDITING_CELL]();
+                    if (!isFalse(stopEditingWhenCellLoseFocus)) {
+                        this[INSTANCE_METHODS.STOP_ALL_EDITING_CELL]();
+                    }
                 }
             }
         },
@@ -1572,12 +1576,13 @@ export default {
             }
 
             if (editingCells.length) {
-                editingCells.forEach((item) => {
+                // 从后往前删
+                for (let i = editingCells.length - 1; i >= 0; i--) {
                     this[INSTANCE_METHODS.STOP_EDITING_CELL]({
-                        rowKey: item.rowKey,
-                        colKey: item.colKey,
+                        rowKey: editingCells[i].rowKey,
+                        colKey: editingCells[i].colKey,
                     });
-                });
+                }
             }
         },
         // set highlight row
