@@ -12,7 +12,6 @@ import {
     isEmptyValue,
     isBoolean,
     isDefined,
-    isTrue,
     isFalse,
 } from "../../src/utils/index.js";
 import emitter from "../../src/mixins/emitter";
@@ -1246,14 +1245,9 @@ export default {
                 if (colgroups.some((x) => x.edit)) {
                     // 不是当前在编辑的行
                     if (!editingCells.some((x) => x.rowKey === rowKey)) {
-                        if (
-                            editingFocusCell &&
-                            editingFocusCell.rowKey === rowKey
-                        ) {
-                            isStopEditing = true;
-                        } else {
-                            isStartEditing = true;
-                        }
+                        isStartEditing = true;
+                    } else {
+                        isStopEditing = true;
                     }
                 }
             } else {
