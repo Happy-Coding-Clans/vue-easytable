@@ -2,7 +2,12 @@ import BodyCheckboxContent from "./body-checkbox-content";
 import BodyRadioContent from "./body-radio-content";
 import ExpandTrIcon from "./expand-tr-icon";
 import { getFixedTotalWidthByColumnKey, clsName } from "../util";
-import { getValByUnit, isNumber, isBoolean } from "../../../src/utils/index.js";
+import {
+    getValByUnit,
+    isNumber,
+    isBoolean,
+    isFalse,
+} from "../../../src/utils/index.js";
 import focus from "../../../src/directives/focus.js";
 
 import {
@@ -428,7 +433,7 @@ export default {
                 isEditingCell,
                 isEditingFocusCell,
                 rawCellValue,
-                currentRowKey,
+                editOption,
             } = this;
 
             // has render function
@@ -470,6 +475,8 @@ export default {
             对原始数据编辑
             */
             if (isEditingCell) {
+                const { textSelectedWhenCellFocus } = editOption;
+
                 const editingCellProps = {
                     props: {
                         value: rawCellValue,
@@ -480,6 +487,9 @@ export default {
                             name: "focus",
                             value: {
                                 focus: isEditingFocusCell,
+                                select:
+                                    isEditingFocusCell &&
+                                    !isFalse(textSelectedWhenCellFocus),
                             },
                         },
                     ],
@@ -490,16 +500,6 @@ export default {
                             // 重置编辑单元格的值
                             this.resetEditingCellValue();
                         },
-                        // blur: () => {
-                        //     this.dispatch(
-                        //         COMPS_NAME.VE_TABLE,
-                        //         EMIT_EVENTS.BODY_TD_EDIT_CELL_BLUR,
-                        //         {
-                        //             rowKey: currentRowKey,
-                        //             colKey: column.key,
-                        //         },
-                        //     );
-                        // },
                     },
                 };
 
