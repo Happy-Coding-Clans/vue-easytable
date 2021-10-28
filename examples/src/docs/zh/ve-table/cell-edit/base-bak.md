@@ -35,6 +35,8 @@
                     fullRowEdit: false,
                     // double click edit
                     doubleClickEdit: true,
+                    // text selected when cell focus
+                    textSelectedWhenCellFocus: true,
                     // auto stop editing when cell lose focus
                     stopEditingWhenCellLoseFocus: true,
                     // stop editing when table body click outside
