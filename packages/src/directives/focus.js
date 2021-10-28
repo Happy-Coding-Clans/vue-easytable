@@ -19,13 +19,9 @@ export default {
     },
     update: function (el, { value }) {
         if (value) {
-            const { focus, select } = value;
+            const { focus } = value;
             if (focus) {
                 el.focus();
-            }
-
-            if (select) {
-                el.select();
             }
         }
     },
