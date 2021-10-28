@@ -244,6 +244,13 @@ export const db = {
                 default: "-",
             },
             {
+                param: "editOption",
+                desc: "单元格编辑配置，具体见下表 editOption 配置",
+                type: "<code>Object</code>",
+                optionalVal: "-",
+                default: "-",
+            },
+            {
                 param: "eventCustomOption",
                 desc: `自定义事件配置，具体见下表 eventCustomOption 配置`,
                 type: "<code>Object</code>",
@@ -304,6 +311,14 @@ export const db = {
                 optionalVal: `"left"、"center"、"right"`,
                 default: `"center"`,
                 rowKey: 30,
+            },
+            {
+                param: "edit",
+                desc: "是否开启列编辑",
+                type: "<code>Boolean</code>",
+                optionalVal: `-`,
+                default: `"false"`,
+                rowKey: 32,
             },
             {
                 param: "sortBy",
