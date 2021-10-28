@@ -1,6 +1,6 @@
 :::anchor 整行编辑
 
-:::demo 1、通过 `fullRowEdit=true`开启整行编辑<br>2、通过 `columns`对象的 `edit`属性控制当前列是否可编辑
+:::demo 1、通过 `fullRowEdit=true`开启整行编辑<br>2、通过 `columns`对象的 `edit`属性控制当前列是否可编辑<br>3、单元格停止编辑后将触发`rowValueChange`方法，参数`row`为更新后的行数据信息
 
 ```html
 <template>
@@ -26,7 +26,7 @@
                     // full row edit
                     fullRowEdit: true,
                     // double click edit
-                    doubleClickEdit: false,
+                    doubleClickEdit: true,
                     // cell value change
                     cellValueChange: ({ row, column }) => {
                         console.log("cellValueChange row::", row);
@@ -109,16 +109,6 @@
                     },
                 ],
             };
-        },
-        methods: {
-            // start editing cell
-            startEditingCell(rowKey, defaultValue) {
-                this.$refs["tableRef"].startEditingCell({ rowKey, defaultValue });
-            },
-
-            stopEditingCell(rowKey) {
-                this.$refs["tableRef"].stopEditingCell({ rowKey });
-            },
         },
     };
 </script>

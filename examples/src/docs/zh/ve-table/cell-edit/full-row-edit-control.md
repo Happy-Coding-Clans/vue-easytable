@@ -1,6 +1,6 @@
 :::anchor 可控行编辑
 
-:::demo 1
+:::demo 1、通过属性`stopEditingWhenCellLoseFocus=false`关闭单元格失去焦点自动停止编辑功能
 
 ```html
 <template>

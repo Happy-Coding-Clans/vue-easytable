@@ -1,6 +1,6 @@
 :::anchor 可控编辑
 
-:::demo 1
+:::demo 1、通过实例方法`startEditingCell({ rowKey, colKey, defaultValue })`开启编辑的单元格<br>2、通过实例方法`stopEditingCell({ rowKey, colKey })`停止编辑的单元格
 
 ```html
 <template>
@@ -126,6 +126,7 @@
                 this.$refs["tableRef"].startEditingCell({ rowKey, colKey, defaultValue });
             },
 
+            // stop editing cell
             stopEditingCell(rowKey, colKey) {
                 this.$refs["tableRef"].stopEditingCell({ rowKey, colKey });
             },

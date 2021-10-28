@@ -103,16 +103,6 @@
                 ],
             };
         },
-        methods: {
-            // start editing cell
-            startEditingCell(rowKey, colKey, defaultValue) {
-                this.$refs["tableRef"].startEditingCell({ rowKey, colKey, defaultValue });
-            },
-
-            stopEditingCell(rowKey, colKey) {
-                this.$refs["tableRef"].stopEditingCell({ rowKey, colKey });
-            },
-        },
     };
 </script>
 ```
