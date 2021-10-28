@@ -1224,50 +1224,52 @@ export default {
                 return false;
             }
 
+            if (keyCode !== KEY_CODES.ENTER) {
+                return false;
+            }
+
             const { rowKey, columnKey } = cellSelectionKeyData;
 
-            if (!(isDefined(rowKey) && isDefined(columnKey))) {
+            if (isEmptyValue(rowKey) || isEmptyValue(columnKey)) {
                 return false;
             }
 
             let startEditing = false;
             let stopEditing = false;
 
-            if (keyCode === KEY_CODES.ENTER) {
-                // edit cell
-                const { fullRowEdit } = editOption;
+            // edit cell
+            const { fullRowEdit } = editOption;
 
-                // 整行编辑
-                if (fullRowEdit) {
-                    // 是否有可编辑的列
-                    if (colgroups.some((x) => x.edit)) {
-                        // 不是当前在编辑的行
-                        if (!editingCells.some((x) => x.rowKey === rowKey)) {
-                            if (
-                                editingFocusCell &&
-                                editingFocusCell.rowKey === rowKey
-                            ) {
-                                stopEditing = true;
-                            } else {
-                                startEditing = true;
-                            }
-                        }
-                    }
-                } else {
-                    const currentColumn = colgroups.find(
-                        (x) => x.key === columnKey,
-                    );
-                    // 当前列是否可编辑
-                    if (currentColumn.edit) {
+            // 整行编辑
+            if (fullRowEdit) {
+                // 是否有可编辑的列
+                if (colgroups.some((x) => x.edit)) {
+                    // 不是当前在编辑的行
+                    if (!editingCells.some((x) => x.rowKey === rowKey)) {
                         if (
                             editingFocusCell &&
-                            editingFocusCell.rowKey === rowKey &&
-                            editingFocusCell.colKey === columnKey
+                            editingFocusCell.rowKey === rowKey
                         ) {
                             stopEditing = true;
                         } else {
                             startEditing = true;
                         }
+                    }
+                }
+            } else {
+                const currentColumn = colgroups.find(
+                    (x) => x.key === columnKey,
+                );
+                // 当前列是否可编辑
+                if (currentColumn.edit) {
+                    if (
+                        editingFocusCell &&
+                        editingFocusCell.rowKey === rowKey &&
+                        editingFocusCell.colKey === columnKey
+                    ) {
+                        stopEditing = true;
+                    } else {
+                        startEditing = true;
                     }
                 }
             }
