@@ -8,8 +8,7 @@
         <EditControl />
         <FullRowEditControl />
         <CombineElementUi />
-
-        <!-- <API title="API" anchor="API" desc="filterCustom 自定义筛选配置" /> -->
+        <API title="API" anchor="API" desc="eidtOption 单元格编辑配置" />
     </div>
 </template>
 <script>
@@ -20,6 +19,7 @@ import FullRowWidt from "./full-row-edit.md";
 import EditControl from "./edit-control.md";
 import FullRowEditControl from "./full-row-edit-control.md";
 import CombineElementUi from "./combine-element-ui.md";
+import API from "../api/edit-option-props";
 
 export default {
     name: "basic-main",
@@ -31,6 +31,7 @@ export default {
         EditControl,
         FullRowEditControl,
         CombineElementUi,
+        API,
     },
 };
 </script>

@@ -831,6 +831,55 @@ export const db = {
         columns: columnsType1,
     },
 
+    // 单元格编辑配置
+    editOption: {
+        data: [
+            {
+                param: "doubleClickEdit",
+                desc: `是否开启双击单元格编辑`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "fullRowEdit",
+                desc: `是否开启行整行编辑`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "false",
+            },
+            {
+                param: "textSelectedWhenCellFocus",
+                desc: `是否开启单元格编辑状态文本选中`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "stopEditingWhenCellLoseFocus",
+                desc: `是否开启单元格失去焦点自动停止编辑`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "cellValueChange",
+                desc: `单元格停止编辑回调方法。<code>row</code>当前行数据，<code>column</code>当前列信息`,
+                type: `<code>Function({ row, column })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "rowValueChange",
+                desc: `行停止编辑回调方法。<code>row</code>当前行数据，`,
+                type: `<code>Function({ row })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+        ],
+        columns: columnsType1,
+    },
+
     // 单元格选择配置
     cellSelectionOption: {
         data: [
