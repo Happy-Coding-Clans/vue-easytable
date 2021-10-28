@@ -1234,8 +1234,8 @@ export default {
                 return false;
             }
 
-            let startEditing = false;
-            let stopEditing = false;
+            let isStartEditing = false;
+            let isStopEditing = false;
 
             // edit cell
             const { fullRowEdit } = editOption;
@@ -1250,9 +1250,9 @@ export default {
                             editingFocusCell &&
                             editingFocusCell.rowKey === rowKey
                         ) {
-                            stopEditing = true;
+                            isStopEditing = true;
                         } else {
-                            startEditing = true;
+                            isStartEditing = true;
                         }
                     }
                 }
@@ -1267,19 +1267,19 @@ export default {
                         editingFocusCell.rowKey === rowKey &&
                         editingFocusCell.colKey === columnKey
                     ) {
-                        stopEditing = true;
+                        isStopEditing = true;
                     } else {
-                        startEditing = true;
+                        isStartEditing = true;
                     }
                 }
             }
 
-            if (startEditing) {
+            if (isStartEditing) {
                 this[INSTANCE_METHODS.START_EDITING_CELL]({
                     rowKey,
                     colKey: columnKey,
                 });
-            } else if (stopEditing) {
+            } else if (isStopEditing) {
                 this[INSTANCE_METHODS.STOP_EDITING_CELL]({
                     rowKey,
                     colKey: columnKey,
