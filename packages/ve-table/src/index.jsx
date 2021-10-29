@@ -1267,7 +1267,7 @@ export default {
                 if (editingFocusCell && editingFocusCell.rowKey === rowKey) {
                     isStopEditing = true;
                 } else {
-                    isStopEditing = true;
+                    isStartEditing = true;
                 }
             } else {
                 const currentColumn = colgroups.find(
