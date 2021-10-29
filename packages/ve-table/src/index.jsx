@@ -415,6 +415,24 @@ export default {
         hasLeftFixedColumn() {
             return this.colgroups.some((x) => x.fixed === "left");
         },
+
+        /*
+        has editing focus cell
+        是否有正在编辑的单元格
+        */
+        hasEditingFocusCell() {
+            const { editingFocusCell } = this;
+            return (
+                editingFocusCell &&
+                !isEmptyValue(editingFocusCell.rowKey) &&
+                !isEmptyValue(editingFocusCell.colKey)
+            );
+        },
+
+        // has edit column
+        hasEditColumn() {
+            return this.colgroups.some((x) => x.edit);
+        },
     },
     watch: {
         tableData: {
@@ -1213,8 +1231,8 @@ export default {
                 cellSelectionKeyData,
                 editOption,
                 colgroups,
-                editingCells,
                 editingFocusCell,
+                hasEditColumn,
             } = this;
 
             const { keyCode } = event;
@@ -1224,6 +1242,11 @@ export default {
             }
 
             if (keyCode !== KEY_CODES.ENTER) {
+                return false;
+            }
+
+            // has edit column
+            if (!hasEditColumn) {
                 return false;
             }
 
@@ -1241,14 +1264,10 @@ export default {
 
             // 整行编辑
             if (fullRowEdit) {
-                // 是否有可编辑的列
-                if (colgroups.some((x) => x.edit)) {
-                    // 不是当前在编辑的行
-                    if (!editingCells.some((x) => x.rowKey === rowKey)) {
-                        isStartEditing = true;
-                    } else {
-                        isStopEditing = true;
-                    }
+                if (editingFocusCell && editingFocusCell.rowKey === rowKey) {
+                    isStopEditing = true;
+                } else {
+                    isStopEditing = true;
                 }
             } else {
                 const currentColumn = colgroups.find(
@@ -1282,6 +1301,96 @@ export default {
         },
 
         /*
+         * @editCellByClick
+         * @desc  recieve td click event
+         * @param {object} rowData - row data
+         * @param {object} column - column data
+         */
+        editCellByClick({ rowData, column, isDoubleClick }) {
+            const {
+                rowKeyFieldName,
+                editOption,
+                colgroups,
+                hasEditingFocusCell,
+                hasEditColumn,
+                editingFocusCell,
+            } = this;
+
+            if (!editOption) {
+                return false;
+            }
+
+            // has edit column
+            if (!hasEditColumn) {
+                return false;
+            }
+
+            const clickRowKey = rowData[rowKeyFieldName];
+            const clickColKey = column.key;
+
+            let isStartEditing = false;
+            let isStopEditing = false;
+
+            // edit cell
+            const { fullRowEdit, stopEditingWhenCellLoseFocus } = editOption;
+
+            // 整行编辑
+            if (fullRowEdit) {
+                if (
+                    editingFocusCell &&
+                    editingFocusCell.rowKey === clickRowKey
+                ) {
+                    //
+                    return false;
+                } else {
+                    isStopEditing = true;
+                    isStartEditing = true;
+                }
+            } else {
+                const currentColumn = colgroups.find(
+                    (x) => x.key === clickColKey,
+                );
+                // 当前列是否可编辑
+                if (currentColumn.edit) {
+                    if (
+                        editingFocusCell &&
+                        editingFocusCell.rowKey === clickRowKey &&
+                        editingFocusCell.colKey === clickColKey
+                    ) {
+                        //
+                        return false;
+                    } else {
+                        isStopEditing = true;
+                        isStartEditing = true;
+                    }
+                }
+            }
+
+            if (isStopEditing) {
+                if (hasEditingFocusCell) {
+                    if (!isFalse(stopEditingWhenCellLoseFocus)) {
+                        this[INSTANCE_METHODS.STOP_EDITING_CELL]({
+                            rowKey: editingFocusCell.rowKey,
+                            colKey: editingFocusCell.colKey,
+                        });
+                    }
+                }
+            }
+
+            if (isStartEditing) {
+                let doubleClickEdit = isFalse(editOption.doubleClickEdit)
+                    ? false
+                    : true;
+                if (doubleClickEdit === isDoubleClick) {
+                    this[INSTANCE_METHODS.START_EDITING_CELL]({
+                        rowKey: clickRowKey,
+                        colKey: clickColKey,
+                    });
+                }
+            }
+        },
+
+        /*
          * @setEditingFocusCell
          * @desc  set editing focus cell
          * @param {object} rowKey - row key
@@ -1310,95 +1419,6 @@ export default {
                 colKey: colKey ? colKey : null,
                 column: column ? column : null,
             });
-        },
-
-        /*
-         * @editCellByClick
-         * @desc  recieve td click event
-         * @param {object} rowData - row data
-         * @param {object} column - column data
-         */
-        editCellByClick({ rowData, column, isDoubleClick }) {
-            const {
-                rowKeyFieldName,
-                editOption,
-                colgroups,
-                editingFocusCell,
-                editingCells,
-            } = this;
-
-            const rowKey = rowData[rowKeyFieldName];
-
-            // edit cell
-            const { fullRowEdit, stopEditingWhenCellLoseFocus } = editOption;
-
-            const colKey = column.key;
-
-            // 是否开始编辑
-            let isStartEditing = false;
-
-            // 如果是当前编辑的单元格
-            if (editingFocusCell) {
-                if (
-                    editingFocusCell.rowKey === rowKey &&
-                    editingFocusCell.colKey === colKey
-                ) {
-                    return false;
-                } else {
-                    // 清空正在编辑的单元格
-                    this.setEditingFocusCell({ rowKey: null, colKey: null });
-                }
-            }
-
-            // 整行编辑
-            if (fullRowEdit) {
-                // 是否有可编辑的列
-                if (colgroups.some((x) => x.edit)) {
-                    // 不是当前在编辑的行
-                    if (!editingCells.some((x) => x.rowKey === rowKey)) {
-                        isStartEditing = true;
-                    }
-                }
-            } else {
-                const currentColumn = colgroups.find((x) => x.key === colKey);
-                // 当前列是否可编辑
-                if (currentColumn.edit) {
-                    // 不是当前在编辑的列
-                    if (
-                        !editingCells.some(
-                            (x) => x.rowKey === rowKey && x.colKey === colKey,
-                        )
-                    ) {
-                        isStartEditing = true;
-                    }
-                }
-            }
-            if (isStartEditing) {
-                // 默认为双击编辑
-                let doubleClickEdit = isFalse(editOption.doubleClickEdit)
-                    ? false
-                    : true;
-
-                if (doubleClickEdit === isDoubleClick) {
-                    // 开始编辑
-                    this[INSTANCE_METHODS.START_EDITING_CELL]({
-                        rowKey,
-                        colKey: colKey,
-                    });
-                } else {
-                    if (!fullRowEdit) {
-                        if (!isFalse(stopEditingWhenCellLoseFocus)) {
-                            this[INSTANCE_METHODS.STOP_ALL_EDITING_CELL]();
-                        }
-                    }
-                }
-            } else {
-                if (!fullRowEdit) {
-                    if (!isFalse(stopEditingWhenCellLoseFocus)) {
-                        this[INSTANCE_METHODS.STOP_ALL_EDITING_CELL]();
-                    }
-                }
-            }
         },
 
         // table scrollTo
