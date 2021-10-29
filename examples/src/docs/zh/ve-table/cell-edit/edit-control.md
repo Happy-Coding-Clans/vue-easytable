@@ -5,11 +5,13 @@
 ```html
 <template>
     <div>
-        <button @click="startEditingCell(0,'name')">编辑单元格0-0</button>
-        <button @click="startEditingCell(2,'hobby','')">编辑并清空单元格2-2</button>
+        <button class="button-demo" @click="startEditingCell(0,'name')">编辑单元格0-0</button>
+        <button class="button-demo" @click="startEditingCell(2,'hobby','')">
+            编辑并清空单元格2-2
+        </button>
         &nbsp;&nbsp;
-        <button @click="stopEditingCell(0,'name')">停止编辑单元格1-1</button>
-        <button @click="stopEditingCell(2,'hobby')">停止编辑单元格2-2</button>
+        <button class="button-demo" @click="stopEditingCell(0,'name')">停止编辑单元格1-1</button>
+        <button class="button-demo" @click="stopEditingCell(2,'hobby')">停止编辑单元格2-2</button>
         <br />
         <br />
         <ve-table
