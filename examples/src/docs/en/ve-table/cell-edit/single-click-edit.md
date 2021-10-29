@@ -1,8 +1,6 @@
-:::anchor 双击编辑
+:::anchor 单击编辑
 
-你可以通过 `Enter`键配合上、下、左、右键，无需使用鼠标实现编辑操作
-
-:::demo 1、默认双击开启编辑单元格<br>2、单元格停止编辑后将触发`cellValueChange`方法，参数`row`为更新后的行数据信息，参数`column`为当前编辑的列信息
+:::demo 可以通过 `doubleClickEdit=false`关闭双击编辑，开启单击编辑单元格
 
 ```html
 <template>
@@ -25,10 +23,16 @@
             return {
                 // edit option 可控单元格编辑
                 editOption: {
+                    // disable double click edit
+                    doubleClickEdit: false,
                     // cell value change
                     cellValueChange: ({ row, column }) => {
                         console.log("cellValueChange row::", row);
                         console.log("cellValueChange column::", column);
+                    },
+                    // row value change
+                    rowValueChange: ({ row }) => {
+                        console.log("rowValueChange row::", row);
                     },
                 },
                 columns: [

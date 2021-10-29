@@ -244,6 +244,13 @@ export const db = {
                 default: "-",
             },
             {
+                param: "editOption",
+                desc: "Cell edit configuration,Refer to editOption for details",
+                type: "<code>Object</code>",
+                optionalVal: "-",
+                default: "-",
+            },
+            {
                 param: "eventCustomOption",
                 desc: `Custom event configuration,Refer to eventCustomOption configuration for details`,
                 type: "<code>Object</code>",
@@ -304,6 +311,14 @@ export const db = {
                 optionalVal: `"left"、"center"、"right"`,
                 default: `"center"`,
                 rowKey: 30,
+            },
+            {
+                param: "edit",
+                desc: "Enable cell edit",
+                type: "<code>Boolean</code>",
+                optionalVal: `-`,
+                default: `"false"`,
+                rowKey: 32,
             },
             {
                 param: "sortBy",
@@ -826,6 +841,55 @@ export const db = {
                 type: `<code>Boolean</code>`,
                 optionalVal: "-",
                 default: "false",
+            },
+        ],
+        columns: columnsType1,
+    },
+
+    // 单元格编辑配置
+    editOption: {
+        data: [
+            {
+                param: "doubleClickEdit",
+                desc: `Enable double click cell editing`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "fullRowEdit",
+                desc: `Enable full row editing`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "false",
+            },
+            {
+                param: "textSelectedWhenCellFocus",
+                desc: `Enable cell focus text selection`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "stopEditingWhenCellLoseFocus",
+                desc: `Enable cell to auto stop editing when cell lose focus`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "cellValueChange",
+                desc: `Cell stop edit callback method. <code>row</code>Current row data,<code>column</code>Current column `,
+                type: `<code>Function({ row, column })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "rowValueChange",
+                desc: `Row stop edit callback method. <code>row</code>Current row data`,
+                type: `<code>Function({ row })</code>`,
+                optionalVal: "-",
+                default: "-",
             },
         ],
         columns: columnsType1,

@@ -1,12 +1,18 @@
-:::anchor 双击编辑
+:::anchor
 
-你可以通过 `Enter`键配合上、下、左、右键，无需使用鼠标实现编辑操作
-
-:::demo 1、默认双击开启编辑单元格<br>2、单元格停止编辑后将触发`cellValueChange`方法，参数`row`为更新后的行数据信息，参数`column`为当前编辑的列信息
+:::demo 1
 
 ```html
 <template>
     <div>
+        <button @click="startEditingCell(0,'name')">编辑单元格1-1</button>
+        <button @click="startEditingCell(1,'date')">编辑单元格2-2</button>
+        &nbsp;&nbsp;
+        <button @click="startEditingCell(2,'name','222')">编辑单元格3-1</button>
+        <button @click="startEditingCell(3,'date','')">编辑单元格4-2</button>
+        &nbsp;&nbsp;
+        <button @click="stopEditingCell(0,'name')">停止编辑单元格1-1</button>
+        <button @click="stopEditingCell(1,'date')">停止编辑单元格单元格2-2</button>
         <ve-table
             ref="tableRef"
             rowKeyFieldName="rowKey"
@@ -25,10 +31,24 @@
             return {
                 // edit option 可控单元格编辑
                 editOption: {
+                    // full row edit
+                    fullRowEdit: false,
+                    // double click edit
+                    doubleClickEdit: true,
+                    // text selected when cell focus
+                    textSelectedWhenCellFocus: true,
+                    // auto stop editing when cell lose focus
+                    stopEditingWhenCellLoseFocus: true,
+                    // stop editing when table body click outside
+                    stopEditingWhenTableBodyClickOutside: false,
                     // cell value change
                     cellValueChange: ({ row, column }) => {
                         console.log("cellValueChange row::", row);
                         console.log("cellValueChange column::", column);
+                    },
+                    // row value change
+                    rowValueChange: ({ row }) => {
+                        console.log("rowValueChange row::", row);
                     },
                 },
                 columns: [
@@ -54,7 +74,6 @@
                         title: "Hobby",
                         align: "center",
                         width: "30%",
-                        edit: true,
                     },
                     {
                         field: "address",
@@ -104,6 +123,16 @@
                     },
                 ],
             };
+        },
+        methods: {
+            // start editing cell
+            startEditingCell(rowKey, colKey, defaultValue) {
+                this.$refs["tableRef"].startEditingCell({ rowKey, colKey, defaultValue });
+            },
+
+            stopEditingCell(rowKey, colKey) {
+                this.$refs["tableRef"].stopEditingCell({ rowKey, colKey });
+            },
         },
     };
 </script>

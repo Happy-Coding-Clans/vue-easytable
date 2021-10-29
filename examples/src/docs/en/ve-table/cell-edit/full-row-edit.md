@@ -1,8 +1,6 @@
-:::anchor 双击编辑
+:::anchor 整行编辑
 
-你可以通过 `Enter`键配合上、下、左、右键，无需使用鼠标实现编辑操作
-
-:::demo 1、默认双击开启编辑单元格<br>2、单元格停止编辑后将触发`cellValueChange`方法，参数`row`为更新后的行数据信息，参数`column`为当前编辑的列信息
+:::demo 1、通过 `fullRowEdit=true`开启整行编辑<br>2、通过 `columns`对象的 `edit`属性控制当前列是否可编辑<br>3、单元格停止编辑后将触发`rowValueChange`方法，参数`row`为更新后的行数据信息
 
 ```html
 <template>
@@ -25,10 +23,18 @@
             return {
                 // edit option 可控单元格编辑
                 editOption: {
+                    // full row edit
+                    fullRowEdit: true,
+                    // double click edit
+                    doubleClickEdit: true,
                     // cell value change
                     cellValueChange: ({ row, column }) => {
                         console.log("cellValueChange row::", row);
                         console.log("cellValueChange column::", column);
+                    },
+                    // row value change
+                    rowValueChange: ({ row }) => {
+                        console.log("rowValueChange row::", row);
                     },
                 },
                 columns: [
@@ -54,7 +60,6 @@
                         title: "Hobby",
                         align: "center",
                         width: "30%",
-                        edit: true,
                     },
                     {
                         field: "address",

@@ -189,14 +189,13 @@ const config = [
                 name: "Cell Ellipsis",
                 meta: { keepAlive: true },
             },
-            /* {
+            {
                 path: "cell-edit",
                 component: () =>
-                    import(
-                       "@/docs/en/ve-table/cell-edit/main.vue"
-                    ),
-                name: "单元格编辑"
-            }, */
+                    import("@/docs/en/ve-table/cell-edit/main.vue"),
+                name: "Cell Edit",
+                meta: { keepAlive: true },
+            },
             {
                 path: "row-index",
                 component: () =>

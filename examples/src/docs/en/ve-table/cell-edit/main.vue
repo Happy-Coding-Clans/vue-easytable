@@ -1,21 +1,37 @@
 <template>
     <div>
-        <h2>筛选</h2>
+        <h2>Cell Edit</h2>
         <Explain />
-        <Base />
-
-        <!-- <API title="API" anchor="API" desc="filterCustom 自定义筛选配置" /> -->
+        <DoubleClickEdit />
+        <SingleClickEdit />
+        <FullRowWidt />
+        <EditControl />
+        <FullRowEditControl />
+        <CombineElementUi />
+        <API title="API" anchor="API" desc="eidtOption configuration" />
     </div>
 </template>
 <script>
 import Explain from "./explain.md";
-import Base from "./base.md";
+import DoubleClickEdit from "./double-click-edit.md";
+import SingleClickEdit from "./single-click-edit.md";
+import FullRowWidt from "./full-row-edit.md";
+import EditControl from "./edit-control.md";
+import FullRowEditControl from "./full-row-edit-control.md";
+import CombineElementUi from "./combine-element-ui.md";
+import API from "../api/edit-option-props";
 
 export default {
     name: "basic-main",
     components: {
         Explain,
-        Base,
+        DoubleClickEdit,
+        SingleClickEdit,
+        FullRowWidt,
+        EditControl,
+        FullRowEditControl,
+        CombineElementUi,
+        API,
     },
 };
 </script>

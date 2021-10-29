@@ -1,12 +1,19 @@
-:::anchor 双击编辑
+:::anchor 可控编辑
 
-你可以通过 `Enter`键配合上、下、左、右键，无需使用鼠标实现编辑操作
-
-:::demo 1、默认双击开启编辑单元格<br>2、单元格停止编辑后将触发`cellValueChange`方法，参数`row`为更新后的行数据信息，参数`column`为当前编辑的列信息
+:::demo 1、通过实例方法`startEditingCell({ rowKey, colKey, defaultValue })`开启编辑的单元格<br>2、通过实例方法`stopEditingCell({ rowKey, colKey })`停止编辑的单元格
 
 ```html
 <template>
     <div>
+        <button class="button-demo" @click="startEditingCell(0,'name')">编辑单元格0-0</button>
+        <button class="button-demo" @click="startEditingCell(2,'hobby','')">
+            编辑并清空单元格2-2
+        </button>
+        &nbsp;&nbsp;
+        <button class="button-demo" @click="stopEditingCell(0,'name')">停止编辑单元格1-1</button>
+        <button class="button-demo" @click="stopEditingCell(2,'hobby')">停止编辑单元格2-2</button>
+        <br />
+        <br />
         <ve-table
             ref="tableRef"
             rowKeyFieldName="rowKey"
@@ -25,10 +32,20 @@
             return {
                 // edit option 可控单元格编辑
                 editOption: {
+                    // full row edit
+                    fullRowEdit: false,
+                    // double click edit
+                    doubleClickEdit: true,
+                    // auto stop editing when cell lose focus
+                    stopEditingWhenCellLoseFocus: true,
                     // cell value change
                     cellValueChange: ({ row, column }) => {
                         console.log("cellValueChange row::", row);
                         console.log("cellValueChange column::", column);
+                    },
+                    // row value change
+                    rowValueChange: ({ row }) => {
+                        console.log("rowValueChange row::", row);
                     },
                 },
                 columns: [
@@ -52,7 +69,7 @@
                         field: "hobby",
                         key: "hobby",
                         title: "Hobby",
-                        align: "center",
+                        align: "left",
                         width: "30%",
                         edit: true,
                     },
@@ -104,6 +121,17 @@
                     },
                 ],
             };
+        },
+        methods: {
+            // start editing cell
+            startEditingCell(rowKey, colKey, defaultValue) {
+                this.$refs["tableRef"].startEditingCell({ rowKey, colKey, defaultValue });
+            },
+
+            // stop editing cell
+            stopEditingCell(rowKey, colKey) {
+                this.$refs["tableRef"].stopEditingCell({ rowKey, colKey });
+            },
         },
     };
 </script>

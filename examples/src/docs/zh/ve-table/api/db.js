@@ -901,7 +901,7 @@ export const db = {
             },
             {
                 param: "rowValueChange",
-                desc: `行停止编辑回调方法。<code>row</code>当前行数据，`,
+                desc: `行停止编辑回调方法。<code>row</code>当前行数据`,
                 type: `<code>Function({ row })</code>`,
                 optionalVal: "-",
                 default: "-",
