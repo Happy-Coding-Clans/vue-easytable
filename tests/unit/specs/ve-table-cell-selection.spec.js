@@ -162,6 +162,62 @@ describe("veTable cell selection", () => {
         ).toContain("ve-table-cell-selection");
     });
 
+    it("cell selection effect", async () => {
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                cellSelectionOption: {
+                    // default true
+                    enable: true,
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(0)
+            .findAll(".ve-table-body-td")
+            .at(0);
+
+        expect(firstCell.find(".ve-table-cell-selection").exists()).toBe(false);
+
+        firstCell.trigger("click");
+
+        await later();
+
+        expect(firstCell.find(".ve-table-cell-selection").exists()).toBe(true);
+    });
+
+    it("disable cell selection", async () => {
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                cellSelectionOption: {
+                    // default true
+                    enable: false,
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(0)
+            .findAll(".ve-table-body-td")
+            .at(0);
+
+        expect(firstCell.find(".ve-table-cell-selection").exists()).toBe(false);
+
+        firstCell.trigger("click");
+
+        await later();
+
+        expect(firstCell.find(".ve-table-cell-selection").exists()).toBe(false);
+    });
+
     /* it("virtual scroll keyboard events", async () => {
         const mockFn = jest.fn();
 
