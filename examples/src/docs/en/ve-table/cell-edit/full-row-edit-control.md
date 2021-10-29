@@ -1,6 +1,6 @@
-:::anchor 可控行编辑
+:::anchor Controllable row editing
 
-:::demo 1、通过属性`stopEditingWhenCellLoseFocus=false`关闭单元格失去焦点自动停止编辑功能
+:::demo 1、Turn off the automatic stop editing function when the cell loses focus through `stopEditingWhenCellLoseFocus=false`
 
 ```html
 <template>
@@ -23,7 +23,7 @@
     export default {
         data() {
             return {
-                // edit option 可控单元格编辑
+                // edit option
                 editOption: {
                     // full row edit
                     fullRowEdit: true,
@@ -42,7 +42,7 @@
                     },
                 },
                 eventCustomOption: {
-                    // body 行事件自定义
+                    // body row custom event
                     bodyRowEvents: ({ row, rowIndex }) => {
                         return {
                             dblclick: (event) => {
@@ -58,7 +58,7 @@
                     // default true
                     enable: false,
                 },
-                // 当前编辑的行key
+                // current editing keys
                 editRowKeys: [],
                 columns: [
                     {
@@ -95,7 +95,7 @@
                     {
                         field: "customField",
                         key: "customField",
-                        title: "操作",
+                        title: "Actions",
                         align: "left",
                         width: "20%",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
@@ -193,7 +193,7 @@
 
             // cancel editing cell
             cancelEditingCell(rowKey, originalRow) {
-                if (window.confirm("确定要取消吗？")) {
+                if (window.confirm("Sure to cancel?")) {
                     const index = this.editRowKeys.findIndex((x) => x === rowKey);
                     this.editRowKeys.splice(index, 1);
                     this.$refs["tableRef"].stopEditingCell({ rowKey });

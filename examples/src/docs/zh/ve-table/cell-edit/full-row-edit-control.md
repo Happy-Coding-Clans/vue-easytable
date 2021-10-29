@@ -95,7 +95,7 @@
                     {
                         field: "customField",
                         key: "customField",
-                        title: "操作",
+                        title: "Actions",
                         align: "left",
                         width: "20%",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {

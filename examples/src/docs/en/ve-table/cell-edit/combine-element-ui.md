@@ -1,11 +1,11 @@
-:::anchor 结合 element-ui
+:::anchor Combine element-ui
 
-:::demo 1、你也可以结合 element-ui 组件做日期、数字、下拉等编辑功能
+:::demo 1、You can also edit date, number, dropdown and other functions in combination with the element UI component
 
 ```html
 <template>
     <div>
-        <button class="button-demo" @click="submit()">提交</button>
+        <button class="button-demo" @click="submit()">Submit</button>
         <br />
         <br />
         <ve-table
