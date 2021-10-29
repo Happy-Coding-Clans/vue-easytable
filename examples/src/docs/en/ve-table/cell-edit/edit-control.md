@@ -1,17 +1,17 @@
-:::anchor 可控编辑
+:::anchor Controllable editing
 
-:::demo 1、通过实例方法`startEditingCell({ rowKey, colKey, defaultValue })`开启编辑的单元格<br>2、通过实例方法`stopEditingCell({ rowKey, colKey })`停止编辑的单元格
+:::demo 1、Open the edited cell through instance method `startEditingCell({ rowKey, colKey, defaultValue })`<br>2、Stop editing cells by instance method `stopEditingCell({ rowKey, colKey })`
 
 ```html
 <template>
     <div>
-        <button class="button-demo" @click="startEditingCell(0,'name')">编辑单元格0-0</button>
+        <button class="button-demo" @click="startEditingCell(0,'name')">Edit Cell 0-0</button>
         <button class="button-demo" @click="startEditingCell(2,'hobby','')">
-            编辑并清空单元格2-2
+            Edit And Clear Cell 2-2
         </button>
         &nbsp;&nbsp;
-        <button class="button-demo" @click="stopEditingCell(0,'name')">停止编辑单元格1-1</button>
-        <button class="button-demo" @click="stopEditingCell(2,'hobby')">停止编辑单元格2-2</button>
+        <button class="button-demo" @click="stopEditingCell(0,'name')">Stop Edit Cell 1-1</button>
+        <button class="button-demo" @click="stopEditingCell(2,'hobby')">Stop Edit Cell 2-2</button>
         <br />
         <br />
         <ve-table

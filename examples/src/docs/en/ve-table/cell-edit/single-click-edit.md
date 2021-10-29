@@ -1,6 +1,6 @@
-:::anchor 单击编辑
+:::anchor Single click edit
 
-:::demo 可以通过 `doubleClickEdit=false`关闭双击编辑，开启单击编辑单元格
+:::demo `doubleClickEdit=false` to turn off double click editing and turn on single click editing of cells
 
 ```html
 <template>

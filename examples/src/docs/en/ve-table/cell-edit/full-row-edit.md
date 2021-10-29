@@ -1,6 +1,6 @@
-:::anchor 整行编辑
+:::anchor Full row edit
 
-:::demo 1、通过 `fullRowEdit=true`开启整行编辑<br>2、通过 `columns`对象的 `edit`属性控制当前列是否可编辑<br>3、单元格停止编辑后将触发`rowValueChange`方法，参数`row`为更新后的行数据信息
+:::demo 1、Enable full row editing through `fullRowEdit=true`<br>2、Use the `Edit` attribute of the `columns` object to control whether the current row can be edited<br>3、After the cell stops editing, the `rowValueChange` method will be triggered,The parameter `row` is the updated row data
 
 ```html
 <template>
