@@ -174,7 +174,7 @@ describe("veTable edit", () => {
         );
     });
 
-    it("full row edit 存在bug", async () => {
+    it("full row edit", async () => {
         const wrapper = mount(veTable, {
             propsData: {
                 columns: COLUMNS,
@@ -206,14 +206,27 @@ describe("veTable edit", () => {
 
         expect(wrapper.findAll(".ve-table-body-td-edit-input").length).toBe(4);
 
-        // second cell
-        const secondCell = wrapper
+        // second row cell
+        const firstRowCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(0)
+            .findAll(".ve-table-body-td")
+            .at(1);
+
+        firstRowCell.trigger("click");
+
+        await later();
+
+        expect(wrapper.findAll(".ve-table-body-td-edit-input").length).toBe(4);
+
+        // second row cell
+        const secondRowCell = wrapper
             .findAll(".ve-table-body-tr")
             .at(1)
             .findAll(".ve-table-body-td")
             .at(1);
 
-        secondCell.trigger("click");
+        secondRowCell.trigger("click");
 
         await later();
 
@@ -472,7 +485,7 @@ describe("veTable edit", () => {
         expect(mockFn).toHaveBeenCalledTimes(2);
     });
 
-    it("cell value change", async () => {
+    it("cellValueChange callback function", async () => {
         const mockFn = jest.fn();
 
         const wrapper = mount(veTable, {
@@ -544,6 +557,60 @@ describe("veTable edit", () => {
         );
     });
 
-    // full row edit
-    // rowValueChange
+    it("rowValueChange callback function", async () => {
+        const mockFn = jest.fn();
+
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                editOption: {
+                    doubleClickEdit: true,
+                    fullRowEdit: true,
+                    // cell value change
+                    rowValueChange: ({ row }) => {
+                        mockFn(row);
+                    },
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        // first cell
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(0)
+            .findAll(".ve-table-body-td")
+            .at(0);
+
+        firstCell.trigger("dblclick");
+
+        await later();
+
+        expect(wrapper.findAll(".ve-table-body-td-edit-input").length).toBe(4);
+
+        // set value
+        const textInput = firstCell.find(".ve-table-body-td-edit-input");
+        textInput.setValue("AAA");
+
+        // second cell
+        const secondCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(0);
+
+        secondCell.trigger("click");
+
+        await later();
+
+        expect(mockFn).toHaveBeenCalled();
+        expect(mockFn).toHaveBeenCalledWith({
+            address: "No.1 Century Avenue, Shanghai",
+            date: "1900-05-20",
+            hobby: "coding and coding repeat",
+            name: "AAA",
+            rowKey: 0,
+        });
+    });
 });
