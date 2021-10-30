@@ -4,7 +4,7 @@
 
 ```html
 <template>
-    <ve-table border-y :columns="columns" :table-data="tableData" rowKeyFieldName="rowkey" />
+    <ve-table border-y :columns="columns" :table-data="tableData" rowKeyFieldName="rowKey" />
 </template>
 
 <script>
@@ -69,7 +69,7 @@
                 let data = [];
                 for (let i = 0; i < 6; i++) {
                     data.push({
-                        rowkey: i,
+                        rowKey: i,
                         col1: i,
                         col2: i,
                         col3: i,

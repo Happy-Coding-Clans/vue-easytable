@@ -11,7 +11,7 @@
         :columns="columns"
         :table-data="tableData"
         :footer-data="footerData"
-        rowKeyFieldName="rowkey"
+        rowKeyFieldName="rowKey"
     />
 </template>
 
@@ -44,7 +44,7 @@
                 let data = [];
                 for (let i = 0; i < 15; i++) {
                     data.push({
-                        rowkey: i,
+                        rowKey: i,
                         name: i,
                         date: i,
                         hobby: i,
@@ -57,14 +57,14 @@
             initFooterData() {
                 this.footerData = [
                     {
-                        rowkey: 0,
+                        rowKey: 0,
                         name: "平均值",
                         date: 213,
                         hobby: 355,
                         address: 189,
                     },
                     {
-                        rowkey: 1,
+                        rowKey: 1,
                         name: "汇总值",
                         date: 1780,
                         hobby: 890,

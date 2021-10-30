@@ -244,6 +244,13 @@ export const db = {
                 default: "-",
             },
             {
+                param: "editOption",
+                desc: "单元格编辑配置，具体见下表 editOption 配置",
+                type: "<code>Object</code>",
+                optionalVal: "-",
+                default: "-",
+            },
+            {
                 param: "eventCustomOption",
                 desc: `自定义事件配置，具体见下表 eventCustomOption 配置`,
                 type: "<code>Object</code>",
@@ -304,6 +311,14 @@ export const db = {
                 optionalVal: `"left"、"center"、"right"`,
                 default: `"center"`,
                 rowKey: 30,
+            },
+            {
+                param: "edit",
+                desc: "是否开启列编辑",
+                type: "<code>Boolean</code>",
+                optionalVal: `-`,
+                default: `"false"`,
+                rowKey: 32,
             },
             {
                 param: "sortBy",
@@ -476,6 +491,21 @@ export const db = {
                 desc: `设置高亮的行 <a href='#/zh/doc/table/row-style?anchor=row-click-highlight'>参考示例</a>`,
                 param: "{rowKey}",
             },
+            {
+                name: "startEditingCell",
+                desc: `开始单元格编辑  <a href='#/zh/doc/table/cell-edit?anchor=ke-kong-bian-ji'>参考示例</a>`,
+                param: "{rowKey,colKey,defaultValue}",
+            },
+            {
+                name: "stopEditingCell",
+                desc: `停止单元格编辑  <a href='#/zh/doc/table/cell-edit?anchor=ke-kong-bian-ji'>参考示例</a>`,
+                param: "{rowKey,colKey}",
+            },
+            {
+                name: "stopAllEditingCell",
+                desc: `停止所有单元格编辑  <a href='#/zh/doc/table/cell-edit?anchor=ke-kong-bian-ji'>参考示例</a>`,
+                param: "-",
+            },
         ],
         columns: columnsType2,
     },
@@ -581,14 +611,14 @@ export const db = {
             },
             {
                 param: "selectedRowChange",
-                desc: `行选中的改变事件。事件接收 3 个参数，row:当前行数据，<code>isSelected</code>当前行是否选中，<code>selectedRowKeys</code>所有选中的 rowkey 信息`,
+                desc: `行选中的改变事件。事件接收 3 个参数，row:当前行数据，<code>isSelected</code>当前行是否选中，<code>selectedRowKeys</code>所有选中的 rowKey 信息`,
                 type: "<code>Function({row, isSelected, selectedRowKeys})</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "selectedAllChange",
-                desc: `全选改变事件。事件接收 2 个参数，<code>isSelected</code> 是否全选。<code>selectedRowKeys</code>所有选中的 rowkey 信息`,
+                desc: `全选改变事件。事件接收 2 个参数，<code>isSelected</code> 是否全选。<code>selectedRowKeys</code>所有选中的 rowKey 信息`,
                 type: `<code>Function({isSelected, selectedRowKeys})</code>`,
                 optionalVal: "-",
                 default: "-",
@@ -826,6 +856,55 @@ export const db = {
                 type: `<code>Boolean</code>`,
                 optionalVal: "-",
                 default: "false",
+            },
+        ],
+        columns: columnsType1,
+    },
+
+    // 单元格编辑配置
+    editOption: {
+        data: [
+            {
+                param: "doubleClickEdit",
+                desc: `是否开启双击单元格编辑`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "fullRowEdit",
+                desc: `是否开启行整行编辑`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "false",
+            },
+            {
+                param: "textSelectedWhenCellFocus",
+                desc: `是否开启单元格编辑状态文本选中`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "stopEditingWhenCellLoseFocus",
+                desc: `是否开启单元格失去焦点自动停止编辑`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "cellValueChange",
+                desc: `单元格停止编辑回调方法。<code>row</code>当前行数据，<code>column</code>当前列信息`,
+                type: `<code>Function({ row, column })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "rowValueChange",
+                desc: `行停止编辑回调方法。<code>row</code>当前行数据`,
+                type: `<code>Function({ row })</code>`,
+                optionalVal: "-",
+                default: "-",
             },
         ],
         columns: columnsType1,
