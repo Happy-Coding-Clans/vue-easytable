@@ -9,7 +9,7 @@
         :fixed-header="true"
         :columns="columns"
         :table-data="tableData"
-        rowKeyFieldName="rowkey"
+        rowKeyFieldName="rowKey"
     />
 </template>
 
@@ -41,7 +41,7 @@
                 let data = [];
                 for (let i = 0; i < 15; i++) {
                     data.push({
-                        rowkey: i,
+                        rowKey: i,
                         name: i,
                         date: i,
                         hobby: i,

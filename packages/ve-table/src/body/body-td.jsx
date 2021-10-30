@@ -2,7 +2,13 @@ import BodyCheckboxContent from "./body-checkbox-content";
 import BodyRadioContent from "./body-radio-content";
 import ExpandTrIcon from "./expand-tr-icon";
 import { getFixedTotalWidthByColumnKey, clsName } from "../util";
-import { getValByUnit, isNumber, isBoolean } from "../../../src/utils/index.js";
+import {
+    getValByUnit,
+    isNumber,
+    isBoolean,
+    isFalse,
+} from "../../../src/utils/index.js";
+import focus from "../../../src/directives/focus.js";
 
 import {
     COMPS_NAME,
@@ -14,6 +20,9 @@ import emitter from "../../../src/mixins/emitter";
 
 export default {
     name: COMPS_NAME.VE_TABLE_BODY_TD,
+    directives: {
+        focus: focus,
+    },
     mixins: [emitter],
     props: {
         rowData: {
@@ -125,6 +134,22 @@ export default {
                 return null;
             },
         },
+        // editing cells
+        editingCells: {
+            type: Array,
+            required: true,
+        },
+        // editing focus cell
+        editingFocusCell: {
+            type: Object,
+            default: null,
+        },
+    },
+    data() {
+        return {
+            // 原始单元格数据
+            rawCellValue: "",
+        };
     },
     computed: {
         // is last left fixed column
@@ -168,6 +193,66 @@ export default {
                     result = true;
                 }
             }
+            return result;
+        },
+
+        // current row key
+        currentRowKey() {
+            const { rowData, rowKeyFieldName } = this;
+            return rowData[rowKeyFieldName];
+        },
+
+        // is editing cell
+        isEditingCell() {
+            let result = false;
+
+            const { editingCells, editOption, column, currentRowKey } = this;
+
+            if (column.edit && editOption) {
+                const { fullRowEdit } = editOption;
+
+                if (editingCells.length) {
+                    if (fullRowEdit) {
+                        const existRow = editingCells.find(
+                            (x) => x.rowKey === currentRowKey,
+                        );
+
+                        if (existRow) {
+                            result = true;
+                        }
+                    } else {
+                        const existCell = editingCells.find(
+                            (x) =>
+                                x.rowKey === currentRowKey &&
+                                x.colKey === column.key,
+                        );
+
+                        if (existCell) {
+                            result = true;
+                        }
+                    }
+                }
+            }
+
+            return result;
+        },
+
+        // is edit focus cell
+        isEditingFocusCell() {
+            let result = false;
+
+            const { editingFocusCell, editOption, currentRowKey, column } =
+                this;
+
+            if (editOption) {
+                if (editingFocusCell) {
+                    const { rowKey, colKey } = editingFocusCell;
+                    if (rowKey === currentRowKey && colKey === column.key) {
+                        result = true;
+                    }
+                }
+            }
+
             return result;
         },
 
@@ -219,6 +304,7 @@ export default {
 
             let result = {
                 [clsName("body-td")]: true,
+                [clsName("body-td-editing")]: this.isEditingCell,
             };
 
             const {
@@ -269,6 +355,19 @@ export default {
             return result;
         },
     },
+    watch: {
+        // watch row data
+        rowData: {
+            handler(rowData) {
+                const column = this.column;
+                if (column) {
+                    this.rawCellValue = rowData[column.field];
+                }
+            },
+            deep: true,
+            immediate: true,
+        },
+    },
     methods: {
         // get ellipsis content style
         getEllipsisContentStyle() {
@@ -286,11 +385,56 @@ export default {
             return result;
         },
 
+        // reset editing cell value
+        resetEditingCellValue() {
+            const {
+                editOption,
+                currentRowKey,
+                column,
+                rawCellValue,
+                editingCells,
+            } = this;
+
+            const { fullRowEdit } = editOption;
+
+            let currentCell = null;
+            // 整行编辑
+            if (fullRowEdit) {
+                currentCell = editingCells.find(
+                    (x) => x.rowKey === currentRowKey,
+                );
+            } else {
+                currentCell = editingCells.find(
+                    (x) =>
+                        x.rowKey === currentRowKey && x.colKey === column.key,
+                );
+            }
+
+            if (currentCell) {
+                currentCell.row[column.field] = rawCellValue;
+                this.dispatch(
+                    COMPS_NAME.VE_TABLE,
+                    EMIT_EVENTS.BODY_TD_EDIT_CELL_VALUE_CHANGE,
+                    {
+                        editingCells,
+                    },
+                );
+            }
+        },
+
         // get render content
         getRenderContent(h) {
             let content = null;
 
-            const { column, rowData, rowIndex } = this;
+            const {
+                column,
+                rowData,
+                rowIndex,
+                isEditingCell,
+                isEditingFocusCell,
+                rawCellValue,
+                editOption,
+            } = this;
 
             // has render function
             if (typeof column.renderBodyCell === "function") {
@@ -305,7 +449,7 @@ export default {
 
                 content = renderResult;
             } else {
-                content = rowData[column.field];
+                content = rawCellValue;
             }
 
             // ellipisis
@@ -326,22 +470,41 @@ export default {
                 );
             }
 
-            // edit 暂时不开放
-            /* if (editOption) {
-                const { activeRowkey } = editOption;
+            /*
+            cell edit
+            对原始数据编辑
+            */
+            if (isEditingCell) {
+                const { textSelectedWhenCellFocus } = editOption;
 
-                if (
-                    !isEmptyValue(activeRowkey) &&
-                    activeRowkey == getRowKey(rowData, rowKeyFieldName)
-                ) {
-                    content = (
-                        <input
-                            class={clsName("body-td-edit-input")}
-                            value={content}
-                        />
-                    );
-                }
-            } */
+                const editingCellProps = {
+                    props: {
+                        value: rawCellValue,
+                    },
+                    class: clsName("body-td-edit-input"),
+                    directives: [
+                        {
+                            name: "focus",
+                            value: {
+                                focus: isEditingFocusCell,
+                                select:
+                                    isEditingFocusCell &&
+                                    !isFalse(textSelectedWhenCellFocus),
+                            },
+                        },
+                    ],
+                    domProps: { value: rawCellValue },
+                    on: {
+                        input: (e) => {
+                            this.rawCellValue = e.target.value;
+                            // 重置编辑单元格的值
+                            this.resetEditingCellValue();
+                        },
+                    },
+                };
+
+                content = <input {...editingCellProps} />;
+            }
 
             return content;
         },
@@ -415,7 +578,7 @@ export default {
 
             const { column, expandOption, rowData } = this;
 
-            this.dispatch(COMPS_NAME.VE_TABLE_BODY, EMIT_EVENTS.BODY_TD_CLICK, {
+            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_TD_CLICK, {
                 rowData,
                 column,
             });
@@ -446,6 +609,17 @@ export default {
         // dblclick
         cellDblclick(e, fn) {
             fn && fn(e);
+
+            const { column, rowData } = this;
+
+            this.dispatch(
+                COMPS_NAME.VE_TABLE,
+                EMIT_EVENTS.BODY_TD_DOUBLE_CLICK,
+                {
+                    rowData,
+                    column,
+                },
+            );
         },
         // contextmenu
         cellContextmenu(e, fn) {

@@ -31,13 +31,19 @@ export const EMIT_EVENTS = {
     // header-tr-height-change
     HEADER_TR_HEIGHT_CHANGE: "on-header-tr-height-change",
     // footer-tr-height-change
-    Footer_TR_HEIGHT_CHANGE: "on-footer-tr-height-change",
+    FOOTER_TR_HEIGHT_CHANGE: "on-footer-tr-height-change",
     // body-tr-height-change
     BODY_TR_HEIGHT_CHANGE: "on-body-tr-height-change",
     // body tr click
     BODY_TR_CLICK: "on-body-tr-click",
     // body td click
     BODY_TD_CLICK: "on-body-td-click",
+    // body td double click
+    BODY_TD_DOUBLE_CLICK: "on-body-td-double-click",
+    // body td edit cell blur
+    BODY_TD_EDIT_CELL_BLUR: "on-body-td-edit-cell-blur",
+    // body td edit cell value change
+    BODY_TD_EDIT_CELL_VALUE_CHANGE: "on-body-td-edit-cell-value-change",
     // expand-row-change
     EXPAND_ROW_CHANGE: "on-expand-row-change",
     // checkbox selected row change
@@ -92,6 +98,12 @@ export const INSTANCE_METHODS = {
     SCROLL_TO: "scrollTo",
     // scroll to rowKey
     SCROLL_TO_ROW_KEY: "scrollToRowKey",
+    // start editing cell
+    START_EDITING_CELL: "startEditingCell",
+    // stop editing cell
+    STOP_EDITING_CELL: "stopEditingCell",
+    // stop all editing cell
+    STOP_ALL_EDITING_CELL: "stopAllEditingCell",
     // set highlight row
     SET_HIGHLIGHT_ROW: "setHighlightRow",
 };

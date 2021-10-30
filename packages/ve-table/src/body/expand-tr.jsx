@@ -1,5 +1,4 @@
 import { clsName } from "../util";
-import { store } from "../util/store";
 import { COMPS_NAME } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 
@@ -7,6 +6,10 @@ export default {
     name: COMPS_NAME.VE_TABLE_EXPAND_TR,
     mixins: [emitter],
     props: {
+        tableViewportWidth: {
+            type: Number,
+            default: 0,
+        },
         // expand column
         expandColumn: {
             type: Object,
@@ -93,10 +96,12 @@ export default {
         expandTdContentStyle() {
             let result = {};
 
-            if (this.hasLeftFixedColumn) {
+            const { hasLeftFixedColumn, tableViewportWidth } = this;
+
+            if (hasLeftFixedColumn) {
                 // table width
-                if (store.tableViewportWidth) {
-                    result["width"] = store.tableViewportWidth + "px";
+                if (tableViewportWidth) {
+                    result["width"] = tableViewportWidth + "px";
                 }
             }
 

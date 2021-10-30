@@ -8,9 +8,9 @@ import router from "@/router/index";
 
 import NProgress from "nprogress"; // Progress 进度条
 
-import "@/css/index.scss";
-import "@/css/custom.scss";
-import "@/comp/app.scss";
+import "@/css/index.less";
+import "@/css/custom.less";
+import "@/comp/app.less";
 
 // Progress 进度条 样式
 import "nprogress/nprogress.css";
@@ -32,6 +32,8 @@ import {
     RadioGroup,
     Select,
     Option,
+    DatePicker,
+    InputNumber,
 } from "element-ui";
 Vue.use(Switch);
 Vue.use(Row);
@@ -40,6 +42,8 @@ Vue.use(RadioButton);
 Vue.use(RadioGroup);
 Vue.use(Select);
 Vue.use(Option);
+Vue.use(DatePicker);
+Vue.use(InputNumber);
 
 // vue-lazy-container
 import VueLazyContainer from "vue-lazy-container";

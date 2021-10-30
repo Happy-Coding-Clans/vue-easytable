@@ -171,8 +171,8 @@
                 }
 
                 tr:first-child > th,
-        // footer
-        tr.ve-table-footer-tr:first-child > td {
+                // footer
+                tr.ve-table-footer-tr:first-child > td {
                     border-top: 1px solid @ve-table-border-color;
                 }
             }
@@ -312,16 +312,22 @@
                             -webkit-box-orient: vertical;
                         }
 
-                        // edit input
-                        .ve-table-body-td-edit-input {
-                            display: inline-block;
-                            width: 100%;
-                            height: 100%;
-                            border: none;
-                            box-sizing: border-box;
-                            outline: none;
-                            background-color: transparent;
-                            text-align: inherit;
+                        // editing
+                        &.ve-table-body-td-editing {
+                            padding: 1px;
+                            border: 2px solid @ve-table-td-editing-border-color !important;
+
+                            // edit input
+                            .ve-table-body-td-edit-input {
+                                display: inline-block;
+                                width: 100%;
+                                height: 100%;
+                                border: none;
+                                box-sizing: border-box;
+                                outline: none;
+                                background-color: #fff;
+                                text-align: inherit;
+                            }
                         }
                     }
                 }

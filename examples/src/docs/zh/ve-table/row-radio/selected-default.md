@@ -1,6 +1,6 @@
 :::anchor 默认选中
 
-:::demo `defaultSelectedRowKey`设置需要默认选中的 rowkey
+:::demo `defaultSelectedRowKey`设置需要默认选中的 rowKey
 
 ```html
 <template>

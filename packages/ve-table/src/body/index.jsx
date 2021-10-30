@@ -14,6 +14,10 @@ export default {
     name: COMPS_NAME.VE_TABLE_BODY,
     mixins: [emitter],
     props: {
+        tableViewportWidth: {
+            type: Number,
+            default: 0,
+        },
         columnsOptionResetTime: {
             type: Number,
             default: 0,
@@ -114,12 +118,22 @@ export default {
                 return null;
             },
         },
-        // edit opttion
+        // edit option
         editOption: {
             type: Object,
             default: function () {
                 return null;
             },
+        },
+        // editing cells
+        editingCells: {
+            type: Array,
+            required: true,
+        },
+        // editing focus cell
+        editingFocusCell: {
+            type: Object,
+            default: null,
         },
     },
     data() {
@@ -403,34 +417,6 @@ export default {
         },
 
         /*
-         * @tdClick
-         * @desc  recieve td click event
-         * @param {object} rowData - row data
-         * @param {object} column - column data
-         */
-        tdClick({ rowData, column }) {
-            const { rowKeyFieldName, cellSelectionOption } = this;
-
-            // cell selection option
-            if (
-                !(
-                    cellSelectionOption &&
-                    typeof cellSelectionOption.enable === "boolean" &&
-                    cellSelectionOption.enable === false
-                )
-            ) {
-                if (rowKeyFieldName && column.key) {
-                    const rowKey = rowData[rowKeyFieldName];
-
-                    this.$emit(EMIT_EVENTS.CELL_SELECTION_KEY_CHANGE, {
-                        rowKey,
-                        columnKey: column.key,
-                    });
-                }
-            }
-        },
-
-        /*
          * @isExpandRow
          * @desc  is expand row
          * @param {object} rowData - row data
@@ -520,6 +506,7 @@ export default {
             if (this.isExpandRow({ rowData, rowIndex })) {
                 const expandTrProps = {
                     props: {
+                        tableViewportWidth: this.tableViewportWidth,
                         colgroups: this.colgroups,
                         expandOption: this.expandOption,
                         expandedRowkeys: this.expandedRowkeys,
@@ -746,11 +733,6 @@ export default {
             this.rowClick(params);
         });
 
-        // recieve yd click
-        this.$on(EMIT_EVENTS.BODY_TD_CLICK, (params) => {
-            this.tdClick(params);
-        });
-
         if (this.checkboxOption) {
             // 这里 nextTick 解决由于子组件先初始化，导致父组件无法接收消息的问题
             this.$nextTick(() => {
@@ -836,6 +818,8 @@ export default {
                             eventCustomOption: this.eventCustomOption,
                             cellSelectionKeyData: this.cellSelectionKeyData,
                             editOption: this.editOption,
+                            editingCells: this.editingCells,
+                            editingFocusCell: this.editingFocusCell,
                         },
                     };
 

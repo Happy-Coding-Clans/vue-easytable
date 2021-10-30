@@ -190,6 +190,13 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
+                path: "cell-edit",
+                component: () =>
+                    import("@/docs/zh/ve-table/cell-edit/main.vue"),
+                name: "单元格编辑",
+                meta: { keepAlive: true },
+            },
+            {
                 path: "row-index",
                 component: () =>
                     import("@/docs/zh/ve-table/row-index/main.vue"),
