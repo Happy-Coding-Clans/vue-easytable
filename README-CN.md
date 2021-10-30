@@ -38,6 +38,7 @@
 -   新增自定义单元格内容。基于 `render`函数
 -   新增自定义事件
 -   新增单元格省略
+-   新增单元格编辑
 -   新增 loading 组件
 -   新增单元测试。覆盖率 > 85%
 -   文档更新
@@ -68,6 +69,7 @@
 -   [x] [单元格自定义](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-custom)
 -   [x] [单元格合并](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-span)
 -   [x] [单元格选择（键盘操作）](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection)
+-   [x] [单元格编辑](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-edit)
 -   [x] [单元格省略](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-ellipsis)
 -   [x] [行单选](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-radio)
 -   [x] [行多选](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-checkbox)
