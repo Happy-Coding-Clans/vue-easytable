@@ -39,6 +39,7 @@ Based on vue2.x flexible table components.
 -   Support Custom cell content. Based on `render` function
 -   Support Custom event
 -   Support Cell ellipsis
+-   Support Cell edit
 -   Support Loading component
 -   Add Unit test > 85% coverage
 -   Official document update
@@ -69,6 +70,7 @@ Based on vue2.x flexible table components.
 -   [x] [Cell Custom](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-custom)
 -   [x] [Cell Span](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-span)
 -   [x] [Cell Selection(keyboard operation)](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-selection)
+-   [x] [Cell Edit](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-edit)
 -   [x] [Cell Ellipsis](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-ellipsis)
 -   [x] [Row Radio](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/row-radio)
 -   [x] [Row Checkbox](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/row-checkbox)
