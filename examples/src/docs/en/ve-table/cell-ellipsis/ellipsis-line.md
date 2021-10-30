@@ -7,7 +7,7 @@ At present, this function only supports browser with [-webkit-line-clamp attribu
 ```html
 <template>
     <ve-table
-        rowKeyFieldName="rowkey"
+        rowKeyFieldName="rowKey"
         :fixed-header="true"
         :columns="columns"
         :table-data="tableData"
@@ -60,7 +60,7 @@ At present, this function only supports browser with [-webkit-line-clamp attribu
                         hobby: "coding and coding repeat",
                         address:
                             "No.1 Century Avenue, Shanghai,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text",
-                        rowkey: 0,
+                        rowKey: 0,
                     },
                     {
                         name: "Dickerson",
@@ -68,7 +68,7 @@ At present, this function only supports browser with [-webkit-line-clamp attribu
                         hobby: "coding and coding repeat",
                         address:
                             "No.1 Century Avenue, Beijing,this is a long text,this is a long text,this is a long text,this is a long text",
-                        rowkey: 1,
+                        rowKey: 1,
                     },
                     {
                         name: "Larsen",
@@ -76,7 +76,7 @@ At present, this function only supports browser with [-webkit-line-clamp attribu
                         hobby: "coding and coding repeat",
                         address:
                             "No.1 Century Avenue, Chongqing,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text",
-                        rowkey: 2,
+                        rowKey: 2,
                     },
                     {
                         name: "Geneva",
@@ -84,14 +84,14 @@ At present, this function only supports browser with [-webkit-line-clamp attribu
                         hobby: "coding and coding repeat",
                         address:
                             "No.1 Century Avenue, Xiamen,this is a long text,this is a long text",
-                        rowkey: 3,
+                        rowKey: 3,
                     },
                     {
                         name: "Jami",
                         date: "2020-09-20",
                         hobby: "coding and coding repeat",
                         address: "No.1 Century Avenue, Shenzhen",
-                        rowkey: 4,
+                        rowKey: 4,
                     },
                 ],
             };
