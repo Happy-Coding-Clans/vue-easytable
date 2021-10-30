@@ -1,6 +1,7 @@
 import { mount } from "@vue/test-utils";
 import veTable from "@/ve-table";
 import { later } from "../util";
+import { KEY_CODES } from "../constant";
 
 describe("veTable edit", () => {
     const TABLE_DATA = [
@@ -612,5 +613,167 @@ describe("veTable edit", () => {
             name: "AAA",
             rowKey: 0,
         });
+    });
+
+    it("keydown event with single click edit", async () => {
+        const mockFn = jest.fn();
+
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                editOption: {
+                    doubleClickEdit: false,
+                    fullRowEdit: false,
+                    // cell value change
+                    cellValueChange: ({ row, column }) => {
+                        mockFn(row, column);
+                    },
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        // 选中单元格
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(0)
+            .findAll(".ve-table-body-td")
+            .at(0);
+
+        firstCell.trigger("click");
+
+        await later();
+
+        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
+            true,
+        );
+
+        document.dispatchEvent(
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.ENTER }),
+        );
+
+        await later();
+
+        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
+            false,
+        );
+        expect(mockFn).toHaveBeenCalled();
+    });
+
+    it("keydown event with double click edit", async () => {
+        const mockFn = jest.fn();
+
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                editOption: {
+                    doubleClickEdit: true,
+                    fullRowEdit: false,
+                    // cell value change
+                    cellValueChange: ({ row, column }) => {
+                        mockFn(row, column);
+                    },
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        // 选中单元格
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(0)
+            .findAll(".ve-table-body-td")
+            .at(0);
+
+        firstCell.trigger("click");
+
+        await later();
+
+        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
+            false,
+        );
+
+        document.dispatchEvent(
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.ENTER }),
+        );
+
+        await later();
+
+        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
+            true,
+        );
+
+        document.dispatchEvent(
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.ENTER }),
+        );
+
+        await later();
+
+        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
+            false,
+        );
+        expect(mockFn).toHaveBeenCalled();
+    });
+
+    it("keydown event with full row edit", async () => {
+        const mockFn = jest.fn();
+
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                editOption: {
+                    doubleClickEdit: true,
+                    fullRowEdit: true,
+                    // cell value change
+                    rowValueChange: ({ row }) => {
+                        mockFn(row);
+                    },
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        // 选中单元格
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(0)
+            .findAll(".ve-table-body-td")
+            .at(0);
+
+        firstCell.trigger("click");
+
+        await later();
+
+        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
+            false,
+        );
+        expect(wrapper.findAll(".ve-table-body-td-edit-input").length).toBe(0);
+
+        document.dispatchEvent(
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.ENTER }),
+        );
+
+        await later();
+
+        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
+            true,
+        );
+        expect(wrapper.findAll(".ve-table-body-td-edit-input").length).toBe(4);
+
+        document.dispatchEvent(
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.ENTER }),
+        );
+
+        await later();
+
+        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
+            false,
+        );
+        expect(wrapper.findAll(".ve-table-body-td-edit-input").length).toBe(0);
+
+        expect(mockFn).toHaveBeenCalled();
     });
 });
