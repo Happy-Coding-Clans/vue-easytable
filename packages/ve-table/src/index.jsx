@@ -1734,6 +1734,8 @@ export default {
                 allRowKeys: this.allRowKeys,
                 editOption: this.editOption,
                 highlightRowKey: this.highlightRowKey,
+                editingCells: this.editingCells,
+                editingFocusCell: this.editingFocusCell,
             },
             on: {
                 [EMIT_EVENTS.BODY_TD_WIDTH_CHANGE]: tdWidthChange,
