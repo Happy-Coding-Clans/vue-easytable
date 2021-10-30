@@ -1,16 +1,28 @@
-:::anchor 单条件筛选
+:::anchor
+
 :::demo 1
 
 ```html
 <template>
-    <ve-table
-        rowKeyFieldName="rowKey"
-        :max-height="300"
-        :fixed-header="true"
-        :columns="columns"
-        :table-data="tableData"
-        :editOption="editOption"
-    />
+    <div>
+        <button @click="startEditingCell(0,'name')">编辑单元格1-1</button>
+        <button @click="startEditingCell(1,'date')">编辑单元格2-2</button>
+        &nbsp;&nbsp;
+        <button @click="startEditingCell(2,'name','222')">编辑单元格3-1</button>
+        <button @click="startEditingCell(3,'date','')">编辑单元格4-2</button>
+        &nbsp;&nbsp;
+        <button @click="stopEditingCell(0,'name')">停止编辑单元格1-1</button>
+        <button @click="stopEditingCell(1,'date')">停止编辑单元格单元格2-2</button>
+        <ve-table
+            ref="tableRef"
+            rowKeyFieldName="rowKey"
+            :max-height="300"
+            :fixed-header="true"
+            :columns="columns"
+            :table-data="tableData"
+            :editOption="editOption"
+        />
+    </div>
 </template>
 
 <script>
@@ -19,39 +31,57 @@
             return {
                 // edit option 可控单元格编辑
                 editOption: {
-                    activeRowkey: "1",
+                    // full row edit
+                    fullRowEdit: false,
+                    // double click edit
+                    doubleClickEdit: true,
+                    // text selected when cell focus
+                    textSelectedWhenCellFocus: true,
+                    // auto stop editing when cell lose focus
+                    stopEditingWhenCellLoseFocus: true,
+                    // stop editing when table body click outside
+                    stopEditingWhenTableBodyClickOutside: false,
+                    // cell value change
+                    cellValueChange: ({ row, column }) => {
+                        console.log("cellValueChange row::", row);
+                        console.log("cellValueChange column::", column);
+                    },
+                    // row value change
+                    rowValueChange: ({ row }) => {
+                        console.log("rowValueChange row::", row);
+                    },
                 },
                 columns: [
                     {
                         field: "name",
-                        key: "a",
+                        key: "name",
                         title: "Name",
                         align: "left",
                         width: "15%",
-                        edit: {
-                            enable: true,
-                        },
+                        edit: true,
                     },
                     {
                         field: "date",
-                        key: "b",
+                        key: "date",
                         title: "Date",
                         align: "left",
                         width: "15%",
+                        edit: true,
                     },
                     {
                         field: "hobby",
-                        key: "c",
+                        key: "hobby",
                         title: "Hobby",
                         align: "center",
                         width: "30%",
                     },
                     {
                         field: "address",
-                        key: "d",
+                        key: "address",
                         title: "Address",
                         align: "left",
                         width: "40%",
+                        edit: true,
                     },
                 ],
                 // table data
@@ -94,7 +124,16 @@
                 ],
             };
         },
-        methods: {},
+        methods: {
+            // start editing cell
+            startEditingCell(rowKey, colKey, defaultValue) {
+                this.$refs["tableRef"].startEditingCell({ rowKey, colKey, defaultValue });
+            },
+
+            stopEditingCell(rowKey, colKey) {
+                this.$refs["tableRef"].stopEditingCell({ rowKey, colKey });
+            },
+        },
     };
 </script>
 ```

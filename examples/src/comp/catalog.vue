@@ -66,7 +66,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .catalog-container {
     .catalog-corner {
         z-index: 999;

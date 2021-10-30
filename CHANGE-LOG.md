@@ -7,6 +7,17 @@ Vx.x.x(TPL)
 -   Style
 -   Dependencies Changes
 
+V2.10.0
+
+### Feature
+
+-   新增单元格编辑功能
+
+### Bug Fixes
+
+-   修复单元格数据更改，单元格没有重新渲染的问题
+-   修复当同时使用多个 table 组件，行展开内容宽度互相干扰的问题（Vue.observable 的影响）
+
 V2.9.1
 
 ### Bug Fixes

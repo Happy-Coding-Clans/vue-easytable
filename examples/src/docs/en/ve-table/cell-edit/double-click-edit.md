@@ -1,16 +1,22 @@
-:::anchor 单条件筛选
-:::demo 1
+:::anchor Double click edit
+
+You can use the `Enter` key together with the up, down, left and right keys to realize editing without using the mouse
+
+:::demo 1、By default, double click to turn on editing cells<br>2、When the cell stops editing, the `cellValueChange` method is triggered，The parameter `row` is the updated row data,The parameter `column` is the currently edited column
 
 ```html
 <template>
-    <ve-table
-        rowKeyFieldName="rowKey"
-        :max-height="300"
-        :fixed-header="true"
-        :columns="columns"
-        :table-data="tableData"
-        :editOption="editOption"
-    />
+    <div>
+        <ve-table
+            ref="tableRef"
+            rowKeyFieldName="rowKey"
+            :max-height="300"
+            :fixed-header="true"
+            :columns="columns"
+            :table-data="tableData"
+            :editOption="editOption"
+        />
+    </div>
 </template>
 
 <script>
@@ -19,39 +25,44 @@
             return {
                 // edit option 可控单元格编辑
                 editOption: {
-                    activeRowkey: "1",
+                    // cell value change
+                    cellValueChange: ({ row, column }) => {
+                        console.log("cellValueChange row::", row);
+                        console.log("cellValueChange column::", column);
+                    },
                 },
                 columns: [
                     {
                         field: "name",
-                        key: "a",
+                        key: "name",
                         title: "Name",
                         align: "left",
                         width: "15%",
-                        edit: {
-                            enable: true,
-                        },
+                        edit: true,
                     },
                     {
                         field: "date",
-                        key: "b",
+                        key: "date",
                         title: "Date",
                         align: "left",
                         width: "15%",
+                        edit: true,
                     },
                     {
                         field: "hobby",
-                        key: "c",
+                        key: "hobby",
                         title: "Hobby",
                         align: "center",
                         width: "30%",
+                        edit: true,
                     },
                     {
                         field: "address",
-                        key: "d",
+                        key: "address",
                         title: "Address",
                         align: "left",
                         width: "40%",
+                        edit: true,
                     },
                 ],
                 // table data
@@ -94,7 +105,6 @@
                 ],
             };
         },
-        methods: {},
     };
 </script>
 ```

@@ -1,16 +1,29 @@
-:::anchor 单条件筛选
-:::demo 1
+:::anchor Controllable editing
+
+:::demo 1、Open the edited cell through instance method `startEditingCell({ rowKey, colKey, defaultValue })`<br>2、Stop editing cells by instance method `stopEditingCell({ rowKey, colKey })`
 
 ```html
 <template>
-    <ve-table
-        rowKeyFieldName="rowKey"
-        :max-height="300"
-        :fixed-header="true"
-        :columns="columns"
-        :table-data="tableData"
-        :editOption="editOption"
-    />
+    <div>
+        <button class="button-demo" @click="startEditingCell(0,'name')">Edit Cell 0-0</button>
+        <button class="button-demo" @click="startEditingCell(2,'hobby','')">
+            Edit And Clear Cell 2-2
+        </button>
+        &nbsp;&nbsp;
+        <button class="button-demo" @click="stopEditingCell(0,'name')">Stop Edit Cell 1-1</button>
+        <button class="button-demo" @click="stopEditingCell(2,'hobby')">Stop Edit Cell 2-2</button>
+        <br />
+        <br />
+        <ve-table
+            ref="tableRef"
+            rowKeyFieldName="rowKey"
+            :max-height="300"
+            :fixed-header="true"
+            :columns="columns"
+            :table-data="tableData"
+            :editOption="editOption"
+        />
+    </div>
 </template>
 
 <script>
@@ -19,39 +32,54 @@
             return {
                 // edit option 可控单元格编辑
                 editOption: {
-                    activeRowkey: "1",
+                    // full row edit
+                    fullRowEdit: false,
+                    // double click edit
+                    doubleClickEdit: true,
+                    // auto stop editing when cell lose focus
+                    stopEditingWhenCellLoseFocus: true,
+                    // cell value change
+                    cellValueChange: ({ row, column }) => {
+                        console.log("cellValueChange row::", row);
+                        console.log("cellValueChange column::", column);
+                    },
+                    // row value change
+                    rowValueChange: ({ row }) => {
+                        console.log("rowValueChange row::", row);
+                    },
                 },
                 columns: [
                     {
                         field: "name",
-                        key: "a",
+                        key: "name",
                         title: "Name",
                         align: "left",
                         width: "15%",
-                        edit: {
-                            enable: true,
-                        },
+                        edit: true,
                     },
                     {
                         field: "date",
-                        key: "b",
+                        key: "date",
                         title: "Date",
                         align: "left",
                         width: "15%",
+                        edit: true,
                     },
                     {
                         field: "hobby",
-                        key: "c",
+                        key: "hobby",
                         title: "Hobby",
-                        align: "center",
+                        align: "left",
                         width: "30%",
+                        edit: true,
                     },
                     {
                         field: "address",
-                        key: "d",
+                        key: "address",
                         title: "Address",
                         align: "left",
                         width: "40%",
+                        edit: true,
                     },
                 ],
                 // table data
@@ -94,7 +122,17 @@
                 ],
             };
         },
-        methods: {},
+        methods: {
+            // start editing cell
+            startEditingCell(rowKey, colKey, defaultValue) {
+                this.$refs["tableRef"].startEditingCell({ rowKey, colKey, defaultValue });
+            },
+
+            // stop editing cell
+            stopEditingCell(rowKey, colKey) {
+                this.$refs["tableRef"].stopEditingCell({ rowKey, colKey });
+            },
+        },
     };
 </script>
 ```

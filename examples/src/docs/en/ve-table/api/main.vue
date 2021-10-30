@@ -25,6 +25,8 @@
         <SortOption />
         <!-- Cell Selection Option -->
         <CellSelectionOption />
+        <!-- edit Option -->
+        <EditOption />
         <!-- Event Custom Option -->
         <EventCustomOption />
     </div>
@@ -44,6 +46,7 @@ import EventCustomOption from "./event-custom-option-props";
 import CellStyleOption from "./cell-style-option-props";
 import RowStyleOption from "./row-style-option-props";
 import CellSelectionOption from "./cell-selection-option-props";
+import EditOption from "./edit-option-props";
 export default {
     components: {
         TableProps,
@@ -59,6 +62,7 @@ export default {
         VirtualScrollOption,
         SortOption,
         CellSelectionOption,
+        EditOption,
     },
     data() {
         return {
