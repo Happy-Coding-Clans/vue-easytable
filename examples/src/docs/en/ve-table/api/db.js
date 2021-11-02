@@ -491,6 +491,21 @@ export const db = {
                 desc: `Set highlight row <a href='#/en/doc/table/row-style?anchor=row-click-highlight'>Refer To Demo</a>`,
                 param: "{rowKey}",
             },
+            {
+                name: "startEditingCell",
+                desc: `Start cell editing  <a href='#/en/doc/table/cell-edit?anchor=ke-kong-bian-ji'>Refer To Demo</a>`,
+                param: "{rowKey,colKey,defaultValue}",
+            },
+            {
+                name: "stopEditingCell",
+                desc: `Stop cell editing  <a href='#/en/doc/table/cell-edit?anchor=ke-kong-bian-ji'>Refer To Demo</a>`,
+                param: "{rowKey,colKey}",
+            },
+            {
+                name: "stopAllEditingCell",
+                desc: `Stop all cell editing  <a href='#/en/doc/table/cell-edit?anchor=ke-kong-bian-ji'>Refer To Demo</a>`,
+                param: "-",
+            },
         ],
         columns: columnsType2,
     },
