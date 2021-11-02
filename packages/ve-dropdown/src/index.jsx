@@ -155,7 +155,7 @@ export default {
         },
     },
     watch: {
-        value: function (val) {
+        value: function () {
             this.init();
         },
     },
@@ -232,7 +232,7 @@ export default {
             } else {
                 this.showDropDown();
 
-                this.$nextTick((x) => {
+                this.$nextTick(() => {
                     this.dropDownClick();
                 });
             }
@@ -290,7 +290,7 @@ export default {
 
         // checbox 受控属性管理
         checkedChangeControl(item, isChecked) {
-            this.internalOptions = this.internalOptions.map((i, index) => {
+            this.internalOptions = this.internalOptions.map((i) => {
                 if (i.label === item.label) {
                     i.selected = isChecked;
                 }
@@ -313,7 +313,6 @@ export default {
             isMultiple,
             getTextAlignClass,
             internalOptions,
-            checkboxGroupChange,
             isSelect,
             width,
             maxHeight,
@@ -321,9 +320,7 @@ export default {
             getMaxWidth,
             reset,
             singleSelectOptionClick,
-            isDropdownVisible,
             showOperation,
-            clickOutside,
             isCustomContent,
         } = this;
 

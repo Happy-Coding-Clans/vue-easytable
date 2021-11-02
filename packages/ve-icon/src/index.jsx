@@ -1,4 +1,3 @@
-import { clsName } from "./util";
 import { ICON_NAMES } from "../../src/utils/constant";
 import { COMPS_NAME } from "./util/constant";
 import { getValByUnit } from "../../src/utils/index.js";

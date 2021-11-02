@@ -65,8 +65,8 @@ export default {
          * @param  {Number}     distance            浮层元素和控制元素的上下间距
          */
         layerAdjustmentBind(layerElement, targetElement, distance) {
-            var handler = (e) => {
-                setTimeout((x) => {
+            var handler = () => {
+                setTimeout(() => {
                     this.layerAdjustmentOnce(
                         layerElement,
                         targetElement,
