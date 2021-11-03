@@ -101,6 +101,7 @@ new Vue({
                     "vue-template-compiler": "^2.6.11",
                     "vue-easytable": version,
                     "element-ui": "^2.15.0",
+                    mockjs: "^1.1.0",
                     "@vue/cli-service": "4.1.1",
                     "@vue/cli-plugin-babel": "4.5.11",
                     "@vue/babel-preset-jsx": "1.2.4",
