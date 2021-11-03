@@ -95,7 +95,7 @@
                 fixed-header
                 border-y
                 max-height="calc(100vh - 160px)"
-                scroll-width="calc(120vw)"
+                :scroll-width="tableScrollWdith"
                 :sort-option="sortOption"
                 :virtual-scroll-option="virtualScrollOption"
                 :columns="columns"
@@ -118,6 +118,7 @@ import locale from "../comp/locale";
 import I18nMixins from "../comp/mixins/i18n-mixins";
 import ThemeSwitchMixins from "../comp/mixins/theme-switch-mixins.js";
 export default {
+    name: "demo",
     components: {
         /* Footer */
     },
@@ -193,6 +194,24 @@ export default {
             return locale[this.currentDocLang]["completeDemo"];
         },
 
+        // tableScrollWidth
+        tableScrollWdith() {
+            let scrollWidth = 0;
+
+            const { columns } = this;
+
+            if (columns.length) {
+                columns.forEach((item) => {
+                    if (typeof item.width === "number") {
+                        scrollWidth += item.width;
+                    }
+                });
+            }
+
+            return scrollWidth;
+        },
+
+        // columns
         columns() {
             let columns = [];
 
@@ -201,7 +220,7 @@ export default {
                     field: "radio",
                     key: "radio",
                     title: "",
-                    width: 30,
+                    width: 100,
                     fixed: this.enableColumnFixed ? "left" : "",
                     type: "radio",
                 });
@@ -212,7 +231,7 @@ export default {
                     field: "checkbox",
                     key: "checkbox",
                     title: "",
-                    width: 30,
+                    width: 100,
                     fixed: this.enableColumnFixed ? "left" : "",
                     type: "checkbox",
                 });
@@ -223,7 +242,7 @@ export default {
                     field: "expand",
                     key: "expand",
                     title: "",
-                    width: 30,
+                    width: 100,
                     fixed: this.enableColumnFixed ? "left" : "",
                     type: "expand",
                 });
@@ -233,7 +252,7 @@ export default {
                 field: "rowIndex",
                 key: "a",
                 title: "#",
-                width: 30,
+                width: 100,
                 fixed: this.enableColumnFixed ? "left" : "",
                 renderBodyCell: this.renderRowIndex,
             });
@@ -242,19 +261,20 @@ export default {
                 {
                     title: "Basic Info",
                     fixed: this.enableColumnFixed ? "left" : "",
+                    width: 300,
                     children: [
                         {
                             field: "name",
                             key: "b",
                             title: "Name",
-                            width: 100,
+                            width: 200,
                             align: "left",
                         },
                         {
                             field: "sex",
                             key: "c",
                             title: "Sex",
-                            width: 50,
+                            width: 100,
                             align: "center",
                             sortBy: "",
                             renderBodyCell: ({ row, column, rowIndex }, h) => {
@@ -278,12 +298,13 @@ export default {
                 {
                     title: "Personal Experience",
                     align: "center",
+                    width: 800,
                     children: [
                         {
                             title: "Profession",
                             field: "profession",
                             key: "d",
-                            width: 100,
+                            width: 200,
                             align: "left",
                         },
                         {
@@ -293,7 +314,7 @@ export default {
                                     field: "proficiency",
                                     key: "e",
                                     title: "Proficiency",
-                                    width: 150,
+                                    width: 300,
                                     sortBy: "",
                                     renderBodyCell: (
                                         { row, column, rowIndex },
@@ -331,7 +352,7 @@ export default {
                                     field: "skills",
                                     key: "f",
                                     title: "Skills",
-                                    width: 150,
+                                    width: 300,
                                     align: "left",
                                     renderBodyCell: (
                                         { row, column, rowIndex },
@@ -377,14 +398,14 @@ export default {
                     field: "address",
                     key: "g",
                     title: "Address",
-                    width: 250,
+                    width: 350,
                     align: "left",
                 },
                 {
                     field: "status",
                     key: "h",
                     title: "Status",
-                    width: 55,
+                    width: 100,
                     fixed: this.enableColumnFixed ? "right" : "",
                     align: "left",
                     // filter
