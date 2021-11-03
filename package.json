@@ -20,6 +20,7 @@
         "sort",
         "filter",
         "fixed",
+        "selection",
         "ellipsis",
         "header",
         "body",
