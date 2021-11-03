@@ -688,7 +688,7 @@ export const db = {
             },
             {
                 param: "scrolling",
-                desc: `Scrolling callback events.`,
+                desc: `Scrolling callback events.<br><code>startRowIndex</code> is the line number currently starting rendering,<code>visibleStartIndex</code> is the starting line number of the currently visible area,<code>visibleEndIndex</code> is the end line number of the currently visible area,<code>visibleAboveCount</code> is the number of renderings above the currently visible area,<code>visibleBelowCount</code> is the number of renderings below the currently visible area`,
                 type: "Function({startRowIndex,visibleStartIndex,visibleEndIndex,visibleAboveCount,visibleBelowCount})",
                 optionalVal: "-",
                 default: "-",

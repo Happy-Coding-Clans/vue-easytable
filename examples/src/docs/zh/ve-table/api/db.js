@@ -688,7 +688,7 @@ export const db = {
             },
             {
                 param: "scrolling",
-                desc: `滚动回调事件。`,
+                desc: `滚动回调事件。<br><code>startRowIndex</code>为当前开始渲染的行号，<code>visibleStartIndex</code>为当前可见区域的开始行号，<code>visibleEndIndex</code>为当前可见区域的结束行号，<code>visibleAboveCount</code>为当前可见区域上方渲染的数量，<code>visibleBelowCount</code>为当前可见区域下方渲染的数量`,
                 type: "Function({startRowIndex,visibleStartIndex,visibleEndIndex,visibleAboveCount,visibleBelowCount})",
                 optionalVal: "-",
                 default: "-",

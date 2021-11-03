@@ -34,6 +34,8 @@ import {
     Option,
     DatePicker,
     InputNumber,
+    Input,
+    Button,
 } from "element-ui";
 Vue.use(Switch);
 Vue.use(Row);
@@ -44,6 +46,8 @@ Vue.use(Select);
 Vue.use(Option);
 Vue.use(DatePicker);
 Vue.use(InputNumber);
+Vue.use(Input);
+Vue.use(Button);
 
 // vue-lazy-container
 import VueLazyContainer from "vue-lazy-container";
