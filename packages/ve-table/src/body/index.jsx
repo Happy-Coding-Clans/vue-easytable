@@ -1,4 +1,5 @@
 import BodyTr from "./body-tr";
+import BodyTrScrolling from "./body-tr-scrolling";
 import ExpandTr from "./expand-tr";
 import VueDomResizeObserver from "../../../src/comps/resize-observer";
 import { getDomResizeObserverCompKey } from "../util";
@@ -66,6 +67,11 @@ export default {
         },
         // is virtual scroll
         isVirtualScroll: {
+            type: Boolean,
+            default: false,
+        },
+        // is scrolling
+        isScrolling: {
             type: Boolean,
             default: false,
         },
@@ -764,6 +770,7 @@ export default {
             internalRadioSelectedRowKey,
             isVirtualScroll,
             cellStyleOption,
+            isScrolling,
         } = this;
 
         return (
@@ -793,42 +800,53 @@ export default {
                     })}
                 </tr>
                 {actualRenderTableData.map((rowData, rowIndex) => {
-                    const trProps = {
-                        key: this.getTrKey({ rowData, rowIndex }),
-                        props: {
-                            rowIndex,
-                            rowData,
-                            colgroups,
-                            expandOption,
-                            expandedRowkeys,
-                            checkboxOption,
-                            radioOption,
-                            rowKeyFieldName,
-                            expandRowChange,
-                            internalCheckboxSelectedRowKeys,
-                            internalRadioSelectedRowKey,
-                            isVirtualScroll,
-                            isExpandRow: isExpandRow({
-                                rowData,
-                                rowIndex,
-                            }),
-                            cellStyleOption,
-                            cellSpanOption: this.cellSpanOption,
-                            highlightRowKey: this.highlightRowKey,
-                            eventCustomOption: this.eventCustomOption,
-                            cellSelectionKeyData: this.cellSelectionKeyData,
-                            editOption: this.editOption,
-                            editingCells: this.editingCells,
-                            editingFocusCell: this.editingFocusCell,
-                        },
-                    };
+                    if (isScrolling) {
+                        const trPropsScrolling = {
+                            key: this.getTrKey({ rowData, rowIndex }),
+                            props: {
+                                colgroups,
+                            },
+                        };
 
-                    return [
-                        // body tr
-                        <BodyTr {...trProps} />,
-                        // expand row
-                        getExpandRowComp({ rowData, rowIndex }),
-                    ];
+                        return <BodyTrScrolling {...trPropsScrolling} />;
+                    } else {
+                        const trProps = {
+                            key: this.getTrKey({ rowData, rowIndex }),
+                            props: {
+                                rowIndex,
+                                rowData,
+                                colgroups,
+                                expandOption,
+                                expandedRowkeys,
+                                checkboxOption,
+                                radioOption,
+                                rowKeyFieldName,
+                                expandRowChange,
+                                internalCheckboxSelectedRowKeys,
+                                internalRadioSelectedRowKey,
+                                isVirtualScroll,
+                                isExpandRow: isExpandRow({
+                                    rowData,
+                                    rowIndex,
+                                }),
+                                cellStyleOption,
+                                cellSpanOption: this.cellSpanOption,
+                                highlightRowKey: this.highlightRowKey,
+                                eventCustomOption: this.eventCustomOption,
+                                cellSelectionKeyData: this.cellSelectionKeyData,
+                                editOption: this.editOption,
+                                editingCells: this.editingCells,
+                                editingFocusCell: this.editingFocusCell,
+                            },
+                        };
+
+                        return [
+                            // body tr
+                            <BodyTr {...trProps} />,
+                            // expand row
+                            getExpandRowComp({ rowData, rowIndex }),
+                        ];
+                    }
                 })}
             </tbody>
         );

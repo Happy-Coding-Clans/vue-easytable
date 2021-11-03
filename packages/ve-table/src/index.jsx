@@ -14,6 +14,10 @@ import {
     isDefined,
     isFalse,
 } from "../../src/utils/index.js";
+import {
+    requestAnimationTimeout,
+    cancelAnimationTimeout,
+} from "../../src/utils/request-animation-timeout";
 import emitter from "../../src/mixins/emitter";
 import {
     COMPS_NAME,
@@ -228,6 +232,10 @@ export default {
             defaultVirtualScrollBufferCount: 1,
             // default virtual scroll min row height
             defaultVirtualScrollMinRowHeight: 40,
+            // is scrolling
+            isScrolling: false,
+            // disable pointer events timeout id
+            disablePointerEventsTimeoutId: null,
             // is scrolling left
             isLeftScrolling: false,
             // is scrolling right
@@ -1062,6 +1070,26 @@ export default {
                 this.setVirtualScrollVisibleData();
             }
         },
+        // debounce scroll ended
+        debounceScrollEnded() {
+            const scrollingResetTimeInterval = 1;
+
+            const { disablePointerEventsTimeoutId } = this;
+
+            if (disablePointerEventsTimeoutId) {
+                cancelAnimationTimeout(disablePointerEventsTimeoutId);
+            }
+
+            this.disablePointerEventsTimeoutId = requestAnimationTimeout(
+                this.debounceScrollEndedCallback,
+                scrollingResetTimeInterval,
+            );
+        },
+        // debounce scroll callback
+        debounceScrollEndedCallback() {
+            this.disablePointerEventsTimeoutId = null;
+            this.isScrolling = false;
+        },
         // init virtual scroll
         initVirtualScroll() {
             if (this.isVirtualScroll) {
@@ -1691,6 +1719,7 @@ export default {
             virtualScrollVisibleData,
             sortOption,
             cellStyleOption,
+            isScrolling,
         } = this;
 
         // header props
@@ -1736,6 +1765,7 @@ export default {
                 highlightRowKey: this.highlightRowKey,
                 editingCells: this.editingCells,
                 editingFocusCell: this.editingFocusCell,
+                isScrolling,
             },
             on: {
                 [EMIT_EVENTS.BODY_TD_WIDTH_CHANGE]: tdWidthChange,
@@ -1767,7 +1797,15 @@ export default {
             class: this.tableContainerClass,
             style: tableContainerStyle,
             on: {
-                scroll: this.tableContainerScrollHandler,
+                scroll: () => {
+                    this.tableContainerScrollHandler();
+
+                    if (!this.isScrolling) {
+                        this.isScrolling = true;
+                    }
+
+                    this.debounceScrollEnded();
+                },
             },
             directives: [
                 {
