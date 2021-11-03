@@ -1072,7 +1072,7 @@ export default {
         },
         // debounce scroll ended
         debounceScrollEnded() {
-            const scrollingResetTimeInterval = 1;
+            const scrollingResetTimeInterval = 150;
 
             const { disablePointerEventsTimeoutId } = this;
 
