@@ -105,6 +105,7 @@
                 :expand-option="expandOption"
                 :radio-option="radioOption"
                 :checkbox-option="checkboxOption"
+                :row-style-option="rowStyleOption"
             />
         </div>
         <!-- <Footer /> -->
@@ -153,6 +154,9 @@ export default {
                 // 是否开启
                 enable: true,
                 scrolling: this.scrolling,
+            },
+            rowStyleOption: {
+                stripe: true,
             },
             sortOption: {
                 sortChange: (params) => {
