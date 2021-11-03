@@ -578,7 +578,6 @@ export default {
             for (let i = 0; i < dataRow; i++) {
                 data.push({
                     rowKey: i,
-                    rowIndex: i + 1,
                     name: Mock.Random.name(),
                     sex: Mock.Random.boolean() ? 1 : 2,
                     profession: PROFESSIONS[Mock.Random.natural(0, 5)],
