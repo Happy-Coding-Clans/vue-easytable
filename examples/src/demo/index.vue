@@ -88,7 +88,11 @@
                     </el-row>
                 </div> -->
             </div>
-
+            <button @click="scroll(300000)">30w</button>
+            &nbsp;
+            <button @click="scroll(1000000)">100w</button>
+            &nbsp;
+            <button @click="scroll(3000000)">300w</button>
             <ve-table
                 id="demo-loading-container"
                 ref="tableRef"
@@ -126,7 +130,7 @@ export default {
     mixins: [I18nMixins, ThemeSwitchMixins],
     data() {
         return {
-            dataRow: 1000,
+            dataRow: 100000,
             switchActiveColor: "#1890ff",
             switchInactiveColor: "rgba(0,0,0,.25)",
 
@@ -488,6 +492,10 @@ export default {
             this.filter();
             // scroll to top
             this.$refs["tableRef"].scrollTo({ top: 0 });
+        },
+
+        scroll(top) {
+            this.$refs["tableRef"].scrollTo({ top: top, behavior: "smooth" });
         },
 
         //
