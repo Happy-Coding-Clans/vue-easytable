@@ -232,6 +232,8 @@ export default {
             defaultVirtualScrollBufferCount: 1,
             // default virtual scroll min row height
             defaultVirtualScrollMinRowHeight: 40,
+            // default placeholder per scrolling row count
+            defaultPlaceholderPerScrollingRowCount: 8,
             // is scrolling
             isScrolling: false,
             // disable pointer events timeout id
@@ -287,6 +289,8 @@ export default {
     customOption: {
         //起始索引
         virtualScrollStartIndex: 0,
+        // preview virtual scroll start index
+        previewVirtualScrollStartIndex: 0,
         //结束索引
         virtualScrollEndIndex: 0,
         // preview table container scrollLeft （处理左列或右列固定效果）
@@ -1800,8 +1804,21 @@ export default {
                 scroll: () => {
                     this.tableContainerScrollHandler();
 
-                    if (!this.isScrolling) {
+                    const {
+                        virtualScrollStartIndex: startIndex,
+                        previewVirtualScrollStartIndex: previewStartIndex,
+                    } = this.$options.customOption;
+
+                    const differ = Math.abs(startIndex - previewStartIndex);
+
+                    this.$options.customOption.previewVirtualScrollStartIndex =
+                        startIndex;
+
+                    // default placeholder per scrolling row count
+                    if (differ > this.defaultPlaceholderPerScrollingRowCount) {
                         this.isScrolling = true;
+                    } else {
+                        this.isScrolling = false;
                     }
 
                     this.debounceScrollEnded();
