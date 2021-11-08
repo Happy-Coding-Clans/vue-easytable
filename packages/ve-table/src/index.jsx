@@ -296,6 +296,12 @@ export default {
         previewTableContainerScrollLeft: null,
     },
     computed: {
+        // actual render table data
+        actualRenderTableData() {
+            return this.isVirtualScroll
+                ? this.virtualScrollVisibleData
+                : this.tableData;
+        },
         // return row keys
         allRowKeys() {
             let result = [];
@@ -1697,7 +1703,7 @@ export default {
             groupColumns,
             fixedHeader,
             fixedFooter,
-            tableData,
+            actualRenderTableData,
             tdWidthChange,
             expandOption,
             checkboxOption,
@@ -1705,7 +1711,6 @@ export default {
             rowKeyFieldName,
             virtualScrollOption,
             isVirtualScroll,
-            virtualScrollVisibleData,
             sortOption,
             cellStyleOption,
             isScrolling,
@@ -1737,12 +1742,11 @@ export default {
                 colgroups,
                 expandOption,
                 checkboxOption,
-                tableData,
+                actualRenderTableData,
                 rowKeyFieldName,
                 radioOption,
                 virtualScrollOption,
                 isVirtualScroll,
-                virtualScrollVisibleData,
                 cellStyleOption,
                 cellSpanOption: this.cellSpanOption,
                 eventCustomOption: this.eventCustomOption,

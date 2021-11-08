@@ -27,7 +27,7 @@ export default {
             type: Array,
             required: true,
         },
-        tableData: {
+        actualRenderTableData: {
             type: Array,
             required: true,
         },
@@ -74,11 +74,6 @@ export default {
         isScrolling: {
             type: Boolean,
             default: false,
-        },
-        // virtual scroll visible data
-        virtualScrollVisibleData: {
-            type: Array,
-            default: () => [],
         },
         rowKeyFieldName: {
             type: String,
@@ -169,13 +164,6 @@ export default {
         hasPreparedColsWidths: false,
     },
     computed: {
-        // actual render table data
-        actualRenderTableData() {
-            return this.isVirtualScroll
-                ? this.virtualScrollVisibleData
-                : this.tableData;
-        },
-
         // expand column
         expandColumn() {
             return this.colgroups.find((x) => x.type === COLUMN_TYPES.EXPAND);
@@ -461,12 +449,12 @@ export default {
         tdSizeChange({ key, width }) {
             // 只有固定列才需要计算列宽
             if (this.hasFixedColumn) {
-                const { colsWidths, tableData, colgroups } = this;
+                const { colsWidths, actualRenderTableData, colgroups } = this;
                 colsWidths.set(key, width);
 
                 // 优化固定列表格初始化渲染速度慢问题
                 if (!this.$options.customOption.hasPreparedColsWidths) {
-                    if (tableData.length > 0) {
+                    if (actualRenderTableData.length > 0) {
                         if (
                             ++this.$options.customOption
                                 .colsWidthsEfficientCount === colgroups.length
@@ -627,7 +615,9 @@ export default {
             }
 
             selectedRowChange({
-                row: this.tableData.find((x) => x[rowKeyFieldName] === rowKey),
+                row: this.actualRenderTableData.find(
+                    (x) => x[rowKeyFieldName] === rowKey,
+                ),
                 isSelected,
                 selectedRowKeys: internalCheckboxSelectedRowKeysTemp,
             });
@@ -700,7 +690,9 @@ export default {
             }
 
             selectedRowChange({
-                row: this.tableData.find((x) => x[rowKeyFieldName] === rowKey),
+                row: this.actualRenderTableData.find(
+                    (x) => x[rowKeyFieldName] === rowKey,
+                ),
             });
         },
         // get tr key
