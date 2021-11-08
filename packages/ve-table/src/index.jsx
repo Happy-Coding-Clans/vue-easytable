@@ -191,7 +191,6 @@ export default {
             tableContainerRef: "tableContainerRef",
             tableContentRef: "tableContentRef",
             virtualPhantomRef: "virtualPhantomRef",
-            cloneTableData: [],
             cloneColumns: [],
             // is group header
             isGroupHeader: false,
@@ -301,10 +300,10 @@ export default {
         allRowKeys() {
             let result = [];
 
-            const { cloneTableData, rowKeyFieldName } = this;
+            const { tableData, rowKeyFieldName } = this;
 
             if (rowKeyFieldName) {
-                result = cloneTableData.map((x) => {
+                result = tableData.map((x) => {
                     return x[rowKeyFieldName];
                 });
             }
@@ -447,9 +446,14 @@ export default {
         },
     },
     watch: {
+        // watch clone table data
         tableData: {
-            handler() {
-                this.initTableData();
+            handler(newVal, oldVal) {
+                this.initVirtualScrollPositions();
+                // 第一次不需要触发，仅数据变更触发
+                if (oldVal) {
+                    this.initVirtualScroll();
+                }
             },
             immediate: true,
         },
@@ -481,17 +485,6 @@ export default {
             handler(val) {
                 if (Array.isArray(val) && val.length > 0) {
                     this.initFooterRows();
-                }
-            },
-            immediate: true,
-        },
-        // watch clone table data
-        cloneTableData: {
-            handler(newVal, oldVal) {
-                this.initVirtualScrollPositions();
-                // 第一次不需要触发，仅数据变更触发
-                if (oldVal) {
-                    this.initVirtualScroll();
                 }
             },
             immediate: true,
@@ -540,12 +533,6 @@ export default {
             });
         },
 
-        /*
-        init table data
-        */
-        initTableData() {
-            this.cloneTableData = cloneDeep(this.tableData);
-        },
         // init columns
         initColumns() {
             this.cloneColumns = cloneDeep(this.columns);
@@ -806,7 +793,7 @@ export default {
 
         // set virtual scroll visible data
         setVirtualScrollVisibleData() {
-            const { cloneTableData } = this;
+            const { tableData } = this;
 
             const startIndex =
                 this.$options.customOption.virtualScrollStartIndex;
@@ -818,7 +805,7 @@ export default {
             let start = startIndex - aboveCount;
             let end = endIndex + belowCount;
 
-            this.virtualScrollVisibleData = cloneTableData.slice(start, end);
+            this.virtualScrollVisibleData = tableData.slice(start, end);
         },
 
         // get virtual scroll above count
@@ -844,7 +831,7 @@ export default {
 
             const {
                 isVirtualScroll,
-                cloneTableData,
+                tableData,
                 defaultVirtualScrollBufferCount,
             } = this;
 
@@ -853,7 +840,7 @@ export default {
 
             if (isVirtualScroll) {
                 result = Math.min(
-                    cloneTableData.length - virtualScrollEndIndex,
+                    tableData.length - virtualScrollEndIndex,
                     defaultVirtualScrollBufferCount,
                 );
             }
@@ -910,7 +897,7 @@ export default {
                 const {
                     virtualScrollOption,
                     rowKeyFieldName,
-                    cloneTableData,
+                    tableData,
                     defaultVirtualScrollMinRowHeight,
                 } = this;
 
@@ -918,14 +905,12 @@ export default {
                     ? virtualScrollOption.minRowHeight
                     : defaultVirtualScrollMinRowHeight;
 
-                this.virtualScrollPositions = cloneTableData.map(
-                    (item, index) => ({
-                        rowKey: item[rowKeyFieldName],
-                        height: minRowHeight,
-                        top: index * minRowHeight,
-                        bottom: (index + 1) * minRowHeight,
-                    }),
-                );
+                this.virtualScrollPositions = tableData.map((item, index) => ({
+                    rowKey: item[rowKeyFieldName],
+                    height: minRowHeight,
+                    top: index * minRowHeight,
+                    bottom: (index + 1) * minRowHeight,
+                }));
             }
         },
 
@@ -1164,11 +1149,11 @@ export default {
                 );
 
                 if (editingCell) {
-                    const updateIndex = this.cloneTableData.findIndex(
+                    const updateIndex = this.tableData.findIndex(
                         (x) => x[rowKeyFieldName] === rowKey,
                     );
 
-                    this.cloneTableData.splice(updateIndex, 1, editingCell.row);
+                    this.tableData.splice(updateIndex, 1, editingCell.row);
 
                     rowValueChange &&
                         rowValueChange({
@@ -1181,7 +1166,7 @@ export default {
                 );
 
                 if (editingCell) {
-                    let currentRow = this.cloneTableData.find(
+                    let currentRow = this.tableData.find(
                         (x) => x[rowKeyFieldName] === rowKey,
                     );
 
@@ -1513,7 +1498,7 @@ export default {
 
             const { fullRowEdit, stopEditingWhenCellLoseFocus } = editOption;
 
-            let currentRow = this.cloneTableData.find(
+            let currentRow = this.tableData.find(
                 (x) => x[rowKeyFieldName] === rowKey,
             );
 
@@ -1712,7 +1697,7 @@ export default {
             groupColumns,
             fixedHeader,
             fixedFooter,
-            cloneTableData,
+            tableData,
             tdWidthChange,
             expandOption,
             checkboxOption,
@@ -1752,7 +1737,7 @@ export default {
                 colgroups,
                 expandOption,
                 checkboxOption,
-                cloneTableData,
+                tableData,
                 rowKeyFieldName,
                 radioOption,
                 virtualScrollOption,

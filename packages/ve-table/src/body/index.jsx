@@ -27,7 +27,7 @@ export default {
             type: Array,
             required: true,
         },
-        cloneTableData: {
+        tableData: {
             type: Array,
             required: true,
         },
@@ -173,7 +173,7 @@ export default {
         actualRenderTableData() {
             return this.isVirtualScroll
                 ? this.virtualScrollVisibleData
-                : this.cloneTableData;
+                : this.tableData;
         },
 
         // expand column
@@ -461,12 +461,12 @@ export default {
         tdSizeChange({ key, width }) {
             // 只有固定列才需要计算列宽
             if (this.hasFixedColumn) {
-                const { colsWidths, cloneTableData, colgroups } = this;
+                const { colsWidths, tableData, colgroups } = this;
                 colsWidths.set(key, width);
 
                 // 优化固定列表格初始化渲染速度慢问题
                 if (!this.$options.customOption.hasPreparedColsWidths) {
-                    if (cloneTableData.length > 0) {
+                    if (tableData.length > 0) {
                         if (
                             ++this.$options.customOption
                                 .colsWidthsEfficientCount === colgroups.length
@@ -627,9 +627,7 @@ export default {
             }
 
             selectedRowChange({
-                row: this.cloneTableData.find(
-                    (x) => x[rowKeyFieldName] === rowKey,
-                ),
+                row: this.tableData.find((x) => x[rowKeyFieldName] === rowKey),
                 isSelected,
                 selectedRowKeys: internalCheckboxSelectedRowKeysTemp,
             });
@@ -702,9 +700,7 @@ export default {
             }
 
             selectedRowChange({
-                row: this.cloneTableData.find(
-                    (x) => x[rowKeyFieldName] === rowKey,
-                ),
+                row: this.tableData.find((x) => x[rowKeyFieldName] === rowKey),
             });
         },
         // get tr key
