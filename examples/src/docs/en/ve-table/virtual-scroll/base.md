@@ -59,7 +59,7 @@
         methods: {
             initData() {
                 let data = [];
-                for (let i = 0; i < 10000; i++) {
+                for (let i = 0; i < 300000; i++) {
                     data.push({
                         rowKey: i,
                         index: i,
