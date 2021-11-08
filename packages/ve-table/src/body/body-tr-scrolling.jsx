@@ -1,7 +1,7 @@
 import { clsName } from "../util";
 import { COMPS_NAME } from "../util/constant";
 export default {
-    name: COMPS_NAME.VE_TABLE_BODY_TR,
+    name: COMPS_NAME.VE_TABLE_BODY_TR_SCROLLING,
     props: {
         colgroups: {
             type: Array,
