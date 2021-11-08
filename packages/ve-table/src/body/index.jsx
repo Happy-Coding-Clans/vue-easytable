@@ -2,7 +2,12 @@ import BodyTr from "./body-tr";
 import BodyTrScrolling from "./body-tr-scrolling";
 import ExpandTr from "./expand-tr";
 import VueDomResizeObserver from "../../../src/comps/resize-observer";
-import { getDomResizeObserverCompKey } from "../util";
+import {
+    getDomResizeObserverCompKey,
+    getFixedTotalWidthByColumnKey,
+    clsName,
+} from "../util";
+import { getValByUnit } from "../../../src/utils/index.js";
 import emitter from "../../../src/mixins/emitter";
 import {
     COMPS_NAME,
@@ -154,6 +159,12 @@ export default {
             1、存储当前单选功能的rowkey 信息
             */
             internalRadioSelectedRowKey: null,
+            /* 
+            column collenction info 
+            1、style of each column
+            2、class of each column
+            */
+            columnCollection: [],
         };
     },
     // 存储非响应式数据
@@ -274,6 +285,14 @@ export default {
         },
     },
     watch: {
+        // watch colgroups
+        colgroups: {
+            handler: function () {
+                this.initColumnCollection();
+            },
+            deep: true,
+            immediate: true,
+        },
         // watch expand Option
         expandOption: {
             handler: function () {
@@ -330,6 +349,103 @@ export default {
         },
     },
     methods: {
+        // init column collection
+        initColumnCollection() {
+            const { colgroups } = this;
+
+            colgroups.forEach((col) => {
+                const colKey = col.key;
+
+                let columnCollectionItem = {
+                    colKey: colKey,
+                    class: {
+                        [clsName("last-left-fixed-column")]:
+                            this.isLastLeftFixedColumn(col),
+                        [clsName("first-right-fixed-column")]:
+                            this.isfirstRightFixedColumn(col),
+                    },
+                    style: {},
+                };
+
+                const { fixed, align } = col;
+
+                columnCollectionItem.style["text-align"] = align || "center";
+
+                if (fixed) {
+                    let totalWidth = 0;
+                    // column index
+                    const columnIndex = colgroups.findIndex(
+                        (x) => x.key === colKey,
+                    );
+                    if (
+                        (fixed === "left" && columnIndex > 0) ||
+                        (fixed === "right" &&
+                            columnIndex < colgroups.length - 1)
+                    ) {
+                        totalWidth = getFixedTotalWidthByColumnKey(
+                            colgroups,
+                            colKey,
+                            fixed,
+                        );
+
+                        totalWidth = getValByUnit(totalWidth);
+                    }
+
+                    columnCollectionItem.style["left"] =
+                        fixed === "left" ? totalWidth : "";
+                    columnCollectionItem.style["right"] =
+                        fixed === "right" ? totalWidth : "";
+                }
+
+                this.columnCollection.push(columnCollectionItem);
+            });
+        },
+
+        // is last left fixed column
+        isLastLeftFixedColumn(column) {
+            let result = false;
+
+            const { colgroups } = this;
+
+            const { fixed } = column;
+
+            if (fixed === "left") {
+                const { field } = column;
+                const leftFixedColumns = colgroups.filter(
+                    (x) => x.fixed === "left",
+                );
+                const index = leftFixedColumns.findIndex(
+                    (x) => x.field === field,
+                );
+
+                if (index === leftFixedColumns.length - 1) {
+                    result = true;
+                }
+            }
+            return result;
+        },
+
+        // is first right fixed column
+        isfirstRightFixedColumn(column) {
+            let result = false;
+
+            const { colgroups } = this;
+
+            const { fixed } = column;
+
+            if (fixed === "right") {
+                const { field } = column;
+                const leftFixedColumns = colgroups.filter(
+                    (x) => x.fixed === "right",
+                );
+
+                if (leftFixedColumns[0].field === field) {
+                    result = true;
+                }
+            }
+            return result;
+        },
+
         /*
          * @expandRowChange
          * @desc  row expand change
@@ -825,6 +941,7 @@ export default {
                                 editOption: this.editOption,
                                 editingCells: this.editingCells,
                                 editingFocusCell: this.editingFocusCell,
+                                columnCollection: this.columnCollection,
                             },
                         };
 

@@ -20,6 +20,10 @@ export default {
             type: Array,
             required: true,
         },
+        columnCollection: {
+            type: Array,
+            required: true,
+        },
         rowKeyFieldName: {
             type: String,
             default: null,
@@ -224,6 +228,7 @@ export default {
                         rowIndex,
                         rowData,
                         column,
+                        columnCollection: this.columnCollection,
                         colgroups,
                         expandOption,
                         expandedRowkeys,

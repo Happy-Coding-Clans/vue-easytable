@@ -1,13 +1,8 @@
 import BodyCheckboxContent from "./body-checkbox-content";
 import BodyRadioContent from "./body-radio-content";
 import ExpandTrIcon from "./expand-tr-icon";
-import { getFixedTotalWidthByColumnKey, clsName } from "../util";
-import {
-    getValByUnit,
-    isNumber,
-    isBoolean,
-    isFalse,
-} from "../../../src/utils/index.js";
+import { clsName } from "../util";
+import { isNumber, isBoolean, isFalse } from "../../../src/utils/index.js";
 import focus from "../../../src/directives/focus.js";
 
 import {
@@ -31,6 +26,10 @@ export default {
         },
         column: {
             type: Object,
+            required: true,
+        },
+        columnCollection: {
+            type: Array,
             required: true,
         },
         rowIndex: {
@@ -152,48 +151,13 @@ export default {
         };
     },
     computed: {
-        // is last left fixed column
-        isLastLeftFixedColumn() {
-            let result = false;
-
-            const { colgroups, column } = this;
-
-            const { fixed } = column;
-
-            if (fixed === "left") {
-                const { field } = column;
-                const leftFixedColumns = colgroups.filter(
-                    (x) => x.fixed === "left",
-                );
-                const index = leftFixedColumns.findIndex(
-                    (x) => x.field === field,
-                );
-
-                if (index === leftFixedColumns.length - 1) {
-                    result = true;
-                }
-            }
-            return result;
-        },
-        // is first right fixed column
-        isfirstRightFixedColumn() {
-            let result = false;
-
-            const { colgroups, column } = this;
-
-            const { fixed } = column;
-
-            if (fixed === "right") {
-                const { field } = column;
-                const leftFixedColumns = colgroups.filter(
-                    (x) => x.fixed === "right",
-                );
-
-                if (leftFixedColumns[0].field === field) {
-                    result = true;
-                }
-            }
-            return result;
+        /*
+        current column collection item
+        1、Cache the style、class of each column
+        */
+        currentColumnCollectionItem() {
+            const { columnCollection, column } = this;
+            return columnCollection.find((x) => x.colKey === column.key);
         },
 
         // current row key
@@ -255,41 +219,35 @@ export default {
 
             return result;
         },
-
+    },
+    watch: {
+        // watch row data
+        rowData: {
+            handler(rowData) {
+                const column = this.column;
+                if (column) {
+                    this.rawCellValue = rowData[column.field];
+                }
+            },
+            deep: true,
+            immediate: true,
+        },
+    },
+    methods: {
         /*
          * @bodyTdStyle
          * @desc body td style
          */
         bodyTdStyle() {
-            const { key, align, fixed } = this.column;
+            const { currentColumnCollectionItem } = this;
 
             let result = {};
 
-            const { colgroups } = this;
-
-            // text align
-            result["text-align"] = align || "center";
-
-            // fixed left total width or right total width
-            if (fixed) {
-                let totalWidth = 0;
-                // column index
-                const columnIndex = colgroups.findIndex((x) => x.key === key);
-                if (
-                    (fixed === "left" && columnIndex > 0) ||
-                    (fixed === "right" && columnIndex < colgroups.length - 1)
-                ) {
-                    totalWidth = getFixedTotalWidthByColumnKey(
-                        colgroups,
-                        key,
-                        fixed,
-                    );
-
-                    totalWidth = getValByUnit(totalWidth);
-                }
-
-                result["left"] = fixed === "left" ? totalWidth : "";
-                result["right"] = fixed === "right" ? totalWidth : "";
+            if (currentColumnCollectionItem) {
+                result = Object.assign(
+                    result,
+                    currentColumnCollectionItem.style,
+                );
             }
 
             return result;
@@ -300,6 +258,8 @@ export default {
          * @desc body td class
          */
         bodyTdClass() {
+            const { currentColumnCollectionItem } = this;
+
             const { fixed } = this.column;
 
             let result = {
@@ -320,10 +280,6 @@ export default {
             if (fixed) {
                 result[clsName("fixed-left")] = fixed === "left";
                 result[clsName("fixed-right")] = fixed === "right";
-                result[clsName("last-left-fixed-column")] =
-                    this.isLastLeftFixedColumn;
-                result[clsName("first-right-fixed-column")] =
-                    this.isfirstRightFixedColumn;
             }
 
             // cell style option
@@ -352,23 +308,16 @@ export default {
                 }
             }
 
+            if (currentColumnCollectionItem) {
+                result = Object.assign(
+                    result,
+                    currentColumnCollectionItem.class,
+                );
+            }
+
             return result;
         },
-    },
-    watch: {
-        // watch row data
-        rowData: {
-            handler(rowData) {
-                const column = this.column;
-                if (column) {
-                    this.rawCellValue = rowData[column.field];
-                }
-            },
-            deep: true,
-            immediate: true,
-        },
-    },
-    methods: {
+
         // get ellipsis content style
         getEllipsisContentStyle() {
             let result = {};
@@ -697,8 +646,8 @@ export default {
 
         // td props
         const tdProps = {
-            class: this.bodyTdClass,
-            style: this.bodyTdStyle,
+            class: this.bodyTdClass(),
+            style: this.bodyTdStyle(),
             attrs: {
                 rowspan,
                 colspan,
