@@ -258,7 +258,7 @@ export default {
 
             columns.push({
                 field: "rowIndex",
-                key: "a",
+                key: "rowIndex",
                 title: "#",
                 width: 100,
                 fixed: this.enableColumnFixed ? "left" : "",
@@ -273,14 +273,14 @@ export default {
                     children: [
                         {
                             field: "name",
-                            key: "b",
+                            key: "name",
                             title: "Name",
                             width: 200,
                             align: "left",
                         },
                         {
                             field: "sex",
-                            key: "c",
+                            key: "sex",
                             title: "Sex",
                             width: 100,
                             align: "center",
@@ -311,7 +311,7 @@ export default {
                         {
                             title: "Profession",
                             field: "profession",
-                            key: "d",
+                            key: "profession",
                             width: 200,
                             align: "left",
                         },
@@ -320,7 +320,7 @@ export default {
                             children: [
                                 {
                                     field: "proficiency",
-                                    key: "e",
+                                    key: "proficiency",
                                     title: "Proficiency",
                                     width: 300,
                                     sortBy: "",
@@ -358,7 +358,7 @@ export default {
                                 },
                                 {
                                     field: "skills",
-                                    key: "f",
+                                    key: "skills",
                                     title: "Skills",
                                     width: 300,
                                     align: "left",
@@ -404,14 +404,14 @@ export default {
                 },
                 {
                     field: "address",
-                    key: "g",
+                    key: "address",
                     title: "Address",
                     width: 350,
                     align: "left",
                 },
                 {
                     field: "status",
-                    key: "h",
+                    key: "status",
                     title: "Status",
                     width: 100,
                     fixed: this.enableColumnFixed ? "right" : "",
