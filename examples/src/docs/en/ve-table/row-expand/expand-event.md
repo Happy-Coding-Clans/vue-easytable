@@ -33,13 +33,13 @@
                     },
                     beforeExpandRowChange: ({ beforeExpandedRowKeys, row, rowIndex }) => {
                         if (row["rowKey"] === 1001) {
-                            alert("切换前的事件。返回false可中断展开切换");
+                            alert("Event before expand. Return false to interrupt the expand");
                             return false;
                         }
                         return true;
                     },
                     afterExpandRowChange: ({ afterExpandedRowKeys, row, rowIndex }) => {
-                        alert("切换后的事件");
+                        alert("Expand events after switching");
                     },
                 },
                 columns: [
