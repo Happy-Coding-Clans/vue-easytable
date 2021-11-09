@@ -7,6 +7,16 @@ Vx.x.x(TPL)
 -   Style
 -   Dependencies Changes
 
+V2.10.1
+
+### Performance Improvements
+
+-   渲染性能优化
+    -   快速滚动中，如拖动滚动条时只渲染占位符
+    -   将表格单元格计算的 style、class 改为 body 中统计计算
+-   内存占用优化。内存减少 45% 左右
+    -   弃用 deepClone 表格数据
+
 V2.10.0
 
 ### Feature
