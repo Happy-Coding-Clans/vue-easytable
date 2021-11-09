@@ -1791,26 +1791,30 @@ export default {
             style: tableContainerStyle,
             on: {
                 scroll: () => {
-                    this.tableContainerScrollHandler();
+                    if (isVirtualScroll) {
+                        this.tableContainerScrollHandler();
 
-                    const {
-                        virtualScrollStartIndex: startIndex,
-                        previewVirtualScrollStartIndex: previewStartIndex,
-                    } = this.$options.customOption;
+                        const {
+                            virtualScrollStartIndex: startIndex,
+                            previewVirtualScrollStartIndex: previewStartIndex,
+                        } = this.$options.customOption;
 
-                    const differ = Math.abs(startIndex - previewStartIndex);
+                        const differ = Math.abs(startIndex - previewStartIndex);
 
-                    this.$options.customOption.previewVirtualScrollStartIndex =
-                        startIndex;
+                        this.$options.customOption.previewVirtualScrollStartIndex =
+                            startIndex;
 
-                    // default placeholder per scrolling row count
-                    if (differ > this.defaultPlaceholderPerScrollingRowCount) {
-                        this.isScrolling = true;
-                    } else {
-                        this.isScrolling = false;
+                        // default placeholder per scrolling row count
+                        if (
+                            differ > this.defaultPlaceholderPerScrollingRowCount
+                        ) {
+                            this.isScrolling = true;
+                        } else {
+                            this.isScrolling = false;
+                        }
+
+                        this.debounceScrollEnded();
                     }
-
-                    this.debounceScrollEnded();
                 },
             },
             directives: [
