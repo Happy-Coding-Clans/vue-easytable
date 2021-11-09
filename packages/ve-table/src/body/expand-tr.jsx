@@ -47,11 +47,6 @@ export default {
             type: String,
             default: null,
         },
-        // is virtual scroll
-        isVirtualScroll: {
-            type: Boolean,
-            default: false,
-        },
     },
     computed: {
         // get column count

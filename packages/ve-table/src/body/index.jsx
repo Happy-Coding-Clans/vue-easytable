@@ -614,7 +614,6 @@ export default {
                         rowKeyFieldName: this.rowKeyFieldName,
                         rowData,
                         rowIndex,
-                        isVirtualScroll: this.isVirtualScroll,
                     },
                 };
 
