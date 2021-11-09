@@ -985,7 +985,10 @@ export default {
 
             //this.$refs[this.tableContentRef].style.transform = `translate3d(0,${startOffset}px,0)`;
             window.requestAnimationFrame(() => {
-                this.$refs[this.tableContentRef].style.top = `${startOffset}px`;
+                const ele = this.$refs[this.tableContentRef];
+                if (ele) {
+                    ele.style.top = `${startOffset}px`;
+                }
             });
         },
         // get virtual scroll start index
