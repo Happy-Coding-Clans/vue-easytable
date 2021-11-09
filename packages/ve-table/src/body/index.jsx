@@ -159,12 +159,6 @@ export default {
             1、存储当前单选功能的rowkey 信息
             */
             internalRadioSelectedRowKey: null,
-            /* 
-            column collenction info 
-            1、style of each column
-            2、class of each column
-            */
-            columnCollection: [],
         };
     },
     // 存储非响应式数据
@@ -175,6 +169,64 @@ export default {
         hasPreparedColsWidths: false,
     },
     computed: {
+        /* 
+        column collenction info 
+        1、style of each column
+        2、class of each column
+        */
+        columnCollection() {
+            let columnCollection = [];
+
+            const { colgroups } = this;
+
+            colgroups.forEach((col) => {
+                const colKey = col.key;
+
+                let columnCollectionItem = {
+                    colKey: colKey,
+                    class: {
+                        [clsName("last-left-fixed-column")]:
+                            this.isLastLeftFixedColumn(col),
+                        [clsName("first-right-fixed-column")]:
+                            this.isfirstRightFixedColumn(col),
+                    },
+                    style: {},
+                };
+
+                const { fixed, align } = col;
+
+                columnCollectionItem.style["text-align"] = align || "center";
+
+                if (fixed) {
+                    let totalWidth = 0;
+                    // column index
+                    const columnIndex = colgroups.findIndex(
+                        (x) => x.key === colKey,
+                    );
+                    if (
+                        (fixed === "left" && columnIndex > 0) ||
+                        (fixed === "right" &&
+                            columnIndex < colgroups.length - 1)
+                    ) {
+                        totalWidth = getFixedTotalWidthByColumnKey(
+                            colgroups,
+                            colKey,
+                            fixed,
+                        );
+
+                        totalWidth = getValByUnit(totalWidth);
+                    }
+
+                    columnCollectionItem.style["left"] =
+                        fixed === "left" ? totalWidth : "";
+                    columnCollectionItem.style["right"] =
+                        fixed === "right" ? totalWidth : "";
+                }
+
+                columnCollection.push(columnCollectionItem);
+            });
+            return columnCollection;
+        },
         // expand column
         expandColumn() {
             return this.colgroups.find((x) => x.type === COLUMN_TYPES.EXPAND);
@@ -285,14 +337,6 @@ export default {
         },
     },
     watch: {
-        // watch colgroups
-        colgroups: {
-            handler: function () {
-                this.initColumnCollection();
-            },
-            deep: true,
-            immediate: true,
-        },
         // watch expand Option
         expandOption: {
             handler: function () {
@@ -349,58 +393,6 @@ export default {
         },
     },
     methods: {
-        // init column collection
-        initColumnCollection() {
-            const { colgroups } = this;
-
-            colgroups.forEach((col) => {
-                const colKey = col.key;
-
-                let columnCollectionItem = {
-                    colKey: colKey,
-                    class: {
-                        [clsName("last-left-fixed-column")]:
-                            this.isLastLeftFixedColumn(col),
-                        [clsName("first-right-fixed-column")]:
-                            this.isfirstRightFixedColumn(col),
-                    },
-                    style: {},
-                };
-
-                const { fixed, align } = col;
-
-                columnCollectionItem.style["text-align"] = align || "center";
-
-                if (fixed) {
-                    let totalWidth = 0;
-                    // column index
-                    const columnIndex = colgroups.findIndex(
-                        (x) => x.key === colKey,
-                    );
-                    if (
-                        (fixed === "left" && columnIndex > 0) ||
-                        (fixed === "right" &&
-                            columnIndex < colgroups.length - 1)
-                    ) {
-                        totalWidth = getFixedTotalWidthByColumnKey(
-                            colgroups,
-                            colKey,
-                            fixed,
-                        );
-
-                        totalWidth = getValByUnit(totalWidth);
-                    }
-
-                    columnCollectionItem.style["left"] =
-                        fixed === "left" ? totalWidth : "";
-                    columnCollectionItem.style["right"] =
-                        fixed === "right" ? totalWidth : "";
-                }
-
-                this.columnCollection.push(columnCollectionItem);
-            });
-        },
-
         // is last left fixed column
         isLastLeftFixedColumn(column) {
             let result = false;
@@ -565,18 +557,16 @@ export default {
         tdSizeChange({ key, width }) {
             // 只有固定列才需要计算列宽
             if (this.hasFixedColumn) {
-                const { colsWidths, actualRenderTableData, colgroups } = this;
+                const { colsWidths, colgroups } = this;
                 colsWidths.set(key, width);
 
                 // 优化固定列表格初始化渲染速度慢问题
                 if (!this.$options.customOption.hasPreparedColsWidths) {
-                    if (actualRenderTableData.length > 0) {
-                        if (
-                            ++this.$options.customOption
-                                .colsWidthsEfficientCount === colgroups.length
-                        ) {
-                            this.$options.customOption.hasPreparedColsWidths = true;
-                        }
+                    if (
+                        ++this.$options.customOption
+                            .colsWidthsEfficientCount === colgroups.length
+                    ) {
+                        this.$options.customOption.hasPreparedColsWidths = true;
                     }
                 }
                 if (this.$options.customOption.hasPreparedColsWidths) {
