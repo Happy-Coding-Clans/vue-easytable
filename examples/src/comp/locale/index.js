@@ -51,10 +51,6 @@ export default {
                     value: 150000,
                     label: "150,000 行",
                 },
-                {
-                    value: 300000,
-                    label: "300,000 行",
-                },
             ],
             dataRows: "数据量：",
             theme: "暗黑主题：",
@@ -112,10 +108,6 @@ export default {
                 {
                     value: 150000,
                     label: "150,000 Rows",
-                },
-                {
-                    value: 300000,
-                    label: "300,000 Rows",
                 },
             ],
             dataRows: "Data Rows:",
