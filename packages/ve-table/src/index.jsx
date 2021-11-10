@@ -1020,53 +1020,49 @@ export default {
             }
             return tempIndex;
         },
-        // virtual scroll handler
-        tableContainerScrollHandler() {
+        // table container virtual scroll handler
+        tableContainerVirtualScrollHandler() {
             const tableContainerRef = this.$refs[this.tableContainerRef];
 
             this.setScrolling(tableContainerRef);
 
-            if (this.isVirtualScroll) {
-                const {
-                    virtualScrollVisibleCount: visibleCount,
-                    virtualScrollOption,
-                } = this;
+            const {
+                virtualScrollVisibleCount: visibleCount,
+                virtualScrollOption,
+            } = this;
 
-                //当前滚动位置
-                let scrollTop = tableContainerRef.scrollTop;
+            //当前滚动位置
+            let scrollTop = tableContainerRef.scrollTop;
 
-                //此时的开始索引
-                let visibleStartIndex =
-                    this.getVirtualScrollStartIndex(scrollTop);
-                this.$options.customOption.virtualScrollStartIndex =
-                    visibleStartIndex;
+            //此时的开始索引
+            let visibleStartIndex = this.getVirtualScrollStartIndex(scrollTop);
+            this.$options.customOption.virtualScrollStartIndex =
+                visibleStartIndex;
 
-                //此时的结束索引
-                let visibleEndIndex = visibleStartIndex + visibleCount;
-                this.$options.customOption.virtualScrollEndIndex =
-                    visibleEndIndex;
+            //此时的结束索引
+            let visibleEndIndex = visibleStartIndex + visibleCount;
+            this.$options.customOption.virtualScrollEndIndex = visibleEndIndex;
 
-                //此时的偏移量
-                this.setVirtualScrollStartOffset();
+            //此时的偏移量
+            this.setVirtualScrollStartOffset();
 
-                const { scrolling } = virtualScrollOption;
-                if (isFunction(scrolling)) {
-                    const visibleAboveCount = this.getVirtualScrollAboveCount();
-                    const visibleBelowCount = this.getVirtualScrollBelowCount();
+            const { scrolling } = virtualScrollOption;
+            if (isFunction(scrolling)) {
+                const visibleAboveCount = this.getVirtualScrollAboveCount();
+                const visibleBelowCount = this.getVirtualScrollBelowCount();
 
-                    let startRowIndex = visibleStartIndex - visibleAboveCount;
+                let startRowIndex = visibleStartIndex - visibleAboveCount;
 
-                    scrolling({
-                        startRowIndex: startRowIndex > 0 ? startRowIndex : 0,
-                        visibleStartIndex,
-                        visibleEndIndex,
-                        visibleAboveCount,
-                        visibleBelowCount,
-                    });
-                }
-
-                this.setVirtualScrollVisibleData();
+                scrolling({
+                    startRowIndex: startRowIndex > 0 ? startRowIndex : 0,
+                    visibleStartIndex,
+                    visibleEndIndex,
+                    visibleAboveCount,
+                    visibleBelowCount,
+                });
             }
+
+            this.setVirtualScrollVisibleData();
         },
         // debounce scroll ended
         debounceScrollEnded() {
@@ -1097,7 +1093,7 @@ export default {
                 this.$options.customOption.virtualScrollEndIndex =
                     startIndex + this.virtualScrollVisibleCount;
 
-                this.tableContainerScrollHandler();
+                this.tableContainerVirtualScrollHandler();
                 this.setVirtualPhantomHeight();
             }
         },
@@ -1795,7 +1791,7 @@ export default {
             on: {
                 scroll: () => {
                     if (isVirtualScroll) {
-                        this.tableContainerScrollHandler();
+                        this.tableContainerVirtualScrollHandler();
 
                         const {
                             virtualScrollStartIndex: startIndex,
