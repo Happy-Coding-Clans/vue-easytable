@@ -189,6 +189,7 @@ export default {
             */
             columnsOptionResetTime: 0,
             tableContainerRef: "tableContainerRef",
+            tableBodyRef: "tableBodyRef",
             tableContentRef: "tableContentRef",
             virtualPhantomRef: "virtualPhantomRef",
             cloneColumns: [],
@@ -1046,6 +1047,19 @@ export default {
             //此时的偏移量
             this.setVirtualScrollStartOffset();
 
+            if (!this.isScrolling) {
+                const bodyElement = this.$refs[this.tableBodyRef];
+
+                if (bodyElement) {
+                    bodyElement.renderingRowKeys(
+                        this.allRowKeys.slice(
+                            visibleStartIndex,
+                            visibleEndIndex + 1,
+                        ),
+                    );
+                }
+            }
+
             const { scrolling } = virtualScrollOption;
             if (isFunction(scrolling)) {
                 const visibleAboveCount = this.getVirtualScrollAboveCount();
@@ -1734,6 +1748,7 @@ export default {
 
         // body props
         const bodyProps = {
+            ref: this.tableBodyRef,
             class: [clsName("body"), this.tableBodyClass],
             props: {
                 tableViewportWidth,

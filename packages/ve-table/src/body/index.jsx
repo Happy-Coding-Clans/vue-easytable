@@ -167,6 +167,10 @@ export default {
         colsWidthsEfficientCount: 0,
         // has init columns widths 此属性可优化固定列表格初始化渲染慢问题
         hasPreparedColsWidths: false,
+        // virtual scroll preview rendered rowKey
+        virtualScrollPreviewRenderedRowKeys: [],
+        // virtual scroll repeat rendered rowKey
+        virtualScrollRepeatRenderedRowKeys: [],
     },
     computed: {
         /* 
@@ -810,6 +814,21 @@ export default {
             }
             return result;
         },
+
+        // rendering row keys
+        renderingRowKeys(rowKeys) {
+            const {
+                virtualScrollPreviewRenderedRowKeys: previewRenderedRowKeys,
+            } = this.$options.customOption;
+
+            this.$options.customOption.virtualScrollRepeatRenderedRowKeys =
+                rowKeys.filter((rowKey) => {
+                    return previewRenderedRowKeys.indexOf(rowKey) != -1;
+                });
+
+            this.$options.customOption.virtualScrollPreviewRenderedRowKeys =
+                rowKeys;
+        },
     },
     mounted() {
         // receive checkbox row selected change from VE_TABLE_BODY_CHECKBOX_CONTENT
@@ -866,6 +885,9 @@ export default {
             isScrolling,
         } = this;
 
+        const { virtualScrollRepeatRenderedRowKeys } =
+            this.$options.customOption;
+
         return (
             <tbody>
                 {/* Measure each column width with additional hidden col */}
@@ -893,6 +915,37 @@ export default {
                     })}
                 </tr>
                 {actualRenderTableData.map((rowData, rowIndex) => {
+                    const trProps = {
+                        key: this.getTrKey({ rowData, rowIndex }),
+                        props: {
+                            rowIndex,
+                            rowData,
+                            colgroups,
+                            expandOption,
+                            expandedRowkeys,
+                            checkboxOption,
+                            radioOption,
+                            rowKeyFieldName,
+                            expandRowChange,
+                            internalCheckboxSelectedRowKeys,
+                            internalRadioSelectedRowKey,
+                            isVirtualScroll,
+                            isExpandRow: isExpandRow({
+                                rowData,
+                                rowIndex,
+                            }),
+                            cellStyleOption,
+                            cellSpanOption: this.cellSpanOption,
+                            highlightRowKey: this.highlightRowKey,
+                            eventCustomOption: this.eventCustomOption,
+                            cellSelectionKeyData: this.cellSelectionKeyData,
+                            editOption: this.editOption,
+                            editingCells: this.editingCells,
+                            editingFocusCell: this.editingFocusCell,
+                            columnCollection: this.columnCollection,
+                        },
+                    };
+
                     if (isScrolling) {
                         const trPropsScrolling = {
                             key: this.getTrKey({ rowData, rowIndex }),
@@ -901,39 +954,19 @@ export default {
                             },
                         };
 
-                        return <BodyTrScrolling {...trPropsScrolling} />;
+                        if (
+                            virtualScrollRepeatRenderedRowKeys.indexOf(
+                                rowData[this.rowKeyFieldName],
+                            ) != -1
+                        ) {
+                            return [
+                                // body tr
+                                <BodyTr {...trProps} />,
+                            ];
+                        } else {
+                            return <BodyTrScrolling {...trPropsScrolling} />;
+                        }
                     } else {
-                        const trProps = {
-                            key: this.getTrKey({ rowData, rowIndex }),
-                            props: {
-                                rowIndex,
-                                rowData,
-                                colgroups,
-                                expandOption,
-                                expandedRowkeys,
-                                checkboxOption,
-                                radioOption,
-                                rowKeyFieldName,
-                                expandRowChange,
-                                internalCheckboxSelectedRowKeys,
-                                internalRadioSelectedRowKey,
-                                isVirtualScroll,
-                                isExpandRow: isExpandRow({
-                                    rowData,
-                                    rowIndex,
-                                }),
-                                cellStyleOption,
-                                cellSpanOption: this.cellSpanOption,
-                                highlightRowKey: this.highlightRowKey,
-                                eventCustomOption: this.eventCustomOption,
-                                cellSelectionKeyData: this.cellSelectionKeyData,
-                                editOption: this.editOption,
-                                editingCells: this.editingCells,
-                                editingFocusCell: this.editingFocusCell,
-                                columnCollection: this.columnCollection,
-                            },
-                        };
-
                         return [
                             // body tr
                             <BodyTr {...trProps} />,
