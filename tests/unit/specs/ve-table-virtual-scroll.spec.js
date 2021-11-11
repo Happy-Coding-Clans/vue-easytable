@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 import veTable from "@/ve-table";
-import { later } from "../util";
+import { later, mockScrollTo } from "../util";
 
 describe("veTable virtual scroll", () => {
     // same row height
@@ -44,9 +44,14 @@ describe("veTable virtual scroll", () => {
     //
     const MAX_HEIGHT = 500;
     const MIN_ROW_HEIGHT = 40;
+
+    // 表格渲染的数量
     const TABLE_ROW_COUNT = Math.ceil(MAX_HEIGHT / MIN_ROW_HEIGHT) + 1;
-    // const MIN_TABLE_ROW_COUNT = Math.floor(MAX_HEIGHT / MIN_ROW_HEIGHT);
-    // const MAX_TABLE_ROW_COUNT = Math.ceil(MAX_HEIGHT / MIN_ROW_HEIGHT) + 2;
+
+    // get table rendered row count by row height
+    function getTableRenderedRowCountByRowHeight(rowHeight) {
+        return Math.ceil(MAX_HEIGHT / rowHeight) + 1;
+    }
 
     it("render same row height", async () => {
         const wrapper = mount(veTable, {
@@ -542,5 +547,105 @@ describe("veTable virtual scroll", () => {
         expect(wrapper.findAll(".ve-table-body-tr").length).toBe(
             TABLE_ROW_COUNT,
         );
+    });
+
+    it("scrolling callback", async () => {
+        const mockFn = jest.fn();
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: [
+                    {
+                        field: "name",
+                        key: "b",
+                        title: "Name",
+                        width: 200,
+                        align: "left",
+                    },
+                    {
+                        field: "hobby",
+                        key: "c",
+                        title: "Hobby",
+                        width: 300,
+                        align: "left",
+                    },
+                    {
+                        field: "address",
+                        key: "d",
+                        title: "Address",
+                        width: "",
+                        align: "left",
+                    },
+                ],
+                tableData: TABLE_DATA_SAME_ROW_HEIGHT,
+                virtualScrollOption: {
+                    // 是否开启
+                    enable: true,
+                    scrolling: mockFn,
+                },
+                maxHeight: MAX_HEIGHT,
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        wrapper.triggerResizeObserver({ width: MAX_HEIGHT });
+
+        await later();
+
+        expect(mockFn).toHaveBeenCalledTimes(1);
+
+        expect(mockFn).toHaveBeenCalledWith({
+            startRowIndex: 0,
+            visibleStartIndex: 0,
+            visibleEndIndex: TABLE_ROW_COUNT - 1, // ？
+            visibleAboveCount: 0,
+            visibleBelowCount: 1,
+        });
+    });
+
+    it("minRowHeight prop", async () => {
+        const mockFn = jest.fn();
+        const minRowHeight = 50;
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: [
+                    {
+                        field: "name",
+                        key: "b",
+                        title: "Name",
+                        width: 200,
+                        align: "left",
+                    },
+                    {
+                        field: "hobby",
+                        key: "c",
+                        title: "Hobby",
+                        width: 300,
+                        align: "left",
+                    },
+                    {
+                        field: "address",
+                        key: "d",
+                        title: "Address",
+                        width: "",
+                        align: "left",
+                    },
+                ],
+                tableData: TABLE_DATA_SAME_ROW_HEIGHT,
+                virtualScrollOption: {
+                    // 是否开启
+                    enable: true,
+                    minRowHeight: minRowHeight,
+                },
+                maxHeight: MAX_HEIGHT,
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        wrapper.triggerResizeObserver({ width: MAX_HEIGHT });
+
+        await later();
+
+        const rowCount = getTableRenderedRowCountByRowHeight(minRowHeight);
+        expect(wrapper.findAll(".ve-table-body-tr").length).toBe(rowCount);
     });
 });
