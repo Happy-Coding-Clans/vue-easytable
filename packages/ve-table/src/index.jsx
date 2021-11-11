@@ -1798,6 +1798,22 @@ export default {
             },
         };
 
+        // wrapper container props
+        const wrapperContainerProps = {
+            class: "ve-table",
+            props: {
+                tagName: "div",
+            },
+            on: {
+                "on-dom-resize-change": ({ height }) => {
+                    this.tableOffestHeight = height;
+                    this.initVirtualScroll();
+                    // fixed #404
+                    this.initScrolling();
+                },
+            },
+        };
+
         // container props
         const containerProps = {
             ref: this.tableContainerRef,
@@ -1837,22 +1853,6 @@ export default {
                     value: this.tableBlur,
                 },
             ],
-        };
-
-        // wrapper container props
-        const wrapperContainerProps = {
-            class: "ve-table",
-            props: {
-                tagName: "div",
-            },
-            on: {
-                "on-dom-resize-change": ({ height }) => {
-                    this.tableOffestHeight = height;
-                    this.initVirtualScroll();
-                    // fixed #404
-                    this.initScrolling();
-                },
-            },
         };
 
         return (
