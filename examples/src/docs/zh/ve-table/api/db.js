@@ -684,7 +684,7 @@ export const db = {
                 desc: `最小行高（px）。值越小，可视化范围渲染的数据越多，具体根据实际最小高度设置即可`,
                 type: "<code>Number</code>",
                 optionalVal: "-",
-                default: "42",
+                default: "40",
             },
             {
                 param: "scrolling",

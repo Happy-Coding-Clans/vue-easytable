@@ -684,7 +684,7 @@ export const db = {
                 desc: `The min row height (PX). The smaller the value is, the more row is rendered in the table visualization range. It can be set according to the actual minimum height`,
                 type: "<code>Number</code>",
                 optionalVal: "-",
-                default: "42",
+                default: "40",
             },
             {
                 param: "scrolling",
