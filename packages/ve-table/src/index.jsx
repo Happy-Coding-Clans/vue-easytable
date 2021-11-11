@@ -235,7 +235,7 @@ export default {
             // default placeholder per scrolling row count
             defaultPlaceholderPerScrollingRowCount: 8,
             // is scrolling
-            isScrolling: false,
+            showVirtualScrollingPlaceholder: false,
             // disable pointer events timeout id
             disablePointerEventsTimeoutId: null,
             // is scrolling left
@@ -1047,7 +1047,7 @@ export default {
             //此时的偏移量
             this.setVirtualScrollStartOffset();
 
-            if (!this.isScrolling) {
+            if (!this.showVirtualScrollingPlaceholder) {
                 const bodyElement = this.$refs[this.tableBodyRef];
 
                 if (bodyElement) {
@@ -1096,7 +1096,7 @@ export default {
         // debounce scroll callback
         debounceScrollEndedCallback() {
             this.disablePointerEventsTimeoutId = null;
-            this.isScrolling = false;
+            this.showVirtualScrollingPlaceholder = false;
         },
         // init virtual scroll
         initVirtualScroll() {
@@ -1726,7 +1726,7 @@ export default {
             isVirtualScroll,
             sortOption,
             cellStyleOption,
-            isScrolling,
+            showVirtualScrollingPlaceholder,
         } = this;
 
         // header props
@@ -1772,7 +1772,7 @@ export default {
                 highlightRowKey: this.highlightRowKey,
                 editingCells: this.editingCells,
                 editingFocusCell: this.editingFocusCell,
-                isScrolling,
+                showVirtualScrollingPlaceholder,
             },
             on: {
                 [EMIT_EVENTS.BODY_TD_WIDTH_CHANGE]: tdWidthChange,
@@ -1822,9 +1822,9 @@ export default {
                         if (
                             differ > this.defaultPlaceholderPerScrollingRowCount
                         ) {
-                            this.isScrolling = true;
+                            this.showVirtualScrollingPlaceholder = true;
                         } else {
-                            this.isScrolling = false;
+                            this.showVirtualScrollingPlaceholder = false;
                         }
 
                         this.debounceScrollEnded();

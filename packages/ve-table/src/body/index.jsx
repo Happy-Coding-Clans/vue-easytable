@@ -76,7 +76,7 @@ export default {
             default: false,
         },
         // is scrolling
-        isScrolling: {
+        showVirtualScrollingPlaceholder: {
             type: Boolean,
             default: false,
         },
@@ -882,7 +882,7 @@ export default {
             internalRadioSelectedRowKey,
             isVirtualScroll,
             cellStyleOption,
-            isScrolling,
+            showVirtualScrollingPlaceholder,
         } = this;
 
         const { virtualScrollRepeatRenderedRowKeys } =
@@ -946,7 +946,7 @@ export default {
                         },
                     };
 
-                    if (isScrolling) {
+                    if (showVirtualScrollingPlaceholder) {
                         const trPropsScrolling = {
                             key: this.getTrKey({ rowData, rowIndex }),
                             props: {
