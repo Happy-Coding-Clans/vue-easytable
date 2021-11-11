@@ -648,4 +648,54 @@ describe("veTable virtual scroll", () => {
         const rowCount = getTableRenderedRowCountByRowHeight(minRowHeight);
         expect(wrapper.findAll(".ve-table-body-tr").length).toBe(rowCount);
     });
+
+    // it("virtual scroll placeholder", async () => {
+    //     const wrapper = mount(veTable, {
+    //         propsData: {
+    //             columns: [
+    //                 {
+    //                     field: "name",
+    //                     key: "b",
+    //                     title: "Name",
+    //                     width: 200,
+    //                     align: "left",
+    //                 },
+    //                 {
+    //                     field: "hobby",
+    //                     key: "c",
+    //                     title: "Hobby",
+    //                     width: 300,
+    //                     align: "left",
+    //                 },
+    //                 {
+    //                     field: "address",
+    //                     key: "d",
+    //                     title: "Address",
+    //                     width: "",
+    //                     align: "left",
+    //                 },
+    //             ],
+    //             tableData: TABLE_DATA_SAME_ROW_HEIGHT,
+    //             virtualScrollOption: {
+    //                 // 是否开启
+    //                 enable: true,
+    //             },
+    //             maxHeight: MAX_HEIGHT,
+    //             rowKeyFieldName: "rowKey",
+    //         },
+    //     });
+
+    //     wrapper.triggerResizeObserver({ width: MAX_HEIGHT });
+
+    //     await later();
+
+    //     const scrollToFn = mockScrollTo();
+
+    //     wrapper.vm.scrollTo({ top: 1000 });
+
+    //     await later(2000);
+
+    //     // how to test?
+    //     expect(wrapper.vm.showVirtualScrollingPlaceholder).toEqual(true);
+    // });
 });
