@@ -1,4 +1,4 @@
-:::anchor 结合行展开
+:::anchor Combination Row Expand Table
 
 :::demo
 
@@ -18,6 +18,70 @@
 </template>
 
 <script>
+    // 此示例是在组件内部定义了一个子组件。你当然也可以通过 `import`关键字导入一个组件
+    const ChildTableComp = {
+        name: "ChildTableComp",
+        template: `
+        <div class="child-table-comp">
+            <span style="font-weight:bold;">Table Name:{{row.name}}</span>
+            <ve-table
+              :max-height="300"
+              :fixed-header="true"
+              style="width:100%"
+              :columns="columns"
+              :table-data="tableData"
+              :virtual-scroll-option="{
+                  enable: false,
+              }"
+            />
+        </div>
+    `,
+        props: {
+            row: Object,
+        },
+        data() {
+            return {
+                columns: [
+                    { field: "col1", key: "a", title: "Col1" },
+                    { field: "col2", key: "b", title: "Col2" },
+                    { field: "col3", key: "c", title: "Col3" },
+                    { field: "col4", key: "d", title: "Col4" },
+                    { field: "col5", key: "e", title: "Col5" },
+                ],
+                tableData: [
+                    {
+                        col1: "1",
+                        col2: "2",
+                        col3: "3",
+                        col4: "4",
+                        col5: "5",
+                    },
+                    {
+                        col1: "1",
+                        col2: "2",
+                        col3: "3",
+                        col4: "4",
+                        col5: "5",
+                    },
+                    {
+                        col1: "1",
+                        col2: "2",
+                        col3: "3",
+                        col4: "4",
+                        col5: "5",
+                    },
+                    {
+                        col1: "1",
+                        col2: "2",
+                        col3: "3",
+                        col4: "4",
+                        col5: "5",
+                    },
+                ],
+            };
+        },
+    };
+
     export default {
         data() {
             return {
@@ -26,13 +90,9 @@
                     enable: true,
                 },
                 expandOption: {
+                    defaultExpandedRowKeys: [2],
                     render: ({ row, column, rowIndex }, h) => {
-                        return (
-                            <p>
-                                My name is <span style="color:#1890ff;">{row.name}</span>
-                                ,I'm living in {row.address}
-                            </p>
-                        );
+                        return <ChildTableComp row={row} />;
                     },
                 },
 

@@ -1,6 +1,6 @@
 :::anchor Combination Row Expand
 
-:::demo Row expand, Need specify `rowKeyFieldName` property
+:::demo
 
 ```html
 <template>

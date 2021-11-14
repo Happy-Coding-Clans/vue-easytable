@@ -2,14 +2,15 @@
     <div>
         <h2>虚拟滚动</h2>
         <Explain />
-        <!-- <Base />
+        <Base />
         <AutoHeight />
         <RowIndex />
         <RowCheckbox />
-        <RowRadio /> -->
+        <RowRadio />
         <RowExpand />
-        <!-- <ColumnFixed />
-        <FooterSummary /> -->
+        <RowExpandTable />
+        <ColumnFixed />
+        <FooterSummary />
         <API title="API" anchor="API" desc="virtualScrollOption 虚拟滚动配置" />
     </div>
 </template>
@@ -20,6 +21,7 @@ import AutoHeight from "./auto-height.md";
 import RowCheckbox from "./row-checkbox.md";
 import RowRadio from "./row-radio.md";
 import RowExpand from "./row-expand.md";
+import RowExpandTable from "./row-expand-table.md";
 import FooterSummary from "../footer-summary/virtual-scroll.md";
 import ColumnFixed from "./column-fixed.md";
 import RowIndex from "./row-index.md";
@@ -29,14 +31,15 @@ export default {
     name: "basic-main",
     components: {
         Explain,
-        // Base,
-        // AutoHeight,
-        // RowCheckbox,
-        // RowRadio,
+        Base,
+        AutoHeight,
+        RowCheckbox,
+        RowRadio,
         RowExpand,
-        // ColumnFixed,
-        // FooterSummary,
-        // RowIndex,
+        RowExpandTable,
+        ColumnFixed,
+        FooterSummary,
+        RowIndex,
         API,
     },
 };
