@@ -1417,7 +1417,12 @@ export default {
                     editingFocusCell &&
                     editingFocusCell.rowKey === clickRowKey
                 ) {
-                    //
+                    // set editing focus cell
+                    this.setEditingFocusCell({
+                        rowKey: clickRowKey,
+                        colKey: clickColKey,
+                    });
+
                     return false;
                 } else {
                     isStopEditing = true;
