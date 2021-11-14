@@ -28,23 +28,6 @@
 
 一个基于 Vue2.x 的表格组件
 
-## v2.0 新版本 [![npm](https://img.shields.io/npm/v/vue-easytable.svg)](https://www.npmjs.com/package/vue-easytable)
-
--   对 1.0 版本彻底重构。基于 jsx 语法重写、参数命名规范化、事件命名规范化等
--   增加对国际化支持
--   新增定制主题 & 内置两套主题
--   新增虚拟滚动
--   新增行展开
--   新增自定义单元格内容。基于 `render`函数
--   新增自定义事件
--   新增单元格省略
--   新增单元格编辑
--   新增 loading 组件
--   新增单元测试。覆盖率 > 85%
--   文档更新
--   更多内容请查看
-    [官方文档](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/intro)
-
 ## 特点
 
 -   使用简单
