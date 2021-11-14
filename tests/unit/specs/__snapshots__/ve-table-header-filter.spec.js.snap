@@ -2,7 +2,7 @@
 
 exports[`veTable header filter render filter custom icon 1`] = `
 <div class="ve-table">
-  <div class="ve-table-container ve-table-border-around">
+  <div class="ve-table-container ve-table-border-around" style="height: 2px;">
     <table class="ve-table-content ve-table-border-x">
       <colgroup>
         <col style="width: 15%;">
@@ -81,7 +81,7 @@ exports[`veTable header filter render filter custom icon 1`] = `
 
 exports[`veTable header filter render multiple filter 1`] = `
 <div class="ve-table">
-  <div class="ve-table-container ve-table-border-around">
+  <div class="ve-table-container ve-table-border-around" style="height: 2px;">
     <table class="ve-table-content ve-table-border-x">
       <colgroup>
         <col style="width: 15%;">
@@ -160,7 +160,7 @@ exports[`veTable header filter render multiple filter 1`] = `
 
 exports[`veTable header filter render single filter 1`] = `
 <div class="ve-table">
-  <div class="ve-table-container ve-table-border-around">
+  <div class="ve-table-container ve-table-border-around" style="height: 2px;">
     <table class="ve-table-content ve-table-border-x">
       <colgroup>
         <col style="width: 15%;">

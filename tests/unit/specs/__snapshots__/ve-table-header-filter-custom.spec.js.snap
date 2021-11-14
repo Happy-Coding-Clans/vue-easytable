@@ -2,7 +2,7 @@
 
 exports[`veTable header filter custom render 1`] = `
 <div class="ve-table">
-  <div class="ve-table-container ve-table-border-around">
+  <div class="ve-table-container ve-table-border-around" style="height: 2px;">
     <table class="ve-table-content ve-table-border-x">
       <colgroup>
         <col style="width: 15%;">

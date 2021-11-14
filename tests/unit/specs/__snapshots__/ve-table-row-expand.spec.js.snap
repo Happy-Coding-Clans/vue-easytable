@@ -3,7 +3,7 @@
 exports[`veTable row expand expandOption expandedRowKeys(controllable attr) 1`] = `
 <div><button class="button-demo">第3行展开切换</button>
   <div class="ve-table" style="width: 100%;">
-    <div class="ve-table-container ve-table-border-around">
+    <div class="ve-table-container ve-table-border-around" style="height: 2px;">
       <table class="ve-table-content ve-table-border-x">
         <colgroup>
           <col style="width: 50px;">
@@ -119,7 +119,7 @@ exports[`veTable row expand expandOption expandedRowKeys(controllable attr) 1`] 
 
 exports[`veTable row expand render 1`] = `
 <div class="ve-table">
-  <div class="ve-table-container ve-table-border-around">
+  <div class="ve-table-container ve-table-border-around" style="height: 2px;">
     <table class="ve-table-content ve-table-border-x">
       <colgroup>
         <col style="width: 50px;">
