@@ -107,4 +107,8 @@ export const INSTANCE_METHODS = {
     STOP_ALL_EDITING_CELL: "stopAllEditingCell",
     // set highlight row
     SET_HIGHLIGHT_ROW: "setHighlightRow",
+    // hide columns by keys
+    HIDE_COLUMNS_BY_KEYS: "hideColumnsByKeys",
+    // show columns by keys
+    SHOW_COLUMNS_BY_KEYS: "showColumnsByKeys",
 };

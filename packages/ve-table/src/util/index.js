@@ -44,6 +44,25 @@ export function getDomResizeObserverCompKey(
 }
 
 /*
+ * @recursiveRemoveColumnByKey
+ * @desc recursive remove column key
+ * @param {object} columns - deep clone column
+ * @param {any} key - column key
+ */
+export function recursiveRemoveColumnByKey(columns, key) {
+    return columns
+        .map((item) => {
+            return { ...item };
+        })
+        .filter((item) => {
+            if ("children" in item) {
+                item.children = recursiveRemoveColumnByKey(item.children, key);
+            }
+            return item.key !== key;
+        });
+}
+
+/*
  * @getFixedTotalWidthByColumnKey
  * @desc  get fixed total width by column key
  * @param {object} colgroups - 列信息

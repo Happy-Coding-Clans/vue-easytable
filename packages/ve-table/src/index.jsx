@@ -3,6 +3,7 @@ import {
     initGroupColumns,
     clsName,
     getNotFixedTotalWidthByColumnKey,
+    recursiveRemoveColumnByKey,
 } from "./util";
 import {
     getValByUnit,
@@ -172,8 +173,15 @@ export default {
                 return null;
             },
         },
-        // edit opttion
+        // edit option
         editOption: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
+        // column hidden option
+        columnHiddenOption: {
             type: Object,
             default: function () {
                 return null;
@@ -214,8 +222,13 @@ export default {
             ],
             // colgroups
             colgroups: [],
-            //  groupColumns
+            // groupColumns
             groupColumns: [],
+            /*
+            存储当前隐藏列信息
+            hidden columns
+            */
+            hiddenColumns: [],
             /*
             // virtual scroll positions（非响应式）
             virtualScrollPositions = [
@@ -506,6 +519,16 @@ export default {
             },
             immediate: true,
         },
+        cloneColumns: {
+            handler() {
+                this.initGroupColumns();
+
+                this.columnsOptionResetTime++;
+                // 需要等待 initColumns 和 initGroupColumns 先执行
+                this.initScrolling();
+            },
+            immediate: false,
+        },
         // group columns change watch
         groupColumns: {
             handler(val) {
@@ -538,7 +561,7 @@ export default {
             }
         },
 
-        // int header rows
+        // int footer rows
         initFooterRows() {
             const { footerData } = this;
 
@@ -570,7 +593,38 @@ export default {
 
         // init columns
         initColumns() {
-            this.cloneColumns = cloneDeep(this.columns);
+            const { columnHiddenOption } = this;
+            if (columnHiddenOption) {
+                const { defaultHiddenColumnKeys } = columnHiddenOption;
+
+                if (
+                    Array.isArray(defaultHiddenColumnKeys) &&
+                    defaultHiddenColumnKeys.length
+                ) {
+                    this.hiddenColumns = defaultHiddenColumnKeys;
+                }
+            }
+
+            this.toggleColumns();
+        },
+
+        // show or hide columns
+        toggleColumns() {
+            let cloneColumns = cloneDeep(this.columns);
+
+            const { hiddenColumns } = this;
+
+            if (Array.isArray(hiddenColumns) && hiddenColumns.length) {
+                //  recursive remove column key
+                hiddenColumns.forEach((key) => {
+                    cloneColumns = recursiveRemoveColumnByKey(
+                        cloneColumns,
+                        key,
+                    );
+                });
+            }
+
+            this.cloneColumns = cloneColumns;
         },
 
         // 初始化分组表头
@@ -1501,6 +1555,39 @@ export default {
                 colKey: colKey ? colKey : null,
                 column: column ? column : null,
             });
+        },
+
+        // hide columns by keys
+        [INSTANCE_METHODS.HIDE_COLUMNS_BY_KEYS](keys) {
+            if (Array.isArray(keys) && keys.length) {
+                /*
+                将要隐藏的列添加到 hiddenColumns 中
+                Add the columns you want to hide to hidden columns
+                */
+                this.hiddenColumns = Array.from(
+                    new Set(this.hiddenColumns.concat(keys)),
+                );
+
+                this.toggleColumns();
+            }
+        },
+
+        // show columns by keys
+        [INSTANCE_METHODS.SHOW_COLUMNS_BY_KEYS](keys) {
+            if (Array.isArray(keys) && keys.length) {
+                /*
+                将要显示的列从 hiddenColumns 中移除
+                Remove the columns to show from hidden columns
+                */
+                for (let i = keys.length - 1; i >= 0; i--) {
+                    const delIndex = this.hiddenColumns.indexOf(keys[i]);
+                    if (delIndex > -1) {
+                        this.hiddenColumns.splice(delIndex, 1);
+                    }
+                }
+
+                this.toggleColumns();
+            }
         },
 
         // table scrollTo
