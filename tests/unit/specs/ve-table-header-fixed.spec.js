@@ -94,9 +94,9 @@ describe("veTable header fixed", () => {
             },
         });
 
-        expect(wrapper.find(".ve-table-container").attributes("style")).toBe(
-            "max-height: 200px;",
-        );
+        expect(
+            wrapper.find(".ve-table-container").attributes("style"),
+        ).toContain("max-height: 200px;");
     });
 
     it("fixedHeader props", () => {
