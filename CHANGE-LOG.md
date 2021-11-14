@@ -7,6 +7,13 @@ Vx.x.x(TPL)
 -   Style
 -   Dependencies Changes
 
+V2.10.2
+
+### Bug Fixes
+
+-   修复虚拟滚动表格展开表格导致浏览器崩溃的问题 #414
+-   修复固定列效果在横向滚动时不生效的问题
+
 V2.10.1
 
 ### Performance Improvements
