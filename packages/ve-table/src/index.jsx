@@ -30,6 +30,7 @@ import Header from "./header";
 import Body from "./body";
 import Footer from "./footer";
 import { KEY_CODES } from "../../src/utils/constant";
+import { getScrollbarWidth } from "../../src/utils/scroll-bar";
 import clickoutside from "../../src/directives/clickoutside";
 import VueDomResizeObserver from "../../src/comps/resize-observer";
 
@@ -253,6 +254,8 @@ export default {
             2、当 max-height="calc(100vh - 210px)" 或者 max-height="80%" 时使用 tableOffestHeight
             */
             tableOffestHeight: 0,
+            // table height
+            tableHeight: 0,
             // highlight row key
             highlightRowKey: "",
             /* 
@@ -295,6 +298,8 @@ export default {
         virtualScrollEndIndex: 0,
         // preview table container scrollLeft （处理左列或右列固定效果）
         previewTableContainerScrollLeft: null,
+        // scroll bar width
+        scrollBarWidth: 0,
     },
     computed: {
         // actual render table data
@@ -347,21 +352,44 @@ export default {
         tableContainerStyle() {
             let maxHeight = getValByUnit(this.maxHeight);
 
-            let virtualScrollHeight = null;
+            let tableContainerHeight = null;
             if (this.isVirtualScroll) {
                 if (maxHeight) {
-                    virtualScrollHeight = maxHeight;
+                    tableContainerHeight = maxHeight;
                 } else {
                     console.error(
                         "maxHeight prop is required when 'virtualScrollOption.enable = true'",
                     );
                 }
+            } else {
+                /* 
+                fixed:虚拟滚动表格行展开的 ve-table 存在固定头时（sticky 冲突），表格样式错乱的问题
+                fixed:When there is a fixed header in the ve-table expanded by the row of the virtual rolling table(header sticky conflict),Incorrect table presentation
+                */
+                const { tableHeight, isLeftScrolling, isRightScrolling } = this;
+
+                tableContainerHeight = tableHeight;
+
+                // border around
+                if (this.borderAround) {
+                    tableContainerHeight += 2;
+                }
+
+                /*
+                    有横向滚动条时，表格高度需要加上滚动条的宽度
+                    When there is a horizontal scroll bar, the table height needs to be added with the width of the scroll bar
+                    */
+                if (isLeftScrolling || isRightScrolling) {
+                    tableContainerHeight += this.getScrollBarWidth();
+                }
+
+                tableContainerHeight = getValByUnit(tableContainerHeight);
             }
 
             return {
                 "max-height": maxHeight,
                 // if virtual scroll
-                height: virtualScrollHeight,
+                height: tableContainerHeight,
             };
         },
         // table style
@@ -555,6 +583,20 @@ export default {
             this.colgroups = result.colgroups;
             // set groupColumns
             this.groupColumns = result.groupColumns;
+        },
+
+        // scroll bar width
+        getScrollBarWidth() {
+            let result = 0;
+
+            if (this.$options.customOption.scrollBarWdith) {
+                result = this.$options.customOption.scrollBarWdith;
+            } else {
+                result = getScrollbarWidth();
+                this.$options.customOption.scrollBarWdith = result;
+            }
+
+            return result;
         },
 
         /*
@@ -988,7 +1030,7 @@ export default {
             window.requestAnimationFrame(() => {
                 const ele = this.$refs[this.tableContentRef];
                 if (ele) {
-                    ele.style.top = `${startOffset}px`;
+                    ele.$el.style.top = `${startOffset}px`;
                 }
             });
         },
@@ -1022,11 +1064,7 @@ export default {
             return tempIndex;
         },
         // table container virtual scroll handler
-        tableContainerVirtualScrollHandler() {
-            const tableContainerRef = this.$refs[this.tableContainerRef];
-
-            this.setScrolling(tableContainerRef);
-
+        tableContainerVirtualScrollHandler(tableContainerRef) {
             const {
                 virtualScrollVisibleCount: visibleCount,
                 virtualScrollOption,
@@ -1107,7 +1145,8 @@ export default {
                 this.$options.customOption.virtualScrollEndIndex =
                     startIndex + this.virtualScrollVisibleCount;
 
-                this.tableContainerVirtualScrollHandler();
+                const tableContainerRef = this.$refs[this.tableContainerRef];
+                this.tableContainerVirtualScrollHandler(tableContainerRef);
                 this.setVirtualPhantomHeight();
             }
         },
@@ -1133,6 +1172,8 @@ export default {
                     this.isRightScrolling =
                         scrollWidth - clientWidth > scrollLeft;
                 }
+                this.isLeftScrolling = scrollLeft > 0;
+                this.isRightScrolling = scrollWidth - clientWidth > scrollLeft;
             }
         },
 
@@ -1821,8 +1862,14 @@ export default {
             style: tableContainerStyle,
             on: {
                 scroll: () => {
+                    const tableContainerRef =
+                        this.$refs[this.tableContainerRef];
+                    this.setScrolling(tableContainerRef);
+
                     if (isVirtualScroll) {
-                        this.tableContainerVirtualScrollHandler();
+                        this.tableContainerVirtualScrollHandler(
+                            tableContainerRef,
+                        );
 
                         const {
                             virtualScrollStartIndex: startIndex,
@@ -1855,16 +1902,28 @@ export default {
             ],
         };
 
+        // tale props
+        const tableProps = {
+            ref: this.tableContentRef,
+            class: [clsName("content"), tableClass],
+            style: tableStyle,
+            props: {
+                tagName: "table",
+            },
+            on: {
+                "on-dom-resize-change": ({ height }) => {
+                    //alert(height);
+                    this.tableHeight = height;
+                },
+            },
+        };
+
         return (
             <VueDomResizeObserver {...wrapperContainerProps}>
                 <div {...containerProps}>
                     {/* virtual view phantom */}
                     {this.getVirtualViewPhantom()}
-                    <table
-                        ref={this.tableContentRef}
-                        style={tableStyle}
-                        class={[clsName("content"), tableClass]}
-                    >
+                    <VueDomResizeObserver {...tableProps}>
                         {/* colgroup */}
                         <Colgroup colgroups={colgroups} />
                         {/* table header */}
@@ -1873,7 +1932,7 @@ export default {
                         <Body {...bodyProps} />
                         {/* table footer */}
                         <Footer {...footerProps} />
-                    </table>
+                    </VueDomResizeObserver>
                 </div>
             </VueDomResizeObserver>
         );
