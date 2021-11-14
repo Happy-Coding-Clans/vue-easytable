@@ -125,7 +125,7 @@ export default {
     mixins: [I18nMixins, ThemeSwitchMixins],
     data() {
         return {
-            dataRow: 1000,
+            dataRow: 5000,
             switchActiveColor: "#1890ff",
             switchInactiveColor: "rgba(0,0,0,.25)",
 
