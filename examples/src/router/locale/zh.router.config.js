@@ -113,6 +113,13 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
+                path: "column-hidden",
+                component: () =>
+                    import("@/docs/zh/ve-table/column-hidden/main.vue"),
+                name: "列隐藏",
+                meta: { keepAlive: true },
+            },
+            {
                 path: "header-fixed",
                 component: () =>
                     import("@/docs/zh/ve-table/header-fixed/main.vue"),
