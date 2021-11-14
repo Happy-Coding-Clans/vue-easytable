@@ -776,4 +776,119 @@ describe("veTable cell edit", () => {
 
         expect(mockFn).toHaveBeenCalled();
     });
+
+    it("editingFocusCell with full row edit", async () => {
+        const mockFn = jest.fn();
+
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                editOption: {
+                    doubleClickEdit: true,
+                    fullRowEdit: true,
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        wrapper
+            .findAll(".ve-table-body-tr")
+            .at(0)
+            .findAll(".ve-table-body-td")
+            .at(0)
+            .trigger("dblclick");
+
+        expect(wrapper.vm.editingFocusCell).toEqual({
+            rowKey: 0,
+            colKey: "name",
+        });
+
+        wrapper
+            .findAll(".ve-table-body-tr")
+            .at(0)
+            .findAll(".ve-table-body-td")
+            .at(1)
+            .trigger("dblclick");
+
+        expect(wrapper.vm.editingFocusCell).toEqual({
+            rowKey: 0,
+            colKey: "date",
+        });
+    });
+
+    it("editingFocusCell data with cell edit", async () => {
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                editOption: {
+                    doubleClickEdit: true,
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        wrapper
+            .findAll(".ve-table-body-tr")
+            .at(0)
+            .findAll(".ve-table-body-td")
+            .at(0)
+            .trigger("dblclick");
+
+        expect(wrapper.vm.editingFocusCell).toEqual({
+            rowKey: 0,
+            colKey: "name",
+        });
+
+        wrapper
+            .findAll(".ve-table-body-tr")
+            .at(0)
+            .findAll(".ve-table-body-td")
+            .at(1)
+            .trigger("dblclick");
+
+        expect(wrapper.vm.editingFocusCell).toEqual({
+            rowKey: 0,
+            colKey: "date",
+        });
+    });
+
+    it("editingFocusCell data with full row edit", async () => {
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                editOption: {
+                    doubleClickEdit: true,
+                    fullRowEdit: true,
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        wrapper
+            .findAll(".ve-table-body-tr")
+            .at(0)
+            .findAll(".ve-table-body-td")
+            .at(0)
+            .trigger("dblclick");
+
+        expect(wrapper.vm.editingFocusCell).toEqual({
+            rowKey: 0,
+            colKey: "name",
+        });
+
+        wrapper
+            .findAll(".ve-table-body-tr")
+            .at(0)
+            .findAll(".ve-table-body-td")
+            .at(1)
+            .trigger("dblclick");
+
+        expect(wrapper.vm.editingFocusCell).toEqual({
+            rowKey: 0,
+            colKey: "date",
+        });
+    });
 });
