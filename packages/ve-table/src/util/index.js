@@ -50,16 +50,12 @@ export function getDomResizeObserverCompKey(
  * @param {any} key - column key
  */
 export function recursiveRemoveColumnByKey(columns, key) {
-    return columns
-        .map((item) => {
-            return { ...item };
-        })
-        .filter((item) => {
-            if ("children" in item) {
-                item.children = recursiveRemoveColumnByKey(item.children, key);
-            }
-            return item.key !== key;
-        });
+    return columns.filter((item) => {
+        if ("children" in item) {
+            item.children = recursiveRemoveColumnByKey(item.children, key);
+        }
+        return item.key !== key;
+    });
 }
 
 /*
