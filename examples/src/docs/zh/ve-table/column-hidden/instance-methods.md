@@ -106,14 +106,14 @@
                 for (let i = 0; i < 3; i++) {
                     data.push({
                         rowKey: i,
-                        col1: i,
-                        col2: i,
-                        col3: i,
-                        col4: i,
-                        col5: i,
-                        col6: i,
-                        col7: i,
-                        col8: i,
+                        col1: "col1-" + i,
+                        col2: "col2-" + i,
+                        col3: "col3-" + i,
+                        col4: "col4-" + i,
+                        col5: "col5-" + i,
+                        col6: "col6-" + i,
+                        col7: "col7-" + i,
+                        col8: "col8-" + i,
                     });
                 }
                 this.tableData = data;
