@@ -1,5 +1,7 @@
 import { PREFIX_CLS } from "./constant";
 
+import { isEmptyValue, isEmptyArray } from "../../../src/utils/index";
+
 /*
  * @clsName
  * @desc  get class name
@@ -192,19 +194,22 @@ export function initGroupColumns(cloneColumns) {
     }
     // set colgroups and groupColumns
     const setColgroupsAndGroupColumns = (column) => {
-        // set groupColumns
-        const { ...groupColumn } = column;
-        groupColumns[column._level - 1].push(groupColumn);
+        // column has children || column key is not empty
+        if (!isEmptyArray(column.children) || !isEmptyValue(column.key)) {
+            // set groupColumns
+            const { ...groupColumn } = column;
+            groupColumns[column._level - 1].push(groupColumn);
 
-        if (column.children) {
-            column.children.forEach((item) => {
-                setColgroupsAndGroupColumns(item);
-            });
-        } else {
-            // set colgroups
-            const { ...colgroup } = column;
-            colgroup._realTimeWidth = colgroup.width;
-            colgroups.push(colgroup);
+            if (column.children) {
+                column.children.forEach((item) => {
+                    setColgroupsAndGroupColumns(item);
+                });
+            } else {
+                // set colgroups
+                const { ...colgroup } = column;
+                colgroup._realTimeWidth = colgroup.width;
+                colgroups.push(colgroup);
+            }
         }
     };
 
