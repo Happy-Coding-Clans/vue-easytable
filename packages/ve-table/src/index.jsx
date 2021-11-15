@@ -11,6 +11,7 @@ import {
     isNumber,
     scrollTo,
     isEmptyValue,
+    isEmptyArray,
     isBoolean,
     isDefined,
     isFalse,
@@ -532,7 +533,7 @@ export default {
         // group columns change watch
         groupColumns: {
             handler(val) {
-                if (Array.isArray(val) && val.length > 0) {
+                if (!isEmptyArray(val)) {
                     this.initHeaderRows();
                 }
             },
@@ -541,7 +542,7 @@ export default {
         // footerData
         footerData: {
             handler(val) {
-                if (Array.isArray(val) && val.length > 0) {
+                if (!isEmptyArray(val)) {
                     this.initFooterRows();
                 }
             },
@@ -597,10 +598,7 @@ export default {
             if (columnHiddenOption) {
                 const { defaultHiddenColumnKeys } = columnHiddenOption;
 
-                if (
-                    Array.isArray(defaultHiddenColumnKeys) &&
-                    defaultHiddenColumnKeys.length
-                ) {
+                if (!isEmptyArray(defaultHiddenColumnKeys)) {
                     this.hiddenColumns = defaultHiddenColumnKeys;
                 }
             }
@@ -614,7 +612,7 @@ export default {
 
             const { hiddenColumns } = this;
 
-            if (Array.isArray(hiddenColumns) && hiddenColumns.length) {
+            if (!isEmptyArray(hiddenColumns)) {
                 //  recursive remove column key
                 hiddenColumns.forEach((key) => {
                     cloneColumns = recursiveRemoveColumnByKey(
@@ -1559,7 +1557,7 @@ export default {
 
         // hide columns by keys
         [INSTANCE_METHODS.HIDE_COLUMNS_BY_KEYS](keys) {
-            if (Array.isArray(keys) && keys.length) {
+            if (!isEmptyArray(keys)) {
                 /*
                 将要隐藏的列添加到 hiddenColumns 中
                 Add the columns you want to hide to hidden columns
@@ -1574,7 +1572,7 @@ export default {
 
         // show columns by keys
         [INSTANCE_METHODS.SHOW_COLUMNS_BY_KEYS](keys) {
-            if (Array.isArray(keys) && keys.length) {
+            if (!isEmptyArray(keys)) {
                 /*
                 将要显示的列从 hiddenColumns 中移除
                 Remove the columns to show from hidden columns
