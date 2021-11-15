@@ -605,11 +605,11 @@ export default {
                 }
             }
 
-            this.toggleColumns();
+            this.showOrHideColumns();
         },
 
         // show or hide columns
-        toggleColumns() {
+        showOrHideColumns() {
             let cloneColumns = cloneDeep(this.columns);
 
             const { hiddenColumns } = this;
@@ -1568,7 +1568,7 @@ export default {
                     new Set(this.hiddenColumns.concat(keys)),
                 );
 
-                this.toggleColumns();
+                this.showOrHideColumns();
             }
         },
 
@@ -1586,7 +1586,7 @@ export default {
                     }
                 }
 
-                this.toggleColumns();
+                this.showOrHideColumns();
             }
         },
 
