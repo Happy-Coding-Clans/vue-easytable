@@ -1,18 +1,29 @@
-:::anchor 基础
+:::anchor 实例方法
 
 :::demo
 
 ```html
 <template>
     <div>
-        <button @click="hideColumns(['name'])">隐藏 name 列</button>
-        <button @click="hideColumns(['hobby'])">隐藏 hobby 列</button>
-        <button @click="hideColumns(['name','hobby'])">隐藏 name 和 hobby 列</button>
-        <button @click="showColumns(['name'])">显示 name 列</button>
-        <button @click="showColumns(['hobby'])">显示 hobby 列</button>
-        <button @click="showColumns(['name','hobby'])">显示 name 和 hobby 列</button>
+        <button class="button-demo" @click="hideColumns(['col1'])">隐藏 col1 列</button>
+        <button class="button-demo" @click="hideColumns(['col2'])">隐藏 col2 列</button>
+        <button class="button-demo" @click="hideColumns(['col3'])">隐藏 col3 列</button>
+        <button class="button-demo" @click="hideColumns(['col1','col2','col3'])">
+            隐藏 col1、col2、col3 列
+        </button>
+        <br />
+        <br />
+        <button class="button-demo" @click="showColumns(['col1'])">显示 col1 列</button>
+        <button class="button-demo" @click="showColumns(['col2'])">显示 col2 列</button>
+        <button class="button-demo" @click="showColumns(['col3'])">显示 col3 列</button>
+        <button class="button-demo" @click="showColumns(['col1','col2','col3'])">
+            显示 col1、col2、col3 列
+        </button>
+        <br />
+        <br />
         <ve-table
             ref="tableRef"
+            border-y
             :columns="columns"
             :table-data="tableData"
             :columnHiddenOption="columnHiddenOption"
@@ -26,46 +37,59 @@
             return {
                 columnHiddenOption: {
                     // default hidden column keys
-                    defaultHiddenColumnKeys: ["hobby"],
+                    defaultHiddenColumnKeys: ["col8"],
                 },
                 columns: [
-                    { field: "name", key: "name", title: "Name" },
-                    { field: "date", key: "date", title: "Date" },
-                    { field: "hobby", key: "hobby", title: "Hobby" },
-                    { field: "address", key: "address", title: "Address" },
+                    { field: "col1", key: "col1", title: "col1", width: "10%" },
+                    {
+                        title: "col2-col3",
+                        children: [
+                            {
+                                field: "col2",
+                                key: "col2",
+                                title: "col2",
+                                width: 100,
+                            },
+                            {
+                                field: "col3",
+                                key: "col3",
+                                title: "col3",
+                                width: 110,
+                            },
+                        ],
+                    },
+                    {
+                        title: "col4-col5-col6",
+                        children: [
+                            {
+                                title: "col4-col5",
+                                children: [
+                                    {
+                                        field: "col4",
+                                        key: "col4",
+                                        title: "col4",
+                                        width: 130,
+                                    },
+                                    {
+                                        field: "col5",
+                                        key: "col5",
+                                        title: "col5",
+                                        width: 140,
+                                    },
+                                ],
+                            },
+                            {
+                                title: "col6",
+                                field: "col6",
+                                key: "col6",
+                                width: 140,
+                            },
+                        ],
+                    },
+                    { field: "col7", key: "col7", title: "col7", width: 150 },
+                    { field: "col8", key: "col8", title: "col8", width: 160 },
                 ],
-                tableData: [
-                    {
-                        name: "John",
-                        date: "1900-05-20",
-                        hobby: "coding and coding repeat",
-                        address: "No.1 Century Avenue, Shanghai",
-                    },
-                    {
-                        name: "Dickerson",
-                        date: "1910-06-20",
-                        hobby: "coding and coding repeat",
-                        address: "No.1 Century Avenue, Beijing",
-                    },
-                    {
-                        name: "Larsen",
-                        date: "2000-07-20",
-                        hobby: "coding and coding repeat",
-                        address: "No.1 Century Avenue, Chongqing",
-                    },
-                    {
-                        name: "Geneva",
-                        date: "2010-08-20",
-                        hobby: "coding and coding repeat",
-                        address: "No.1 Century Avenue, Xiamen",
-                    },
-                    {
-                        name: "Jami",
-                        date: "2020-09-20",
-                        hobby: "coding and coding repeat",
-                        address: "No.1 Century Avenue, Shenzhen",
-                    },
-                ],
+                tableData: [],
             };
         },
         methods: {
@@ -77,6 +101,26 @@
             showColumns(keys) {
                 this.$refs["tableRef"].showColumnsByKeys(keys);
             },
+            initTableData() {
+                let data = [];
+                for (let i = 0; i < 3; i++) {
+                    data.push({
+                        rowKey: i,
+                        col1: i,
+                        col2: i,
+                        col3: i,
+                        col4: i,
+                        col5: i,
+                        col6: i,
+                        col7: i,
+                        col8: i,
+                    });
+                }
+                this.tableData = data;
+            },
+        },
+        created() {
+            this.initTableData();
         },
     };
 </script>
