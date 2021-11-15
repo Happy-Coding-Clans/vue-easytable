@@ -1,5 +1,4 @@
 import { PREFIX_CLS } from "./constant";
-
 import { isEmptyValue, isEmptyArray } from "../../../src/utils/index";
 
 /*
