@@ -21,7 +21,21 @@
                                     tag="li"
                                     :to="`/${currentDocLang}/doc/${config.path}/${subConfig.path}`"
                                 >
-                                    <a>{{ subConfig.name }}</a>
+                                    <a>
+                                        {{ subConfig.name }}
+                                        <span
+                                            v-show="
+                                                subConfig.meta &&
+                                                subConfig.meta.version
+                                            "
+                                            class="version"
+                                        >
+                                            {{
+                                                subConfig.meta &&
+                                                subConfig.meta.version
+                                            }}
+                                        </span>
+                                    </a>
                                 </router-link>
                             </ul>
                         </li>

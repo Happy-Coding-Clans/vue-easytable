@@ -117,7 +117,7 @@ const config = [
                 component: () =>
                     import("@/docs/zh/ve-table/column-hidden/main.vue"),
                 name: "列隐藏",
-                meta: { keepAlive: true },
+                meta: { keepAlive: true, version: "v2.11.0" },
             },
             {
                 path: "header-fixed",
@@ -201,7 +201,7 @@ const config = [
                 component: () =>
                     import("@/docs/zh/ve-table/cell-edit/main.vue"),
                 name: "单元格编辑",
-                meta: { keepAlive: true },
+                meta: { keepAlive: true, version: "v2.10.0" },
             },
             {
                 path: "row-index",
