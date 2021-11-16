@@ -506,6 +506,16 @@ export const db = {
                 desc: `Stop all cell editing  <a href='#/en/doc/table/cell-edit?anchor=ke-kong-bian-ji'>Refer To Demo</a>`,
                 param: "-",
             },
+            {
+                name: "hideColumnsByKeys",
+                desc: `Hide columns  <a href='#/en/doc/table/column-hidden?anchor=instance-methods'>Refer To Demo</a>`,
+                param: "keys",
+            },
+            {
+                name: "showColumnsByKeys",
+                desc: `Show columns  <a href='#/en/doc/table/column-hidden?anchor=instance-methods'>Refer To Demo</a>`,
+                param: "keys",
+            },
         ],
         columns: columnsType2,
     },
@@ -795,6 +805,20 @@ export const db = {
                 param: "footerCellEvents",
                 desc: `1、footer column custom events, Returns the event that needs to be customized.<br>2、Receive 3 parameters.<code>row</code>Current row data、<code>column</code>:Current column configuration、<code>rowIndex</code>:Row index<br>3、Support for custom events: click、dblclick、contextmenu、mouseenter、mouseleave`,
                 type: "<code>Function({row,column,rowIndx})</code>",
+                optionalVal: "-",
+                default: "-",
+            },
+        ],
+        columns: columnsType1,
+    },
+
+    // 列隐藏配置
+    columnHiddenOption: {
+        data: [
+            {
+                param: "defaultHiddenColumnKeys",
+                desc: `<code>v2.11.0</code> Set default hidden columns`,
+                type: `<code>Array</code>`,
                 optionalVal: "-",
                 default: "-",
             },

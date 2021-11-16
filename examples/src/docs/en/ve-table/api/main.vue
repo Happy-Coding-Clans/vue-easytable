@@ -9,6 +9,8 @@
         <InstanceMethods />
         <!-- cell Span Option -->
         <CellSpanOption />
+        <!-- column hidden Option -->
+        <ColumnHiddenOption />
         <!-- cell Style Option -->
         <CellStyleOption />
         <!-- Row Style Option -->
@@ -43,6 +45,7 @@ import VirtualScrollOption from "./virtual-scroll-option-props";
 import SortOption from "./sort-option-props";
 import CellSpanOption from "./cell-span-option-props";
 import EventCustomOption from "./event-custom-option-props";
+import ColumnHiddenOption from "./column-hidden-option-props";
 import CellStyleOption from "./cell-style-option-props";
 import RowStyleOption from "./row-style-option-props";
 import CellSelectionOption from "./cell-selection-option-props";
@@ -54,6 +57,7 @@ export default {
         InstanceMethods,
         CellSpanOption,
         EventCustomOption,
+        ColumnHiddenOption,
         CellStyleOption,
         RowStyleOption,
         ExpandOption,

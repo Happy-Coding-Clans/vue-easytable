@@ -179,10 +179,16 @@ export const db = {
                 optionalVal: "-",
                 default: "false",
             },
-
             {
                 param: "cellSpanOption",
                 desc: "单元格合并配置，具体见下表 cellSpanOption 配置",
+                type: "<code>Object</code>",
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "columnHiddenOption",
+                desc: "列隐藏配置，具体见下表 columnHiddenOption 配置",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
@@ -506,6 +512,16 @@ export const db = {
                 desc: `停止所有单元格编辑  <a href='#/zh/doc/table/cell-edit?anchor=ke-kong-bian-ji'>参考示例</a>`,
                 param: "-",
             },
+            {
+                name: "hideColumnsByKeys",
+                desc: `隐藏列  <a href='#/zh/doc/table/column-hidden?anchor=shi-li-fang-fa'>参考示例</a>`,
+                param: "keys",
+            },
+            {
+                name: "showColumnsByKeys",
+                desc: `显示列  <a href='#/zh/doc/table/column-hidden?anchor=shi-li-fang-fa'>参考示例</a>`,
+                param: "keys",
+            },
         ],
         columns: columnsType2,
     },
@@ -795,6 +811,20 @@ export const db = {
                 param: "footerCellEvents",
                 desc: `1、footer 列自定义事件，返回需要自定义的事件。<br>2、接收3个参数。<code>row</code>当前行数据、<code>column</code>:当前列配置、<code>rowIndex</code>:行索引<br>3、支持自定义事件有 click、dblclick、contextmenu、mouseenter、mouseleave`,
                 type: "<code>Function({row,column,rowIndx})</code>",
+                optionalVal: "-",
+                default: "-",
+            },
+        ],
+        columns: columnsType1,
+    },
+
+    // 列隐藏配置
+    columnHiddenOption: {
+        data: [
+            {
+                param: "defaultHiddenColumnKeys",
+                desc: `<code>v2.11.0</code> 设置默认隐藏的列`,
+                type: `<code>Array</code>`,
                 optionalVal: "-",
                 default: "-",
             },
