@@ -7,6 +7,15 @@ Vx.x.x(TPL)
 -   Style
 -   Dependencies Changes
 
+V2.11.0
+
+### Feature
+
+-   添加列隐藏功能
+    -   使用 `defaultHiddenColumnKeys` 设置默认隐藏列
+    -   使用实例方法 `hideColumnsByKeys(keys)` 将列隐藏
+    -   使用实例方法 `showColumnsByKeys(keys)` 将隐藏的列显示
+
 V2.10.2
 
 ### Bug Fixes
