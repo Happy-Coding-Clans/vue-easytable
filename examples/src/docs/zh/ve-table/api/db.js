@@ -498,27 +498,27 @@ export const db = {
                 param: "{rowKey}",
             },
             {
-                name: "startEditingCell",
+                name: "startEditingCell <code>v2.10.0</code>",
                 desc: `开始单元格编辑  <a href='#/zh/doc/table/cell-edit?anchor=ke-kong-bian-ji'>参考示例</a>`,
                 param: "{rowKey,colKey,defaultValue}",
             },
             {
-                name: "stopEditingCell",
+                name: "stopEditingCell <code>v2.10.0</code>",
                 desc: `停止单元格编辑  <a href='#/zh/doc/table/cell-edit?anchor=ke-kong-bian-ji'>参考示例</a>`,
                 param: "{rowKey,colKey}",
             },
             {
-                name: "stopAllEditingCell",
+                name: "stopAllEditingCell <code>v2.10.0</code>",
                 desc: `停止所有单元格编辑  <a href='#/zh/doc/table/cell-edit?anchor=ke-kong-bian-ji'>参考示例</a>`,
                 param: "-",
             },
             {
-                name: "hideColumnsByKeys",
+                name: "hideColumnsByKeys <code>v2.11.0</code>",
                 desc: `隐藏列  <a href='#/zh/doc/table/column-hidden?anchor=shi-li-fang-fa'>参考示例</a>`,
                 param: "keys",
             },
             {
-                name: "showColumnsByKeys",
+                name: "showColumnsByKeys <code>v2.11.0</code>",
                 desc: `显示列  <a href='#/zh/doc/table/column-hidden?anchor=shi-li-fang-fa'>参考示例</a>`,
                 param: "keys",
             },

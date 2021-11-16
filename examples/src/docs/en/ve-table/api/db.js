@@ -487,32 +487,32 @@ export const db = {
                 param: "{rowKey}",
             },
             {
-                name: "setHighlightRow",
+                name: "setHighlightRow <code>v2.9.0</code>",
                 desc: `Set highlight row <a href='#/en/doc/table/row-style?anchor=row-click-highlight'>Refer To Demo</a>`,
                 param: "{rowKey}",
             },
             {
-                name: "startEditingCell",
+                name: "startEditingCell <code>v2.10.0</code>",
                 desc: `Start cell editing  <a href='#/en/doc/table/cell-edit?anchor=ke-kong-bian-ji'>Refer To Demo</a>`,
                 param: "{rowKey,colKey,defaultValue}",
             },
             {
-                name: "stopEditingCell",
+                name: "stopEditingCell <code>v2.10.0</code>",
                 desc: `Stop cell editing  <a href='#/en/doc/table/cell-edit?anchor=ke-kong-bian-ji'>Refer To Demo</a>`,
                 param: "{rowKey,colKey}",
             },
             {
-                name: "stopAllEditingCell",
+                name: "stopAllEditingCell <code>v2.10.0</code>",
                 desc: `Stop all cell editing  <a href='#/en/doc/table/cell-edit?anchor=ke-kong-bian-ji'>Refer To Demo</a>`,
                 param: "-",
             },
             {
-                name: "hideColumnsByKeys",
+                name: "hideColumnsByKeys <code>v2.11.0</code>",
                 desc: `Hide columns  <a href='#/en/doc/table/column-hidden?anchor=instance-methods'>Refer To Demo</a>`,
                 param: "keys",
             },
             {
-                name: "showColumnsByKeys",
+                name: "showColumnsByKeys <code>v2.11.0</code>",
                 desc: `Show columns  <a href='#/en/doc/table/column-hidden?anchor=instance-methods'>Refer To Demo</a>`,
                 param: "keys",
             },
