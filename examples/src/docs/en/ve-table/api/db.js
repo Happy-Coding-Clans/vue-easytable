@@ -816,8 +816,8 @@ export const db = {
     columnHiddenOption: {
         data: [
             {
-                param: "defaultHiddenColumnKeys",
-                desc: `<code>v2.11.0</code> Set default hidden columns`,
+                param: "defaultHiddenColumnKeys <code>v2.11.0</code>",
+                desc: `Set default hidden columns`,
                 type: `<code>Array</code>`,
                 optionalVal: "-",
                 default: "-",

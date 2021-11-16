@@ -822,8 +822,8 @@ export const db = {
     columnHiddenOption: {
         data: [
             {
-                param: "defaultHiddenColumnKeys",
-                desc: `<code>v2.11.0</code> 设置默认隐藏的列`,
+                param: "defaultHiddenColumnKeys <code>v2.11.0</code>",
+                desc: `设置默认隐藏的列`,
                 type: `<code>Array</code>`,
                 optionalVal: "-",
                 default: "-",

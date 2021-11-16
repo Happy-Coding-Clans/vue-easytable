@@ -83,6 +83,18 @@ export default {
             }
         }
 
+        td:first-child {
+            code {
+                margin: 0;
+                padding: 2 px 6 px;
+                color: #1989fa;
+                font-weight: 600;
+                font-size: 11px;
+                background-color: rgba(25, 137, 250, 0.1);
+                border-radius: 20 px;
+            }
+        }
+
         td {
             .expand {
                 font-weight: bold;
