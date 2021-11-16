@@ -493,7 +493,7 @@ export const db = {
                 param: "{rowKey}",
             },
             {
-                name: "setHighlightRow",
+                name: "setHighlightRow <code>v2.9.0</code>",
                 desc: `设置高亮的行 <a href='#/zh/doc/table/row-style?anchor=row-click-highlight'>参考示例</a>`,
                 param: "{rowKey}",
             },
