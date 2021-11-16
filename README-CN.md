@@ -28,12 +28,6 @@
 
 一个基于 Vue2.x 的表格组件
 
-## 特点
-
--   使用简单
--   功能强大
--   单元测试覆盖率大于 85%
-
 ## API & 文档
 
 [官方文档](http://happy-coding-clans.github.io/vue-easytable/)
