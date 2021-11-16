@@ -44,6 +44,7 @@ Based on vue2.x flexible table components.
 -   [x] [Theme Custom & Built in theme](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/theme)
 -   [x] [Virtual Scroll](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/virtual-scroll)
 -   [x] [Column Fixed](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/column-fixed)
+-   [x] [Column Hidden](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/column-hidden)
 -   [x] [Header Fixed](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/header-fixed)
 -   [x] [Header Grouping](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/header-grouping)
 -   [x] [Filter](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/header-filter)
