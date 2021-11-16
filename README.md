@@ -28,17 +28,11 @@
 
 Based on vue2.x flexible table components.
 
-## Features
-
--   Easy to use
--   Powerful
--   Unit test coverage greater than 85%
-
 ## API & Examples
 
 [Official documents](http://happy-coding-clans.github.io/vue-easytable/)
 
-## Supports
+## Features
 
 -   [x] [Internationalization](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/locale)
 -   [x] [Theme Custom & Built in theme](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/theme)
