@@ -1376,11 +1376,13 @@ export default {
             }
 
             if (keyCode === KEY_CODES.ENTER) {
+                // toggle editing cell
                 this.toggleEditigCell();
             } else if (
                 keyCode === KEY_CODES.DELETE ||
                 keyCode === KEY_CODES.BACK_SPACE
             ) {
+                // delete editing cell
                 this.deleteEditingCell();
             }
         },
