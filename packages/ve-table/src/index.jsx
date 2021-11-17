@@ -747,6 +747,16 @@ export default {
                         const nextRowKey = allRowKeys[rowIndex + 1];
                         this.rowToVisible(KEY_CODES.ARROW_DOWN, nextRowKey);
                     }
+                } else if (keyCode === KEY_CODES.TAB) {
+                    /*
+                    进入同行下一个单元格，当是最后一个单元格时进入下一行第一个单元格
+                    */
+                    event.preventDefault();
+                    if (columnIndex < colgroups.length - 1) {
+                        const nextColumn = colgroups[columnIndex + 1];
+                        this.cellSelectionKeyData.columnKey = nextColumn.key;
+                        this.columnToVisible(KEY_CODES.ARROW_RIGHT, nextColumn);
+                    }
                 }
             }
         },
