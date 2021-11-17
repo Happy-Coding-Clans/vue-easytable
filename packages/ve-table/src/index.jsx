@@ -692,8 +692,8 @@ export default {
         dealKeydownEvent(event) {
             // cell direction
             this.cellDirection(event);
-            // toggle editing cell
-            this.toggleEditigCell(event);
+            // deal editing cell by keydown event
+            this.dealEditingCellByKeydownEvent(event);
         },
         // cell direction
         cellDirection(event) {
@@ -1354,23 +1354,13 @@ export default {
             }
         },
 
-        // toggle editing cell
-        toggleEditigCell(event) {
-            const {
-                cellSelectionKeyData,
-                editOption,
-                colgroups,
-                editingFocusCell,
-                hasEditColumn,
-            } = this;
+        // deal editing cell by keydown event
+        dealEditingCellByKeydownEvent(event) {
+            const { cellSelectionKeyData, editOption, hasEditColumn } = this;
 
             const { keyCode } = event;
 
             if (!editOption) {
-                return false;
-            }
-
-            if (keyCode !== KEY_CODES.ENTER) {
                 return false;
             }
 
@@ -1384,6 +1374,70 @@ export default {
             if (isEmptyValue(rowKey) || isEmptyValue(columnKey)) {
                 return false;
             }
+
+            if (keyCode === KEY_CODES.ENTER) {
+                this.toggleEditigCell();
+            } else if (
+                keyCode === KEY_CODES.DELETE ||
+                keyCode === KEY_CODES.BACK_SPACE
+            ) {
+                this.deleteEditingCell();
+            }
+        },
+
+        // delete editing cell
+        deleteEditingCell() {
+            const {
+                editingFocusCell,
+                colgroups,
+                editOption,
+                cellSelectionKeyData,
+            } = this;
+            // edit cell
+            const { fullRowEdit } = editOption;
+
+            const { rowKey, columnKey } = cellSelectionKeyData;
+
+            // full row edit
+            if (fullRowEdit) {
+                // return if cell is editing
+                if (editingFocusCell && editingFocusCell.rowKey === rowKey) {
+                    return false;
+                }
+            } else {
+                const currentColumn = colgroups.find(
+                    (x) => x.key === columnKey,
+                );
+                // return if cell is editing
+                if (currentColumn.edit) {
+                    if (
+                        editingFocusCell &&
+                        editingFocusCell.rowKey === rowKey &&
+                        editingFocusCell.colKey === columnKey
+                    ) {
+                        return false;
+                    }
+                }
+            }
+
+            // start editing
+            this[INSTANCE_METHODS.START_EDITING_CELL]({
+                rowKey,
+                colKey: columnKey,
+                defaultValue: "",
+            });
+        },
+
+        // toggle editing cell
+        toggleEditigCell() {
+            const {
+                cellSelectionKeyData,
+                editOption,
+                colgroups,
+                editingFocusCell,
+            } = this;
+
+            const { rowKey, columnKey } = cellSelectionKeyData;
 
             let isStartEditing = false;
             let isStopEditing = false;
@@ -1686,7 +1740,14 @@ export default {
                 if (isDefined(defaultValue)) {
                     colgroups.forEach((col) => {
                         if (col.edit) {
-                            currentRow[col.field] = defaultValue;
+                            // delete|backSpace keyCode
+                            if (isDefined(colKey)) {
+                                if (col.key === colKey) {
+                                    currentRow[col.field] = defaultValue;
+                                }
+                            } else {
+                                currentRow[col.field] = defaultValue;
+                            }
                         }
                     });
                 }
