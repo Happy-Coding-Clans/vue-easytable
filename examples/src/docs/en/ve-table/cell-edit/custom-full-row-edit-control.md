@@ -30,7 +30,7 @@
                     // double click edit
                     doubleClickEdit: true,
                     // auto stop editing when cell lose focus
-                    stopEditingWhenCellLoseFocus: true,
+                    stopEditingWhenCellLoseFocus: false,
                     // cell value change
                     cellValueChange: ({ row, column }) => {
                         console.log("cellValueChange row::", row);
