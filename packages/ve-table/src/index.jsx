@@ -1047,7 +1047,7 @@ export default {
                 this.setVirtualScrollStartOffset();
             }
         },
-        // 更新 virtual phantom 列表总高度
+        // update virtual phantom list height
         setVirtualPhantomHeight() {
             let totalHeight = 0;
             if (this.virtualScrollPositions.length) {
