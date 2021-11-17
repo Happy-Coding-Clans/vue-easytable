@@ -1,4 +1,4 @@
-:::anchor 可控行编辑
+:::anchor 可控整行编辑
 
 通过 `fullRowEdit=true`开启整行编辑后，通过实例方法`startEditingCell({ rowKey, colKey, defaultValue })`将对整行进行编辑
 
@@ -7,9 +7,7 @@
 ```html
 <template>
     <div>
-        <button class="button-demo" @click="startEditingCell({ rowKey:0, colKey, defaultValue })">
-            编辑第一行
-        </button>
+        <button class="button-demo" @click="startEditingCell({ rowKey:0 })">编辑第一行</button>
         <button class="button-demo" @click="startEditingCell({ rowKey:1,  defaultValue:'A' })">
             编辑第2行，设置整行列的值为‘A’
         </button>

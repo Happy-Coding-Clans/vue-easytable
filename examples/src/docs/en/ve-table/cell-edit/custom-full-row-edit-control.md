@@ -1,4 +1,4 @@
-:::anchor Controllable row editing
+:::anchor Custom controllable row editing
 
 :::demo 1、Turn off the automatic stop editing function when the cell loses focus through `stopEditingWhenCellLoseFocus=false`
 
@@ -30,7 +30,7 @@
                     // double click edit
                     doubleClickEdit: true,
                     // auto stop editing when cell lose focus
-                    stopEditingWhenCellLoseFocus: false,
+                    stopEditingWhenCellLoseFocus: true,
                     // cell value change
                     cellValueChange: ({ row, column }) => {
                         console.log("cellValueChange row::", row);

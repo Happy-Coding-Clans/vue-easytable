@@ -1,4 +1,4 @@
-:::anchor Controllable editing
+:::anchor Controllable cell editing
 
 :::demo 1、Open the edited cell through instance method `startEditingCell({ rowKey, colKey, defaultValue })`<br>2、Stop editing cells by instance method `stopEditingCell({ rowKey, colKey })`
 

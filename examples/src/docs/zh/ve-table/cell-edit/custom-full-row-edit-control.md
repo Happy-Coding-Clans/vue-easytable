@@ -1,4 +1,4 @@
-:::anchor 自定义可控行编辑
+:::anchor 自定义可控整行编辑
 
 :::demo 1、通过属性`stopEditingWhenCellLoseFocus=false`关闭单元格失去焦点自动停止编辑功能
 
@@ -30,7 +30,7 @@
                     // double click edit
                     doubleClickEdit: true,
                     // auto stop editing when cell lose focus
-                    stopEditingWhenCellLoseFocus: false,
+                    stopEditingWhenCellLoseFocus: true,
                     // cell value change
                     cellValueChange: ({ row, column }) => {
                         console.log("cellValueChange row::", row);

@@ -1,4 +1,4 @@
-:::anchor Custom full row control
+:::anchor Controllable full row editing
 
 After the full row editing is enabled through 'fullRowEdit=true', the full row will be edited through the instance method `startEditingCell({ rowKey, colKey, defaultValue })`
 
