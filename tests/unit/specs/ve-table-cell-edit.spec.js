@@ -424,8 +424,8 @@ describe("veTable cell edit", () => {
     });
 
     /* 
-    只会重写当前制定的列的值
-    Only the value of the currently specified column will be overwritten
+    只会重写当前指定的列的值
+    Only the value of the currently specified column is overwritten
     */
     it("startEditingCell instance method combine full row eidt with colKey", async () => {
         const mockFn = jest.fn();
