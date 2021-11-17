@@ -1382,13 +1382,13 @@ export default {
                 keyCode === KEY_CODES.DELETE ||
                 keyCode === KEY_CODES.BACK_SPACE
             ) {
-                // delete editing cell
-                this.deleteEditingCell();
+                // clear editing cell value
+                this.clearEditingCellValue();
             }
         },
 
-        // delete editing cell
-        deleteEditingCell() {
+        // clear editing cell value
+        clearEditingCellValue() {
             const {
                 editingFocusCell,
                 colgroups,
