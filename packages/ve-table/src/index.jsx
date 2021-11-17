@@ -482,11 +482,7 @@ export default {
         */
         hasEditingFocusCell() {
             const { editingFocusCell } = this;
-            return (
-                editingFocusCell &&
-                !isEmptyValue(editingFocusCell.rowKey) &&
-                !isEmptyValue(editingFocusCell.colKey)
-            );
+            return editingFocusCell && !isEmptyValue(editingFocusCell.rowKey);
         },
 
         // has edit column
