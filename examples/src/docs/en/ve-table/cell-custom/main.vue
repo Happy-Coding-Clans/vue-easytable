@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>Custom cell</h2>
+        <h2>Cell Custom</h2>
         <BodyCell />
         <HeaderCell />
         <FooterCell />
