@@ -7,8 +7,9 @@
         <FullRowWidt />
         <EditControl />
         <FullRowEditControl />
+        <CustomFullRowEditControl />
         <CombineElementUi />
-        <API title="API" anchor="API" desc="eidtOption configuration" />
+        <API title="API" anchor="API" desc="eidtOption 单元格编辑配置" />
     </div>
 </template>
 <script>
@@ -18,6 +19,7 @@ import SingleClickEdit from "./single-click-edit.md";
 import FullRowWidt from "./full-row-edit.md";
 import EditControl from "./edit-control.md";
 import FullRowEditControl from "./full-row-edit-control.md";
+import CustomFullRowEditControl from "./custom-full-row-edit-control.md";
 import CombineElementUi from "./combine-element-ui.md";
 import API from "../api/edit-option-props";
 
@@ -30,6 +32,7 @@ export default {
         FullRowWidt,
         EditControl,
         FullRowEditControl,
+        CustomFullRowEditControl,
         CombineElementUi,
         API,
     },

@@ -1,10 +1,26 @@
-:::anchor Controllable row editing
+:::anchor Custom full row control
 
-:::demo 1、Turn off the automatic stop editing function when the cell loses focus through `stopEditingWhenCellLoseFocus=false`
+After the full row editing is enabled through 'fullRowEdit=true', the full row will be edited through the instance method `startEditingCell({ rowKey, colKey, defaultValue })`
+
+:::demo 1、After passing the `colKey` and `defaultValue` attributes, only the value of the currently specified column will be overwritten
 
 ```html
 <template>
     <div>
+        <button class="button-demo" @click="startEditingCell({ rowKey:0, colKey, defaultValue })">
+            Edit first row
+        </button>
+        <button class="button-demo" @click="startEditingCell({ rowKey:1,  defaultValue:'A' })">
+            Edit second row,Set the value of the full row cell to 'A'
+        </button>
+        <button
+            class="button-demo"
+            @click="startEditingCell({ rowKey:2,colKey:'name', defaultValue:'A' })"
+        >
+            Edit third row,Set the value of the 'name' column to 'A'
+        </button>
+        <br />
+        <br />
         <ve-table
             ref="tableRef"
             rowKeyFieldName="rowKey"
@@ -13,8 +29,6 @@
             :columns="columns"
             :table-data="tableData"
             :editOption="editOption"
-            :cell-selection-option="cellSelectionOption"
-            :event-custom-option="eventCustomOption"
         />
     </div>
 </template>
@@ -23,14 +37,14 @@
     export default {
         data() {
             return {
-                // edit option
+                // edit option 可控单元格编辑
                 editOption: {
                     // full row edit
                     fullRowEdit: true,
                     // double click edit
                     doubleClickEdit: true,
                     // auto stop editing when cell lose focus
-                    stopEditingWhenCellLoseFocus: false,
+                    stopEditingWhenCellLoseFocus: true,
                     // cell value change
                     cellValueChange: ({ row, column }) => {
                         console.log("cellValueChange row::", row);
@@ -41,25 +55,6 @@
                         console.log("rowValueChange row::", row);
                     },
                 },
-                eventCustomOption: {
-                    // body row custom event
-                    bodyRowEvents: ({ row, rowIndex }) => {
-                        return {
-                            dblclick: (event) => {
-                                const rowKey = row["rowKey"];
-                                if (this.editRowKeys.indexOf((x) => x === rowKey) === -1) {
-                                    this.editRowKeys.push(rowKey);
-                                }
-                            },
-                        };
-                    },
-                },
-                cellSelectionOption: {
-                    // default true
-                    enable: false,
-                },
-                // current editing keys
-                editRowKeys: [],
                 columns: [
                     {
                         field: "name",
@@ -81,67 +76,17 @@
                         field: "hobby",
                         key: "hobby",
                         title: "Hobby",
-                        align: "center",
-                        width: "25%",
+                        align: "left",
+                        width: "30%",
+                        edit: true,
                     },
                     {
                         field: "address",
                         key: "address",
                         title: "Address",
                         align: "left",
-                        width: "25%",
+                        width: "40%",
                         edit: true,
-                    },
-                    {
-                        field: "customField",
-                        key: "customField",
-                        title: "Actions",
-                        align: "left",
-                        width: "20%",
-                        renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            const { editRowKeys } = this;
-                            const rowKey = row["rowKey"];
-
-                            const isEditingRow = editRowKeys.some((x) => x === rowKey);
-
-                            return (
-                                <div>
-                                    <a
-                                        style={{
-                                            display: isEditingRow ? "none" : "",
-                                        }}
-                                        href="javascript:void(0)"
-                                        on-click={() => {
-                                            this.startEditingCell(rowKey);
-                                        }}
-                                    >
-                                        Edit
-                                    </a>
-                                    {isEditingRow && (
-                                        <span>
-                                            <a
-                                                href="javascript:void(0)"
-                                                on-click={() => {
-                                                    this.saveEditingCell(rowKey);
-                                                }}
-                                            >
-                                                Save
-                                            </a>
-                                            &nbsp;
-                                            <a
-                                                slot="reference"
-                                                href="javascript:void(0)"
-                                                on-click={() => {
-                                                    this.cancelEditingCell(rowKey, row);
-                                                }}
-                                            >
-                                                Cancel
-                                            </a>
-                                        </span>
-                                    )}
-                                </div>
-                            );
-                        },
                     },
                 ],
                 // table data
@@ -186,33 +131,8 @@
         },
         methods: {
             // start editing cell
-            startEditingCell(rowKey) {
-                this.editRowKeys.push(rowKey);
-                this.$refs["tableRef"].startEditingCell({ rowKey });
-            },
-
-            // cancel editing cell
-            cancelEditingCell(rowKey, originalRow) {
-                if (window.confirm("Sure to cancel?")) {
-                    const index = this.editRowKeys.findIndex((x) => x === rowKey);
-                    this.editRowKeys.splice(index, 1);
-                    this.$refs["tableRef"].stopEditingCell({ rowKey });
-
-                    // reset table row data
-                    this.tableData = this.tableData.map((item) => {
-                        if (item.rowKey === originalRow.rowKey) {
-                            item = { ...originalRow };
-                        }
-                        return item;
-                    });
-                }
-            },
-
-            // save editing cell
-            saveEditingCell(rowKey) {
-                const index = this.editRowKeys.findIndex((x) => x === rowKey);
-                this.editRowKeys.splice(index, 1);
-                this.$refs["tableRef"].stopEditingCell({ rowKey });
+            startEditingCell(params) {
+                this.$refs["tableRef"].startEditingCell(params);
             },
         },
     };

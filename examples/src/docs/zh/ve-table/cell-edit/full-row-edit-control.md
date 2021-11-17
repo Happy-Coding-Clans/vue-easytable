@@ -1,10 +1,26 @@
 :::anchor 可控行编辑
 
-:::demo 1、通过属性`stopEditingWhenCellLoseFocus=false`关闭单元格失去焦点自动停止编辑功能
+通过 `fullRowEdit=true`开启整行编辑后，通过实例方法`startEditingCell({ rowKey, colKey, defaultValue })`将对整行进行编辑
+
+:::demo 1、传递了`colKey`以及`defaultValue`属性后，只会重写当前指定的列的值
 
 ```html
 <template>
     <div>
+        <button class="button-demo" @click="startEditingCell({ rowKey:0, colKey, defaultValue })">
+            编辑第一行
+        </button>
+        <button class="button-demo" @click="startEditingCell({ rowKey:1,  defaultValue:'A' })">
+            编辑第2行，设置整行列的值为‘A’
+        </button>
+        <button
+            class="button-demo"
+            @click="startEditingCell({ rowKey:2,colKey:'name', defaultValue:'A' })"
+        >
+            编辑第3行，设置‘name’列的值为‘A’
+        </button>
+        <br />
+        <br />
         <ve-table
             ref="tableRef"
             rowKeyFieldName="rowKey"
@@ -13,8 +29,6 @@
             :columns="columns"
             :table-data="tableData"
             :editOption="editOption"
-            :cell-selection-option="cellSelectionOption"
-            :event-custom-option="eventCustomOption"
         />
     </div>
 </template>
@@ -30,7 +44,7 @@
                     // double click edit
                     doubleClickEdit: true,
                     // auto stop editing when cell lose focus
-                    stopEditingWhenCellLoseFocus: false,
+                    stopEditingWhenCellLoseFocus: true,
                     // cell value change
                     cellValueChange: ({ row, column }) => {
                         console.log("cellValueChange row::", row);
@@ -41,25 +55,6 @@
                         console.log("rowValueChange row::", row);
                     },
                 },
-                eventCustomOption: {
-                    // body 行事件自定义
-                    bodyRowEvents: ({ row, rowIndex }) => {
-                        return {
-                            dblclick: (event) => {
-                                const rowKey = row["rowKey"];
-                                if (this.editRowKeys.indexOf((x) => x === rowKey) === -1) {
-                                    this.editRowKeys.push(rowKey);
-                                }
-                            },
-                        };
-                    },
-                },
-                cellSelectionOption: {
-                    // default true
-                    enable: false,
-                },
-                // 当前编辑的行key
-                editRowKeys: [],
                 columns: [
                     {
                         field: "name",
@@ -81,67 +76,17 @@
                         field: "hobby",
                         key: "hobby",
                         title: "Hobby",
-                        align: "center",
-                        width: "25%",
+                        align: "left",
+                        width: "30%",
+                        edit: true,
                     },
                     {
                         field: "address",
                         key: "address",
                         title: "Address",
                         align: "left",
-                        width: "25%",
+                        width: "40%",
                         edit: true,
-                    },
-                    {
-                        field: "customField",
-                        key: "customField",
-                        title: "Actions",
-                        align: "left",
-                        width: "20%",
-                        renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            const { editRowKeys } = this;
-                            const rowKey = row["rowKey"];
-
-                            const isEditingRow = editRowKeys.some((x) => x === rowKey);
-
-                            return (
-                                <div>
-                                    <a
-                                        style={{
-                                            display: isEditingRow ? "none" : "",
-                                        }}
-                                        href="javascript:void(0)"
-                                        on-click={() => {
-                                            this.startEditingCell(rowKey);
-                                        }}
-                                    >
-                                        Edit
-                                    </a>
-                                    {isEditingRow && (
-                                        <span>
-                                            <a
-                                                href="javascript:void(0)"
-                                                on-click={() => {
-                                                    this.saveEditingCell(rowKey);
-                                                }}
-                                            >
-                                                Save
-                                            </a>
-                                            &nbsp;
-                                            <a
-                                                slot="reference"
-                                                href="javascript:void(0)"
-                                                on-click={() => {
-                                                    this.cancelEditingCell(rowKey, row);
-                                                }}
-                                            >
-                                                Cancel
-                                            </a>
-                                        </span>
-                                    )}
-                                </div>
-                            );
-                        },
                     },
                 ],
                 // table data
@@ -186,33 +131,8 @@
         },
         methods: {
             // start editing cell
-            startEditingCell(rowKey) {
-                this.editRowKeys.push(rowKey);
-                this.$refs["tableRef"].startEditingCell({ rowKey });
-            },
-
-            // cancel editing cell
-            cancelEditingCell(rowKey, originalRow) {
-                if (window.confirm("确定要取消吗？")) {
-                    const index = this.editRowKeys.findIndex((x) => x === rowKey);
-                    this.editRowKeys.splice(index, 1);
-                    this.$refs["tableRef"].stopEditingCell({ rowKey });
-
-                    // reset table row data
-                    this.tableData = this.tableData.map((item) => {
-                        if (item.rowKey === originalRow.rowKey) {
-                            item = { ...originalRow };
-                        }
-                        return item;
-                    });
-                }
-            },
-
-            // save editing cell
-            saveEditingCell(rowKey) {
-                const index = this.editRowKeys.findIndex((x) => x === rowKey);
-                this.editRowKeys.splice(index, 1);
-                this.$refs["tableRef"].stopEditingCell({ rowKey });
+            startEditingCell(params) {
+                this.$refs["tableRef"].startEditingCell(params);
             },
         },
     };
