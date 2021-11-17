@@ -1,4 +1,4 @@
-:::anchor Header custom cell
+:::anchor Header cell custom
 
 :::demo 1、In the`column` configuration, the rendering function can be passed in through the attribute `renderHeaderCell`<br>2、The render function takes 1 parameter,`column`:Current column configuration
 
