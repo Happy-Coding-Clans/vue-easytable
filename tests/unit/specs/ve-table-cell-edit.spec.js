@@ -1,4 +1,5 @@
 import { mount } from "@vue/test-utils";
+import { cloneDeep } from "lodash";
 import veTable from "@/ve-table";
 import { later } from "../util";
 import { KEY_CODES } from "../constant";
@@ -284,13 +285,13 @@ describe("veTable cell edit", () => {
         );
     });
 
-    it("startEditingCell instance method", async () => {
+    it("startEditingCell instance method combine cell eidt", async () => {
         const mockFn = jest.fn();
 
         const wrapper = mount(veTable, {
             propsData: {
                 columns: COLUMNS,
-                tableData: TABLE_DATA,
+                tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     stopEditingWhenCellLoseFocus: true,
                     doubleClickEdit: false,
@@ -358,13 +359,141 @@ describe("veTable cell edit", () => {
         );
     });
 
+    /* 
+     将会重写当前行的所有列的值
+     The values of all columns of the current row will be overwritten
+    */
+    it("startEditingCell instance method combine full row eidt without colKey", async () => {
+        const mockFn = jest.fn();
+
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: cloneDeep(TABLE_DATA),
+                editOption: {
+                    stopEditingWhenCellLoseFocus: true,
+                    fullRowEdit: true,
+                    doubleClickEdit: false,
+                    // cell value change
+                    rowValueChange: ({ row }) => {
+                        mockFn(row);
+                    },
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        wrapper.vm.startEditingCell({
+            rowKey: 0,
+            //colKey: "name",
+            defaultValue: "AAA",
+        });
+
+        await later();
+
+        // td
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(0)
+            .findAll(".ve-table-body-td")
+            .at(0);
+
+        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
+            true,
+        );
+
+        // next row first cell
+        const secondCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(0);
+
+        secondCell.trigger("click");
+
+        await later();
+
+        expect(mockFn).toHaveBeenCalled();
+        expect(mockFn).toHaveBeenCalledWith({
+            address: "AAA",
+            date: "AAA",
+            hobby: "AAA",
+            name: "AAA",
+            rowKey: 0,
+        });
+    });
+
+    /* 
+    只会重写当前制定的列的值
+    Only the value of the currently specified column will be overwritten
+    */
+    it("startEditingCell instance method combine full row eidt with colKey", async () => {
+        const mockFn = jest.fn();
+
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: cloneDeep(TABLE_DATA),
+                editOption: {
+                    stopEditingWhenCellLoseFocus: true,
+                    fullRowEdit: true,
+                    doubleClickEdit: false,
+                    // cell value change
+                    rowValueChange: ({ row }) => {
+                        mockFn(row);
+                    },
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        wrapper.vm.startEditingCell({
+            rowKey: 0,
+            colKey: "name",
+            defaultValue: "AAA",
+        });
+
+        await later();
+
+        // td
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(0)
+            .findAll(".ve-table-body-td")
+            .at(0);
+
+        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
+            true,
+        );
+
+        // next row first cell
+        const secondCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(0);
+
+        secondCell.trigger("click");
+
+        await later();
+
+        expect(mockFn).toHaveBeenCalled();
+        expect(mockFn).toHaveBeenCalledWith({
+            address: "No.1 Century Avenue, Shanghai",
+            date: "1900-05-20",
+            hobby: "coding and coding repeat",
+            name: "AAA",
+            rowKey: 0,
+        });
+    });
+
     it("stopEditingCell instance method", async () => {
         const mockFn = jest.fn();
 
         const wrapper = mount(veTable, {
             propsData: {
                 columns: COLUMNS,
-                tableData: TABLE_DATA,
+                tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     stopEditingWhenCellLoseFocus: true,
                     doubleClickEdit: false,
