@@ -63,11 +63,11 @@ export function recursiveRemoveColumnByKey(columns, key) {
  * @getFixedTotalWidthByColumnKey
  * @desc  get fixed total width by column key
  * @param {object} colgroups - 列信息
- * @param {any} columnKey - column key
+ * @param {any} colKey - column key
  * @param {string} fixed - left|right
  */
-export function getFixedTotalWidthByColumnKey(colgroups, columnKey, fixed) {
-    const currentIndex = colgroups.findIndex((x) => x.key === columnKey);
+export function getFixedTotalWidthByColumnKey({ colgroups, colKey, fixed }) {
+    const currentIndex = colgroups.findIndex((x) => x.key === colKey);
 
     let result = 0;
 
@@ -94,15 +94,15 @@ export function getFixedTotalWidthByColumnKey(colgroups, columnKey, fixed) {
  * @getNotFixedTotalWidthByColumnKey
  * @desc  get not fixed total width by column key
  * @param {object} colgroups - 列信息
- * @param {any} columnKey - column key
+ * @param {any} colKey - column key
  * @param {string} direction - left|right
  */
 export function getNotFixedTotalWidthByColumnKey({
     colgroups,
-    columnKey,
+    colKey,
     direction,
 }) {
-    const currentIndex = colgroups.findIndex((x) => x.key === columnKey);
+    const currentIndex = colgroups.findIndex((x) => x.key === colKey);
 
     let result = 0;
 
