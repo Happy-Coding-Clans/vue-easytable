@@ -1,10 +1,10 @@
 :::anchor example
 
-You can quickly select cells with the following keys:<br>
-1、Pressing the up arrow key <code>ArrowUp</code>, select the previous cell<br>
-2、Pressing the down arrow key <code>ArrowDown</code>, select the next cell<br>
-3、Pressing the right arrow key <code>ArrowRight</code>,Select the next cell in the same row,If it is the last cell in the same row, the first cell in the next row will be selected<br>
-4、Pressing the right left key <code>ArrowLeft</code>,Select the previous cell in the same row,If it is the first cell in the same row, the last cell in the previous row will be selected<br>
+You can quickly select cells with the following keys, the selection behavior is like microsoft excel:<br>
+1、Pressing the up arrow key <code>ArrowUp</code>, select the upper cell<br>
+2、Pressing the down arrow key <code>ArrowDown</code>, Select the lower cell<br>
+3、Pressing the left arrow key <code>ArrowLeft</code>,Select the previous cell<br>
+4、Pressing the right arrow key <code>ArrowRight</code>,select the next cell<br>
 5、Pressing the key <code>ArrowLeft</code>,The function is the same as pressing <code>ArrowRight</code><br>
 6、Pressing the key <code>Shift + Tab</code>,The function is the same as pressing <code>ArrowLeft</code>
 

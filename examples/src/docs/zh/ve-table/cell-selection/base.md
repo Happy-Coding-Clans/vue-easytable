@@ -1,10 +1,10 @@
 :::anchor 示例
 
-你可以配合以下按键快速选中单元格：<br>
-1、当按下方向上键<code>ArrowUp</code>，选中上一个单元格；<br>
-2、当按下方向下键<code>ArrowDown</code>，选中下一个单元格；<br>
-3、当按下方向右键<code>ArrowRight</code>，选中同一行下一个单元格，如果是同一行最后一个单元格时将选中下一行第一个单元格；<br>
-4、当按下方向左键<code>ArrowLeft</code>，选中同一行前一个单元格，如果是同一行第一个单元格时将选中上一行最后一个单元格；<br>
+你可以配合以下按键快速选中单元格，选中行为就像微软的 excel：<br>
+1、当按下方向上键<code>ArrowUp</code>，选中上边单元格；<br>
+2、当按下方向下键<code>ArrowDown</code>，选中下边单元格；<br>
+3、当按下方向左键<code>ArrowLeft</code>，选中左边单元格；<br>
+4、当按下方向右键<code>ArrowRight</code>，选中右边单元格；<br>
 5、当按下键<code>Tab</code>，功能与按下<code>ArrowRight</code>一致；<br>
 6、当按下键<code>Shift + Tab</code>，功能与按下<code>ArrowLeft</code>一致；
 
