@@ -260,7 +260,7 @@ export default {
             // cell selection key
             cellSelectionKeyData: {
                 rowKey: "",
-                columnKey: "",
+                colKey: "",
             },
             /*
             table offest height（开启虚拟滚动时使用）
@@ -702,36 +702,34 @@ export default {
 
             const { keyCode } = event;
 
-            const { rowKey, columnKey } = cellSelectionKeyData;
+            const { rowKey, colKey } = cellSelectionKeyData;
 
             // 如果是当前编辑的单元格
             if (editingFocusCell) {
                 if (
                     editingFocusCell.rowKey === rowKey &&
-                    editingFocusCell.colKey === columnKey
+                    editingFocusCell.colKey === colKey
                 ) {
                     return false;
                 }
             }
 
-            if (!isEmptyValue(rowKey) && !isEmptyValue(columnKey)) {
-                let columnIndex = colgroups.findIndex(
-                    (x) => x.key === columnKey,
-                );
+            if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+                let columnIndex = colgroups.findIndex((x) => x.key === colKey);
                 let rowIndex = allRowKeys.indexOf(rowKey);
                 if (keyCode === KEY_CODES.ARROW_LEFT) {
                     // 防止外层让其滚动
                     event.preventDefault();
                     if (columnIndex > 0) {
                         const nextColumn = colgroups[columnIndex - 1];
-                        this.cellSelectionKeyData.columnKey = nextColumn.key;
+                        this.cellSelectionKeyData.colKey = nextColumn.key;
                         this.columnToVisible(KEY_CODES.ARROW_LEFT, nextColumn);
                     }
                 } else if (keyCode === KEY_CODES.ARROW_RIGHT) {
                     event.preventDefault();
                     if (columnIndex < colgroups.length - 1) {
                         const nextColumn = colgroups[columnIndex + 1];
-                        this.cellSelectionKeyData.columnKey = nextColumn.key;
+                        this.cellSelectionKeyData.colKey = nextColumn.key;
                         this.columnToVisible(KEY_CODES.ARROW_RIGHT, nextColumn);
                     }
                 } else if (keyCode === KEY_CODES.ARROW_UP) {
@@ -754,7 +752,7 @@ export default {
                     event.preventDefault();
                     if (columnIndex < colgroups.length - 1) {
                         const nextColumn = colgroups[columnIndex + 1];
-                        this.cellSelectionKeyData.columnKey = nextColumn.key;
+                        this.cellSelectionKeyData.colKey = nextColumn.key;
                         this.columnToVisible(KEY_CODES.ARROW_RIGHT, nextColumn);
                     }
                 }
@@ -780,7 +778,7 @@ export default {
                 if (scrollLeft && !nextColumn.fixed) {
                     const totalWidth = getNotFixedTotalWidthByColumnKey({
                         colgroups,
-                        columnKey: nextColumn.key,
+                        colKey: nextColumn.key,
                         direction: "left",
                     });
                     const diff = scrollLeft - totalWidth;
@@ -797,7 +795,7 @@ export default {
                 if (scrollRight && !nextColumn.fixed) {
                     const totalWidth = getNotFixedTotalWidthByColumnKey({
                         colgroups,
-                        columnKey: nextColumn.key,
+                        colKey: nextColumn.key,
                         direction: "right",
                     });
                     const diff = scrollRight - totalWidth;
@@ -1242,13 +1240,13 @@ export default {
 
         // table blur
         tableBlur() {
-            const { rowKey, columnKey } = this.cellSelectionKeyData;
+            const { rowKey, colKey } = this.cellSelectionKeyData;
 
-            if (!isEmptyValue(rowKey) || !isEmptyValue(columnKey)) {
+            if (!isEmptyValue(rowKey) || !isEmptyValue(colKey)) {
                 // reset cell selection key data
                 this.cellSelectionKeyData = {
                     rowKey: "",
-                    columnKey: "",
+                    colKey: "",
                 };
             }
         },
@@ -1345,7 +1343,7 @@ export default {
                 if (rowKeyFieldName && column.key) {
                     this.cellSelectionKeyChange({
                         rowKey,
-                        columnKey: column.key,
+                        colKey: column.key,
                     });
                 }
             }
@@ -1375,9 +1373,9 @@ export default {
                 return false;
             }
 
-            const { rowKey, columnKey } = cellSelectionKeyData;
+            const { rowKey, colKey } = cellSelectionKeyData;
 
-            if (isEmptyValue(rowKey) || isEmptyValue(columnKey)) {
+            if (isEmptyValue(rowKey) || isEmptyValue(colKey)) {
                 return false;
             }
 
@@ -1404,7 +1402,7 @@ export default {
             // edit cell
             const { fullRowEdit } = editOption;
 
-            const { rowKey, columnKey } = cellSelectionKeyData;
+            const { rowKey, colKey } = cellSelectionKeyData;
 
             // full row edit
             if (fullRowEdit) {
@@ -1413,15 +1411,13 @@ export default {
                     return false;
                 }
             } else {
-                const currentColumn = colgroups.find(
-                    (x) => x.key === columnKey,
-                );
+                const currentColumn = colgroups.find((x) => x.key === colKey);
                 // return if cell is editing
                 if (currentColumn.edit) {
                     if (
                         editingFocusCell &&
                         editingFocusCell.rowKey === rowKey &&
-                        editingFocusCell.colKey === columnKey
+                        editingFocusCell.colKey === colKey
                     ) {
                         return false;
                     }
@@ -1431,7 +1427,7 @@ export default {
             // start editing
             this[INSTANCE_METHODS.START_EDITING_CELL]({
                 rowKey,
-                colKey: columnKey,
+                colKey: colKey,
                 defaultValue: "",
             });
         },
@@ -1445,7 +1441,7 @@ export default {
                 editingFocusCell,
             } = this;
 
-            const { rowKey, columnKey } = cellSelectionKeyData;
+            const { rowKey, colKey } = cellSelectionKeyData;
 
             let isStartEditing = false;
             let isStopEditing = false;
@@ -1461,15 +1457,13 @@ export default {
                     isStartEditing = true;
                 }
             } else {
-                const currentColumn = colgroups.find(
-                    (x) => x.key === columnKey,
-                );
+                const currentColumn = colgroups.find((x) => x.key === colKey);
                 // 当前列是否可编辑
                 if (currentColumn.edit) {
                     if (
                         editingFocusCell &&
                         editingFocusCell.rowKey === rowKey &&
-                        editingFocusCell.colKey === columnKey
+                        editingFocusCell.colKey === colKey
                     ) {
                         isStopEditing = true;
                     } else {
@@ -1481,12 +1475,12 @@ export default {
             if (isStartEditing) {
                 this[INSTANCE_METHODS.START_EDITING_CELL]({
                     rowKey,
-                    colKey: columnKey,
+                    colKey: colKey,
                 });
             } else if (isStopEditing) {
                 this[INSTANCE_METHODS.STOP_EDITING_CELL]({
                     rowKey,
-                    colKey: columnKey,
+                    colKey: colKey,
                 });
             }
         },

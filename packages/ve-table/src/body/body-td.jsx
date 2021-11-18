@@ -299,10 +299,10 @@ export default {
 
             // cell selection option
             if (cellSelectionKeyData) {
-                const { rowKey, columnKey } = cellSelectionKeyData;
+                const { rowKey, colKey } = cellSelectionKeyData;
                 if (
                     rowData[rowKeyFieldName] === rowKey &&
-                    column["key"] === columnKey
+                    column["key"] === colKey
                 ) {
                     result[clsName("cell-selection")] = true;
                 }
