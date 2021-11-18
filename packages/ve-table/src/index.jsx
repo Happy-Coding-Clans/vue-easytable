@@ -1326,12 +1326,14 @@ export default {
          * @param {object} column - column data
          */
         tdDoubleClick({ rowData, column }) {
-            const { editOption } = this;
+            const { editOption, rowKeyFieldName } = this;
+
+            const rowKey = rowData[rowKeyFieldName];
 
             if (editOption) {
                 this.editCellByClick({
-                    rowData,
-                    column,
+                    clickRowKey: rowKey,
+                    clickColKey: column.key,
                     isDoubleClick: true,
                 });
             }
@@ -1367,8 +1369,8 @@ export default {
             // eidting by single click
             if (editOption) {
                 this.editCellByClick({
-                    rowData,
-                    column,
+                    clickRowKey: rowKey,
+                    clickColKey: column.key,
                     isDoubleClick: false,
                 });
             }
@@ -1378,7 +1380,7 @@ export default {
         dealEditingCellByKeydownEvent(event) {
             const { cellSelectionKeyData, editOption, hasEditColumn } = this;
 
-            const { keyCode } = event;
+            const { keyCode, shiftKey } = event;
 
             if (!editOption) {
                 return false;
@@ -1399,8 +1401,15 @@ export default {
             const { fullRowEdit } = editOption;
 
             if (keyCode === KEY_CODES.ENTER) {
-                // toggle editing cell
-                this.toggleEditigCell();
+                event.preventDefault();
+                this.selectCellByDirection({
+                    direction: CELL_SELECTION_DIRECTION.DOWN,
+                });
+
+                this[INSTANCE_METHODS.STOP_EDITING_CELL]({
+                    rowKey,
+                    colKey,
+                });
             } else if (
                 keyCode === KEY_CODES.DELETE ||
                 keyCode === KEY_CODES.BACK_SPACE
@@ -1418,6 +1427,18 @@ export default {
                     colKey,
                     defaultValue: " ",
                 });
+            } else if (keyCode === KEY_CODES.TAB && shiftKey) {
+                if (!fullRowEdit) {
+                    event.preventDefault();
+                    this.selectCellByDirection({
+                        direction: CELL_SELECTION_DIRECTION.LEFT,
+                    });
+
+                    this[INSTANCE_METHODS.STOP_EDITING_CELL]({
+                        rowKey,
+                        colKey,
+                    });
+                }
             } else if (keyCode === KEY_CODES.TAB) {
                 if (!fullRowEdit) {
                     event.preventDefault();
@@ -1425,73 +1446,76 @@ export default {
                         direction: CELL_SELECTION_DIRECTION.RIGHT,
                     });
 
-                    // 缺少点击 tdClick
+                    this[INSTANCE_METHODS.STOP_EDITING_CELL]({
+                        rowKey,
+                        colKey,
+                    });
                 }
             }
         },
 
         // toggle editing cell
-        toggleEditigCell() {
-            const {
-                cellSelectionKeyData,
-                editOption,
-                colgroups,
-                editingFocusCell,
-            } = this;
+        // toggleEditigCell() {
+        //     const {
+        //         cellSelectionKeyData,
+        //         editOption,
+        //         colgroups,
+        //         editingFocusCell,
+        //     } = this;
 
-            const { rowKey, colKey } = cellSelectionKeyData;
+        //     const { rowKey, colKey } = cellSelectionKeyData;
 
-            let isStartEditing = false;
-            let isStopEditing = false;
+        //     let isStartEditing = false;
+        //     let isStopEditing = false;
 
-            // edit cell
-            const { fullRowEdit } = editOption;
+        //     // edit cell
+        //     const { fullRowEdit } = editOption;
 
-            // 整行编辑
-            if (fullRowEdit) {
-                if (editingFocusCell && editingFocusCell.rowKey === rowKey) {
-                    isStopEditing = true;
-                } else {
-                    isStartEditing = true;
-                }
-            } else {
-                const currentColumn = colgroups.find((x) => x.key === colKey);
-                // 当前列是否可编辑
-                if (currentColumn.edit) {
-                    if (
-                        editingFocusCell &&
-                        editingFocusCell.rowKey === rowKey &&
-                        editingFocusCell.colKey === colKey
-                    ) {
-                        isStopEditing = true;
-                    } else {
-                        isStartEditing = true;
-                    }
-                }
-            }
+        //     // 整行编辑
+        //     if (fullRowEdit) {
+        //         if (editingFocusCell && editingFocusCell.rowKey === rowKey) {
+        //             isStopEditing = true;
+        //         } else {
+        //             isStartEditing = true;
+        //         }
+        //     } else {
+        //         const currentColumn = colgroups.find((x) => x.key === colKey);
+        //         // 当前列是否可编辑
+        //         if (currentColumn.edit) {
+        //             if (
+        //                 editingFocusCell &&
+        //                 editingFocusCell.rowKey === rowKey &&
+        //                 editingFocusCell.colKey === colKey
+        //             ) {
+        //                 isStopEditing = true;
+        //             } else {
+        //                 isStartEditing = true;
+        //             }
+        //         }
+        //     }
 
-            if (isStartEditing) {
-                this[INSTANCE_METHODS.START_EDITING_CELL]({
-                    rowKey,
-                    colKey: colKey,
-                });
-            } else if (isStopEditing) {
-                this[INSTANCE_METHODS.STOP_EDITING_CELL]({
-                    rowKey,
-                    colKey: colKey,
-                });
-            }
-        },
+        //     if (isStartEditing) {
+        //         this[INSTANCE_METHODS.START_EDITING_CELL]({
+        //             rowKey,
+        //             colKey: colKey,
+        //         });
+        //     } else if (isStopEditing) {
+        //         this[INSTANCE_METHODS.STOP_EDITING_CELL]({
+        //             rowKey,
+        //             colKey: colKey,
+        //         });
+        //     }
+        // },
 
         /*
          * @editCellByClick
          * @desc  recieve td click event
-         * @param {object} rowData - row data
-         * @param {object} column - column data
+         * @param {object} clickRowKey - click row key
+         * @param {object} clickColKey - click column key
+         * @param {object} isDoubleClick - is double click
          */
-        editCellByClick({ rowData, column, isDoubleClick }) {
+        editCellByClick({ clickRowKey, clickColKey, isDoubleClick }) {
             const {
-                rowKeyFieldName,
                 editOption,
                 colgroups,
                 hasEditingFocusCell,
@@ -1507,9 +1531,6 @@ export default {
             if (!hasEditColumn) {
                 return false;
             }
-
-            const clickRowKey = rowData[rowKeyFieldName];
-            const clickColKey = column.key;
 
             let isStartEditing = false;
             let isStopEditing = false;
