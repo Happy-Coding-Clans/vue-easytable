@@ -700,7 +700,7 @@ export default {
                 editingFocusCell,
             } = this;
 
-            const { keyCode } = event;
+            const { keyCode, shiftKey } = event;
 
             const { rowKey, colKey } = cellSelectionKeyData;
 
@@ -717,7 +717,10 @@ export default {
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
                 let columnIndex = colgroups.findIndex((x) => x.key === colKey);
                 let rowIndex = allRowKeys.indexOf(rowKey);
-                if (keyCode === KEY_CODES.ARROW_LEFT) {
+                if (
+                    keyCode === KEY_CODES.ARROW_LEFT ||
+                    (keyCode === KEY_CODES.TAB && shiftKey)
+                ) {
                     // 防止外层让其滚动
                     event.preventDefault();
 
