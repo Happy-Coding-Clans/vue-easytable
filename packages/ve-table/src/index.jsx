@@ -735,7 +735,7 @@ export default {
                         }
                     }
                     this.cellSelectionKeyData.colKey = nextColumn.key;
-                    this.columnToVisible(KEY_CODES.ARROW_LEFT, nextColumn);
+                    this.columnToVisible(nextColumn);
                 } else if (
                     keyCode === KEY_CODES.ARROW_RIGHT ||
                     keyCode === KEY_CODES.TAB
@@ -756,7 +756,7 @@ export default {
                         }
                     }
                     this.cellSelectionKeyData.colKey = nextColumn.key;
-                    this.columnToVisible(KEY_CODES.ARROW_RIGHT, nextColumn);
+                    this.columnToVisible(nextColumn);
                 } else if (keyCode === KEY_CODES.ARROW_UP) {
                     event.preventDefault();
                     if (rowIndex > 0) {
@@ -777,43 +777,38 @@ export default {
         /*
          * @columnToVisible
          * @desc  column to visible
-         * @param {number} keyCode - current keyCode
          * @param {object} nextColumn - next column
          */
-        columnToVisible(keyCode, nextColumn) {
+        columnToVisible(nextColumn) {
             const { colgroups } = this;
 
             const tableContainerRef = this.$refs[this.tableContainerRef];
 
             const { scrollWidth, clientWidth, scrollLeft } = tableContainerRef;
 
-            // arrow left
-            if (keyCode === KEY_CODES.ARROW_LEFT) {
-                // 不是固定列
-                if (scrollLeft && !nextColumn.fixed) {
-                    const totalWidth = getNotFixedTotalWidthByColumnKey({
-                        colgroups,
-                        colKey: nextColumn.key,
-                        direction: "left",
-                    });
-                    const diff = scrollLeft - totalWidth;
+            if (!nextColumn.fixed) {
+                const leftTotalWidth = getNotFixedTotalWidthByColumnKey({
+                    colgroups,
+                    colKey: nextColumn.key,
+                    direction: "left",
+                });
+
+                const rightTotalWidth = getNotFixedTotalWidthByColumnKey({
+                    colgroups,
+                    colKey: nextColumn.key,
+                    direction: "right",
+                });
+
+                if (scrollLeft) {
+                    const diff = scrollLeft - leftTotalWidth;
                     if (diff > 0) {
                         tableContainerRef.scrollLeft = scrollLeft - diff;
                     }
                 }
-            }
-            // arrow right
-            else if (keyCode === KEY_CODES.ARROW_RIGHT) {
-                const scrollRight = scrollWidth - clientWidth - scrollLeft;
 
-                // 不是固定列
-                if (scrollRight && !nextColumn.fixed) {
-                    const totalWidth = getNotFixedTotalWidthByColumnKey({
-                        colgroups,
-                        colKey: nextColumn.key,
-                        direction: "right",
-                    });
-                    const diff = scrollRight - totalWidth;
+                const scrollRight = scrollWidth - clientWidth - scrollLeft;
+                if (scrollRight) {
+                    const diff = scrollRight - rightTotalWidth;
                     if (diff > 0) {
                         tableContainerRef.scrollLeft = scrollLeft + diff;
                     }
