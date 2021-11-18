@@ -815,7 +815,10 @@ export default {
             return result;
         },
 
-        // rendering row keys
+        /*
+        rendering row keys
+        virtual scrolling will invoke
+        */
         renderingRowKeys(rowKeys) {
             const {
                 virtualScrollPreviewRenderedRowKeys: previewRenderedRowKeys,
