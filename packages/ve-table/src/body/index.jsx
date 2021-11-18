@@ -212,11 +212,11 @@ export default {
                         (fixed === "right" &&
                             columnIndex < colgroups.length - 1)
                     ) {
-                        totalWidth = getFixedTotalWidthByColumnKey(
+                        totalWidth = getFixedTotalWidthByColumnKey({
                             colgroups,
                             colKey,
                             fixed,
-                        );
+                        });
 
                         totalWidth = getValByUnit(totalWidth);
                     }
