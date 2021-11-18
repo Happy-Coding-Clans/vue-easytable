@@ -26,6 +26,7 @@ import {
     EMIT_EVENTS,
     COMPS_CUSTOM_ATTRS,
     INSTANCE_METHODS,
+    CELL_SELECTION_DIRECTION,
 } from "./util/constant";
 import Colgroup from "./colgroup";
 import Header from "./header";
@@ -693,12 +694,7 @@ export default {
         },
         // cell direction
         cellDirection(event) {
-            const {
-                cellSelectionKeyData,
-                colgroups,
-                allRowKeys,
-                editingFocusCell,
-            } = this;
+            const { cellSelectionKeyData, editingFocusCell } = this;
 
             const { keyCode, shiftKey } = event;
 
@@ -715,64 +711,68 @@ export default {
             }
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                let columnIndex = colgroups.findIndex((x) => x.key === colKey);
-                let rowIndex = allRowKeys.indexOf(rowKey);
+                let direction;
                 if (
                     keyCode === KEY_CODES.ARROW_LEFT ||
                     (keyCode === KEY_CODES.TAB && shiftKey)
                 ) {
                     // 防止外层让其滚动
                     event.preventDefault();
-
-                    let nextColumn;
-                    // same row preview column
-                    if (columnIndex > 0) {
-                        nextColumn = colgroups[columnIndex - 1];
-                    }
-                    // preview row last column
-                    else {
-                        nextColumn = colgroups[colgroups.length - 1];
-                        if (rowIndex > 0) {
-                            const nextRowKey = allRowKeys[rowIndex - 1];
-                            this.rowToVisible(KEY_CODES.ARROW_UP, nextRowKey);
-                        }
-                    }
-                    this.cellSelectionKeyData.colKey = nextColumn.key;
-                    this.columnToVisible(nextColumn);
+                    direction = CELL_SELECTION_DIRECTION.LEFT;
                 } else if (
                     keyCode === KEY_CODES.ARROW_RIGHT ||
                     keyCode === KEY_CODES.TAB
                 ) {
                     event.preventDefault();
-
-                    let nextColumn;
-                    // same row next column
-                    if (columnIndex < colgroups.length - 1) {
-                        nextColumn = colgroups[columnIndex + 1];
-                    }
-                    // next row first column
-                    else {
-                        nextColumn = colgroups[0];
-                        if (rowIndex < allRowKeys.length - 1) {
-                            const nextRowKey = allRowKeys[rowIndex + 1];
-                            this.rowToVisible(KEY_CODES.ARROW_DOWN, nextRowKey);
-                        }
-                    }
-                    this.cellSelectionKeyData.colKey = nextColumn.key;
-                    this.columnToVisible(nextColumn);
+                    direction = CELL_SELECTION_DIRECTION.RIGHT;
                 } else if (keyCode === KEY_CODES.ARROW_UP) {
                     event.preventDefault();
-                    if (rowIndex > 0) {
-                        const nextRowKey = allRowKeys[rowIndex - 1];
-                        this.rowToVisible(KEY_CODES.ARROW_UP, nextRowKey);
-                    }
+                    direction = CELL_SELECTION_DIRECTION.UP;
                 } else if (keyCode === KEY_CODES.ARROW_DOWN) {
                     event.preventDefault();
+                    direction = CELL_SELECTION_DIRECTION.DOWN;
+                }
 
-                    if (rowIndex < allRowKeys.length - 1) {
-                        const nextRowKey = allRowKeys[rowIndex + 1];
-                        this.rowToVisible(KEY_CODES.ARROW_DOWN, nextRowKey);
-                    }
+                if (direction) {
+                    this.selectCellByDirection({
+                        direction,
+                    });
+                }
+            }
+        },
+
+        // select cell by direction
+        selectCellByDirection({ direction }) {
+            const { colgroups, allRowKeys, cellSelectionKeyData } = this;
+
+            const { rowKey, colKey } = cellSelectionKeyData;
+
+            let columnIndex = colgroups.findIndex((x) => x.key === colKey);
+            let rowIndex = allRowKeys.indexOf(rowKey);
+
+            if (direction === CELL_SELECTION_DIRECTION.LEFT) {
+                // same row preview column like excel
+                if (columnIndex > 0) {
+                    let nextColumn = colgroups[columnIndex - 1];
+                    this.cellSelectionKeyData.colKey = nextColumn.key;
+                    this.columnToVisible(nextColumn);
+                }
+            } else if (direction === CELL_SELECTION_DIRECTION.RIGHT) {
+                // same row next column like excel
+                if (columnIndex < colgroups.length - 1) {
+                    let nextColumn = colgroups[columnIndex + 1];
+                    this.cellSelectionKeyData.colKey = nextColumn.key;
+                    this.columnToVisible(nextColumn);
+                }
+            } else if (direction === CELL_SELECTION_DIRECTION.UP) {
+                if (rowIndex > 0) {
+                    const nextRowKey = allRowKeys[rowIndex - 1];
+                    this.rowToVisible(KEY_CODES.ARROW_UP, nextRowKey);
+                }
+            } else if (direction === CELL_SELECTION_DIRECTION.DOWN) {
+                if (rowIndex < allRowKeys.length - 1) {
+                    const nextRowKey = allRowKeys[rowIndex + 1];
+                    this.rowToVisible(KEY_CODES.ARROW_DOWN, nextRowKey);
                 }
             }
         },
@@ -1395,6 +1395,9 @@ export default {
                 return false;
             }
 
+            // edit cell
+            const { fullRowEdit } = editOption;
+
             if (keyCode === KEY_CODES.ENTER) {
                 // toggle editing cell
                 this.toggleEditigCell();
@@ -1402,50 +1405,29 @@ export default {
                 keyCode === KEY_CODES.DELETE ||
                 keyCode === KEY_CODES.BACK_SPACE
             ) {
-                // clear editing cell value
-                this.clearEditingCellValue();
-            }
-        },
+                // start editing and clear value
+                this[INSTANCE_METHODS.START_EDITING_CELL]({
+                    rowKey,
+                    colKey,
+                    defaultValue: "",
+                });
+            } else if (keyCode === KEY_CODES.SPACE) {
+                // start editing and enter a space
+                this[INSTANCE_METHODS.START_EDITING_CELL]({
+                    rowKey,
+                    colKey,
+                    defaultValue: " ",
+                });
+            } else if (keyCode === KEY_CODES.TAB) {
+                if (!fullRowEdit) {
+                    event.preventDefault();
+                    this.selectCellByDirection({
+                        direction: CELL_SELECTION_DIRECTION.RIGHT,
+                    });
 
-        // clear editing cell value
-        clearEditingCellValue() {
-            const {
-                editingFocusCell,
-                colgroups,
-                editOption,
-                cellSelectionKeyData,
-            } = this;
-            // edit cell
-            const { fullRowEdit } = editOption;
-
-            const { rowKey, colKey } = cellSelectionKeyData;
-
-            // full row edit
-            if (fullRowEdit) {
-                // return if cell is editing
-                if (editingFocusCell && editingFocusCell.rowKey === rowKey) {
-                    return false;
-                }
-            } else {
-                const currentColumn = colgroups.find((x) => x.key === colKey);
-                // return if cell is editing
-                if (currentColumn.edit) {
-                    if (
-                        editingFocusCell &&
-                        editingFocusCell.rowKey === rowKey &&
-                        editingFocusCell.colKey === colKey
-                    ) {
-                        return false;
-                    }
+                    // 缺少点击 tdClick
                 }
             }
-
-            // start editing
-            this[INSTANCE_METHODS.START_EDITING_CELL]({
-                rowKey,
-                colKey: colKey,
-                defaultValue: "",
-            });
         },
 
         // toggle editing cell
@@ -1728,6 +1710,14 @@ export default {
             调用API编辑的情况，需要关闭之前编辑的单元格
             */
             if (editingFocusCell) {
+                // If it is the currently editing cell, return
+                if (
+                    editingFocusCell.rowKey === rowKey &&
+                    editingFocusCell.colKey === colKey
+                ) {
+                    return false;
+                }
+
                 // 整行编辑
                 if (fullRowEdit) {
                     if (editingFocusCell.rowKey !== rowKey) {
