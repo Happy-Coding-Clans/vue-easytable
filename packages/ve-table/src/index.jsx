@@ -1148,6 +1148,9 @@ export default {
             let visibleEndIndex = visibleStartIndex + visibleCount;
             this.$options.customOption.virtualScrollEndIndex = visibleEndIndex;
 
+            const visibleAboveCount = this.getVirtualScrollAboveCount();
+            const visibleBelowCount = this.getVirtualScrollBelowCount();
+
             //此时的偏移量
             this.setVirtualScrollStartOffset();
 
@@ -1157,8 +1160,8 @@ export default {
                 if (bodyElement) {
                     bodyElement.renderingRowKeys(
                         this.allRowKeys.slice(
-                            visibleStartIndex,
-                            visibleEndIndex + 1,
+                            visibleStartIndex - visibleAboveCount,
+                            visibleEndIndex + visibleBelowCount,
                         ),
                     );
                 }
