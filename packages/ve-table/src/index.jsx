@@ -720,18 +720,43 @@ export default {
                 if (keyCode === KEY_CODES.ARROW_LEFT) {
                     // 防止外层让其滚动
                     event.preventDefault();
+
+                    let nextColumn;
+                    // same row preview column
                     if (columnIndex > 0) {
-                        const nextColumn = colgroups[columnIndex - 1];
-                        this.cellSelectionKeyData.colKey = nextColumn.key;
-                        this.columnToVisible(KEY_CODES.ARROW_LEFT, nextColumn);
+                        nextColumn = colgroups[columnIndex - 1];
                     }
-                } else if (keyCode === KEY_CODES.ARROW_RIGHT) {
+                    // preview row last column
+                    else {
+                        nextColumn = colgroups[colgroups.length - 1];
+                        if (rowIndex > 0) {
+                            const nextRowKey = allRowKeys[rowIndex - 1];
+                            this.rowToVisible(KEY_CODES.ARROW_UP, nextRowKey);
+                        }
+                    }
+                    this.cellSelectionKeyData.colKey = nextColumn.key;
+                    this.columnToVisible(KEY_CODES.ARROW_LEFT, nextColumn);
+                } else if (
+                    keyCode === KEY_CODES.ARROW_RIGHT ||
+                    keyCode === KEY_CODES.TAB
+                ) {
                     event.preventDefault();
+
+                    let nextColumn;
+                    // same row next column
                     if (columnIndex < colgroups.length - 1) {
-                        const nextColumn = colgroups[columnIndex + 1];
-                        this.cellSelectionKeyData.colKey = nextColumn.key;
-                        this.columnToVisible(KEY_CODES.ARROW_RIGHT, nextColumn);
+                        nextColumn = colgroups[columnIndex + 1];
                     }
+                    // next row first column
+                    else {
+                        nextColumn = colgroups[0];
+                        if (rowIndex < allRowKeys.length - 1) {
+                            const nextRowKey = allRowKeys[rowIndex + 1];
+                            this.rowToVisible(KEY_CODES.ARROW_DOWN, nextRowKey);
+                        }
+                    }
+                    this.cellSelectionKeyData.colKey = nextColumn.key;
+                    this.columnToVisible(KEY_CODES.ARROW_RIGHT, nextColumn);
                 } else if (keyCode === KEY_CODES.ARROW_UP) {
                     event.preventDefault();
                     if (rowIndex > 0) {
@@ -744,16 +769,6 @@ export default {
                     if (rowIndex < allRowKeys.length - 1) {
                         const nextRowKey = allRowKeys[rowIndex + 1];
                         this.rowToVisible(KEY_CODES.ARROW_DOWN, nextRowKey);
-                    }
-                } else if (keyCode === KEY_CODES.TAB) {
-                    /*
-                    进入同行下一个单元格，当是最后一个单元格时进入下一行第一个单元格
-                    */
-                    event.preventDefault();
-                    if (columnIndex < colgroups.length - 1) {
-                        const nextColumn = colgroups[columnIndex + 1];
-                        this.cellSelectionKeyData.colKey = nextColumn.key;
-                        this.columnToVisible(KEY_CODES.ARROW_RIGHT, nextColumn);
                     }
                 }
             }
