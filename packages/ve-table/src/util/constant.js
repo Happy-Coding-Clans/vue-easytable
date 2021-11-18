@@ -24,6 +24,14 @@ export const EXPAND_TRIGGER_TYPES = {
     ROW: "row",
 };
 
+// cell selection direction
+export const CELL_SELECTION_DIRECTION = {
+    UP: "up",
+    RIGHT: "right",
+    DOWN: "down",
+    LEFT: "left",
+};
+
 // emit events
 export const EMIT_EVENTS = {
     // body-td-width-change
