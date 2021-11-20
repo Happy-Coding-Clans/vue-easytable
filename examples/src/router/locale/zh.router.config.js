@@ -190,18 +190,18 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
-                path: "cell-ellipsis",
-                component: () =>
-                    import("@/docs/zh/ve-table/cell-ellipsis/main.vue"),
-                name: "单元格省略",
-                meta: { keepAlive: true },
-            },
-            {
                 path: "cell-edit",
                 component: () =>
                     import("@/docs/zh/ve-table/cell-edit/main.vue"),
                 name: "单元格编辑",
                 meta: { keepAlive: true, version: "v2.10.0" },
+            },
+            {
+                path: "cell-ellipsis",
+                component: () =>
+                    import("@/docs/zh/ve-table/cell-ellipsis/main.vue"),
+                name: "单元格省略",
+                meta: { keepAlive: true },
             },
             {
                 path: "row-index",
