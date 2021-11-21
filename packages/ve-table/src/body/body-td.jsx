@@ -2,7 +2,7 @@ import BodyCheckboxContent from "./body-checkbox-content";
 import BodyRadioContent from "./body-radio-content";
 import ExpandTrIcon from "./expand-tr-icon";
 import { clsName } from "../util";
-import { isNumber, isBoolean, isFalse } from "../../../src/utils/index.js";
+import { isNumber, isBoolean } from "../../../src/utils/index.js";
 import focus from "../../../src/directives/focus.js";
 
 import {
@@ -424,8 +424,6 @@ export default {
             对原始数据编辑
             */
             if (isEditingCell) {
-                const { textSelectedWhenCellFocus } = editOption;
-
                 const editingCellProps = {
                     props: {
                         value: rawCellValue,
@@ -436,9 +434,6 @@ export default {
                             name: "focus",
                             value: {
                                 focus: isEditingFocusCell,
-                                select:
-                                    isEditingFocusCell &&
-                                    !isFalse(textSelectedWhenCellFocus),
                             },
                         },
                     ],
@@ -448,6 +443,18 @@ export default {
                             this.rawCellValue = e.target.value;
                             // 重置编辑单元格的值
                             this.resetEditingCellValue();
+                        },
+                        click: () => {
+                            this.dispatch(
+                                COMPS_NAME.VE_TABLE,
+                                EMIT_EVENTS.BODY_TD_EDIT_CELL_INPUT_VALUE_CLICK,
+                            );
+                        },
+                        blur: () => {
+                            this.dispatch(
+                                COMPS_NAME.VE_TABLE,
+                                EMIT_EVENTS.BODY_TD_EDIT_CELL_INPUT_BLUR,
+                            );
                         },
                     },
                 };
