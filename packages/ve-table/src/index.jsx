@@ -20,6 +20,10 @@ import {
     requestAnimationTimeout,
     cancelAnimationTimeout,
 } from "../../src/utils/request-animation-timeout";
+import {
+    isInputKeyCode,
+    isDirectionKeyCode,
+} from "../../src/utils/event-key-codes";
 import emitter from "../../src/mixins/emitter";
 import {
     COMPS_NAME,
@@ -301,6 +305,13 @@ export default {
             }
             */
             editingFocusCell: null,
+            /* 
+            是否允许按下方向键时，停止编辑并移动选中单元格。当双击可编辑单元格或者点击输入文本框时设置为false值
+
+            像excel一样：如果直接在可编辑单元格上输入内容后，按下上、下、左、右按键可以直接选中其他单元格，并停止当前单元格编辑状态
+            like Excel:If you directly enter content in an editable cell, press the up, down, left and right buttons to directly select other cells and stop editing the current cell
+            */
+            enableStopEditingAndChangeSelectionByDirectionKeyPressed: true,
         };
     },
     // 存储非响应式数据
@@ -694,48 +705,115 @@ export default {
         },
         // cell direction
         cellDirection(event) {
-            const { cellSelectionKeyData, editingFocusCell } = this;
+            const {
+                cellSelectionKeyData,
+                editingFocusCell,
+                enableStopEditingAndChangeSelectionByDirectionKeyPressed,
+                editOption,
+            } = this;
+
+            let direction;
 
             const { keyCode, shiftKey } = event;
 
             const { rowKey, colKey } = cellSelectionKeyData;
 
-            // 如果是当前编辑的单元格
-            if (editingFocusCell) {
-                if (
-                    editingFocusCell.rowKey === rowKey &&
-                    editingFocusCell.colKey === colKey
-                ) {
-                    return false;
-                }
-            }
-
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                let direction;
                 if (
                     keyCode === KEY_CODES.ARROW_LEFT ||
                     (keyCode === KEY_CODES.TAB && shiftKey)
                 ) {
-                    // 防止外层让其滚动
-                    event.preventDefault();
                     direction = CELL_SELECTION_DIRECTION.LEFT;
                 } else if (
                     keyCode === KEY_CODES.ARROW_RIGHT ||
                     keyCode === KEY_CODES.TAB
                 ) {
-                    event.preventDefault();
                     direction = CELL_SELECTION_DIRECTION.RIGHT;
                 } else if (keyCode === KEY_CODES.ARROW_UP) {
-                    event.preventDefault();
                     direction = CELL_SELECTION_DIRECTION.UP;
-                } else if (keyCode === KEY_CODES.ARROW_DOWN) {
-                    event.preventDefault();
+                } else if (
+                    keyCode === KEY_CODES.ARROW_DOWN ||
+                    keyCode === KEY_CODES.ENTER
+                ) {
                     direction = CELL_SELECTION_DIRECTION.DOWN;
                 }
+            }
 
-                if (direction) {
+            const { fullRowEdit } = editOption;
+
+            if (direction) {
+                if (enableStopEditingAndChangeSelectionByDirectionKeyPressed) {
+                    event.preventDefault();
+                }
+
+                // 编辑时允许改变方向 || 不是方向键
+                if (
+                    enableStopEditingAndChangeSelectionByDirectionKeyPressed ||
+                    !isDirectionKeyCode(keyCode)
+                ) {
                     this.selectCellByDirection({
                         direction,
+                    });
+
+                    /*
+                    如果是当前编辑的单元格,并且不是整行编辑
+                    If the cell is currently editing cell and not the full row is edited
+                    */
+                    if (editingFocusCell && !fullRowEdit) {
+                        this[INSTANCE_METHODS.STOP_EDITING_CELL]({
+                            rowKey,
+                            colKey,
+                        });
+                    }
+                }
+            }
+        },
+
+        // deal editing cell by keydown event
+        dealEditingCellByKeydownEvent(event) {
+            const { cellSelectionKeyData, editOption, hasEditColumn } = this;
+
+            const { keyCode } = event;
+
+            if (!editOption) {
+                return false;
+            }
+
+            // has edit column
+            if (!hasEditColumn) {
+                return false;
+            }
+
+            const { rowKey, colKey } = cellSelectionKeyData;
+
+            if (isEmptyValue(rowKey) || isEmptyValue(colKey)) {
+                return false;
+            }
+
+            if (isInputKeyCode(keyCode)) {
+                // eventKey
+                this[INSTANCE_METHODS.START_EDITING_CELL]({
+                    rowKey,
+                    colKey,
+                    defaultValue: "",
+                });
+            } else {
+                if (
+                    keyCode === KEY_CODES.DELETE ||
+                    keyCode === KEY_CODES.BACK_SPACE
+                ) {
+                    // start editing and clear value
+                    this[INSTANCE_METHODS.START_EDITING_CELL]({
+                        rowKey,
+                        colKey,
+                        defaultValue: "",
+                    });
+                } else if (keyCode === KEY_CODES.SPACE) {
+                    // start editing and enter a space
+                    this[INSTANCE_METHODS.START_EDITING_CELL]({
+                        rowKey,
+                        colKey,
+                        defaultValue: " ",
                     });
                 }
             }
@@ -1366,7 +1444,6 @@ export default {
                 }
             }
 
-            // eidting by single click
             if (editOption) {
                 this.editCellByClick({
                     clickRowKey: rowKey,
@@ -1376,143 +1453,11 @@ export default {
             }
         },
 
-        // deal editing cell by keydown event
-        dealEditingCellByKeydownEvent(event) {
-            const { cellSelectionKeyData, editOption, hasEditColumn } = this;
-
-            const { keyCode, shiftKey } = event;
-
-            if (!editOption) {
-                return false;
-            }
-
-            // has edit column
-            if (!hasEditColumn) {
-                return false;
-            }
-
-            const { rowKey, colKey } = cellSelectionKeyData;
-
-            if (isEmptyValue(rowKey) || isEmptyValue(colKey)) {
-                return false;
-            }
-
-            // edit cell
-            const { fullRowEdit } = editOption;
-
-            if (keyCode === KEY_CODES.ENTER) {
-                event.preventDefault();
-                this.selectCellByDirection({
-                    direction: CELL_SELECTION_DIRECTION.DOWN,
-                });
-
-                this[INSTANCE_METHODS.STOP_EDITING_CELL]({
-                    rowKey,
-                    colKey,
-                });
-            } else if (
-                keyCode === KEY_CODES.DELETE ||
-                keyCode === KEY_CODES.BACK_SPACE
-            ) {
-                // start editing and clear value
-                this[INSTANCE_METHODS.START_EDITING_CELL]({
-                    rowKey,
-                    colKey,
-                    defaultValue: "",
-                });
-            } else if (keyCode === KEY_CODES.SPACE) {
-                // start editing and enter a space
-                this[INSTANCE_METHODS.START_EDITING_CELL]({
-                    rowKey,
-                    colKey,
-                    defaultValue: " ",
-                });
-            } else if (keyCode === KEY_CODES.TAB && shiftKey) {
-                if (!fullRowEdit) {
-                    event.preventDefault();
-                    this.selectCellByDirection({
-                        direction: CELL_SELECTION_DIRECTION.LEFT,
-                    });
-
-                    this[INSTANCE_METHODS.STOP_EDITING_CELL]({
-                        rowKey,
-                        colKey,
-                    });
-                }
-            } else if (keyCode === KEY_CODES.TAB) {
-                if (!fullRowEdit) {
-                    event.preventDefault();
-                    this.selectCellByDirection({
-                        direction: CELL_SELECTION_DIRECTION.RIGHT,
-                    });
-
-                    this[INSTANCE_METHODS.STOP_EDITING_CELL]({
-                        rowKey,
-                        colKey,
-                    });
-                }
-            }
-        },
-
-        // toggle editing cell
-        // toggleEditigCell() {
-        //     const {
-        //         cellSelectionKeyData,
-        //         editOption,
-        //         colgroups,
-        //         editingFocusCell,
-        //     } = this;
-
-        //     const { rowKey, colKey } = cellSelectionKeyData;
-
-        //     let isStartEditing = false;
-        //     let isStopEditing = false;
-
-        //     // edit cell
-        //     const { fullRowEdit } = editOption;
-
-        //     // 整行编辑
-        //     if (fullRowEdit) {
-        //         if (editingFocusCell && editingFocusCell.rowKey === rowKey) {
-        //             isStopEditing = true;
-        //         } else {
-        //             isStartEditing = true;
-        //         }
-        //     } else {
-        //         const currentColumn = colgroups.find((x) => x.key === colKey);
-        //         // 当前列是否可编辑
-        //         if (currentColumn.edit) {
-        //             if (
-        //                 editingFocusCell &&
-        //                 editingFocusCell.rowKey === rowKey &&
-        //                 editingFocusCell.colKey === colKey
-        //             ) {
-        //                 isStopEditing = true;
-        //             } else {
-        //                 isStartEditing = true;
-        //             }
-        //         }
-        //     }
-
-        //     if (isStartEditing) {
-        //         this[INSTANCE_METHODS.START_EDITING_CELL]({
-        //             rowKey,
-        //             colKey: colKey,
-        //         });
-        //     } else if (isStopEditing) {
-        //         this[INSTANCE_METHODS.STOP_EDITING_CELL]({
-        //             rowKey,
-        //             colKey: colKey,
-        //         });
-        //     }
-        // },
-
         /*
          * @editCellByClick
          * @desc  recieve td click event
          * @param {object} clickRowKey - click row key
          * @param {object} clickColKey - click column key
-         * @param {object} isDoubleClick - is double click
          */
         editCellByClick({ clickRowKey, clickColKey, isDoubleClick }) {
             const {
@@ -1587,10 +1532,9 @@ export default {
             }
 
             if (isStartEditing) {
-                let doubleClickEdit = isFalse(editOption.doubleClickEdit)
-                    ? false
-                    : true;
-                if (doubleClickEdit === isDoubleClick) {
+                if (isDoubleClick) {
+                    this.enableStopEditingAndChangeSelectionByDirectionKeyPressed = false;
+
                     this[INSTANCE_METHODS.START_EDITING_CELL]({
                         rowKey: clickRowKey,
                         colKey: clickColKey,
@@ -1916,6 +1860,16 @@ export default {
                 this.editingCells = editingCells;
             },
         );
+
+        // body td edit cell value change
+        this.$on(EMIT_EVENTS.BODY_TD_EDIT_CELL_INPUT_VALUE_CLICK, () => {
+            this.enableStopEditingAndChangeSelectionByDirectionKeyPressed = false;
+        });
+
+        // body editing cell input blur
+        this.$on(EMIT_EVENTS.BODY_TD_EDIT_CELL_INPUT_BLUR, () => {
+            this.enableStopEditingAndChangeSelectionByDirectionKeyPressed = true;
+        });
 
         // add key down event listener
         document.addEventListener("keydown", this.dealKeydownEvent);
