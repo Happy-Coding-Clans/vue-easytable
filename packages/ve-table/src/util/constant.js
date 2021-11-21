@@ -48,11 +48,14 @@ export const EMIT_EVENTS = {
     BODY_TD_CLICK: "on-body-td-click",
     // body td double click
     BODY_TD_DOUBLE_CLICK: "on-body-td-double-click",
-    // body td edit cell blur
-    BODY_TD_EDIT_CELL_BLUR: "on-body-td-edit-cell-blur",
+    // body editing cell input value clicked
+    BODY_TD_EDIT_CELL_INPUT_VALUE_CLICK:
+        "on-body-td-edit-cell-input-value-click",
+    // body editing cell input value blur
+    BODY_TD_EDIT_CELL_INPUT_BLUR: "on-body-td-edit-cell-input-blur",
     // body td edit cell value change
     BODY_TD_EDIT_CELL_VALUE_CHANGE: "on-body-td-edit-cell-value-change",
-    // expand-row-change
+    // expand row change
     EXPAND_ROW_CHANGE: "on-expand-row-change",
     // checkbox selected row change
     CHECKBOX_SELECTED_ROW_CHANGE: "on-checkbox-selected-row-change",
