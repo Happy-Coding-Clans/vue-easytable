@@ -718,30 +718,53 @@ export default {
 
             const { rowKey, colKey } = cellSelectionKeyData;
 
+            const { fullRowEdit } = editOption;
+
+            let enableStopEditing = false;
+
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                if (
-                    keyCode === KEY_CODES.ARROW_LEFT ||
-                    (keyCode === KEY_CODES.TAB && shiftKey)
-                ) {
+                if (keyCode === KEY_CODES.ARROW_LEFT) {
                     direction = CELL_SELECTION_DIRECTION.LEFT;
-                } else if (
-                    keyCode === KEY_CODES.ARROW_RIGHT ||
-                    keyCode === KEY_CODES.TAB
-                ) {
+
+                    if (!fullRowEdit) {
+                        enableStopEditing = true;
+                    }
+                } else if (keyCode === KEY_CODES.TAB && shiftKey) {
+                    direction = CELL_SELECTION_DIRECTION.LEFT;
+
+                    if (!fullRowEdit) {
+                        enableStopEditing = true;
+                    }
+                } else if (keyCode === KEY_CODES.ARROW_RIGHT) {
                     direction = CELL_SELECTION_DIRECTION.RIGHT;
+
+                    if (!fullRowEdit) {
+                        enableStopEditing = true;
+                    }
+                } else if (keyCode === KEY_CODES.TAB) {
+                    direction = CELL_SELECTION_DIRECTION.RIGHT;
+
+                    if (!fullRowEdit) {
+                        enableStopEditing = true;
+                    }
                 } else if (keyCode === KEY_CODES.ARROW_UP) {
                     direction = CELL_SELECTION_DIRECTION.UP;
-                } else if (
-                    keyCode === KEY_CODES.ARROW_DOWN ||
-                    keyCode === KEY_CODES.ENTER
-                ) {
+
+                    enableStopEditing = true;
+                } else if (keyCode === KEY_CODES.ARROW_DOWN) {
                     direction = CELL_SELECTION_DIRECTION.DOWN;
+
+                    enableStopEditing = true;
+                } else if (keyCode === KEY_CODES.ENTER) {
+                    direction = CELL_SELECTION_DIRECTION.DOWN;
+
+                    enableStopEditing = true;
                 }
             }
 
-            const { fullRowEdit } = editOption;
-
             if (direction) {
+                const isDirectKeyCode = isDirectionKeyCode(keyCode);
+
                 if (enableStopEditingAndChangeSelectionByDirectionKeyPressed) {
                     event.preventDefault();
                 }
@@ -749,7 +772,7 @@ export default {
                 // 编辑时允许改变方向 || 不是方向键
                 if (
                     enableStopEditingAndChangeSelectionByDirectionKeyPressed ||
-                    !isDirectionKeyCode(keyCode)
+                    !isDirectKeyCode
                 ) {
                     this.selectCellByDirection({
                         direction,
@@ -759,7 +782,7 @@ export default {
                     如果是当前编辑的单元格,并且不是整行编辑
                     If the cell is currently editing cell and not the full row is edited
                     */
-                    if (editingFocusCell && !fullRowEdit) {
+                    if (editingFocusCell && enableStopEditing) {
                         this[INSTANCE_METHODS.STOP_EDITING_CELL]({
                             rowKey,
                             colKey,
@@ -1477,8 +1500,8 @@ export default {
                 return false;
             }
 
-            let isStartEditing = false;
-            let isStopEditing = false;
+            let enableStartEditing = false;
+            let enableStopEditing = false;
 
             // edit cell
             const { fullRowEdit, stopEditingWhenCellLoseFocus } = editOption;
@@ -1497,8 +1520,8 @@ export default {
 
                     return false;
                 } else {
-                    isStopEditing = true;
-                    isStartEditing = true;
+                    enableStopEditing = true;
+                    enableStartEditing = true;
                 }
             } else {
                 const currentColumn = colgroups.find(
@@ -1514,13 +1537,13 @@ export default {
                         //
                         return false;
                     } else {
-                        isStopEditing = true;
-                        isStartEditing = true;
+                        enableStopEditing = true;
+                        enableStartEditing = true;
                     }
                 }
             }
 
-            if (isStopEditing) {
+            if (enableStopEditing) {
                 if (hasEditingFocusCell) {
                     if (!isFalse(stopEditingWhenCellLoseFocus)) {
                         this[INSTANCE_METHODS.STOP_EDITING_CELL]({
@@ -1531,7 +1554,7 @@ export default {
                 }
             }
 
-            if (isStartEditing) {
+            if (enableStartEditing) {
                 if (isDoubleClick) {
                     this.enableStopEditingAndChangeSelectionByDirectionKeyPressed = false;
 
