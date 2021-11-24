@@ -698,6 +698,7 @@ export default {
 
         // deal keydown event
         dealKeydownEvent(event) {
+            event.stopPropagation();
             // cell direction
             this.cellDirection(event);
             // deal editing cell by keydown event
@@ -718,11 +719,11 @@ export default {
 
             const { rowKey, colKey } = cellSelectionKeyData;
 
-            const { fullRowEdit } = editOption;
-
             let enableStopEditing = false;
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+                const { fullRowEdit } = editOption;
+
                 if (keyCode === KEY_CODES.ARROW_LEFT) {
                     direction = CELL_SELECTION_DIRECTION.LEFT;
 
