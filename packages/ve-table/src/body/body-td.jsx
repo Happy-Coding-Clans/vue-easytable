@@ -398,7 +398,6 @@ export default {
 
         // get render content
         getRenderContent(h) {
-            console.log(1);
             let content = null;
 
             const {
