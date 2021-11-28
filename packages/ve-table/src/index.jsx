@@ -1926,6 +1926,7 @@ export default {
             sortOption,
             cellStyleOption,
             showVirtualScrollingPlaceholder,
+            cellSelectionKeyData,
         } = this;
 
         // header props
@@ -1965,7 +1966,7 @@ export default {
                 eventCustomOption: this.eventCustomOption,
                 cellSelectionOption: this.cellSelectionOption,
                 hasFixedColumn: this.hasFixedColumn,
-                cellSelectionKeyData: this.cellSelectionKeyData,
+                cellSelectionKeyData: cellSelectionKeyData,
                 allRowKeys: this.allRowKeys,
                 editOption: this.editOption,
                 highlightRowKey: this.highlightRowKey,
