@@ -68,8 +68,6 @@ export default {
                 textareaWidth = width;
             }
 
-            console.log(tdEl.$el);
-
             result = {
                 opacity: opacity,
                 height: textareaHeight + "px",
@@ -106,12 +104,16 @@ export default {
 
     mounted() {
         // add key down event listener
-        this.$el.addEventListener("keydown", this.dealKeydownEvent);
+        this.$el
+            .querySelector(`.${clsName("edit-input")}`)
+            .addEventListener("keydown", this.dealKeydownEvent);
     },
 
     destroyed() {
         // remove key down event listener
-        this.$el.removeEventListener("keydown", this.dealKeydownEvent);
+        this.$el
+            .querySelector(`.${clsName("edit-input")}`)
+            .removeEventListener("keydown", this.dealKeydownEvent);
     },
 
     render() {
@@ -139,11 +141,14 @@ export default {
                 {
                     name: "focus",
                     value: {
-                        focus: opacity === 1,
+                        focus: true,
                     },
                 },
             ],
             domProps: { value },
+            attrs: {
+                tabindex: -1,
+            },
             on: {
                 input: (e) => {
                     this.$emit("on-value-change", e.target.value);
