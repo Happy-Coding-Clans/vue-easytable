@@ -80,22 +80,28 @@ export const EMIT_EVENTS = {
 // comps name
 export const COMPS_NAME = {
     VE_TABLE: "VeTable",
-    VE_TABLE_BODY: "VeTableBody",
-    VE_TABLE_BODY_TR: "VeTableBodyTr",
-    VE_TABLE_BODY_TR_SCROLLING: "VeTableBodyTrScrolling",
-    VE_TABLE_EXPAND_TR: "VeTableExpandTr",
-    VE_TABLE_EXPAND_TR_ICON: "VeTableExpandTrIcon",
-    VE_TABLE_BODY_TD: "VeTableBodyTd",
+
     VE_TABLE_THADER: "VeTableHeader",
     VE_TABLE_THADER_TR: "VeTableHeaderTr",
     VE_TABLE_THADER_Th: "VeTableHeaderTh",
-    VE_TABLE_COLGROUP: "VeTableColgroup",
-    VE_TABLE_FOOTER: "VeTableFooter",
-    VE_TABLE_BODY_CHECKBOX_CONTENT: "VeTableBodyCheckboxContent",
-    VE_TABLE_BODY_RADIO_CONTENT: "VeTableBodyRadioContent",
     VE_TABLE_HEADER_CHECKBOX_CONTENT: "VeTableHeaderCheckboxContent",
     VE_TABLE_HEADER_FILTER_CONTENT: "VeTableHeaderFilterContent",
     VE_TABLE_HEADER_FILTER_CUSTOM_CONTENT: "VeTableHeaderFilterCustomContent",
+
+    VE_TABLE_BODY: "VeTableBody",
+    VE_TABLE_BODY_TR: "VeTableBodyTr",
+    VE_TABLE_BODY_TR_SCROLLING: "VeTableBodyTrScrolling",
+    VE_TABLE_BODY_CHECKBOX_CONTENT: "VeTableBodyCheckboxContent",
+    VE_TABLE_BODY_RADIO_CONTENT: "VeTableBodyRadioContent",
+    VE_TABLE_BODY_TD: "VeTableBodyTd",
+
+    VE_TABLE_COLGROUP: "VeTableColgroup",
+    VE_TABLE_FOOTER: "VeTableFooter",
+
+    VE_TABLE_EXPAND_TR: "VeTableExpandTr",
+    VE_TABLE_EXPAND_TR_ICON: "VeTableExpandTrIcon",
+
+    VE_TABLE_EDIT_INPUT: "VeTableEditIput",
 };
 
 // comps custom attrs
