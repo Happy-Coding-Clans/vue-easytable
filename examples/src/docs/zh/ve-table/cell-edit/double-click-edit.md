@@ -39,6 +39,9 @@
                         align: "left",
                         width: "15%",
                         edit: true,
+                        renderBodyCell: ({ row, column, rowIndex }, h) => {
+                            return <span>A{row[column.field]}</span>;
+                        },
                     },
                     {
                         field: "date",
@@ -68,7 +71,7 @@
                 // table data
                 tableData: [
                     {
-                        name: "John",
+                        name: "Jo\nhn",
                         date: "1900-05-20",
                         hobby: "coding and coding repeat",
                         address: "No.1 Century Avenue, Shanghai",

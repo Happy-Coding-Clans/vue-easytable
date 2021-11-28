@@ -1,9 +1,9 @@
 import BodyCheckboxContent from "./body-checkbox-content";
 import BodyRadioContent from "./body-radio-content";
 import ExpandTrIcon from "./expand-tr-icon";
+import TdEditInput from "./edit-input";
 import { clsName } from "../util";
 import { isNumber, isBoolean } from "../../../src/utils/index.js";
-import focus from "../../../src/directives/focus.js";
 
 import {
     COMPS_NAME,
@@ -15,9 +15,6 @@ import emitter from "../../../src/mixins/emitter";
 
 export default {
     name: COMPS_NAME.VE_TABLE_BODY_TD,
-    directives: {
-        focus: focus,
-    },
     mixins: [emitter],
     props: {
         rowData: {
@@ -201,6 +198,37 @@ export default {
             return result;
         },
 
+        // show cell input
+        showCellInput() {
+            let result = false;
+
+            const { cellSelectionKeyData, currentRowKey, editOption, column } =
+                this;
+
+            if (column.edit && editOption) {
+                if (cellSelectionKeyData && editOption) {
+                    const { rowKey, colKey } = cellSelectionKeyData;
+
+                    const { fullRowEdit } = editOption;
+
+                    if (fullRowEdit) {
+                        if (currentRowKey === rowKey) {
+                            result = true;
+                        }
+                    } else {
+                        if (
+                            currentRowKey === rowKey &&
+                            column["key"] === colKey
+                        ) {
+                            result = true;
+                        }
+                    }
+                }
+            }
+
+            return result;
+        },
+
         // is edit focus cell
         isEditingFocusCell() {
             let result = false;
@@ -264,7 +292,7 @@ export default {
 
             let result = {
                 [clsName("body-td")]: true,
-                [clsName("body-td-editing")]: this.isEditingCell,
+                [clsName("body-td-editing")]: this.showCellInput,
             };
 
             const {
@@ -273,7 +301,7 @@ export default {
                 column,
                 rowIndex,
                 cellSelectionKeyData,
-                rowKeyFieldName,
+                currentRowKey,
             } = this;
 
             // column fixed
@@ -300,10 +328,7 @@ export default {
             // cell selection option
             if (cellSelectionKeyData) {
                 const { rowKey, colKey } = cellSelectionKeyData;
-                if (
-                    rowData[rowKeyFieldName] === rowKey &&
-                    column["key"] === colKey
-                ) {
+                if (currentRowKey === rowKey && column["key"] === colKey) {
                     result[clsName("cell-selection")] = true;
                 }
             }
@@ -380,9 +405,8 @@ export default {
                 rowData,
                 rowIndex,
                 isEditingCell,
-                isEditingFocusCell,
                 rawCellValue,
-                editOption,
+                showCellInput,
             } = this;
 
             // has render function
@@ -423,43 +447,39 @@ export default {
             cell edit
             对原始数据编辑
             */
-            if (isEditingCell) {
-                const editingCellProps = {
+            // if (isEditingCell) {
+            //     const editCellInputProps = {
+            //         props: {
+            //             value: rawCellValue,
+            //             isEditingFocusCell: this.isEditingFocusCell,
+            //         },
+            //         class: clsName("body-td-edit-input"),
+            //         on: {
+            //             "on-value-change": (inputValue) => {
+            //                 this.rawCellValue = inputValue;
+            //             },
+            //         },
+            //     };
+
+            //     content = <TdEditInput {...editCellInputProps} />;
+            // }
+
+            if (showCellInput) {
+                const editCellInputProps = {
                     props: {
                         value: rawCellValue,
+                        isEditingFocusCell: this.isEditingFocusCell,
                     },
-                    class: clsName("body-td-edit-input"),
-                    directives: [
-                        {
-                            name: "focus",
-                            value: {
-                                focus: isEditingFocusCell,
-                            },
-                        },
-                    ],
-                    domProps: { value: rawCellValue },
                     on: {
-                        input: (e) => {
-                            this.rawCellValue = e.target.value;
-                            // 重置编辑单元格的值
-                            this.resetEditingCellValue();
-                        },
-                        click: () => {
-                            this.dispatch(
-                                COMPS_NAME.VE_TABLE,
-                                EMIT_EVENTS.BODY_TD_EDIT_CELL_INPUT_VALUE_CLICK,
-                            );
-                        },
-                        blur: () => {
-                            this.dispatch(
-                                COMPS_NAME.VE_TABLE,
-                                EMIT_EVENTS.BODY_TD_EDIT_CELL_INPUT_BLUR,
-                            );
+                        "on-value-change": (inputValue) => {
+                            this.rawCellValue = inputValue;
                         },
                     },
                 };
 
-                content = <input {...editingCellProps} />;
+                content = (
+                    <TdEditInput {...editCellInputProps}>{content}</TdEditInput>
+                );
             }
 
             return content;
