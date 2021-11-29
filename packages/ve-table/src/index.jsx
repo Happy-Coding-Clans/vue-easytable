@@ -36,6 +36,7 @@ import Colgroup from "./colgroup";
 import Header from "./header";
 import Body from "./body";
 import Footer from "./footer";
+import EditInput from "./common/edit-input";
 import { KEY_CODES } from "../../src/utils/constant";
 import { getScrollbarWidth } from "../../src/utils/scroll-bar";
 import clickoutside from "../../src/directives/clickoutside";
@@ -1927,6 +1928,7 @@ export default {
             cellStyleOption,
             showVirtualScrollingPlaceholder,
             cellSelectionKeyData,
+            editOption,
         } = this;
 
         // header props
@@ -1966,9 +1968,9 @@ export default {
                 eventCustomOption: this.eventCustomOption,
                 cellSelectionOption: this.cellSelectionOption,
                 hasFixedColumn: this.hasFixedColumn,
-                cellSelectionKeyData: cellSelectionKeyData,
+                cellSelectionKeyData,
                 allRowKeys: this.allRowKeys,
-                editOption: this.editOption,
+                editOption,
                 highlightRowKey: this.highlightRowKey,
                 editingCells: this.editingCells,
                 editingFocusCell: this.editingFocusCell,
@@ -2077,6 +2079,15 @@ export default {
             },
         };
 
+        const editInputProps = {
+            props: {
+                value: "",
+                cellSelectionKeyData,
+                colgroups,
+                editOption,
+            },
+        };
+
         return (
             <VueDomResizeObserver {...wrapperContainerProps}>
                 <div {...containerProps}>
@@ -2092,6 +2103,8 @@ export default {
                         {/* table footer */}
                         <Footer {...footerProps} />
                     </VueDomResizeObserver>
+                    {/* edit input */}
+                    {this.hasEditColumn && <EditInput {...editInputProps} />}
                 </div>
             </VueDomResizeObserver>
         );
