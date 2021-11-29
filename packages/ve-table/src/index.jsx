@@ -279,25 +279,14 @@ export default {
             // highlight row key
             highlightRowKey: "",
             /* 
-            editing cells
-            1、full row edit:
-            [
-                {
-                    rowKey:"",
-                    row:null,
-                }
-            ]
-            2、not full row wdit:
-            [
-                {
-                    rowKey:"",
-                    colKey:"",
-                    row:null,
-                    column:null
-                }
-            ]
+            editing cell
             */
-            editingCells: [],
+            editingCell: {
+                rowKey: "",
+                colKey: "",
+                row: null,
+                column: null,
+            },
             /*
             editing focus cell
             {
@@ -1361,16 +1350,15 @@ export default {
 
         // save cell when stop editing
         saveCellWhenStopEditing({ rowKey, colKey }) {
-            const { colgroups, rowKeyFieldName, editOption, editingCells } =
+            const { colgroups, rowKeyFieldName, editOption, editingCell } =
                 this;
 
             const { cellValueChange } = editOption;
 
-            const editingCell = editingCells.find(
-                (x) => x.rowKey == rowKey && x.colKey == colKey,
-            );
-
-            if (editingCell) {
+            if (
+                !isEmptyValue(editingCell.rowKey) &&
+                !isEmptyValue(editingCell.colKey)
+            ) {
                 let currentRow = this.tableData.find(
                     (x) => x[rowKeyFieldName] === rowKey,
                 );
@@ -1530,21 +1518,37 @@ export default {
         },
 
         /*
-         * @addEditingCells
+         * @setEditingCell
          * @desc  add editing cells
          * @param {object} rowKey - row key
          * @param {object} colKey - col key
          * @param {object} column - column
          * @param {object} row - row data
          */
-        addEditingCells({ rowKey, colKey, column, row }) {
-            // 当是整行编辑时，colKey 和 column 为null
-            this.editingCells.push({
+        setEditingCell({ rowKey, colKey, column, row }) {
+            this.editingCell = {
                 rowKey,
                 row: cloneDeep(row),
-                colKey: colKey ? colKey : null,
-                column: column ? column : null,
-            });
+                colKey,
+                column,
+            };
+        },
+
+        /*
+         * @clearEditingCell
+         * @desc  add editing cells
+         * @param {object} rowKey - row key
+         * @param {object} colKey - col key
+         * @param {object} column - column
+         * @param {object} row - row data
+         */
+        clearEditingCell() {
+            this.editingCell = {
+                rowKey: "",
+                colKey: "",
+                row: null,
+                column: null,
+            };
         },
 
         // hide columns by keys
@@ -1677,7 +1681,7 @@ export default {
                 currentRow[currentColumn.field] = defaultValue;
             }
 
-            this.addEditingCells({
+            this.setEditingCell({
                 rowKey,
                 colKey,
                 column: currentColumn,
@@ -1692,46 +1696,23 @@ export default {
         },
         // start editing cell
         [INSTANCE_METHODS.STOP_EDITING_CELL]({ rowKey, colKey }) {
-            const { editOption, editingCells } = this;
+            const { editOption, editingCell } = this;
 
             if (!editOption) {
                 return false;
             }
 
-            let deleteIndex = -1;
-
-            deleteIndex = editingCells.findIndex(
-                (x) => x.rowKey === rowKey && x.colKey === colKey,
-            );
-
-            if (deleteIndex > -1) {
+            if (
+                !isEmptyValue(editingCell.rowKey) &&
+                !isEmptyValue(editingCell.colKey)
+            ) {
                 this.saveCellWhenStopEditing({
                     rowKey,
                     colKey,
                 });
 
-                this.editingCells.splice(deleteIndex, 1);
-
                 // 清空正在编辑的单元格
                 this.setEditingFocusCell({ rowKey: null, colKey: null });
-            }
-        },
-        // stop all editing cell
-        [INSTANCE_METHODS.STOP_ALL_EDITING_CELL]() {
-            const { editOption, editingCells } = this;
-
-            if (!editOption) {
-                return false;
-            }
-
-            if (editingCells.length) {
-                // 从后往前删
-                for (let i = editingCells.length - 1; i >= 0; i--) {
-                    this[INSTANCE_METHODS.STOP_EDITING_CELL]({
-                        rowKey: editingCells[i].rowKey,
-                        colKey: editingCells[i].colKey,
-                    });
-                }
             }
         },
         // set highlight row
@@ -1784,8 +1765,8 @@ export default {
         // body td edit cell value change
         this.$on(
             EMIT_EVENTS.BODY_TD_EDIT_CELL_VALUE_CHANGE,
-            ({ editingCells }) => {
-                this.editingCells = editingCells;
+            ({ editingCell }) => {
+                this.editingCell = editingCell;
             },
         );
 
@@ -1875,7 +1856,6 @@ export default {
                 allRowKeys: this.allRowKeys,
                 editOption,
                 highlightRowKey: this.highlightRowKey,
-                editingCells: this.editingCells,
                 editingFocusCell: this.editingFocusCell,
                 showVirtualScrollingPlaceholder,
             },
@@ -1990,6 +1970,7 @@ export default {
                 cellSelectionKeyData,
                 colgroups,
                 editOption,
+                editingCell: this.editingCell,
             },
         };
 

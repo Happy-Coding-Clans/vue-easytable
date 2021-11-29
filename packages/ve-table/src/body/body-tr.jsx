@@ -131,11 +131,6 @@ export default {
                 return null;
             },
         },
-        // editing cells
-        editingCells: {
-            type: Array,
-            required: true,
-        },
         // editing focus cell
         editingFocusCell: {
             type: Object,
@@ -243,7 +238,6 @@ export default {
                         eventCustomOption,
                         cellSelectionKeyData: this.cellSelectionKeyData,
                         editOption: this.editOption,
-                        editingCells: this.editingCells,
                         editingFocusCell: this.editingFocusCell,
                     },
                     on: {

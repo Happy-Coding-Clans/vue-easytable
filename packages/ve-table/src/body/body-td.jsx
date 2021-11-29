@@ -130,11 +130,6 @@ export default {
                 return null;
             },
         },
-        // editing cells
-        editingCells: {
-            type: Array,
-            required: true,
-        },
         // editing focus cell
         editingFocusCell: {
             type: Object,
@@ -161,29 +156,6 @@ export default {
         currentRowKey() {
             const { rowData, rowKeyFieldName } = this;
             return rowData[rowKeyFieldName];
-        },
-
-        // is editing cell
-        isEditingCell() {
-            let result = false;
-
-            const { editingCells, editOption, column, currentRowKey } = this;
-
-            if (column.edit && editOption) {
-                if (editingCells.length) {
-                    const existCell = editingCells.find(
-                        (x) =>
-                            x.rowKey === currentRowKey &&
-                            x.colKey === column.key,
-                    );
-
-                    if (existCell) {
-                        result = true;
-                    }
-                }
-            }
-
-            return result;
         },
 
         // show cell input
@@ -336,39 +308,11 @@ export default {
             return result;
         },
 
-        // reset editing cell value
-        resetEditingCellValue() {
-            const { currentRowKey, column, rawCellValue, editingCells } = this;
-
-            let currentCell = null;
-            currentCell = editingCells.find(
-                (x) => x.rowKey === currentRowKey && x.colKey === column.key,
-            );
-
-            if (currentCell) {
-                currentCell.row[column.field] = rawCellValue;
-                this.dispatch(
-                    COMPS_NAME.VE_TABLE,
-                    EMIT_EVENTS.BODY_TD_EDIT_CELL_VALUE_CHANGE,
-                    {
-                        editingCells,
-                    },
-                );
-            }
-        },
-
         // get render content
         getRenderContent(h) {
             let content = null;
 
-            const {
-                column,
-                rowData,
-                rowIndex,
-                isEditingCell,
-                rawCellValue,
-                showCellInput,
-            } = this;
+            const { column, rowData, rowIndex, rawCellValue } = this;
 
             // has render function
             if (typeof column.renderBodyCell === "function") {

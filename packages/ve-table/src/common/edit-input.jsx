@@ -112,6 +112,18 @@ export default {
         //     return result;
         // },
 
+        // is editing cell
+        isEditingCell() {
+            const { editingCell } = this;
+
+            const { cellSelectionKeyData } = this;
+            const { rowKey, colKey } = cellSelectionKeyData;
+
+            return (
+                editingCell.rowKey === rowKey && editingCell.colKey === colKey
+            );
+        },
+
         // container style
         containerStyle() {
             let result = {};
@@ -264,6 +276,26 @@ export default {
                 this.initTextareaValue = rowData[column.field];
             }
         },
+
+        // resetEditingCellValue() {
+        //     const { currentRowKey, column, rawCellValue, editingCells } = this;
+
+        //     let currentCell = null;
+        //     currentCell = editingCells.find(
+        //         (x) => x.rowKey === currentRowKey && x.colKey === column.key,
+        //     );
+
+        //     if (currentCell) {
+        //         currentCell.row[column.field] = rawCellValue;
+        //         this.dispatch(
+        //             COMPS_NAME.VE_TABLE,
+        //             EMIT_EVENTS.BODY_TD_EDIT_CELL_VALUE_CHANGE,
+        //             {
+        //                 editingCells,
+        //             },
+        //         );
+        //     }
+        // },
     },
 
     mounted() {
