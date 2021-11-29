@@ -248,7 +248,6 @@ export default {
 
         // show textarea
         showTextarea() {
-            console.log(1);
             this.setRawCellValue();
             this.opacity = 1;
         },
