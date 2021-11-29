@@ -64,8 +64,8 @@ export default {
 
             if (tdEl) {
                 const { width, height } = tdEl.$el.getBoundingClientRect();
-                textareaHeight = height;
-                textareaWidth = width;
+                textareaHeight = height - 1;
+                textareaWidth = width - 1;
             }
 
             result = {
