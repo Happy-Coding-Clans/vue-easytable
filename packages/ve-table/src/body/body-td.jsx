@@ -170,27 +170,15 @@ export default {
             const { editingCells, editOption, column, currentRowKey } = this;
 
             if (column.edit && editOption) {
-                const { fullRowEdit } = editOption;
-
                 if (editingCells.length) {
-                    if (fullRowEdit) {
-                        const existRow = editingCells.find(
-                            (x) => x.rowKey === currentRowKey,
-                        );
+                    const existCell = editingCells.find(
+                        (x) =>
+                            x.rowKey === currentRowKey &&
+                            x.colKey === column.key,
+                    );
 
-                        if (existRow) {
-                            result = true;
-                        }
-                    } else {
-                        const existCell = editingCells.find(
-                            (x) =>
-                                x.rowKey === currentRowKey &&
-                                x.colKey === column.key,
-                        );
-
-                        if (existCell) {
-                            result = true;
-                        }
+                    if (existCell) {
+                        result = true;
                     }
                 }
             }
@@ -209,19 +197,8 @@ export default {
                 if (cellSelectionKeyData && editOption) {
                     const { rowKey, colKey } = cellSelectionKeyData;
 
-                    const { fullRowEdit } = editOption;
-
-                    if (fullRowEdit) {
-                        if (currentRowKey === rowKey) {
-                            result = true;
-                        }
-                    } else {
-                        if (
-                            currentRowKey === rowKey &&
-                            column["key"] === colKey
-                        ) {
-                            result = true;
-                        }
+                    if (currentRowKey === rowKey && column["key"] === colKey) {
+                        result = true;
                     }
                 }
             }
@@ -361,28 +338,12 @@ export default {
 
         // reset editing cell value
         resetEditingCellValue() {
-            const {
-                editOption,
-                currentRowKey,
-                column,
-                rawCellValue,
-                editingCells,
-            } = this;
-
-            const { fullRowEdit } = editOption;
+            const { currentRowKey, column, rawCellValue, editingCells } = this;
 
             let currentCell = null;
-            // 整行编辑
-            if (fullRowEdit) {
-                currentCell = editingCells.find(
-                    (x) => x.rowKey === currentRowKey,
-                );
-            } else {
-                currentCell = editingCells.find(
-                    (x) =>
-                        x.rowKey === currentRowKey && x.colKey === column.key,
-                );
-            }
+            currentCell = editingCells.find(
+                (x) => x.rowKey === currentRowKey && x.colKey === column.key,
+            );
 
             if (currentCell) {
                 currentCell.row[column.field] = rawCellValue;

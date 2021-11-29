@@ -100,20 +100,12 @@ export default {
         //         if (cellSelectionKeyData && editOption) {
         //             const { rowKey, colKey } = cellSelectionKeyData;
 
-        //             const { fullRowEdit } = editOption;
-
-        //             if (fullRowEdit) {
-        //                 if (currentRowKey === rowKey) {
-        //                     result = true;
-        //                 }
-        //             } else {
-        //                 if (
+        //             if (
         //                     currentRowKey === rowKey &&
         //                     column["key"] === colKey
         //                 ) {
         //                     result = true;
         //                 }
-        //             }
         //         }
         //     }
 

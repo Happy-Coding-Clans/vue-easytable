@@ -711,7 +711,6 @@ export default {
                 cellSelectionKeyData,
                 editingFocusCell,
                 enableStopEditingAndChangeSelectionByDirectionKeyPressed,
-                editOption,
             } = this;
 
             let direction;
@@ -723,32 +722,22 @@ export default {
             let enableStopEditing = false;
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                const { fullRowEdit } = editOption;
-
                 if (keyCode === KEY_CODES.ARROW_LEFT) {
                     direction = CELL_SELECTION_DIRECTION.LEFT;
 
-                    if (!fullRowEdit) {
-                        enableStopEditing = true;
-                    }
+                    enableStopEditing = true;
                 } else if (keyCode === KEY_CODES.TAB && shiftKey) {
                     direction = CELL_SELECTION_DIRECTION.LEFT;
 
-                    if (!fullRowEdit) {
-                        enableStopEditing = true;
-                    }
+                    enableStopEditing = true;
                 } else if (keyCode === KEY_CODES.ARROW_RIGHT) {
                     direction = CELL_SELECTION_DIRECTION.RIGHT;
 
-                    if (!fullRowEdit) {
-                        enableStopEditing = true;
-                    }
+                    enableStopEditing = true;
                 } else if (keyCode === KEY_CODES.TAB) {
                     direction = CELL_SELECTION_DIRECTION.RIGHT;
 
-                    if (!fullRowEdit) {
-                        enableStopEditing = true;
-                    }
+                    enableStopEditing = true;
                 } else if (keyCode === KEY_CODES.ARROW_UP) {
                     direction = CELL_SELECTION_DIRECTION.UP;
 
@@ -1375,49 +1364,29 @@ export default {
             const { colgroups, rowKeyFieldName, editOption, editingCells } =
                 this;
 
-            const { cellValueChange, rowValueChange, fullRowEdit } = editOption;
+            const { cellValueChange } = editOption;
 
-            // 全行编辑
-            if (fullRowEdit) {
-                const editingCell = editingCells.find(
-                    (x) => x.rowKey == rowKey,
+            const editingCell = editingCells.find(
+                (x) => x.rowKey == rowKey && x.colKey == colKey,
+            );
+
+            if (editingCell) {
+                let currentRow = this.tableData.find(
+                    (x) => x[rowKeyFieldName] === rowKey,
                 );
 
-                if (editingCell) {
-                    const updateIndex = this.tableData.findIndex(
-                        (x) => x[rowKeyFieldName] === rowKey,
+                if (currentRow) {
+                    const currentColumn = colgroups.find(
+                        (x) => x.key === colKey,
                     );
 
-                    this.tableData.splice(updateIndex, 1, editingCell.row);
-
-                    rowValueChange &&
-                        rowValueChange({
-                            row: editingCell.row,
+                    currentRow[currentColumn.field] =
+                        editingCell.row[currentColumn.field];
+                    cellValueChange &&
+                        cellValueChange({
+                            row: currentRow,
+                            column: currentColumn,
                         });
-                }
-            } else {
-                const editingCell = editingCells.find(
-                    (x) => x.rowKey == rowKey && x.colKey == colKey,
-                );
-
-                if (editingCell) {
-                    let currentRow = this.tableData.find(
-                        (x) => x[rowKeyFieldName] === rowKey,
-                    );
-
-                    if (currentRow) {
-                        const currentColumn = colgroups.find(
-                            (x) => x.key === colKey,
-                        );
-
-                        currentRow[currentColumn.field] =
-                            editingCell.row[currentColumn.field];
-                        cellValueChange &&
-                            cellValueChange({
-                                row: currentRow,
-                                column: currentColumn,
-                            });
-                    }
                 }
             }
         },
@@ -1506,42 +1475,21 @@ export default {
             let enableStopEditing = false;
 
             // edit cell
-            const { fullRowEdit, stopEditingWhenCellLoseFocus } = editOption;
+            const { stopEditingWhenCellLoseFocus } = editOption;
 
-            // 整行编辑
-            if (fullRowEdit) {
+            const currentColumn = colgroups.find((x) => x.key === clickColKey);
+            // 当前列是否可编辑
+            if (currentColumn.edit) {
                 if (
                     editingFocusCell &&
-                    editingFocusCell.rowKey === clickRowKey
+                    editingFocusCell.rowKey === clickRowKey &&
+                    editingFocusCell.colKey === clickColKey
                 ) {
-                    // set editing focus cell
-                    this.setEditingFocusCell({
-                        rowKey: clickRowKey,
-                        colKey: clickColKey,
-                    });
-
+                    //
                     return false;
                 } else {
                     enableStopEditing = true;
                     enableStartEditing = true;
-                }
-            } else {
-                const currentColumn = colgroups.find(
-                    (x) => x.key === clickColKey,
-                );
-                // 当前列是否可编辑
-                if (currentColumn.edit) {
-                    if (
-                        editingFocusCell &&
-                        editingFocusCell.rowKey === clickRowKey &&
-                        editingFocusCell.colKey === clickColKey
-                    ) {
-                        //
-                        return false;
-                    } else {
-                        enableStopEditing = true;
-                        enableStartEditing = true;
-                    }
                 }
             }
 
@@ -1690,7 +1638,7 @@ export default {
                 return false;
             }
 
-            const { fullRowEdit, stopEditingWhenCellLoseFocus } = editOption;
+            const { stopEditingWhenCellLoseFocus } = editOption;
 
             let currentRow = this.tableData.find(
                 (x) => x[rowKeyFieldName] === rowKey,
@@ -1708,71 +1656,33 @@ export default {
                     return false;
                 }
 
-                // 整行编辑
-                if (fullRowEdit) {
-                    if (editingFocusCell.rowKey !== rowKey) {
-                        if (!isFalse(stopEditingWhenCellLoseFocus)) {
-                            this[INSTANCE_METHODS.STOP_ALL_EDITING_CELL]();
-                        }
-                    }
-                } else {
-                    if (
-                        editingFocusCell.rowKey !== rowKey &&
-                        editingFocusCell.colKey !== colKey
-                    ) {
-                        if (!isFalse(stopEditingWhenCellLoseFocus)) {
-                            this[INSTANCE_METHODS.STOP_ALL_EDITING_CELL]();
-                        }
+                if (
+                    editingFocusCell.rowKey !== rowKey &&
+                    editingFocusCell.colKey !== colKey
+                ) {
+                    if (!isFalse(stopEditingWhenCellLoseFocus)) {
+                        this[INSTANCE_METHODS.STOP_ALL_EDITING_CELL]();
                     }
                 }
             }
 
-            // 整行编辑
-            if (fullRowEdit) {
-                // 是否有可编辑的列
-                if (!colgroups.some((x) => x.edit)) {
-                    return false;
-                }
-
-                // 给每个可编辑的列赋默认值
-                if (isDefined(defaultValue)) {
-                    colgroups.forEach((col) => {
-                        if (col.edit) {
-                            // delete|backSpace keyCode
-                            if (isDefined(colKey)) {
-                                if (col.key === colKey) {
-                                    currentRow[col.field] = defaultValue;
-                                }
-                            } else {
-                                currentRow[col.field] = defaultValue;
-                            }
-                        }
-                    });
-                }
-
-                this.addEditingCells({
-                    rowKey,
-                    row: cloneDeep(currentRow),
-                });
-            } else {
-                const currentColumn = colgroups.find((x) => x.key === colKey);
-                // 当前列是否可编辑
-                if (!currentColumn.edit) {
-                    return false;
-                }
-
-                // 给当前列赋默认值
-                if (isDefined(defaultValue)) {
-                    currentRow[currentColumn.field] = defaultValue;
-                }
-
-                this.addEditingCells({
-                    rowKey,
-                    colKey,
-                    column: currentColumn,
-                    row: cloneDeep(currentRow),
-                });
+            const currentColumn = colgroups.find((x) => x.key === colKey);
+            // 当前列是否可编辑
+            if (!currentColumn.edit) {
+                return false;
             }
+
+            // 给当前列赋默认值
+            if (isDefined(defaultValue)) {
+                currentRow[currentColumn.field] = defaultValue;
+            }
+
+            this.addEditingCells({
+                rowKey,
+                colKey,
+                column: currentColumn,
+                row: cloneDeep(currentRow),
+            });
 
             // set editing focus cell
             this.setEditingFocusCell({
@@ -1790,16 +1700,9 @@ export default {
 
             let deleteIndex = -1;
 
-            // 整行编辑
-            if (editOption.fullRowEdit) {
-                deleteIndex = editingCells.findIndex(
-                    (x) => x.rowKey === rowKey,
-                );
-            } else {
-                deleteIndex = editingCells.findIndex(
-                    (x) => x.rowKey === rowKey && x.colKey === colKey,
-                );
-            }
+            deleteIndex = editingCells.findIndex(
+                (x) => x.rowKey === rowKey && x.colKey === colKey,
+            );
 
             if (deleteIndex > -1) {
                 this.saveCellWhenStopEditing({
