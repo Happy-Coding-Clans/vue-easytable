@@ -287,14 +287,6 @@ export default {
                 row: null,
                 column: null,
             },
-            /*
-            editing focus cell
-            {
-                rowKey:"",
-                colKey:""
-            }
-            */
-            editingFocusCell: null,
             /* 
             是否允许按下方向键时，停止编辑并移动选中单元格。当双击可编辑单元格或者点击输入文本框时设置为false值
 
@@ -478,13 +470,14 @@ export default {
             return this.colgroups.some((x) => x.fixed === "left");
         },
 
-        /*
-        has editing focus cell
-        是否有正在编辑的单元格
-        */
-        hasEditingFocusCell() {
-            const { editingFocusCell } = this;
-            return editingFocusCell && !isEmptyValue(editingFocusCell.rowKey);
+        // is cell editing
+        isCellEditing() {
+            const { editingCell } = this;
+
+            return (
+                !isEmptyValue(editingCell.rowKey) &&
+                !isEmptyValue(editingCell.colKey)
+            );
         },
 
         // has edit column
@@ -698,7 +691,7 @@ export default {
         cellDirection(event) {
             const {
                 cellSelectionKeyData,
-                editingFocusCell,
+                isCellEditing,
                 enableStopEditingAndChangeSelectionByDirectionKeyPressed,
             } = this;
 
@@ -759,10 +752,10 @@ export default {
                     });
 
                     /*
-                    如果是当前编辑的单元格,并且不是整行编辑
-                    If the cell is currently editing cell and not the full row is edited
+                    如果是当前编辑的单元格
+                    If the cell is currently editing cell 
                     */
-                    if (editingFocusCell && enableStopEditing) {
+                    if (isCellEditing && enableStopEditing) {
                         this[INSTANCE_METHODS.STOP_EDITING_CELL]({
                             rowKey,
                             colKey,
@@ -1445,9 +1438,9 @@ export default {
             const {
                 editOption,
                 colgroups,
-                hasEditingFocusCell,
+                isCellEditing,
                 hasEditColumn,
-                editingFocusCell,
+                editingCell,
             } = this;
 
             if (!editOption) {
@@ -1462,16 +1455,13 @@ export default {
             let enableStartEditing = false;
             let enableStopEditing = false;
 
-            // edit cell
-            const { stopEditingWhenCellLoseFocus } = editOption;
-
             const currentColumn = colgroups.find((x) => x.key === clickColKey);
             // 当前列是否可编辑
             if (currentColumn.edit) {
                 if (
-                    editingFocusCell &&
-                    editingFocusCell.rowKey === clickRowKey &&
-                    editingFocusCell.colKey === clickColKey
+                    editingCell &&
+                    editingCell.rowKey === clickRowKey &&
+                    editingCell.colKey === clickColKey
                 ) {
                     //
                     return false;
@@ -1482,13 +1472,11 @@ export default {
             }
 
             if (enableStopEditing) {
-                if (hasEditingFocusCell) {
-                    if (!isFalse(stopEditingWhenCellLoseFocus)) {
-                        this[INSTANCE_METHODS.STOP_EDITING_CELL]({
-                            rowKey: editingFocusCell.rowKey,
-                            colKey: editingFocusCell.colKey,
-                        });
-                    }
+                if (isCellEditing) {
+                    this[INSTANCE_METHODS.STOP_EDITING_CELL]({
+                        rowKey: editingCell.rowKey,
+                        colKey: editingCell.colKey,
+                    });
                 }
             }
 
@@ -1502,19 +1490,6 @@ export default {
                     });
                 }
             }
-        },
-
-        /*
-         * @setEditingFocusCell
-         * @desc  set editing focus cell
-         * @param {object} rowKey - row key
-         * @param {object} colKey - col key
-         */
-        setEditingFocusCell({ rowKey, colKey }) {
-            this.editingFocusCell = {
-                rowKey,
-                colKey,
-            };
         },
 
         /*
@@ -1635,14 +1610,12 @@ export default {
             colKey,
             defaultValue,
         }) {
-            const { editOption, colgroups, rowKeyFieldName, editingFocusCell } =
+            const { editOption, colgroups, rowKeyFieldName, editingCell } =
                 this;
 
             if (!editOption) {
                 return false;
             }
-
-            const { stopEditingWhenCellLoseFocus } = editOption;
 
             let currentRow = this.tableData.find(
                 (x) => x[rowKeyFieldName] === rowKey,
@@ -1651,23 +1624,11 @@ export default {
             /* 
             调用API编辑的情况，需要关闭之前编辑的单元格
             */
-            if (editingFocusCell) {
-                // If it is the currently editing cell, return
-                if (
-                    editingFocusCell.rowKey === rowKey &&
-                    editingFocusCell.colKey === colKey
-                ) {
-                    return false;
-                }
-
-                if (
-                    editingFocusCell.rowKey !== rowKey &&
-                    editingFocusCell.colKey !== colKey
-                ) {
-                    if (!isFalse(stopEditingWhenCellLoseFocus)) {
-                        this[INSTANCE_METHODS.STOP_ALL_EDITING_CELL]();
-                    }
-                }
+            if (
+                editingCell.rowKey === rowKey &&
+                editingCell.colKey === colKey
+            ) {
+                return false;
             }
 
             const currentColumn = colgroups.find((x) => x.key === colKey);
@@ -1681,17 +1642,12 @@ export default {
                 currentRow[currentColumn.field] = defaultValue;
             }
 
+            // set editing cell
             this.setEditingCell({
                 rowKey,
                 colKey,
                 column: currentColumn,
                 row: cloneDeep(currentRow),
-            });
-
-            // set editing focus cell
-            this.setEditingFocusCell({
-                rowKey,
-                colKey,
             });
         },
         // start editing cell
@@ -1710,9 +1666,6 @@ export default {
                     rowKey,
                     colKey,
                 });
-
-                // 清空正在编辑的单元格
-                this.setEditingFocusCell({ rowKey: null, colKey: null });
             }
         },
         // set highlight row
@@ -1856,7 +1809,6 @@ export default {
                 allRowKeys: this.allRowKeys,
                 editOption,
                 highlightRowKey: this.highlightRowKey,
-                editingFocusCell: this.editingFocusCell,
                 showVirtualScrollingPlaceholder,
             },
             on: {

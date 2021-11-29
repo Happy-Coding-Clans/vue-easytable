@@ -131,11 +131,6 @@ export default {
                 return null;
             },
         },
-        // editing focus cell
-        editingFocusCell: {
-            type: Object,
-            default: null,
-        },
     },
     data() {
         return {
@@ -938,7 +933,6 @@ export default {
                             eventCustomOption: this.eventCustomOption,
                             cellSelectionKeyData: this.cellSelectionKeyData,
                             editOption: this.editOption,
-                            editingFocusCell: this.editingFocusCell,
                             columnCollection: this.columnCollection,
                         },
                     };

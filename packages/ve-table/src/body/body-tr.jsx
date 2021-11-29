@@ -131,11 +131,6 @@ export default {
                 return null;
             },
         },
-        // editing focus cell
-        editingFocusCell: {
-            type: Object,
-            default: null,
-        },
     },
     computed: {
         // current row key
@@ -238,7 +233,6 @@ export default {
                         eventCustomOption,
                         cellSelectionKeyData: this.cellSelectionKeyData,
                         editOption: this.editOption,
-                        editingFocusCell: this.editingFocusCell,
                     },
                     on: {
                         [EMIT_EVENTS.EXPAND_ROW_CHANGE]: () =>

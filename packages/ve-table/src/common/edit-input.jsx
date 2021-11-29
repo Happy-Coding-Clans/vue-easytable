@@ -41,6 +41,11 @@ export default {
                 return null;
             },
         },
+        // editing cell
+        editingCell: {
+            type: Object,
+            required: true,
+        },
 
         // is editing focus cell
         // isEditingFocusCell: {
@@ -276,25 +281,21 @@ export default {
             }
         },
 
-        // resetEditingCellValue() {
-        //     const { currentRowKey, column, rawCellValue, editingCells } = this;
+        // reset editing cell value
+        resetEditingCellValue(value) {
+            const { currentColumn: column, editingCell, isEditingCell } = this;
 
-        //     let currentCell = null;
-        //     currentCell = editingCells.find(
-        //         (x) => x.rowKey === currentRowKey && x.colKey === column.key,
-        //     );
-
-        //     if (currentCell) {
-        //         currentCell.row[column.field] = rawCellValue;
-        //         this.dispatch(
-        //             COMPS_NAME.VE_TABLE,
-        //             EMIT_EVENTS.BODY_TD_EDIT_CELL_VALUE_CHANGE,
-        //             {
-        //                 editingCells,
-        //             },
-        //         );
-        //     }
-        // },
+            if (isEditingCell) {
+                editingCell.row[column.field] = value;
+                this.dispatch(
+                    COMPS_NAME.VE_TABLE,
+                    EMIT_EVENTS.BODY_TD_EDIT_CELL_VALUE_CHANGE,
+                    {
+                        editingCell,
+                    },
+                );
+            }
+        },
     },
 
     mounted() {
@@ -332,14 +333,15 @@ export default {
                     },
                 },
             ],
-            domProps: { value: initTextareaValue },
+            domProps: { value: this.rawCellValue },
             attrs: {
                 tabindex: -1,
             },
             on: {
                 input: (e) => {
                     // ??
-                    this.rawCellValue = e.target.value;
+                    //this.rawCellValue = e.target.value;
+                    this.resetEditingCellValue(e.target.value);
                 },
                 click: () => {
                     this.dispatch(

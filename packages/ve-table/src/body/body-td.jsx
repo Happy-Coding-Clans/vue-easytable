@@ -130,11 +130,6 @@ export default {
                 return null;
             },
         },
-        // editing focus cell
-        editingFocusCell: {
-            type: Object,
-            default: null,
-        },
     },
     data() {
         return {
@@ -170,25 +165,6 @@ export default {
                     const { rowKey, colKey } = cellSelectionKeyData;
 
                     if (currentRowKey === rowKey && column["key"] === colKey) {
-                        result = true;
-                    }
-                }
-            }
-
-            return result;
-        },
-
-        // is edit focus cell
-        isEditingFocusCell() {
-            let result = false;
-
-            const { editingFocusCell, editOption, currentRowKey, column } =
-                this;
-
-            if (editOption) {
-                if (editingFocusCell) {
-                    const { rowKey, colKey } = editingFocusCell;
-                    if (rowKey === currentRowKey && colKey === column.key) {
                         result = true;
                     }
                 }
