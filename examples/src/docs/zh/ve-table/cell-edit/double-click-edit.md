@@ -15,6 +15,7 @@
             :columns="columns"
             :table-data="tableData"
             :editOption="editOption"
+            border-y
         />
     </div>
 </template>

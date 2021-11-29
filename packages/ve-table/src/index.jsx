@@ -2082,6 +2082,8 @@ export default {
         const editInputProps = {
             props: {
                 value: "",
+                rowKeyFieldName,
+                tableData: this.tableData,
                 cellSelectionKeyData,
                 colgroups,
                 editOption,

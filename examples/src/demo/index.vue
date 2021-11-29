@@ -94,6 +94,7 @@
                 fixed-header
                 border-y
                 max-height="calc(100vh - 160px)"
+                :edit-option="editOption"
                 :scroll-width="tableScrollWdith"
                 :sort-option="sortOption"
                 :virtual-scroll-option="virtualScrollOption"
@@ -125,6 +126,14 @@ export default {
     mixins: [I18nMixins, ThemeSwitchMixins],
     data() {
         return {
+            // edit option 可控单元格编辑
+            editOption: {
+                // cell value change
+                cellValueChange: ({ row, column }) => {
+                    console.log("cellValueChange row::", row);
+                    console.log("cellValueChange column::", column);
+                },
+            },
             dataRow: 5000,
             switchActiveColor: "#1890ff",
             switchInactiveColor: "rgba(0,0,0,.25)",
@@ -280,6 +289,7 @@ export default {
                             width: 100,
                             align: "center",
                             sortBy: "",
+                            edit: true,
                             renderBodyCell: ({ row, column, rowIndex }, h) => {
                                 const cellData = row[column.field];
 
@@ -319,6 +329,7 @@ export default {
                                     title: "Proficiency",
                                     width: 300,
                                     sortBy: "",
+                                    edit: true,
                                     renderBodyCell: (
                                         { row, column, rowIndex },
                                         h,
@@ -357,6 +368,7 @@ export default {
                                     title: "Skills",
                                     width: 300,
                                     align: "left",
+                                    edit: true,
                                     renderBodyCell: (
                                         { row, column, rowIndex },
                                         h,

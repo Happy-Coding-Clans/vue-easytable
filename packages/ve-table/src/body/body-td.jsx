@@ -1,7 +1,6 @@
 import BodyCheckboxContent from "./body-checkbox-content";
 import BodyRadioContent from "./body-radio-content";
 import ExpandTrIcon from "./expand-tr-icon";
-import TdEditInput from "./edit-input";
 import { clsName } from "../util";
 import { isNumber, isBoolean } from "../../../src/utils/index.js";
 
@@ -10,6 +9,7 @@ import {
     COLUMN_TYPES,
     EXPAND_TRIGGER_TYPES,
     EMIT_EVENTS,
+    COMPS_CUSTOM_ATTRS,
 } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 
@@ -464,24 +464,24 @@ export default {
             //     content = <TdEditInput {...editCellInputProps} />;
             // }
 
-            if (showCellInput) {
-                const editCellInputProps = {
-                    props: {
-                        value: rawCellValue,
-                        isEditingFocusCell: this.isEditingFocusCell,
-                    },
-                    on: {
-                        "on-value-change": (inputValue) => {
-                            this.rawCellValue = inputValue;
-                            this.resetEditingCellValue();
-                        },
-                    },
-                };
+            // if (showCellInput) {
+            //     const editCellInputProps = {
+            //         props: {
+            //             value: rawCellValue,
+            //             isEditingFocusCell: this.isEditingFocusCell,
+            //         },
+            //         on: {
+            //             "on-value-change": (inputValue) => {
+            //                 this.rawCellValue = inputValue;
+            //                 this.resetEditingCellValue();
+            //             },
+            //         },
+            //     };
 
-                content = (
-                    <TdEditInput {...editCellInputProps}>{content}</TdEditInput>
-                );
-            }
+            //     content = (
+            //         <TdEditInput {...editCellInputProps}>{content}</TdEditInput>
+            //     );
+            // }
 
             return content;
         },
@@ -679,6 +679,7 @@ export default {
             attrs: {
                 rowspan,
                 colspan,
+                [COMPS_CUSTOM_ATTRS.BODY_COLUMN_KEY]: column.key,
             },
             on: events,
         };
