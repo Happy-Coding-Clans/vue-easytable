@@ -57,8 +57,8 @@ export default {
         return {
             // raw cell value
             rawCellValue: "",
-            // opacity
-            opacity: 0,
+            // display textarea
+            displayTextarea: false,
             // cell element rect
             cellElRect: {
                 height: 1,
@@ -133,16 +133,17 @@ export default {
         containerStyle() {
             let result = {};
 
-            const { opacity, cellElRect } = this;
+            const { displayTextarea, cellElRect } = this;
 
             if (cellElRect) {
                 const { top, left } = cellElRect;
 
                 result.top = top + "px";
                 result.left = left + "px";
+                result.height = displayTextarea ? null : "1px";
             }
 
-            result.opacity = opacity;
+            result.opacity = displayTextarea ? 1 : 0;
 
             return result;
         },
@@ -254,12 +255,12 @@ export default {
         // show textarea
         showTextarea() {
             this.setRawCellValue();
-            this.opacity = 1;
+            this.displayTextarea = true;
         },
 
         // hide textarea
         hideTextarea() {
-            this.opacity = 0;
+            this.displayTextarea = false;
         },
 
         // set raw cell value
@@ -277,7 +278,6 @@ export default {
 
             if (rowData && column) {
                 this.rawCellValue = rowData[column.field];
-                this.initTextareaValue = rowData[column.field];
             }
         },
 
@@ -289,7 +289,7 @@ export default {
                 editingCell.row[column.field] = value;
                 this.dispatch(
                     COMPS_NAME.VE_TABLE,
-                    EMIT_EVENTS.BODY_TD_EDIT_CELL_VALUE_CHANGE,
+                    EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE,
                     {
                         editingCell,
                     },
@@ -313,18 +313,24 @@ export default {
     },
 
     render() {
-        const { initTextareaValue } = this;
+        const {
+            displayTextarea,
+            containerStyle,
+            textareaClass,
+            textareaStyle,
+            rawCellValue,
+        } = this;
 
         const containerProps = {
-            style: this.containerStyle,
+            style: containerStyle,
             class: {
                 [clsName("edit-input-container")]: true,
             },
         };
 
         const textareaProps = {
-            class: this.textareaClass,
-            style: this.textareaStyle,
+            class: textareaClass,
+            style: textareaStyle,
             directives: [
                 {
                     name: "focus",
@@ -333,32 +339,34 @@ export default {
                     },
                 },
             ],
-            domProps: { value: this.rawCellValue },
+            domProps: { value: rawCellValue },
             attrs: {
                 tabindex: -1,
             },
             on: {
                 input: (e) => {
-                    // ??
-                    //this.rawCellValue = e.target.value;
                     this.resetEditingCellValue(e.target.value);
                 },
                 click: () => {
-                    this.dispatch(
-                        COMPS_NAME.VE_TABLE,
-                        EMIT_EVENTS.BODY_TD_EDIT_CELL_INPUT_VALUE_CLICK,
-                    );
+                    if (displayTextarea) {
+                        this.dispatch(
+                            COMPS_NAME.VE_TABLE,
+                            EMIT_EVENTS.EDIT_INPUT_CLICK,
+                        );
+                    }
                 },
                 dblclick: () => {
                     this.showTextarea();
                 },
                 blur: () => {
-                    this.hideTextarea();
+                    if (displayTextarea) {
+                        this.hideTextarea();
 
-                    this.dispatch(
-                        COMPS_NAME.VE_TABLE,
-                        EMIT_EVENTS.BODY_TD_EDIT_CELL_INPUT_BLUR,
-                    );
+                        this.dispatch(
+                            COMPS_NAME.VE_TABLE,
+                            EMIT_EVENTS.EDIT_INPUT_BLUR,
+                        );
+                    }
                 },
             },
         };

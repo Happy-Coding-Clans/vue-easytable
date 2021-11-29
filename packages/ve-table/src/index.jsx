@@ -1368,27 +1368,10 @@ export default {
                             row: currentRow,
                             column: currentColumn,
                         });
+
+                    // celar editing cell
+                    this.clearEditingCell();
                 }
-            }
-        },
-
-        /*
-         * @tdDoubleClick
-         * @desc  recieve td double click event
-         * @param {object} rowData - row data
-         * @param {object} column - column data
-         */
-        tdDoubleClick({ rowData, column }) {
-            const { editOption, rowKeyFieldName } = this;
-
-            const rowKey = rowData[rowKeyFieldName];
-
-            if (editOption) {
-                this.editCellByClick({
-                    clickRowKey: rowKey,
-                    clickColKey: column.key,
-                    isDoubleClick: true,
-                });
             }
         },
 
@@ -1421,9 +1404,23 @@ export default {
 
             if (editOption) {
                 this.editCellByClick({
-                    clickRowKey: rowKey,
-                    clickColKey: column.key,
                     isDoubleClick: false,
+                });
+            }
+        },
+
+        /*
+         * @tdDoubleClick
+         * @desc  recieve td double click event
+         * @param {object} rowData - row data
+         * @param {object} column - column data
+         */
+        tdDoubleClick() {
+            const { editOption } = this;
+
+            if (editOption) {
+                this.editCellByClick({
+                    isDoubleClick: true,
                 });
             }
         },
@@ -1434,13 +1431,14 @@ export default {
          * @param {object} clickRowKey - click row key
          * @param {object} clickColKey - click column key
          */
-        editCellByClick({ clickRowKey, clickColKey, isDoubleClick }) {
+        editCellByClick({ isDoubleClick }) {
             const {
                 editOption,
                 colgroups,
                 isCellEditing,
                 hasEditColumn,
                 editingCell,
+                cellSelectionKeyData,
             } = this;
 
             if (!editOption) {
@@ -1452,16 +1450,22 @@ export default {
                 return false;
             }
 
+            const { rowKey, colKey } = cellSelectionKeyData;
+
+            if (isEmptyValue(rowKey) || isEmptyValue(colKey)) {
+                return false;
+            }
+
             let enableStartEditing = false;
             let enableStopEditing = false;
 
-            const currentColumn = colgroups.find((x) => x.key === clickColKey);
+            const currentColumn = colgroups.find((x) => x.key == colKey);
             // 当前列是否可编辑
             if (currentColumn.edit) {
                 if (
                     editingCell &&
-                    editingCell.rowKey === clickRowKey &&
-                    editingCell.colKey === clickColKey
+                    editingCell.rowKey == rowKey &&
+                    editingCell.colKey == colKey
                 ) {
                     //
                     return false;
@@ -1485,8 +1489,8 @@ export default {
                     this.enableStopEditingAndChangeSelectionByDirectionKeyPressed = false;
 
                     this[INSTANCE_METHODS.START_EDITING_CELL]({
-                        rowKey: clickRowKey,
-                        colKey: clickColKey,
+                        rowKey,
+                        colKey,
                     });
                 }
             }
@@ -1715,24 +1719,6 @@ export default {
             this.tdDoubleClick(params);
         });
 
-        // body td edit cell value change
-        this.$on(
-            EMIT_EVENTS.BODY_TD_EDIT_CELL_VALUE_CHANGE,
-            ({ editingCell }) => {
-                this.editingCell = editingCell;
-            },
-        );
-
-        // body td edit cell value change
-        this.$on(EMIT_EVENTS.BODY_TD_EDIT_CELL_INPUT_VALUE_CLICK, () => {
-            this.enableStopEditingAndChangeSelectionByDirectionKeyPressed = false;
-        });
-
-        // body editing cell input blur
-        this.$on(EMIT_EVENTS.BODY_TD_EDIT_CELL_INPUT_BLUR, () => {
-            this.enableStopEditingAndChangeSelectionByDirectionKeyPressed = true;
-        });
-
         // add key down event listener
         document.addEventListener("keydown", this.dealKeydownEvent);
 
@@ -1923,6 +1909,20 @@ export default {
                 colgroups,
                 editOption,
                 editingCell: this.editingCell,
+            },
+            on: {
+                // edit input click
+                [EMIT_EVENTS.EDIT_INPUT_CLICK]: () => {
+                    this.enableStopEditingAndChangeSelectionByDirectionKeyPressed = false;
+                },
+                // edit input blur
+                [EMIT_EVENTS.EDIT_INPUT_BLUR]: () => {
+                    this.enableStopEditingAndChangeSelectionByDirectionKeyPressed = true;
+                },
+                // edit input value change
+                [EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE]: ({ editingCell }) => {
+                    this.editingCell = editingCell;
+                },
             },
         };
 
