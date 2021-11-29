@@ -108,6 +108,8 @@ export const COMPS_NAME = {
 export const COMPS_CUSTOM_ATTRS = {
     // body row key
     BODY_ROW_KEY: "row-key",
+    // body column key
+    BODY_COLUMN_KEY: "col-key",
 };
 
 // instance methods
