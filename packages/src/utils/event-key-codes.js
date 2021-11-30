@@ -1,6 +1,13 @@
 // is input key code
-export function isInputKeyCode(keyCode) {
+export function isInputKeyCode(event) {
     let result = false;
+
+    const { keyCode, altKey, ctrlKey, shiftKey } = event;
+
+    // exclude keys
+    if (altKey || ctrlKey || shiftKey) {
+        return result;
+    }
 
     // Digit0 to Digit9
     if ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 96 && keyCode <= 105)) {
@@ -41,3 +48,6 @@ export function isInputKeyCode(keyCode) {
 export function isDirectionKeyCode(keyCode) {
     return [37, 38, 39, 40].indexOf(keyCode) > -1;
 }
+
+// is single key
+// export function isSingleKey() {}
