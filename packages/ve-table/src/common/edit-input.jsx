@@ -56,12 +56,6 @@ export default {
             type: Boolean,
             required: true,
         },
-
-        // is editing focus cell
-        // isEditingFocusCell: {
-        //     type: Boolean,
-        //     required: true,
-        // },
     },
     data() {
         return {
@@ -120,16 +114,25 @@ export default {
 
             const { displayTextarea, cellElRect } = this;
 
-            if (cellElRect) {
+            if (displayTextarea) {
                 const { top, left } = cellElRect;
 
-                result.top = top + "px";
-                result.left = left + "px";
-                result.height = displayTextarea ? null : "1px";
-                result["z-index"] = displayTextarea ? 100 : -1;
+                result = {
+                    top: top + "px",
+                    left: left + "px",
+                    height: null,
+                    "z-index": 100,
+                    opacity: 1,
+                };
+            } else {
+                result = {
+                    top: "-1px",
+                    left: "-1px",
+                    height: "1px",
+                    "z-index": -1,
+                    opacity: 0,
+                };
             }
-
-            result.opacity = displayTextarea ? 1 : 0;
 
             return result;
         },
@@ -161,7 +164,7 @@ export default {
                 let { height, width } = cellElRect;
 
                 /* 
-                解决表格最后一行border-bottom为0，导致编辑会使表格出滚动条
+                解决表格最后一行 border-bottom 为0，导致编辑会使表格出滚动条
                 */
                 if (isLastRow) {
                     height -= 1;
