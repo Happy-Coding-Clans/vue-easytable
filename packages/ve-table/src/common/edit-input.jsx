@@ -46,6 +46,11 @@ export default {
             type: Object,
             required: true,
         },
+        // is editing cell
+        isEditingCell: {
+            type: Boolean,
+            required: true,
+        },
 
         // is editing focus cell
         // isEditingFocusCell: {
@@ -116,18 +121,6 @@ export default {
 
         //     return result;
         // },
-
-        // is editing cell
-        isEditingCell() {
-            const { editingCell } = this;
-
-            const { cellSelectionKeyData } = this;
-            const { rowKey, colKey } = cellSelectionKeyData;
-
-            return (
-                editingCell.rowKey === rowKey && editingCell.colKey === colKey
-            );
-        },
 
         // container style
         containerStyle() {
