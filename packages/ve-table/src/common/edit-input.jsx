@@ -314,13 +314,8 @@ export default {
     },
 
     render() {
-        const {
-            displayTextarea,
-            containerStyle,
-            textareaClass,
-            textareaStyle,
-            rawCellValue,
-        } = this;
+        const { containerStyle, textareaClass, textareaStyle, rawCellValue } =
+            this;
 
         const containerProps = {
             style: containerStyle,
