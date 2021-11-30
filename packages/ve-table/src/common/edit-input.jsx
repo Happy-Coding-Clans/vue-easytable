@@ -134,6 +134,7 @@ export default {
                 result.top = top + "px";
                 result.left = left + "px";
                 result.height = displayTextarea ? null : "1px";
+                result["z-index"] = displayTextarea ? 100 : -1;
             }
 
             result.opacity = displayTextarea ? 1 : 0;
@@ -170,18 +171,25 @@ export default {
     },
 
     watch: {
-        // tableData:{
-        //     handler: function (val) {
-        //     },
-        //     deep: true,
-        //     immediate: true,
-        // },
+        // cell selection key data
         cellSelectionKeyData: {
             handler: function (val) {
                 const { rowKey, colKey } = val;
                 if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
                     this.getCellEl();
                     this.setTextareaPosition();
+                }
+            },
+            deep: true,
+            immediate: true,
+        },
+        // is editing cell
+        isEditingCell: {
+            handler: function (val) {
+                if (val) {
+                    this.showTextarea();
+                } else {
+                    this.hideTextarea();
                 }
             },
             deep: true,
@@ -196,9 +204,9 @@ export default {
             // event.preventDefault();
             const { keyCode } = event;
 
-            if (isInputKeyCode(keyCode)) {
-                this.showTextarea();
-            }
+            // if (isInputKeyCode(keyCode)) {
+            //     this.showTextarea();
+            // }
         },
 
         // get cell element
@@ -348,13 +356,10 @@ export default {
                         );
                     }
                 },
-                dblclick: () => {
-                    this.showTextarea();
-                },
+                // dblclick: () => {
+                // },
                 blur: () => {
                     if (displayTextarea) {
-                        this.hideTextarea();
-
                         this.dispatch(
                             COMPS_NAME.VE_TABLE,
                             EMIT_EVENTS.EDIT_INPUT_BLUR,
