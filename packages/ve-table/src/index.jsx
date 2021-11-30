@@ -700,20 +700,37 @@ export default {
             const { rowKey, colKey } = cellSelectionKeyData;
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                if (keyCode === KEY_CODES.ARROW_LEFT) {
-                    direction = CELL_SELECTION_DIRECTION.LEFT;
-                } else if (keyCode === KEY_CODES.TAB && shiftKey) {
-                    direction = CELL_SELECTION_DIRECTION.LEFT;
-                } else if (keyCode === KEY_CODES.ARROW_RIGHT) {
-                    direction = CELL_SELECTION_DIRECTION.RIGHT;
-                } else if (keyCode === KEY_CODES.TAB) {
-                    direction = CELL_SELECTION_DIRECTION.RIGHT;
-                } else if (keyCode === KEY_CODES.ARROW_UP) {
-                    direction = CELL_SELECTION_DIRECTION.UP;
-                } else if (keyCode === KEY_CODES.ARROW_DOWN) {
-                    direction = CELL_SELECTION_DIRECTION.DOWN;
-                } else if (keyCode === KEY_CODES.ENTER) {
-                    direction = CELL_SELECTION_DIRECTION.DOWN;
+                switch (keyCode) {
+                    case KEY_CODES.ARROW_LEFT: {
+                        direction = CELL_SELECTION_DIRECTION.LEFT;
+                        break;
+                    }
+                    case KEY_CODES.TAB: {
+                        if (shiftKey) {
+                            direction = CELL_SELECTION_DIRECTION.LEFT;
+                        } else {
+                            direction = CELL_SELECTION_DIRECTION.RIGHT;
+                        }
+                        break;
+                    }
+                    case KEY_CODES.ARROW_RIGHT: {
+                        direction = CELL_SELECTION_DIRECTION.RIGHT;
+                        break;
+                    }
+                    case KEY_CODES.ARROW_UP: {
+                        direction = CELL_SELECTION_DIRECTION.UP;
+                        break;
+                    }
+                    case KEY_CODES.ARROW_DOWN: {
+                        direction = CELL_SELECTION_DIRECTION.DOWN;
+                        break;
+                    }
+                    case KEY_CODES.ENTER: {
+                        direction = CELL_SELECTION_DIRECTION.DOWN;
+                        break;
+                    }
+                    default:
+                        break;
                 }
             }
 
