@@ -1387,12 +1387,6 @@ export default {
                     });
                 }
             }
-
-            if (editOption) {
-                this.editCellByClick({
-                    isDoubleClick: false,
-                });
-            }
         },
 
         /*
@@ -1405,19 +1399,15 @@ export default {
             const { editOption } = this;
 
             if (editOption) {
-                this.editCellByClick({
-                    isDoubleClick: true,
-                });
+                this.editCellByDblclick();
             }
         },
 
         /*
-         * @editCellByClick
+         * @editCellByDblclick
          * @desc  recieve td click event
-         * @param {object} clickRowKey - click row key
-         * @param {object} clickColKey - click column key
          */
-        editCellByClick({ isDoubleClick }) {
+        editCellByDblclick() {
             const {
                 editOption,
                 colgroups,
@@ -1442,44 +1432,33 @@ export default {
                 return false;
             }
 
-            let enableStartEditing = false;
-            let enableStopEditing = false;
-
             const currentColumn = colgroups.find((x) => x.key == colKey);
-            // 当前列是否可编辑
-            if (currentColumn.edit) {
-                if (
-                    editingCell &&
-                    editingCell.rowKey == rowKey &&
-                    editingCell.colKey == colKey
-                ) {
-                    //
-                    return false;
-                } else {
-                    enableStopEditing = true;
-                    enableStartEditing = true;
-                }
+
+            if (!currentColumn.edit) {
+                return false;
             }
 
-            if (enableStopEditing) {
-                if (isEditingCell) {
-                    this[INSTANCE_METHODS.STOP_EDITING_CELL]({
-                        rowKey: editingCell.rowKey,
-                        colKey: editingCell.colKey,
-                    });
-                }
+            if (
+                editingCell &&
+                editingCell.rowKey == rowKey &&
+                editingCell.colKey == colKey
+            ) {
+                return false;
             }
 
-            if (enableStartEditing) {
-                if (isDoubleClick) {
-                    this.enableStopEditingAndChangeSelectionByDirectionKeyPressed = false;
-
-                    this[INSTANCE_METHODS.START_EDITING_CELL]({
-                        rowKey,
-                        colKey,
-                    });
-                }
+            if (isEditingCell) {
+                this[INSTANCE_METHODS.STOP_EDITING_CELL]({
+                    rowKey: editingCell.rowKey,
+                    colKey: editingCell.colKey,
+                });
             }
+
+            this.enableStopEditingAndChangeSelectionByDirectionKeyPressed = false;
+
+            this[INSTANCE_METHODS.START_EDITING_CELL]({
+                rowKey,
+                colKey,
+            });
         },
 
         /*
@@ -1892,6 +1871,7 @@ export default {
                 colgroups,
                 editOption,
                 editingCell: this.editingCell,
+                isEditingCell: this.isEditingCell,
             },
             on: {
                 // edit input click
