@@ -690,12 +690,16 @@ export default {
         },
         // cell direction
         cellDirection(event) {
-            const { cellSelectionKeyData, isEditingCell, enableStopEditing } =
-                this;
+            const {
+                cellSelectionKeyData,
+                isEditingCell,
+                editingCell,
+                enableStopEditing,
+            } = this;
 
             let direction;
 
-            const { keyCode, shiftKey } = event;
+            const { keyCode, shiftKey, altKey } = event;
 
             const { rowKey, colKey } = cellSelectionKeyData;
 
@@ -726,7 +730,15 @@ export default {
                         break;
                     }
                     case KEY_CODES.ENTER: {
-                        direction = CELL_SELECTION_DIRECTION.DOWN;
+                        // add new line
+                        if (altKey) {
+                            if (isEditingCell) {
+                                let value = editingCell.row[editingCell.colKey];
+                                //console.log(value);
+                            }
+                        } else {
+                            CELL_SELECTION_DIRECTION.DOWN;
+                        }
                         break;
                     }
                     default:
