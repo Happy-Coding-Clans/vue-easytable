@@ -1321,7 +1321,7 @@ export default {
         },
 
         // save cell when stop editing
-        saveCellWhenStopEditing({ rowKey, colKey }) {
+        saveCellWhenStopEditing() {
             const {
                 colgroups,
                 rowKeyFieldName,
@@ -1333,6 +1333,8 @@ export default {
             const { cellValueChange } = editOption;
 
             if (isEditingCell) {
+                const { rowKey, colKey } = editingCell;
+
                 let currentRow = this.tableData.find(
                     (x) => x[rowKeyFieldName] === rowKey,
                 );
@@ -1384,7 +1386,7 @@ export default {
             }
 
             if (editOption) {
-                this.editCellByDblclick({ isDblclick: false });
+                this.editCellByClick({ isDblclick: false });
             }
         },
 
@@ -1398,16 +1400,16 @@ export default {
             const { editOption } = this;
 
             if (editOption) {
-                this.editCellByDblclick({ isDblclick: true });
+                this.editCellByClick({ isDblclick: true });
             }
         },
 
         /*
-         * @editCellByDblclick
+         * @editCellByClick
          * @desc  recieve td click event
          * @param {boolean} isDblclick - is dblclick
          */
-        editCellByDblclick({ isDblclick }) {
+        editCellByClick({ isDblclick }) {
             const {
                 editOption,
                 colgroups,
@@ -1623,8 +1625,8 @@ export default {
                 row: cloneDeep(currentRow),
             });
         },
-        // start editing cell
-        [INSTANCE_METHODS.STOP_EDITING_CELL]({ rowKey, colKey }) {
+        // stop editing cell
+        [INSTANCE_METHODS.STOP_EDITING_CELL]() {
             const { editOption, isEditingCell } = this;
 
             if (!editOption) {
@@ -1632,10 +1634,7 @@ export default {
             }
 
             if (isEditingCell) {
-                this.saveCellWhenStopEditing({
-                    rowKey,
-                    colKey,
-                });
+                this.saveCellWhenStopEditing();
             }
         },
         // set highlight row
@@ -1875,6 +1874,7 @@ export default {
                 editOption,
                 editingCell: this.editingCell,
                 isEditingCell: this.isEditingCell,
+                allRowKeys: this.allRowKeys,
             },
             on: {
                 // edit input click
@@ -1883,7 +1883,8 @@ export default {
                 },
                 // edit input blur
                 [EMIT_EVENTS.EDIT_INPUT_BLUR]: () => {
-                    this.enableStopEditing = true;
+                    // this.enableStopEditing = true;
+                    this[INSTANCE_METHODS.STOP_EDITING_CELL]();
                 },
                 // edit input value change
                 [EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE]: ({ editingCell }) => {

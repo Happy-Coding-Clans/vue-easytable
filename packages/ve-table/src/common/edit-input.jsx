@@ -25,6 +25,11 @@ export default {
             type: Array,
             required: true,
         },
+        // all row keys
+        allRowKeys: {
+            type: Array,
+            required: true,
+        },
         colgroups: {
             type: Array,
             required: true,
@@ -95,32 +100,19 @@ export default {
             return result;
         },
 
-        // show cell input
-        // showCellInput() {
-        //     let result = false;
+        // is last edit row
+        isLastEditRow() {
+            let result = false;
 
-        //     const {
-        //         cellSelectionKeyData,
-        //         currentRowKey,
-        //         editOption,
-        //         currentColumn: column,
-        //     } = this;
+            const { allRowKeys, cellSelectionKeyData } = this;
 
-        //     if (column.edit && editOption) {
-        //         if (cellSelectionKeyData && editOption) {
-        //             const { rowKey, colKey } = cellSelectionKeyData;
+            if (allRowKeys.length && cellSelectionKeyData) {
+                const { rowKey } = cellSelectionKeyData;
+                result = allRowKeys[allRowKeys.length - 1] == rowKey;
+            }
 
-        //             if (
-        //                     currentRowKey === rowKey &&
-        //                     column["key"] === colKey
-        //                 ) {
-        //                     result = true;
-        //                 }
-        //         }
-        //     }
-
-        //     return result;
-        // },
+            return result;
+        },
 
         // container style
         containerStyle() {
@@ -157,10 +149,23 @@ export default {
         textareaStyle() {
             let result = {};
 
+            const { allRowKeys, cellSelectionKeyData } = this;
+
+            const { rowKey } = cellSelectionKeyData;
+
+            const isLastRow = allRowKeys[allRowKeys.length - 1] == rowKey;
+
             const { cellElRect } = this;
 
             if (cellElRect) {
-                const { height, width } = cellElRect;
+                let { height, width } = cellElRect;
+
+                /* 
+                解决表格最后一行border-bottom为0，导致编辑会使表格出滚动条
+                */
+                if (isLastRow) {
+                    height -= 1;
+                }
 
                 result.height = height + "px";
                 result.width = width + "px";
@@ -314,8 +319,13 @@ export default {
     },
 
     render() {
-        const { containerStyle, textareaClass, textareaStyle, rawCellValue } =
-            this;
+        const {
+            containerStyle,
+            textareaClass,
+            textareaStyle,
+            rawCellValue,
+            isEditingCell,
+        } = this;
 
         const containerProps = {
             style: containerStyle,
@@ -344,18 +354,14 @@ export default {
                     this.resetEditingCellValue(e.target.value);
                 },
                 click: () => {
-                    this.dispatch(
-                        COMPS_NAME.VE_TABLE,
-                        EMIT_EVENTS.EDIT_INPUT_CLICK,
-                    );
+                    this.$emit(EMIT_EVENTS.EDIT_INPUT_CLICK);
                 },
                 // dblclick: () => {
                 // },
                 blur: () => {
-                    this.dispatch(
-                        COMPS_NAME.VE_TABLE,
-                        EMIT_EVENTS.EDIT_INPUT_BLUR,
-                    );
+                    if (isEditingCell) {
+                        this.$emit(EMIT_EVENTS.EDIT_INPUT_BLUR);
+                    }
                 },
             },
         };
