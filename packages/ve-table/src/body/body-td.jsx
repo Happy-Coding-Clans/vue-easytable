@@ -152,26 +152,6 @@ export default {
             const { rowData, rowKeyFieldName } = this;
             return rowData[rowKeyFieldName];
         },
-
-        // show cell input
-        showCellInput() {
-            let result = false;
-
-            const { cellSelectionKeyData, currentRowKey, editOption, column } =
-                this;
-
-            if (column.edit && editOption) {
-                if (cellSelectionKeyData && editOption) {
-                    const { rowKey, colKey } = cellSelectionKeyData;
-
-                    if (currentRowKey === rowKey && column["key"] === colKey) {
-                        result = true;
-                    }
-                }
-            }
-
-            return result;
-        },
     },
     watch: {
         // watch row data
@@ -217,7 +197,6 @@ export default {
 
             let result = {
                 [clsName("body-td")]: true,
-                [clsName("body-td-editing")]: this.showCellInput,
             };
 
             const {
@@ -323,46 +302,6 @@ export default {
                     </span>
                 );
             }
-
-            /*
-            cell edit
-            对原始数据编辑
-            */
-            // if (isEditingCell) {
-            //     const editCellInputProps = {
-            //         props: {
-            //             value: rawCellValue,
-            //             isEditingFocusCell: this.isEditingFocusCell,
-            //         },
-            //         class: clsName("body-td-edit-input"),
-            //         on: {
-            //             "on-value-change": (inputValue) => {
-            //                 this.rawCellValue = inputValue;
-            //             },
-            //         },
-            //     };
-
-            //     content = <TdEditInput {...editCellInputProps} />;
-            // }
-
-            // if (showCellInput) {
-            //     const editCellInputProps = {
-            //         props: {
-            //             value: rawCellValue,
-            //             isEditingFocusCell: this.isEditingFocusCell,
-            //         },
-            //         on: {
-            //             "on-value-change": (inputValue) => {
-            //                 this.rawCellValue = inputValue;
-            //                 this.resetEditingCellValue();
-            //             },
-            //         },
-            //     };
-
-            //     content = (
-            //         <TdEditInput {...editCellInputProps}>{content}</TdEditInput>
-            //     );
-            // }
 
             return content;
         },
