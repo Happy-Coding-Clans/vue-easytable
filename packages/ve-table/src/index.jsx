@@ -1327,15 +1327,17 @@ export default {
 
         // save cell when stop editing
         saveCellWhenStopEditing({ rowKey, colKey }) {
-            const { colgroups, rowKeyFieldName, editOption, editingCell } =
-                this;
+            const {
+                colgroups,
+                rowKeyFieldName,
+                editOption,
+                editingCell,
+                isEditingCell,
+            } = this;
 
             const { cellValueChange } = editOption;
 
-            if (
-                !isEmptyValue(editingCell.rowKey) &&
-                !isEmptyValue(editingCell.colKey)
-            ) {
+            if (isEditingCell) {
                 let currentRow = this.tableData.find(
                     (x) => x[rowKeyFieldName] === rowKey,
                 );
