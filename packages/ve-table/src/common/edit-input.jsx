@@ -349,22 +349,18 @@ export default {
                     this.resetEditingCellValue(e.target.value);
                 },
                 click: () => {
-                    if (displayTextarea) {
-                        this.dispatch(
-                            COMPS_NAME.VE_TABLE,
-                            EMIT_EVENTS.EDIT_INPUT_CLICK,
-                        );
-                    }
+                    this.dispatch(
+                        COMPS_NAME.VE_TABLE,
+                        EMIT_EVENTS.EDIT_INPUT_CLICK,
+                    );
                 },
                 // dblclick: () => {
                 // },
                 blur: () => {
-                    if (displayTextarea) {
-                        this.dispatch(
-                            COMPS_NAME.VE_TABLE,
-                            EMIT_EVENTS.EDIT_INPUT_BLUR,
-                        );
-                    }
+                    this.dispatch(
+                        COMPS_NAME.VE_TABLE,
+                        EMIT_EVENTS.EDIT_INPUT_BLUR,
+                    );
                 },
             },
         };
