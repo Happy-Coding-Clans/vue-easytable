@@ -765,7 +765,7 @@ export default {
                 return false;
             }
 
-            if (isInputKeyCode(keyCode)) {
+            if (isInputKeyCode(event)) {
                 // eventKey
                 this[INSTANCE_METHODS.START_EDITING_CELL]({
                     rowKey,
