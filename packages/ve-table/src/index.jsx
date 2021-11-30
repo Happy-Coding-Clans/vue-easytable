@@ -293,7 +293,7 @@ export default {
             像excel一样：如果直接在可编辑单元格上输入内容后，按下上、下、左、右按键可以直接选中其他单元格，并停止当前单元格编辑状态
             like Excel:If you directly enter content in an editable cell, press the up, down, left and right buttons to directly select other cells and stop editing the current cell
             */
-            enableStopEditingAndChangeSelectionByDirectionKeyPressed: true,
+            enableStopEditing: true,
         };
     },
     // 存储非响应式数据
@@ -530,7 +530,7 @@ export default {
             },
             immediate: true,
         },
-        // footerData
+        // footer data
         footerData: {
             handler(val) {
                 if (!isEmptyArray(val)) {
@@ -675,8 +675,9 @@ export default {
         },
 
         // cell selection key change
-        cellSelectionKeyChange(data) {
-            this.cellSelectionKeyData = data;
+        cellSelectionKeyChange({ rowKey, colKey }) {
+            this.cellSelectionKeyData.rowKey = rowKey;
+            this.cellSelectionKeyData.colKey = colKey;
         },
 
         // deal keydown event
@@ -689,11 +690,8 @@ export default {
         },
         // cell direction
         cellDirection(event) {
-            const {
-                cellSelectionKeyData,
-                isEditingCell,
-                enableStopEditingAndChangeSelectionByDirectionKeyPressed,
-            } = this;
+            const { cellSelectionKeyData, isEditingCell, enableStopEditing } =
+                this;
 
             let direction;
 
@@ -722,15 +720,12 @@ export default {
             if (direction) {
                 const isDirectKeyCode = isDirectionKeyCode(keyCode);
 
-                if (enableStopEditingAndChangeSelectionByDirectionKeyPressed) {
+                if (enableStopEditing) {
                     event.preventDefault();
                 }
 
                 // 编辑时允许改变方向 || 不是方向键
-                if (
-                    enableStopEditingAndChangeSelectionByDirectionKeyPressed ||
-                    !isDirectKeyCode
-                ) {
+                if (enableStopEditing || !isDirectKeyCode) {
                     this.selectCellByDirection({
                         direction,
                     });
@@ -1387,6 +1382,10 @@ export default {
                     });
                 }
             }
+
+            if (editOption) {
+                this.editCellByDblclick({ isDblclick: false });
+            }
         },
 
         /*
@@ -1399,15 +1398,16 @@ export default {
             const { editOption } = this;
 
             if (editOption) {
-                this.editCellByDblclick();
+                this.editCellByDblclick({ isDblclick: true });
             }
         },
 
         /*
          * @editCellByDblclick
          * @desc  recieve td click event
+         * @param {boolean} isDblclick - is dblclick
          */
-        editCellByDblclick() {
+        editCellByDblclick({ isDblclick }) {
             const {
                 editOption,
                 colgroups,
@@ -1453,12 +1453,16 @@ export default {
                 });
             }
 
-            this.enableStopEditingAndChangeSelectionByDirectionKeyPressed = false;
+            if (isDblclick) {
+                this.enableStopEditing = false;
 
-            this[INSTANCE_METHODS.START_EDITING_CELL]({
-                rowKey,
-                colKey,
-            });
+                this[INSTANCE_METHODS.START_EDITING_CELL]({
+                    rowKey,
+                    colKey,
+                });
+            } else {
+                this.enableStopEditing = true;
+            }
         },
 
         /*
@@ -1856,7 +1860,6 @@ export default {
             },
             on: {
                 "on-dom-resize-change": ({ height }) => {
-                    //alert(height);
                     this.tableHeight = height;
                 },
             },
@@ -1876,11 +1879,11 @@ export default {
             on: {
                 // edit input click
                 [EMIT_EVENTS.EDIT_INPUT_CLICK]: () => {
-                    this.enableStopEditingAndChangeSelectionByDirectionKeyPressed = false;
+                    this.enableStopEditing = false;
                 },
                 // edit input blur
                 [EMIT_EVENTS.EDIT_INPUT_BLUR]: () => {
-                    this.enableStopEditingAndChangeSelectionByDirectionKeyPressed = true;
+                    this.enableStopEditing = true;
                 },
                 // edit input value change
                 [EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE]: ({ editingCell }) => {
