@@ -288,20 +288,9 @@ export default {
             }
         },
 
-        // reset editing cell value
-        resetEditingCellValue(value) {
-            const { currentColumn: column, editingCell, isEditingCell } = this;
-
-            if (isEditingCell) {
-                editingCell.row[column.field] = value;
-                this.dispatch(
-                    COMPS_NAME.VE_TABLE,
-                    EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE,
-                    {
-                        editingCell,
-                    },
-                );
-            }
+        // set text area value by editor
+        setTextareaValueByEditor(val) {
+            this.rawCellValue = val;
         },
     },
 
@@ -352,7 +341,12 @@ export default {
             },
             on: {
                 input: (e) => {
-                    this.resetEditingCellValue(e.target.value);
+                    if (isEditingCell) {
+                        this.$emit(
+                            EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE,
+                            e.target.value,
+                        );
+                    }
                 },
                 click: () => {
                     this.$emit(EMIT_EVENTS.EDIT_INPUT_CLICK);

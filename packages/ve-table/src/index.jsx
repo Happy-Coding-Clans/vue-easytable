@@ -16,14 +16,7 @@ import {
     isDefined,
     isFalse,
 } from "../../src/utils/index.js";
-import {
-    requestAnimationTimeout,
-    cancelAnimationTimeout,
-} from "../../src/utils/request-animation-timeout";
-import {
-    isInputKeyCode,
-    isDirectionKeyCode,
-} from "../../src/utils/event-key-codes";
+
 import emitter from "../../src/mixins/emitter";
 import {
     COMPS_NAME,
@@ -39,6 +32,15 @@ import Footer from "./footer";
 import EditInput from "./common/edit-input";
 import { KEY_CODES } from "../../src/utils/constant";
 import { getScrollbarWidth } from "../../src/utils/scroll-bar";
+import { getCaretPosition, setCaretPosition } from "../../src/utils/dom";
+import {
+    requestAnimationTimeout,
+    cancelAnimationTimeout,
+} from "../../src/utils/request-animation-timeout";
+import {
+    isInputKeyCode,
+    isDirectionKeyCode,
+} from "../../src/utils/event-key-codes";
 import clickoutside from "../../src/directives/clickoutside";
 import VueDomResizeObserver from "../../src/comps/resize-observer";
 
@@ -208,6 +210,7 @@ export default {
             tableBodyRef: "tableBodyRef",
             tableContentRef: "tableContentRef",
             virtualPhantomRef: "virtualPhantomRef",
+            editInputRef: "editInputRef",
             cloneColumns: [],
             // is group header
             isGroupHeader: false,
@@ -733,11 +736,38 @@ export default {
                         // add new line
                         if (altKey) {
                             if (isEditingCell) {
-                                let value = editingCell.row[editingCell.colKey];
-                                //console.log(value);
+                                const editInputEditor =
+                                    this.$refs[this.editInputRef];
+                                const editInputEl =
+                                    editInputEditor.$el.querySelector(
+                                        `.${clsName("edit-input")}`,
+                                    );
+
+                                const caretPosition =
+                                    getCaretPosition(editInputEl);
+
+                                const value =
+                                    editingCell.row[editingCell.colKey];
+
+                                const newValue = `${value.slice(
+                                    0,
+                                    caretPosition,
+                                )}\n${value.slice(caretPosition)}`;
+
+                                editInputEditor.setTextareaValueByEditor(
+                                    newValue,
+                                );
+
+                                // 不会触发textarea 文本变化，这里手动赋值
+                                this.setEditingCellValue(newValue);
+
+                                setCaretPosition(
+                                    editInputEl,
+                                    caretPosition + 1,
+                                );
                             }
                         } else {
-                            CELL_SELECTION_DIRECTION.DOWN;
+                            direction = CELL_SELECTION_DIRECTION.DOWN;
                         }
                         break;
                     }
@@ -1513,6 +1543,15 @@ export default {
             };
         },
 
+        // set editing cell value
+        setEditingCellValue(value) {
+            const { editingCell } = this;
+            let { row } = editingCell;
+            row[editingCell.colKey] = value;
+            this.editingCell.row = row;
+            console.log(JSON.stringify(row));
+        },
+
         /*
          * @clearEditingCell
          * @desc  add editing cells
@@ -1894,6 +1933,7 @@ export default {
         };
 
         const editInputProps = {
+            ref: this.editInputRef,
             props: {
                 value: "",
                 rowKeyFieldName,
@@ -1916,8 +1956,8 @@ export default {
                     this[INSTANCE_METHODS.STOP_EDITING_CELL]();
                 },
                 // edit input value change
-                [EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE]: ({ editingCell }) => {
-                    this.editingCell = editingCell;
+                [EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE]: (value) => {
+                    this.setEditingCellValue(value);
                 },
             },
         };
