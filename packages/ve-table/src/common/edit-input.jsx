@@ -210,9 +210,7 @@ export default {
         dealKeydownEvent(event) {
             // event.stopPropagation();
             // event.preventDefault();
-            const { keyCode } = event;
-
-            // if (isInputKeyCode(keyCode)) {
+            // if (isInputKeyCode(event)) {
             //     this.showTextarea();
             // }
         },
