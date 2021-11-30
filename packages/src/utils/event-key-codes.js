@@ -29,6 +29,10 @@ export function isInputKeyCode(keyCode) {
     */
         result = true;
     }
+    // Support non-English languages. Chinese, Japanese, French, etc.
+    else if (keyCode == 229) {
+        result = true;
+    }
 
     return result;
 }
