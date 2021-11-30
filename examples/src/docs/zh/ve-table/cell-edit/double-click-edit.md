@@ -10,7 +10,6 @@
         <ve-table
             ref="tableRef"
             rowKeyFieldName="rowKey"
-            :max-height="300"
             :fixed-header="true"
             :columns="columns"
             :table-data="tableData"
