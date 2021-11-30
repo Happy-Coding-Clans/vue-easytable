@@ -470,8 +470,8 @@ export default {
             return this.colgroups.some((x) => x.fixed === "left");
         },
 
-        // is cell editing
-        isCellEditing() {
+        // is editing cell
+        isEditingCell() {
             const { editingCell } = this;
 
             return (
@@ -691,7 +691,7 @@ export default {
         cellDirection(event) {
             const {
                 cellSelectionKeyData,
-                isCellEditing,
+                isEditingCell,
                 enableStopEditingAndChangeSelectionByDirectionKeyPressed,
             } = this;
 
@@ -739,7 +739,7 @@ export default {
                     如果是当前编辑的单元格
                     If the cell is currently editing cell 
                     */
-                    if (isCellEditing) {
+                    if (isEditingCell) {
                         this[INSTANCE_METHODS.STOP_EDITING_CELL]({
                             rowKey,
                             colKey,
@@ -1419,7 +1419,7 @@ export default {
             const {
                 editOption,
                 colgroups,
-                isCellEditing,
+                isEditingCell,
                 hasEditColumn,
                 editingCell,
                 cellSelectionKeyData,
@@ -1460,7 +1460,7 @@ export default {
             }
 
             if (enableStopEditing) {
-                if (isCellEditing) {
+                if (isEditingCell) {
                     this[INSTANCE_METHODS.STOP_EDITING_CELL]({
                         rowKey: editingCell.rowKey,
                         colKey: editingCell.colKey,
