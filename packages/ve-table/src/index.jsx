@@ -1640,16 +1640,13 @@ export default {
         },
         // start editing cell
         [INSTANCE_METHODS.STOP_EDITING_CELL]({ rowKey, colKey }) {
-            const { editOption, editingCell } = this;
+            const { editOption, isEditingCell } = this;
 
             if (!editOption) {
                 return false;
             }
 
-            if (
-                !isEmptyValue(editingCell.rowKey) &&
-                !isEmptyValue(editingCell.colKey)
-            ) {
+            if (isEditingCell) {
                 this.saveCellWhenStopEditing({
                     rowKey,
                     colKey,
