@@ -14,7 +14,6 @@ import {
     isEmptyArray,
     isBoolean,
     isDefined,
-    isFalse,
 } from "../../src/utils/index.js";
 
 import emitter from "../../src/mixins/emitter";
@@ -29,7 +28,7 @@ import Colgroup from "./colgroup";
 import Header from "./header";
 import Body from "./body";
 import Footer from "./footer";
-import EditInput from "./common/edit-input";
+import EditInput from "./editor/edit-input";
 import { KEY_CODES } from "../../src/utils/constant";
 import { getScrollbarWidth } from "../../src/utils/scroll-bar";
 import {
