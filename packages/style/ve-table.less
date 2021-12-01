@@ -40,130 +40,36 @@
 }
 
 .ve-table {
-    table.ve-table-content {
-        min-width: 100%;
-        table-layout: fixed;
-        border-collapse: separate;
-        border-spacing: 0;
-
-        // header
-        thead.ve-table-header {
-            tr.ve-table-header-tr {
-                height: @ve-table-head-row-height;
-                th.ve-table-header-th {
-                    background-color: @ve-table-header-background-color;
-                    padding: @ve-table-head-row-td-padding;
-                    font-weight: 500;
-                    color: @ve-table-head-text-color;
-                    font-size: @ve-table-head-text-font-size;
-                }
-            }
-        }
-
-        // body
-        tbody.ve-table-body {
-            tr.ve-table-body-tr,
-            tr.ve-table-expand-tr {
-                height: @ve-table-body-row-height;
-                td.ve-table-body-td,
-                td.ve-table-expand-td {
-                    background-color: @ve-table-body-background-color;
-                    color: @ve-table-body-text-color;
-                    // hack content fill td height
-                    //height: 1px;
-                    height: inherit;
-                    font-size: @ve-table-body-text-font-size;
-                }
-
-                td.ve-table-body-td {
-                    padding: @ve-table-body-row-td-padding;
-                    white-space: pre-wrap;
-                }
-            }
-
-            tr.ve-table-expand-tr {
-                display: table-row;
-            }
-
-            // 斑马纹
-            &.ve-table-stripe {
-                tr.ve-table-body-tr:nth-child(2n + 1) td {
-                    background-color: @ve-table-body-row-stripe-background-color;
-                }
-            }
-
-            // 行悬浮效果
-            &.ve-table-row-hover {
-                tr.ve-table-body-tr:hover td {
-                    background-color: @ve-table-body-row-hover-background-color;
-                }
-            }
-
-            // 行点击高亮
-            &.ve-table-row-highlight {
-                tr.ve-table-body-tr {
-                    &.ve-table-tr-highlight {
-                        td {
-                            background-color: @ve-table-body-row-highlight-background-color;
-                        }
-                    }
-                }
-            }
-        }
-
-        // foot
-        tfoot.ve-table-footer {
-            tr.ve-table-footer-tr {
-                height: @ve-table-foot-row-height;
-                td.ve-table-footer-td {
-                    background-color: @ve-table-foot-background-color;
-                    color: @ve-table-foot-text-color;
-                    padding: @ve-table-foot-row-td-padding;
-                    font-size: @ve-table-foot-text-font-size;
-                }
-            }
-        }
-    }
-
+    position: relative;
+    // table container
     .ve-table-container {
+        position: relative;
         overflow-y: auto;
         height: 100%;
         width: 100%;
-
-        position: relative;
         // table content
-        .ve-table-content {
+        table.ve-table-content {
             position: absolute;
             left: 0;
             right: 0;
             top: 0;
-            &.ve-table-border-x {
-                th,
-                td {
-                    border-bottom: 1px solid @ve-table-border-color;
-                }
-
-                tr:first-child > th,
-                // footer
-                tr.ve-table-footer-tr:first-child > td {
-                    border-top: 1px solid @ve-table-border-color;
-                }
-            }
-
-            &.ve-table-border-y {
-                th,
-                td {
-                    border-right: 1px solid @ve-table-border-color;
-                }
-
-                th:first-child,
-                td:first-child {
-                    border-left: 1px solid @ve-table-border-color;
-                }
-            }
+            min-width: 100%;
+            table-layout: fixed;
+            border-collapse: separate;
+            border-spacing: 0;
 
             // 表头（需要处理多表头情况）
             thead.ve-table-header {
+                tr.ve-table-header-tr {
+                    height: @ve-table-head-row-height;
+                    th.ve-table-header-th {
+                        background-color: @ve-table-header-background-color;
+                        padding: @ve-table-head-row-td-padding;
+                        font-weight: 500;
+                        color: @ve-table-head-text-color;
+                        font-size: @ve-table-head-text-font-size;
+                    }
+                }
                 // 固定头
                 &.ve-table-fixed-header {
                     tr th {
@@ -233,6 +139,53 @@
 
             // tbody
             tbody.ve-table-body {
+                tr.ve-table-body-tr,
+                tr.ve-table-expand-tr {
+                    height: @ve-table-body-row-height;
+                    td.ve-table-body-td,
+                    td.ve-table-expand-td {
+                        background-color: @ve-table-body-background-color;
+                        color: @ve-table-body-text-color;
+                        // hack content fill td height
+                        //height: 1px;
+                        height: inherit;
+                        font-size: @ve-table-body-text-font-size;
+                    }
+
+                    td.ve-table-body-td {
+                        padding: @ve-table-body-row-td-padding;
+                        white-space: pre-wrap;
+                    }
+                }
+
+                tr.ve-table-expand-tr {
+                    display: table-row;
+                }
+
+                // 斑马纹
+                &.ve-table-stripe {
+                    tr.ve-table-body-tr:nth-child(2n + 1) td {
+                        background-color: @ve-table-body-row-stripe-background-color;
+                    }
+                }
+
+                // 行悬浮效果
+                &.ve-table-row-hover {
+                    tr.ve-table-body-tr:hover td {
+                        background-color: @ve-table-body-row-hover-background-color;
+                    }
+                }
+
+                // 行点击高亮
+                &.ve-table-row-highlight {
+                    tr.ve-table-body-tr {
+                        &.ve-table-tr-highlight {
+                            td {
+                                background-color: @ve-table-body-row-highlight-background-color;
+                            }
+                        }
+                    }
+                }
                 .ve-table-body-tr {
                     .ve-table-body-td {
                         // 固定左列、右列
@@ -307,6 +260,15 @@
 
             //  tfooter
             tfoot.ve-table-footer {
+                tr.ve-table-footer-tr {
+                    height: @ve-table-foot-row-height;
+                    td.ve-table-footer-td {
+                        background-color: @ve-table-foot-background-color;
+                        color: @ve-table-foot-text-color;
+                        padding: @ve-table-foot-row-td-padding;
+                        font-size: @ve-table-foot-text-font-size;
+                    }
+                }
                 // 固定footer
                 &.ve-table-fixed-footer {
                     tr td {
@@ -353,7 +315,32 @@
             }
         }
 
-        // outer border
+        // border x
+        .ve-table-border-x {
+            th,
+            td {
+                border-bottom: 1px solid @ve-table-border-color;
+            }
+
+            tr:first-child > th,
+            // footer
+            tr.ve-table-footer-tr:first-child > td {
+                border-top: 1px solid @ve-table-border-color;
+            }
+        }
+        // border y
+        .ve-table-border-y {
+            th,
+            td {
+                border-right: 1px solid @ve-table-border-color;
+            }
+
+            th:first-child,
+            td:first-child {
+                border-left: 1px solid @ve-table-border-color;
+            }
+        }
+        // border around
         &.ve-table-border-around {
             border: 1px solid @ve-table-border-color;
 
