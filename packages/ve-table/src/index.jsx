@@ -682,6 +682,12 @@ export default {
             this.cellSelectionKeyData.colKey = colKey;
         },
 
+        // clear cell selection
+        clearCellSelectionKey() {
+            this.cellSelectionKeyData.rowKey = "";
+            this.cellSelectionKeyData.colKey = "";
+        },
+
         // deal keydown event
         dealKeydownEvent(event) {
             event.stopPropagation();
@@ -692,12 +698,8 @@ export default {
         },
         // cell direction
         cellDirection(event) {
-            const {
-                cellSelectionKeyData,
-                isEditingCell,
-                editingCell,
-                enableStopEditing,
-            } = this;
+            const { cellSelectionKeyData, isEditingCell, enableStopEditing } =
+                this;
 
             let direction;
 
@@ -1342,12 +1344,9 @@ export default {
         tableBlur() {
             const { rowKey, colKey } = this.cellSelectionKeyData;
 
-            if (!isEmptyValue(rowKey) || !isEmptyValue(colKey)) {
-                // reset cell selection key data
-                this.cellSelectionKeyData = {
-                    rowKey: "",
-                    colKey: "",
-                };
+            if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+                // clear cell selection
+                this.clearCellSelectionKey();
             }
         },
 
@@ -1839,6 +1838,12 @@ export default {
                     this.initScrolling();
                 },
             },
+            directives: [
+                {
+                    name: "click-outside",
+                    value: this.tableBlur,
+                },
+            ],
         };
 
         // container props
@@ -1880,12 +1885,6 @@ export default {
                     }
                 },
             },
-            directives: [
-                {
-                    name: "click-outside",
-                    value: this.tableBlur,
-                },
-            ],
         };
 
         // tale props
@@ -1948,9 +1947,9 @@ export default {
                         {/* table footer */}
                         <Footer {...footerProps} />
                     </VueDomResizeObserver>
-                    {/* edit input */}
-                    {this.hasEditColumn && <EditInput {...editInputProps} />}
                 </div>
+                {/* edit input */}
+                {this.hasEditColumn && <EditInput {...editInputProps} />}
             </VueDomResizeObserver>
         );
     },
