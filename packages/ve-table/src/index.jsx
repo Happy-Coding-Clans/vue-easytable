@@ -1408,7 +1408,7 @@ export default {
                     cellSelectionOption.enable === false
                 )
             ) {
-                if (rowKeyFieldName && column.key) {
+                if (!isEmptyValue(rowKey) && !isEmptyValue(column.key)) {
                     this.cellSelectionKeyChange({
                         rowKey,
                         colKey: column.key,
