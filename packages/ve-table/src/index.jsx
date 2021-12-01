@@ -32,7 +32,6 @@ import Footer from "./footer";
 import EditInput from "./common/edit-input";
 import { KEY_CODES } from "../../src/utils/constant";
 import { getScrollbarWidth } from "../../src/utils/scroll-bar";
-import { getCaretPosition, setCaretPosition } from "../../src/utils/dom";
 import {
     requestAnimationTimeout,
     cancelAnimationTimeout,
@@ -735,37 +734,10 @@ export default {
                     case KEY_CODES.ENTER: {
                         // add new line
                         if (altKey) {
-                            if (isEditingCell) {
-                                const editInputEditor =
-                                    this.$refs[this.editInputRef];
-                                const editInputEl =
-                                    editInputEditor.$el.querySelector(
-                                        `.${clsName("edit-input")}`,
-                                    );
+                            const editInputEditor =
+                                this.$refs[this.editInputRef];
 
-                                const caretPosition =
-                                    getCaretPosition(editInputEl);
-
-                                const value =
-                                    editingCell.row[editingCell.colKey];
-
-                                const newValue = `${value.slice(
-                                    0,
-                                    caretPosition,
-                                )}\n${value.slice(caretPosition)}`;
-
-                                editInputEditor.setTextareaValueByEditor(
-                                    newValue,
-                                );
-
-                                // 不会触发textarea 文本变化，这里手动赋值
-                                this.setEditingCellValue(newValue);
-
-                                setCaretPosition(
-                                    editInputEl,
-                                    caretPosition + 1,
-                                );
-                            }
+                            editInputEditor.textareaAddNewLine();
                         } else {
                             direction = CELL_SELECTION_DIRECTION.DOWN;
                         }
@@ -1549,7 +1521,6 @@ export default {
             let { row } = editingCell;
             row[editingCell.colKey] = value;
             this.editingCell.row = row;
-            console.log(JSON.stringify(row));
         },
 
         /*

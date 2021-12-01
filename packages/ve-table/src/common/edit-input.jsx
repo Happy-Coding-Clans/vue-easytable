@@ -4,6 +4,7 @@ import emitter from "../../../src/mixins/emitter";
 import focus from "../../../src/directives/focus.js";
 import { isInputKeyCode } from "../../../src/utils/event-key-codes";
 import { isEmptyValue } from "../../../src/utils/index.js";
+import { getCaretPosition, setCaretPosition } from "../../../src/utils/dom";
 
 export default {
     name: COMPS_NAME.VE_TABLE_EDIT_INPUT,
@@ -59,6 +60,7 @@ export default {
     },
     data() {
         return {
+            textareaInputRef: "textareaInputRef",
             // raw cell value
             rawCellValue: "",
             // display textarea
@@ -288,9 +290,35 @@ export default {
             }
         },
 
-        // set text area value by editor
-        setTextareaValueByEditor(val) {
-            this.rawCellValue = val;
+        // textarea value change
+        textareaValueChange(val) {
+            this.$emit(EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE, val);
+        },
+
+        // textarea add new line
+        textareaAddNewLine() {
+            const { isEditingCell, editingCell } = this;
+
+            if (isEditingCell) {
+                const textareaInputEl = this.$refs[this.textareaInputRef];
+
+                const caretPosition = getCaretPosition(textareaInputEl);
+
+                const value = editingCell.row[editingCell.colKey];
+
+                const newValue = `${value.slice(
+                    0,
+                    caretPosition,
+                )}\n${value.slice(caretPosition)}`;
+
+                // 直接更新 textarea 值
+                textareaInputEl.value = newValue;
+
+                // 手动赋值不会触发textarea 文本变化事件,手动更新 editingCell 值
+                this.textareaValueChange(newValue);
+
+                setCaretPosition(textareaInputEl, caretPosition + 1);
+            }
         },
     },
 
@@ -325,6 +353,7 @@ export default {
         };
 
         const textareaProps = {
+            ref: this.textareaInputRef,
             class: textareaClass,
             style: textareaStyle,
             directives: [
@@ -342,10 +371,7 @@ export default {
             on: {
                 input: (e) => {
                     if (isEditingCell) {
-                        this.$emit(
-                            EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE,
-                            e.target.value,
-                        );
+                        this.textareaValueChange(e.target.value);
                     }
                 },
                 click: () => {
