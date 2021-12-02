@@ -61,9 +61,9 @@ export default class Hooks {
     triggerHook(hookName) {
         const hooks = this.hooks[hookName];
 
-        const args = Array.prototype.slice.call(arguments);
-
         if (hooks && hooks.length) {
+            const args = Array.prototype.slice.call(arguments);
+
             hooks.forEach((hook) => {
                 //hook(arguments);
                 hook.apply(null, args.slice(1));
