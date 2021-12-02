@@ -13,6 +13,14 @@ export default {
     },
     mixins: [emitter],
     props: {
+        parentRendered: {
+            type: Boolean,
+            required: true,
+        },
+        hooks: {
+            type: Object,
+            required: true,
+        },
         value: {
             type: [String, Number],
             required: true,
@@ -181,6 +189,18 @@ export default {
     },
 
     watch: {
+        parentRendered: {
+            handler: function (val) {
+                if (val) {
+                    // add hook
+                    this.hooks.addHook(
+                        "table-container-scroll",
+                        this.setTextareaPosition,
+                    );
+                }
+            },
+            immediate: true,
+        },
         // cell selection key data
         cellSelectionKeyData: {
             handler: function (val) {
@@ -314,7 +334,7 @@ export default {
                 // 直接更新 textarea 值
                 textareaInputEl.value = newValue;
 
-                // 手动赋值不会触发textarea 文本变化事件,手动更新 editingCell 值
+                // 手动赋值不会触发textarea 文本变化事件,需要手动更新 editingCell 值
                 this.textareaValueChange(newValue);
 
                 setCaretPosition(textareaInputEl, caretPosition + 1);

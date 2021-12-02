@@ -41,6 +41,7 @@ import {
 } from "../../src/utils/event-key-codes";
 import clickoutside from "../../src/directives/clickoutside";
 import VueDomResizeObserver from "../../src/comps/resize-observer";
+import Hooks from "./util/hooks";
 
 export default {
     name: COMPS_NAME.VE_TABLE,
@@ -197,7 +198,11 @@ export default {
     },
     data() {
         return {
-            //  table viewport width except scroll bar width
+            // Hooks instance
+            hooks: {},
+            // is parent rendered
+            parentRendered: false,
+            // table viewport width except scroll bar width
             tableViewportWidth: 0,
             /*
             列配置变化次数
@@ -1680,6 +1685,11 @@ export default {
         },
     },
     mounted() {
+        this.parentRendered = true;
+
+        // set hooks
+        this.hooks = new Hooks();
+
         // receive row selected change
         this.$on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_CHANGE, (params) => {
             this.selectedAllChange(params);
@@ -1852,6 +1862,8 @@ export default {
             style: tableContainerStyle,
             on: {
                 scroll: () => {
+                    this.hooks.triggerHook("table-container-scroll");
+
                     const tableContainerRef =
                         this.$refs[this.tableContainerRef];
                     this.setScrolling(tableContainerRef);
@@ -1904,6 +1916,8 @@ export default {
         const editInputProps = {
             ref: this.editInputRef,
             props: {
+                hooks: this.hooks,
+                parentRendered: this.parentRendered,
                 value: "",
                 rowKeyFieldName,
                 tableData: this.tableData,
