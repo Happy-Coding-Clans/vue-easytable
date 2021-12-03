@@ -350,7 +350,9 @@ export default {
 
                 const caretPosition = getCaretPosition(textareaInputEl);
 
-                const value = editingCell.row[editingCell.colKey];
+                let value = editingCell.row[editingCell.colKey];
+                // solve error of number slice method
+                value += "";
 
                 const newValue = `${value.slice(
                     0,
