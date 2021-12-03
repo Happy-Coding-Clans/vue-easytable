@@ -130,9 +130,9 @@
                 for (let i = 0; i < 100; i++) {
                     data.push({
                         rowKey: i,
-                        col1: i,
-                        col2: i,
-                        col3: i,
+                        col1: i + "aaaaaa",
+                        col2: "",
+                        col3: 111,
                         col4: i,
                         col5: i,
                         col6: i,
