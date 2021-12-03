@@ -8,7 +8,8 @@
 <template>
     <div>
         <ve-table
-            ref="tableRef"
+            :scroll-width="1600"
+            :max-height="380"
             rowKeyFieldName="rowKey"
             :fixed-header="true"
             :columns="columns"
@@ -33,80 +34,112 @@
                 },
                 columns: [
                     {
-                        field: "name",
-                        key: "name",
-                        title: "Name",
-                        align: "left",
-                        width: "15%",
-                        edit: true,
-                        renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            return <span>A{row[column.field]}</span>;
-                        },
-                    },
-                    {
-                        field: "date",
-                        key: "date",
-                        title: "Date",
-                        align: "left",
-                        width: "15%",
+                        field: "col1",
+                        key: "a",
+                        title: "col1",
+                        width: 50,
+                        fixed: "left",
                         edit: true,
                     },
                     {
-                        field: "hobby",
-                        key: "hobby",
-                        title: "Hobby",
-                        align: "center",
-                        width: "30%",
-                        edit: true,
+                        title: "col2-col3",
+                        fixed: "left",
+                        children: [
+                            {
+                                field: "col2",
+                                key: "b",
+                                title: "col2",
+                                width: 50,
+                                edit: true,
+                            },
+                            {
+                                field: "col3",
+                                key: "c",
+                                title: "col3",
+                                width: 50,
+                                edit: true,
+                            },
+                        ],
                     },
                     {
-                        field: "address",
-                        key: "address",
-                        title: "Address",
-                        align: "left",
-                        width: "40%",
+                        title: "col4-col5-col6",
+                        children: [
+                            {
+                                title: "col4-col5",
+                                children: [
+                                    {
+                                        field: "col4",
+                                        key: "d",
+                                        title: "col4",
+                                        width: 130,
+                                        edit: true,
+                                    },
+                                    {
+                                        field: "col5",
+                                        key: "e",
+                                        title: "col5",
+                                        width: 140,
+                                        edit: true,
+                                    },
+                                ],
+                            },
+                            {
+                                title: "col6",
+                                field: "col6",
+                                key: "f",
+                                width: 140,
+                                edit: true,
+                            },
+                        ],
+                    },
+                    {
+                        title: "col7",
+                        fixed: "right",
+                        children: [
+                            {
+                                title: "col7-1",
+                                field: "col7",
+                                key: "g",
+                                width: 50,
+                                edit: true,
+                            },
+                        ],
+                    },
+                    {
+                        field: "col8",
+                        key: "h",
+                        title: "col8",
+                        width: 50,
+                        fixed: "right",
                         edit: true,
                     },
                 ],
                 // table data
-                tableData: [
-                    {
-                        name: "Jo\nhn",
-                        date: "1900-05-20",
-                        hobby: "coding and coding repeat",
-                        address: "No.1 Century Avenue, Shanghai",
-                        rowKey: 0,
-                    },
-                    {
-                        name: "Dickerson",
-                        date: "1910-06-20",
-                        hobby: "coding and coding repeat",
-                        address: "No.1 Century Avenue, Beijing",
-                        rowKey: 1,
-                    },
-                    {
-                        name: "Larsen",
-                        date: "2000-07-20",
-                        hobby: "coding and coding repeat",
-                        address: "No.1 Century Avenue, Chongqing",
-                        rowKey: 2,
-                    },
-                    {
-                        name: "Geneva",
-                        date: "2010-08-20",
-                        hobby: "coding and coding repeat",
-                        address: "No.1 Century Avenue, Xiamen",
-                        rowKey: 3,
-                    },
-                    {
-                        name: "Jami",
-                        date: "2020-09-20",
-                        hobby: "coding and coding repeat",
-                        address: "No.1 Century Avenue, Shenzhen",
-                        rowKey: 4,
-                    },
-                ],
+                tableData: [],
             };
+        },
+
+        methods: {
+            initTableData() {
+                let data = [];
+                for (let i = 0; i < 100; i++) {
+                    data.push({
+                        rowKey: i,
+                        col1: i,
+                        col2: i,
+                        col3: i,
+                        col4: i,
+                        col5: i,
+                        col6: i,
+                        col7: i,
+                        col8: i,
+                    });
+                }
+                this.tableData = data;
+            },
+        },
+        created() {
+            this.initTableData();
         },
     };
 </script>
