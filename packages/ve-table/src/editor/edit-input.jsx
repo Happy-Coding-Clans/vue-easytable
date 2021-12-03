@@ -85,6 +85,8 @@ export default {
         };
     },
     customOption: {
+        // table element
+        tableEl: null,
         // cell element
         cellEl: null,
     },
@@ -210,6 +212,10 @@ export default {
                     // add table size change hook
                     this.hooks.addHook(
                         HOOKS_NAME.TABLE_SIZE_CHANGE,
+                        this.setTableEl,
+                    );
+                    this.hooks.addHook(
+                        HOOKS_NAME.TABLE_SIZE_CHANGE,
                         this.setTextareaPosition,
                     );
                 }
@@ -221,8 +227,12 @@ export default {
             handler: function (val) {
                 const { rowKey, colKey } = val;
                 if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                    this.getCellEl();
-                    this.setTextareaPosition();
+                    this.setTableEl();
+                    this.setCellEl();
+                    // wait for selection cell rendered
+                    this.$nextTick(() => {
+                        this.setTextareaPosition();
+                    });
                 }
             },
             deep: true,
@@ -252,13 +262,20 @@ export default {
             // }
         },
 
-        // get cell element
-        getCellEl() {
+        // set table element
+        setTableEl() {
+            const tableEl = this.$el.previousElementSibling;
+            this.$options.customOption.tableEl = tableEl;
+        },
+
+        // set cell element
+        setCellEl() {
             const { cellSelectionKeyData } = this;
+
+            const { tableEl } = this.$options.customOption;
 
             const { rowKey, colKey } = cellSelectionKeyData;
 
-            const tableEl = this.$el.previousElementSibling;
             if (tableEl) {
                 const cellEl = tableEl.querySelector(
                     `tbody.ve-table-body tr[row-key="${rowKey}"] td[col-key="${colKey}"]`,
@@ -272,28 +289,22 @@ export default {
 
         // set textarea position
         setTextareaPosition() {
-            // await cell section rendering
-            setTimeout(() => {
-                const { cellEl } = this.$options.customOption;
+            const { cellEl, tableEl } = this.$options.customOption;
 
-                if (cellEl) {
-                    const tableEl = this.$el.previousElementSibling;
-                    if (tableEl) {
-                        const { left: tableLeft, top: tableTop } =
-                            tableEl.getBoundingClientRect();
+            if (cellEl && tableEl) {
+                const { left: tableLeft, top: tableTop } =
+                    tableEl.getBoundingClientRect();
 
-                        const { left, top, height, width } =
-                            cellEl.getBoundingClientRect();
+                const { left, top, height, width } =
+                    cellEl.getBoundingClientRect();
 
-                        this.cellElRect = {
-                            left: left - tableLeft,
-                            top: top - tableTop,
-                            height,
-                            width,
-                        };
-                    }
-                }
-            });
+                this.cellElRect = {
+                    left: left - tableLeft,
+                    top: top - tableTop,
+                    height,
+                    width,
+                };
+            }
         },
 
         // show textarea
