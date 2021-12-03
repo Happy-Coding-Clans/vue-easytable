@@ -16,6 +16,7 @@
             :table-data="tableData"
             :editOption="editOption"
             :row-style-option="rowStyleOption"
+            :virtual-scroll-option="{enable:true}"
             border-y
         />
     </div>
