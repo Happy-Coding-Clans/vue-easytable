@@ -65,7 +65,7 @@ export default class Hooks {
             const args = Array.prototype.slice.call(arguments);
 
             hooks.forEach((hook) => {
-                //hook(arguments);
+                // exclude hookName param
                 hook.apply(null, args.slice(1));
             });
         } else {
