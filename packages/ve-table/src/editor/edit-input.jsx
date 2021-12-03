@@ -118,11 +118,25 @@ export default {
             return result;
         },
 
+        // container class
+        containerClass() {
+            let result = null;
+
+            const { displayTextarea } = this;
+
+            result = {
+                [clsName("edit-input-container")]: true,
+                [clsName("edit-input-container-show")]: displayTextarea,
+            };
+
+            return result;
+        },
+
         // container style
         containerStyle() {
             let result = {};
 
-            const { displayTextarea, cellElRect } = this;
+            const { displayTextarea, cellElRect, currentColumn: column } = this;
 
             if (displayTextarea) {
                 const { top, left } = cellElRect;
@@ -131,16 +145,12 @@ export default {
                     top: top + "px",
                     left: left + "px",
                     height: null,
-                    "z-index": 100,
-                    opacity: 1,
+                    // because @ve-fixed-body-cell-index: 1;
+                    "z-index": column.fixed ? 1 : 0,
                 };
             } else {
                 result = {
-                    top: "-1px",
-                    left: "-1px",
-                    height: "1px",
-                    "z-index": -1,
-                    opacity: 0,
+                    height: null,
                 };
             }
 
@@ -358,6 +368,7 @@ export default {
 
     render() {
         const {
+            containerClass,
             containerStyle,
             textareaClass,
             textareaStyle,
@@ -367,9 +378,7 @@ export default {
 
         const containerProps = {
             style: containerStyle,
-            class: {
-                [clsName("edit-input-container")]: true,
-            },
+            class: containerClass,
         };
 
         const textareaProps = {

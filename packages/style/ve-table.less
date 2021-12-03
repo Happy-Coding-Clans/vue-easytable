@@ -41,6 +41,7 @@
 
 .ve-table {
     position: relative;
+    overflow: hidden;
     // table container
     .ve-table-container {
         position: relative;
@@ -366,11 +367,18 @@
             }
         }
     }
-    
+
     // edit input
     .ve-table-edit-input-container {
         position: absolute;
         overflow: hidden;
+        opacity: 0;
+        top: -1px;
+        left: -1px;
+
+        &.ve-table-edit-input-container-show {
+            opacity: 1;
+        }
 
         .ve-table-edit-input {
             resize: none;
