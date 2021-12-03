@@ -81,6 +81,8 @@ export const EMIT_EVENTS = {
 export const HOOKS_NAME = {
     //table container scroll
     TABLE_CONTAINER_SCROLL: "table-container-scroll",
+    // table size change
+    TABLE_SIZE_CHANGE: "table-size-change",
 };
 
 // comps name

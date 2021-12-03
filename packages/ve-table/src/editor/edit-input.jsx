@@ -202,9 +202,14 @@ export default {
         parentRendered: {
             handler: function (val) {
                 if (val) {
-                    // add hook
+                    // add table container scroll hook
                     this.hooks.addHook(
                         HOOKS_NAME.TABLE_CONTAINER_SCROLL,
+                        this.setTextareaPosition,
+                    );
+                    // add table size change hook
+                    this.hooks.addHook(
+                        HOOKS_NAME.TABLE_SIZE_CHANGE,
                         this.setTextareaPosition,
                     );
                 }

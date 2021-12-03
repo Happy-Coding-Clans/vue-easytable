@@ -1917,6 +1917,7 @@ export default {
             on: {
                 "on-dom-resize-change": ({ height }) => {
                     this.tableHeight = height;
+                    this.hooks.triggerHook(HOOKS_NAME.TABLE_SIZE_CHANGE);
                 },
             },
         };
