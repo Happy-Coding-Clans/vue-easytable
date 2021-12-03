@@ -41,7 +41,7 @@ import {
 } from "../../src/utils/event-key-codes";
 import clickoutside from "../../src/directives/clickoutside";
 import VueDomResizeObserver from "../../src/comps/resize-observer";
-import Hooks from "./util/hooks";
+import Hooks from "../../src/utils/hooks-manager";
 
 export default {
     name: COMPS_NAME.VE_TABLE,
