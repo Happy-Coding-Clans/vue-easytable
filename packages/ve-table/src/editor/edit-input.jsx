@@ -1,5 +1,5 @@
 import { clsName } from "../util";
-import { COMPS_NAME, EMIT_EVENTS } from "../util/constant";
+import { COMPS_NAME, EMIT_EVENTS, HOOKS_NAME } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 import focus from "../../../src/directives/focus.js";
 import { isInputKeyCode } from "../../../src/utils/event-key-codes";
@@ -204,7 +204,7 @@ export default {
                 if (val) {
                     // add hook
                     this.hooks.addHook(
-                        "table-container-scroll",
+                        HOOKS_NAME.TABLE_CONTAINER_SCROLL,
                         this.setTextareaPosition,
                     );
                 }

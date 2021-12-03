@@ -19,6 +19,7 @@ import {
 import emitter from "../../src/mixins/emitter";
 import {
     COMPS_NAME,
+    HOOKS_NAME,
     EMIT_EVENTS,
     COMPS_CUSTOM_ATTRS,
     INSTANCE_METHODS,
@@ -1694,7 +1695,7 @@ export default {
     mounted() {
         this.parentRendered = true;
 
-        // set hooks
+        // create hook instance
         this.hooks = new Hooks();
 
         // receive row selected change
@@ -1869,7 +1870,7 @@ export default {
             style: tableContainerStyle,
             on: {
                 scroll: () => {
-                    this.hooks.triggerHook("table-container-scroll");
+                    this.hooks.triggerHook(HOOKS_NAME.TABLE_CONTAINER_SCROLL);
 
                     const tableContainerRef =
                         this.$refs[this.tableContainerRef];

@@ -77,6 +77,12 @@ export const EMIT_EVENTS = {
     EDIT_INPUT_VALUE_CHANGE: "on-edit-input-value-change",
 };
 
+// hooks name
+export const HOOKS_NAME = {
+    //table container scroll
+    TABLE_CONTAINER_SCROLL: "table-container-scroll",
+};
+
 // comps name
 export const COMPS_NAME = {
     VE_TABLE: "VeTable",
