@@ -761,22 +761,26 @@ export default {
                     event.preventDefault();
                 }
 
-                // 编辑时允许改变方向 || 不是方向键
-                if (enableStopEditing || !isDirectKeyCode) {
-                    this.selectCellByDirection({
-                        direction,
-                    });
+                if (isEditingCell) {
+                    // 编辑时允许改变方向 || 不是方向键
+                    if (enableStopEditing || !isDirectKeyCode) {
+                        this.selectCellByDirection({
+                            direction,
+                        });
 
-                    /*
-                    如果是当前编辑的单元格
-                    If the cell is currently editing cell 
-                    */
-                    if (isEditingCell) {
+                        /*
+                        如果是当前编辑的单元格
+                        If the cell is currently editing cell 
+                        */
                         this[INSTANCE_METHODS.STOP_EDITING_CELL]({
                             rowKey,
                             colKey,
                         });
                     }
+                } else {
+                    this.selectCellByDirection({
+                        direction,
+                    });
                 }
             }
         },
@@ -1389,6 +1393,9 @@ export default {
                     // celar editing cell
                     this.clearEditingCell();
                 }
+
+                // reset status
+                this.enableStopEditing = true;
             }
         },
 
