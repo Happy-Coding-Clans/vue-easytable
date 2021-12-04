@@ -207,7 +207,16 @@ export default {
                     // add table container scroll hook
                     this.hooks.addHook(
                         HOOKS_NAME.TABLE_CONTAINER_SCROLL,
-                        this.setTextareaPosition,
+                        () => {
+                            /*
+                            Solve the problem that virtual scrolling editing cells cannot be located after scrolling
+                            解决虚拟滚动编辑单元格滚动后无法定位的问题
+                            */
+                            if (!this.$options.customOption.cellEl) {
+                                this.setCellEl();
+                            }
+                            this.setTextareaPosition();
+                        },
                     );
                     // add table size change hook
                     this.hooks.addHook(
@@ -298,12 +307,17 @@ export default {
                 const { left, top, height, width } =
                     cellEl.getBoundingClientRect();
 
-                this.cellElRect = {
-                    left: left - tableLeft,
-                    top: top - tableTop,
-                    height,
-                    width,
-                };
+                if (height && width) {
+                    this.cellElRect = {
+                        left: left - tableLeft,
+                        top: top - tableTop,
+                        height,
+                        width,
+                    };
+                } else {
+                    // 虚拟滚动会消失的问题
+                    this.$options.customOption.cellEl = null;
+                }
             }
         },
 
