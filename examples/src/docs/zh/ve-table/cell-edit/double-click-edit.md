@@ -10,11 +10,11 @@
         <ve-table
             :scroll-width="1600"
             :max-height="380"
-            rowKeyFieldName="rowKey"
+            row-key-field-name="rowKey"
             :fixed-header="true"
             :columns="columns"
             :table-data="tableData"
-            :editOption="editOption"
+            :edit-option="editOption"
             :row-style-option="rowStyleOption"
             :virtual-scroll-option="{enable:true}"
             border-y
