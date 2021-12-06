@@ -68,8 +68,9 @@ export default class Hooks {
                 // exclude hookName param
                 hook.apply(null, args.slice(1));
             });
-        } else {
-            console.warn(`Can't find hook name:${hookName}`);
         }
+        // else {
+        //     console.warn(`Can't find hook name:${hookName}`);
+        // }
     }
 }
