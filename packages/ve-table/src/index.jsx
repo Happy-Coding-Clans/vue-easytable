@@ -422,16 +422,10 @@ export default {
         },
         // table container class
         tableContainerClass() {
-            const {
-                borderAround,
-                isVirtualScroll,
-                isLeftScrolling,
-                isRightScrolling,
-            } = this;
+            const { isVirtualScroll, isLeftScrolling, isRightScrolling } = this;
 
             return {
                 [clsName("container")]: true,
-                [clsName("border-around")]: borderAround,
                 [clsName("virtual-scroll")]: isVirtualScroll,
                 [clsName("container-left-scrolling")]: isLeftScrolling,
                 [clsName("container-right-scrolling")]: isRightScrolling,
@@ -1843,7 +1837,10 @@ export default {
 
         // wrapper container props
         const wrapperContainerProps = {
-            class: "ve-table",
+            class: {
+                "ve-table": true,
+                [clsName("border-around")]: this.borderAround,
+            },
             props: {
                 tagName: "div",
             },

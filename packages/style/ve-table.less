@@ -42,6 +42,7 @@
 .ve-table {
     position: relative;
     overflow: hidden;
+
     // table container
     .ve-table-container {
         position: relative;
@@ -334,28 +335,32 @@
                 border-left: 1px solid @ve-table-border-color;
             }
         }
-        // border around
-        &.ve-table-border-around {
-            border: 1px solid @ve-table-border-color;
+    }
 
-            .ve-table-border-x {
-                tr:last-child > td {
-                    border-bottom: 0px;
-                }
-                tr:first-child > th {
-                    border-top: 0px;
-                }
-            }
-
-            .ve-table-border-y {
-                th.ve-table-last-column,
-                td:last-child {
-                    border-right: 0px;
+    // border around
+    &.ve-table-border-around {
+        border: 1px solid @ve-table-border-color;
+        .ve-table-container {
+            table.ve-table-content {
+                &.ve-table-border-x {
+                    tr:last-child > td {
+                        border-bottom: 0px;
+                    }
+                    tr:first-child > th {
+                        border-top: 0px;
+                    }
                 }
 
-                th:first-child,
-                td:first-child {
-                    border-left: 0px;
+                &.ve-table-border-y {
+                    th.ve-table-last-column,
+                    td:last-child {
+                        border-right: 0px;
+                    }
+
+                    th:first-child,
+                    td:first-child {
+                        border-left: 0px;
+                    }
                 }
             }
         }
