@@ -177,13 +177,13 @@ export default {
         textareaStyle() {
             let result = {};
 
-            const { allRowKeys, cellSelectionKeyData } = this;
+            // const { allRowKeys, cellSelectionKeyData } = this;
 
-            const { rowKey } = cellSelectionKeyData;
+            // const { rowKey } = cellSelectionKeyData;
 
-            const isLastRow = allRowKeys[allRowKeys.length - 1] == rowKey;
+            // const isLastRow = allRowKeys[allRowKeys.length - 1] == rowKey;
 
-            const { cellElRect } = this;
+            // const { cellElRect } = this;
 
             // if (cellElRect) {
             //     let { height, width } = cellElRect;
@@ -263,12 +263,8 @@ export default {
 
     methods: {
         // deal key down event
-        dealKeydownEvent(event) {
-            // event.stopPropagation();
-            // event.preventDefault();
-            // if (isInputKeyCode(event)) {
-            //     this.showTextarea();
-            // }
+        dealKeydownEvent() {
+            //
         },
 
         // set table element
@@ -301,34 +297,38 @@ export default {
             const { cellEl, tableEl } = this.$options.customOption;
 
             if (cellEl && tableEl) {
-                const { left: tableLeft, top: tableTop } =
-                    tableEl.getBoundingClientRect();
+                const {
+                    left: tableLeft,
+                    top: tableTop,
+                    right: tableRight,
+                    bottom: tableBottom,
+                } = tableEl.getBoundingClientRect();
 
-                const { left, top, height, width } =
-                    cellEl.getBoundingClientRect();
+                const {
+                    left: cellLeft,
+                    top: cellTop,
+                    height: cellHeight,
+                    width: cellWidth,
+                    right: cellRight,
+                    bottom: cellBottom,
+                } = cellEl.getBoundingClientRect();
 
-                if (height && width) {
+                if (cellHeight && cellWidth) {
                     this.cellElRect = {
-                        left: left - tableLeft,
-                        top: top - tableTop,
-                        height,
-                        width,
+                        left: cellLeft - tableLeft,
+                        top: cellTop - tableTop,
                     };
 
-                    // this.$options.customOption.autoResize.init(cellEl, {
-                    //     minHeight: Math.min(height, maxHeight),
-                    //     maxHeight, // TEXTAREA should never be higher than visible part of the viewport (should not cover the scrollbar)
-                    //     minWidth: Math.min(width, maxWidth),
-                    //     maxWidth // TEXTAREA should never be wider than visible part of the viewport (should not cover the scrollbar)
-                    //   }, true);
+                    const maxHeight = tableBottom - cellBottom + cellHeight;
+                    const maxWidth = tableRight - cellRight + cellWidth;
 
                     this.$options.customOption.autoResize.init(
-                        cellEl,
+                        this.$refs[this.textareaInputRef],
                         {
-                            minHeight: height,
-                            maxHeight: 300, // TEXTAREA should never be higher than visible part of the viewport (should not cover the scrollbar)
-                            minWidth: width,
-                            maxWidth: 300, // TEXTAREA should never be wider than visible part of the viewport (should not cover the scrollbar)
+                            minHeight: Math.min(cellHeight, maxHeight),
+                            maxHeight: maxHeight, // TEXTAREA should never be higher than visible part of the viewport (should not cover the scrollbar)
+                            minWidth: Math.min(cellWidth, maxWidth),
+                            maxWidth: maxWidth, // TEXTAREA should never be wider than visible part of the viewport (should not cover the scrollbar)
                         },
                         true,
                     );
@@ -460,8 +460,6 @@ export default {
                 click: () => {
                     this.$emit(EMIT_EVENTS.EDIT_INPUT_CLICK);
                 },
-                // dblclick: () => {
-                // },
                 blur: () => {
                     if (isEditingCell) {
                         this.$emit(EMIT_EVENTS.EDIT_INPUT_BLUR);
