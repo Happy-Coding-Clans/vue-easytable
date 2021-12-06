@@ -1,16 +1,10 @@
-:::anchor Outer border
+:::anchor Border radius
 
 :::demo
 
 ```html
 <template>
-    <ve-table
-        :columns="columns"
-        :table-data="tableData"
-        :border-around="true"
-        :border-x="false"
-        :border-y="false"
-    />
+    <ve-table style="border-radius:10px;" :columns="columns" :table-data="tableData" />
 </template>
 
 <script>
