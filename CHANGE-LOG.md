@@ -7,6 +7,21 @@ Vx.x.x(TPL)
 -   Style
 -   Dependencies Changes
 
+V2.12.0
+
+### Breaking Changes
+
+-   废弃 1
+-   废弃 2
+
+### Feature
+
+-
+
+### Style
+
+-   修改外边框作用的元素，设置 border-radius 更简单
+
 V2.11.0
 
 ### Feature
