@@ -212,10 +212,12 @@ export default {
                             Solve the problem that virtual scrolling editing cells cannot be located after scrolling
                             解决虚拟滚动编辑单元格滚动后无法定位的问题
                             */
-                            if (!this.$options.customOption.cellEl) {
-                                this.setCellEl();
+                            if (this.displayTextarea) {
+                                if (!this.$options.customOption.cellEl) {
+                                    this.setCellEl();
+                                }
+                                this.setTextareaPosition();
                             }
-                            this.setTextareaPosition();
                         },
                     );
                     // add table size change hook
