@@ -219,14 +219,10 @@ export default {
                         },
                     );
                     // add table size change hook
-                    this.hooks.addHook(
-                        HOOKS_NAME.TABLE_SIZE_CHANGE,
-                        this.setTableEl,
-                    );
-                    this.hooks.addHook(
-                        HOOKS_NAME.TABLE_SIZE_CHANGE,
-                        this.setTextareaPosition,
-                    );
+                    this.hooks.addHook(HOOKS_NAME.TABLE_SIZE_CHANGE, () => {
+                        this.setTableEl();
+                        this.setTextareaPosition();
+                    });
                 }
             },
             immediate: true,
