@@ -3,6 +3,7 @@ import { COMPS_NAME, EMIT_EVENTS, HOOKS_NAME } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 import focus from "../../../src/directives/focus.js";
 import { isInputKeyCode } from "../../../src/utils/event-key-codes";
+import { autoResize } from "../../../src/utils/auto-resize";
 import { isEmptyValue } from "../../../src/utils/index.js";
 import { getCaretPosition, setCaretPosition } from "../../../src/utils/dom";
 
@@ -89,6 +90,8 @@ export default {
         tableEl: null,
         // cell element
         cellEl: null,
+        // auto resize
+        autoResize: null,
     },
     computed: {
         // current column
@@ -182,19 +185,19 @@ export default {
 
             const { cellElRect } = this;
 
-            if (cellElRect) {
-                let { height, width } = cellElRect;
+            // if (cellElRect) {
+            //     let { height, width } = cellElRect;
 
-                /* 
-                解决表格最后一行 border-bottom 为0，导致编辑会使表格出滚动条
-                */
-                if (isLastRow) {
-                    height -= 1;
-                }
+            //     /*
+            //     解决表格最后一行 border-bottom 为0，导致编辑会使表格出滚动条
+            //     */
+            //     if (isLastRow) {
+            //         height -= 1;
+            //     }
 
-                result.height = height + "px";
-                result.width = width + "px";
-            }
+            //     result.height = height + "px";
+            //     result.width = width + "px";
+            // }
 
             return result;
         },
@@ -234,7 +237,6 @@ export default {
             handler: function (val) {
                 const { rowKey, colKey } = val;
                 if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                    this.setTableEl();
                     this.setCellEl();
                     // wait for selection cell rendered
                     this.$nextTick(() => {
@@ -312,6 +314,24 @@ export default {
                         height,
                         width,
                     };
+
+                    // this.$options.customOption.autoResize.init(cellEl, {
+                    //     minHeight: Math.min(height, maxHeight),
+                    //     maxHeight, // TEXTAREA should never be higher than visible part of the viewport (should not cover the scrollbar)
+                    //     minWidth: Math.min(width, maxWidth),
+                    //     maxWidth // TEXTAREA should never be wider than visible part of the viewport (should not cover the scrollbar)
+                    //   }, true);
+
+                    this.$options.customOption.autoResize.init(
+                        cellEl,
+                        {
+                            minHeight: height,
+                            maxHeight: 300, // TEXTAREA should never be higher than visible part of the viewport (should not cover the scrollbar)
+                            minWidth: width,
+                            maxWidth: 300, // TEXTAREA should never be wider than visible part of the viewport (should not cover the scrollbar)
+                        },
+                        true,
+                    );
                 } else {
                     // 虚拟滚动会消失的问题
                     this.$options.customOption.cellEl = null;
@@ -387,6 +407,8 @@ export default {
         this.$el
             .querySelector(`.${clsName("edit-input")}`)
             .addEventListener("keydown", this.dealKeydownEvent);
+
+        this.$options.customOption.autoResize = autoResize();
     },
 
     destroyed() {
@@ -394,6 +416,8 @@ export default {
         this.$el
             .querySelector(`.${clsName("edit-input")}`)
             .removeEventListener("keydown", this.dealKeydownEvent);
+
+        this.$options.customOption.autoResize.unObserve();
     },
 
     render() {
