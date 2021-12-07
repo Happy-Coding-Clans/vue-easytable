@@ -270,6 +270,10 @@ export default {
             isLeftScrolling: false,
             // is scrolling right
             isRightScrolling: false,
+            // has horizontal scroll bar
+            hasXScrollBar: false,
+            // has vertical scroll bar
+            hasYScrollBar: false,
             // cell selection key
             cellSelectionKeyData: {
                 rowKey: "",
@@ -466,7 +470,7 @@ export default {
                 (x) => x.fixed === "left" || x.fixed === "right",
             );
         },
-        // is last left fixed column
+        // has left fixed column
         hasLeftFixedColumn() {
             return this.colgroups.some((x) => x.fixed === "left");
         },
@@ -484,12 +488,6 @@ export default {
         // has edit column
         hasEditColumn() {
             return this.colgroups.some((x) => x.edit);
-        },
-
-        // has horizontal scroll bar
-        hasXScrollBar() {
-            const { isLeftScrolling, isRightScrolling } = this;
-            return isLeftScrolling || isRightScrolling;
         },
     },
     watch: {
@@ -876,7 +874,11 @@ export default {
          * @param {object} nextColumn - next column
          */
         columnToVisible(nextColumn) {
-            const { colgroups } = this;
+            const { hasXScrollBar, colgroups } = this;
+
+            if (!hasXScrollBar) {
+                return false;
+            }
 
             const tableContainerRef = this.$refs[this.tableContainerRef];
 
@@ -1342,6 +1344,25 @@ export default {
             }
         },
 
+        // set scroll bar status
+        setScrollBarStatus() {
+            const tableContainerRef = this.$refs[this.tableContainerRef];
+            if (tableContainerRef) {
+                const { scrollWidth, clientWidth, scrollHeight, clientHeight } =
+                    tableContainerRef;
+
+                if (scrollWidth && clientWidth) {
+                    this.hasXScrollBar =
+                        scrollWidth - clientWidth ? true : false;
+                }
+
+                if (scrollHeight && clientHeight) {
+                    this.hasYScrollBar =
+                        scrollHeight - clientHeight ? true : false;
+                }
+            }
+        },
+
         // init scrolling
         initScrolling() {
             this.setScrolling(this.$refs[this.tableContainerRef]);
@@ -1422,6 +1443,8 @@ export default {
                         rowKey,
                         colKey: column.key,
                     });
+
+                    this.columnToVisible(column);
                 }
             }
 
@@ -1854,6 +1877,7 @@ export default {
                     this.initVirtualScroll();
                     // fixed #404
                     this.initScrolling();
+                    this.setScrollBarStatus();
                 },
             },
             directives: [
@@ -1938,6 +1962,7 @@ export default {
                 isEditingCell: this.isEditingCell,
                 allRowKeys: this.allRowKeys,
                 hasXScrollBar: this.hasXScrollBar,
+                hasYScrollBar: this.hasYScrollBar,
                 scrollBarWidth: this.getScrollBarWidth(),
             },
             on: {
