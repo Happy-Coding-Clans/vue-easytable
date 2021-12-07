@@ -421,11 +421,11 @@ export default {
 
             if (fixed === "right") {
                 const { field } = column;
-                const leftFixedColumns = colgroups.filter(
+                const rightFixedColumns = colgroups.filter(
                     (x) => x.fixed === "right",
                 );
 
-                if (leftFixedColumns[0].field === field) {
+                if (rightFixedColumns[0].field === field) {
                     result = true;
                 }
             }
