@@ -846,14 +846,12 @@ export default {
             let rowIndex = allRowKeys.indexOf(rowKey);
 
             if (direction === CELL_SELECTION_DIRECTION.LEFT) {
-                // same row preview column like excel
                 if (columnIndex > 0) {
                     let nextColumn = colgroups[columnIndex - 1];
                     this.cellSelectionKeyData.colKey = nextColumn.key;
                     this.columnToVisible(nextColumn);
                 }
             } else if (direction === CELL_SELECTION_DIRECTION.RIGHT) {
-                // same row next column like excel
                 if (columnIndex < colgroups.length - 1) {
                     let nextColumn = colgroups[columnIndex + 1];
                     this.cellSelectionKeyData.colKey = nextColumn.key;
