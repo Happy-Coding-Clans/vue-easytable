@@ -2,7 +2,6 @@ import { clsName } from "../util";
 import { COMPS_NAME, EMIT_EVENTS, HOOKS_NAME } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 import focus from "../../../src/directives/focus.js";
-import { isInputKeyCode } from "../../../src/utils/event-key-codes";
 import { autoResize } from "../../../src/utils/auto-resize";
 import { isEmptyValue } from "../../../src/utils/index.js";
 import { getCaretPosition, setCaretPosition } from "../../../src/utils/dom";
@@ -74,14 +73,10 @@ export default {
             rawCellValue: "",
             // display textarea
             displayTextarea: false,
-            // cell element rect
-            cellElRect: {
-                height: 1,
+            // textarea element rect
+            textareaRect: {
                 left: 0,
                 top: 0,
-                width: 0,
-                // x: 0,
-                // y: 0,
             },
         };
     },
@@ -141,10 +136,14 @@ export default {
         containerStyle() {
             let result = {};
 
-            const { displayTextarea, cellElRect, currentColumn: column } = this;
+            const {
+                displayTextarea,
+                textareaRect,
+                currentColumn: column,
+            } = this;
 
             if (displayTextarea) {
-                const { top, left } = cellElRect;
+                const { top, left } = textareaRect;
 
                 result = {
                     top: top + "px",
@@ -169,35 +168,6 @@ export default {
             result = {
                 [clsName("edit-input")]: true,
             };
-
-            return result;
-        },
-
-        // textarea style
-        textareaStyle() {
-            let result = {};
-
-            // const { allRowKeys, cellSelectionKeyData } = this;
-
-            // const { rowKey } = cellSelectionKeyData;
-
-            // const isLastRow = allRowKeys[allRowKeys.length - 1] == rowKey;
-
-            // const { cellElRect } = this;
-
-            // if (cellElRect) {
-            //     let { height, width } = cellElRect;
-
-            //     /*
-            //     解决表格最后一行 border-bottom 为0，导致编辑会使表格出滚动条
-            //     */
-            //     if (isLastRow) {
-            //         height -= 1;
-            //     }
-
-            //     result.height = height + "px";
-            //     result.width = width + "px";
-            // }
 
             return result;
         },
@@ -314,11 +284,6 @@ export default {
                 } = cellEl.getBoundingClientRect();
 
                 if (cellHeight && cellWidth) {
-                    this.cellElRect = {
-                        left: cellLeft - tableLeft,
-                        top: cellTop - tableTop,
-                    };
-
                     const maxHeight = tableBottom - cellBottom + cellHeight;
                     const maxWidth = tableRight - cellRight + cellWidth;
 
@@ -330,8 +295,13 @@ export default {
                             minWidth: Math.min(cellWidth, maxWidth),
                             maxWidth: maxWidth, // TEXTAREA should never be wider than visible part of the viewport (should not cover the scrollbar)
                         },
-                        true,
+                        true, // observe textarea change\cut\paste etc.
                     );
+
+                    this.textareaRect = {
+                        left: cellLeft - tableLeft,
+                        top: cellTop - tableTop,
+                    };
                 } else {
                     // 虚拟滚动会消失的问题
                     this.$options.customOption.cellEl = null;
@@ -348,6 +318,14 @@ export default {
         // hide textarea
         hideTextarea() {
             this.displayTextarea = false;
+            this.textareaUnObserve();
+        },
+
+        // textarea unObserve
+        textareaUnObserve() {
+            if (this.$options.customOption.autoResize) {
+                this.$options.customOption.autoResize.unObserve();
+            }
         },
 
         // set raw cell value
@@ -417,7 +395,7 @@ export default {
             .querySelector(`.${clsName("edit-input")}`)
             .removeEventListener("keydown", this.dealKeydownEvent);
 
-        this.$options.customOption.autoResize.unObserve();
+        this.textareaUnObserve();
     },
 
     render() {
@@ -425,7 +403,6 @@ export default {
             containerClass,
             containerStyle,
             textareaClass,
-            textareaStyle,
             rawCellValue,
             isEditingCell,
         } = this;
@@ -438,7 +415,6 @@ export default {
         const textareaProps = {
             ref: this.textareaInputRef,
             class: textareaClass,
-            style: textareaStyle,
             directives: [
                 {
                     name: "focus",
@@ -455,6 +431,7 @@ export default {
                 input: (e) => {
                     if (isEditingCell) {
                         this.textareaValueChange(e.target.value);
+                        this.rawCellValue = e.target.value;
                     }
                 },
                 click: () => {
