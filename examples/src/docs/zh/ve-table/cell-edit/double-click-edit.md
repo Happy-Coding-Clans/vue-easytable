@@ -9,7 +9,7 @@
     <div>
         <ve-table
             :scroll-width="1600"
-            :max-height="380"
+            :max-height="500"
             row-key-field-name="rowKey"
             :fixed-header="true"
             :columns="columns"
