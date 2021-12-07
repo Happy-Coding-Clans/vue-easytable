@@ -159,6 +159,9 @@ export function autoResize() {
             init(el_, config, doObserve);
         },
         unObserve: function () {
+            if (!el) {
+                return false;
+            }
             unObserve(el, "change", resize);
             unObserve(el, "cut", delayedResize);
             unObserve(el, "paste", delayedResize);
