@@ -1,4 +1,4 @@
-import { clsName } from "../util";
+import { clsName, getFixedTotalWidthByColumnKey } from "../util";
 import { COMPS_NAME, EMIT_EVENTS, HOOKS_NAME } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 import focus from "../../../src/directives/focus.js";
@@ -72,6 +72,11 @@ export default {
         },
         // has vertical scroll bar
         hasYScrollBar: {
+            type: Boolean,
+            required: true,
+        },
+        // has right fixed column
+        hasRightFixedColumn: {
             type: Boolean,
             required: true,
         },
@@ -282,8 +287,16 @@ export default {
 
         // set textarea position
         setTextareaPosition() {
+            const {
+                hasXScrollBar,
+                hasYScrollBar,
+                scrollBarWidth,
+                colgroups,
+                hasRightFixedColumn,
+                currentColumn: column,
+            } = this;
+
             const { cellEl, tableEl } = this.$options.customOption;
-            const { hasXScrollBar, hasYScrollBar, scrollBarWidth } = this;
 
             if (cellEl && tableEl) {
                 const {
@@ -314,6 +327,24 @@ export default {
                     // has vertical scroll bar
                     if (hasYScrollBar) {
                         maxWidth -= scrollBarWidth;
+                    }
+
+                    /* 
+                    If the right fixed column is included, the max width of the textarea needs to be subtracted from the sum of the right fixed columns
+                    如果包含右固定列，编辑框最大宽度需要去减去右固定列之和的宽度
+                    */
+                    if (hasRightFixedColumn) {
+                        if (column && !column.fixed) {
+                            const rightFixedTotalWidth =
+                                getFixedTotalWidthByColumnKey({
+                                    colgroups,
+                                    colKey: column.key,
+                                    fixed: "right",
+                                });
+                            if (rightFixedTotalWidth) {
+                                maxWidth -= rightFixedTotalWidth;
+                            }
+                        }
                     }
 
                     this.$options.customOption.autoResize.init(
