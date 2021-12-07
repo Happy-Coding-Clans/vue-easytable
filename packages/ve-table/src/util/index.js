@@ -62,7 +62,7 @@ export function recursiveRemoveColumnByKey(columns, key) {
 /*
  * @getFixedTotalWidthByColumnKey
  * @desc  get fixed total width by column key
- * @param {object} colgroups - 列信息
+ * @param {object} colgroups - columns info
  * @param {any} colKey - column key
  * @param {string} fixed - left|right
  */
