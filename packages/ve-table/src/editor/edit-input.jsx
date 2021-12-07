@@ -65,6 +65,18 @@ export default {
             type: Boolean,
             required: true,
         },
+        isLeftScrolling: {
+            type: Boolean,
+            required: true,
+        },
+        isRightScrolling: {
+            type: Boolean,
+            required: true,
+        },
+        scrollBarWidth: {
+            type: Number,
+            required: true,
+        },
     },
     data() {
         return {
@@ -269,6 +281,7 @@ export default {
         // set textarea position
         setTextareaPosition() {
             const { cellEl, tableEl } = this.$options.customOption;
+            const { isLeftScrolling, isRightScrolling, scrollBarWidth } = this;
 
             if (cellEl && tableEl) {
                 const {
@@ -288,8 +301,13 @@ export default {
                 } = cellEl.getBoundingClientRect();
 
                 if (cellHeight && cellWidth) {
-                    const maxHeight = tableBottom - cellBottom + cellHeight;
-                    const maxWidth = tableRight - cellRight + cellWidth;
+                    let maxHeight = cellHeight + tableBottom - cellBottom;
+                    let maxWidth = cellWidth + tableRight - cellRight;
+
+                    // has horizontal scroll bar
+                    if (isLeftScrolling || isRightScrolling) {
+                        maxHeight -= scrollBarWidth;
+                    }
 
                     this.$options.customOption.autoResize.init(
                         this.$refs[this.textareaInputRef],

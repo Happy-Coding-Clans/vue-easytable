@@ -1933,6 +1933,9 @@ export default {
                 editingCell: this.editingCell,
                 isEditingCell: this.isEditingCell,
                 allRowKeys: this.allRowKeys,
+                isLeftScrolling: this.isLeftScrolling,
+                isRightScrolling: this.isRightScrolling,
+                scrollBarWidth: this.getScrollBarWidth(),
             },
             on: {
                 // edit input click
