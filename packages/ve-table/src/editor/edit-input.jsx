@@ -73,6 +73,8 @@ export default {
             rawCellValue: "",
             // display textarea
             displayTextarea: false,
+            // virtual scroll overflowViewport
+            overflowViewport: false,
             // textarea element rect
             textareaRect: {
                 left: 0,
@@ -122,11 +124,12 @@ export default {
         containerClass() {
             let result = null;
 
-            const { displayTextarea } = this;
+            const { displayTextarea, overflowViewport } = this;
 
             result = {
                 [clsName("edit-input-container")]: true,
-                [clsName("edit-input-container-show")]: displayTextarea,
+                [clsName("edit-input-container-show")]:
+                    displayTextarea && overflowViewport,
             };
 
             return result;
@@ -258,6 +261,7 @@ export default {
 
                 if (cellEl) {
                     this.$options.customOption.cellEl = cellEl;
+                    this.overflowViewport = true;
                 }
             }
         },
@@ -305,6 +309,7 @@ export default {
                 } else {
                     // 虚拟滚动会消失的问题
                     this.$options.customOption.cellEl = null;
+                    this.overflowViewport = false;
                 }
             }
         },
