@@ -65,11 +65,8 @@ export default {
             type: Boolean,
             required: true,
         },
-        isLeftScrolling: {
-            type: Boolean,
-            required: true,
-        },
-        isRightScrolling: {
+        // has horizontal scroll bar
+        hasXScrollBar: {
             type: Boolean,
             required: true,
         },
@@ -281,7 +278,7 @@ export default {
         // set textarea position
         setTextareaPosition() {
             const { cellEl, tableEl } = this.$options.customOption;
-            const { isLeftScrolling, isRightScrolling, scrollBarWidth } = this;
+            const { hasXScrollBar, scrollBarWidth } = this;
 
             if (cellEl && tableEl) {
                 const {
@@ -305,9 +302,14 @@ export default {
                     let maxWidth = cellWidth + tableRight - cellRight;
 
                     // has horizontal scroll bar
-                    if (isLeftScrolling || isRightScrolling) {
+                    if (hasXScrollBar) {
                         maxHeight -= scrollBarWidth;
                     }
+
+                    // has vertical scroll bar
+                    // if (hasYScrollBar) {
+                    //     maxWidth -= scrollBarWidth;
+                    // }
 
                     this.$options.customOption.autoResize.init(
                         this.$refs[this.textareaInputRef],
