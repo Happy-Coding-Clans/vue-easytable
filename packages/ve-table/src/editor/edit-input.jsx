@@ -363,7 +363,7 @@ export default {
                         top: cellTop - tableTop,
                     };
                 } else {
-                    // 虚拟滚动会消失的问题
+                    // 虚拟滚动,超出viewport
                     this.$options.customOption.cellEl = null;
                     this.overflowViewport = false;
                 }
