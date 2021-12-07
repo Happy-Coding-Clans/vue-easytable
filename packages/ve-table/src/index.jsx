@@ -474,7 +474,10 @@ export default {
         hasLeftFixedColumn() {
             return this.colgroups.some((x) => x.fixed === "left");
         },
-
+        // has right fixed column
+        hasRightFixedColumn() {
+            return this.colgroups.some((x) => x.fixed === "right");
+        },
         // is editing cell
         isEditingCell() {
             const { editingCell } = this;
@@ -484,7 +487,6 @@ export default {
                 !isEmptyValue(editingCell.colKey)
             );
         },
-
         // has edit column
         hasEditColumn() {
             return this.colgroups.some((x) => x.edit);
@@ -1963,6 +1965,7 @@ export default {
                 allRowKeys: this.allRowKeys,
                 hasXScrollBar: this.hasXScrollBar,
                 hasYScrollBar: this.hasYScrollBar,
+                hasRightFixedColumn: this.hasRightFixedColumn,
                 scrollBarWidth: this.getScrollBarWidth(),
             },
             on: {
