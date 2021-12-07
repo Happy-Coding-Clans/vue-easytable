@@ -5,32 +5,6 @@
 @ve-fixed-foot-cell-index: 3;
 @ve-virtual-phantom-index: -1;
 
-/* fixed column shadow */
-.ve-fixed-column-shadow() {
-    &.ve-table-last-left-fixed-column,
-    &.ve-table-first-right-fixed-column {
-        &::after {
-            position: absolute;
-            top: 0;
-            bottom: -1px;
-            width: 30px;
-            // fixed 固定列纵向滚动条问题
-            height: 100%;
-            transition: box-shadow 0.3s;
-            content: "";
-            pointer-events: none;
-        }
-    }
-    &.ve-table-last-left-fixed-column::after {
-        transform: translateX(100%);
-        right: 0;
-    }
-    &.ve-table-first-right-fixed-column::after {
-        transform: translateX(-100%);
-        left: 0;
-    }
-}
-
 .ve-table *,
 .ve-table *:before,
 .ve-table *:after {
@@ -87,9 +61,6 @@
                             position: sticky;
                             z-index: @ve-fixed-header-cell-index;
                         }
-                        /* fixed column shadow */
-                        .ve-fixed-column-shadow();
-
                         // checkbox
                         .ve-table-checkbox-wrapper {
                             width: 25px;
@@ -157,8 +128,7 @@
                     td.ve-table-body-td {
                         padding: @ve-table-body-row-td-padding;
                         white-space: pre-wrap;
-                        // 会破坏固定列效果
-                        //overflow: hidden;
+                        overflow: hidden;
                     }
                 }
 
@@ -198,8 +168,6 @@
                             position: sticky;
                             z-index: @ve-fixed-body-cell-index;
                         }
-                        /* fixed column shadow */
-                        .ve-fixed-column-shadow();
 
                         // cell selection
                         &.ve-table-cell-selection {
@@ -282,8 +250,6 @@
                             position: sticky;
                             z-index: @ve-fixed-foot-cell-index;
                         }
-                        /* fixed column shadow */
-                        .ve-fixed-column-shadow();
                     }
                 }
             }
@@ -302,13 +268,13 @@
 
         // column fix effect
         &.ve-table-container-left-scrolling {
-            .ve-table-last-left-fixed-column::after {
-                box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.15);
+            .ve-table-last-left-fixed-column {
+                border-right-color: #ccc;
             }
         }
         &.ve-table-container-right-scrolling {
-            .ve-table-first-right-fixed-column::after {
-                box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.15);
+            .ve-table-first-right-fixed-column {
+                border-left: 1px solid #ccc;
             }
         }
 
