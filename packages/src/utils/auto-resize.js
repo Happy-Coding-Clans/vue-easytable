@@ -12,6 +12,8 @@ export function autoResize() {
             maxHeight: 300,
             minWidth: 100,
             maxWidth: 300,
+            // text padding
+            paddingWidth: 12,
         },
         el,
         body = document.body,
@@ -42,7 +44,7 @@ export function autoResize() {
             span.style.whiteSpace = "pre";
 
             body.appendChild(span);
-            width = span.clientWidth + 2;
+            width = span.clientWidth + defaults.paddingWidth;
             body.removeChild(span);
 
             el.style.height = defaults.minHeight + "px";
