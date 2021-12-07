@@ -70,6 +70,11 @@ export default {
             type: Boolean,
             required: true,
         },
+        // has vertical scroll bar
+        hasYScrollBar: {
+            type: Boolean,
+            required: true,
+        },
         scrollBarWidth: {
             type: Number,
             required: true,
@@ -278,7 +283,7 @@ export default {
         // set textarea position
         setTextareaPosition() {
             const { cellEl, tableEl } = this.$options.customOption;
-            const { hasXScrollBar, scrollBarWidth } = this;
+            const { hasXScrollBar, hasYScrollBar, scrollBarWidth } = this;
 
             if (cellEl && tableEl) {
                 const {
@@ -307,9 +312,9 @@ export default {
                     }
 
                     // has vertical scroll bar
-                    // if (hasYScrollBar) {
-                    //     maxWidth -= scrollBarWidth;
-                    // }
+                    if (hasYScrollBar) {
+                        maxWidth -= scrollBarWidth;
+                    }
 
                     this.$options.customOption.autoResize.init(
                         this.$refs[this.textareaInputRef],
