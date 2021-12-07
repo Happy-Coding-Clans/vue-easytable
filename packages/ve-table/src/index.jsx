@@ -381,7 +381,7 @@ export default {
                 fixed:虚拟滚动表格行展开的 ve-table 存在固定头时（sticky 冲突），表格样式错乱的问题
                 fixed:When there is a fixed header in the ve-table expanded by the row of the virtual rolling table(header sticky conflict),Incorrect table presentation
                 */
-                const { tableHeight, isLeftScrolling, isRightScrolling } = this;
+                const { tableHeight, hasXScrollBar } = this;
 
                 tableContainerHeight = tableHeight;
 
@@ -394,7 +394,7 @@ export default {
                     有横向滚动条时，表格高度需要加上滚动条的宽度
                     When there is a horizontal scroll bar, the table height needs to be added with the width of the scroll bar
                     */
-                if (isLeftScrolling || isRightScrolling) {
+                if (hasXScrollBar) {
                     tableContainerHeight += this.getScrollBarWidth();
                 }
 
@@ -484,6 +484,12 @@ export default {
         // has edit column
         hasEditColumn() {
             return this.colgroups.some((x) => x.edit);
+        },
+
+        // has horizontal scroll bar
+        hasXScrollBar() {
+            const { isLeftScrolling, isRightScrolling } = this;
+            return isLeftScrolling || isRightScrolling;
         },
     },
     watch: {
@@ -1933,8 +1939,7 @@ export default {
                 editingCell: this.editingCell,
                 isEditingCell: this.isEditingCell,
                 allRowKeys: this.allRowKeys,
-                isLeftScrolling: this.isLeftScrolling,
-                isRightScrolling: this.isRightScrolling,
+                hasXScrollBar: this.hasXScrollBar,
                 scrollBarWidth: this.getScrollBarWidth(),
             },
             on: {
