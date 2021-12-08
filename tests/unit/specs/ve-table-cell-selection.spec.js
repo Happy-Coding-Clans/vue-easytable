@@ -315,6 +315,55 @@ describe("veTable cell selection", () => {
         ).toContain("ve-table-cell-selection");
     });
 
+    it("key code shift+enter event", async () => {
+        const WRAPPER = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                cellSelectionOption: {
+                    // default true
+                    enable: true,
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+        const mockFn = jest.fn();
+
+        expect(WRAPPER.find(".ve-table-cell-selection").exists()).toBe(false);
+
+        const firstTrTdEl = WRAPPER.findAll(".ve-table-body-tr")
+            .at(2)
+            .findAll(".ve-table-body-td")
+            .at(2);
+
+        firstTrTdEl.trigger("click");
+
+        await later();
+        expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
+
+        document.addEventListener("keydown", mockFn);
+        document.dispatchEvent(
+            new KeyboardEvent("keydown", {
+                keyCode: KEY_CODES.ENTER,
+                shiftKey: true,
+            }),
+        );
+
+        await later();
+        expect(mockFn).toBeCalled();
+        expect(firstTrTdEl.find(".ve-table-cell-selection").exists()).toBe(
+            false,
+        );
+
+        expect(
+            WRAPPER.findAll(".ve-table-body-tr")
+                .at(1)
+                .findAll(".ve-table-body-td")
+                .at(2)
+                .classes(),
+        ).toContain("ve-table-cell-selection");
+    });
+
     it("key code tab event", async () => {
         const WRAPPER = mount(veTable, {
             propsData: {
