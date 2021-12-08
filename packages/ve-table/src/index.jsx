@@ -1658,8 +1658,13 @@ export default {
             colKey,
             defaultValue,
         }) {
-            const { editOption, colgroups, rowKeyFieldName, editingCell } =
-                this;
+            const {
+                editOption,
+                colgroups,
+                rowKeyFieldName,
+                editingCell,
+                cellSelectionKeyData,
+            } = this;
 
             if (!editOption) {
                 return false;
@@ -1688,6 +1693,16 @@ export default {
             // 给当前列赋默认值
             if (isDefined(defaultValue)) {
                 currentRow[currentColumn.field] = defaultValue;
+            }
+
+            if (
+                cellSelectionKeyData.colKey !== colKey ||
+                cellSelectionKeyData.rowKey !== rowKey
+            ) {
+                this.cellSelectionKeyChange({
+                    rowKey,
+                    colKey,
+                });
             }
 
             // set editing cell
