@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`veTable cell ellipsis render single line ellipsis 1`] = `
-<div class="ve-table">
-  <div class="ve-table-container ve-table-border-around" style="height: 2px;">
+<div class="ve-table ve-table-border-around">
+  <div class="ve-table-container" style="height: 2px;">
     <table class="ve-table-content ve-table-border-x">
       <colgroup>
         <col style="width: 15%;">
@@ -26,34 +26,34 @@ exports[`veTable cell ellipsis render single line ellipsis 1`] = `
           <td style="padding: 0px; border: 0px; height: 0px;"></td>
         </tr>
         <tr class="ve-table-body-tr">
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">John</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">1900-05-20</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;"><span title="No.1 Century Avenue, Shanghai,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text" class="ve-table-body-td-span-ellipsis">No.1 Century Avenue, Shanghai,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text</span></td>
+          <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: left;">John</td>
+          <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">1900-05-20</td>
+          <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
+          <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: left;"><span title="No.1 Century Avenue, Shanghai,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text" class="ve-table-body-td-span-ellipsis">No.1 Century Avenue, Shanghai,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text</span></td>
         </tr>
         <tr class="ve-table-body-tr">
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">Dickerson</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">1910-06-20</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;"><span title="No.1 Century Avenue, Beijing,this is a long text,this is a long text,this is a long text,this is a long text" class="ve-table-body-td-span-ellipsis">No.1 Century Avenue, Beijing,this is a long text,this is a long text,this is a long text,this is a long text</span></td>
+          <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: left;">Dickerson</td>
+          <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">1910-06-20</td>
+          <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
+          <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: left;"><span title="No.1 Century Avenue, Beijing,this is a long text,this is a long text,this is a long text,this is a long text" class="ve-table-body-td-span-ellipsis">No.1 Century Avenue, Beijing,this is a long text,this is a long text,this is a long text,this is a long text</span></td>
         </tr>
         <tr class="ve-table-body-tr">
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">Larsen</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">2000-07-20</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;"><span title="No.1 Century Avenue, Chongqing,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text" class="ve-table-body-td-span-ellipsis">No.1 Century Avenue, Chongqing,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text</span></td>
+          <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: left;">Larsen</td>
+          <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">2000-07-20</td>
+          <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
+          <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: left;"><span title="No.1 Century Avenue, Chongqing,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text" class="ve-table-body-td-span-ellipsis">No.1 Century Avenue, Chongqing,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text,this is a long text</span></td>
         </tr>
         <tr class="ve-table-body-tr">
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">Geneva</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">2010-08-20</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;"><span title="No.1 Century Avenue, Xiamen,this is a long text,this is a long text" class="ve-table-body-td-span-ellipsis">No.1 Century Avenue, Xiamen,this is a long text,this is a long text</span></td>
+          <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: left;">Geneva</td>
+          <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">2010-08-20</td>
+          <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
+          <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: left;"><span title="No.1 Century Avenue, Xiamen,this is a long text,this is a long text" class="ve-table-body-td-span-ellipsis">No.1 Century Avenue, Xiamen,this is a long text,this is a long text</span></td>
         </tr>
         <tr class="ve-table-body-tr">
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">Jami</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">2020-09-20</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;"><span title="No.1 Century Avenue, Shenzhen" class="ve-table-body-td-span-ellipsis">No.1 Century Avenue, Shenzhen</span></td>
+          <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: left;">Jami</td>
+          <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">2020-09-20</td>
+          <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
+          <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: left;"><span title="No.1 Century Avenue, Shenzhen" class="ve-table-body-td-span-ellipsis">No.1 Century Avenue, Shenzhen</span></td>
         </tr>
       </tbody>
       <tfoot class="ve-table-fixed-footer ve-table-footer"></tfoot>
