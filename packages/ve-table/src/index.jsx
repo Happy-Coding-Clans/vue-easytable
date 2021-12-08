@@ -1372,12 +1372,17 @@ export default {
 
         // table blur
         tableBlur() {
-            const { rowKey, colKey } = this.cellSelectionKeyData;
+            const { cellSelectionKeyData } = this;
+
+            const { rowKey, colKey } = cellSelectionKeyData;
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
                 // clear cell selection
                 this.clearCellSelectionKey();
             }
+
+            // stop editing cell
+            this[INSTANCE_METHODS.STOP_EDITING_CELL]();
         },
 
         // save cell when stop editing
@@ -1827,6 +1832,11 @@ export default {
                 eventCustomOption: this.eventCustomOption,
                 headerRows: this.headerRows,
             },
+            nativeOn: {
+                click: () => {
+                    this[INSTANCE_METHODS.STOP_EDITING_CELL]();
+                },
+            },
         };
 
         // body props
@@ -1876,6 +1886,11 @@ export default {
                 hasFixedColumn: this.hasFixedColumn,
                 allRowKeys: this.allRowKeys,
                 footerRows: this.footerRows,
+            },
+            nativeOn: {
+                click: () => {
+                    this[INSTANCE_METHODS.STOP_EDITING_CELL]();
+                },
             },
         };
 
@@ -1987,10 +2002,6 @@ export default {
                 // edit input click
                 [EMIT_EVENTS.EDIT_INPUT_CLICK]: () => {
                     this.enableStopEditing = false;
-                },
-                // edit input blur
-                [EMIT_EVENTS.EDIT_INPUT_BLUR]: () => {
-                    this[INSTANCE_METHODS.STOP_EDITING_CELL]();
                 },
                 // edit input value change
                 [EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE]: (value) => {

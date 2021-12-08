@@ -498,11 +498,6 @@ export default {
                 click: () => {
                     this.$emit(EMIT_EVENTS.EDIT_INPUT_CLICK);
                 },
-                blur: () => {
-                    if (isEditingCell) {
-                        this.$emit(EMIT_EVENTS.EDIT_INPUT_BLUR);
-                    }
-                },
             },
         };
 
