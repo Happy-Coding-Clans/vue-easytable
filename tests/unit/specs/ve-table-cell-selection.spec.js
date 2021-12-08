@@ -67,23 +67,33 @@ describe("veTable cell selection", () => {
         { field: "address", key: "d", title: "Address", width: "30%" },
     ];
 
-    const WRAPPER = mount(veTable, {
-        propsData: {
-            columns: COLUMNS,
-            tableData: TABLE_DATA,
-            cellSelectionOption: {
-                // default true
-                enable: true,
-            },
-            rowKeyFieldName: "rowKey",
-        },
-    });
-
     it("render", () => {
+        const WRAPPER = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                cellSelectionOption: {
+                    // default true
+                    enable: true,
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
         expect(WRAPPER.html()).toMatchSnapshot();
     });
 
     it("key code up event", async () => {
+        const WRAPPER = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                cellSelectionOption: {
+                    // default true
+                    enable: true,
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
         const mockFn = jest.fn();
 
         expect(WRAPPER.find(".ve-table-cell-selection").exists()).toBe(false);
@@ -97,8 +107,6 @@ describe("veTable cell selection", () => {
 
         await later();
         expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
-
-        expect(WRAPPER.html()).toMatchSnapshot();
 
         document.addEventListener("keydown", mockFn);
         document.dispatchEvent(
@@ -121,6 +129,17 @@ describe("veTable cell selection", () => {
     });
 
     it("key code right event", async () => {
+        const WRAPPER = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                cellSelectionOption: {
+                    // default true
+                    enable: true,
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
         const mockFn = jest.fn();
 
         expect(WRAPPER.find(".ve-table-cell-selection").exists()).toBe(false);
@@ -134,8 +153,6 @@ describe("veTable cell selection", () => {
 
         await later();
         expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
-
-        expect(WRAPPER.html()).toMatchSnapshot();
 
         document.addEventListener("keydown", mockFn);
         document.dispatchEvent(
@@ -161,6 +178,17 @@ describe("veTable cell selection", () => {
     });
 
     it("key code down event", async () => {
+        const WRAPPER = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                cellSelectionOption: {
+                    // default true
+                    enable: true,
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
         const mockFn = jest.fn();
 
         expect(WRAPPER.find(".ve-table-cell-selection").exists()).toBe(false);
@@ -174,8 +202,6 @@ describe("veTable cell selection", () => {
 
         await later();
         expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
-
-        expect(WRAPPER.html()).toMatchSnapshot();
 
         document.addEventListener("keydown", mockFn);
         document.dispatchEvent(
@@ -198,6 +224,17 @@ describe("veTable cell selection", () => {
     });
 
     it("key code left event", async () => {
+        const WRAPPER = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                cellSelectionOption: {
+                    // default true
+                    enable: true,
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
         const mockFn = jest.fn();
 
         expect(WRAPPER.find(".ve-table-cell-selection").exists()).toBe(false);
@@ -212,11 +249,9 @@ describe("veTable cell selection", () => {
         await later();
         expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
 
-        expect(WRAPPER.html()).toMatchSnapshot();
-
         document.addEventListener("keydown", mockFn);
         document.dispatchEvent(
-            new KeyboardEvent("keydown", { keyCode: KEY_CODES.DOWN }),
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.LEFT }),
         );
 
         await later();
@@ -227,7 +262,148 @@ describe("veTable cell selection", () => {
 
         expect(
             WRAPPER.findAll(".ve-table-body-tr")
+                .at(2)
+                .findAll(".ve-table-body-td")
                 .at(1)
+                .classes(),
+        ).toContain("ve-table-cell-selection");
+    });
+
+    it("key code enter event", async () => {
+        const WRAPPER = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                cellSelectionOption: {
+                    // default true
+                    enable: true,
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+        const mockFn = jest.fn();
+
+        expect(WRAPPER.find(".ve-table-cell-selection").exists()).toBe(false);
+
+        const firstTrTdEl = WRAPPER.findAll(".ve-table-body-tr")
+            .at(2)
+            .findAll(".ve-table-body-td")
+            .at(2);
+
+        firstTrTdEl.trigger("click");
+
+        await later();
+        expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
+
+        document.addEventListener("keydown", mockFn);
+        document.dispatchEvent(
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.ENTER }),
+        );
+
+        await later();
+        expect(mockFn).toBeCalled();
+        expect(firstTrTdEl.find(".ve-table-cell-selection").exists()).toBe(
+            false,
+        );
+
+        expect(
+            WRAPPER.findAll(".ve-table-body-tr")
+                .at(3)
+                .findAll(".ve-table-body-td")
+                .at(2)
+                .classes(),
+        ).toContain("ve-table-cell-selection");
+    });
+
+    it("key code tab event", async () => {
+        const WRAPPER = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                cellSelectionOption: {
+                    // default true
+                    enable: true,
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+        const mockFn = jest.fn();
+
+        expect(WRAPPER.find(".ve-table-cell-selection").exists()).toBe(false);
+
+        const firstTrTdEl = WRAPPER.findAll(".ve-table-body-tr")
+            .at(2)
+            .findAll(".ve-table-body-td")
+            .at(2);
+
+        firstTrTdEl.trigger("click");
+
+        await later();
+        expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
+
+        document.addEventListener("keydown", mockFn);
+        document.dispatchEvent(
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.TAB }),
+        );
+
+        await later();
+        expect(mockFn).toBeCalled();
+        expect(firstTrTdEl.find(".ve-table-cell-selection").exists()).toBe(
+            false,
+        );
+
+        expect(
+            WRAPPER.findAll(".ve-table-body-tr")
+                .at(2)
+                .findAll(".ve-table-body-td")
+                .at(3)
+                .classes(),
+        ).toContain("ve-table-cell-selection");
+    });
+
+    it("key code shift+tab event", async () => {
+        const WRAPPER = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                cellSelectionOption: {
+                    // default true
+                    enable: true,
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+        const mockFn = jest.fn();
+
+        expect(WRAPPER.find(".ve-table-cell-selection").exists()).toBe(false);
+
+        const firstTrTdEl = WRAPPER.findAll(".ve-table-body-tr")
+            .at(2)
+            .findAll(".ve-table-body-td")
+            .at(2);
+
+        firstTrTdEl.trigger("click");
+
+        await later();
+        expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
+
+        document.addEventListener("keydown", mockFn);
+        document.dispatchEvent(
+            new KeyboardEvent("keydown", {
+                keyCode: KEY_CODES.TAB,
+                shiftKey: true,
+            }),
+        );
+
+        await later();
+        expect(mockFn).toBeCalled();
+        expect(firstTrTdEl.find(".ve-table-cell-selection").exists()).toBe(
+            false,
+        );
+
+        expect(
+            WRAPPER.findAll(".ve-table-body-tr")
+                .at(2)
                 .findAll(".ve-table-body-td")
                 .at(1)
                 .classes(),
