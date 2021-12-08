@@ -1990,7 +1990,6 @@ export default {
                 },
                 // edit input blur
                 [EMIT_EVENTS.EDIT_INPUT_BLUR]: () => {
-                    // this.enableStopEditing = true;
                     this[INSTANCE_METHODS.STOP_EDITING_CELL]();
                 },
                 // edit input value change
