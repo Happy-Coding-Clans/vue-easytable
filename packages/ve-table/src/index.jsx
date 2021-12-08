@@ -745,7 +745,13 @@ export default {
                                 this.$refs[this.editInputRef];
 
                             editInputEditor.textareaAddNewLine();
-                        } else {
+                        }
+                        // direction up
+                        else if (shiftKey) {
+                            direction = CELL_SELECTION_DIRECTION.UP;
+                        }
+                        // direction down
+                        else {
                             direction = CELL_SELECTION_DIRECTION.DOWN;
                         }
                         break;
