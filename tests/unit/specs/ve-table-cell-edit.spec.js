@@ -78,13 +78,28 @@ describe("veTable cell edit", () => {
         },
     ];
 
+    it("edit input render", async () => {
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                editOption: {
+                    // cell value change
+                    cellValueChange: ({ row, column }) => {},
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        expect(wrapper.html()).toMatchSnapshot();
+    });
+
     it("double click edit", async () => {
         const wrapper = mount(veTable, {
             propsData: {
                 columns: COLUMNS,
                 tableData: TABLE_DATA,
                 editOption: {
-                    doubleClickEdit: true,
                     // cell value change
                     cellValueChange: ({ row, column }) => {},
                 },
@@ -125,114 +140,6 @@ describe("veTable cell edit", () => {
         expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
             false,
         );
-    });
-
-    it("single click edit", async () => {
-        const wrapper = mount(veTable, {
-            propsData: {
-                columns: COLUMNS,
-                tableData: TABLE_DATA,
-                editOption: {
-                    doubleClickEdit: false,
-                    // cell value change
-                    cellValueChange: ({ row, column }) => {},
-                },
-                rowKeyFieldName: "rowKey",
-            },
-        });
-
-        // td
-        const firstCell = wrapper
-            .findAll(".ve-table-body-tr")
-            .at(0)
-            .findAll(".ve-table-body-td")
-            .at(0);
-
-        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
-            false,
-        );
-
-        firstCell.trigger("click");
-
-        await later();
-
-        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
-            true,
-        );
-
-        // second cell
-        const secondCell = wrapper
-            .findAll(".ve-table-body-tr")
-            .at(0)
-            .findAll(".ve-table-body-td")
-            .at(1);
-
-        secondCell.trigger("click");
-
-        await later();
-
-        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
-            false,
-        );
-    });
-
-    it("full row edit", async () => {
-        const wrapper = mount(veTable, {
-            propsData: {
-                columns: COLUMNS,
-                tableData: TABLE_DATA,
-                editOption: {
-                    doubleClickEdit: true,
-                    fullRowEdit: true,
-                    // cell value change
-                    cellValueChange: ({ row, column }) => {},
-                },
-                rowKeyFieldName: "rowKey",
-            },
-        });
-
-        // first cell
-        const firstCell = wrapper
-            .findAll(".ve-table-body-tr")
-            .at(0)
-            .findAll(".ve-table-body-td")
-            .at(0);
-
-        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
-            false,
-        );
-
-        firstCell.trigger("dblclick");
-
-        await later();
-
-        expect(wrapper.findAll(".ve-table-body-td-edit-input").length).toBe(4);
-
-        // second row cell
-        const firstRowCell = wrapper
-            .findAll(".ve-table-body-tr")
-            .at(0)
-            .findAll(".ve-table-body-td")
-            .at(1);
-
-        firstRowCell.trigger("click");
-
-        await later();
-
-        expect(wrapper.findAll(".ve-table-body-td-edit-input").length).toBe(4);
-
-        // second row cell
-        const secondRowCell = wrapper
-            .findAll(".ve-table-body-tr")
-            .at(1)
-            .findAll(".ve-table-body-td")
-            .at(1);
-
-        secondRowCell.trigger("click");
-
-        await later();
-
-        expect(wrapper.findAll(".ve-table-body-td-edit-input").length).toBe(0);
     });
 
     it("stop editing when cell lose focus", async () => {
@@ -359,134 +266,6 @@ describe("veTable cell edit", () => {
         );
     });
 
-    /* 
-     将会重写当前行的所有列的值
-     The values of all columns of the current row will be overwritten
-    */
-    it("startEditingCell instance method combine full row eidt without colKey", async () => {
-        const mockFn = jest.fn();
-
-        const wrapper = mount(veTable, {
-            propsData: {
-                columns: COLUMNS,
-                tableData: cloneDeep(TABLE_DATA),
-                editOption: {
-                    stopEditingWhenCellLoseFocus: true,
-                    fullRowEdit: true,
-                    doubleClickEdit: false,
-                    // cell value change
-                    rowValueChange: ({ row }) => {
-                        mockFn(row);
-                    },
-                },
-                rowKeyFieldName: "rowKey",
-            },
-        });
-
-        wrapper.vm.startEditingCell({
-            rowKey: 0,
-            //colKey: "name",
-            defaultValue: "AAA",
-        });
-
-        await later();
-
-        // td
-        const firstCell = wrapper
-            .findAll(".ve-table-body-tr")
-            .at(0)
-            .findAll(".ve-table-body-td")
-            .at(0);
-
-        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
-            true,
-        );
-
-        // next row first cell
-        const secondCell = wrapper
-            .findAll(".ve-table-body-tr")
-            .at(1)
-            .findAll(".ve-table-body-td")
-            .at(0);
-
-        secondCell.trigger("click");
-
-        await later();
-
-        expect(mockFn).toHaveBeenCalled();
-        expect(mockFn).toHaveBeenCalledWith({
-            address: "AAA",
-            date: "AAA",
-            hobby: "AAA",
-            name: "AAA",
-            rowKey: 0,
-        });
-    });
-
-    /* 
-    只会重写当前指定的列的值
-    Only the value of the currently specified column is overwritten
-    */
-    it("startEditingCell instance method combine full row eidt with colKey", async () => {
-        const mockFn = jest.fn();
-
-        const wrapper = mount(veTable, {
-            propsData: {
-                columns: COLUMNS,
-                tableData: cloneDeep(TABLE_DATA),
-                editOption: {
-                    stopEditingWhenCellLoseFocus: true,
-                    fullRowEdit: true,
-                    doubleClickEdit: false,
-                    // cell value change
-                    rowValueChange: ({ row }) => {
-                        mockFn(row);
-                    },
-                },
-                rowKeyFieldName: "rowKey",
-            },
-        });
-
-        wrapper.vm.startEditingCell({
-            rowKey: 0,
-            colKey: "name",
-            defaultValue: "AAA",
-        });
-
-        await later();
-
-        // td
-        const firstCell = wrapper
-            .findAll(".ve-table-body-tr")
-            .at(0)
-            .findAll(".ve-table-body-td")
-            .at(0);
-
-        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
-            true,
-        );
-
-        // next row first cell
-        const secondCell = wrapper
-            .findAll(".ve-table-body-tr")
-            .at(1)
-            .findAll(".ve-table-body-td")
-            .at(0);
-
-        secondCell.trigger("click");
-
-        await later();
-
-        expect(mockFn).toHaveBeenCalled();
-        expect(mockFn).toHaveBeenCalledWith({
-            address: "No.1 Century Avenue, Shanghai",
-            date: "1900-05-20",
-            hobby: "coding and coding repeat",
-            name: "AAA",
-            rowKey: 0,
-        });
-    });
-
     it("stopEditingCell instance method", async () => {
         const mockFn = jest.fn();
 
@@ -555,64 +334,6 @@ describe("veTable cell edit", () => {
                 width: "15%",
             },
         );
-    });
-
-    it("stopAllEditingCell instance method", async () => {
-        const mockFn = jest.fn();
-
-        const wrapper = mount(veTable, {
-            propsData: {
-                columns: COLUMNS,
-                tableData: TABLE_DATA,
-                editOption: {
-                    stopEditingWhenCellLoseFocus: false,
-                    doubleClickEdit: false,
-                    // cell value change
-                    cellValueChange: ({ row, column }) => {
-                        mockFn(row, column);
-                    },
-                },
-                rowKeyFieldName: "rowKey",
-            },
-        });
-
-        wrapper.vm.startEditingCell({
-            rowKey: 0,
-            colKey: "name",
-            defaultValue: "AAA",
-        });
-
-        wrapper.vm.startEditingCell({
-            rowKey: 1,
-            colKey: "date",
-            defaultValue: "BBB",
-        });
-
-        await later();
-
-        const firstCell = wrapper
-            .findAll(".ve-table-body-tr")
-            .at(0)
-            .findAll(".ve-table-body-td")
-            .at(0);
-        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
-            true,
-        );
-
-        const secondCell = wrapper
-            .findAll(".ve-table-body-tr")
-            .at(1)
-            .findAll(".ve-table-body-td")
-            .at(1);
-        expect(secondCell.find(".ve-table-body-td-edit-input").exists()).toBe(
-            true,
-        );
-
-        wrapper.vm.stopAllEditingCell();
-
-        await later();
-
-        expect(mockFn).toHaveBeenCalledTimes(2);
     });
 
     it("cellValueChange callback function", async () => {
@@ -685,63 +406,6 @@ describe("veTable cell edit", () => {
                 width: "15%",
             },
         );
-    });
-
-    it("rowValueChange callback function", async () => {
-        const mockFn = jest.fn();
-
-        const wrapper = mount(veTable, {
-            propsData: {
-                columns: COLUMNS,
-                tableData: TABLE_DATA,
-                editOption: {
-                    doubleClickEdit: true,
-                    fullRowEdit: true,
-                    // cell value change
-                    rowValueChange: ({ row }) => {
-                        mockFn(row);
-                    },
-                },
-                rowKeyFieldName: "rowKey",
-            },
-        });
-
-        // first cell
-        const firstCell = wrapper
-            .findAll(".ve-table-body-tr")
-            .at(0)
-            .findAll(".ve-table-body-td")
-            .at(0);
-
-        firstCell.trigger("dblclick");
-
-        await later();
-
-        expect(wrapper.findAll(".ve-table-body-td-edit-input").length).toBe(4);
-
-        // set value
-        const textInput = firstCell.find(".ve-table-body-td-edit-input");
-        textInput.setValue("AAA");
-
-        // second cell
-        const secondCell = wrapper
-            .findAll(".ve-table-body-tr")
-            .at(1)
-            .findAll(".ve-table-body-td")
-            .at(0);
-
-        secondCell.trigger("click");
-
-        await later();
-
-        expect(mockFn).toHaveBeenCalled();
-        expect(mockFn).toHaveBeenCalledWith({
-            address: "No.1 Century Avenue, Shanghai",
-            date: "1900-05-20",
-            hobby: "coding and coding repeat",
-            name: "AAA",
-            rowKey: 0,
-        });
     });
 
     it("keydown event with single click edit", async () => {

@@ -3,9 +3,9 @@
         <h2>单元格编辑</h2>
         <Explain />
         <DoubleClickEdit />
+        <EditControl />
         <!-- <SingleClickEdit />
         <FullRowWidt />
-        <EditControl />
         <FullRowEditControl />
         <CustomFullRowEditControl />
         <CombineElementUi />
@@ -17,7 +17,7 @@ import Explain from "./explain.md";
 import DoubleClickEdit from "./double-click-edit.md";
 // import SingleClickEdit from "./single-click-edit.md";
 // import FullRowWidt from "./full-row-edit.md";
-// import EditControl from "./edit-control.md";
+import EditControl from "./edit-control.md";
 // import FullRowEditControl from "./full-row-edit-control.md";
 // import CustomFullRowEditControl from "./custom-full-row-edit-control.md";
 // import CombineElementUi from "./combine-element-ui.md";
@@ -30,7 +30,7 @@ export default {
         DoubleClickEdit,
         // SingleClickEdit,
         // FullRowWidt,
-        // EditControl,
+        EditControl,
         // FullRowEditControl,
         // CustomFullRowEditControl,
         // CombineElementUi,
