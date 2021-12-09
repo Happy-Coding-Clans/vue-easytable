@@ -830,7 +830,8 @@ export default {
                         break;
                     }
                     case KEY_CODES.F2: {
-                        // start editing cell
+                        // start editing cell and don't allow stop eidting by direction key
+                        this.enableStopEditing = false;
                         this[INSTANCE_METHODS.START_EDITING_CELL]({
                             rowKey,
                             colKey,
