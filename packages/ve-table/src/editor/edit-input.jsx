@@ -34,11 +34,6 @@ export default {
             type: Array,
             required: true,
         },
-        // all row keys
-        allRowKeys: {
-            type: Array,
-            required: true,
-        },
         colgroups: {
             type: Array,
             required: true,
@@ -120,20 +115,6 @@ export default {
                 result = colgroups.find(
                     (x) => x.key === cellSelectionKeyData.colKey,
                 );
-            }
-
-            return result;
-        },
-
-        // is last edit row
-        isLastEditRow() {
-            let result = false;
-
-            const { allRowKeys, cellSelectionKeyData } = this;
-
-            if (allRowKeys.length && cellSelectionKeyData) {
-                const { rowKey } = cellSelectionKeyData;
-                result = allRowKeys[allRowKeys.length - 1] == rowKey;
             }
 
             return result;
