@@ -1563,12 +1563,6 @@ export default {
                 return false;
             }
 
-            const currentColumn = colgroups.find((x) => x.key == colKey);
-
-            if (!currentColumn.edit) {
-                return false;
-            }
-
             if (
                 editingCell &&
                 editingCell.rowKey == rowKey &&
