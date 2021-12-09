@@ -32,20 +32,10 @@
             return {
                 // edit option 可控单元格编辑
                 editOption: {
-                    // full row edit
-                    fullRowEdit: false,
-                    // double click edit
-                    doubleClickEdit: true,
-                    // auto stop editing when cell lose focus
-                    stopEditingWhenCellLoseFocus: true,
                     // cell value change
                     cellValueChange: ({ row, column }) => {
-                        console.log("cellValueChange row::", row);
-                        console.log("cellValueChange column::", column);
-                    },
-                    // row value change
-                    rowValueChange: ({ row }) => {
-                        console.log("rowValueChange row::", row);
+                        // console.log("cellValueChange row::", row);
+                        // console.log("cellValueChange column::", column);
                     },
                 },
                 columns: [
