@@ -141,23 +141,28 @@ export default {
 
             const {
                 displayTextarea,
+                overflowViewport,
                 textareaRect,
                 currentColumn: column,
             } = this;
 
-            if (displayTextarea) {
-                const { top, left } = textareaRect;
+            const { top, left } = textareaRect;
 
+            if (displayTextarea && !overflowViewport) {
                 result = {
                     top: top + "px",
                     left: left + "px",
                     height: null,
                     // because @ve-fixed-body-cell-index: 1;
                     "z-index": column.fixed ? 1 : 0,
+                    opacity: 1,
                 };
             } else {
                 result = {
-                    height: null,
+                    top: top + "px",
+                    left: left + "px",
+                    height: "1px",
+                    opacity: 0,
                 };
             }
 
@@ -461,7 +466,7 @@ export default {
                 {
                     name: "focus",
                     value: {
-                        focus: true,
+                        focus: this.displayTextarea && !this.overflowViewport,
                     },
                 },
             ],
