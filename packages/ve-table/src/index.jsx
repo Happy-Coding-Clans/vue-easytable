@@ -697,7 +697,7 @@ export default {
         dealKeydownEvent(event) {
             const { cellSelectionKeyData, enableStopEditing } = this;
 
-            const { keyCode, shiftKey, altKey } = event;
+            const { keyCode, ctrlKey, shiftKey, altKey } = event;
 
             const { rowKey, colKey } = cellSelectionKeyData;
 
@@ -783,17 +783,22 @@ export default {
                         // direction up
                         else if (shiftKey) {
                             direction = CELL_SELECTION_DIRECTION.UP;
+                            this[INSTANCE_METHODS.STOP_EDITING_CELL]();
+                        }
+                        // stop editing and stay in current cell
+                        else if (ctrlKey) {
+                            this[INSTANCE_METHODS.STOP_EDITING_CELL]();
                         }
                         // direction down
                         else {
                             direction = CELL_SELECTION_DIRECTION.DOWN;
+                            this[INSTANCE_METHODS.STOP_EDITING_CELL]();
                         }
 
                         if (direction) {
                             this.selectCellByDirection({
                                 direction,
                             });
-                            this[INSTANCE_METHODS.STOP_EDITING_CELL]();
                         }
                         event.preventDefault();
                         break;
