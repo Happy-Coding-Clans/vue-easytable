@@ -821,6 +821,16 @@ export default {
                     case KEY_CODES.DELETE: {
                         // delete selection cell value
                         this.deleteCellValue();
+                        event.preventDefault();
+                        break;
+                    }
+                    case KEY_CODES.F2: {
+                        // start editing cell
+                        this[INSTANCE_METHODS.START_EDITING_CELL]({
+                            rowKey,
+                            colKey,
+                        });
+                        event.preventDefault();
                         break;
                     }
                     default: {
