@@ -148,7 +148,7 @@ export default {
             result = {
                 [clsName("edit-input-container")]: true,
                 [clsName("edit-input-container-show")]:
-                    displayTextarea && overflowViewport,
+                    displayTextarea && !overflowViewport,
             };
 
             return result;
@@ -280,7 +280,7 @@ export default {
 
                 if (cellEl) {
                     this.$options.customOption.cellEl = cellEl;
-                    this.overflowViewport = true;
+                    this.overflowViewport = false;
                 }
             }
         },
@@ -365,7 +365,7 @@ export default {
                 } else {
                     // 虚拟滚动,超出viewport
                     this.$options.customOption.cellEl = null;
-                    this.overflowViewport = false;
+                    this.overflowViewport = true;
                 }
             }
         },
