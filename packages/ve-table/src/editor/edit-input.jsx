@@ -94,15 +94,13 @@ export default {
                 left: 0,
                 top: 0,
             },
+            // table element
+            tableEl: null,
+            // cell element
+            cellEl: null,
+            // auto resize
+            autoResize: null,
         };
-    },
-    customOption: {
-        // table element
-        tableEl: null,
-        // cell element
-        cellEl: null,
-        // auto resize
-        autoResize: null,
     },
     computed: {
         // current column
@@ -194,7 +192,7 @@ export default {
                             解决虚拟滚动编辑单元格滚动后无法定位的问题
                             */
                             if (this.displayTextarea) {
-                                if (!this.$options.customOption.cellEl) {
+                                if (!this.cellEl) {
                                     this.setCellEl();
                                 }
                                 this.setTextareaPosition();
@@ -248,14 +246,12 @@ export default {
         // set table element
         setTableEl() {
             const tableEl = this.$el.previousElementSibling;
-            this.$options.customOption.tableEl = tableEl;
+            this.tableEl = tableEl;
         },
 
         // set cell element
         setCellEl() {
-            const { cellSelectionKeyData } = this;
-
-            const { tableEl } = this.$options.customOption;
+            const { cellSelectionKeyData, tableEl } = this;
 
             const { rowKey, colKey } = cellSelectionKeyData;
 
@@ -265,7 +261,7 @@ export default {
                 );
 
                 if (cellEl) {
-                    this.$options.customOption.cellEl = cellEl;
+                    this.cellEl = cellEl;
                     this.overflowViewport = false;
                 }
             }
@@ -280,9 +276,9 @@ export default {
                 colgroups,
                 hasRightFixedColumn,
                 currentColumn: column,
+                cellEl,
+                tableEl,
             } = this;
-
-            const { cellEl, tableEl } = this.$options.customOption;
 
             if (cellEl && tableEl) {
                 const {
@@ -333,7 +329,7 @@ export default {
                         }
                     }
 
-                    this.$options.customOption.autoResize.init(
+                    this.autoResize.init(
                         this.$refs[this.textareaInputRef],
                         {
                             minHeight: Math.min(cellHeight, maxHeight),
@@ -350,7 +346,7 @@ export default {
                     };
                 } else {
                     // 虚拟滚动,超出viewport
-                    this.$options.customOption.cellEl = null;
+                    this.cellEl = null;
                     this.overflowViewport = true;
                 }
             }
@@ -370,8 +366,8 @@ export default {
 
         // textarea unObserve
         textareaUnObserve() {
-            if (this.$options.customOption.autoResize) {
-                this.$options.customOption.autoResize.unObserve();
+            if (this.autoResize) {
+                this.autoResize.unObserve();
             }
         },
 
@@ -428,20 +424,10 @@ export default {
     },
 
     mounted() {
-        // add key down event listener
-        this.$el
-            .querySelector(`.${clsName("edit-input")}`)
-            .addEventListener("keydown", this.dealKeydownEvent);
-
-        this.$options.customOption.autoResize = autoResize();
+        this.autoResize = autoResize();
     },
 
     destroyed() {
-        // remove key down event listener
-        this.$el
-            .querySelector(`.${clsName("edit-input")}`)
-            .removeEventListener("keydown", this.dealKeydownEvent);
-
         this.textareaUnObserve();
     },
 
