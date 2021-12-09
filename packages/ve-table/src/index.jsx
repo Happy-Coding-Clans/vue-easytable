@@ -695,18 +695,7 @@ export default {
 
         // deal keydown event
         dealKeydownEvent(event) {
-            event.stopPropagation();
-            // cell direction
-            this.cellDirection(event);
-            // deal editing cell by keydown event
-            this.dealEditingCellByKeydownEvent(event);
-        },
-        // cell direction
-        cellDirection(event) {
-            const { cellSelectionKeyData, isEditingCell, enableStopEditing } =
-                this;
-
-            let direction;
+            const { cellSelectionKeyData, enableStopEditing } = this;
 
             const { keyCode, shiftKey, altKey } = event;
 
@@ -715,30 +704,75 @@ export default {
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
                 switch (keyCode) {
                     case KEY_CODES.ARROW_LEFT: {
-                        direction = CELL_SELECTION_DIRECTION.LEFT;
+                        const direction = CELL_SELECTION_DIRECTION.LEFT;
+                        if (enableStopEditing) {
+                            this.selectCellByDirection({
+                                direction,
+                            });
+
+                            this[INSTANCE_METHODS.STOP_EDITING_CELL]();
+                            event.preventDefault();
+                        }
+
                         break;
                     }
                     case KEY_CODES.TAB: {
+                        let direction;
                         if (shiftKey) {
                             direction = CELL_SELECTION_DIRECTION.LEFT;
                         } else {
                             direction = CELL_SELECTION_DIRECTION.RIGHT;
                         }
+
+                        this.selectCellByDirection({
+                            direction,
+                        });
+
+                        this[INSTANCE_METHODS.STOP_EDITING_CELL]();
+                        event.preventDefault();
                         break;
                     }
                     case KEY_CODES.ARROW_RIGHT: {
-                        direction = CELL_SELECTION_DIRECTION.RIGHT;
+                        const direction = CELL_SELECTION_DIRECTION.RIGHT;
+
+                        if (enableStopEditing) {
+                            this.selectCellByDirection({
+                                direction,
+                            });
+
+                            this[INSTANCE_METHODS.STOP_EDITING_CELL]();
+                            event.preventDefault();
+                        }
                         break;
                     }
                     case KEY_CODES.ARROW_UP: {
-                        direction = CELL_SELECTION_DIRECTION.UP;
+                        const direction = CELL_SELECTION_DIRECTION.UP;
+
+                        if (enableStopEditing) {
+                            this.selectCellByDirection({
+                                direction,
+                            });
+
+                            this[INSTANCE_METHODS.STOP_EDITING_CELL]();
+                            event.preventDefault();
+                        }
                         break;
                     }
                     case KEY_CODES.ARROW_DOWN: {
-                        direction = CELL_SELECTION_DIRECTION.DOWN;
+                        const direction = CELL_SELECTION_DIRECTION.DOWN;
+
+                        if (enableStopEditing) {
+                            this.selectCellByDirection({
+                                direction,
+                            });
+
+                            this[INSTANCE_METHODS.STOP_EDITING_CELL]();
+                            event.preventDefault();
+                        }
                         break;
                     }
                     case KEY_CODES.ENTER: {
+                        let direction;
                         // add new line
                         if (altKey) {
                             const editInputEditor =
@@ -754,90 +788,52 @@ export default {
                         else {
                             direction = CELL_SELECTION_DIRECTION.DOWN;
                         }
+
+                        if (direction) {
+                            this.selectCellByDirection({
+                                direction,
+                            });
+                            this[INSTANCE_METHODS.STOP_EDITING_CELL]();
+                        }
+                        event.preventDefault();
                         break;
                     }
-                    default:
-                        break;
-                }
-            }
-
-            if (direction) {
-                const isDirectKeyCode = isDirectionKeyCode(keyCode);
-
-                if (enableStopEditing) {
-                    event.preventDefault();
-                }
-
-                if (isEditingCell) {
-                    // 编辑时允许改变方向 || 不是方向键
-                    if (enableStopEditing || !isDirectKeyCode) {
-                        this.selectCellByDirection({
-                            direction,
-                        });
-
-                        /*
-                        如果是当前编辑的单元格
-                        If the cell is currently editing cell 
-                        */
-                        this[INSTANCE_METHODS.STOP_EDITING_CELL]({
+                    case KEY_CODES.SPACE: {
+                        // start editing and enter a space
+                        this[INSTANCE_METHODS.START_EDITING_CELL]({
                             rowKey,
                             colKey,
+                            defaultValue: " ",
                         });
+                        event.preventDefault();
+                        break;
                     }
-                } else {
-                    this.selectCellByDirection({
-                        direction,
-                    });
-                }
-            }
-        },
-
-        // deal editing cell by keydown event
-        dealEditingCellByKeydownEvent(event) {
-            const { cellSelectionKeyData, editOption, hasEditColumn } = this;
-
-            const { keyCode } = event;
-
-            if (!editOption) {
-                return false;
-            }
-
-            // has edit column
-            if (!hasEditColumn) {
-                return false;
-            }
-
-            const { rowKey, colKey } = cellSelectionKeyData;
-
-            if (isEmptyValue(rowKey) || isEmptyValue(colKey)) {
-                return false;
-            }
-
-            if (isInputKeyCode(event)) {
-                // eventKey
-                this[INSTANCE_METHODS.START_EDITING_CELL]({
-                    rowKey,
-                    colKey,
-                    defaultValue: "",
-                });
-            } else {
-                if (
-                    keyCode === KEY_CODES.DELETE ||
-                    keyCode === KEY_CODES.BACK_SPACE
-                ) {
-                    // start editing and clear value
-                    this[INSTANCE_METHODS.START_EDITING_CELL]({
-                        rowKey,
-                        colKey,
-                        defaultValue: "",
-                    });
-                } else if (keyCode === KEY_CODES.SPACE) {
-                    // start editing and enter a space
-                    this[INSTANCE_METHODS.START_EDITING_CELL]({
-                        rowKey,
-                        colKey,
-                        defaultValue: " ",
-                    });
+                    case KEY_CODES.BACK_SPACE: {
+                        // start editing and clear value
+                        this[INSTANCE_METHODS.START_EDITING_CELL]({
+                            rowKey,
+                            colKey,
+                            defaultValue: "",
+                        });
+                        event.preventDefault();
+                        break;
+                    }
+                    case KEY_CODES.DELETE: {
+                        // delete selection cell value
+                        this.deleteCellValue();
+                        break;
+                    }
+                    default: {
+                        // enter text directly
+                        if (isInputKeyCode(event)) {
+                            this[INSTANCE_METHODS.START_EDITING_CELL]({
+                                rowKey,
+                                colKey,
+                                defaultValue: "",
+                            });
+                        }
+                        break;
+                    }
                 }
             }
         },
@@ -1391,6 +1387,47 @@ export default {
             this[INSTANCE_METHODS.STOP_EDITING_CELL]();
         },
 
+        // delete selection cell value
+        deleteCellValue() {
+            const {
+                colgroups,
+                rowKeyFieldName,
+                editOption,
+                cellSelectionKeyData,
+            } = this;
+
+            const { rowKey, colKey } = cellSelectionKeyData;
+
+            if (isEmptyValue(rowKey) || isEmptyValue(colKey)) {
+                return false;
+            }
+
+            if (!editOption) {
+                return false;
+            }
+
+            const currentColumn = colgroups.find((x) => x.key === colKey);
+
+            if (!currentColumn.edit) {
+                return false;
+            }
+
+            const { cellValueChange } = editOption;
+
+            let currentRow = this.tableData.find(
+                (x) => x[rowKeyFieldName] === rowKey,
+            );
+
+            if (currentRow) {
+                currentRow[currentColumn.field] = "";
+                cellValueChange &&
+                    cellValueChange({
+                        row: currentRow,
+                        column: currentColumn,
+                    });
+            }
+        },
+
         // save cell when stop editing
         saveCellWhenStopEditing() {
             const {
@@ -1525,10 +1562,7 @@ export default {
             }
 
             if (isEditingCell) {
-                this[INSTANCE_METHODS.STOP_EDITING_CELL]({
-                    rowKey: editingCell.rowKey,
-                    colKey: editingCell.colKey,
-                });
+                this[INSTANCE_METHODS.STOP_EDITING_CELL]();
             }
 
             if (isDblclick) {
