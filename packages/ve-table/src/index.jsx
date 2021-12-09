@@ -1541,7 +1541,6 @@ export default {
         editCellByClick({ isDblclick }) {
             const {
                 editOption,
-                colgroups,
                 isEditingCell,
                 hasEditColumn,
                 editingCell,
