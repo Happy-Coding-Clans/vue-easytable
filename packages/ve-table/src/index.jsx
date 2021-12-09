@@ -692,7 +692,8 @@ export default {
 
         // deal keydown event
         dealKeydownEvent(event) {
-            const { cellSelectionKeyData, enableStopEditing } = this;
+            const { cellSelectionKeyData, enableStopEditing, isEditingCell } =
+                this;
 
             const { keyCode, ctrlKey, shiftKey, altKey } = event;
 
@@ -801,39 +802,51 @@ export default {
                         break;
                     }
                     case KEY_CODES.SPACE: {
-                        // start editing and enter a space
-                        this[INSTANCE_METHODS.START_EDITING_CELL]({
-                            rowKey,
-                            colKey,
-                            defaultValue: " ",
-                        });
-                        event.preventDefault();
+                        if (!isEditingCell) {
+                            // start editing and enter a space
+                            this[INSTANCE_METHODS.START_EDITING_CELL]({
+                                rowKey,
+                                colKey,
+                                defaultValue: " ",
+                            });
+                            event.preventDefault();
+                        }
+
                         break;
                     }
                     case KEY_CODES.BACK_SPACE: {
-                        // start editing and clear value
-                        this[INSTANCE_METHODS.START_EDITING_CELL]({
-                            rowKey,
-                            colKey,
-                            defaultValue: "",
-                        });
-                        event.preventDefault();
+                        if (!isEditingCell) {
+                            // start editing and clear value
+                            this[INSTANCE_METHODS.START_EDITING_CELL]({
+                                rowKey,
+                                colKey,
+                                defaultValue: "",
+                            });
+                            event.preventDefault();
+                        }
+
                         break;
                     }
                     case KEY_CODES.DELETE: {
-                        // delete selection cell value
-                        this.deleteCellValue();
-                        event.preventDefault();
+                        if (!isEditingCell) {
+                            // delete selection cell value
+                            this.deleteCellValue();
+                            event.preventDefault();
+                        }
+
                         break;
                     }
                     case KEY_CODES.F2: {
-                        // start editing cell and don't allow stop eidting by direction key
-                        this.enableStopEditing = false;
-                        this[INSTANCE_METHODS.START_EDITING_CELL]({
-                            rowKey,
-                            colKey,
-                        });
-                        event.preventDefault();
+                        if (!isEditingCell) {
+                            // start editing cell and don't allow stop eidting by direction key
+                            this.enableStopEditing = false;
+                            this[INSTANCE_METHODS.START_EDITING_CELL]({
+                                rowKey,
+                                colKey,
+                            });
+                            event.preventDefault();
+                        }
+
                         break;
                     }
                     default: {
