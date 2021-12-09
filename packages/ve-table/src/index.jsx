@@ -36,10 +36,7 @@ import {
     requestAnimationTimeout,
     cancelAnimationTimeout,
 } from "../../src/utils/request-animation-timeout";
-import {
-    isInputKeyCode,
-    isDirectionKeyCode,
-} from "../../src/utils/event-key-codes";
+import { isInputKeyCode } from "../../src/utils/event-key-codes";
 import clickoutside from "../../src/directives/clickoutside";
 import VueDomResizeObserver from "../../src/comps/resize-observer";
 import Hooks from "../../src/utils/hooks-manager";
