@@ -13,7 +13,7 @@ export function autoResize() {
             minWidth: 100,
             maxWidth: 300,
             // text padding
-            paddingWidth: 12,
+            paddingWidth: 16,
         },
         el,
         body = document.body,
