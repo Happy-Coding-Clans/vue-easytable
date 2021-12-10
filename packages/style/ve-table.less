@@ -337,7 +337,6 @@
     // edit input
     .ve-table-edit-input-container {
         position: absolute;
-        overflow: hidden;
         right: auto;
 
         .ve-table-edit-input {
@@ -348,7 +347,7 @@
             margin: 0;
             padding: 1px 5px 0;
             font-family: inherit;
-            line-height: 21px;
+            line-height: @ve-table-body-row-height;
             font-size: inherit;
             box-shadow: inset 0 0 0 2px @ve-table-td-editing-border-color;
             display: block;
