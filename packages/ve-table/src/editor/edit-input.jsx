@@ -238,11 +238,6 @@ export default {
     },
 
     methods: {
-        // deal key down event
-        dealKeydownEvent() {
-            //
-        },
-
         // set table element
         setTableEl() {
             const tableEl = this.$el.previousElementSibling;
