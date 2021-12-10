@@ -9,9 +9,6 @@
         <button class="button-demo" @click="startEditingCell(2,'hobby','')">
             编辑并清空单元格2-2
         </button>
-        &nbsp;&nbsp;
-        <button class="button-demo" @click="stopEditingCell(0,'name')">停止编辑单元格1-1</button>
-        <button class="button-demo" @click="stopEditingCell(2,'hobby')">停止编辑单元格2-2</button>
         <br />
         <br />
         <ve-table
@@ -116,11 +113,6 @@
             // start editing cell
             startEditingCell(rowKey, colKey, defaultValue) {
                 this.$refs["tableRef"].startEditingCell({ rowKey, colKey, defaultValue });
-            },
-
-            // stop editing cell
-            stopEditingCell(rowKey, colKey) {
-                this.$refs["tableRef"].stopEditingCell({ rowKey, colKey });
             },
         },
     };
