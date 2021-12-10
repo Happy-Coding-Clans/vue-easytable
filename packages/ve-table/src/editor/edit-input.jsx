@@ -160,6 +160,7 @@ export default {
                     top: top + "px",
                     left: left + "px",
                     height: "1px",
+                    "z-index": -1,
                     opacity: 0,
                 };
             }
