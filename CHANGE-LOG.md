@@ -49,6 +49,7 @@ V2.12.0
 
 -   修改外边框作用的元素，设置 border-radius 更简单
 -   新增主题变量 @ve-table-column-fixed-border-color
+-   新增主题变量 @ve-table-td-editing-line-height
 
 V2.11.0
 
