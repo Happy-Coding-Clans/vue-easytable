@@ -110,7 +110,7 @@ describe("veTable cell selection", () => {
 
         document.addEventListener("keydown", mockFn);
         document.dispatchEvent(
-            new KeyboardEvent("keydown", { keyCode: KEY_CODES.UP }),
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.ARROW_UP }),
         );
 
         await later();
@@ -156,7 +156,7 @@ describe("veTable cell selection", () => {
 
         document.addEventListener("keydown", mockFn);
         document.dispatchEvent(
-            new KeyboardEvent("keydown", { keyCode: KEY_CODES.RIGHT }),
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.ARROW_RIGHT }),
         );
         /* WRAPPER.trigger("keydown", {
             keyCode: 40
@@ -205,7 +205,7 @@ describe("veTable cell selection", () => {
 
         document.addEventListener("keydown", mockFn);
         document.dispatchEvent(
-            new KeyboardEvent("keydown", { keyCode: KEY_CODES.DOWN }),
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.ARROW_DOWN }),
         );
 
         await later();
@@ -251,7 +251,7 @@ describe("veTable cell selection", () => {
 
         document.addEventListener("keydown", mockFn);
         document.dispatchEvent(
-            new KeyboardEvent("keydown", { keyCode: KEY_CODES.LEFT }),
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.ARROW_LEFT }),
         );
 
         await later();
