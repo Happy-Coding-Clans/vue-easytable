@@ -78,7 +78,7 @@ describe("veTable cell edit", () => {
         },
     ];
 
-    it("edit input render", async () => {
+    it("cell editor render", async () => {
         const wrapper = mount(veTable, {
             propsData: {
                 columns: COLUMNS,
@@ -107,24 +107,69 @@ describe("veTable cell edit", () => {
             },
         });
 
-        // first cell
+        expect(
+            wrapper.find(".ve-table-edit-input-container-show").exists(),
+        ).toBe(false);
+
+        // 1910-06-20
+        const tdEl = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(1);
+
+        // set cell selection
+        tdEl.trigger("click");
+        tdEl.trigger("dblclick");
+
+        await later();
+
+        expect(wrapper.vm.isEditingCell).toEqual(true);
+
+        expect(wrapper.vm.editingCell.rowKey).toEqual(1);
+        expect(wrapper.vm.editingCell.colKey).toEqual("date");
+
+        expect(
+            wrapper.find(".ve-table-edit-input-container-show").exists(),
+        ).toBe(true);
+    });
+
+    it("cellValueChange callback function", async () => {
+        const mockFn = jest.fn();
+
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                editOption: {
+                    // cell value change
+                    cellValueChange: ({ row, column }) => {
+                        mockFn(row, column);
+                    },
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        // td
         const firstCell = wrapper
             .findAll(".ve-table-body-tr")
             .at(0)
             .findAll(".ve-table-body-td")
             .at(0);
 
-        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
-            false,
-        );
-
-        firstCell.trigger("dblclick");
+        firstCell.trigger("click");
+        //firstCell.trigger("dblclick");
 
         await later();
 
-        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
-            true,
-        );
+        //const textInput = wrapper.find(".ve-table-edit-input-container-show");
+        // expect(textInput.exists()).toBe(true);
+
+        // Letter a
+        document.dispatchEvent(new KeyboardEvent("keydown", { keyCode: 65 }));
+
+        await later();
 
         // second cell
         const secondCell = wrapper
@@ -137,19 +182,37 @@ describe("veTable cell edit", () => {
 
         await later();
 
-        expect(firstCell.find(".ve-table-body-td-edit-input").exists()).toBe(
-            false,
+        expect(mockFn).toHaveBeenCalled();
+        expect(mockFn).toHaveBeenCalledWith(
+            {
+                address: "No.1 Century Avenue, Shanghai",
+                date: "1900-05-20",
+                hobby: "coding and coding repeat",
+                name: "a",
+                rowKey: 0,
+            },
+            {
+                _colspan: 1,
+                _keys: "name",
+                _level: 1,
+                _realTimeWidth: "15%",
+                _rowspan: 1,
+                align: "left",
+                edit: true,
+                field: "name",
+                key: "name",
+                title: "Name",
+                width: "15%",
+            },
         );
     });
 
-    it("stop editing when cell lose focus", async () => {
+    it("stop editing by click other cell", async () => {
         const wrapper = mount(veTable, {
             propsData: {
                 columns: COLUMNS,
                 tableData: TABLE_DATA,
                 editOption: {
-                    stopEditingWhenCellLoseFocus: false,
-                    doubleClickEdit: false,
                     // cell value change
                     cellValueChange: ({ row, column }) => {},
                 },
@@ -308,78 +371,6 @@ describe("veTable cell edit", () => {
             rowKey: 0,
             colKey: "name",
         });
-
-        await later();
-
-        expect(mockFn).toHaveBeenCalled();
-        expect(mockFn).toHaveBeenCalledWith(
-            {
-                address: "No.1 Century Avenue, Shanghai",
-                date: "1900-05-20",
-                hobby: "coding and coding repeat",
-                name: "AAA",
-                rowKey: 0,
-            },
-            {
-                _colspan: 1,
-                _keys: "name",
-                _level: 1,
-                _realTimeWidth: "15%",
-                _rowspan: 1,
-                align: "left",
-                edit: true,
-                field: "name",
-                key: "name",
-                title: "Name",
-                width: "15%",
-            },
-        );
-    });
-
-    it("cellValueChange callback function", async () => {
-        const mockFn = jest.fn();
-
-        const wrapper = mount(veTable, {
-            propsData: {
-                columns: COLUMNS,
-                tableData: TABLE_DATA,
-                editOption: {
-                    stopEditingWhenCellLoseFocus: true,
-                    doubleClickEdit: false,
-                    // cell value change
-                    cellValueChange: ({ row, column }) => {
-                        mockFn(row, column);
-                    },
-                },
-                rowKeyFieldName: "rowKey",
-            },
-        });
-
-        // td
-        const firstCell = wrapper
-            .findAll(".ve-table-body-tr")
-            .at(0)
-            .findAll(".ve-table-body-td")
-            .at(0);
-
-        firstCell.trigger("click");
-
-        await later();
-
-        const textInput = firstCell.find(".ve-table-body-td-edit-input");
-
-        expect(textInput.exists()).toBe(true);
-
-        textInput.setValue("AAA");
-
-        // second cell
-        const secondCell = wrapper
-            .findAll(".ve-table-body-tr")
-            .at(0)
-            .findAll(".ve-table-body-td")
-            .at(1);
-
-        secondCell.trigger("click");
 
         await later();
 
