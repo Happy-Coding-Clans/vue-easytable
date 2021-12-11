@@ -692,12 +692,18 @@ export default {
 
         // deal keydown event
         dealKeydownEvent(event) {
-            const { cellSelectionKeyData, enableStopEditing, isEditingCell } =
-                this;
+            const {
+                colgroups,
+                cellSelectionKeyData,
+                enableStopEditing,
+                isEditingCell,
+            } = this;
 
             const { keyCode, ctrlKey, shiftKey, altKey } = event;
 
             const { rowKey, colKey } = cellSelectionKeyData;
+
+            const currentColumn = colgroups.find((x) => x.key === colKey);
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
                 switch (keyCode) {
@@ -838,12 +844,14 @@ export default {
                     }
                     case KEY_CODES.F2: {
                         if (!isEditingCell) {
-                            // start editing cell and don't allow stop eidting by direction key
-                            this.enableStopEditing = false;
-                            this[INSTANCE_METHODS.START_EDITING_CELL]({
-                                rowKey,
-                                colKey,
-                            });
+                            if (currentColumn.edit) {
+                                // start editing cell and don't allow stop eidting by direction key
+                                this.enableStopEditing = false;
+                                this[INSTANCE_METHODS.START_EDITING_CELL]({
+                                    rowKey,
+                                    colKey,
+                                });
+                            }
                             event.preventDefault();
                         }
 
