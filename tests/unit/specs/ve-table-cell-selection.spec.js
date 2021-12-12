@@ -515,6 +515,63 @@ describe("veTable cell selection", () => {
         expect(firstCell.find(".ve-table-cell-selection").exists()).toBe(false);
     });
 
+    // table clickoutside
+    it("table clickoutside width cell editing", async () => {
+        const mockFn = jest.fn();
+
+        const ParentComp = {
+            template: `
+                <div>
+                    <button id="outsideButton">outside table</button>
+                    <veTable
+                        :columns="columns"
+                        :tableData="tableData"
+                        rowKeyFieldName="rowKey"
+                    />
+                </div>
+               
+            `,
+            data() {
+                return {
+                    columns: COLUMNS,
+                    tableData: TABLE_DATA,
+                };
+            },
+            components: {
+                veTable,
+            },
+        };
+
+        await later();
+
+        const div = document.createElement("div");
+        document.body.appendChild(div);
+
+        // need attach to documnet
+        const wrapper = mount(ParentComp, { attachTo: div });
+
+        // td
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(1);
+
+        // set cell selection
+        firstCell.trigger("click");
+
+        await later();
+
+        expect(firstCell.find(".ve-table-cell-selection").exists()).toBe(true);
+
+        // click outside
+        wrapper.find("#outsideButton").trigger("click");
+
+        await later();
+
+        expect(firstCell.find(".ve-table-cell-selection").exists()).toBe(false);
+    });
+
     /* it("virtual scroll keyboard events", async () => {
         const mockFn = jest.fn();
 
