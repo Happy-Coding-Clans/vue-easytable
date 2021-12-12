@@ -74,7 +74,7 @@ describe("veTable cell edit", () => {
             title: "Address",
             align: "left",
             width: "40%",
-            edit: true,
+            edit: false,
         },
     ];
 
@@ -1749,5 +1749,34 @@ describe("veTable cell edit", () => {
                 width: "15%",
             },
         );
+    });
+
+    it("disable editing columns", async () => {
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: cloneDeep(TABLE_DATA),
+                editOption: {
+                    // cell value change
+                    cellValueChange: ({ row, column }) => {},
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        // address column
+        const tdEl = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(0)
+            .findAll(".ve-table-body-td")
+            .at(3);
+
+        // set cell selection
+        tdEl.trigger("click");
+        tdEl.trigger("dblclick");
+
+        await later();
+
+        expect(wrapper.find(".ve-table-is-cell-editing").exists()).toBe(false);
     });
 });
