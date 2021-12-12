@@ -430,6 +430,7 @@ export default {
                 [clsName("virtual-scroll")]: isVirtualScroll,
                 [clsName("container-left-scrolling")]: isLeftScrolling,
                 [clsName("container-right-scrolling")]: isRightScrolling,
+                [clsName("is-cell-editing")]: this.isEditingCell,
             };
         },
         // table body class
