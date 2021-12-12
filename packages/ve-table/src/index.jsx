@@ -1407,8 +1407,8 @@ export default {
             this.setScrolling(this.$refs[this.tableContainerRef]);
         },
 
-        // table blur
-        tableBlur() {
+        // table click outside
+        tableClickOutside() {
             const { cellSelectionKeyData } = this;
 
             const { rowKey, colKey } = cellSelectionKeyData;
@@ -1983,7 +1983,7 @@ export default {
             directives: [
                 {
                     name: "click-outside",
-                    value: this.tableBlur,
+                    value: this.tableClickOutside,
                 },
             ],
         };
