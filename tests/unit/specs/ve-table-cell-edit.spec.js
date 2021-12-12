@@ -1192,4 +1192,562 @@ describe("veTable cell edit", () => {
             },
         );
     });
+
+    // `Delete`键清空可编辑活动单元格内容
+    it("key code delete event", async () => {
+        const mockFn = jest.fn();
+
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: cloneDeep(TABLE_DATA),
+                editOption: {
+                    // cell value change
+                    cellValueChange: ({ row, column }) => {
+                        mockFn(row, column);
+                    },
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        // td
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(1);
+
+        firstCell.trigger("click");
+
+        await later();
+
+        document.dispatchEvent(
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.DELETE }),
+        );
+
+        await later();
+
+        expect(mockFn).toHaveBeenCalled();
+
+        expect(mockFn).toHaveBeenCalledWith(
+            {
+                address: "No.1 Century Avenue, Beijing",
+                date: "",
+                hobby: "coding and coding repeat",
+                name: "Dickerson",
+                rowKey: 1,
+            },
+            {
+                _colspan: 1,
+                _keys: "date",
+                _level: 1,
+                _realTimeWidth: "15%",
+                _rowspan: 1,
+                align: "left",
+                edit: true,
+                field: "date",
+                key: "date",
+                title: "Date",
+                width: "15%",
+            },
+        );
+    });
+
+    // `Enter`键停止编辑状态并键向下移动活动单元格
+    it("key code enter event", async () => {
+        const mockFn = jest.fn();
+
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: cloneDeep(TABLE_DATA),
+                editOption: {
+                    // cell value change
+                    cellValueChange: ({ row, column }) => {
+                        mockFn(row, column);
+                    },
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        // td
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(1);
+
+        firstCell.trigger("click");
+        firstCell.trigger("dblclick");
+
+        await later();
+
+        const textInput = wrapper.find(
+            ".ve-table-edit-input-container-show .ve-table-edit-input",
+        );
+        textInput.setValue("AAA");
+
+        await later();
+
+        document.dispatchEvent(
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.ENTER }),
+        );
+
+        await later();
+
+        expect(
+            wrapper
+                .findAll(".ve-table-body-tr")
+                .at(2)
+                .findAll(".ve-table-body-td")
+                .at(1)
+                .classes(),
+        ).toContain("ve-table-cell-selection");
+
+        expect(mockFn).toHaveBeenCalled();
+
+        expect(mockFn).toHaveBeenCalledWith(
+            {
+                address: "No.1 Century Avenue, Beijing",
+                date: "AAA",
+                hobby: "coding and coding repeat",
+                name: "Dickerson",
+                rowKey: 1,
+            },
+            {
+                _colspan: 1,
+                _keys: "date",
+                _level: 1,
+                _realTimeWidth: "15%",
+                _rowspan: 1,
+                align: "left",
+                edit: true,
+                field: "date",
+                key: "date",
+                title: "Date",
+                width: "15%",
+            },
+        );
+    });
+
+    //  `Ctrl + Enter`键停止编辑状态，并停留在当前单元格
+    it("key code ctrl+enter event", async () => {
+        const mockFn = jest.fn();
+
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: cloneDeep(TABLE_DATA),
+                editOption: {
+                    // cell value change
+                    cellValueChange: ({ row, column }) => {
+                        mockFn(row, column);
+                    },
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        // td
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(1);
+
+        firstCell.trigger("click");
+        firstCell.trigger("dblclick");
+
+        await later();
+
+        const textInput = wrapper.find(
+            ".ve-table-edit-input-container-show .ve-table-edit-input",
+        );
+        textInput.setValue("AAA");
+
+        await later();
+
+        document.dispatchEvent(
+            new KeyboardEvent("keydown", {
+                keyCode: KEY_CODES.ENTER,
+                ctrlKey: true,
+            }),
+        );
+
+        await later();
+
+        expect(
+            wrapper
+                .findAll(".ve-table-body-tr")
+                .at(1)
+                .findAll(".ve-table-body-td")
+                .at(1)
+                .classes(),
+        ).toContain("ve-table-cell-selection");
+
+        expect(mockFn).toHaveBeenCalled();
+
+        expect(mockFn).toHaveBeenCalledWith(
+            {
+                address: "No.1 Century Avenue, Beijing",
+                date: "AAA",
+                hobby: "coding and coding repeat",
+                name: "Dickerson",
+                rowKey: 1,
+            },
+            {
+                _colspan: 1,
+                _keys: "date",
+                _level: 1,
+                _realTimeWidth: "15%",
+                _rowspan: 1,
+                align: "left",
+                edit: true,
+                field: "date",
+                key: "date",
+                title: "Date",
+                width: "15%",
+            },
+        );
+    });
+
+    // `Tab`键停止编辑状态并向右移动活动单元格
+    it("key code tab event", async () => {
+        const mockFn = jest.fn();
+
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: cloneDeep(TABLE_DATA),
+                editOption: {
+                    // cell value change
+                    cellValueChange: ({ row, column }) => {
+                        mockFn(row, column);
+                    },
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        // td
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(1);
+
+        firstCell.trigger("click");
+        firstCell.trigger("dblclick");
+
+        await later();
+
+        const textInput = wrapper.find(
+            ".ve-table-edit-input-container-show .ve-table-edit-input",
+        );
+        textInput.setValue("AAA");
+
+        await later();
+
+        document.dispatchEvent(
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.TAB }),
+        );
+
+        await later();
+
+        expect(
+            wrapper
+                .findAll(".ve-table-body-tr")
+                .at(1)
+                .findAll(".ve-table-body-td")
+                .at(2)
+                .classes(),
+        ).toContain("ve-table-cell-selection");
+
+        expect(mockFn).toHaveBeenCalled();
+
+        expect(mockFn).toHaveBeenCalledWith(
+            {
+                address: "No.1 Century Avenue, Beijing",
+                date: "AAA",
+                hobby: "coding and coding repeat",
+                name: "Dickerson",
+                rowKey: 1,
+            },
+            {
+                _colspan: 1,
+                _keys: "date",
+                _level: 1,
+                _realTimeWidth: "15%",
+                _rowspan: 1,
+                align: "left",
+                edit: true,
+                field: "date",
+                key: "date",
+                title: "Date",
+                width: "15%",
+            },
+        );
+    });
+
+    // `Shift+Tab`键停止编辑状态并向左移动活动单元格
+    it("key code shift+tab event", async () => {
+        const mockFn = jest.fn();
+
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: cloneDeep(TABLE_DATA),
+                editOption: {
+                    // cell value change
+                    cellValueChange: ({ row, column }) => {
+                        mockFn(row, column);
+                    },
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        // td
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(1);
+
+        firstCell.trigger("click");
+        firstCell.trigger("dblclick");
+
+        await later();
+
+        const textInput = wrapper.find(
+            ".ve-table-edit-input-container-show .ve-table-edit-input",
+        );
+        textInput.setValue("AAA");
+
+        await later();
+
+        document.dispatchEvent(
+            new KeyboardEvent("keydown", {
+                keyCode: KEY_CODES.TAB,
+                shiftKey: true,
+            }),
+        );
+
+        await later();
+
+        expect(
+            wrapper
+                .findAll(".ve-table-body-tr")
+                .at(1)
+                .findAll(".ve-table-body-td")
+                .at(0)
+                .classes(),
+        ).toContain("ve-table-cell-selection");
+
+        expect(mockFn).toHaveBeenCalled();
+
+        expect(mockFn).toHaveBeenCalledWith(
+            {
+                address: "No.1 Century Avenue, Beijing",
+                date: "AAA",
+                hobby: "coding and coding repeat",
+                name: "Dickerson",
+                rowKey: 1,
+            },
+            {
+                _colspan: 1,
+                _keys: "date",
+                _level: 1,
+                _realTimeWidth: "15%",
+                _rowspan: 1,
+                align: "left",
+                edit: true,
+                field: "date",
+                key: "date",
+                title: "Date",
+                width: "15%",
+            },
+        );
+    });
+
+    // `F2`键活动单元格进入编辑状态
+    it("key code shift+tab event", async () => {
+        const mockFn = jest.fn();
+
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: cloneDeep(TABLE_DATA),
+                editOption: {
+                    // cell value change
+                    cellValueChange: ({ row, column }) => {
+                        mockFn(row, column);
+                    },
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        // td
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(1)
+            .trigger("click");
+
+        document.dispatchEvent(
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.F2 }),
+        );
+        await later();
+
+        const textInput = wrapper.find(
+            ".ve-table-edit-input-container-show .ve-table-edit-input",
+        );
+        textInput.setValue("AAA");
+
+        await later();
+
+        wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(2)
+            .trigger("click");
+
+        await later();
+
+        expect(
+            wrapper
+                .findAll(".ve-table-body-tr")
+                .at(1)
+                .findAll(".ve-table-body-td")
+                .at(2)
+                .classes(),
+        ).toContain("ve-table-cell-selection");
+
+        expect(mockFn).toHaveBeenCalled();
+
+        expect(mockFn).toHaveBeenCalledWith(
+            {
+                address: "No.1 Century Avenue, Beijing",
+                date: "AAA",
+                hobby: "coding and coding repeat",
+                name: "Dickerson",
+                rowKey: 1,
+            },
+            {
+                _colspan: 1,
+                _keys: "date",
+                _level: 1,
+                _realTimeWidth: "15%",
+                _rowspan: 1,
+                align: "left",
+                edit: true,
+                field: "date",
+                key: "date",
+                title: "Date",
+                width: "15%",
+            },
+        );
+    });
+
+    // table clickoutside
+    it("table clickoutside width cell editing", async () => {
+        const mockFn = jest.fn();
+
+        const ParentComp = {
+            template: `
+                <div>
+                    <button id="outsideButton">outside table</button>
+                    <veTable
+                        :columns="columns"
+                        :tableData="tableData"
+                        :editOption="editOption"
+                        rowKeyFieldName="rowKey"
+                    />
+                </div>
+               
+            `,
+            data() {
+                return {
+                    columns: COLUMNS,
+                    tableData: cloneDeep(TABLE_DATA),
+                    editOption: {
+                        // cell value change
+                        cellValueChange: ({ row, column }) => {
+                            mockFn(row, column);
+                        },
+                    },
+                };
+            },
+            components: {
+                veTable,
+            },
+        };
+
+        await later();
+
+        const div = document.createElement("div");
+        document.body.appendChild(div);
+
+        // need attach to documnet
+        const wrapper = mount(ParentComp, { attachTo: div });
+
+        // td
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(1);
+
+        // set cell selection
+        firstCell.trigger("click");
+        firstCell.trigger("dblclick");
+
+        await later();
+
+        const textInput = wrapper.find(
+            ".ve-table-edit-input-container-show .ve-table-edit-input",
+        );
+        textInput.setValue("AAA");
+
+        await later();
+
+        // click outside
+        wrapper.find("#outsideButton").trigger("click");
+
+        await later();
+
+        expect(
+            wrapper.find(".ve-table-edit-input-container-show").exists(),
+        ).toBe(false);
+
+        expect(mockFn).toHaveBeenCalled();
+
+        expect(mockFn).toHaveBeenCalledWith(
+            {
+                address: "No.1 Century Avenue, Beijing",
+                date: "AAA",
+                hobby: "coding and coding repeat",
+                name: "Dickerson",
+                rowKey: 1,
+            },
+            {
+                _colspan: 1,
+                _keys: "date",
+                _level: 1,
+                _realTimeWidth: "15%",
+                _rowspan: 1,
+                align: "left",
+                edit: true,
+                field: "date",
+                key: "date",
+                title: "Date",
+                width: "15%",
+            },
+        );
+    });
 });

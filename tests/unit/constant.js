@@ -12,4 +12,6 @@ export const KEY_CODES = {
     ARROW_DOWN: 40,
 
     DELETE: 46,
+
+    F2: 113,
 };
