@@ -1654,6 +1654,85 @@ describe("veTable cell edit", () => {
         );
     });
 
+    // `Alt + Enter`键单元格内文本换行
+    // it("key code alt+enter event", async () => {
+    //     const mockFn = jest.fn();
+
+    //     const wrapper = mount(veTable, {
+    //         propsData: {
+    //             columns: COLUMNS,
+    //             tableData: cloneDeep(TABLE_DATA),
+    //             editOption: {
+    //                 // cell value change
+    //                 cellValueChange: ({ row, column }) => {
+    //                     mockFn(row, column);
+    //                 },
+    //             },
+    //             rowKeyFieldName: "rowKey",
+    //         },
+    //     });
+
+    //     // td
+    //     const firstCell = wrapper
+    //         .findAll(".ve-table-body-tr")
+    //         .at(1)
+    //         .findAll(".ve-table-body-td")
+    //         .at(1);
+
+    //     firstCell.trigger("click");
+    //     firstCell.trigger("dblclick");
+
+    //     await later();
+
+    //     const textInput = wrapper.find(
+    //         ".ve-table-edit-input-container-show .ve-table-edit-input",
+    //     );
+    //     textInput.setValue("AAA");
+
+    //     await later();
+
+    //     document.dispatchEvent(
+    //         new KeyboardEvent("keydown", {
+    //             keyCode: KEY_CODES.ENTER,
+    //             shiftKey: true,
+    //         }),
+    //     );
+
+    //     await later();
+
+    //     wrapper
+    //         .findAll(".ve-table-body-tr")
+    //         .at(1)
+    //         .findAll(".ve-table-body-td")
+    //         .at(2)
+    //         .trigger("click");
+
+    //     expect(mockFn).toHaveBeenCalled();
+
+    //     expect(mockFn).toHaveBeenCalledWith(
+    //         {
+    //             address: "No.1 Century Avenue, Beijing",
+    //             date: "AAA\n",
+    //             hobby: "coding and coding repeat",
+    //             name: "Dickerson",
+    //             rowKey: 1,
+    //         },
+    //         {
+    //             _colspan: 1,
+    //             _keys: "date",
+    //             _level: 1,
+    //             _realTimeWidth: "15%",
+    //             _rowspan: 1,
+    //             align: "left",
+    //             edit: true,
+    //             field: "date",
+    //             key: "date",
+    //             title: "Date",
+    //             width: "15%",
+    //         },
+    //     );
+    // });
+
     // table clickoutside
     it("table clickoutside width cell editing", async () => {
         const mockFn = jest.fn();
