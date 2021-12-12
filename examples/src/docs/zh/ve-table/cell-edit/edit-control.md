@@ -31,8 +31,8 @@
                 editOption: {
                     // cell value change
                     cellValueChange: ({ row, column }) => {
-                        // console.log("cellValueChange row::", row);
-                        // console.log("cellValueChange column::", column);
+                        console.log("cellValueChange row::", row);
+                        console.log("cellValueChange column::", column);
                     },
                 },
                 columns: [
