@@ -1,7 +1,7 @@
 import { mount } from "@vue/test-utils";
 import veTable from "@/ve-table";
 import { later, mockScrollTo } from "../util";
-import bodyTrScrolling from "../../../packages/ve-table/src/body/body-tr-scrolling.jsx";
+import bodyTrScrolling from "@/ve-table/src/body/body-tr-scrolling.jsx";
 
 describe("veTable virtual scroll", () => {
     // same row height
