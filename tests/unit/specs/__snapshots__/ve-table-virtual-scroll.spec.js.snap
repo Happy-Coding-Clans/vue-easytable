@@ -101,3 +101,9 @@ exports[`veTable virtual scroll render same row height 1`] = `
   </div>
 </div>
 `;
+
+exports[`veTable virtual scroll virtual scroll palceholder 1`] = `
+<tr class="ve-table-body-tr">
+  <td colspan="1"></td>
+</tr>
+`;
