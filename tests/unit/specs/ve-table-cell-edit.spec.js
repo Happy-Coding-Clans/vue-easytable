@@ -3,6 +3,7 @@ import { cloneDeep } from "lodash";
 import veTable from "@/ve-table";
 import { later } from "../util";
 import { KEY_CODES } from "../constant";
+import cellEditor from "@/ve-table/src/editor/edit-input.jsx";
 
 describe("veTable cell edit", () => {
     const TABLE_DATA = [
@@ -93,6 +94,16 @@ describe("veTable cell edit", () => {
 
         expect(wrapper.html()).toMatchSnapshot();
     });
+
+    // it("only cell editor render", async () => {
+    //     const wrapper = mount(cellEditor, {
+    //         propsData: {
+    //             colgroups: [{}],
+    //         },
+    //     });
+
+    //     expect(wrapper.html()).toMatchSnapshot();
+    // });
 
     it("cell editing style", async () => {
         const wrapper = mount(veTable, {
