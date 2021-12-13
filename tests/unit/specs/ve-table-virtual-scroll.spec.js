@@ -1,6 +1,7 @@
 import { mount } from "@vue/test-utils";
 import veTable from "@/ve-table";
 import { later, mockScrollTo } from "../util";
+import bodyTrScrolling from "../../../packages/ve-table/src/body/body-tr-scrolling.jsx";
 
 describe("veTable virtual scroll", () => {
     // same row height
@@ -649,6 +650,19 @@ describe("veTable virtual scroll", () => {
         expect(wrapper.findAll(".ve-table-body-tr").length).toBe(rowCount);
     });
 
+    /* 
+    how to test?
+    */
+    it("virtual scroll palceholder", async () => {
+        const wrapper = mount(bodyTrScrolling, {
+            propsData: {
+                colgroups: [{}],
+            },
+        });
+
+        expect(wrapper.html()).toMatchSnapshot();
+    });
+
     // it("virtual scroll placeholder", async () => {
     //     const wrapper = mount(veTable, {
     //         propsData: {
@@ -684,6 +698,8 @@ describe("veTable virtual scroll", () => {
     //             rowKeyFieldName: "rowKey",
     //         },
     //     });
+
+    //     await later();
 
     //     wrapper.triggerResizeObserver({ width: MAX_HEIGHT });
 
