@@ -537,9 +537,10 @@ describe("veTable cell selection", () => {
                     tableData: TABLE_DATA,
                 };
             },
-            components: {
-                veTable,
-            },
+            // veTable is in global
+            // components: {
+            //     veTable,
+            // },
         };
 
         await later();
