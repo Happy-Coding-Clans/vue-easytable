@@ -95,16 +95,6 @@ describe("veTable cell edit", () => {
         expect(wrapper.html()).toMatchSnapshot();
     });
 
-    // it("only cell editor render", async () => {
-    //     const wrapper = mount(cellEditor, {
-    //         propsData: {
-    //             colgroups: [{}],
-    //         },
-    //     });
-
-    //     expect(wrapper.html()).toMatchSnapshot();
-    // });
-
     it("cell editing style", async () => {
         const wrapper = mount(veTable, {
             propsData: {
@@ -1869,4 +1859,105 @@ describe("veTable cell edit", () => {
 
         expect(wrapper.find(".ve-table-is-cell-editing").exists()).toBe(false);
     });
+
+    /*
+    编辑状态的输入框被点击后不允许移动活动单元格
+    */
+    it("cell editing click", async () => {
+        const mockFn = jest.fn();
+
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: cloneDeep(TABLE_DATA),
+                editOption: {
+                    // cell value change
+                    cellValueChange: ({ row, column }) => {
+                        mockFn(row, column);
+                    },
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        // td
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(1);
+
+        firstCell.trigger("click");
+        firstCell.trigger("dblclick");
+
+        await later();
+
+        const textInput = wrapper.find(
+            ".ve-table-edit-input-container-show .ve-table-edit-input",
+        );
+
+        textInput.trigger("click");
+
+        await later();
+
+        document.dispatchEvent(
+            new KeyboardEvent("keydown", { keyCode: KEY_CODES.ARROW_UP }),
+        );
+
+        await later();
+
+        expect(
+            wrapper
+                .findAll(".ve-table-body-tr")
+                .at(1)
+                .findAll(".ve-table-body-td")
+                .at(1)
+                .classes(),
+        ).toContain("ve-table-cell-selection");
+
+        expect(mockFn).not.toHaveBeenCalled();
+    });
+
+    // it("cell editing with table size change", async () => {
+    //     const wrapper = mount(veTable, {
+    //         propsData: {
+    //             columns: COLUMNS,
+    //             tableData: cloneDeep(TABLE_DATA),
+    //             editOption: {
+    //                 // cell value change
+    //                 cellValueChange: ({ row, column }) => {},
+    //             },
+    //             rowKeyFieldName: "rowKey",
+    //         },
+    //     });
+
+    //     const setTableElFn = jest.spyOn(cellEditor.methods, "setTableEl");
+
+    //     // td
+    //     const firstCell = wrapper
+    //         .findAll(".ve-table-body-tr")
+    //         .at(1)
+    //         .findAll(".ve-table-body-td")
+    //         .at(1);
+
+    //     firstCell.trigger("click");
+    //     firstCell.trigger("dblclick");
+
+    //     await later();
+
+    //     expect(
+    //         wrapper.find(".ve-table-edit-input-container-show").exists(),
+    //     ).toBe(true);
+
+    //     // change table width
+    //     wrapper.triggerResizeObserver({ width: 500 });
+
+    //     await later();
+
+    //     expect(setTableElFn).toHaveBeenCalled();
+
+    //     expect(
+    //         wrapper.find(".ve-table-edit-input-container-show").exists(),
+    //     ).toBe(true);
+    // });
 });
