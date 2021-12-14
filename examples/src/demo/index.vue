@@ -88,25 +88,26 @@
                     </el-row>
                 </div> -->
             </div>
-            <ve-table
-                id="demo-loading-container"
-                ref="tableRef"
-                fixed-header
-                border-y
-                max-height="calc(100vh - 160px)"
-                :edit-option="editOption"
-                :scroll-width="tableScrollWdith"
-                :sort-option="sortOption"
-                :virtual-scroll-option="virtualScrollOption"
-                :columns="columns"
-                :table-data="tableData"
-                row-key-field-name="rowKey"
-                :cell-style-option="cellStyleOption"
-                :expand-option="expandOption"
-                :radio-option="radioOption"
-                :checkbox-option="checkboxOption"
-                :row-style-option="rowStyleOption"
-            />
+            <div class="table-list">
+                <ve-table
+                    id="demo-loading-container"
+                    ref="tableRef"
+                    fixed-header
+                    border-y
+                    max-height="calc(100vh - 160px)"
+                    :scroll-width="tableScrollWdith"
+                    :sort-option="sortOption"
+                    :virtual-scroll-option="virtualScrollOption"
+                    :columns="columns"
+                    :table-data="tableData"
+                    row-key-field-name="rowKey"
+                    :cell-style-option="cellStyleOption"
+                    :expand-option="expandOption"
+                    :radio-option="radioOption"
+                    :checkbox-option="checkboxOption"
+                    :row-style-option="rowStyleOption"
+                />
+            </div>
         </div>
         <!-- <Footer /> -->
     </div>
@@ -638,52 +639,54 @@ export default {
         }
     }
 
-    // demo sex field
-    .demo-sex {
-        &.icon-male {
-            color: #91d5ff !important;
+    .table-list {
+        // demo sex field
+        .demo-sex {
+            &.icon-male {
+                color: #91d5ff !important;
+            }
+
+            &.icon-female {
+                color: #ffadd2 !important;
+            }
         }
 
-        &.icon-female {
-            color: #ffadd2 !important;
+        // proficiency filed custom cell style
+        .table-body-cell-proficiency {
+            padding: 0 !important;
         }
-    }
-
-    // proficiency filed custom cell style
-    .table-body-cell-proficiency {
-        padding: 0 !important;
-    }
-    // proficiency filed
-    .proficiency-span-container {
-        height: 100%;
-        text-align: left;
-        .proficiency-span {
+        // proficiency filed
+        .proficiency-span-container {
             height: 100%;
-            display: inline-flex;
-            align-items: center;
-            padding-left: 10px;
-            font-weight: bold;
-            color: #555;
+            text-align: left;
+            .proficiency-span {
+                height: 100%;
+                display: inline-flex;
+                align-items: center;
+                padding-left: 10px;
+                font-weight: bold;
+                color: #555;
 
-            &.demo-blue {
-                background-color: RGBA(24, 144, 255, 0.7);
-            }
-            &.demo-orange {
-                background-color: RGBA(255, 179, 0, 0.7);
-            }
-            &.demo-red {
-                background-color: RGBA(244, 93, 81, 0.7);
+                &.demo-blue {
+                    background-color: RGBA(24, 144, 255, 0.7);
+                }
+                &.demo-orange {
+                    background-color: RGBA(255, 179, 0, 0.7);
+                }
+                &.demo-red {
+                    background-color: RGBA(244, 93, 81, 0.7);
+                }
             }
         }
-    }
 
-    // skills
-    .skill-span {
-        display: inline-block;
-        margin-right: 5px;
-        padding: 3px 8px;
-        border-radius: 4px;
-        color: #333;
+        // skills
+        .skill-span {
+            display: inline-block;
+            margin-right: 5px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #333;
+        }
     }
 }
 </style>
