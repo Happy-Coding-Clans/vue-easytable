@@ -626,6 +626,8 @@ export default {
 </script>
 <style lang="less">
 .site-demo-container {
+    display: flex;
+    flex-direction: column;
     background: #fff;
     margin-top: 62px;
     padding: 10px;
