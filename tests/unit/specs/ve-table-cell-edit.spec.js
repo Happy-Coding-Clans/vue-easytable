@@ -1919,44 +1919,7 @@ describe("veTable cell edit", () => {
         expect(mockFn).not.toHaveBeenCalled();
     });
 
-    it("cell editing with table size change", async () => {
-        const wrapper = mount(veTable, {
-            propsData: {
-                columns: COLUMNS,
-                tableData: cloneDeep(TABLE_DATA),
-                editOption: {
-                    // cell value change
-                    cellValueChange: ({ row, column }) => {},
-                },
-                rowKeyFieldName: "rowKey",
-            },
-        });
-
-        // td
-        const firstCell = wrapper
-            .findAll(".ve-table-body-tr")
-            .at(1)
-            .findAll(".ve-table-body-td")
-            .at(1);
-
-        firstCell.trigger("click");
-        firstCell.trigger("dblclick");
-
-        await later();
-
-        //const cellEditor2 = wrapper.findComponent({ name: "VeTableEditIput" });
-
-        // change table width
-        wrapper.triggerResizeObserver({ width: 500 });
-
-        expect(
-            wrapper.find(".ve-table-edit-input-container-show").exists(),
-        ).toBe(true);
-    });
-
-    it("cell editing with table scrolling", async () => {
-        //  this.hooks.triggerHook(HOOKS_NAME.TABLE_CONTAINER_SCROLL);
-
+    it("cell editing with table size change and scrolling", async () => {
         const wrapper = mount(veTable, {
             propsData: {
                 columns: COLUMNS,
@@ -1983,7 +1946,19 @@ describe("veTable cell edit", () => {
 
         const cellEditor = wrapper.findComponent({ name: "VeTableEditIput" });
 
+        cellEditor.vm.hooks.triggerHook(HOOKS_NAME.TABLE_SIZE_CHANGE);
         cellEditor.vm.hooks.triggerHook(HOOKS_NAME.TABLE_CONTAINER_SCROLL);
+
+        expect(
+            wrapper.find(".ve-table-edit-input-container-show").exists(),
+        ).toBe(true);
+
+        wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(2)
+            .trigger("click");
 
         expect(
             wrapper.find(".ve-table-edit-input-container-show").exists(),
