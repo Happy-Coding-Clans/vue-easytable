@@ -3,7 +3,8 @@ import { cloneDeep } from "lodash";
 import veTable from "@/ve-table";
 import { later } from "../util";
 import { KEY_CODES } from "../constant";
-import cellEditor from "@/ve-table/src/editor/edit-input.jsx";
+// import cellEditor from "@/ve-table/src/editor/edit-input.jsx";
+import { HOOKS_NAME } from "@/ve-table/src/util/constant";
 
 describe("veTable cell edit", () => {
     const TABLE_DATA = [
@@ -1947,6 +1948,42 @@ describe("veTable cell edit", () => {
 
         // change table width
         wrapper.triggerResizeObserver({ width: 500 });
+
+        expect(
+            wrapper.find(".ve-table-edit-input-container-show").exists(),
+        ).toBe(true);
+    });
+
+    it("cell editing with table scrolling", async () => {
+        //  this.hooks.triggerHook(HOOKS_NAME.TABLE_CONTAINER_SCROLL);
+
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: cloneDeep(TABLE_DATA),
+                editOption: {
+                    // cell value change
+                    cellValueChange: ({ row, column }) => {},
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        // td
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(1);
+
+        firstCell.trigger("click");
+        firstCell.trigger("dblclick");
+
+        await later();
+
+        const cellEditor = wrapper.findComponent({ name: "VeTableEditIput" });
+
+        cellEditor.vm.hooks.triggerHook(HOOKS_NAME.TABLE_CONTAINER_SCROLL);
 
         expect(
             wrapper.find(".ve-table-edit-input-container-show").exists(),
