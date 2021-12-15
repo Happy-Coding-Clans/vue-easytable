@@ -1918,46 +1918,38 @@ describe("veTable cell edit", () => {
         expect(mockFn).not.toHaveBeenCalled();
     });
 
-    // it("cell editing with table size change", async () => {
-    //     const wrapper = mount(veTable, {
-    //         propsData: {
-    //             columns: COLUMNS,
-    //             tableData: cloneDeep(TABLE_DATA),
-    //             editOption: {
-    //                 // cell value change
-    //                 cellValueChange: ({ row, column }) => {},
-    //             },
-    //             rowKeyFieldName: "rowKey",
-    //         },
-    //     });
+    it("cell editing with table size change", async () => {
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: cloneDeep(TABLE_DATA),
+                editOption: {
+                    // cell value change
+                    cellValueChange: ({ row, column }) => {},
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
 
-    //     const setTableElFn = jest.spyOn(cellEditor.methods, "setTableEl");
+        // td
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(1);
 
-    //     // td
-    //     const firstCell = wrapper
-    //         .findAll(".ve-table-body-tr")
-    //         .at(1)
-    //         .findAll(".ve-table-body-td")
-    //         .at(1);
+        firstCell.trigger("click");
+        firstCell.trigger("dblclick");
 
-    //     firstCell.trigger("click");
-    //     firstCell.trigger("dblclick");
+        await later();
 
-    //     await later();
+        //const cellEditor2 = wrapper.findComponent({ name: "VeTableEditIput" });
 
-    //     expect(
-    //         wrapper.find(".ve-table-edit-input-container-show").exists(),
-    //     ).toBe(true);
+        // change table width
+        wrapper.triggerResizeObserver({ width: 500 });
 
-    //     // change table width
-    //     wrapper.triggerResizeObserver({ width: 500 });
-
-    //     await later();
-
-    //     expect(setTableElFn).toHaveBeenCalled();
-
-    //     expect(
-    //         wrapper.find(".ve-table-edit-input-container-show").exists(),
-    //     ).toBe(true);
-    // });
+        expect(
+            wrapper.find(".ve-table-edit-input-container-show").exists(),
+        ).toBe(true);
+    });
 });
