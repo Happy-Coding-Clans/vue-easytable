@@ -2057,7 +2057,6 @@ export default {
                 tableData: this.tableData,
                 cellSelectionKeyData,
                 colgroups,
-                editOption,
                 editingCell: this.editingCell,
                 isEditingCell: this.isEditingCell,
                 allRowKeys: this.allRowKeys,

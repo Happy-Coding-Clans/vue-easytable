@@ -43,13 +43,6 @@ export default {
             type: Object,
             required: true,
         },
-        // edit option
-        editOption: {
-            type: Object,
-            default: function () {
-                return null;
-            },
-        },
         // editing cell
         editingCell: {
             type: Object,
