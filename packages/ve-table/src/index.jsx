@@ -1978,6 +1978,7 @@ export default {
                     // fixed #404
                     this.initScrolling();
                     this.setScrollBarStatus();
+                    this.hooks.triggerHook(HOOKS_NAME.TABLE_SIZE_CHANGE);
                 },
             },
             directives: [
@@ -2042,7 +2043,6 @@ export default {
             on: {
                 "on-dom-resize-change": ({ height }) => {
                     this.tableHeight = height;
-                    this.hooks.triggerHook(HOOKS_NAME.TABLE_SIZE_CHANGE);
                 },
             },
         };
