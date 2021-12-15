@@ -1,6 +1,6 @@
 :::anchor 可控编辑
 
-:::demo 1、通过实例方法`startEditingCell({ rowKey, colKey, defaultValue })`开启编辑的单元格<br>2、通过实例方法`stopEditingCell({ rowKey, colKey })`停止编辑的单元格
+:::demo 1、通过实例方法`startEditingCell({ rowKey, colKey, defaultValue })`编辑指定的单元格
 
 ```html
 <template>

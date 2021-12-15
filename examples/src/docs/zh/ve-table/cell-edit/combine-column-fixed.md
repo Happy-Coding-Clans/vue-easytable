@@ -1,8 +1,6 @@
-:::anchor 双击编辑
+:::anchor 结合固定列
 
-你可以通过 `Enter`键配合上、下、左、右键，无需使用鼠标实现编辑操作
-
-:::demo 1、默认双击开启编辑单元格<br>2、单元格停止编辑后将触发`cellValueChange`方法，参数`row`为更新后的行数据信息，参数`column`为当前编辑的列信息
+:::demo
 
 ```html
 <template>
@@ -130,9 +128,9 @@
                 for (let i = 0; i < 100; i++) {
                     data.push({
                         rowKey: i,
-                        col1: i + "aaaaaa",
-                        col2: "",
-                        col3: 111,
+                        col1: i,
+                        col2: i,
+                        col3: i,
                         col4: i,
                         col5: i,
                         col6: i,
