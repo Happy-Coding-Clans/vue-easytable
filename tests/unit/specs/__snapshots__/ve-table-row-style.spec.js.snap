@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`veTable row style render 1`] = `
-<div class="ve-table">
-  <div class="ve-table-container ve-table-border-around" style="height: 2px;">
+<div class="ve-table ve-table-border-around">
+  <div class="ve-table-container" style="height: 2px;">
     <table class="ve-table-content ve-table-border-x">
       <colgroup>
         <col style="width: 200px;">
@@ -23,29 +23,29 @@ exports[`veTable row style render 1`] = `
           <td style="padding: 0px; border: 0px; height: 0px;"></td>
         </tr>
         <tr row-key="0" class="ve-table-body-tr">
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">John</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">coding</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Shanghai</td>
+          <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">John</td>
+          <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: left;">coding</td>
+          <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Shanghai</td>
         </tr>
         <tr row-key="1" class="ve-table-body-tr">
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">Dickerson</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">coding</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Beijing</td>
+          <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">Dickerson</td>
+          <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: left;">coding</td>
+          <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Beijing</td>
         </tr>
         <tr row-key="2" class="ve-table-body-tr">
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">Larsen</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">coding and coding repeat</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Chongqing</td>
+          <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">Larsen</td>
+          <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: left;">coding and coding repeat</td>
+          <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Chongqing</td>
         </tr>
         <tr row-key="3" class="ve-table-body-tr">
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">Geneva</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">coding and coding repeat</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Xiamen</td>
+          <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">Geneva</td>
+          <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: left;">coding and coding repeat</td>
+          <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Xiamen</td>
         </tr>
         <tr row-key="4" class="ve-table-body-tr">
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">Jami</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">coding and coding repeat</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Shenzhen</td>
+          <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">Jami</td>
+          <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: left;">coding and coding repeat</td>
+          <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Shenzhen</td>
         </tr>
       </tbody>
       <tfoot class="ve-table-fixed-footer ve-table-footer"></tfoot>

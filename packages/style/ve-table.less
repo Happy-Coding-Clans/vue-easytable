@@ -5,32 +5,6 @@
 @ve-fixed-foot-cell-index: 3;
 @ve-virtual-phantom-index: -1;
 
-/* fixed column shadow */
-.ve-fixed-column-shadow() {
-    &.ve-table-last-left-fixed-column,
-    &.ve-table-first-right-fixed-column {
-        &::after {
-            position: absolute;
-            top: 0;
-            bottom: -1px;
-            width: 30px;
-            // fixed 固定列纵向滚动条问题
-            height: 100%;
-            transition: box-shadow 0.3s;
-            content: "";
-            pointer-events: none;
-        }
-    }
-    &.ve-table-last-left-fixed-column::after {
-        transform: translateX(100%);
-        right: 0;
-    }
-    &.ve-table-first-right-fixed-column::after {
-        transform: translateX(-100%);
-        left: 0;
-    }
-}
-
 .ve-table *,
 .ve-table *:before,
 .ve-table *:after {
@@ -40,155 +14,38 @@
 }
 
 .ve-table {
-    table.ve-table-content {
-        min-width: 100%;
-        table-layout: fixed;
-        border-collapse: separate;
-        border-spacing: 0;
+    position: relative;
+    overflow: hidden;
 
-        // 表头
-        thead.ve-table-header {
-            tr.ve-table-header-tr {
-                height: @ve-table-head-row-height;
-                th.ve-table-header-th {
-                    background-color: @ve-table-header-background-color;
-                    padding: @ve-table-head-row-td-padding;
-                    font-weight: 500;
-                    color: @ve-table-head-text-color;
-                    font-size: @ve-table-head-text-font-size;
-                }
-            }
-        }
-
-        // body
-        tbody.ve-table-body {
-            tr.ve-table-body-tr,
-            tr.ve-table-expand-tr {
-                height: @ve-table-body-row-height;
-                td.ve-table-body-td,
-                td.ve-table-expand-td {
-                    background-color: @ve-table-body-background-color;
-                    color: @ve-table-body-text-color;
-                    // hack content fill td height
-                    //height: 1px;
-                    height: inherit;
-                    font-size: @ve-table-body-text-font-size;
-                }
-
-                td.ve-table-body-td {
-                    padding: @ve-table-body-row-td-padding;
-                }
-            }
-
-            tr.ve-table-expand-tr {
-                display: table-row;
-            }
-
-            // 斑马纹
-            &.ve-table-stripe {
-                tr.ve-table-body-tr:nth-child(2n + 1) td {
-                    background-color: @ve-table-body-row-stripe-background-color;
-                }
-            }
-
-            // 行悬浮效果
-            &.ve-table-row-hover {
-                tr.ve-table-body-tr:hover td {
-                    background-color: @ve-table-body-row-hover-background-color;
-                }
-            }
-
-            // 行点击高亮
-            &.ve-table-row-highlight {
-                tr.ve-table-body-tr {
-                    &.ve-table-tr-highlight {
-                        td {
-                            background-color: @ve-table-body-row-highlight-background-color;
-                        }
-                    }
-                }
-            }
-        }
-
-        // foot
-        tfoot.ve-table-footer {
-            tr.ve-table-footer-tr {
-                height: @ve-table-foot-row-height;
-                td.ve-table-footer-td {
-                    background-color: @ve-table-foot-background-color;
-                    color: @ve-table-foot-text-color;
-                    padding: @ve-table-foot-row-td-padding;
-                    font-size: @ve-table-foot-text-font-size;
-                }
-            }
-        }
-    }
-
+    // table container
     .ve-table-container {
+        position: relative;
         overflow-y: auto;
         height: 100%;
         width: 100%;
-
-        position: relative;
-        .ve-table-content {
+        // table content
+        table.ve-table-content {
             position: absolute;
             left: 0;
             right: 0;
             top: 0;
-        }
-
-        // virtual scroll phantom
-        .ve-table-virtual-phantom {
-            &.ve-table-virtual-scroll {
-                position: absolute;
-                left: 0;
-                top: 0;
-                right: 0;
-                z-index: @ve-virtual-phantom-index;
-            }
-        }
-
-        // 固定列效果
-        &.ve-table-container-left-scrolling {
-            .ve-table-last-left-fixed-column::after {
-                box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.15);
-            }
-        }
-        &.ve-table-container-right-scrolling {
-            .ve-table-first-right-fixed-column::after {
-                box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.15);
-            }
-        }
-
-        // 表格
-        .ve-table-content {
-            &.ve-table-border-x {
-                th,
-                td {
-                    border-bottom: 1px solid @ve-table-border-color;
-                }
-
-                tr:first-child > th,
-                // footer
-                tr.ve-table-footer-tr:first-child > td {
-                    border-top: 1px solid @ve-table-border-color;
-                }
-            }
-
-            &.ve-table-border-y {
-                th,
-                td {
-                    border-right: 1px solid @ve-table-border-color;
-                }
-
-                th:first-child,
-                td:first-child {
-                    border-left: 1px solid @ve-table-border-color;
-                }
-            }
+            min-width: 100%;
+            table-layout: fixed;
+            border-collapse: separate;
+            border-spacing: 0;
 
             // 表头（需要处理多表头情况）
             thead.ve-table-header {
+                tr.ve-table-header-tr {
+                    height: @ve-table-head-row-height;
+                    th.ve-table-header-th {
+                        background-color: @ve-table-header-background-color;
+                        padding: @ve-table-head-row-td-padding;
+                        font-weight: 500;
+                        color: @ve-table-head-text-color;
+                        font-size: @ve-table-head-text-font-size;
+                    }
+                }
                 // 固定头
                 &.ve-table-fixed-header {
                     tr th {
@@ -204,9 +61,6 @@
                             position: sticky;
                             z-index: @ve-fixed-header-cell-index;
                         }
-                        /* fixed column shadow */
-                        .ve-fixed-column-shadow();
-
                         // checkbox
                         .ve-table-checkbox-wrapper {
                             width: 25px;
@@ -258,6 +112,54 @@
 
             // tbody
             tbody.ve-table-body {
+                tr.ve-table-body-tr,
+                tr.ve-table-expand-tr {
+                    height: @ve-table-body-row-height;
+                    td.ve-table-body-td,
+                    td.ve-table-expand-td {
+                        background-color: @ve-table-body-background-color;
+                        color: @ve-table-body-text-color;
+                        // hack content fill td height
+                        //height: 1px;
+                        height: inherit;
+                        font-size: @ve-table-body-text-font-size;
+                    }
+
+                    td.ve-table-body-td {
+                        padding: @ve-table-body-row-td-padding;
+                        white-space: pre-wrap;
+                        overflow: hidden;
+                    }
+                }
+
+                tr.ve-table-expand-tr {
+                    display: table-row;
+                }
+
+                // 斑马纹
+                &.ve-table-stripe {
+                    tr.ve-table-body-tr:nth-child(2n + 1) td {
+                        background-color: @ve-table-body-row-stripe-background-color;
+                    }
+                }
+
+                // 行悬浮效果
+                &.ve-table-row-hover {
+                    tr.ve-table-body-tr:hover td {
+                        background-color: @ve-table-body-row-hover-background-color;
+                    }
+                }
+
+                // 行点击高亮
+                &.ve-table-row-highlight {
+                    tr.ve-table-body-tr {
+                        &.ve-table-tr-highlight {
+                            td {
+                                background-color: @ve-table-body-row-highlight-background-color;
+                            }
+                        }
+                    }
+                }
                 .ve-table-body-tr {
                     .ve-table-body-td {
                         // 固定左列、右列
@@ -266,8 +168,6 @@
                             position: sticky;
                             z-index: @ve-fixed-body-cell-index;
                         }
-                        /* fixed column shadow */
-                        .ve-fixed-column-shadow();
 
                         // cell selection
                         &.ve-table-cell-selection {
@@ -309,24 +209,6 @@
                             /* -webkit-line-clamp: 1; */
                             -webkit-box-orient: vertical;
                         }
-
-                        // editing
-                        &.ve-table-body-td-editing {
-                            padding: 1px;
-                            border: 2px solid @ve-table-td-editing-border-color !important;
-
-                            // edit input
-                            .ve-table-body-td-edit-input {
-                                display: inline-block;
-                                width: 100%;
-                                height: 100%;
-                                border: none;
-                                box-sizing: border-box;
-                                outline: none;
-                                background-color: #fff;
-                                text-align: inherit;
-                            }
-                        }
                     }
                 }
 
@@ -343,6 +225,15 @@
 
             //  tfooter
             tfoot.ve-table-footer {
+                tr.ve-table-footer-tr {
+                    height: @ve-table-foot-row-height;
+                    td.ve-table-footer-td {
+                        background-color: @ve-table-foot-background-color;
+                        color: @ve-table-foot-text-color;
+                        padding: @ve-table-foot-row-td-padding;
+                        font-size: @ve-table-foot-text-font-size;
+                    }
+                }
                 // 固定footer
                 &.ve-table-fixed-footer {
                     tr td {
@@ -359,37 +250,124 @@
                             position: sticky;
                             z-index: @ve-fixed-foot-cell-index;
                         }
-                        /* fixed column shadow */
-                        .ve-fixed-column-shadow();
                     }
                 }
             }
         }
 
-        // 外边框
-        &.ve-table-border-around {
-            border: 1px solid @ve-table-border-color;
+        // virtual scroll phantom
+        .ve-table-virtual-phantom {
+            &.ve-table-virtual-scroll {
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                z-index: @ve-virtual-phantom-index;
+            }
+        }
 
-            .ve-table-border-x {
-                tr:last-child > td {
-                    border-bottom: 0px;
-                }
-                tr:first-child > th {
-                    border-top: 0px;
+        // column fix effect
+        &.ve-table-container-left-scrolling {
+            .ve-table-last-left-fixed-column {
+                border-right-color: @ve-table-column-fixed-border-color;
+            }
+        }
+        &.ve-table-container-right-scrolling {
+            .ve-table-first-right-fixed-column {
+                border-left: 1px solid @ve-table-column-fixed-border-color;
+            }
+        }
+
+        // is cell editing
+        &.ve-table-is-cell-editing {
+            .ve-table-content {
+                .ve-table-body {
+                    .ve-table-body-tr {
+                        .ve-table-body-td.ve-table-cell-selection {
+                            border-width: 0px;
+                        }
+                    }
                 }
             }
+        }
 
-            .ve-table-border-y {
-                th.ve-table-last-column,
-                td:last-child {
-                    border-right: 0px;
+        // border x
+        .ve-table-border-x {
+            th,
+            td {
+                border-bottom: 1px solid @ve-table-border-color;
+            }
+
+            tr:first-child > th,
+            // footer
+            tr.ve-table-footer-tr:first-child > td {
+                border-top: 1px solid @ve-table-border-color;
+            }
+        }
+        // border y
+        .ve-table-border-y {
+            th,
+            td {
+                border-right: 1px solid @ve-table-border-color;
+            }
+
+            th:first-child,
+            td:first-child {
+                border-left: 1px solid @ve-table-border-color;
+            }
+        }
+    }
+
+    // border around
+    &.ve-table-border-around {
+        border: 1px solid @ve-table-border-color;
+        .ve-table-container {
+            table.ve-table-content {
+                &.ve-table-border-x {
+                    tr:last-child > td {
+                        border-bottom: 0px;
+                    }
+                    tr:first-child > th {
+                        border-top: 0px;
+                    }
                 }
 
-                th:first-child,
-                td:first-child {
-                    border-left: 0px;
+                &.ve-table-border-y {
+                    th.ve-table-last-column,
+                    td:last-child {
+                        border-right: 0px;
+                    }
+
+                    th:first-child,
+                    td:first-child {
+                        border-left: 0px;
+                    }
                 }
             }
+        }
+    }
+
+    // edit input
+    .ve-table-edit-input-container {
+        position: absolute;
+        right: auto;
+
+        .ve-table-edit-input {
+            resize: none;
+            overflow-y: visible;
+            border: none;
+            outline-width: 0;
+            margin: 0;
+            padding: 1px 5px 0;
+            font-family: inherit;
+            line-height: @ve-table-td-editing-line-height;
+            font-size: inherit;
+            border: 2px solid @ve-table-td-editing-border-color;
+            box-shadow: 1px 2px 5px 0 #1f232966;
+            display: block;
+            color: #000;
+            border-radius: 0;
+            background-color: #fff;
         }
     }
 }

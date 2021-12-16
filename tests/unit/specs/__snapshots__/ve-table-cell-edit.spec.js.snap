@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`veTable cell edit cell editor render 1`] = `
+<div class="ve-table ve-table-border-around">
+  <div class="ve-table-container" style="height: 2px;">
+    <table class="ve-table-content ve-table-border-x">
+      <colgroup>
+        <col style="width: 15%;">
+        <col style="width: 15%;">
+        <col style="width: 30%;">
+        <col style="width: 40%;">
+      </colgroup>
+      <thead class="ve-table-fixed-header ve-table-header">
+        <tr class="ve-table-header-tr">
+          <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Name</th>
+          <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Date</th>
+          <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;">Hobby</th>
+          <th rowspan="1" colspan="1" class="ve-table-header-th ve-table-last-column" style="text-align: left; top: 0px;">Address</th>
+        </tr>
+      </thead>
+      <tbody class="ve-table-body ve-table-row-hover ve-table-row-highlight">
+        <tr style="height: 0px;">
+          <td style="padding: 0px; border: 0px; height: 0px;"></td>
+          <td style="padding: 0px; border: 0px; height: 0px;"></td>
+          <td style="padding: 0px; border: 0px; height: 0px;"></td>
+          <td style="padding: 0px; border: 0px; height: 0px;"></td>
+        </tr>
+        <tr row-key="0" class="ve-table-body-tr">
+          <td rowspan="1" colspan="1" col-key="name" class="ve-table-body-td" style="text-align: left;">John</td>
+          <td rowspan="1" colspan="1" col-key="date" class="ve-table-body-td" style="text-align: left;">1900-05-20</td>
+          <td rowspan="1" colspan="1" col-key="hobby" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
+          <td rowspan="1" colspan="1" col-key="address" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Shanghai</td>
+        </tr>
+        <tr row-key="1" class="ve-table-body-tr">
+          <td rowspan="1" colspan="1" col-key="name" class="ve-table-body-td" style="text-align: left;">Dickerson</td>
+          <td rowspan="1" colspan="1" col-key="date" class="ve-table-body-td" style="text-align: left;">1910-06-20</td>
+          <td rowspan="1" colspan="1" col-key="hobby" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
+          <td rowspan="1" colspan="1" col-key="address" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Beijing</td>
+        </tr>
+        <tr row-key="2" class="ve-table-body-tr">
+          <td rowspan="1" colspan="1" col-key="name" class="ve-table-body-td" style="text-align: left;">Larsen</td>
+          <td rowspan="1" colspan="1" col-key="date" class="ve-table-body-td" style="text-align: left;">2000-07-20</td>
+          <td rowspan="1" colspan="1" col-key="hobby" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
+          <td rowspan="1" colspan="1" col-key="address" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Chongqing</td>
+        </tr>
+        <tr row-key="3" class="ve-table-body-tr">
+          <td rowspan="1" colspan="1" col-key="name" class="ve-table-body-td" style="text-align: left;">Geneva</td>
+          <td rowspan="1" colspan="1" col-key="date" class="ve-table-body-td" style="text-align: left;">2010-08-20</td>
+          <td rowspan="1" colspan="1" col-key="hobby" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
+          <td rowspan="1" colspan="1" col-key="address" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Xiamen</td>
+        </tr>
+        <tr row-key="4" class="ve-table-body-tr">
+          <td rowspan="1" colspan="1" col-key="name" class="ve-table-body-td" style="text-align: left;">Jami</td>
+          <td rowspan="1" colspan="1" col-key="date" class="ve-table-body-td" style="text-align: left;">2020-09-20</td>
+          <td rowspan="1" colspan="1" col-key="hobby" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
+          <td rowspan="1" colspan="1" col-key="address" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Shenzhen</td>
+        </tr>
+      </tbody>
+      <tfoot class="ve-table-fixed-footer ve-table-footer"></tfoot>
+    </table>
+  </div>
+  <div class="ve-table-edit-input-container" style="top: 0px; left: 0px; height: 1px; z-index: -1; opacity: 0;"><textarea tabindex="-1" class="ve-table-edit-input"></textarea></div>
+</div>
+`;
+
+exports[`veTable cell edit table clickoutside width cell editing 1`] = `
+<div><button id="outsideButton">outside table</button>
+  <div class="ve-table ve-table-border-around">
+    <div class="ve-table-container" style="height: 2px;">
+      <table class="ve-table-content ve-table-border-x">
+        <colgroup>
+          <col style="width: 15%;">
+          <col style="width: 15%;">
+          <col style="width: 30%;">
+          <col style="width: 40%;">
+        </colgroup>
+        <thead class="ve-table-fixed-header ve-table-header">
+          <tr class="ve-table-header-tr">
+            <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Name</th>
+            <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Date</th>
+            <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;">Hobby</th>
+            <th rowspan="1" colspan="1" class="ve-table-header-th ve-table-last-column" style="text-align: left; top: 0px;">Address</th>
+          </tr>
+        </thead>
+        <tbody class="ve-table-body ve-table-row-hover ve-table-row-highlight">
+          <tr style="height: 0px;">
+            <td style="padding: 0px; border: 0px; height: 0px;"></td>
+            <td style="padding: 0px; border: 0px; height: 0px;"></td>
+            <td style="padding: 0px; border: 0px; height: 0px;"></td>
+            <td style="padding: 0px; border: 0px; height: 0px;"></td>
+          </tr>
+          <tr class="ve-table-body-tr">
+            <td rowspan="1" colspan="1" col-key="name" class="ve-table-body-td" style="text-align: left;">John</td>
+            <td rowspan="1" colspan="1" col-key="date" class="ve-table-body-td" style="text-align: left;">1900-05-20</td>
+            <td rowspan="1" colspan="1" col-key="hobby" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
+            <td rowspan="1" colspan="1" col-key="address" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Shanghai</td>
+          </tr>
+          <tr class="ve-table-body-tr">
+            <td rowspan="1" colspan="1" col-key="name" class="ve-table-body-td" style="text-align: left;">Dickerson</td>
+            <td rowspan="1" colspan="1" col-key="date" class="ve-table-body-td" style="text-align: left;">1910-06-20</td>
+            <td rowspan="1" colspan="1" col-key="hobby" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
+            <td rowspan="1" colspan="1" col-key="address" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Beijing</td>
+          </tr>
+          <tr class="ve-table-body-tr">
+            <td rowspan="1" colspan="1" col-key="name" class="ve-table-body-td" style="text-align: left;">Larsen</td>
+            <td rowspan="1" colspan="1" col-key="date" class="ve-table-body-td" style="text-align: left;">2000-07-20</td>
+            <td rowspan="1" colspan="1" col-key="hobby" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
+            <td rowspan="1" colspan="1" col-key="address" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Chongqing</td>
+          </tr>
+          <tr class="ve-table-body-tr">
+            <td rowspan="1" colspan="1" col-key="name" class="ve-table-body-td" style="text-align: left;">Geneva</td>
+            <td rowspan="1" colspan="1" col-key="date" class="ve-table-body-td" style="text-align: left;">2010-08-20</td>
+            <td rowspan="1" colspan="1" col-key="hobby" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
+            <td rowspan="1" colspan="1" col-key="address" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Xiamen</td>
+          </tr>
+          <tr class="ve-table-body-tr">
+            <td rowspan="1" colspan="1" col-key="name" class="ve-table-body-td" style="text-align: left;">Jami</td>
+            <td rowspan="1" colspan="1" col-key="date" class="ve-table-body-td" style="text-align: left;">2020-09-20</td>
+            <td rowspan="1" colspan="1" col-key="hobby" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
+            <td rowspan="1" colspan="1" col-key="address" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Shenzhen</td>
+          </tr>
+        </tbody>
+        <tfoot class="ve-table-fixed-footer ve-table-footer"></tfoot>
+      </table>
+    </div>
+    <div class="ve-table-edit-input-container" style="top: 0px; left: 0px; height: 1px; z-index: -1; opacity: 0;"><textarea tabindex="-1" class="ve-table-edit-input"></textarea></div>
+  </div>
+</div>
+`;

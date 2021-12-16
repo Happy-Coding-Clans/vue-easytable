@@ -24,6 +24,14 @@ export const EXPAND_TRIGGER_TYPES = {
     ROW: "row",
 };
 
+// cell selection direction
+export const CELL_SELECTION_DIRECTION = {
+    UP: "up",
+    RIGHT: "right",
+    DOWN: "down",
+    LEFT: "left",
+};
+
 // emit events
 export const EMIT_EVENTS = {
     // body-td-width-change
@@ -40,11 +48,7 @@ export const EMIT_EVENTS = {
     BODY_TD_CLICK: "on-body-td-click",
     // body td double click
     BODY_TD_DOUBLE_CLICK: "on-body-td-double-click",
-    // body td edit cell blur
-    BODY_TD_EDIT_CELL_BLUR: "on-body-td-edit-cell-blur",
-    // body td edit cell value change
-    BODY_TD_EDIT_CELL_VALUE_CHANGE: "on-body-td-edit-cell-value-change",
-    // expand-row-change
+    // expand row change
     EXPAND_ROW_CHANGE: "on-expand-row-change",
     // checkbox selected row change
     CHECKBOX_SELECTED_ROW_CHANGE: "on-checkbox-selected-row-change",
@@ -64,33 +68,56 @@ export const EMIT_EVENTS = {
     HEADER_FILTER_RESET: "on-filter-reset",
     // highlight row change
     HIGHLIGHT_ROW_CHANGE: "on-highlight-row-change",
+
+    // edit input clicked
+    EDIT_INPUT_CLICK: "on-edit-input-click",
+    // edit input blur
+    EDIT_INPUT_BLUR: "on-edit-input-blur",
+    // edit input value change
+    EDIT_INPUT_VALUE_CHANGE: "on-edit-input-value-change",
+};
+
+// hooks name
+export const HOOKS_NAME = {
+    //table container scroll
+    TABLE_CONTAINER_SCROLL: "table-container-scroll",
+    // table size change
+    TABLE_SIZE_CHANGE: "table-size-change",
 };
 
 // comps name
 export const COMPS_NAME = {
     VE_TABLE: "VeTable",
-    VE_TABLE_BODY: "VeTableBody",
-    VE_TABLE_BODY_TR: "VeTableBodyTr",
-    VE_TABLE_BODY_TR_SCROLLING: "VeTableBodyTrScrolling",
-    VE_TABLE_EXPAND_TR: "VeTableExpandTr",
-    VE_TABLE_EXPAND_TR_ICON: "VeTableExpandTrIcon",
-    VE_TABLE_BODY_TD: "VeTableBodyTd",
+
     VE_TABLE_THADER: "VeTableHeader",
     VE_TABLE_THADER_TR: "VeTableHeaderTr",
     VE_TABLE_THADER_Th: "VeTableHeaderTh",
-    VE_TABLE_COLGROUP: "VeTableColgroup",
-    VE_TABLE_FOOTER: "VeTableFooter",
-    VE_TABLE_BODY_CHECKBOX_CONTENT: "VeTableBodyCheckboxContent",
-    VE_TABLE_BODY_RADIO_CONTENT: "VeTableBodyRadioContent",
     VE_TABLE_HEADER_CHECKBOX_CONTENT: "VeTableHeaderCheckboxContent",
     VE_TABLE_HEADER_FILTER_CONTENT: "VeTableHeaderFilterContent",
     VE_TABLE_HEADER_FILTER_CUSTOM_CONTENT: "VeTableHeaderFilterCustomContent",
+
+    VE_TABLE_BODY: "VeTableBody",
+    VE_TABLE_BODY_TR: "VeTableBodyTr",
+    VE_TABLE_BODY_TR_SCROLLING: "VeTableBodyTrScrolling",
+    VE_TABLE_BODY_CHECKBOX_CONTENT: "VeTableBodyCheckboxContent",
+    VE_TABLE_BODY_RADIO_CONTENT: "VeTableBodyRadioContent",
+    VE_TABLE_BODY_TD: "VeTableBodyTd",
+
+    VE_TABLE_COLGROUP: "VeTableColgroup",
+    VE_TABLE_FOOTER: "VeTableFooter",
+
+    VE_TABLE_EXPAND_TR: "VeTableExpandTr",
+    VE_TABLE_EXPAND_TR_ICON: "VeTableExpandTrIcon",
+
+    VE_TABLE_EDIT_INPUT: "VeTableEditIput",
 };
 
 // comps custom attrs
 export const COMPS_CUSTOM_ATTRS = {
     // body row key
     BODY_ROW_KEY: "row-key",
+    // body column key
+    BODY_COLUMN_KEY: "col-key",
 };
 
 // instance methods
@@ -103,8 +130,6 @@ export const INSTANCE_METHODS = {
     START_EDITING_CELL: "startEditingCell",
     // stop editing cell
     STOP_EDITING_CELL: "stopEditingCell",
-    // stop all editing cell
-    STOP_ALL_EDITING_CELL: "stopAllEditingCell",
     // set highlight row
     SET_HIGHLIGHT_ROW: "setHighlightRow",
     // hide columns by keys

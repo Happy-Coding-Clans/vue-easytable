@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`veTable column hidden columnHiddenOption defaultHiddenColumnKeys prop 1`] = `
-<div class="ve-table">
-  <div class="ve-table-container ve-table-border-around" style="height: 2px;">
+<div class="ve-table ve-table-border-around">
+  <div class="ve-table-container" style="height: 2px;">
     <table class="ve-table-content ve-table-border-x">
       <colgroup>
         <col style="width: 130px;">
@@ -35,11 +35,11 @@ exports[`veTable column hidden columnHiddenOption defaultHiddenColumnKeys prop 1
           <td style="padding: 0px; border: 0px; height: 0px;"></td>
         </tr>
         <tr class="ve-table-body-tr">
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;">col4-1</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;">col5-1</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;">col6-1</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;">col7-1</td>
-          <td rowspan="1" colspan="1" class="ve-table-body-td" style="text-align: center;">col8-1</td>
+          <td rowspan="1" colspan="1" col-key="col4" class="ve-table-body-td" style="text-align: center;">col4-1</td>
+          <td rowspan="1" colspan="1" col-key="col5" class="ve-table-body-td" style="text-align: center;">col5-1</td>
+          <td rowspan="1" colspan="1" col-key="col6" class="ve-table-body-td" style="text-align: center;">col6-1</td>
+          <td rowspan="1" colspan="1" col-key="col7" class="ve-table-body-td" style="text-align: center;">col7-1</td>
+          <td rowspan="1" colspan="1" col-key="col8" class="ve-table-body-td" style="text-align: center;">col8-1</td>
         </tr>
       </tbody>
       <tfoot class="ve-table-fixed-footer ve-table-footer"></tfoot>

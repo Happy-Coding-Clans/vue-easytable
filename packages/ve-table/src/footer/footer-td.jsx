@@ -160,10 +160,10 @@ export default {
             }
             // cell selection option
             if (cellSelectionKeyData) {
-                const { rowKey, columnKey } = cellSelectionKeyData;
+                const { rowKey, colKey } = cellSelectionKeyData;
                 if (
                     rowData[rowKeyFieldName] === rowKey &&
-                    column["key"] === columnKey
+                    column["key"] === colKey
                 ) {
                     result[clsName("cell-selection")] = true;
                 }
@@ -196,11 +196,11 @@ export default {
                     (fixed === "left" && columnIndex > 0) ||
                     (fixed === "right" && columnIndex < colgroups.length - 1)
                 ) {
-                    totalWidth = getFixedTotalWidthByColumnKey(
+                    totalWidth = getFixedTotalWidthByColumnKey({
                         colgroups,
-                        key,
+                        colKey: key,
                         fixed,
-                    );
+                    });
 
                     totalWidth = getValByUnit(totalWidth);
                 }

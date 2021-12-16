@@ -131,16 +131,6 @@ export default {
                 return null;
             },
         },
-        // editing cells
-        editingCells: {
-            type: Array,
-            required: true,
-        },
-        // editing focus cell
-        editingFocusCell: {
-            type: Object,
-            default: null,
-        },
     },
     data() {
         return {
@@ -212,11 +202,11 @@ export default {
                         (fixed === "right" &&
                             columnIndex < colgroups.length - 1)
                     ) {
-                        totalWidth = getFixedTotalWidthByColumnKey(
+                        totalWidth = getFixedTotalWidthByColumnKey({
                             colgroups,
                             colKey,
                             fixed,
-                        );
+                        });
 
                         totalWidth = getValByUnit(totalWidth);
                     }
@@ -431,11 +421,11 @@ export default {
 
             if (fixed === "right") {
                 const { field } = column;
-                const leftFixedColumns = colgroups.filter(
+                const rightFixedColumns = colgroups.filter(
                     (x) => x.fixed === "right",
                 );
 
-                if (leftFixedColumns[0].field === field) {
+                if (rightFixedColumns[0].field === field) {
                     result = true;
                 }
             }
@@ -815,7 +805,10 @@ export default {
             return result;
         },
 
-        // rendering row keys
+        /*
+        rendering row keys
+        virtual scrolling will invoke
+        */
         renderingRowKeys(rowKeys) {
             const {
                 virtualScrollPreviewRenderedRowKeys: previewRenderedRowKeys,
@@ -940,8 +933,6 @@ export default {
                             eventCustomOption: this.eventCustomOption,
                             cellSelectionKeyData: this.cellSelectionKeyData,
                             editOption: this.editOption,
-                            editingCells: this.editingCells,
-                            editingFocusCell: this.editingFocusCell,
                             columnCollection: this.columnCollection,
                         },
                     };

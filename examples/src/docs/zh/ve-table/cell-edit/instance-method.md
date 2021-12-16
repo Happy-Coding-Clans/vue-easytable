@@ -1,6 +1,6 @@
-:::anchor 可控编辑
+:::anchor 实例方法
 
-:::demo 1、通过实例方法`startEditingCell({ rowKey, colKey, defaultValue })`开启编辑的单元格<br>2、通过实例方法`stopEditingCell({ rowKey, colKey })`停止编辑的单元格
+:::demo 1、通过实例方法`startEditingCell({ rowKey, colKey, defaultValue })`编辑指定的单元格
 
 ```html
 <template>
@@ -9,9 +9,6 @@
         <button class="button-demo" @click="startEditingCell(2,'hobby','')">
             编辑并清空单元格2-2
         </button>
-        &nbsp;&nbsp;
-        <button class="button-demo" @click="stopEditingCell(0,'name')">停止编辑单元格1-1</button>
-        <button class="button-demo" @click="stopEditingCell(2,'hobby')">停止编辑单元格2-2</button>
         <br />
         <br />
         <ve-table
@@ -32,20 +29,10 @@
             return {
                 // edit option 可控单元格编辑
                 editOption: {
-                    // full row edit
-                    fullRowEdit: false,
-                    // double click edit
-                    doubleClickEdit: true,
-                    // auto stop editing when cell lose focus
-                    stopEditingWhenCellLoseFocus: true,
                     // cell value change
                     cellValueChange: ({ row, column }) => {
                         console.log("cellValueChange row::", row);
                         console.log("cellValueChange column::", column);
-                    },
-                    // row value change
-                    rowValueChange: ({ row }) => {
-                        console.log("rowValueChange row::", row);
                     },
                 },
                 columns: [
@@ -126,11 +113,6 @@
             // start editing cell
             startEditingCell(rowKey, colKey, defaultValue) {
                 this.$refs["tableRef"].startEditingCell({ rowKey, colKey, defaultValue });
-            },
-
-            // stop editing cell
-            stopEditingCell(rowKey, colKey) {
-                this.$refs["tableRef"].stopEditingCell({ rowKey, colKey });
             },
         },
     };

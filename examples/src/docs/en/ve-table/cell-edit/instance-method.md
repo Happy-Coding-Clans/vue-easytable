@@ -1,10 +1,14 @@
-:::anchor 整行编辑
+:::anchor Instance method
 
-:::demo 1、通过 `fullRowEdit=true`开启整行编辑<br>2、通过 `columns`对象的 `edit`属性控制当前列是否可编辑<br>3、单元格停止编辑后将触发`rowValueChange`方法，参数`row`为更新后的行数据信息
+:::demo 1、Open the edited cell through instance method `startEditingCell({ rowKey, colKey, defaultValue })`
 
 ```html
 <template>
     <div>
+        <button class="button-demo" @click="startEditingCell(0,'name')">Edit Cell 0-0</button>
+        <button class="button-demo" @click="startEditingCell(2,'hobby','')">
+            Edit And Clear Cell 2-2
+        </button>
         <ve-table
             ref="tableRef"
             rowKeyFieldName="rowKey"
@@ -21,20 +25,12 @@
     export default {
         data() {
             return {
-                // edit option 可控单元格编辑
+                // edit option
                 editOption: {
-                    // full row edit
-                    fullRowEdit: true,
-                    // double click edit
-                    doubleClickEdit: true,
                     // cell value change
                     cellValueChange: ({ row, column }) => {
                         console.log("cellValueChange row::", row);
                         console.log("cellValueChange column::", column);
-                    },
-                    // row value change
-                    rowValueChange: ({ row }) => {
-                        console.log("rowValueChange row::", row);
                     },
                 },
                 columns: [
@@ -58,8 +54,9 @@
                         field: "hobby",
                         key: "hobby",
                         title: "Hobby",
-                        align: "center",
+                        align: "left",
                         width: "30%",
+                        edit: true,
                     },
                     {
                         field: "address",
@@ -109,6 +106,12 @@
                     },
                 ],
             };
+        },
+        methods: {
+            // start editing cell
+            startEditingCell(rowKey, colKey, defaultValue) {
+                this.$refs["tableRef"].startEditingCell({ rowKey, colKey, defaultValue });
+            },
         },
     };
 </script>

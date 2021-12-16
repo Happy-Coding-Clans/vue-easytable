@@ -7,6 +7,50 @@ Vx.x.x(TPL)
 -   Style
 -   Dependencies Changes
 
+V2.12.0
+
+### Breaking Changes
+
+-   单元格编辑功能非兼容性更新
+
+    -   废弃单元格整行编辑功能
+    -   废弃单击进入编辑状态
+    -   废弃 `Enter`键切换单元格编辑状态
+    -   废弃参数 `stopEditingWhenCellLoseFocus`
+    -   废弃属性 `textSelectedWhenCellFocus`
+    -   废弃示例方法 `stopAllEditingCell `
+    -   去除实例方法 `stopEditingCell` 的参数
+
+### Feature
+
+-   单元格选择功能
+
+    -   支持 `Enter`键向下移动活动单元格
+    -   支持 `Shift + Enter`键向上移动活动单元格
+    -   支持 `Tab`键向右移动活动单元格
+    -   支持 `Shift + Tab`键向左移动活动单元格
+    -   支持单元格点击进入可见区域（被固定列遮挡时）
+
+-   单元格编辑功能
+
+    -   支持 `F2`键活动单元格进入编辑状态
+    -   支持 `Ctrl + Enter`键停止编辑状态，并停留在当前单元格
+    -   支持 `Alt + Enter`键单元格内文本换行
+    -   支持 `Delete`键清空活动单元格内容
+    -   支持 `BackSpace`键清空活动单元格内容，并进入编辑状态
+    -   支持 `Space`键清空活动单元格内容填入空格
+    -   支持 `Enter`键停止编辑状态并键向下移动活动单元格
+    -   支持 `Tab`键停止编辑状态并向右移动活动单元格
+    -   支持 `Shift + Tab`键停止编辑状态并向左移动活动单元格
+    -   支持在可编辑单元格直接输入文本并进入编辑状态
+    -   支持长文本输入时，编辑框自动伸缩功能
+
+### Style
+
+-   修改外边框作用的元素，设置 border-radius 更简单
+-   新增主题变量 @ve-table-column-fixed-border-color
+-   新增主题变量 @ve-table-td-editing-line-height
+
 V2.11.0
 
 ### Feature

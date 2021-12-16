@@ -2,22 +2,19 @@ import BodyCheckboxContent from "./body-checkbox-content";
 import BodyRadioContent from "./body-radio-content";
 import ExpandTrIcon from "./expand-tr-icon";
 import { clsName } from "../util";
-import { isNumber, isBoolean, isFalse } from "../../../src/utils/index.js";
-import focus from "../../../src/directives/focus.js";
+import { isNumber, isBoolean } from "../../../src/utils/index.js";
 
 import {
     COMPS_NAME,
     COLUMN_TYPES,
     EXPAND_TRIGGER_TYPES,
     EMIT_EVENTS,
+    COMPS_CUSTOM_ATTRS,
 } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 
 export default {
     name: COMPS_NAME.VE_TABLE_BODY_TD,
-    directives: {
-        focus: focus,
-    },
     mixins: [emitter],
     props: {
         rowData: {
@@ -133,16 +130,6 @@ export default {
                 return null;
             },
         },
-        // editing cells
-        editingCells: {
-            type: Array,
-            required: true,
-        },
-        // editing focus cell
-        editingFocusCell: {
-            type: Object,
-            default: null,
-        },
     },
     data() {
         return {
@@ -164,60 +151,6 @@ export default {
         currentRowKey() {
             const { rowData, rowKeyFieldName } = this;
             return rowData[rowKeyFieldName];
-        },
-
-        // is editing cell
-        isEditingCell() {
-            let result = false;
-
-            const { editingCells, editOption, column, currentRowKey } = this;
-
-            if (column.edit && editOption) {
-                const { fullRowEdit } = editOption;
-
-                if (editingCells.length) {
-                    if (fullRowEdit) {
-                        const existRow = editingCells.find(
-                            (x) => x.rowKey === currentRowKey,
-                        );
-
-                        if (existRow) {
-                            result = true;
-                        }
-                    } else {
-                        const existCell = editingCells.find(
-                            (x) =>
-                                x.rowKey === currentRowKey &&
-                                x.colKey === column.key,
-                        );
-
-                        if (existCell) {
-                            result = true;
-                        }
-                    }
-                }
-            }
-
-            return result;
-        },
-
-        // is edit focus cell
-        isEditingFocusCell() {
-            let result = false;
-
-            const { editingFocusCell, editOption, currentRowKey, column } =
-                this;
-
-            if (editOption) {
-                if (editingFocusCell) {
-                    const { rowKey, colKey } = editingFocusCell;
-                    if (rowKey === currentRowKey && colKey === column.key) {
-                        result = true;
-                    }
-                }
-            }
-
-            return result;
         },
     },
     watch: {
@@ -264,7 +197,6 @@ export default {
 
             let result = {
                 [clsName("body-td")]: true,
-                [clsName("body-td-editing")]: this.isEditingCell,
             };
 
             const {
@@ -273,7 +205,7 @@ export default {
                 column,
                 rowIndex,
                 cellSelectionKeyData,
-                rowKeyFieldName,
+                currentRowKey,
             } = this;
 
             // column fixed
@@ -299,11 +231,8 @@ export default {
 
             // cell selection option
             if (cellSelectionKeyData) {
-                const { rowKey, columnKey } = cellSelectionKeyData;
-                if (
-                    rowData[rowKeyFieldName] === rowKey &&
-                    column["key"] === columnKey
-                ) {
+                const { rowKey, colKey } = cellSelectionKeyData;
+                if (currentRowKey === rowKey && column["key"] === colKey) {
                     result[clsName("cell-selection")] = true;
                 }
             }
@@ -334,56 +263,11 @@ export default {
             return result;
         },
 
-        // reset editing cell value
-        resetEditingCellValue() {
-            const {
-                editOption,
-                currentRowKey,
-                column,
-                rawCellValue,
-                editingCells,
-            } = this;
-
-            const { fullRowEdit } = editOption;
-
-            let currentCell = null;
-            // 整行编辑
-            if (fullRowEdit) {
-                currentCell = editingCells.find(
-                    (x) => x.rowKey === currentRowKey,
-                );
-            } else {
-                currentCell = editingCells.find(
-                    (x) =>
-                        x.rowKey === currentRowKey && x.colKey === column.key,
-                );
-            }
-
-            if (currentCell) {
-                currentCell.row[column.field] = rawCellValue;
-                this.dispatch(
-                    COMPS_NAME.VE_TABLE,
-                    EMIT_EVENTS.BODY_TD_EDIT_CELL_VALUE_CHANGE,
-                    {
-                        editingCells,
-                    },
-                );
-            }
-        },
-
         // get render content
         getRenderContent(h) {
             let content = null;
 
-            const {
-                column,
-                rowData,
-                rowIndex,
-                isEditingCell,
-                isEditingFocusCell,
-                rawCellValue,
-                editOption,
-            } = this;
+            const { column, rowData, rowIndex, rawCellValue } = this;
 
             // has render function
             if (typeof column.renderBodyCell === "function") {
@@ -417,42 +301,6 @@ export default {
                         {content}
                     </span>
                 );
-            }
-
-            /*
-            cell edit
-            对原始数据编辑
-            */
-            if (isEditingCell) {
-                const { textSelectedWhenCellFocus } = editOption;
-
-                const editingCellProps = {
-                    props: {
-                        value: rawCellValue,
-                    },
-                    class: clsName("body-td-edit-input"),
-                    directives: [
-                        {
-                            name: "focus",
-                            value: {
-                                focus: isEditingFocusCell,
-                                select:
-                                    isEditingFocusCell &&
-                                    !isFalse(textSelectedWhenCellFocus),
-                            },
-                        },
-                    ],
-                    domProps: { value: rawCellValue },
-                    on: {
-                        input: (e) => {
-                            this.rawCellValue = e.target.value;
-                            // 重置编辑单元格的值
-                            this.resetEditingCellValue();
-                        },
-                    },
-                };
-
-                content = <input {...editingCellProps} />;
             }
 
             return content;
@@ -651,6 +499,7 @@ export default {
             attrs: {
                 rowspan,
                 colspan,
+                [COMPS_CUSTOM_ATTRS.BODY_COLUMN_KEY]: column.key,
             },
             on: events,
         };
