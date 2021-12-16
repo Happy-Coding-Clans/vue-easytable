@@ -128,14 +128,14 @@
                 for (let i = 0; i < 100; i++) {
                     data.push({
                         rowKey: i,
-                        col1: i,
-                        col2: i,
-                        col3: i,
-                        col4: i,
-                        col5: i,
-                        col6: i,
-                        col7: i,
-                        col8: i,
+                        col1: `A` + i,
+                        col2: `B` + i,
+                        col3: `C` + i,
+                        col4: `D` + i,
+                        col5: `E` + i,
+                        col6: `F` + i,
+                        col7: `G` + i,
+                        col8: `H` + i,
                     });
                 }
                 this.tableData = data;
