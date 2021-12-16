@@ -117,7 +117,7 @@ const config = [
                 component: () =>
                     import("@/docs/en/ve-table/column-hidden/main.vue"),
                 name: "Column Hidden",
-                meta: { keepAlive: true, version: "v2.11.0" },
+                meta: { keepAlive: true },
             },
             {
                 path: "header-fixed",
@@ -194,7 +194,7 @@ const config = [
                 component: () =>
                     import("@/docs/en/ve-table/cell-edit/main.vue"),
                 name: "Cell Edit",
-                meta: { keepAlive: true, version: "v2.10.0" },
+                meta: { keepAlive: true },
             },
             {
                 path: "cell-ellipsis",
