@@ -235,7 +235,6 @@ export default {
                 window.open(newUrl, "_blank");
             } else {
                 const newUrl = protocol + "//" + host + item.value + hash;
-                alert(newUrl);
                 window.open(item.value, "_self");
             }
         },
