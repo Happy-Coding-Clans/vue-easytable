@@ -1736,101 +1736,101 @@ describe("veTable cell edit", () => {
     });
 
     // table clickoutside
-    // it("table clickoutside width cell editing", async () => {
-    //     const mockFn = jest.fn();
+    it("table clickoutside width cell editing", async () => {
+        const mockFn = jest.fn();
 
-    //     const ParentComp = {
-    //         template: `
-    //             <div>
-    //                 <button id="outsideButton">outside table</button>
-    //                 <veTable
-    //                     :columns="columns"
-    //                     :tableData="tableData"
-    //                     :editOption="editOption"
-    //                     rowKeyFieldName="rowKey"
-    //                 />
-    //             </div>
+        const ParentComp = {
+            template: `
+                <div>
+                    <button id="outsideButton">outside table</button>
+                    <veTable
+                        :columns="columns"
+                        :tableData="tableData"
+                        :editOption="editOption"
+                        rowKeyFieldName="rowKey"
+                    />
+                </div>
 
-    //         `,
-    //         data() {
-    //             return {
-    //                 columns: COLUMNS,
-    //                 tableData: cloneDeep(TABLE_DATA),
-    //                 editOption: {
-    //                     // cell value change
-    //                     cellValueChange: ({ row, column }) => {
-    //                         mockFn(row, column);
-    //                     },
-    //                 },
-    //             };
-    //         },
-    //         components: {
-    //             veTable,
-    //         },
-    //     };
+            `,
+            data() {
+                return {
+                    columns: COLUMNS,
+                    tableData: cloneDeep(TABLE_DATA),
+                    editOption: {
+                        // cell value change
+                        cellValueChange: ({ row, column }) => {
+                            mockFn(row, column);
+                        },
+                    },
+                };
+            },
+            components: {
+                veTable,
+            },
+        };
 
-    //     await later();
+        await later();
 
-    //     const div = document.createElement("div");
-    //     document.body.appendChild(div);
+        const div = document.createElement("div");
+        document.body.appendChild(div);
 
-    //     // need attach to documnet
-    //     const wrapper = mount(ParentComp, { attachTo: div });
+        // need attach to documnet
+        const wrapper = mount(ParentComp, { attachTo: div });
 
-    //     // td
-    //     const firstCell = wrapper
-    //         .findAll(".ve-table-body-tr")
-    //         .at(1)
-    //         .findAll(".ve-table-body-td")
-    //         .at(1);
+        // td
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(1);
 
-    //     // set cell selection
-    //     firstCell.trigger("click");
-    //     firstCell.trigger("dblclick");
+        // set cell selection
+        firstCell.trigger("click");
+        firstCell.trigger("dblclick");
 
-    //     await later();
+        await later();
 
-    //     const textInput = wrapper.find(
-    //         ".ve-table-edit-input-container-show .ve-table-edit-input",
-    //     );
-    //     textInput.setValue("AAA");
+        const textInput = wrapper.find(
+            ".ve-table-edit-input-container-show .ve-table-edit-input",
+        );
+        textInput.setValue("AAA");
 
-    //     await later();
+        await later();
 
-    //     // click outside
-    //     wrapper.find("#outsideButton").trigger("click");
+        // click outside
+        wrapper.find("#outsideButton").trigger("click");
 
-    //     await later();
+        await later();
 
-    //     expect(
-    //         wrapper.find(".ve-table-edit-input-container-show").exists(),
-    //     ).toBe(false);
+        expect(
+            wrapper.find(".ve-table-edit-input-container-show").exists(),
+        ).toBe(false);
 
-    //     expect(mockFn).toHaveBeenCalled();
+        expect(mockFn).toHaveBeenCalled();
 
-    //     expect(mockFn).toHaveBeenCalledWith(
-    //         {
-    //             address: "No.1 Century Avenue, Beijing",
-    //             date: "AAA",
-    //             hobby: "coding and coding repeat",
-    //             name: "Dickerson",
-    //             rowKey: 1,
-    //         },
-    //         {
-    //             _colspan: 1,
-    //             _keys: "date",
-    //             _level: 1,
-    //             _realTimeWidth: "15%",
-    //             _rowspan: 1,
-    //             align: "left",
-    //             edit: true,
-    //             field: "date",
-    //             key: "date",
-    //             title: "Date",
-    //             width: "15%",
-    //         },
-    //     );
-    // });
+        expect(mockFn).toHaveBeenCalledWith(
+            {
+                address: "No.1 Century Avenue, Beijing",
+                date: "AAA",
+                hobby: "coding and coding repeat",
+                name: "Dickerson",
+                rowKey: 1,
+            },
+            {
+                _colspan: 1,
+                _keys: "date",
+                _level: 1,
+                _realTimeWidth: "15%",
+                _rowspan: 1,
+                align: "left",
+                edit: true,
+                field: "date",
+                key: "date",
+                title: "Date",
+                width: "15%",
+            },
+        );
+    });
 
     it("disable editing columns", async () => {
         const wrapper = mount(veTable, {
