@@ -1,26 +1,14 @@
-:::anchor Controllable full row editing
+:::anchor Instance method
 
-After the full row editing is enabled through 'fullRowEdit=true', the full row will be edited through the instance method `startEditingCell({ rowKey, colKey, defaultValue })`
-
-:::demo 1、After passing the `colKey` and `defaultValue` attributes, only the value of the currently specified column will be overwritten
+:::demo 1、Open the edited cell through instance method `startEditingCell({ rowKey, colKey, defaultValue })`
 
 ```html
 <template>
     <div>
-        <button class="button-demo" @click="startEditingCell({ rowKey:0, colKey, defaultValue })">
-            Edit first row
+        <button class="button-demo" @click="startEditingCell(0,'name')">Edit Cell 0-0</button>
+        <button class="button-demo" @click="startEditingCell(2,'hobby','')">
+            Edit And Clear Cell 2-2
         </button>
-        <button class="button-demo" @click="startEditingCell({ rowKey:1,  defaultValue:'A' })">
-            Edit second row,Set the value of the full row cell to 'A'
-        </button>
-        <button
-            class="button-demo"
-            @click="startEditingCell({ rowKey:2,colKey:'name', defaultValue:'A' })"
-        >
-            Edit third row,Set the value of the 'name' column to 'A'
-        </button>
-        <br />
-        <br />
         <ve-table
             ref="tableRef"
             rowKeyFieldName="rowKey"
@@ -37,22 +25,12 @@ After the full row editing is enabled through 'fullRowEdit=true', the full row w
     export default {
         data() {
             return {
-                // edit option 可控单元格编辑
+                // edit option
                 editOption: {
-                    // full row edit
-                    fullRowEdit: true,
-                    // double click edit
-                    doubleClickEdit: true,
-                    // auto stop editing when cell lose focus
-                    stopEditingWhenCellLoseFocus: true,
                     // cell value change
                     cellValueChange: ({ row, column }) => {
                         console.log("cellValueChange row::", row);
                         console.log("cellValueChange column::", column);
-                    },
-                    // row value change
-                    rowValueChange: ({ row }) => {
-                        console.log("rowValueChange row::", row);
                     },
                 },
                 columns: [
@@ -131,8 +109,8 @@ After the full row editing is enabled through 'fullRowEdit=true', the full row w
         },
         methods: {
             // start editing cell
-            startEditingCell(params) {
-                this.$refs["tableRef"].startEditingCell(params);
+            startEditingCell(rowKey, colKey, defaultValue) {
+                this.$refs["tableRef"].startEditingCell({ rowKey, colKey, defaultValue });
             },
         },
     };
