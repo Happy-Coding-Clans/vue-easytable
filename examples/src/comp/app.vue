@@ -143,9 +143,8 @@ import locale from "./locale";
 import I18nMixins from "./mixins/i18n-mixins";
 import ThemeSwitchMixins from "./mixins/theme-switch-mixins.js";
 import clickoutside from "./directives/clickoutside.js";
-import { version as latestVersion } from "../../../package.json";
+import { version as latestVersion, docVersions } from "../../../package.json";
 
-const RESOURCE_PATH = "/vue-easytable/";
 export default {
     directives: {
         "click-outside": clickoutside,
@@ -160,21 +159,7 @@ export default {
             ],
             showLangDropdown: false,
             //switch version option
-            switchVersionOptions: [
-                {
-                    value: `${RESOURCE_PATH}2.12.0/`,
-                    label: "2.12.0",
-                },
-                {
-                    value: `${RESOURCE_PATH}2.11.0/`,
-                    label: "2.11.0",
-                },
-                {
-                    value: `${RESOURCE_PATH}1.7.2/app.html`,
-                    label: "1.x",
-                    isVersion1: true,
-                },
-            ],
+            switchVersionOptions: docVersions,
             showVersionDropdown: false,
         };
     },
