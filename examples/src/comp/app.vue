@@ -143,8 +143,9 @@ import locale from "./locale";
 import I18nMixins from "./mixins/i18n-mixins";
 import ThemeSwitchMixins from "./mixins/theme-switch-mixins.js";
 import clickoutside from "./directives/clickoutside.js";
-import { version } from "../../../package.json";
+import { version as latestVersion } from "../../../package.json";
 
+const RESOURCE_PATH = "/vue-easytable/";
 export default {
     directives: {
         "click-outside": clickoutside,
@@ -161,16 +162,20 @@ export default {
             //switch version option
             switchVersionOptions: [
                 {
-                    value: "https://happy-coding-clans.github.io/vue-easytable/2.11.0",
+                    value: `${RESOURCE_PATH}2.12.0/`,
+                    label: "2.12.0",
+                },
+                {
+                    value: `${RESOURCE_PATH}2.11.0/`,
                     label: "2.11.0",
                 },
                 {
-                    value: " https://happy-coding-clans.github.io/vue-easytable/1.7.2/app.html",
+                    value: `${RESOURCE_PATH}1.7.2/app.html`,
                     label: "1.x",
+                    isVersion1: true,
                 },
             ],
             showVersionDropdown: false,
-            currentDocVersion: version,
         };
     },
     computed: {
@@ -182,6 +187,19 @@ export default {
         // show logo
         showLogo() {
             return window.env !== "dev";
+        },
+
+        // current doc version
+        currentDocVersion() {
+            const { switchVersionOptions } = this;
+
+            const { pathname } = window.location;
+
+            const versionItem = switchVersionOptions.find(
+                (x) => x.value === pathname,
+            );
+
+            return versionItem ? versionItem.label : latestVersion;
         },
     },
     watch: {
@@ -210,14 +228,16 @@ export default {
         },
         // version change
         versionChange(item) {
-            if (this.currentDocVersion !== item.label) {
-                window.location.href = item.value;
+            const { protocol, host, pathname, hash } = window.location;
+            // version 1.0
+            if (item.isVersion1) {
+                const newUrl = protocol + "//" + host + item.value;
+                window.open(newUrl, "_blank");
+            } else {
+                const newUrl = protocol + "//" + host + item.value + hash;
+                alert(newUrl);
+                window.open(item.value, "_self");
             }
-            this.currentDocVersion = item.label;
-
-            setTimeout(() => {
-                this.showVersionDropdown = false;
-            }, 150);
         },
         // go ro router path
         gotoRouter(item) {
