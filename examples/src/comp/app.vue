@@ -161,8 +161,8 @@ export default {
             //switch version option
             switchVersionOptions: [
                 {
-                    value: "https://happy-coding-clans.github.io/vue-easytable/",
-                    label: version,
+                    value: "https://happy-coding-clans.github.io/vue-easytable/2.11.0",
+                    label: "2.11.0",
                 },
                 {
                     value: " https://happy-coding-clans.github.io/vue-easytable/1.7.2/app.html",
