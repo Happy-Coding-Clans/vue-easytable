@@ -19,6 +19,7 @@
             :columns="columns"
             :table-data="tableData"
             :editOption="editOption"
+            border-y
         />
     </div>
 </template>
@@ -36,6 +37,16 @@
                     },
                 },
                 columns: [
+                    {
+                        field: "",
+                        key: "a",
+                        title: "",
+                        width: 50,
+                        align: "center",
+                        renderBodyCell: ({ row, column, rowIndex }, h) => {
+                            return ++rowIndex;
+                        },
+                    },
                     {
                         field: "name",
                         key: "name",
