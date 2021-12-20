@@ -7,6 +7,12 @@ Vx.x.x(TPL)
 -   Style
 -   Dependencies Changes
 
+V2.12.1
+
+### Bug Fixes
+
+-   修复单元格编辑功能，不可编辑单元格双击后方向键无法移动活动单元格的问题
+
 V2.12.0
 
 ### Breaking Changes
