@@ -430,7 +430,7 @@ export default {
                 [clsName("virtual-scroll")]: isVirtualScroll,
                 [clsName("container-left-scrolling")]: isLeftScrolling,
                 [clsName("container-right-scrolling")]: isRightScrolling,
-                [clsName("is-cell-editing")]: this.isEditingCell,
+                [clsName("is-cell-editing")]: this.isCellEditing,
             };
         },
         // table body class
@@ -477,7 +477,7 @@ export default {
             return this.colgroups.some((x) => x.fixed === "right");
         },
         // is editing cell
-        isEditingCell() {
+        isCellEditing() {
             const { editingCell } = this;
 
             return (
@@ -697,7 +697,7 @@ export default {
                 colgroups,
                 cellSelectionKeyData,
                 enableStopEditing,
-                isEditingCell,
+                isCellEditing,
             } = this;
 
             const { keyCode, ctrlKey, shiftKey, altKey } = event;
@@ -809,7 +809,7 @@ export default {
                         break;
                     }
                     case KEY_CODES.SPACE: {
-                        if (!isEditingCell) {
+                        if (!isCellEditing) {
                             // start editing and enter a space
                             this[INSTANCE_METHODS.START_EDITING_CELL]({
                                 rowKey,
@@ -822,7 +822,7 @@ export default {
                         break;
                     }
                     case KEY_CODES.BACK_SPACE: {
-                        if (!isEditingCell) {
+                        if (!isCellEditing) {
                             // start editing and clear value
                             this[INSTANCE_METHODS.START_EDITING_CELL]({
                                 rowKey,
@@ -835,7 +835,7 @@ export default {
                         break;
                     }
                     case KEY_CODES.DELETE: {
-                        if (!isEditingCell) {
+                        if (!isCellEditing) {
                             // delete selection cell value
                             this.deleteCellValue();
                             event.preventDefault();
@@ -844,7 +844,7 @@ export default {
                         break;
                     }
                     case KEY_CODES.F2: {
-                        if (!isEditingCell) {
+                        if (!isCellEditing) {
                             if (currentColumn.edit) {
                                 // start editing cell and don't allow stop eidting by direction key
                                 this.enableStopEditing = false;
@@ -1470,12 +1470,12 @@ export default {
                 rowKeyFieldName,
                 editOption,
                 editingCell,
-                isEditingCell,
+                isCellEditing,
             } = this;
 
             const { cellValueChange } = editOption;
 
-            if (isEditingCell) {
+            if (isCellEditing) {
                 const { rowKey, colKey } = editingCell;
 
                 let currentRow = this.tableData.find(
@@ -1560,7 +1560,7 @@ export default {
         editCellByClick({ isDblclick }) {
             const {
                 editOption,
-                isEditingCell,
+                isCellEditing,
                 hasEditColumn,
                 editingCell,
                 cellSelectionKeyData,
@@ -1589,7 +1589,7 @@ export default {
                 return false;
             }
 
-            if (isEditingCell) {
+            if (isCellEditing) {
                 this[INSTANCE_METHODS.STOP_EDITING_CELL]();
             }
 
@@ -1788,13 +1788,13 @@ export default {
         },
         // stop editing cell
         [INSTANCE_METHODS.STOP_EDITING_CELL]() {
-            const { editOption, isEditingCell } = this;
+            const { editOption, isCellEditing } = this;
 
             if (!editOption) {
                 return false;
             }
 
-            if (isEditingCell) {
+            if (isCellEditing) {
                 this.saveCellWhenStopEditing();
             }
         },
@@ -2058,7 +2058,7 @@ export default {
                 cellSelectionKeyData,
                 colgroups,
                 editingCell: this.editingCell,
-                isEditingCell: this.isEditingCell,
+                isCellEditing: this.isCellEditing,
                 allRowKeys: this.allRowKeys,
                 hasXScrollBar: this.hasXScrollBar,
                 hasYScrollBar: this.hasYScrollBar,

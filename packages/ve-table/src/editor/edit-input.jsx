@@ -49,7 +49,7 @@ export default {
             required: true,
         },
         // is editing cell
-        isEditingCell: {
+        isCellEditing: {
             type: Boolean,
             required: true,
         },
@@ -218,7 +218,7 @@ export default {
             immediate: true,
         },
         // is editing cell
-        isEditingCell: {
+        isCellEditing: {
             handler: function (val) {
                 if (val) {
                     this.showTextarea();
@@ -385,9 +385,9 @@ export default {
 
         // textarea add new line
         textareaAddNewLine() {
-            const { isEditingCell, editingCell } = this;
+            const { isCellEditing, editingCell } = this;
 
-            if (isEditingCell) {
+            if (isCellEditing) {
                 const textareaInputEl = this.$refs[this.textareaInputRef];
 
                 const caretPosition = getCaretPosition(textareaInputEl);
@@ -426,7 +426,7 @@ export default {
             containerStyle,
             textareaClass,
             rawCellValue,
-            isEditingCell,
+            isCellEditing,
         } = this;
 
         const containerProps = {
@@ -451,7 +451,7 @@ export default {
             },
             on: {
                 input: (e) => {
-                    if (isEditingCell) {
+                    if (isCellEditing) {
                         this.textareaValueChange(e.target.value);
                         this.rawCellValue = e.target.value;
                     }

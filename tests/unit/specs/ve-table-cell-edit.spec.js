@@ -159,7 +159,7 @@ describe("veTable cell edit", () => {
 
         await later();
 
-        expect(wrapper.vm.isEditingCell).toEqual(true);
+        expect(wrapper.vm.isCellEditing).toEqual(true);
 
         expect(wrapper.vm.editingCell.rowKey).toEqual(1);
         expect(wrapper.vm.editingCell.colKey).toEqual("date");
