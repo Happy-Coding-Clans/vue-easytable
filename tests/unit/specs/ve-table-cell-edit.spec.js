@@ -1919,6 +1919,52 @@ describe("veTable cell edit", () => {
         expect(mockFn).not.toHaveBeenCalled();
     });
 
+    /* 
+    不可编辑文本框双击允许移动单元格
+    */
+    it("nnormal cell dblclick move active cell", async () => {
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: cloneDeep(TABLE_DATA),
+                editOption: {},
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        // td
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(3);
+
+        firstCell.trigger("click");
+        firstCell.trigger("dblclick");
+
+        await later();
+
+        expect(firstCell.find(".ve-table-cell-selection").exists()).toBe(true);
+
+        document.dispatchEvent(
+            new KeyboardEvent("keydown", {
+                keyCode: KEY_CODES.ARROW_LEFT,
+            }),
+        );
+
+        await later();
+
+        expect(
+            wrapper
+                .findAll(".ve-table-body-tr")
+                .at(1)
+                .findAll(".ve-table-body-td")
+                .at(2)
+                .find(".ve-table-cell-selection")
+                .exists(),
+        ).toBe(true);
+    });
+
     it("cell editing with table size change and scrolling", async () => {
         const wrapper = mount(veTable, {
             propsData: {
