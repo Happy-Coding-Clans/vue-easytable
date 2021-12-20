@@ -1552,6 +1552,11 @@ export default {
             }
         },
 
+        // is edit column
+        isEditColumn(colKey) {
+            return this.colgroups.some((x) => x.key === colKey && x.edit);
+        },
+
         /*
          * @editCellByClick
          * @desc  recieve td click event
@@ -1564,6 +1569,7 @@ export default {
                 hasEditColumn,
                 editingCell,
                 cellSelectionKeyData,
+                isEditColumn,
             } = this;
 
             if (!editOption) {
@@ -1593,7 +1599,7 @@ export default {
                 this[INSTANCE_METHODS.STOP_EDITING_CELL]();
             }
 
-            if (isDblclick) {
+            if (isDblclick && isEditColumn(colKey)) {
                 this.enableStopEditing = false;
 
                 this[INSTANCE_METHODS.START_EDITING_CELL]({
