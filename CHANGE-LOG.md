@@ -7,6 +7,13 @@ Vx.x.x(TPL)
 -   Style
 -   Dependencies Changes
 
+V2.12.2
+
+### Style
+
+-   添加行展开主题变量 @ve-table-body-row-expand-content-padding
+-   去除样式的 padding 和 margin，避免样式的侵入（比如结合 element-ui 相关组件）
+
 V2.12.1
 
 ### Bug Fixes
