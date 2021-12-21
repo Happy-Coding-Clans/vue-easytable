@@ -4,19 +4,22 @@
         <Explain />
         <ShortCuts />
         <Base />
+        <DisableSelection />
     </div>
 </template>
 <script>
 import Explain from "./explain.md";
-import Base from "./base.md";
 import ShortCuts from "./shortcuts.md";
+import Base from "./base.md";
+import DisableSelection from "./disable-selection.md";
 
 export default {
     name: "cell-selection",
     components: {
         Explain,
-        Base,
         ShortCuts,
+        Base,
+        DisableSelection,
     },
 };
 </script>
