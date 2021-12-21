@@ -193,7 +193,7 @@ export default {
                         <p>
                             Hello everyone, My name is{" "}
                             <span style="font-weight:bold;">{row.name}</span>,
-                            I'm a {row.profession}.<br /> And I'm living in{" "}
+                            I'm a {row.profession}. And I'm living in{" "}
                             {row.address}.
                         </p>
                     );
