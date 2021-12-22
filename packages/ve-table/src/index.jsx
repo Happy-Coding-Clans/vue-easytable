@@ -259,6 +259,12 @@ export default {
             defaultVirtualScrollMinRowHeight: 40,
             // default placeholder per scrolling row count
             defaultPlaceholderPerScrollingRowCount: 8,
+            //起始索引
+            virtualScrollStartIndex: 0,
+            // preview virtual scroll start index
+            previewVirtualScrollStartIndex: 0,
+            //结束索引
+            virtualScrollEndIndex: 0,
             // is scrolling
             showVirtualScrollingPlaceholder: false,
             // disable pointer events timeout id
@@ -307,15 +313,6 @@ export default {
             */
             enableStopEditing: true,
         };
-    },
-    // 存储非响应式数据
-    customOption: {
-        //起始索引
-        virtualScrollStartIndex: 0,
-        // preview virtual scroll start index
-        previewVirtualScrollStartIndex: 0,
-        //结束索引
-        virtualScrollEndIndex: 0,
     },
     computed: {
         // actual render table data
@@ -1044,9 +1041,8 @@ export default {
         setVirtualScrollVisibleData() {
             const { tableData } = this;
 
-            const startIndex =
-                this.$options.customOption.virtualScrollStartIndex;
-            const endIndex = this.$options.customOption.virtualScrollEndIndex;
+            const startIndex = this.virtualScrollStartIndex;
+            const endIndex = this.virtualScrollEndIndex;
 
             const aboveCount = this.getVirtualScrollAboveCount();
             const belowCount = this.getVirtualScrollBelowCount();
@@ -1062,8 +1058,7 @@ export default {
             let result = 0;
             const { isVirtualScroll, defaultVirtualScrollBufferCount } = this;
 
-            const virtualScrollStartIndex =
-                this.$options.customOption.virtualScrollStartIndex;
+            const virtualScrollStartIndex = this.virtualScrollStartIndex;
 
             if (isVirtualScroll) {
                 result = Math.min(
@@ -1084,8 +1079,7 @@ export default {
                 defaultVirtualScrollBufferCount,
             } = this;
 
-            const virtualScrollEndIndex =
-                this.$options.customOption.virtualScrollEndIndex;
+            const virtualScrollEndIndex = this.virtualScrollEndIndex;
 
             if (isVirtualScroll) {
                 result = Math.min(
@@ -1210,7 +1204,7 @@ export default {
         },
         // set virtual scroll start offset
         setVirtualScrollStartOffset() {
-            const start = this.$options.customOption.virtualScrollStartIndex;
+            const start = this.virtualScrollStartIndex;
 
             const aboveCount = this.getVirtualScrollAboveCount();
 
@@ -1275,12 +1269,11 @@ export default {
 
             //此时的开始索引
             let visibleStartIndex = this.getVirtualScrollStartIndex(scrollTop);
-            this.$options.customOption.virtualScrollStartIndex =
-                visibleStartIndex;
+            this.virtualScrollStartIndex = visibleStartIndex;
 
             //此时的结束索引
             let visibleEndIndex = visibleStartIndex + visibleCount;
-            this.$options.customOption.virtualScrollEndIndex = visibleEndIndex;
+            this.virtualScrollEndIndex = visibleEndIndex;
 
             const visibleAboveCount = this.getVirtualScrollAboveCount();
             const visibleBelowCount = this.getVirtualScrollBelowCount();
@@ -1344,8 +1337,8 @@ export default {
             if (this.isVirtualScroll) {
                 const startIndex = 0;
 
-                this.$options.customOption.virtualScrollStartIndex = startIndex;
-                this.$options.customOption.virtualScrollEndIndex =
+                this.virtualScrollStartIndex = startIndex;
+                this.virtualScrollEndIndex =
                     startIndex + this.virtualScrollVisibleCount;
 
                 const tableContainerRef = this.$refs[this.tableContainerRef];
@@ -2012,12 +2005,11 @@ export default {
                         const {
                             virtualScrollStartIndex: startIndex,
                             previewVirtualScrollStartIndex: previewStartIndex,
-                        } = this.$options.customOption;
+                        } = this;
 
                         const differ = Math.abs(startIndex - previewStartIndex);
 
-                        this.$options.customOption.previewVirtualScrollStartIndex =
-                            startIndex;
+                        this.previewVirtualScrollStartIndex = startIndex;
 
                         // default placeholder per scrolling row count
                         if (
