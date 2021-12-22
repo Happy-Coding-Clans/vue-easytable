@@ -273,6 +273,8 @@ export default {
             hasYScrollBar: false,
             // scroll bar width
             scrollBarWidth: 0,
+            // preview table container scrollLeft （处理左列或右列固定效果）
+            previewTableContainerScrollLeft: null,
             // cell selection key
             cellSelectionKeyData: {
                 rowKey: "",
@@ -314,8 +316,6 @@ export default {
         previewVirtualScrollStartIndex: 0,
         //结束索引
         virtualScrollEndIndex: 0,
-        // preview table container scrollLeft （处理左列或右列固定效果）
-        previewTableContainerScrollLeft: null,
     },
     computed: {
         // actual render table data
@@ -1361,15 +1361,14 @@ export default {
                     tableContainerRef;
 
                 const { previewTableContainerScrollLeft: previewScrollLeft } =
-                    this.$options.customOption;
+                    this;
 
                 // 仅横向滚动需要处理
                 if (
                     previewScrollLeft === 0 ||
                     previewScrollLeft !== scrollLeft
                 ) {
-                    this.$options.customOption.previewTableContainerScrollLeft =
-                        scrollLeft;
+                    this.previewTableContainerScrollLeft = scrollLeft;
 
                     this.isLeftScrolling = scrollLeft > 0;
                     this.isRightScrolling =
