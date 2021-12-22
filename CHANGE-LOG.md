@@ -7,6 +7,12 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.12.3
+
+### Bug Fixes
+
+-   修复表格最后一行高度多出 2px 的问题
+
 V2.12.2
 
 ### Style changes
