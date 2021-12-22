@@ -271,6 +271,8 @@ export default {
             hasXScrollBar: false,
             // has vertical scroll bar
             hasYScrollBar: false,
+            // scroll bar width
+            scrollBarWidth: 0,
             // cell selection key
             cellSelectionKeyData: {
                 rowKey: "",
@@ -314,8 +316,6 @@ export default {
         virtualScrollEndIndex: 0,
         // preview table container scrollLeft （处理左列或右列固定效果）
         previewTableContainerScrollLeft: null,
-        // scroll bar width
-        scrollBarWidth: 0,
     },
     computed: {
         // actual render table data
@@ -385,11 +385,6 @@ export default {
                 const { tableHeight, hasXScrollBar } = this;
 
                 tableContainerHeight = tableHeight;
-
-                // border around
-                if (this.borderAround) {
-                    tableContainerHeight += 2;
-                }
 
                 /*
                     有横向滚动条时，表格高度需要加上滚动条的宽度
@@ -637,11 +632,13 @@ export default {
         getScrollBarWidth() {
             let result = 0;
 
-            if (this.$options.customOption.scrollBarWdith) {
-                result = this.$options.customOption.scrollBarWdith;
+            const { scrollBarWidth } = this;
+
+            if (scrollBarWidth) {
+                result = scrollBarWidth;
             } else {
                 result = getScrollbarWidth();
-                this.$options.customOption.scrollBarWdith = result;
+                this.scrollBarWidth = result;
             }
 
             return result;

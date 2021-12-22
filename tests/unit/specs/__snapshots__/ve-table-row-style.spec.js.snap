@@ -2,7 +2,7 @@
 
 exports[`veTable row style render 1`] = `
 <div class="ve-table ve-table-border-around">
-  <div class="ve-table-container" style="height: 2px;">
+  <div class="ve-table-container" style="height: 0px;">
     <table class="ve-table-content ve-table-border-x">
       <colgroup>
         <col style="width: 200px;">

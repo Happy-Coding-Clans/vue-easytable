@@ -2,7 +2,7 @@
 
 exports[`veTable header fixed render 1`] = `
 <div class="ve-table ve-table-border-around">
-  <div class="ve-table-container" style="max-height: 200px; height: 2px;">
+  <div class="ve-table-container" style="max-height: 200px; height: 0px;">
     <table class="ve-table-content ve-table-border-x">
       <colgroup>
         <col>
