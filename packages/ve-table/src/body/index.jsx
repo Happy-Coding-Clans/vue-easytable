@@ -149,18 +149,15 @@ export default {
             1、存储当前单选功能的rowkey 信息
             */
             internalRadioSelectedRowKey: null,
+            // cols widths efficient count
+            colsWidthsEfficientCount: 0,
+            // has init columns widths 此属性可优化固定列表格初始化渲染慢问题
+            hasPreparedColsWidths: false,
+            // virtual scroll preview rendered rowKey
+            virtualScrollPreviewRenderedRowKeys: [],
+            // virtual scroll repeat rendered rowKey
+            virtualScrollRepeatRenderedRowKeys: [],
         };
-    },
-    // 存储非响应式数据
-    customOption: {
-        // cols widths efficient count
-        colsWidthsEfficientCount: 0,
-        // has init columns widths 此属性可优化固定列表格初始化渲染慢问题
-        hasPreparedColsWidths: false,
-        // virtual scroll preview rendered rowKey
-        virtualScrollPreviewRenderedRowKeys: [],
-        // virtual scroll repeat rendered rowKey
-        virtualScrollRepeatRenderedRowKeys: [],
     },
     computed: {
         /* 
@@ -555,15 +552,12 @@ export default {
                 colsWidths.set(key, width);
 
                 // 优化固定列表格初始化渲染速度慢问题
-                if (!this.$options.customOption.hasPreparedColsWidths) {
-                    if (
-                        ++this.$options.customOption
-                            .colsWidthsEfficientCount === colgroups.length
-                    ) {
-                        this.$options.customOption.hasPreparedColsWidths = true;
+                if (!this.hasPreparedColsWidths) {
+                    if (++this.colsWidthsEfficientCount === colgroups.length) {
+                        this.hasPreparedColsWidths = true;
                     }
                 }
-                if (this.$options.customOption.hasPreparedColsWidths) {
+                if (this.hasPreparedColsWidths) {
                     this.$emit(EMIT_EVENTS.BODY_TD_WIDTH_CHANGE, colsWidths);
                 }
             }
@@ -571,8 +565,8 @@ export default {
 
         // reset prepared column widths status
         resetPreparedColsWidthsStatus() {
-            this.$options.customOption.colsWidthsEfficientCount = 0;
-            this.$options.customOption.hasPreparedColsWidths = false;
+            this.colsWidthsEfficientCount = 0;
+            this.hasPreparedColsWidths = false;
         },
 
         // init internal expand row keys
@@ -812,15 +806,15 @@ export default {
         renderingRowKeys(rowKeys) {
             const {
                 virtualScrollPreviewRenderedRowKeys: previewRenderedRowKeys,
-            } = this.$options.customOption;
+            } = this;
 
-            this.$options.customOption.virtualScrollRepeatRenderedRowKeys =
-                rowKeys.filter((rowKey) => {
+            this.virtualScrollRepeatRenderedRowKeys = rowKeys.filter(
+                (rowKey) => {
                     return previewRenderedRowKeys.indexOf(rowKey) != -1;
-                });
+                },
+            );
 
-            this.$options.customOption.virtualScrollPreviewRenderedRowKeys =
-                rowKeys;
+            this.virtualScrollPreviewRenderedRowKeys = rowKeys;
         },
     },
     mounted() {
@@ -878,8 +872,7 @@ export default {
             showVirtualScrollingPlaceholder,
         } = this;
 
-        const { virtualScrollRepeatRenderedRowKeys } =
-            this.$options.customOption;
+        const { virtualScrollRepeatRenderedRowKeys } = this;
 
         return (
             <tbody>
