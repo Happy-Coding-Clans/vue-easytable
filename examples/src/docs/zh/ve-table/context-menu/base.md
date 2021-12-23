@@ -10,7 +10,6 @@
             :fixed-header="true"
             :columns="columns"
             :table-data="tableData"
-            :editOption="editOption"
             :row-style-option="rowStyleOption"
             border-y
             :context-menu-option="contextMenuOption"
@@ -25,8 +24,60 @@
                 // context menu option
                 contextMenuOption: {
                     body: {
-                        // context menus
-                        contextMenus: ["a", "b"],
+                        // enable context menu
+                        enable: true,
+
+                        //  callback for all options
+                        callback: () => {},
+
+                        /*
+                        context menus
+
+                        you can sort context menu 
+
+                        contextMenuType:
+                        insertRowAbove、insertRowBelow、separatorLine
+
+                        */
+                        contextMenus: ["insertRowAbove", "b"],
+
+                        // custom context menu
+                        contextMenus2: [
+                            {
+                                type: "insertRowAbove",
+                                // callback
+                                callback: ({ event }) => {},
+                                // support jsx
+                                name: (h) => {
+                                    return <span>在上方新增行</span>;
+                                },
+                                disabled: () => {
+                                    //
+                                    return false;
+                                },
+                                hidden: () => {
+                                    //
+                                    return false;
+                                },
+                            },
+                            {
+                                type: "customType1",
+                                // callback
+                                callback: ({ event }) => {},
+                                // support jsx
+                                name: (h) => {
+                                    return <span>自定义</span>;
+                                },
+                                disabled: () => {
+                                    //
+                                    return false;
+                                },
+                                hidden: () => {
+                                    //
+                                    return false;
+                                },
+                            },
+                        ],
                     },
                 },
                 rowStyleOption: {
@@ -112,6 +163,8 @@
                 ],
             };
         },
+
+        methods: {},
     };
 </script>
 ```
