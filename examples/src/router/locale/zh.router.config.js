@@ -204,6 +204,13 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
+                path: "context-menu",
+                component: () =>
+                    import("@/docs/zh/ve-table/context-menu/main.vue"),
+                name: "右键菜单",
+                meta: { keepAlive: true },
+            },
+            {
                 path: "row-index",
                 component: () =>
                     import("@/docs/zh/ve-table/row-index/main.vue"),
