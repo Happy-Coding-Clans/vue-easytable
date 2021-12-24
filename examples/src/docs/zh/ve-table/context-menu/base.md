@@ -36,7 +36,7 @@
                         you can sort context menu 
 
                         contextMenuType:
-                        insertRowAbove、insertRowBelow、separatorLine
+                        insertRowAbove、insertRowBelow、removeCurrentRow、separatorLine
 
                         */
                         contextMenus: ["insertRowAbove", "b"],
