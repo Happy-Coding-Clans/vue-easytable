@@ -33,7 +33,7 @@
                         /*
                         context menus
 
-                        you can sort context menu 
+                        you can sort context menu
 
                         contextMenuType:
                         insertRowAbove、insertRowBelow、removeCurrentRow、separatorLine
@@ -50,6 +50,9 @@
                                 // support jsx
                                 name: (h) => {
                                     return <span>在上方新增行</span>;
+                                },
+                                icon: (h) => {
+                                    return <i>1</i>;
                                 },
                                 disabled: () => {
                                     //
