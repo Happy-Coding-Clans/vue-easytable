@@ -2,6 +2,7 @@
 
 import VeCheckbox from './ve-checkbox';
 import VeCheckboxGroup from './ve-checkbox-group';
+import VeContextmenu from './ve-contextmenu';
 import VeDropdown from './ve-dropdown';
 import VeIcon from './ve-icon';
 import VeLoading from './ve-loading';
@@ -16,6 +17,7 @@ const version = '2.12.3';
 const components = [
   VeCheckbox,
   VeCheckboxGroup,
+  VeContextmenu,
   VeDropdown,
   VeIcon,
   VeLoading,
@@ -45,6 +47,7 @@ export {
   version,
   VeCheckbox,
   VeCheckboxGroup,
+  VeContextmenu,
   VeDropdown,
   VeIcon,
   VeLoading,
@@ -60,6 +63,7 @@ export default {
   version,
   VeCheckbox,
   VeCheckboxGroup,
+  VeContextmenu,
   VeDropdown,
   VeIcon,
   VeLoading,
