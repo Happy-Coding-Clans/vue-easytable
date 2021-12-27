@@ -86,6 +86,7 @@ if (window.env === "dev") {
 import {
     VeCheckbox,
     VeCheckboxGroup,
+    VeContextmenu,
     VeDropdown,
     VeIcon,
     VeLoading,
@@ -98,6 +99,7 @@ import {
 
 Vue.use(VeCheckbox);
 Vue.use(VeCheckboxGroup);
+Vue.use(VeContextmenu);
 Vue.use(VeDropdown);
 Vue.use(VeIcon);
 Vue.use(VePagination);

@@ -12,7 +12,7 @@
             :table-data="tableData"
             :row-style-option="rowStyleOption"
             border-y
-            :context-menu-option="contextMenuOption"
+            :contextmenu-option="contextmenuOption"
         />
     </div>
 </template>
@@ -21,8 +21,8 @@
     export default {
         data() {
             return {
-                // context menu option
-                contextMenuOption: {
+                // contextmenu option
+                contextmenuOption: {
                     body: {
                         // enable context menu
                         enable: true,
