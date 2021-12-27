@@ -36,6 +36,7 @@ import {
     InputNumber,
     Input,
     Button,
+    CascaderPanel,
 } from "element-ui";
 Vue.use(Switch);
 Vue.use(Row);
@@ -48,6 +49,7 @@ Vue.use(DatePicker);
 Vue.use(InputNumber);
 Vue.use(Input);
 Vue.use(Button);
+Vue.use(CascaderPanel);
 
 // vue-lazy-container
 import VueLazyContainer from "vue-lazy-container";
