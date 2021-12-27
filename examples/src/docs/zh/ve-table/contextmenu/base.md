@@ -5,7 +5,9 @@
 ```html
 <template>
     <div>
-        <ve-table
+        <ve-contextmenu></ve-contextmenu>
+
+        <!-- <ve-table
             row-key-field-name="rowKey"
             :fixed-header="true"
             :columns="columns"
@@ -13,7 +15,7 @@
             :row-style-option="rowStyleOption"
             border-y
             :contextmenu-option="contextmenuOption"
-        />
+        /> -->
     </div>
 </template>
 
