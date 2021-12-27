@@ -58,7 +58,7 @@
                                         this.cellDataChange(row, column, val);
                                     }}
                                     type="date"
-                                    format="yyyy-MM-dd"
+                                    value-format="yyyy-MM-dd"
                                     placeholder="选择日期"
                                 ></el-date-picker>
                             );
