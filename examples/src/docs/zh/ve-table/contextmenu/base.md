@@ -126,38 +126,6 @@
                                         value: "cascader",
                                         label: "Cascader 级联选择器",
                                     },
-                                    {
-                                        value: "switch",
-                                        label: "Switch 开关",
-                                    },
-                                    {
-                                        value: "slider",
-                                        label: "Slider 滑块",
-                                    },
-                                    {
-                                        value: "time-picker",
-                                        label: "TimePicker 时间选择器",
-                                    },
-                                    {
-                                        value: "date-picker",
-                                        label: "DatePicker 日期选择器",
-                                    },
-                                    {
-                                        value: "datetime-picker",
-                                        label: "DateTimePicker 日期时间选择器",
-                                    },
-                                    {
-                                        value: "upload",
-                                        label: "Upload 上传",
-                                    },
-                                    {
-                                        value: "rate",
-                                        label: "Rate 评分",
-                                    },
-                                    {
-                                        value: "form",
-                                        label: "Form 表单",
-                                    },
                                 ],
                             },
                             {
