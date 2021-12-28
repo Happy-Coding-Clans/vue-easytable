@@ -2,6 +2,7 @@ import { COMPS_NAME } from "./util/constant";
 import { clsName } from "./util/index";
 import VeIcon from "vue-easytable/packages/ve-icon";
 import { ICON_NAMES } from "../../src/utils/constant";
+import { INIT_DATA } from "./util/constant";
 import { getRandomId } from "../../src/utils/random";
 
 export default {
@@ -183,7 +184,7 @@ export default {
         },
 
         // create panel by hover
-        createPanelByHover({ panelIndex, menu }) {
+        createPanelByHover({ menu }) {
             const { internalOptions, panelOptions } = this;
 
             // has already exists
@@ -195,15 +196,28 @@ export default {
                 internalOptions,
                 menu.id,
             );
-            this.createPanelOptions({
-                options: panelOption,
-                parentId: menu.id,
-            });
+
+            if (panelOption) {
+                this.createPanelOptions({
+                    options: panelOption,
+                    currentMenu: menu,
+                });
+            } else {
+                // remove current panel
+                const panelIndex = panelOptions.findIndex(
+                    (x) => x.parentDeep === menu.deep,
+                );
+
+                if (panelIndex > -1) {
+                    panelOptions.splice(panelIndex, 1);
+                }
+            }
+
             console.log("panelOption::", panelOption);
         },
 
         // create panels option
-        createPanelOptions({ options, parentId = 0 }) {
+        createPanelOptions({ options, currentMenu }) {
             const { hasChildren } = this;
 
             if (Array.isArray(options)) {
@@ -211,6 +225,7 @@ export default {
                 let menus = options.map((option) => {
                     return {
                         id: option.id,
+                        deep: option.deep,
                         label: option.label,
                         hasChildren: hasChildren(option),
                         children: option.children,
@@ -218,8 +233,12 @@ export default {
                 });
 
                 this.panelOptions.push({
-                    parentId: parentId,
-                    deep: options.deep,
+                    parentId: currentMenu
+                        ? currentMenu.id
+                        : INIT_DATA.PARENT_ID,
+                    parentDeep: currentMenu
+                        ? currentMenu.deep
+                        : INIT_DATA.PARENT_DEEP,
                     menus: menus,
                 });
             }
@@ -251,7 +270,7 @@ export default {
         const { panelOptions } = this;
         return (
             <div class="ve-contextmenu">
-                {panelOptions.map((panelOption, panelIndex) => {
+                {panelOptions.map((panelOption) => {
                     return (
                         <div class="ve-contextmenu-panel">
                             <ul class="ve-contextmenu-list">
@@ -260,7 +279,6 @@ export default {
                                         on: {
                                             mouseover: () => {
                                                 this.createPanelByHover({
-                                                    panelIndex,
                                                     menu,
                                                 });
                                             },
