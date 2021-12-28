@@ -9,144 +9,152 @@ export default {
     props: {},
     data() {
         return {
+            /* 
+            options
+
+            [
+                {
+                    id: 1,
+                    label: "菜单1",
+                },
+                {
+                    id: 2,
+                    label: "菜单2",
+                    children: [
+                        {
+                            id: "2-1",
+                            label: "菜单2-1",
+                        },
+                        {
+                            id: "2-2",
+                            label: "菜单2-2",
+                        },
+                    ],
+                },
+            ]
+
+            */
             options: [
                 {
-                    id: 1,
                     label: "菜单1",
                 },
                 {
-                    id: 2,
                     label: "菜单2",
                     children: [
                         {
-                            id: "2-1",
                             label: "菜单2-1",
                         },
                         {
-                            id: "2-2",
                             label: "菜单2-2",
                         },
                     ],
                 },
                 {
-                    id: 3,
                     label: "菜单3",
                 },
                 {
-                    id: 4,
                     label: "菜单4",
                     children: [
                         {
-                            id: "4-1",
                             label: "菜单4-1",
                             children: [
                                 {
-                                    id: "4-1-1",
                                     label: "菜单4-1-1",
                                 },
                                 {
-                                    id: "4-2-2",
                                     label: "菜单4-2-2",
                                 },
                             ],
                         },
                         {
-                            id: "4-2",
                             label: "菜单4-2",
                         },
                     ],
                 },
             ],
-            internalOptions: [
+            /* 
+            
+            internal options:
+
+            [
                 {
                     id: 1,
+                    deep: 0,
+                    hasChildren: false,
                     label: "菜单1",
                 },
                 {
                     id: 2,
                     label: "菜单2",
+                    deep: 0,
+                    hasChildren: true,
                     children: [
                         {
                             id: "2-1",
+                            deep: 1,
+                            hasChildren: false,
                             label: "菜单2-1",
                         },
                         {
                             id: "2-2",
+                            deep: 1,
+                            hasChildren: false,
                             label: "菜单2-2",
                         },
                     ],
                 },
-                {
-                    id: 3,
-                    label: "菜单3",
-                },
-                {
-                    id: 4,
-                    label: "菜单4",
-                    children: [
-                        {
-                            id: "4-1",
-                            label: "菜单4-1",
-                            children: [
-                                {
-                                    id: "4-1-1",
-                                    label: "菜单4-1-1",
-                                },
-                                {
-                                    id: "4-2-2",
-                                    label: "菜单4-2-2",
-                                },
-                            ],
-                        },
-                        {
-                            id: "4-2",
-                            label: "菜单4-2",
-                        },
-                    ],
-                },
-            ],
-            // panels option
-            panelOptions: [
-                // {
+            ]
+            
+            */
+            internalOptions: [],
+            /*
+            panels option
+
+            // {
                 //     id: 1,
-                //     menus: [],
+                //     menus: [
+                //         {
+                //             id: "",
+                //             deep: 0,
+                //             label: "菜单1",
+                //             hasChildren: true,
+                //         },
+                //         {
+                //             id: "",
+                //             deep: 0,
+                //             label: "菜单2",
+                //         },
+                //     ],
                 // },
                 // {
                 //     id: 2,
-                //     menus: [],
+                //     menus: [
+                //         {
+                //             id: "",
+                //             deep: 1,
+                //             label: "菜单1",
+                //             hasChildren: true,
+                //         },
+                //         {
+                //             id: "",
+                //             deep: 1,
+                //             label: "菜单2",
+                //         },
+                //     ],
                 // },
-                // [
-                //     {
-                //         label: "菜单1",
-                //         hasChildren: true,
-                //     },
-                //     {
-                //         label: "菜单2",
-                //     },
-                //     {
-                //         label: "菜单3",
-                //     },
-                //     {
-                //         label: "菜单4",
-                //     },
-                // ],
-                // [
-                //     {
-                //         label: "菜单1-1",
-                //     },
-                //     {
-                //         label: "菜单2",
-                //         hasChildren: true,
-                //     },
-                //     {
-                //         label: "菜单3",
-                //     },
-                //     {
-                //         label: "菜单4",
-                //     },
-                // ],
-            ],
+            */
+            panelOptions: [],
         };
+    },
+
+    watch: {
+        options: {
+            handler: function () {
+                this.createInternalOptions();
+                this.createPanelOptions({ options: this.internalOptions });
+            },
+            immediate: true,
+        },
     },
 
     methods: {
@@ -176,14 +184,17 @@ export default {
 
         // create panel by hover
         createPanelByHover({ panelIndex, menu }) {
-            const { options, panelOptions } = this;
+            const { internalOptions, panelOptions } = this;
 
             // has already exists
             if (panelOptions.findIndex((x) => x.parentId === menu.id) > -1) {
                 return false;
             }
 
-            const panelOption = this.getPanelOptionByMenuId(options, menu.id);
+            const panelOption = this.getPanelOptionByMenuId(
+                internalOptions,
+                menu.id,
+            );
             this.createPanelOptions({
                 options: panelOption,
                 parentId: menu.id,
@@ -208,6 +219,7 @@ export default {
 
                 this.panelOptions.push({
                     parentId: parentId,
+                    deep: options.deep,
                     menus: menus,
                 });
             }
@@ -233,11 +245,6 @@ export default {
                 return this.createInternalOptionsRecursion(option);
             });
         },
-    },
-
-    created() {
-        this.createInternalOptions();
-        this.createPanelOptions({ options: this.options });
     },
 
     render() {
