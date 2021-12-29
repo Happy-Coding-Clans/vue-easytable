@@ -331,30 +331,6 @@ export default {
                         </div>
                     );
                 })}
-
-                {/* <div class="ve-contextmenu-panel">
-                    <ul class="ve-contextmenu-list">
-                        <li class="ve-contextmenu-node">
-                            <span class="ve-contextmenu-node-label">
-                                测试这是一个长文本会什么情况文本会什么情况
-                            </span>
-                            <VeIcon
-                                class="ve-contextmenu-node-postfix"
-                                name={ICON_NAMES.RIGHT_ARROW}
-                            />
-                        </li>
-                        <li class="ve-contextmenu-node">
-                            <span class="ve-contextmenu-node-label">
-                                dasdas
-                            </span>
-                            <VeIcon
-                                class="ve-contextmenu-node-postfix"
-                                name={ICON_NAMES.RIGHT_ARROW}
-                            />
-                        </li>
-                    </ul>
-                </div>
-               */}
             </div>
         );
     },
