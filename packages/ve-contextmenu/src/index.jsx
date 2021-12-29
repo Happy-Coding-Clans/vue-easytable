@@ -192,6 +192,26 @@ export default {
                 return false;
             }
 
+            /*
+            移除 panel 深度大于等于当前悬浮菜单的。从后往前删除
+            remove panels
+            */
+            const deletePanelDeeps = panelOptions
+                .filter((x) => x.parentDeep >= menu.deep)
+                .map((x) => x.parentDeep)
+                .reverse();
+
+            if (deletePanelDeeps.length) {
+                for (let i = deletePanelDeeps.length - 1; i >= 0; i--) {
+                    const delIndex = panelOptions.findIndex(
+                        (x) => x.parentDeep === deletePanelDeeps[i],
+                    );
+                    if (delIndex > -1) {
+                        this.panelOptions.splice(delIndex, 1);
+                    }
+                }
+            }
+
             const panelOption = this.getPanelOptionByMenuId(
                 internalOptions,
                 menu.id,
@@ -202,26 +222,6 @@ export default {
                     options: panelOption,
                     currentMenu: menu,
                 });
-            } else {
-                /*
-                移除 panel 深度大于等于当前悬浮菜单的。从后往前删除
-                remove panels
-                */
-                const deletePanelDeeps = panelOptions
-                    .filter((x) => x.parentDeep >= menu.deep)
-                    .map((x) => x.parentDeep)
-                    .reverse();
-
-                if (deletePanelDeeps.length) {
-                    for (let i = deletePanelDeeps.length - 1; i >= 0; i--) {
-                        const delIndex = panelOptions.findIndex(
-                            (x) => x.parentDeep === deletePanelDeeps[i],
-                        );
-                        if (delIndex > -1) {
-                            this.panelOptions.splice(delIndex, 1);
-                        }
-                    }
-                }
             }
         },
 
