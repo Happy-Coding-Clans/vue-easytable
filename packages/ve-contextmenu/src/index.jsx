@@ -139,7 +139,7 @@ export default {
         },
 
         /*
-        0 is root id
+        get panel option by menu id
         */
         getPanelOptionByMenuId(options, menuId) {
             for (let i = 0; i < options.length; i++) {
