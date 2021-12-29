@@ -120,13 +120,6 @@ export default {
 
             return panelOptions.map((x) => x.parentId);
         },
-
-        // context menu node class
-        // contextmenuNodeClass(){
-        //     return {
-
-        //     }
-        // }
     },
 
     watch: {
