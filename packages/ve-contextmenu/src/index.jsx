@@ -4,6 +4,7 @@ import VeIcon from "vue-easytable/packages/ve-icon";
 import { ICON_NAMES } from "../../src/utils/constant";
 import { INIT_DATA } from "./util/constant";
 import { getRandomId } from "../../src/utils/random";
+import { debounce } from "lodash";
 
 export default {
     name: COMPS_NAME.VE_CONTEXTMENU,
@@ -193,7 +194,7 @@ export default {
         },
 
         // create panel by hover
-        createPanelByHover({ menu }) {
+        createPanelByHover: debounce(function ({ menu }) {
             const { internalOptions, panelOptions } = this;
 
             // has already exists
@@ -232,7 +233,7 @@ export default {
                     currentMenu: menu,
                 });
             }
-        },
+        }, 500),
 
         // create panels option
         createPanelOptions({ options, currentMenu }) {
