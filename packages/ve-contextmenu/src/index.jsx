@@ -197,7 +197,7 @@ export default {
                     currentMenu: menu,
                 });
             }
-        }, 500),
+        }, 350),
 
         // create panels option
         createPanelOptions({ options, currentMenu }) {

@@ -28,16 +28,20 @@
                 options: [
                     {
                         label: "菜单1",
+                        type: "type1",
                     },
                     {
                         label: "菜单2",
+                        type: "type2",
                         disabled: true,
                         children: [
                             {
                                 label: "菜单2-1",
+                                type: "type2-1",
                             },
                             {
                                 label: "菜单2-2",
+                                type: "type2-2",
                             },
                         ],
                     },
