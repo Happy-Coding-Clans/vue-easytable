@@ -4,7 +4,7 @@ import VeIcon from "vue-easytable/packages/ve-icon";
 import { ICON_NAMES } from "../../src/utils/constant";
 import { INIT_DATA } from "./util/constant";
 import { getRandomId } from "../../src/utils/random";
-import { debounce } from "lodash";
+import { debounce, cloneDeep } from "lodash";
 
 export default {
     name: COMPS_NAME.VE_CONTEXTMENU,
@@ -16,7 +16,7 @@ export default {
                     
                     id: 1,
                     label: "菜单1",
-                    disbaled:true
+                    disabled:true
                 },
                 {
                     id: 2,
@@ -207,11 +207,8 @@ export default {
                 //
                 let menus = options.map((option) => {
                     return {
-                        id: option.id,
-                        deep: option.deep,
-                        label: option.label,
                         hasChildren: hasChildren(option),
-                        children: option.children,
+                        ...option,
                     };
                 });
 
@@ -243,7 +240,7 @@ export default {
 
         // create internal options
         createInternalOptions() {
-            this.internalOptions = this.options.map((option) => {
+            this.internalOptions = cloneDeep(this.options).map((option) => {
                 return this.createInternalOptionsRecursion(option);
             });
         },
@@ -264,13 +261,15 @@ export default {
                                             [clsName("node-active")]:
                                                 activeMenuIds.includes(menu.id),
                                             [clsName("node-disabled")]:
-                                                menu.disbaled,
+                                                menu.disabled,
                                         },
                                         on: {
                                             mouseover: () => {
-                                                this.createPanelByHover({
-                                                    menu,
-                                                });
+                                                if (!menu.disabled) {
+                                                    this.createPanelByHover({
+                                                        menu,
+                                                    });
+                                                }
                                             },
                                         },
                                     };
@@ -283,7 +282,7 @@ export default {
                                             {menu.hasChildren && (
                                                 <VeIcon
                                                     class={clsName(
-                                                        "node-postfix",
+                                                        "node-icon-postfix",
                                                     )}
                                                     name={
                                                         ICON_NAMES.RIGHT_ARROW
