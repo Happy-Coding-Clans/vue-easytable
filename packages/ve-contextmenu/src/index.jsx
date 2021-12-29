@@ -8,16 +8,15 @@ import { debounce } from "lodash";
 
 export default {
     name: COMPS_NAME.VE_CONTEXTMENU,
-    props: {},
-    data() {
-        return {
-            /* 
-            options
-
+    props: {
+        /*
+         options(contextmenu)
             [
                 {
+                    
                     id: 1,
                     label: "菜单1",
+                    disbaled:true
                 },
                 {
                     id: 2,
@@ -34,50 +33,16 @@ export default {
                     ],
                 },
             ]
-
-            */
-            options: [
-                {
-                    label: "菜单1",
-                },
-                {
-                    label: "菜单2",
-                    children: [
-                        {
-                            label: "菜单2-1",
-                        },
-                        {
-                            label: "菜单2-2",
-                        },
-                    ],
-                },
-                {
-                    label: "菜单3",
-                },
-                {
-                    label: "菜单4",
-                    children: [
-                        {
-                            label: "菜单4-1",
-                            children: [
-                                {
-                                    label: "菜单4-1-1",
-                                },
-                                {
-                                    label: "菜单4-2-2",
-                                },
-                            ],
-                        },
-                        {
-                            label: "菜单4-2",
-                        },
-                    ],
-                },
-            ],
+        */
+        options: {
+            type: Array,
+            required: true,
+        },
+    },
+    data() {
+        return {
             /* 
-            
             internal options:
-
             [
                 {
                     id: 1,
@@ -106,44 +71,43 @@ export default {
                     ],
                 },
             ]
-            
             */
             internalOptions: [],
+
             /*
             panels option
-
-            // {
-                //     id: 1,
-                //     menus: [
-                //         {
-                //             id: "",
-                //             deep: 0,
-                //             label: "菜单1",
-                //             hasChildren: true,
-                //         },
-                //         {
-                //             id: "",
-                //             deep: 0,
-                //             label: "菜单2",
-                //         },
-                //     ],
-                // },
-                // {
-                //     id: 2,
-                //     menus: [
-                //         {
-                //             id: "",
-                //             deep: 1,
-                //             label: "菜单1",
-                //             hasChildren: true,
-                //         },
-                //         {
-                //             id: "",
-                //             deep: 1,
-                //             label: "菜单2",
-                //         },
-                //     ],
-                // },
+            {
+                    id: 1,
+                    menus: [
+                        {
+                            id: "",
+                            deep: 0,
+                            label: "菜单1",
+                            hasChildren: true,
+                        },
+                        {
+                            id: "",
+                            deep: 0,
+                            label: "菜单2",
+                        },
+                    ],
+                },
+                {
+                    id: 2,
+                    menus: [
+                        {
+                            id: "",
+                            deep: 1,
+                            label: "菜单1",
+                            hasChildren: true,
+                        },
+                        {
+                            id: "",
+                            deep: 1,
+                            label: "菜单2",
+                        },
+                    ],
+                },
             */
             panelOptions: [],
         };
@@ -156,6 +120,13 @@ export default {
 
             return panelOptions.map((x) => x.parentId);
         },
+
+        // context menu node class
+        // contextmenuNodeClass(){
+        //     return {
+
+        //     }
+        // }
     },
 
     watch: {
@@ -299,6 +270,8 @@ export default {
                                             [clsName("node")]: true,
                                             [clsName("node-active")]:
                                                 activeMenuIds.includes(menu.id),
+                                            [clsName("node-disabled")]:
+                                                menu.disbaled,
                                         },
                                         on: {
                                             mouseover: () => {
