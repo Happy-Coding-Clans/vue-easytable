@@ -1493,14 +1493,9 @@ export default {
             }
         },
 
-        /*
-         * @tdClick
-         * @desc  recieve td click event
-         * @param {object} rowData - row data
-         * @param {object} column - column data
-         */
-        tdClick({ rowData, column }) {
-            const { rowKeyFieldName, cellSelectionOption, editOption } = this;
+        // cell selection by click
+        cellSelectionByClick({ rowData, column }) {
+            const { rowKeyFieldName, cellSelectionOption } = this;
 
             const rowKey = rowData[rowKeyFieldName];
 
@@ -1521,6 +1516,36 @@ export default {
                     this.columnToVisible(column);
                 }
             }
+        },
+
+        /*
+         * @tdContextmenu
+         * @desc  recieve td right click\contextmenu event
+         * @param {object} rowData - row data
+         * @param {object} column - column data
+         */
+        tdContextmenu({ rowData, column }) {
+            const { editOption } = this;
+
+            // cell selection by click
+            this.cellSelectionByClick({ rowData, column });
+
+            if (editOption) {
+                this.editCellByClick({ isDblclick: false });
+            }
+        },
+
+        /*
+         * @tdClick
+         * @desc  recieve td click event
+         * @param {object} rowData - row data
+         * @param {object} column - column data
+         */
+        tdClick({ rowData, column }) {
+            const { editOption } = this;
+
+            // cell selection by click
+            this.cellSelectionByClick({ rowData, column });
 
             if (editOption) {
                 this.editCellByClick({ isDblclick: false });
@@ -1838,6 +1863,11 @@ export default {
         // recieve td click
         this.$on(EMIT_EVENTS.BODY_TD_CLICK, (params) => {
             this.tdClick(params);
+        });
+
+        // recieve td contextmenu(right click)
+        this.$on(EMIT_EVENTS.BODY_TD_CONTEXTMENU, (params) => {
+            this.tdContextmenu(params);
         });
 
         // recieve td double click

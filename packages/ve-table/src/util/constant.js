@@ -48,6 +48,8 @@ export const EMIT_EVENTS = {
     BODY_TD_CLICK: "on-body-td-click",
     // body td double click
     BODY_TD_DOUBLE_CLICK: "on-body-td-double-click",
+    // body td contextmenu
+    BODY_TD_CONTEXTMENU: "on-body-td-contextmenu",
     // expand row change
     EXPAND_ROW_CHANGE: "on-expand-row-change",
     // checkbox selected row change

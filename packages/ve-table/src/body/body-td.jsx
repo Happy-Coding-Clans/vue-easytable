@@ -421,6 +421,17 @@ export default {
         // contextmenu
         cellContextmenu(e, fn) {
             fn && fn(e);
+
+            const { column, rowData } = this;
+
+            this.dispatch(
+                COMPS_NAME.VE_TABLE,
+                EMIT_EVENTS.BODY_TD_CONTEXTMENU,
+                {
+                    rowData,
+                    column,
+                },
+            );
         },
         // mouseenter
         cellMouseenter(e, fn) {
