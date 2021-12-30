@@ -5,7 +5,13 @@
 ```html
 <template>
     <div>
-        <ve-contextmenu :options="options"></ve-contextmenu>
+        <div id="contextmenu-container">
+            <ve-contextmenu
+                elementTarget="#contextmenu-container"
+                :show="showContextmenu"
+                :options="options"
+            ></ve-contextmenu>
+        </div>
 
         <!-- <el-cascader-panel :options="options"></el-cascader-panel> -->
 
@@ -25,6 +31,7 @@
     export default {
         data() {
             return {
+                showContextmenu: true,
                 options: [
                     {
                         label: "菜单1",

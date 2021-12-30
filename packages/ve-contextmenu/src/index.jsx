@@ -38,6 +38,16 @@ export default {
             type: Array,
             required: true,
         },
+        // element target
+        elementTarget: {
+            type: [Object, String],
+            required: true,
+        },
+        // show
+        show: {
+            type: Boolean,
+            required: true,
+        },
     },
     data() {
         return {
@@ -244,12 +254,30 @@ export default {
                 return this.createInternalOptionsRecursion(option);
             });
         },
+
+        // add element target
+        addElementTarget() {
+            const { elementTarget } = this;
+
+            let eleTarget;
+
+            if (typeof elementTarget === "string" && elementTarget.length > 0) {
+                eleTarget = document.querySelector(elementTarget);
+            }
+            eleTarget = eleTarget || document.body;
+
+            eleTarget.appendChild(this.$el);
+        },
+    },
+
+    mounted() {
+        this.addElementTarget();
     },
 
     render() {
-        const { panelOptions, activeMenuIds } = this;
+        const { panelOptions, activeMenuIds, show } = this;
         return (
-            <div class="ve-contextmenu">
+            <div class={["ve-contextmenu", show ? clsName("show") : ""]}>
                 {panelOptions.map((panelOption) => {
                     return (
                         <div class={clsName("panel")}>
