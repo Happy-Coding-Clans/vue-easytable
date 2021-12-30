@@ -5,9 +5,9 @@
 ```html
 <template>
     <div>
-        <div id="contextmenu-container">
+        <div id="contextmenu-container" style="width:100%;height:300px;background:#666;">
             <ve-contextmenu
-                elementTarget="#contextmenu-container"
+                eventTarget="#contextmenu-container"
                 :show="showContextmenu"
                 :options="options"
             ></ve-contextmenu>

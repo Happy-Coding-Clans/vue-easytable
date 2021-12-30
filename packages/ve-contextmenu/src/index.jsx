@@ -1,4 +1,4 @@
-import { COMPS_NAME } from "./util/constant";
+import { COMPS_NAME, INSTANCE_METHODS } from "./util/constant";
 import { clsName } from "./util/index";
 import VeIcon from "vue-easytable/packages/ve-icon";
 import { ICON_NAMES } from "../../src/utils/constant";
@@ -38,14 +38,12 @@ export default {
             type: Array,
             required: true,
         },
-        // element target
-        elementTarget: {
+        /*
+        event target
+        contextmenu event will register on it
+        */
+        eventTarget: {
             type: [Object, String],
-            required: true,
-        },
-        // show
-        show: {
-            type: Boolean,
             required: true,
         },
     },
@@ -120,6 +118,12 @@ export default {
                 },
             */
             panelOptions: [],
+            // event target element
+            eventTargetEl: "",
+            // contextmenu id
+            contextmenuId: "",
+            // contextmenu ref
+            contextmenuRef: "contextmenuRef",
         };
     },
 
@@ -255,75 +259,130 @@ export default {
             });
         },
 
-        // add element target
-        addElementTarget() {
-            const { elementTarget } = this;
+        // show contextmenu panel
+        showContextmenuPanel(event) {
+            const { contextmenuId, contextmenuRef } = this;
 
-            let eleTarget;
+            let contextmenuContainerEl = document.querySelector(
+                `#${contextmenuId}`,
+            );
 
-            if (typeof elementTarget === "string" && elementTarget.length > 0) {
-                eleTarget = document.querySelector(elementTarget);
+            if (contextmenuContainerEl) {
+                // has already exists need remove
+                contextmenuContainerEl.innerHTML = "";
+
+                contextmenuContainerEl.appendChild(this.$refs[contextmenuRef]);
+
+                // 根据鼠标右击的位置调整 contextmenuContainerEl位置
             }
-            eleTarget = eleTarget || document.body;
+        },
 
-            eleTarget.appendChild(this.$el);
+        // add contextmenu to body
+        addContextmenuToBody() {
+            this.contextmenuId = clsName(getRandomId());
+
+            let containerEl = document.createElement("div");
+
+            containerEl.setAttribute("id", this.contextmenuId);
+
+            document.body.appendChild(containerEl);
+        },
+
+        // register contextmenu event
+        registerContextmenuEvent() {
+            const { eventTarget } = this;
+
+            if (typeof eventTarget === "string" && eventTarget.length > 0) {
+                this.eventTargetEl = document.querySelector(eventTarget);
+            } else {
+                this.eventTargetEl = eventTarget;
+            }
+
+            if (this.eventTargetEl) {
+                this.eventTargetEl.addEventListener("contextmenu", (event) => {
+                    // contextmenu is in on the current element
+                    this.showContextmenuPanel(event);
+                });
+            }
+        },
+
+        // un register contextmen event
+        removeContextmenuEvent() {
+            if (this.eventTargetEl) {
+                // 需要补充完整
+                this.eventTargetEl.removeEventListener("contextmenu", () => {});
+            }
         },
     },
 
     mounted() {
-        this.addElementTarget();
+        this.addContextmenuToBody();
+        this.registerContextmenuEvent();
     },
 
-    render() {
-        const { panelOptions, activeMenuIds, show } = this;
-        return (
-            <div class={["ve-contextmenu", show ? clsName("show") : ""]}>
-                {panelOptions.map((panelOption) => {
-                    return (
-                        <div class={clsName("panel")}>
-                            <ul class={clsName("list")}>
-                                {panelOption.menus.map((menu) => {
-                                    const contextmenuNodeProps = {
-                                        class: {
-                                            [clsName("node")]: true,
-                                            [clsName("node-active")]:
-                                                activeMenuIds.includes(menu.id),
-                                            [clsName("node-disabled")]:
-                                                menu.disabled,
-                                        },
-                                        on: {
-                                            mouseover: () => {
-                                                if (!menu.disabled) {
-                                                    this.createPanelByHover({
-                                                        menu,
-                                                    });
-                                                }
-                                            },
-                                        },
-                                    };
+    destroyed() {},
 
-                                    return (
-                                        <li {...contextmenuNodeProps}>
-                                            <span class={clsName("node-label")}>
-                                                {menu.label}
-                                            </span>
-                                            {menu.hasChildren && (
-                                                <VeIcon
-                                                    class={clsName(
-                                                        "node-icon-postfix",
-                                                    )}
-                                                    name={
-                                                        ICON_NAMES.RIGHT_ARROW
+    render() {
+        const { panelOptions, activeMenuIds, contextmenuRef } = this;
+
+        return (
+            <div style={{ display: "none" }}>
+                <div ref={contextmenuRef} class="ve-contextmenu">
+                    {panelOptions.map((panelOption) => {
+                        return (
+                            <div class={clsName("panel")}>
+                                <ul class={clsName("list")}>
+                                    {panelOption.menus.map((menu) => {
+                                        const contextmenuNodeProps = {
+                                            class: {
+                                                [clsName("node")]: true,
+                                                [clsName("node-active")]:
+                                                    activeMenuIds.includes(
+                                                        menu.id,
+                                                    ),
+                                                [clsName("node-disabled")]:
+                                                    menu.disabled,
+                                            },
+                                            on: {
+                                                mouseover: () => {
+                                                    if (!menu.disabled) {
+                                                        this.createPanelByHover(
+                                                            {
+                                                                menu,
+                                                            },
+                                                        );
                                                     }
-                                                />
-                                            )}
-                                        </li>
-                                    );
-                                })}
-                            </ul>
-                        </div>
-                    );
-                })}
+                                                },
+                                            },
+                                        };
+
+                                        return (
+                                            <li {...contextmenuNodeProps}>
+                                                <span
+                                                    class={clsName(
+                                                        "node-label",
+                                                    )}
+                                                >
+                                                    {menu.label}
+                                                </span>
+                                                {menu.hasChildren && (
+                                                    <VeIcon
+                                                        class={clsName(
+                                                            "node-icon-postfix",
+                                                        )}
+                                                        name={
+                                                            ICON_NAMES.RIGHT_ARROW
+                                                        }
+                                                    />
+                                                )}
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
         );
     },
