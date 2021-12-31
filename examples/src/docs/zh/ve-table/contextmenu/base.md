@@ -5,13 +5,13 @@
 ```html
 <template>
     <div>
-        <div id="contextmenu-container" style="width:100%;height:300px;background:#666;">
-            <ve-contextmenu
-                eventTarget="#contextmenu-container"
-                :show="showContextmenu"
-                :options="options"
-            ></ve-contextmenu>
-        </div>
+        <div id="contextmenu-container">右键点击此区域</div>
+
+        <ve-contextmenu
+            eventTarget="#contextmenu-container"
+            :show="showContextmenu"
+            :options="options"
+        ></ve-contextmenu>
 
         <!-- <el-cascader-panel :options="options"></el-cascader-panel> -->
 
@@ -225,6 +225,18 @@
         methods: {},
     };
 </script>
+<style>
+    #contextmenu-container {
+        display: flex;
+        width: 300px;
+        height: 300px;
+        justify-content: center;
+        align-items: center;
+        background: #eee;
+        border: 3px dashed #666;
+        border-radius: 8px;
+    }
+</style>
 ```
 
 :::
