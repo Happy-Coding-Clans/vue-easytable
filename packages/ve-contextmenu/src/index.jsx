@@ -261,6 +261,7 @@ export default {
 
         // show contextmenu panel
         showContextmenuPanel(event) {
+            event.preventDefault();
             const { contextmenuId, contextmenuRef } = this;
 
             let contextmenuContainerEl = document.querySelector(
@@ -268,13 +269,24 @@ export default {
             );
 
             if (contextmenuContainerEl) {
+                // refresh contextmenu
+                this.resetContextmenu();
+
                 // has already exists need remove
                 contextmenuContainerEl.innerHTML = "";
 
                 contextmenuContainerEl.appendChild(this.$refs[contextmenuRef]);
 
-                // 根据鼠标右击的位置调整 contextmenuContainerEl位置
+                contextmenuContainerEl.style.position = "absolute";
+                contextmenuContainerEl.style.left = event.clientX + "px";
+                contextmenuContainerEl.style.top = event.clientY + "px";
             }
+        },
+
+        // reset contextmeny
+        resetContextmenu() {
+            this.panelOptions = [];
+            this.createPanelOptions({ options: this.internalOptions });
         },
 
         // add contextmenu to body
@@ -325,9 +337,14 @@ export default {
     render() {
         const { panelOptions, activeMenuIds, contextmenuRef } = this;
 
+        const contextmenuProps = {
+            ref: contextmenuRef,
+            class: ["ve-contextmenu"],
+        };
+
         return (
             <div style={{ display: "none" }}>
-                <div ref={contextmenuRef} class="ve-contextmenu">
+                <div {...contextmenuProps}>
                     {panelOptions.map((panelOption) => {
                         return (
                             <div class={clsName("panel")}>
