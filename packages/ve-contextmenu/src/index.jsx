@@ -278,6 +278,7 @@ export default {
                 contextmenuContainerEl.appendChild(this.$refs[contextmenuRef]);
 
                 contextmenuContainerEl.style.position = "absolute";
+                contextmenuContainerEl.classList.add(clsName("popper"));
                 contextmenuContainerEl.style.left = event.clientX + "px";
                 contextmenuContainerEl.style.top = event.clientY + "px";
             }
