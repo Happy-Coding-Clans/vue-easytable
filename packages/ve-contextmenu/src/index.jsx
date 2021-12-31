@@ -1,13 +1,17 @@
-import { COMPS_NAME, INSTANCE_METHODS } from "./util/constant";
+import { COMPS_NAME } from "./util/constant";
 import { clsName } from "./util/index";
 import VeIcon from "vue-easytable/packages/ve-icon";
 import { ICON_NAMES } from "../../src/utils/constant";
 import { INIT_DATA } from "./util/constant";
 import { getRandomId } from "../../src/utils/random";
 import { debounce, cloneDeep } from "lodash";
+import clickoutside from "../../src/directives/clickoutside";
 
 export default {
     name: COMPS_NAME.VE_CONTEXTMENU,
+    directives: {
+        "click-outside": clickoutside,
+    },
     props: {
         /*
          options(contextmenu)
@@ -284,6 +288,19 @@ export default {
             }
         },
 
+        // remove contextmenu panel
+        removeContextmenuPanel() {
+            const { contextmenuId } = this;
+
+            let contextmenuContainerEl = document.querySelector(
+                `#${contextmenuId}`,
+            );
+
+            if (contextmenuContainerEl) {
+                contextmenuContainerEl.innerHTML = "";
+            }
+        },
+
         // reset contextmeny
         resetContextmenu() {
             this.panelOptions = [];
@@ -341,6 +358,12 @@ export default {
         const contextmenuProps = {
             ref: contextmenuRef,
             class: ["ve-contextmenu"],
+            directives: [
+                {
+                    name: "click-outside",
+                    value: this.removeContextmenuPanel,
+                },
+            ],
         };
 
         return (
