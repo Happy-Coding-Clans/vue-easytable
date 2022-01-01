@@ -8,6 +8,6 @@ export const COMPS_NAME = {
 
 // init data
 export const INIT_DATA = {
-    PARENT_ID: 0,
+    // PARENT_ID: 0,
     PARENT_DEEP: -1,
 };

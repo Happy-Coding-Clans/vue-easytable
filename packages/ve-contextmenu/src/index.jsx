@@ -151,6 +151,11 @@ export default {
     },
 
     methods: {
+        // get random id
+        getRandomIdWithPrefix() {
+            return clsName(getRandomId());
+        },
+
         // has children
         hasChildren(option) {
             return Array.isArray(option.children) && option.children.length;
@@ -219,7 +224,7 @@ export default {
 
         // create panels option
         createPanelOptions({ options, currentMenu }) {
-            const { hasChildren } = this;
+            const { hasChildren, getRandomIdWithPrefix } = this;
 
             if (Array.isArray(options)) {
                 //
@@ -233,7 +238,7 @@ export default {
                 this.panelOptions.push({
                     parentId: currentMenu
                         ? currentMenu.id
-                        : INIT_DATA.PARENT_ID,
+                        : getRandomIdWithPrefix(),
                     parentDeep: currentMenu
                         ? currentMenu.deep
                         : INIT_DATA.PARENT_DEEP,
@@ -244,7 +249,7 @@ export default {
 
         // create internal options recursion
         createInternalOptionsRecursion(options, deep = 0) {
-            options.id = getRandomId();
+            options.id = this.getRandomIdWithPrefix();
             options.deep = deep;
             deep++;
             if (Array.isArray(options.children)) {
@@ -309,7 +314,7 @@ export default {
 
         // add contextmenu to body
         addContextmenuToBody() {
-            this.contextmenuId = clsName(getRandomId());
+            this.contextmenuId = this.getRandomIdWithPrefix();
 
             let containerEl = document.createElement("div");
 
@@ -358,6 +363,9 @@ export default {
         const contextmenuProps = {
             ref: contextmenuRef,
             class: ["ve-contextmenu"],
+            style: {
+                // display: "none",
+            },
             directives: [
                 {
                     name: "click-outside",
@@ -367,63 +375,56 @@ export default {
         };
 
         return (
-            <div style={{ display: "none" }}>
-                <div {...contextmenuProps}>
-                    {panelOptions.map((panelOption) => {
-                        return (
-                            <div class={clsName("panel")}>
-                                <ul class={clsName("list")}>
-                                    {panelOption.menus.map((menu) => {
-                                        const contextmenuNodeProps = {
-                                            class: {
-                                                [clsName("node")]: true,
-                                                [clsName("node-active")]:
-                                                    activeMenuIds.includes(
-                                                        menu.id,
-                                                    ),
-                                                [clsName("node-disabled")]:
-                                                    menu.disabled,
+            <div {...contextmenuProps}>
+                {panelOptions.map((panelOption) => {
+                    return (
+                        <div class={clsName("panel")}>
+                            <ul class={clsName("list")}>
+                                {panelOption.menus.map((menu) => {
+                                    const contextmenuNodeProps = {
+                                        attrs: {
+                                            id: panelOption.id,
+                                        },
+                                        class: {
+                                            [clsName("node")]: true,
+                                            [clsName("node-active")]:
+                                                activeMenuIds.includes(menu.id),
+                                            [clsName("node-disabled")]:
+                                                menu.disabled,
+                                        },
+                                        on: {
+                                            mouseover: () => {
+                                                if (!menu.disabled) {
+                                                    this.createPanelByHover({
+                                                        menu,
+                                                    });
+                                                }
                                             },
-                                            on: {
-                                                mouseover: () => {
-                                                    if (!menu.disabled) {
-                                                        this.createPanelByHover(
-                                                            {
-                                                                menu,
-                                                            },
-                                                        );
-                                                    }
-                                                },
-                                            },
-                                        };
+                                        },
+                                    };
 
-                                        return (
-                                            <li {...contextmenuNodeProps}>
-                                                <span
+                                    return (
+                                        <li {...contextmenuNodeProps}>
+                                            <span class={clsName("node-label")}>
+                                                {menu.label}
+                                            </span>
+                                            {menu.hasChildren && (
+                                                <VeIcon
                                                     class={clsName(
-                                                        "node-label",
+                                                        "node-icon-postfix",
                                                     )}
-                                                >
-                                                    {menu.label}
-                                                </span>
-                                                {menu.hasChildren && (
-                                                    <VeIcon
-                                                        class={clsName(
-                                                            "node-icon-postfix",
-                                                        )}
-                                                        name={
-                                                            ICON_NAMES.RIGHT_ARROW
-                                                        }
-                                                    />
-                                                )}
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            </div>
-                        );
-                    })}
-                </div>
+                                                    name={
+                                                        ICON_NAMES.RIGHT_ARROW
+                                                    }
+                                                />
+                                            )}
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </div>
+                    );
+                })}
             </div>
         );
     },
