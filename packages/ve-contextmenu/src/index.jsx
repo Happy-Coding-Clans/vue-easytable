@@ -124,10 +124,8 @@ export default {
             panelOptions: [],
             // event target element
             eventTargetEl: "",
-            // contextmenu id
-            contextmenuId: "",
-            // contextmenu ref
-            contextmenuRef: "contextmenuRef",
+            // root contextmenu id
+            rootContextmenuId: "",
         };
     },
 
@@ -224,7 +222,7 @@ export default {
 
         // create panels option
         createPanelOptions({ options, currentMenu }) {
-            const { hasChildren, getRandomIdWithPrefix } = this;
+            const { hasChildren, rootContextmenuId } = this;
 
             if (Array.isArray(options)) {
                 //
@@ -236,9 +234,7 @@ export default {
                 });
 
                 this.panelOptions.push({
-                    parentId: currentMenu
-                        ? currentMenu.id
-                        : getRandomIdWithPrefix(),
+                    parentId: currentMenu ? currentMenu.id : rootContextmenuId,
                     parentDeep: currentMenu
                         ? currentMenu.deep
                         : INIT_DATA.PARENT_DEEP,
@@ -268,23 +264,24 @@ export default {
             });
         },
 
-        // show contextmenu panel
-        showContextmenuPanel(event) {
+        // show root contextmenu panel
+        showRootContextmenuPanel(event) {
             event.preventDefault();
-            const { contextmenuId, contextmenuRef } = this;
+            const { rootContextmenuId, panelOptions } = this;
 
             let contextmenuContainerEl = document.querySelector(
-                `#${contextmenuId}`,
+                `#${rootContextmenuId}`,
             );
 
-            if (contextmenuContainerEl) {
+            if (contextmenuContainerEl && panelOptions) {
                 // refresh contextmenu
                 this.resetContextmenu();
 
                 // has already exists need remove
                 contextmenuContainerEl.innerHTML = "";
+                const refName = panelOptions[0].parentId;
 
-                contextmenuContainerEl.appendChild(this.$refs[contextmenuRef]);
+                contextmenuContainerEl.appendChild(this.$refs[refName]);
 
                 contextmenuContainerEl.style.position = "absolute";
                 contextmenuContainerEl.classList.add(clsName("popper"));
@@ -295,10 +292,10 @@ export default {
 
         // remove contextmenu panel
         removeContextmenuPanel() {
-            const { contextmenuId } = this;
+            const { rootContextmenuId } = this;
 
             let contextmenuContainerEl = document.querySelector(
-                `#${contextmenuId}`,
+                `#${rootContextmenuId}`,
             );
 
             if (contextmenuContainerEl) {
@@ -312,13 +309,13 @@ export default {
             this.createPanelOptions({ options: this.internalOptions });
         },
 
-        // add contextmenu to body
-        addContextmenuToBody() {
-            this.contextmenuId = this.getRandomIdWithPrefix();
+        // add root contextmenu to body
+        addRootContextmenuToBody() {
+            this.rootContextmenuId = this.getRandomIdWithPrefix();
 
             let containerEl = document.createElement("div");
 
-            containerEl.setAttribute("id", this.contextmenuId);
+            containerEl.setAttribute("id", this.rootContextmenuId);
 
             document.body.appendChild(containerEl);
         },
@@ -336,7 +333,7 @@ export default {
             if (this.eventTargetEl) {
                 this.eventTargetEl.addEventListener("contextmenu", (event) => {
                     // contextmenu is in on the current element
-                    this.showContextmenuPanel(event);
+                    this.showRootContextmenuPanel(event);
                 });
             }
         },
@@ -351,17 +348,16 @@ export default {
     },
 
     mounted() {
-        this.addContextmenuToBody();
+        this.addRootContextmenuToBody();
         this.registerContextmenuEvent();
     },
 
     destroyed() {},
 
     render() {
-        const { panelOptions, activeMenuIds, contextmenuRef } = this;
+        const { panelOptions, activeMenuIds } = this;
 
         const contextmenuProps = {
-            ref: contextmenuRef,
             class: ["ve-contextmenu"],
             style: {
                 // display: "none",
@@ -377,14 +373,20 @@ export default {
         return (
             <div {...contextmenuProps}>
                 {panelOptions.map((panelOption) => {
+                    const contextmenuPanelProps = {
+                        ref: panelOption.parentId,
+                        /*  attrs: {
+                            id: panelOption.parentId,
+                        }, */
+                        class: {
+                            [clsName("panel")]: true,
+                        },
+                    };
                     return (
-                        <div class={clsName("panel")}>
+                        <div {...contextmenuPanelProps}>
                             <ul class={clsName("list")}>
                                 {panelOption.menus.map((menu) => {
                                     const contextmenuNodeProps = {
-                                        attrs: {
-                                            id: panelOption.id,
-                                        },
                                         class: {
                                             [clsName("node")]: true,
                                             [clsName("node-active")]:
