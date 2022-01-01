@@ -7,11 +7,7 @@
     <div>
         <div id="contextmenu-container">右键点击此区域</div>
 
-        <ve-contextmenu
-            eventTarget="#contextmenu-container"
-            :show="showContextmenu"
-            :options="options"
-        ></ve-contextmenu>
+        <ve-contextmenu eventTarget="#contextmenu-container" :options="options"></ve-contextmenu>
 
         <!-- <el-cascader-panel :options="options"></el-cascader-panel> -->
 
@@ -31,7 +27,6 @@
     export default {
         data() {
             return {
-                showContextmenu: true,
                 options: [
                     {
                         label: "菜单1",
