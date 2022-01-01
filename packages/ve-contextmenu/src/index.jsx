@@ -184,6 +184,23 @@ export default {
             }
         },
 
+        // get parent contextmenu panel element
+        getParentContextmenuPanelEl(contextmenuPanelId) {
+            let result;
+
+            const { panelOptions } = this;
+
+            const panelIndex = panelOptions.findIndex(
+                (x) => x.parentId === contextmenuPanelId,
+            );
+            if (panelIndex > 0) {
+                // preview panel's panelId
+                const parentPanelId = panelOptions[panelIndex - 1].parentId;
+                result = document.querySelector(`#${parentPanelId}`);
+            }
+            return result;
+        },
+
         // create panel by hover
         createPanelByHover: debounce(function ({ event, menu }) {
             const { internalOptions, panelOptions } = this;
@@ -297,25 +314,35 @@ export default {
 
         // show contextmenu panel
         showContextmenuPanel({ event, contextmenuId, isRootContextmenu }) {
-            let contextmenuContainerEl = document.querySelector(
+            const { getParentContextmenuPanelEl } = this;
+
+            let contextmenuPanelEl = document.querySelector(
                 `#${contextmenuId}`,
             );
 
-            if (contextmenuContainerEl) {
+            if (contextmenuPanelEl) {
                 // remove first
-                contextmenuContainerEl.innerHTML = "";
+                contextmenuPanelEl.innerHTML = "";
 
-                contextmenuContainerEl.appendChild(this.$refs[contextmenuId]);
+                contextmenuPanelEl.appendChild(this.$refs[contextmenuId]);
 
-                contextmenuContainerEl.style.position = "absolute";
-                contextmenuContainerEl.classList.add(clsName("popper"));
+                contextmenuPanelEl.style.position = "absolute";
+                contextmenuPanelEl.classList.add(clsName("popper"));
 
                 if (isRootContextmenu) {
-                    contextmenuContainerEl.style.left = event.clientX + "px";
+                    contextmenuPanelEl.style.left = event.clientX + "px";
                 } else {
-                    //
+                    const parentContextmenuPanelEl =
+                        getParentContextmenuPanelEl(contextmenuId);
+
+                    if (parentContextmenuPanelEl) {
+                        const { left, width } =
+                            parentContextmenuPanelEl.getBoundingClientRect();
+
+                        contextmenuPanelEl.style.left = left + width + "px";
+                    }
                 }
-                contextmenuContainerEl.style.top = event.clientY + "px";
+                contextmenuPanelEl.style.top = event.clientY + "px";
             }
         },
 
@@ -332,11 +359,11 @@ export default {
                     this.isChildrenPanelsClicked = false;
                 } else {
                     panelOptions.forEach((panelOption) => {
-                        let contextmenuContainerEl = document.querySelector(
+                        let contextmenuPanelEl = document.querySelector(
                             `#${panelOption.parentId}`,
                         );
-                        if (contextmenuContainerEl) {
-                            contextmenuContainerEl.innerHTML = "";
+                        if (contextmenuPanelEl) {
+                            contextmenuPanelEl.innerHTML = "";
                         }
                     });
                 }
@@ -351,11 +378,11 @@ export default {
 
         // add context menu panel to body
         addContextmenuPanelToBody({ contextmenuId }) {
-            let contextmenuContainerEl = document.querySelector(
+            let contextmenuPanelEl = document.querySelector(
                 `#${contextmenuId}`,
             );
 
-            if (contextmenuContainerEl) {
+            if (contextmenuPanelEl) {
                 return false;
             } else {
                 let containerEl = document.createElement("div");
