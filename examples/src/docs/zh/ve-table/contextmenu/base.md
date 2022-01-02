@@ -35,7 +35,6 @@
                     {
                         label: "菜单2",
                         type: "type2",
-                        disabled: true,
                         children: [
                             {
                                 label: "菜单2-1",
@@ -52,6 +51,7 @@
                     },
                     {
                         label: "菜单4",
+                        disabled: true,
                         children: [
                             {
                                 label: "菜单4-1",
@@ -67,6 +67,26 @@
                             },
                             {
                                 label: "菜单4-2",
+                            },
+                        ],
+                    },
+                    {
+                        label: "菜单5",
+                        children: [
+                            {
+                                label: "菜单5-1",
+                                children: [
+                                    {
+                                        label: "菜单5-1-1",
+                                        disabled: true,
+                                    },
+                                    {
+                                        label: "菜单5-2-2",
+                                    },
+                                ],
+                            },
+                            {
+                                label: "菜单5-2",
                             },
                         ],
                     },
