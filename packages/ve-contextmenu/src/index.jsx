@@ -351,7 +351,7 @@ export default {
             const { panelOptions } = this;
 
             /*
-            wait for children panel clicked
+            wait for children panel clicked by setTimeout
             如果点击的是非 root panel 不关闭
             */
             setTimeout(() => {
@@ -411,18 +411,22 @@ export default {
             }
 
             if (this.eventTargetEl) {
-                this.eventTargetEl.addEventListener("contextmenu", (event) => {
-                    // contextmenu is in on the current element
-                    this.showRootContextmenuPanel(event);
-                });
+                // contextmenu is on the current element
+
+                this.eventTargetEl.addEventListener(
+                    "contextmenu",
+                    this.showRootContextmenuPanel,
+                );
             }
         },
 
         // un register contextmen event
         removeContextmenuEvent() {
             if (this.eventTargetEl) {
-                // 需要补充完整
-                this.eventTargetEl.removeEventListener("contextmenu", () => {});
+                this.eventTargetEl.removeEventListener(
+                    "contextmenu",
+                    this.showRootContextmenuPanel,
+                );
             }
         },
     },
@@ -432,7 +436,9 @@ export default {
         this.registerContextmenuEvent();
     },
 
-    destroyed() {},
+    destroyed() {
+        this.removeContextmenuEvent();
+    },
 
     render() {
         const { panelOptions, activeMenuIds } = this;
