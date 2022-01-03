@@ -339,10 +339,16 @@ export default {
                         const { left, width } =
                             parentContextmenuPanelEl.getBoundingClientRect();
 
+                        console.log(
+                            "parentContextmenuPanelEl.getBoundingClientRect()::",
+                            parentContextmenuPanelEl.getBoundingClientRect(),
+                        );
+
                         contextmenuPanelEl.style.left = left + width + "px";
                     }
                 }
                 contextmenuPanelEl.style.top = event.clientY + "px";
+                console.log("event.clientY::", event.clientY);
             }
         },
 
