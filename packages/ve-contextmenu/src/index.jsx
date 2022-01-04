@@ -2,6 +2,7 @@ import { COMPS_NAME } from "./util/constant";
 import { clsName } from "./util/index";
 import VeIcon from "vue-easytable/packages/ve-icon";
 import { ICON_NAMES } from "../../src/utils/constant";
+import { getMousePosition } from "../../src/utils/dom";
 import { INIT_DATA } from "./util/constant";
 import { getRandomId } from "../../src/utils/random";
 import { debounce, cloneDeep } from "lodash";
@@ -314,6 +315,7 @@ export default {
 
         // show contextmenu panel
         showContextmenuPanel({ event, contextmenuId, isRootContextmenu }) {
+            console.log("event::", event);
             const { getParentContextmenuPanelEl } = this;
 
             let contextmenuPanelEl = document.querySelector(
@@ -330,7 +332,39 @@ export default {
                 contextmenuPanelEl.classList.add(clsName("popper"));
 
                 if (isRootContextmenu) {
-                    contextmenuPanelEl.style.left = event.clientX + "px";
+                    const { width: panelWidth, height: panelHeight } =
+                        contextmenuPanelEl.getBoundingClientRect();
+
+                    const {
+                        left: clickLeft,
+                        top: clickTop,
+                        right: clickRight,
+                        bottom: clickBottom,
+                    } = getMousePosition(event);
+
+                    let panelX = 0;
+                    let panelY = 0;
+
+                    // 右方宽度够显示
+                    if (clickRight >= panelWidth) {
+                        panelX = clickLeft;
+                    }
+                    // 右方宽度不够显示在鼠标点击左方
+                    else {
+                        panelX = clickLeft - panelWidth;
+                    }
+
+                    // 下方高度够显示
+                    if (clickBottom >= panelHeight) {
+                        panelY = clickTop;
+                    }
+                    // 下方高度不够显示在鼠标点击上方
+                    else {
+                        panelY = clickTop - panelHeight;
+                    }
+
+                    contextmenuPanelEl.style.left = panelX + "px";
+                    contextmenuPanelEl.style.top = panelY + "px";
                 } else {
                     const parentContextmenuPanelEl =
                         getParentContextmenuPanelEl(contextmenuId);
@@ -339,16 +373,10 @@ export default {
                         const { left, width } =
                             parentContextmenuPanelEl.getBoundingClientRect();
 
-                        console.log(
-                            "parentContextmenuPanelEl.getBoundingClientRect()::",
-                            parentContextmenuPanelEl.getBoundingClientRect(),
-                        );
-
                         contextmenuPanelEl.style.left = left + width + "px";
+                        contextmenuPanelEl.style.top = event.clientY + "px";
                     }
                 }
-                contextmenuPanelEl.style.top = event.clientY + "px";
-                console.log("event.clientY::", event.clientY);
             }
         },
 
