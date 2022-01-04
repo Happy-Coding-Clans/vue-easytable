@@ -1,4 +1,4 @@
-import { getViewportOffset } from "../utils/index";
+import { getViewportOffset } from "../utils/dom";
 
 var __autoAdjustment__events__ = [];
 
