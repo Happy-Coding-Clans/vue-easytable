@@ -2,7 +2,7 @@ import { COMPS_NAME } from "./util/constant";
 import { clsName } from "./util/index";
 import VeIcon from "vue-easytable/packages/ve-icon";
 import { ICON_NAMES } from "../../src/utils/constant";
-import { getMousePosition } from "../../src/utils/dom";
+import { getMousePosition, getViewportOffset } from "../../src/utils/dom";
 import { INIT_DATA } from "./util/constant";
 import { getRandomId } from "../../src/utils/random";
 import { debounce, cloneDeep } from "lodash";
@@ -132,6 +132,11 @@ export default {
             如果点击了则不关闭 panels
             */
             isChildrenPanelsClicked: false,
+            /*
+            is panel right direction
+            决定了子 panel 默认展示方向
+            */
+            isPanelRightDirection: true,
         };
     },
 
@@ -331,10 +336,9 @@ export default {
                 contextmenuPanelEl.style.position = "absolute";
                 contextmenuPanelEl.classList.add(clsName("popper"));
 
+                const { width: currentPanelWidth, height: currentPanelHeight } =
+                    contextmenuPanelEl.getBoundingClientRect();
                 if (isRootContextmenu) {
-                    const { width: panelWidth, height: panelHeight } =
-                        contextmenuPanelEl.getBoundingClientRect();
-
                     const {
                         left: clickLeft,
                         top: clickTop,
@@ -346,21 +350,23 @@ export default {
                     let panelY = 0;
 
                     // 右方宽度够显示
-                    if (clickRight >= panelWidth) {
+                    if (clickRight >= currentPanelWidth) {
                         panelX = clickLeft;
+                        this.isPanelRightDirection = true;
                     }
                     // 右方宽度不够显示在鼠标点击左方
                     else {
-                        panelX = clickLeft - panelWidth;
+                        panelX = clickLeft - currentPanelWidth;
+                        this.isPanelRightDirection = false;
                     }
 
                     // 下方高度够显示
-                    if (clickBottom >= panelHeight) {
+                    if (clickBottom >= currentPanelHeight) {
                         panelY = clickTop;
                     }
                     // 下方高度不够显示在鼠标点击上方
                     else {
-                        panelY = clickTop - panelHeight;
+                        panelY = clickTop - currentPanelHeight;
                     }
 
                     contextmenuPanelEl.style.left = panelX + "px";
@@ -370,11 +376,54 @@ export default {
                         getParentContextmenuPanelEl(contextmenuId);
 
                     if (parentContextmenuPanelEl) {
-                        const { left, width } =
+                        const {
+                            left: parentPanelLeft,
+                            right: parentPanelRight,
+                        } = getViewportOffset(parentContextmenuPanelEl);
+
+                        const { top: clickTop, bottom: clickBottom } =
+                            getMousePosition(event);
+
+                        const { width: parentPanelWidth } =
                             parentContextmenuPanelEl.getBoundingClientRect();
 
-                        contextmenuPanelEl.style.left = left + width + "px";
-                        contextmenuPanelEl.style.top = event.clientY + "px";
+                        let panelX = 0;
+                        let panelY = 0;
+
+                        // 如果默认展示在右方向
+                        if (this.isPanelRightDirection) {
+                            // 右方宽度够显示
+                            if (parentPanelRight >= currentPanelWidth) {
+                                panelX = parentPanelLeft + parentPanelWidth;
+                            }
+                            // 右方宽度不够显示在鼠标点击左方
+                            else {
+                                panelX = parentPanelLeft - parentPanelWidth;
+                            }
+                        }
+                        // 如果默认展示在左方向
+                        else {
+                            // 左方宽度够显示
+                            if (parentPanelLeft >= currentPanelWidth) {
+                                panelX = parentPanelLeft - parentPanelWidth;
+                            }
+                            // 左方宽度不够显示在鼠标点击右方
+                            else {
+                                panelX = parentPanelLeft + parentPanelWidth;
+                            }
+                        }
+
+                        // 下方高度够显示
+                        if (clickBottom >= currentPanelHeight) {
+                            panelY = clickTop;
+                        }
+                        // 下方高度不够显示在鼠标点击上方
+                        else {
+                            panelY = clickTop - currentPanelHeight;
+                        }
+
+                        contextmenuPanelEl.style.left = panelX + "px";
+                        contextmenuPanelEl.style.top = panelY + "px";
                     }
                 }
             }

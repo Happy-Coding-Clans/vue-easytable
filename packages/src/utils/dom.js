@@ -62,12 +62,12 @@ export function hasClass(el, cls) {
 }
 
 /*获取当前元素的left、top偏移
- *   left：元素最左侧距离文档左侧的距离
- *   top:元素最顶端距离文档顶端的距离
- *   right:元素最右侧距离文档右侧的距离
- *   bottom：元素最底端距离文档底端的距离
- *   right2：元素最左侧距离文档右侧的距离
- *   bottom2：元素最底端距离文档最底部的距离
+ *   left：元素最左侧距离文档左侧的距离，包含滚动条
+ *   top:元素最顶端距离文档顶端的距离，包含滚动条
+ *   right:元素最右侧距离文档右侧的距离，不包含滚动条
+ *   bottom：元素最底端距离文档底端的距离，不包含滚动条
+ *   right2：元素最左侧距离文档右侧的距离，不包含滚动条
+ *   bottom2：元素最底端距离文档最底部的距离，不包含滚动条
  * */
 export function getViewportOffset(element) {
     var doc = document.documentElement,
