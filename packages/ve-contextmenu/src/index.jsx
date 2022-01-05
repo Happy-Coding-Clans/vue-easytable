@@ -258,7 +258,7 @@ export default {
                     });
                 });
             }
-        }, 350),
+        }, 300),
 
         // create panels option
         createPanelOptions({ options, currentMenu }) {
