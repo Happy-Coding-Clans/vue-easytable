@@ -47,8 +47,13 @@
                         ],
                     },
                     {
+                        type: "separator",
+                    },
+
+                    {
                         label: "菜单3",
                     },
+
                     {
                         label: "菜单4",
                         disabled: true,
@@ -84,6 +89,9 @@
                                         label: "菜单5-2-2",
                                     },
                                 ],
+                            },
+                            {
+                                type: "separator",
                             },
                             {
                                 label: "菜单5-2",
