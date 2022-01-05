@@ -59,6 +59,12 @@ const config = [
                 name: "Pagination",
                 meta: { keepAlive: true },
             },
+            {
+                path: "contextmenu",
+                component: () => import("@/docs/en/ve-contextmenu/main.vue"),
+                name: "Contextmenu",
+                meta: { keepAlive: true },
+            },
         ],
     },
     {
