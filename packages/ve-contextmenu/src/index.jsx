@@ -137,6 +137,11 @@ export default {
             决定了子 panel 默认展示方向
             */
             isPanelRightDirection: true,
+            /*
+            is panels remove
+            防止hover后菜单被移除，仍然显示子集菜单的问题
+            */
+            isPanelsRemove: true,
         };
     },
 
@@ -210,6 +215,11 @@ export default {
         // create panel by hover
         createPanelByHover: debounce(function ({ event, menu }) {
             const { internalOptions, panelOptions } = this;
+
+            // 如果被移除则不创建
+            if (this.isPanelsRemove) {
+                return false;
+            }
 
             // has already exists
             if (panelOptions.findIndex((x) => x.parentId === menu.id) > -1) {
@@ -316,6 +326,7 @@ export default {
                 contextmenuId: rootContextmenuId,
                 isRootContextmenu: true,
             });
+            this.isPanelsRemove = false;
         },
 
         // show contextmenu panel
@@ -432,6 +443,8 @@ export default {
         removeContextmenuPanels() {
             const { panelOptions } = this;
 
+            this.isPanelsRemove = true;
+
             /*
             wait for children panel clicked by setTimeout
             如果点击的是非 root panel 不关闭
@@ -523,7 +536,13 @@ export default {
     },
 
     render() {
-        const { panelOptions, activeMenuIds } = this;
+        const {
+            panelOptions,
+            activeMenuIds,
+            hasChildren,
+            removeContextmenuPanels,
+            createPanelByHover,
+        } = this;
 
         const contextmenuProps = {
             class: ["ve-contextmenu"],
@@ -546,7 +565,7 @@ export default {
                                 value: () => {
                                     // only for root panel
                                     if (panelIndex === 0) {
-                                        this.removeContextmenuPanels();
+                                        removeContextmenuPanels();
                                     }
                                 },
                             },
@@ -583,19 +602,26 @@ export default {
                                                 mouseover: (event) => {
                                                     // disable
                                                     if (!menu.disabled) {
-                                                        this.createPanelByHover(
-                                                            {
-                                                                event,
-                                                                menu,
-                                                            },
-                                                        );
+                                                        createPanelByHover({
+                                                            event,
+                                                            menu,
+                                                        });
                                                     }
                                                 },
                                                 click: () => {
-                                                    this.$emit(
-                                                        EMIT_EVENTS.ON_NODE_CLICK,
-                                                        menu.type,
-                                                    );
+                                                    if (!menu.disabled) {
+                                                        this.$emit(
+                                                            EMIT_EVENTS.ON_NODE_CLICK,
+                                                            menu.type,
+                                                        );
+                                                        if (
+                                                            !hasChildren(menu)
+                                                        ) {
+                                                            setTimeout(() => {
+                                                                removeContextmenuPanels();
+                                                            }, 50);
+                                                        }
+                                                    }
                                                 },
                                             },
                                         };
