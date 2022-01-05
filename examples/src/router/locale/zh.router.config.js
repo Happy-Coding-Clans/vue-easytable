@@ -59,6 +59,12 @@ const config = [
                 name: "Pagination 分页",
                 meta: { keepAlive: true },
             },
+            {
+                path: "contextmenu",
+                component: () => import("@/docs/zh/ve-contextmenu/main.vue"),
+                name: "Contextmenu 右键菜单",
+                meta: { keepAlive: true },
+            },
         ],
     },
     {
