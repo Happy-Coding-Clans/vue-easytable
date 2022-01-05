@@ -3,7 +3,7 @@ import { clsName } from "./util/index";
 import VeIcon from "vue-easytable/packages/ve-icon";
 import { ICON_NAMES } from "../../src/utils/constant";
 import { getMousePosition, getViewportOffset } from "../../src/utils/dom";
-import { INIT_DATA, CONTEXTMENU_TYPES } from "./util/constant";
+import { INIT_DATA, EMIT_EVENTS, CONTEXTMENU_TYPES } from "./util/constant";
 import { getRandomId } from "../../src/utils/random";
 import { debounce, cloneDeep } from "lodash";
 import clickoutside from "../../src/directives/clickoutside";
@@ -320,7 +320,6 @@ export default {
 
         // show contextmenu panel
         showContextmenuPanel({ event, contextmenuId, isRootContextmenu }) {
-            console.log("event::", event);
             const { getParentContextmenuPanelEl } = this;
 
             let contextmenuPanelEl = document.querySelector(
@@ -591,6 +590,12 @@ export default {
                                                             },
                                                         );
                                                     }
+                                                },
+                                                click: () => {
+                                                    this.$emit(
+                                                        EMIT_EVENTS.ON_NODE_CLICK,
+                                                        menu.type,
+                                                    );
                                                 },
                                             },
                                         };

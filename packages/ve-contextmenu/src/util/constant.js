@@ -6,6 +6,11 @@ export const COMPS_NAME = {
     VE_CONTEXTMENU: "VeContextmenu",
 };
 
+// emit events
+export const EMIT_EVENTS = {
+    ON_NODE_CLICK: "on-node-click",
+};
+
 // init data
 export const INIT_DATA = {
     // PARENT_ID: 0,
