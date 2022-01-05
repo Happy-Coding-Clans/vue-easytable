@@ -11,3 +11,9 @@ export const INIT_DATA = {
     // PARENT_ID: 0,
     PARENT_DEEP: -1,
 };
+
+// contextmenu types
+export const CONTEXTMENU_TYPES = {
+    // Separator
+    SEPARATOR: "separator",
+};
