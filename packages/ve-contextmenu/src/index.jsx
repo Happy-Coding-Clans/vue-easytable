@@ -538,9 +538,6 @@ export default {
                 {panelOptions.map((panelOption, panelIndex) => {
                     const contextmenuPanelProps = {
                         ref: panelOption.parentId,
-                        /*  attrs: {
-                            id: panelOption.parentId,
-                        }, */
                         class: {
                             [clsName("panel")]: true,
                         },
