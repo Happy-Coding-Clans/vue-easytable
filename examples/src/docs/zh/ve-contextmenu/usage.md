@@ -25,20 +25,20 @@ export default {
             options: [
               [
                     {
-                        label: "菜单1",
-                        type: "type1",
+                        label: "menu1",
+                        type: "menu1-type",
                     },
                     {
-                        label: "菜单2",
-                        type: "type2",
+                        label: "menu2",
+                        type: "menu2-type",
                         children: [
                             {
-                                label: "菜单2-1",
-                                type: "type2-1",
+                                label: "menu2-1",
+                                type: "menu2-1-type",
                             },
                             {
-                                label: "菜单2-2",
-                                type: "type2-2",
+                                label: "menu2-2",
+                                type: "menu2-2-type",
                             },
                         ],
                     },
@@ -46,7 +46,8 @@ export default {
                         type: "separator",
                     },
                     {
-                        label: "菜单3",
+                        label: "menu3",
+                        type: "menu3-type",
                     },
             ],
         };

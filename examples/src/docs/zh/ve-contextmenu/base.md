@@ -5,9 +5,16 @@
 ```html
 <template>
     <div>
-        <div id="contextmenu-container">右键点击此区域</div>
+        <div id="contextmenu-container">
+            <div>右键点击此区域</div>
+            <div style="font-size:30px;color:red;">{{contextmenuType}}</div>
+        </div>
 
-        <ve-contextmenu eventTarget="#contextmenu-container" :options="options"></ve-contextmenu>
+        <ve-contextmenu
+            eventTarget="#contextmenu-container"
+            :options="options"
+            @on-node-click="contextmenuClick"
+        ></ve-contextmenu>
     </div>
 </template>
 
@@ -15,85 +22,88 @@
     export default {
         data() {
             return {
+                // contextmenu type
+                contextmenuType: "",
+                // contextmenu options
                 options: [
                     {
-                        label: "菜单1",
-                        type: "type1",
+                        label: "menu1",
+                        type: "menu1-type",
                     },
                     {
-                        label: "菜单2",
-                        type: "type2",
+                        label: "menu2",
+                        type: "menu2-type",
                         children: [
                             {
-                                label: "菜单2-1",
-                                type: "type2-1",
+                                label: "menu2-1",
+                                type: "menu2-1-type",
                             },
                             {
-                                label: "菜单2-2",
-                                type: "type2-2",
+                                label: "menu2-2",
+                                type: "menu2-2",
                             },
                         ],
                     },
                     {
                         type: "separator",
                     },
-
                     {
-                        label: "菜单3",
+                        label: "menu3",
+                        type: "menu3-type",
                     },
-
                     {
-                        label: "菜单4",
+                        label: "menu4",
                         disabled: true,
                         children: [
                             {
-                                label: "菜单4-1",
-                                children: [
-                                    {
-                                        label: "菜单4-1-1",
-                                        disabled: true,
-                                    },
-                                    {
-                                        label: "菜单4-2-2",
-                                    },
-                                ],
-                            },
-                            {
-                                label: "菜单4-2",
+                                label: "menu4-1",
                             },
                         ],
                     },
                     {
-                        label: "菜单5",
+                        label: "menu5",
+                        type: "menu5-type",
                         children: [
                             {
-                                label: "菜单5-1",
+                                label: "menu5-1",
+                                type: "menu5-1-type",
                                 children: [
                                     {
-                                        label: "菜单5-1-1",
-                                        disabled: true,
+                                        label: "menu5-1-1",
                                     },
                                     {
-                                        label: "菜单5-2-2",
+                                        label: "menu5-2-2",
+                                        type: "menu5-2-2-type",
                                     },
                                 ],
+                            },
+                            {
+                                label: "menu5-2",
+                                disabled: true,
                             },
                             {
                                 type: "separator",
                             },
                             {
-                                label: "菜单5-2",
+                                label: "menu5-3",
+                                type: "menu5-3-type",
                             },
                         ],
                     },
                 ],
             };
         },
+        methods: {
+            contextmenuClick(type) {
+                this.contextmenuType = type;
+            },
+        },
     };
 </script>
 <style>
     #contextmenu-container {
         display: flex;
+        flex-direction: column;
         width: 300px;
         height: 300px;
         justify-content: center;
