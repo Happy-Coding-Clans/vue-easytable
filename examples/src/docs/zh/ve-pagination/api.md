@@ -2,18 +2,18 @@
 
 ### props
 
-| Property       | Description                                                                 | Type     | Optional value                                        | Default                                               |
-| -------------- | --------------------------------------------------------------------------- | -------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| layout         | Layout settings can be matched according to your own business scenarios     | `Array`  | ['total', 'prev', 'pager', 'next', 'sizer', 'jumper'] | ['total', 'prev', 'pager', 'next', 'sizer', 'jumper'] |
-| total          | Total Count                                                                 | `Number` | -                                                     | -                                                     |
-| pageIndex      | Current page number                                                         | `Number` | -                                                     | 1                                                     |
-| pagingCount    | The number of buttons in the middle of forward 5 pages and backward 5 pages | `Number` | -                                                     | 5                                                     |
-| pageSize       | Page size                                                                   | `Number` | -                                                     | 10                                                    |
-| pageSizeOption | Per page size drop-down configuration                                       | `Array`  | -                                                     | [10, 20, 30]                                          |
+| 参数           | 描述                         | 类型     | 可选值                                                | 默认值                                                |
+| -------------- | ---------------------------- | -------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| layout         | 布局设置                     | `Array`  | ['total', 'prev', 'pager', 'next', 'sizer', 'jumper'] | ['total', 'prev', 'pager', 'next', 'sizer', 'jumper'] |
+| total          | 总数量                       | `Number` | -                                                     | -                                                     |
+| pageIndex      | 当前页码                     | `Number` | -                                                     | 1                                                     |
+| pagingCount    | 前 5 页和后 5 页中间的按钮数 | `Number` | -                                                     | 5                                                     |
+| pageSize       | 每页大小                     | `Number` | -                                                     | 10                                                    |
+| pageSizeOption | 每页大小下拉配置             | `Array`  | -                                                     | [10, 20, 30]                                          |
 
 ### Event
 
-| Event Name            | Description                        | Parameters          |
-| --------------------- | ---------------------------------- | ------------------- |
-| on-page-number-change | Page change callback event         | Current page number |
-| on-page-size-change   | Page size dropdown change callback | Current page size   |
+| 事件名称              | 描述             | 回调参数 |
+| --------------------- | ---------------- | -------- |
+| on-page-number-change | 页码改变回调事件 | 当前页码 |
+| on-page-size-change   | 每页大小回调     | 每页大小 |
