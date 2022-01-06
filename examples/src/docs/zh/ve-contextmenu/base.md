@@ -5,13 +5,13 @@
 ```html
 <template>
     <div>
-        <div id="contextmenu-container">
+        <div id="contextmenu-target">
             <div>右键点击此区域</div>
             <div style="font-size:30px;color:red;">{{contextmenuType}}</div>
         </div>
 
         <ve-contextmenu
-            eventTarget="#contextmenu-container"
+            eventTarget="#contextmenu-target"
             :options="options"
             @on-node-click="contextmenuClick"
         ></ve-contextmenu>
@@ -101,7 +101,7 @@
     };
 </script>
 <style>
-    #contextmenu-container {
+    #contextmenu-target {
         display: flex;
         flex-direction: column;
         width: 300px;

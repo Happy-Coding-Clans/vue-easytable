@@ -14,8 +14,8 @@ Vue.use(VeContextmenu);
 ```javascript
 <template>
     <div>
-        <div id="contextmenu-container">右键点击此区域</div>
-        <ve-contextmenu eventTarget="#contextmenu-container" :options="options" />
+        <div id="contextmenu-target">右键点击此区域</div>
+        <ve-contextmenu eventTarget="#contextmenu-target" :options="options" />
     </div>
 </template>
 <script>
