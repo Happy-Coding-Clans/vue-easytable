@@ -609,18 +609,17 @@ export default {
                                                     }
                                                 },
                                                 click: () => {
-                                                    if (!menu.disabled) {
+                                                    if (
+                                                        !menu.disabled &&
+                                                        !hasChildren(menu)
+                                                    ) {
                                                         this.$emit(
                                                             EMIT_EVENTS.ON_NODE_CLICK,
                                                             menu.type,
                                                         );
-                                                        if (
-                                                            !hasChildren(menu)
-                                                        ) {
-                                                            setTimeout(() => {
-                                                                removeContextmenuPanels();
-                                                            }, 50);
-                                                        }
+                                                        setTimeout(() => {
+                                                            removeContextmenuPanels();
+                                                        }, 50);
                                                     }
                                                 },
                                             },
