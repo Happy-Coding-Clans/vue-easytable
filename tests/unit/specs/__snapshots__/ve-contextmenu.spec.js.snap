@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`veContextmenu render 1`] = `
+<div>
+  <div id="contextmenu-container">Right click this area</div>
+  <div class="ve-contextmenu" style="display: none;">
+    <div class="ve-contextmenu-panel">
+      <ul class="ve-contextmenu-list">
+        <li class="ve-contextmenu-node"><span class="ve-contextmenu-node-label">menu1</span></li>
+        <li class="ve-contextmenu-node"><span class="ve-contextmenu-node-label">menu2</span><i class="ve-icon iconfont-vet icon-vet-right-arrow ve-contextmenu-node-icon-postfix"></i></li>
+        <li class="ve-contextmenu-node-separator"></li>
+        <li class="ve-contextmenu-node"><span class="ve-contextmenu-node-label">menu3</span></li>
+        <li class="ve-contextmenu-node ve-contextmenu-node-disabled"><span class="ve-contextmenu-node-label">menu4</span><i class="ve-icon iconfont-vet icon-vet-right-arrow ve-contextmenu-node-icon-postfix"></i></li>
+        <li class="ve-contextmenu-node"><span class="ve-contextmenu-node-label">menu5</span><i class="ve-icon iconfont-vet icon-vet-right-arrow ve-contextmenu-node-icon-postfix"></i></li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
