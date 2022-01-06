@@ -1,4 +1,4 @@
-import { mount } from "@vue/test-utils";
+import { mount, createWrapper } from "@vue/test-utils";
 import veContextmenu from "@/ve-contextmenu";
 import { later } from "../util";
 
@@ -86,42 +86,115 @@ describe("veContextmenu", () => {
         expect(wrapper.html()).toMatchSnapshot();
     });
 
-    it("contextmenu event", () => {
-        const wrapper = mount({
-            template: `
-            <div>
-                <div id="contextmenu-target">Right click this area</div>
-                <ve-contextmenu eventTarget="#contextmenu-target" :options="options" />
-            </div>`,
-            data() {
-                return {
-                    options: OPTIONS,
-                };
+    it("contextmenu event", async () => {
+        const div = document.createElement("div");
+        document.body.appendChild(div);
+
+        const wrapper = mount(
+            {
+                render() {
+                    return (
+                        <div>
+                            <div id="contextmenu-target">
+                                Right click this area
+                            </div>
+                            <ve-contextmenu
+                                eventTarget="#contextmenu-target"
+                                options={this.options}
+                            />
+                        </div>
+                    );
+                },
+                data() {
+                    return {
+                        options: OPTIONS,
+                    };
+                },
             },
-        });
+            // need attach to documnet
+            { attachTo: div },
+        );
 
         const contextmenuTargetEl = wrapper.find("#contextmenu-target");
 
         expect(contextmenuTargetEl.exists()).toBe(true);
 
-        console.log("contextmenuTargetEl::", contextmenuTargetEl);
         contextmenuTargetEl.trigger("contextmenu");
+
+        await later();
+
+        const contextmenuPoppers = document.querySelectorAll(
+            ".ve-contextmenu-popper",
+        );
+        expect(contextmenuPoppers.length).toBe(1);
+
+        wrapper.destroy();
     });
 
-    // it("contextmenu event2", () => {
-    //     let contextmenuTargetEl = document.createElement("div");
-    //     contextmenuTargetEl.innerHTML = "Right click this area";
-    //     //document.body.appendChild(contextmenuTargetEl);
+    /* 
+    整个文件运行报错
+    */
+    it("contextmenu node hover", async () => {
+        const div = document.createElement("div");
+        document.body.appendChild(div);
 
-    //     const wrapper = mount(veContextmenu, {
-    //         propsData: {
-    //             options: OPTIONS,
-    //             eventTarget: contextmenuTargetEl,
-    //         },
-    //     });
+        const wrapper = mount(
+            {
+                render() {
+                    return (
+                        <div>
+                            <div id="contextmenu-target">
+                                Right click this area
+                            </div>
+                            <ve-contextmenu
+                                eventTarget="#contextmenu-target"
+                                options={this.options}
+                            />
+                        </div>
+                    );
+                },
+                data() {
+                    return {
+                        options: OPTIONS,
+                    };
+                },
+            },
+            // need attach to documnet
+            { attachTo: div },
+        );
 
-    //     // expect(contextmenuTargetEl.exists()).toBe(true);
-    //     // console.log("contextmenuTargetEl::", contextmenuTargetEl);
-    //     contextmenuTargetEl.trigger("contextmenu");
-    // });
+        const contextmenuTargetEl = wrapper.find("#contextmenu-target");
+
+        expect(contextmenuTargetEl.exists()).toBe(true);
+
+        contextmenuTargetEl.trigger("contextmenu");
+
+        await later();
+
+        const contextmenuPopper = document.querySelector(
+            ".ve-contextmenu-popper",
+        );
+
+        const contextmenuNodes = contextmenuPopper.querySelectorAll(
+            ".ve-contextmenu-node",
+        );
+
+        //trigger element hover
+        const event = new MouseEvent("mouseover", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
+
+        contextmenuNodes[1].dispatchEvent(event);
+
+        await later(500);
+
+        const contextmenuPoppers = document.querySelectorAll(
+            ".ve-contextmenu-popper",
+        );
+        expect(contextmenuPoppers.length).toBe(2);
+
+        wrapper.destroy();
+    });
 });
