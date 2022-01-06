@@ -74,8 +74,8 @@ describe("veContextmenu", () => {
         const wrapper = mount({
             template: `
             <div>
-                <div id="contextmenu-container">Right click this area</div>
-                <ve-contextmenu eventTarget="#contextmenu-container" :options="options" />
+                <div id="contextmenu-target">Right click this area</div>
+                <ve-contextmenu eventTarget="#contextmenu-target" :options="options" />
             </div>`,
             data() {
                 return {
@@ -85,4 +85,43 @@ describe("veContextmenu", () => {
         });
         expect(wrapper.html()).toMatchSnapshot();
     });
+
+    it("contextmenu event", () => {
+        const wrapper = mount({
+            template: `
+            <div>
+                <div id="contextmenu-target">Right click this area</div>
+                <ve-contextmenu eventTarget="#contextmenu-target" :options="options" />
+            </div>`,
+            data() {
+                return {
+                    options: OPTIONS,
+                };
+            },
+        });
+
+        const contextmenuTargetEl = wrapper.find("#contextmenu-target");
+
+        expect(contextmenuTargetEl.exists()).toBe(true);
+
+        console.log("contextmenuTargetEl::", contextmenuTargetEl);
+        contextmenuTargetEl.trigger("contextmenu");
+    });
+
+    // it("contextmenu event2", () => {
+    //     let contextmenuTargetEl = document.createElement("div");
+    //     contextmenuTargetEl.innerHTML = "Right click this area";
+    //     //document.body.appendChild(contextmenuTargetEl);
+
+    //     const wrapper = mount(veContextmenu, {
+    //         propsData: {
+    //             options: OPTIONS,
+    //             eventTarget: contextmenuTargetEl,
+    //         },
+    //     });
+
+    //     // expect(contextmenuTargetEl.exists()).toBe(true);
+    //     // console.log("contextmenuTargetEl::", contextmenuTargetEl);
+    //     contextmenuTargetEl.trigger("contextmenu");
+    // });
 });

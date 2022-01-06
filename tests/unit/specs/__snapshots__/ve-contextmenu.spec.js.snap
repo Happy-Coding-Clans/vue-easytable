@@ -2,7 +2,7 @@
 
 exports[`veContextmenu render 1`] = `
 <div>
-  <div id="contextmenu-container">Right click this area</div>
+  <div id="contextmenu-target">Right click this area</div>
   <div class="ve-contextmenu" style="display: none;">
     <div class="ve-contextmenu-panel">
       <ul class="ve-contextmenu-list">
