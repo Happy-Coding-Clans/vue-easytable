@@ -141,7 +141,7 @@ export default {
             is panels remove
             防止hover后菜单被移除，仍然显示子集菜单的问题
             */
-            isPanelsRemove: true,
+            isPanelsRemoved: true,
         };
     },
 
@@ -217,7 +217,7 @@ export default {
             const { internalOptions, panelOptions } = this;
 
             // 如果被移除则不创建
-            if (this.isPanelsRemove) {
+            if (this.isPanelsRemoved) {
                 return false;
             }
 
@@ -326,7 +326,7 @@ export default {
                 contextmenuId: rootContextmenuId,
                 isRootContextmenu: true,
             });
-            this.isPanelsRemove = false;
+            this.isPanelsRemoved = false;
         },
 
         // show contextmenu panel
@@ -443,7 +443,7 @@ export default {
         removeContextmenuPanels() {
             const { panelOptions } = this;
 
-            this.isPanelsRemove = true;
+            this.isPanelsRemoved = true;
 
             /*
             wait for children panel clicked by setTimeout
