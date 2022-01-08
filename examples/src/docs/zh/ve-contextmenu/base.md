@@ -90,6 +90,11 @@
                             },
                         ],
                     },
+                    {
+                        label: "menu6",
+                        type: "menu6-type",
+                        disabled: true,
+                    },
                 ],
             };
         },
