@@ -12,6 +12,7 @@ exports[`veContextmenu render 1`] = `
         <li class="ve-contextmenu-node"><span class="ve-contextmenu-node-label">menu3</span></li>
         <li class="ve-contextmenu-node ve-contextmenu-node-disabled"><span class="ve-contextmenu-node-label">menu4</span><i class="ve-icon iconfont-vet icon-vet-right-arrow ve-contextmenu-node-icon-postfix"></i></li>
         <li class="ve-contextmenu-node"><span class="ve-contextmenu-node-label">menu5</span><i class="ve-icon iconfont-vet icon-vet-right-arrow ve-contextmenu-node-icon-postfix"></i></li>
+        <li class="ve-contextmenu-node ve-contextmenu-node-disabled"><span class="ve-contextmenu-node-label">menu6</span></li>
       </ul>
     </div>
   </div>
