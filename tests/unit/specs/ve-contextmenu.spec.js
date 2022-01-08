@@ -1,6 +1,10 @@
 import { mount, createWrapper } from "@vue/test-utils";
 import veContextmenu from "@/ve-contextmenu";
-import { later } from "../util";
+import {
+    later,
+    mockElementMeasurement,
+    clearMockElementMeasurement,
+} from "../util";
 
 describe("veContextmenu", () => {
     const OPTIONS = [
@@ -67,6 +71,11 @@ describe("veContextmenu", () => {
                     type: "menu5-3-type",
                 },
             ],
+        },
+        {
+            label: "menu6",
+            type: "menu6-type",
+            disabled: true,
         },
     ];
 
@@ -244,6 +253,136 @@ describe("veContextmenu", () => {
         wrapper.destroy();
     });
 
+    it("contextmenu panel child node click", async () => {
+        const mockFn = jest.fn();
+
+        const wrapper = mount(
+            {
+                template: `
+            <div>
+                <div id="contextmenu-target">Right click this area</div>
+                <ve-contextmenu @on-node-click="contextmenuClick" eventTarget="#contextmenu-target" :options="options" />
+            </div>`,
+                data() {
+                    return {
+                        options: OPTIONS,
+                    };
+                },
+                methods: {
+                    contextmenuClick(param) {
+                        mockFn(param);
+                    },
+                },
+            },
+            // need attach to documnet
+            { attachTo: document.body },
+        );
+
+        const contextmenuTargetEl = wrapper.find("#contextmenu-target");
+
+        expect(contextmenuTargetEl.exists()).toBe(true);
+
+        contextmenuTargetEl.trigger("contextmenu");
+
+        await later();
+
+        const contextmenuPopper = document.querySelector(
+            ".ve-contextmenu-popper",
+        );
+
+        const contextmenuNodes = contextmenuPopper.querySelectorAll(
+            ".ve-contextmenu-node",
+        );
+
+        //trigger element hover
+        const event = new MouseEvent("mouseover", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
+
+        contextmenuNodes[1].dispatchEvent(event);
+
+        await later(500);
+
+        const contextmenuPoppers = document.querySelectorAll(
+            ".ve-contextmenu-popper",
+        );
+
+        const childPanel = contextmenuPoppers[1];
+
+        const clickEvent = new MouseEvent("click", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
+
+        const childContextmenuNodes = childPanel.querySelectorAll(
+            ".ve-contextmenu-node",
+        );
+
+        childContextmenuNodes[0].dispatchEvent(clickEvent);
+
+        expect(mockFn).toHaveBeenCalled();
+        expect(mockFn).toHaveBeenCalledWith("menu2-1-type");
+
+        wrapper.destroy();
+    });
+
+    it("contextmenu node disabled", async () => {
+        const mockFn = jest.fn();
+
+        const wrapper = mount(
+            {
+                template: `
+            <div>
+                <div id="contextmenu-target">Right click this area</div>
+                <ve-contextmenu @on-node-click="contextmenuClick" eventTarget="#contextmenu-target" :options="options" />
+            </div>`,
+                data() {
+                    return {
+                        options: OPTIONS,
+                    };
+                },
+                methods: {
+                    contextmenuClick(param) {
+                        mockFn(param);
+                    },
+                },
+            },
+            // need attach to documnet
+            { attachTo: document.body },
+        );
+
+        const contextmenuTargetEl = wrapper.find("#contextmenu-target");
+
+        expect(contextmenuTargetEl.exists()).toBe(true);
+
+        contextmenuTargetEl.trigger("contextmenu");
+
+        await later();
+
+        const contextmenuPopper = document.querySelector(
+            ".ve-contextmenu-popper",
+        );
+
+        const contextmenuNodes = contextmenuPopper.querySelectorAll(
+            ".ve-contextmenu-node",
+        );
+
+        const event = new MouseEvent("click", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
+
+        contextmenuNodes[5].dispatchEvent(event);
+
+        expect(mockFn).toHaveBeenCalledTimes(0);
+
+        wrapper.destroy();
+    });
+
     it("contextmenu destoryed", async () => {
         const wrapper = mount(
             {
@@ -290,4 +429,56 @@ describe("veContextmenu", () => {
         );
         expect(contextmenuPoppers2.length).toBe(0);
     });
+
+    /* 
+    panel 左侧展示
+    */
+    // it("contextmenu panel left direction", async () => {
+    //     mockElementMeasurement("width", 300);
+    //     mockElementMeasurement("height", 300);
+
+    //     const wrapper = mount(
+    //         {
+    //             render() {
+    //                 return (
+    //                     <div style="float:right;width:300px;height:300px;">
+    //                         <div
+    //                             id="contextmenu-target"
+    //                             style="width:300px;height:300px;"
+    //                         >
+    //                             Right click this area
+    //                         </div>
+    //                         <ve-contextmenu
+    //                             eventTarget="#contextmenu-target"
+    //                             options={this.options}
+    //                         />
+    //                     </div>
+    //                 );
+    //             },
+    //             data() {
+    //                 return {
+    //                     options: OPTIONS,
+    //                 };
+    //             },
+    //         },
+    //         // need attach to documnet
+    //         { attachTo: document.body },
+    //     );
+
+    //     const contextmenuTargetEl = wrapper.find("#contextmenu-target");
+
+    //     expect(contextmenuTargetEl.exists()).toBe(true);
+
+    //     contextmenuTargetEl.trigger("contextmenu");
+
+    //     await later();
+
+    //     const veContextmenuComp = wrapper.findComponent(veContextmenu);
+    //     expect(veContextmenuComp.vm.isPanelRightDirection).toBe(false);
+
+    //     wrapper.destroy();
+
+    //     clearMockElementMeasurement("width");
+    //     clearMockElementMeasurement("height");
+    // });
 });
