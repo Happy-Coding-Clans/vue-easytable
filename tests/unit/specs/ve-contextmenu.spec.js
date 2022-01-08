@@ -93,6 +93,7 @@ describe("veContextmenu", () => {
             },
         });
         expect(wrapper.html()).toMatchSnapshot();
+        wrapper.destroy();
     });
 
     it("contextmenu event", async () => {
@@ -246,6 +247,23 @@ describe("veContextmenu", () => {
             ".ve-contextmenu-popper",
         );
         expect(contextmenuPoppers.length).toBe(2);
+
+        await later();
+
+        // remove panel by hover or click parent node
+        const event2 = new MouseEvent("click", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
+        contextmenuNodes[0].dispatchEvent(event2);
+
+        await later(500);
+
+        const contextmenuPoppers2 = document.querySelectorAll(
+            ".ve-contextmenu-popper",
+        );
+        expect(contextmenuPoppers2[1].innerHTML).toBe("");
 
         wrapper.destroy();
     });
