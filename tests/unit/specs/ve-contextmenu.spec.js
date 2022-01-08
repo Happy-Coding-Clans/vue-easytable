@@ -87,9 +87,6 @@ describe("veContextmenu", () => {
     });
 
     it("contextmenu event", async () => {
-        const div = document.createElement("div");
-        document.body.appendChild(div);
-
         const wrapper = mount(
             {
                 render() {
@@ -112,7 +109,7 @@ describe("veContextmenu", () => {
                 },
             },
             // need attach to documnet
-            { attachTo: div },
+            { attachTo: document.body },
         );
 
         const contextmenuTargetEl = wrapper.find("#contextmenu-target");
@@ -131,13 +128,7 @@ describe("veContextmenu", () => {
         wrapper.destroy();
     });
 
-    /* 
-    整个文件运行报错
-    */
     it("contextmenu node hover", async () => {
-        const div = document.createElement("div");
-        document.body.appendChild(div);
-
         const wrapper = mount(
             {
                 render() {
@@ -160,7 +151,7 @@ describe("veContextmenu", () => {
                 },
             },
             // need attach to documnet
-            { attachTo: div },
+            { attachTo: document.body },
         );
 
         const contextmenuTargetEl = wrapper.find("#contextmenu-target");
@@ -196,5 +187,52 @@ describe("veContextmenu", () => {
         expect(contextmenuPoppers.length).toBe(2);
 
         wrapper.destroy();
+    });
+
+    it("contextmenu destoryed", async () => {
+        const wrapper = mount(
+            {
+                render() {
+                    return (
+                        <div>
+                            <div id="contextmenu-target">
+                                Right click this area
+                            </div>
+                            <ve-contextmenu
+                                eventTarget="#contextmenu-target"
+                                options={this.options}
+                            />
+                        </div>
+                    );
+                },
+                data() {
+                    return {
+                        options: OPTIONS,
+                    };
+                },
+            },
+            // need attach to documnet
+            { attachTo: document.body },
+        );
+
+        const contextmenuTargetEl = wrapper.find("#contextmenu-target");
+
+        expect(contextmenuTargetEl.exists()).toBe(true);
+
+        contextmenuTargetEl.trigger("contextmenu");
+
+        await later();
+
+        const contextmenuPoppers = document.querySelectorAll(
+            ".ve-contextmenu-popper",
+        );
+        expect(contextmenuPoppers.length).toBe(1);
+
+        wrapper.destroy();
+
+        const contextmenuPoppers2 = document.querySelectorAll(
+            ".ve-contextmenu-popper",
+        );
+        expect(contextmenuPoppers2.length).toBe(0);
     });
 });
