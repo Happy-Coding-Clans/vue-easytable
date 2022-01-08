@@ -189,6 +189,61 @@ describe("veContextmenu", () => {
         wrapper.destroy();
     });
 
+    it("contextmenu on-node-click event", async () => {
+        const mockFn = jest.fn();
+
+        const wrapper = mount(
+            {
+                template: `
+            <div>
+                <div id="contextmenu-target">Right click this area</div>
+                <ve-contextmenu @on-node-click="contextmenuClick" eventTarget="#contextmenu-target" :options="options" />
+            </div>`,
+                data() {
+                    return {
+                        options: OPTIONS,
+                    };
+                },
+                methods: {
+                    contextmenuClick(param) {
+                        mockFn(param);
+                    },
+                },
+            },
+            // need attach to documnet
+            { attachTo: document.body },
+        );
+
+        const contextmenuTargetEl = wrapper.find("#contextmenu-target");
+
+        expect(contextmenuTargetEl.exists()).toBe(true);
+
+        contextmenuTargetEl.trigger("contextmenu");
+
+        await later();
+
+        const contextmenuPopper = document.querySelector(
+            ".ve-contextmenu-popper",
+        );
+
+        const contextmenuNodes = contextmenuPopper.querySelectorAll(
+            ".ve-contextmenu-node",
+        );
+
+        const event = new MouseEvent("click", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
+
+        contextmenuNodes[0].dispatchEvent(event);
+
+        expect(mockFn).toHaveBeenCalled();
+        expect(mockFn).toHaveBeenCalledWith("menu1-type");
+
+        wrapper.destroy();
+    });
+
     it("contextmenu destoryed", async () => {
         const wrapper = mount(
             {
