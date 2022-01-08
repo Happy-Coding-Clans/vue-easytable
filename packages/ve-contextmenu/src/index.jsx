@@ -48,7 +48,7 @@ export default {
         contextmenu event will register on it
         */
         eventTarget: {
-            type: [Object, String],
+            type: [String, HTMLElement],
             required: true,
         },
     },
