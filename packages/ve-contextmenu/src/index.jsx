@@ -141,7 +141,7 @@ export default {
             is panels remove
             防止hover后菜单被移除，仍然显示子集菜单的问题
             */
-            isPanelsRemoved: true,
+            isPanelsEmptyed: true,
         };
     },
 
@@ -217,7 +217,7 @@ export default {
             const { internalOptions, panelOptions } = this;
 
             // 如果被移除则不创建
-            if (this.isPanelsRemoved) {
+            if (this.isPanelsEmptyed) {
                 return false;
             }
 
@@ -326,7 +326,7 @@ export default {
                 contextmenuId: rootContextmenuId,
                 isRootContextmenu: true,
             });
-            this.isPanelsRemoved = false;
+            this.isPanelsEmptyed = false;
         },
 
         // show contextmenu panel
@@ -439,11 +439,9 @@ export default {
             }
         },
 
-        // remove contextmenu panels
-        removeContextmenuPanels() {
-            const { panelOptions } = this;
-
-            this.isPanelsRemoved = true;
+        // empty contextmenu panels
+        emptyContextmenuPanels() {
+            this.isPanelsEmptyed = true;
 
             /*
             wait for children panel clicked by setTimeout
@@ -453,14 +451,25 @@ export default {
                 if (this.isChildrenPanelsClicked) {
                     this.isChildrenPanelsClicked = false;
                 } else {
-                    panelOptions.forEach((panelOption) => {
-                        let contextmenuPanelEl = document.querySelector(
-                            `#${panelOption.parentId}`,
-                        );
-                        if (contextmenuPanelEl) {
-                            contextmenuPanelEl.innerHTML = "";
-                        }
-                    });
+                    this.removeOrEmptyPanels();
+                }
+            });
+        },
+
+        // remove or empty panels
+        removeOrEmptyPanels(isRemove) {
+            const { panelOptions } = this;
+
+            panelOptions.forEach((panelOption) => {
+                let contextmenuPanelEl = document.querySelector(
+                    `#${panelOption.parentId}`,
+                );
+                if (contextmenuPanelEl) {
+                    if (isRemove) {
+                        contextmenuPanelEl.remove();
+                    } else {
+                        contextmenuPanelEl.innerHTML = "";
+                    }
                 }
             });
         },
@@ -533,6 +542,7 @@ export default {
 
     destroyed() {
         this.removeContextmenuEvent();
+        this.removeOrEmptyPanels(true);
     },
 
     render() {
@@ -540,7 +550,7 @@ export default {
             panelOptions,
             activeMenuIds,
             hasChildren,
-            removeContextmenuPanels,
+            emptyContextmenuPanels,
             createPanelByHover,
         } = this;
 
@@ -565,7 +575,7 @@ export default {
                                 value: () => {
                                     // only for root panel
                                     if (panelIndex === 0) {
-                                        removeContextmenuPanels();
+                                        emptyContextmenuPanels();
                                     }
                                 },
                             },
@@ -618,7 +628,7 @@ export default {
                                                             menu.type,
                                                         );
                                                         setTimeout(() => {
-                                                            removeContextmenuPanels();
+                                                            emptyContextmenuPanels();
                                                         }, 50);
                                                     }
                                                 },
