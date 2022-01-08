@@ -433,52 +433,73 @@ describe("veContextmenu", () => {
     /* 
     panel 左侧展示
     */
-    // it("contextmenu panel left direction", async () => {
-    //     mockElementMeasurement("width", 300);
-    //     mockElementMeasurement("height", 300);
+    it("contextmenu panel left direction", async () => {
+        const wrapper = mount(
+            {
+                render() {
+                    return (
+                        <div style="float:right;width:300px;height:300px;">
+                            <div
+                                id="contextmenu-target"
+                                style="width:300px;height:300px;"
+                            >
+                                Right click this area
+                            </div>
+                            <ve-contextmenu
+                                eventTarget="#contextmenu-target"
+                                options={this.options}
+                            />
+                        </div>
+                    );
+                },
+                data() {
+                    return {
+                        options: OPTIONS,
+                    };
+                },
+            },
+            // need attach to documnet
+            { attachTo: document.body },
+        );
 
-    //     const wrapper = mount(
-    //         {
-    //             render() {
-    //                 return (
-    //                     <div style="float:right;width:300px;height:300px;">
-    //                         <div
-    //                             id="contextmenu-target"
-    //                             style="width:300px;height:300px;"
-    //                         >
-    //                             Right click this area
-    //                         </div>
-    //                         <ve-contextmenu
-    //                             eventTarget="#contextmenu-target"
-    //                             options={this.options}
-    //                         />
-    //                     </div>
-    //                 );
-    //             },
-    //             data() {
-    //                 return {
-    //                     options: OPTIONS,
-    //                 };
-    //             },
-    //         },
-    //         // need attach to documnet
-    //         { attachTo: document.body },
-    //     );
+        const veContextmenuComp = wrapper.findComponent(veContextmenu);
 
-    //     const contextmenuTargetEl = wrapper.find("#contextmenu-target");
+        const contextmenuTargetEl = wrapper.find("#contextmenu-target");
 
-    //     expect(contextmenuTargetEl.exists()).toBe(true);
+        expect(contextmenuTargetEl.exists()).toBe(true);
 
-    //     contextmenuTargetEl.trigger("contextmenu");
+        contextmenuTargetEl.trigger("contextmenu");
 
-    //     await later();
+        veContextmenuComp.setData({
+            isPanelRightDirection: false,
+        });
 
-    //     const veContextmenuComp = wrapper.findComponent(veContextmenu);
-    //     expect(veContextmenuComp.vm.isPanelRightDirection).toBe(false);
+        await later();
 
-    //     wrapper.destroy();
+        const contextmenuPopper = document.querySelector(
+            ".ve-contextmenu-popper",
+        );
 
-    //     clearMockElementMeasurement("width");
-    //     clearMockElementMeasurement("height");
-    // });
+        const contextmenuNodes = contextmenuPopper.querySelectorAll(
+            ".ve-contextmenu-node",
+        );
+
+        //trigger element hover
+        const event = new MouseEvent("mouseover", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
+
+        contextmenuNodes[1].dispatchEvent(event);
+
+        await later(500);
+
+        const contextmenuPoppers = document.querySelectorAll(
+            ".ve-contextmenu-popper",
+        );
+        expect(contextmenuPoppers.length).toBe(2);
+
+        wrapper.destroy();
+    });
 });
