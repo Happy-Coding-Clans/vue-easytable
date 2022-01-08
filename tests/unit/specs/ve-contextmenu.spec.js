@@ -438,11 +438,8 @@ describe("veContextmenu", () => {
             {
                 render() {
                     return (
-                        <div style="float:right;width:300px;height:300px;">
-                            <div
-                                id="contextmenu-target"
-                                style="width:300px;height:300px;"
-                            >
+                        <div>
+                            <div id="contextmenu-target">
                                 Right click this area
                             </div>
                             <ve-contextmenu
@@ -499,6 +496,54 @@ describe("veContextmenu", () => {
             ".ve-contextmenu-popper",
         );
         expect(contextmenuPoppers.length).toBe(2);
+
+        wrapper.destroy();
+    });
+
+    it("contextmenu clickoutside", async () => {
+        const wrapper = mount(
+            {
+                render() {
+                    return (
+                        <div>
+                            <button id="outsideButton">outside table</button>
+                            <div
+                                id="contextmenu-target"
+                                style="width:300px;height:300px;"
+                            >
+                                Right click this area
+                            </div>
+                            <ve-contextmenu
+                                eventTarget="#contextmenu-target"
+                                options={this.options}
+                            />
+                        </div>
+                    );
+                },
+                data() {
+                    return {
+                        options: OPTIONS,
+                    };
+                },
+            },
+            // need attach to documnet
+            { attachTo: document.body },
+        );
+
+        const contextmenuTargetEl = wrapper.find("#contextmenu-target");
+
+        contextmenuTargetEl.trigger("contextmenu");
+
+        const veContextmenuComp = wrapper.findComponent(veContextmenu);
+
+        expect(veContextmenuComp.vm.isPanelsEmptyed).toBe(false);
+
+        // click outside
+        wrapper.find("#outsideButton").trigger("click");
+
+        await later();
+
+        expect(veContextmenuComp.vm.isPanelsEmptyed).toBe(true);
 
         wrapper.destroy();
     });
