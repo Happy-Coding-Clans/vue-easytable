@@ -57,6 +57,7 @@
                         children: [
                             {
                                 label: "menu4-1",
+                                type: "menu4-1-type",
                             },
                         ],
                     },
