@@ -71,6 +71,7 @@
                                 children: [
                                     {
                                         label: "menu5-1-1",
+                                        type: "menu5-1-1-type",
                                     },
                                     {
                                         label: "menu5-2-2",
