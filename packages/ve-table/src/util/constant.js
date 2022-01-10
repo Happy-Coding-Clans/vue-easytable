@@ -139,3 +139,25 @@ export const INSTANCE_METHODS = {
     // show columns by keys
     SHOW_COLUMNS_BY_KEYS: "showColumnsByKeys",
 };
+
+// contextmenu body options
+export const CONTEXTMENU_BODY_OPTIONS = [
+    {
+        label: "菜单1",
+        type: "type1",
+    },
+    {
+        label: "菜单2",
+        type: "type2",
+        children: [
+            {
+                label: "菜单2-1",
+                type: "type2-1",
+            },
+            {
+                label: "菜单2-2",
+                type: "type2-2",
+            },
+        ],
+    },
+];
