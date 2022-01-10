@@ -193,6 +193,13 @@ export default {
                 return null;
             },
         },
+        // contextmenu option
+        contextmenuOption: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
     },
     data() {
         return {
