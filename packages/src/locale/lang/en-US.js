@@ -10,5 +10,6 @@ export default {
     table: {
         confirmFilter: "Confirm",
         resetFilter: "Reset",
+        // add contextmenu
     },
 };

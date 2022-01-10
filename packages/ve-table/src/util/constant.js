@@ -140,6 +140,11 @@ export const INSTANCE_METHODS = {
     SHOW_COLUMNS_BY_KEYS: "showColumnsByKeys",
 };
 
+// contextmenu types
+export const CONTEXTMENU_TYPES = {
+    INSERT_ROW_ABOVE: "insertRowAbove",
+};
+
 // contextmenu body options
 export const CONTEXTMENU_BODY_OPTIONS = [
     {
