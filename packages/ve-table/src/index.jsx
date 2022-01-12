@@ -1876,6 +1876,13 @@ export default {
     mounted() {
         this.parentRendered = true;
 
+        // set contextmenu event target
+        if (this.hasContextmenu) {
+            this.contextmenuEventTarget = this.$el.querySelector(
+                `.${clsName("body")}`,
+            );
+        }
+
         // create hook instance
         this.hooks = new Hooks();
 
@@ -2055,9 +2062,6 @@ export default {
                     this.initScrolling();
                     this.setScrollBarStatus();
                     this.hooks.triggerHook(HOOKS_NAME.TABLE_SIZE_CHANGE);
-
-                    // set contextmenu event target
-                    this.contextmenuEventTarget = this.$refs[this.tableBodyRef];
                 },
             },
             directives: [
