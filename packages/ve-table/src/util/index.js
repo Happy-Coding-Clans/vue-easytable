@@ -225,3 +225,24 @@ export function initGroupColumns(cloneColumns) {
         groupColumns,
     };
 }
+
+// get contextmenu body option collection
+export function getContextmenuBodyOptionCollection(t) {
+    return [
+        {
+            label: t("insertRowAbove"),
+            type: "INSERT_ROW_ABOVE",
+        },
+        {
+            label: t("insertRowBelow"),
+            type: "INSERT_ROW_BELOW",
+        },
+        {
+            type: "separator",
+        },
+        {
+            label: t("removeRow"),
+            type: "REMOVE_ROW",
+        },
+    ];
+}

@@ -142,27 +142,31 @@ export const INSTANCE_METHODS = {
 
 // contextmenu types
 export const CONTEXTMENU_TYPES = {
+    // separator
+    SEPARATOR: "separator",
+    // insert row above
     INSERT_ROW_ABOVE: "insertRowAbove",
+    // insert row below
+    INSERT_ROW_BELOW: "insertRowBelow",
+    // remove row
+    REMOVE_ROW: "removeRow",
 };
 
 // contextmenu body options
 export const CONTEXTMENU_BODY_OPTIONS = [
     {
-        label: "菜单1",
-        type: "type1",
+        label: "insert row above",
+        type: "INSERT_ROW_ABOVE",
     },
     {
-        label: "菜单2",
-        type: "type2",
-        children: [
-            {
-                label: "菜单2-1",
-                type: "type2-1",
-            },
-            {
-                label: "菜单2-2",
-                type: "type2-2",
-            },
-        ],
+        label: "insert row below",
+        type: "INSERT_ROW_BELOW",
+    },
+    {
+        type: "separator",
+    },
+    {
+        label: "remove row",
+        type: "REMOVE_ROW",
     },
 ];

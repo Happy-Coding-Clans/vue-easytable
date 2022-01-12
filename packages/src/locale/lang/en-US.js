@@ -8,8 +8,12 @@ export default {
         next5: "Next 5 Pages",
     },
     table: {
+        // filter
         confirmFilter: "Confirm",
         resetFilter: "Reset",
-        // add contextmenu
+        // contextmenu event
+        insertRowAbove: "insert row above",
+        insertRowBelow: "insert row below",
+        removeRow: "remove row",
     },
 };

@@ -5,21 +5,15 @@
 ```html
 <template>
     <div>
-        <div id="contextmenu-container">右键点击此区域</div>
-
-        <ve-contextmenu eventTarget="#contextmenu-container" :options="options"></ve-contextmenu>
-
-        <!-- <el-cascader-panel :options="options"></el-cascader-panel> -->
-
-        <!-- <ve-table
+        <ve-table
             row-key-field-name="rowKey"
             :fixed-header="true"
             :columns="columns"
             :table-data="tableData"
             :row-style-option="rowStyleOption"
             border-y
-            :contextmenu-option="contextmenuOption"
-        /> -->
+            :contextmenu-body-option="contextmenuBodyOption"
+        />
     </div>
 </template>
 
@@ -27,67 +21,35 @@
     export default {
         data() {
             return {
-                // contextmenu option
-                contextmenuOption: {
-                    body: {
-                        // enable context menu
-                        enable: true,
+                // contextmenu body option
+                contextmenuBodyOption: {
+                    // enable context menu
+                    enable: true,
 
-                        //  callback for all options
-                        callback: (type) => {},
+                    //  callback for all options
+                    callback: ({ type }) => {},
 
-                        /*
+                    /*
                         context menus
 
-                        you can sort context menu
+                        you can sort contextmenu
 
                         contextMenuType:
                         insertRowAbove、insertRowBelow、removeCurrentRow、separatorLine
 
                         */
-                        contextMenus: ["insertRowAbove", "b"],
+                    contextmenus: ["insertRowAbove", "b"],
 
-                        // custom context menu
-                        contextMenus2: [
-                            {
-                                type: "insertRowAbove",
-                                // callback
-                                callback: ({ event }) => {},
-                                // support jsx
-                                name: (h) => {
-                                    return <span>在上方新增行</span>;
-                                },
-                                icon: (h) => {
-                                    return <i>1</i>;
-                                },
-                                disabled: () => {
-                                    //
-                                    return false;
-                                },
-                                hidden: () => {
-                                    //
-                                    return false;
-                                },
-                            },
-                            {
-                                type: "customType1",
-                                // callback
-                                callback: ({ event }) => {},
-                                // support jsx
-                                name: (h) => {
-                                    return <span>自定义</span>;
-                                },
-                                disabled: () => {
-                                    //
-                                    return false;
-                                },
-                                hidden: () => {
-                                    //
-                                    return false;
-                                },
-                            },
-                        ],
-                    },
+                    // custom contextmenu
+                    contextmenus2: [
+                        {
+                            type: "insertRowAbove",
+                        },
+                        {
+                            type: "customType1",
+                            label: "custom menu",
+                        },
+                    ],
                 },
                 options: [
                     {

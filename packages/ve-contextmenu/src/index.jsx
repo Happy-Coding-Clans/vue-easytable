@@ -163,6 +163,14 @@ export default {
             },
             immediate: true,
         },
+        eventTarget: {
+            handler: function (val) {
+                if (val) {
+                    this.registerContextmenuEvent();
+                }
+            },
+            immediate: true,
+        },
     },
 
     methods: {
@@ -537,7 +545,6 @@ export default {
 
     mounted() {
         this.addRootContextmenuPanelToBody();
-        this.registerContextmenuEvent();
     },
 
     destroyed() {

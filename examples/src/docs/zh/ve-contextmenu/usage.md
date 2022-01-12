@@ -14,7 +14,9 @@ Vue.use(VeContextmenu);
 ```javascript
 <template>
     <div>
-        <div id="contextmenu-target">右键点击此区域</div>
+         <div id="contextmenu-target" ref="contextmenuTargetRef">
+            <div>右键点击此区域</div>
+        </div>
         <ve-contextmenu eventTarget="#contextmenu-target" :options="options" />
     </div>
 </template>
@@ -22,6 +24,7 @@ Vue.use(VeContextmenu);
 export default {
     data() {
         return {
+            eventTarget:"",
             options: [
               [
                     {
@@ -51,6 +54,15 @@ export default {
                     },
             ],
         };
+    },
+     mounted() {
+            /*
+            eventTarget can be the following case:
+            1、this.eventTarget = "#contextmenu-target";
+            2、this.eventTarget = document.querySelector('#contextmenu-target');
+            3、this.eventTarget = this.$refs["contextmenuTargetRef"];
+            */
+            this.eventTarget = this.$refs["contextmenuTargetRef"];
     },
 };
 </script>

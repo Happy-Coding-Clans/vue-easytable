@@ -4,6 +4,7 @@ import {
     clsName,
     getNotFixedTotalWidthByColumnKey,
     recursiveRemoveColumnByKey,
+    getContextmenuBodyOptionCollection,
 } from "./util";
 import {
     getValByUnit,
@@ -14,6 +15,7 @@ import {
     isEmptyArray,
     isBoolean,
     isDefined,
+    createLocale,
 } from "../../src/utils/index.js";
 
 import emitter from "../../src/mixins/emitter";
@@ -24,6 +26,7 @@ import {
     COMPS_CUSTOM_ATTRS,
     INSTANCE_METHODS,
     CELL_SELECTION_DIRECTION,
+    LOCALE_COMP_NAME,
 } from "./util/constant";
 import Colgroup from "./colgroup";
 import Header from "./header";
@@ -40,6 +43,9 @@ import { isInputKeyCode } from "../../src/utils/event-key-codes";
 import clickoutside from "../../src/directives/clickoutside";
 import VueDomResizeObserver from "../../src/comps/resize-observer";
 import Hooks from "../../src/utils/hooks-manager";
+import VeContextmenu from "vue-easytable/packages/ve-contextmenu";
+
+const t = createLocale(LOCALE_COMP_NAME);
 
 export default {
     name: COMPS_NAME.VE_TABLE,
@@ -193,8 +199,8 @@ export default {
                 return null;
             },
         },
-        // contextmenu option
-        contextmenuOption: {
+        // contextmenu body option
+        contextmenuBodyOption: {
             type: Object,
             default: function () {
                 return null;
@@ -319,6 +325,8 @@ export default {
             like Excel:If you directly enter content in an editable cell, press the up, down, left and right buttons to directly select other cells and stop editing the current cell
             */
             enableStopEditing: true,
+            // contextmenu event target
+            contextmenuEventTarget: "",
         };
     },
     computed: {
@@ -487,6 +495,41 @@ export default {
         // has edit column
         hasEditColumn() {
             return this.colgroups.some((x) => x.edit);
+        },
+        // has contextmenu
+        hasContextmenu() {
+            let result = false;
+
+            const { contextmenuBodyOption } = this;
+            if (contextmenuBodyOption) {
+                const { enable, contextmenus } = contextmenuBodyOption;
+
+                if (
+                    enable &&
+                    Array.isArray(contextmenus) &&
+                    contextmenus.length
+                ) {
+                    result = true;
+                }
+            }
+            return result;
+        },
+
+        // contextmenus
+        contextmenus() {
+            let result = [];
+            const { hasContextmenu, contextmenuBodyOption } = this;
+            if (hasContextmenu) {
+                const { contextmenus } = contextmenuBodyOption;
+
+                const contextmenuBodyOptions =
+                    getContextmenuBodyOptionCollection(t);
+                result = contextmenuBodyOptions;
+
+                console.log("contextmenuBodyOptions::", contextmenuBodyOptions);
+            }
+
+            return result;
         },
     },
     watch: {
@@ -1915,6 +1958,7 @@ export default {
             showVirtualScrollingPlaceholder,
             cellSelectionKeyData,
             editOption,
+            contextmenus,
         } = this;
 
         // header props
@@ -2011,6 +2055,9 @@ export default {
                     this.initScrolling();
                     this.setScrollBarStatus();
                     this.hooks.triggerHook(HOOKS_NAME.TABLE_SIZE_CHANGE);
+
+                    // set contextmenu event target
+                    this.contextmenuEventTarget = this.$refs[this.tableBodyRef];
                 },
             },
             directives: [
@@ -2126,6 +2173,13 @@ export default {
                 </div>
                 {/* edit input */}
                 {this.hasEditColumn && <EditInput {...editInputProps} />}
+                {/* contextmenu */}
+                {this.hasContextmenu && (
+                    <VeContextmenu
+                        eventTarget={this.contextmenuEventTarget}
+                        options={contextmenus}
+                    />
+                )}
             </VueDomResizeObserver>
         );
     },

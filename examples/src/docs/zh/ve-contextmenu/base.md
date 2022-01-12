@@ -5,13 +5,13 @@
 ```html
 <template>
     <div>
-        <div id="contextmenu-target">
+        <div id="contextmenu-target" ref="contextmenuTargetRef">
             <div>右键点击此区域</div>
             <div style="font-size:30px;color:red;">{{contextmenuType}}</div>
         </div>
 
         <ve-contextmenu
-            eventTarget="#contextmenu-target"
+            :eventTarget="eventTarget"
             :options="options"
             @on-node-click="contextmenuClick"
         ></ve-contextmenu>
@@ -22,6 +22,7 @@
     export default {
         data() {
             return {
+                eventTarget: "",
                 // contextmenu type
                 contextmenuType: "",
                 // contextmenu options
@@ -104,6 +105,15 @@
             contextmenuClick(type) {
                 this.contextmenuType = type;
             },
+        },
+        mounted() {
+            /* 
+            eventTarget can be the following case:
+            1、this.eventTarget = "#contextmenu-target";
+            2、this.eventTarget = document.querySelector('#contextmenu-target');
+            3、this.eventTarget = this.$refs["contextmenuTargetRef"];
+            */
+            this.eventTarget = this.$refs["contextmenuTargetRef"];
         },
     };
 </script>
