@@ -524,7 +524,6 @@ export default {
 
             if (this.eventTargetEl) {
                 // contextmenu is on the current element
-
                 this.eventTargetEl.addEventListener(
                     "contextmenu",
                     this.showRootContextmenuPanel,
