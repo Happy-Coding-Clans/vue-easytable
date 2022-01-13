@@ -502,13 +502,9 @@ export default {
 
             const { contextmenuBodyOption } = this;
             if (contextmenuBodyOption) {
-                const { enable, contextmenus } = contextmenuBodyOption;
+                const { contextmenus } = contextmenuBodyOption;
 
-                if (
-                    enable &&
-                    Array.isArray(contextmenus) &&
-                    contextmenus.length
-                ) {
+                if (Array.isArray(contextmenus) && contextmenus.length) {
                     result = true;
                 }
             }
@@ -522,11 +518,20 @@ export default {
             if (hasContextmenu) {
                 const { contextmenus } = contextmenuBodyOption;
 
-                const contextmenuBodyOptions =
+                const contextmenuBodyOptionCollection =
                     getContextmenuBodyOptionCollection(t);
-                result = contextmenuBodyOptions;
 
-                console.log("contextmenuBodyOptions::", contextmenuBodyOptions);
+                contextmenus.forEach((contextmenu) => {
+                    const contentmenuCollectionItem =
+                        contextmenuBodyOptionCollection.find(
+                            (x) => x.type === contextmenu.type,
+                        );
+                    if (contentmenuCollectionItem) {
+                        result.push(contentmenuCollectionItem);
+                    } else {
+                        result.push(contextmenu);
+                    }
+                });
             }
 
             return result;

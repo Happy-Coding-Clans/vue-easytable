@@ -23,27 +23,22 @@
             return {
                 // contextmenu body option
                 contextmenuBodyOption: {
-                    // enable context menu
-                    enable: true,
-
                     //  callback for all options
                     callback: ({ type }) => {},
 
-                    /*
-                        context menus
-
-                        you can sort contextmenu
-
-                        contextMenuType:
-                        insertRowAbove、insertRowBelow、removeCurrentRow、separatorLine
-
-                        */
-                    contextmenus: ["insertRowAbove", "b"],
-
-                    // custom contextmenu
-                    contextmenus2: [
+                    // contextmenus
+                    contextmenus: [
                         {
                             type: "insertRowAbove",
+                        },
+                        {
+                            type: "insertRowBelow",
+                        },
+                        {
+                            type: "separator",
+                        },
+                        {
+                            type: "removeRow",
                         },
                         {
                             type: "customType1",
