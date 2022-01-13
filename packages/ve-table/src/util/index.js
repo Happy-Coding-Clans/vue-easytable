@@ -1,4 +1,4 @@
-import { PREFIX_CLS } from "./constant";
+import { PREFIX_CLS, CONTEXTMENU_TYPES } from "./constant";
 import { isEmptyValue, isEmptyArray } from "../../../src/utils/index";
 
 /*
@@ -230,19 +230,20 @@ export function initGroupColumns(cloneColumns) {
 export function getContextmenuBodyOptionCollection(t) {
     return [
         {
+            type: CONTEXTMENU_TYPES.SEPARATOR,
+        },
+        {
             label: t("insertRowAbove"),
-            type: "INSERT_ROW_ABOVE",
+            type: CONTEXTMENU_TYPES.INSERT_ROW_ABOVE,
         },
         {
             label: t("insertRowBelow"),
-            type: "INSERT_ROW_BELOW",
+            type: CONTEXTMENU_TYPES.INSERT_ROW_BELOW,
         },
-        {
-            type: "separator",
-        },
+
         {
             label: t("removeRow"),
-            type: "REMOVE_ROW",
+            type: CONTEXTMENU_TYPES.REMOVE_ROW,
         },
     ];
 }
