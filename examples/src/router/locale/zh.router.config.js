@@ -203,17 +203,17 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
-                path: "cell-ellipsis",
-                component: () =>
-                    import("@/docs/zh/ve-table/cell-ellipsis/main.vue"),
-                name: "单元格省略",
-                meta: { keepAlive: true },
-            },
-            {
                 path: "contextmenu",
                 component: () =>
                     import("@/docs/zh/ve-table/contextmenu/main.vue"),
                 name: "右键菜单",
+                meta: { keepAlive: true },
+            },
+            {
+                path: "cell-ellipsis",
+                component: () =>
+                    import("@/docs/zh/ve-table/cell-ellipsis/main.vue"),
+                name: "单元格省略",
                 meta: { keepAlive: true },
             },
             {
