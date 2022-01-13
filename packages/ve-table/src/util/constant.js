@@ -151,22 +151,3 @@ export const CONTEXTMENU_TYPES = {
     // remove row
     REMOVE_ROW: "removeRow",
 };
-
-// contextmenu body options
-export const CONTEXTMENU_BODY_OPTIONS = [
-    {
-        label: "insert row above",
-        type: "INSERT_ROW_ABOVE",
-    },
-    {
-        label: "insert row below",
-        type: "INSERT_ROW_BELOW",
-    },
-    {
-        type: "separator",
-    },
-    {
-        label: "remove row",
-        type: "REMOVE_ROW",
-    },
-];
