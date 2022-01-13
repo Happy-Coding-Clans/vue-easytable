@@ -27,6 +27,7 @@ import {
     INSTANCE_METHODS,
     CELL_SELECTION_DIRECTION,
     LOCALE_COMP_NAME,
+    CONTEXTMENU_TYPES,
 } from "./util/constant";
 import Colgroup from "./colgroup";
 import Header from "./header";
@@ -1722,6 +1723,15 @@ export default {
             };
         },
 
+        // contextmenu call back
+        contextmenuCallBack(type) {
+            // insert row above
+            if (CONTEXTMENU_TYPES.INSERT_ROW_ABOVE === type) {
+                //alert(1);
+            }
+            console.log(type);
+        },
+
         // hide columns by keys
         [INSTANCE_METHODS.HIDE_COLUMNS_BY_KEYS](keys) {
             if (!isEmptyArray(keys)) {
@@ -2187,6 +2197,9 @@ export default {
                     <VeContextmenu
                         eventTarget={this.contextmenuEventTarget}
                         options={contextmenus}
+                        on={{
+                            "on-node-click": this.contextmenuCallBack,
+                        }}
                     />
                 )}
             </VueDomResizeObserver>

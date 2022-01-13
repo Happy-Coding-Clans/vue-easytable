@@ -247,3 +247,22 @@ export function getContextmenuBodyOptionCollection(t) {
         },
     ];
 }
+
+// 创建空行数据
+function createEmptyRowData(columns) {
+    let rowData = {};
+
+    columns.forEach((column) => {
+        if (column.field) {
+            rowData[column.field] = "";
+        }
+    });
+
+    return rowData;
+}
+
+export function dealTableRow(tableData, type) {
+    if (CONTEXTMENU_TYPES.INSERT_ROW_ABOVE === type) {
+        // tableData.splice(index, 0, this.createEmptyRowData());
+    }
+}
