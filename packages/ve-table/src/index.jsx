@@ -1713,11 +1713,7 @@ export default {
 
         /*
          * @clearEditingCell
-         * @desc  add editing cells
-         * @param {object} rowKey - row key
-         * @param {object} colKey - col key
-         * @param {object} column - column
-         * @param {object} row - row data
+         * @desc clear editing cell
          */
         clearEditingCell() {
             this.editingCell = {
