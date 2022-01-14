@@ -1,5 +1,6 @@
 import { PREFIX_CLS, CONTEXTMENU_TYPES } from "./constant";
 import { isEmptyValue, isEmptyArray } from "../../../src/utils/index";
+import { getRandomId } from "../../../src/utils/random";
 
 /*
  * @clsName
@@ -248,21 +249,17 @@ export function getContextmenuBodyOptionCollection(t) {
     ];
 }
 
-// 创建空行数据
-function createEmptyRowData(columns) {
-    let rowData = {};
+// create empty row data
+export function createEmptyRowData({ colgroups, rowKeyFieldName }) {
+    let rowData = {
+        [rowKeyFieldName]: getRandomId(),
+    };
 
-    columns.forEach((column) => {
+    colgroups.forEach((column) => {
         if (column.field) {
             rowData[column.field] = "";
         }
     });
 
     return rowData;
-}
-
-export function dealTableRow(tableData, type) {
-    if (CONTEXTMENU_TYPES.INSERT_ROW_ABOVE === type) {
-        // tableData.splice(index, 0, this.createEmptyRowData());
-    }
 }

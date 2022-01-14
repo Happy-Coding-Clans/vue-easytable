@@ -5,6 +5,7 @@ import {
     getNotFixedTotalWidthByColumnKey,
     recursiveRemoveColumnByKey,
     getContextmenuBodyOptionCollection,
+    createEmptyRowData,
 } from "./util";
 import {
     getValByUnit,
@@ -511,7 +512,6 @@ export default {
             }
             return result;
         },
-
         // contextmenus
         contextmenus() {
             let result = [];
@@ -1459,8 +1459,13 @@ export default {
             const { rowKey, colKey } = cellSelectionKeyData;
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                // clear cell selection
-                this.clearCellSelectionKey();
+                /*
+                 clear cell selection
+                 当结合 contextmenu 时，需要优先处理 contextmenu 事件
+                */
+                setTimeout(() => {
+                    this.clearCellSelectionKey();
+                });
             }
 
             // stop editing cell
@@ -1725,11 +1730,39 @@ export default {
 
         // contextmenu call back
         contextmenuCallBack(type) {
-            // insert row above
-            if (CONTEXTMENU_TYPES.INSERT_ROW_ABOVE === type) {
-                //alert(1);
+            const {
+                cellSelectionKeyData,
+                tableData,
+                allRowKeys,
+                colgroups,
+                rowKeyFieldName,
+            } = this;
+
+            const { rowKey, colKey } = cellSelectionKeyData;
+
+            if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+                const tableIndex = allRowKeys.findIndex((x) => x === rowKey);
+
+                // insert row above
+                if (CONTEXTMENU_TYPES.INSERT_ROW_ABOVE === type) {
+                    tableData.splice(
+                        tableIndex,
+                        0,
+                        createEmptyRowData({ colgroups, rowKeyFieldName }),
+                    );
+                }
+                // insert row below
+                else if (CONTEXTMENU_TYPES.INSERT_ROW_BELOW === type) {
+                    tableData.splice(
+                        tableIndex + 1,
+                        0,
+                        createEmptyRowData({ colgroups, rowKeyFieldName }),
+                    );
+                } else if (CONTEXTMENU_TYPES.REMOVE_ROW === type) {
+                    tableData.splice(tableIndex, 1);
+                }
+                console.log(type);
             }
-            console.log(type);
         },
 
         // hide columns by keys
