@@ -6,6 +6,7 @@ import {
     recursiveRemoveColumnByKey,
     getContextmenuBodyOptionCollection,
     createEmptyRowData,
+    isContextmenuPanelClicked,
 } from "./util";
 import {
     getValByUnit,
@@ -1453,7 +1454,12 @@ export default {
         },
 
         // table click outside
-        tableClickOutside() {
+        tableClickOutside(e) {
+            // exclude contextmenu panel clicked
+            if (isContextmenuPanelClicked(e)) {
+                return false;
+            }
+
             const { cellSelectionKeyData } = this;
 
             const { rowKey, colKey } = cellSelectionKeyData;
@@ -1461,11 +1467,8 @@ export default {
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
                 /*
                  clear cell selection
-                 当结合 contextmenu 时，需要优先处理 contextmenu 事件
                 */
-                setTimeout(() => {
-                    this.clearCellSelectionKey();
-                });
+                this.clearCellSelectionKey();
             }
 
             // stop editing cell
@@ -2111,7 +2114,9 @@ export default {
             directives: [
                 {
                     name: "click-outside",
-                    value: this.tableClickOutside,
+                    value: (e) => {
+                        this.tableClickOutside(e);
+                    },
                 },
             ],
         };

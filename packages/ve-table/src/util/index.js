@@ -263,3 +263,18 @@ export function createEmptyRowData({ colgroups, rowKeyFieldName }) {
 
     return rowData;
 }
+
+// is contextmenu panel clicked
+export function isContextmenuPanelClicked(event) {
+    let result = false;
+    const contextmenuPanelEls = document.querySelectorAll(
+        ".ve-contextmenu-popper",
+    );
+    [].forEach.call(contextmenuPanelEls, function (el) {
+        if (el.contains(event.target)) {
+            result = true;
+        }
+    });
+
+    return result;
+}
