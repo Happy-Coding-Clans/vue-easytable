@@ -9,7 +9,7 @@
 | pageIndex      | Current page number                                                         | `Number` | -                                                     | 1                                                     |
 | pagingCount    | The number of buttons in the middle of forward 5 pages and backward 5 pages | `Number` | -                                                     | 5                                                     |
 | pageSize       | Page size                                                                   | `Number` | -                                                     | 10                                                    |
-| pageSizeOption | Per page size drop-down configuration                                       | `Array`  | -                                                     | [10, 20, 30]                                          |
+| pageSizeOption | Per page size drop-down option                                              | `Array`  | -                                                     | [10, 20, 30]                                          |
 
 ### Event
 

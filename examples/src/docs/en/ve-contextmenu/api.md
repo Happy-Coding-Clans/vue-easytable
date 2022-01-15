@@ -2,21 +2,21 @@
 
 ### props
 
-| 参数        | 说明                                           | 类型     | 可选值  | 默认值 |
-| ----------- | ---------------------------------------------- | -------- | ------- | ------ | --- |
-| eventTarget | 设置右键菜单作用的元素                         | `Element | String` | -      | -   |
-| options     | 右键菜单项。支持无限层级树形结构，具体结构如下 | `Array`  | -       | -      |
+| Property    | Description                                                                              | Type         | Optional value | Default |
+| ----------- | ---------------------------------------------------------------------------------------- | ------------ | -------------- | ------- | --- |
+| eventTarget | Sets the element triggered by the contextmenu event                                      | `HTMLElement | String`        | -       | -   |
+| options     | menu item.It supports infinite hierarchical tree structure. The structure is as follows: | `Array`      | -              | -       |
 
 ### options
 
-| 参数     | 说明                                                            | 类型     | 可选值 | 默认值 |
-| -------- | --------------------------------------------------------------- | -------- | ------ | ------ |
-| label    | 展示的菜单名称                                                  | `String` | -      | -      |
-| type     | 菜单类型，内置分隔符类型为‘separator’。将会作为点击后回调的参数 | `String` | -      | -      |
-| disabled | 禁用当前菜单，点击无效                                          | `String` | -      | -      |
+| Property | Description                                                                                                        | Type     | Optional value | Default |
+| -------- | ------------------------------------------------------------------------------------------------------------------ | -------- | -------------- | ------- |
+| label    | Displayed menu name                                                                                                | `String` | -              | -       |
+| type     | contextmenu item type,The split line through ‘SEPARATOR’。It will be used as a parameter for callback after cliked | `String` | -              | -       |
+| disabled | Disable the current menu, click will be invalid                                                                    | `String` | -              | -       |
 
 ### Event
 
-| Event Name    | Description  | Parameters         |
-| ------------- | ------------ | ------------------ |
-| on-node-click | 菜单点击回调 | 当前点击的菜单类型 |
+| Event Name    | Description         | Parameters                  |
+| ------------- | ------------------- | --------------------------- |
+| on-node-click | menu click callback | currently clicked menu type |

@@ -16,11 +16,11 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Table Instance Methods",
+            default: "Table instance methods",
         },
         desc: {
             type: String,
-            default: "Table Instance Methods",
+            default: "Table instance methods",
         },
     },
     data() {

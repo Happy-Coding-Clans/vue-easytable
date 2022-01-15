@@ -1,4 +1,4 @@
-:::anchor 使用方法
+:::anchor Usage
 
 引入 `VeContextmenu`
 
@@ -14,14 +14,17 @@ Vue.use(VeContextmenu);
 ```javascript
 <template>
     <div>
-        <div id="contextmenu-container">右键点击此区域</div>
-        <ve-contextmenu eventTarget="#contextmenu-container" :options="options" />
+         <div id="contextmenu-target" ref="contextmenuTargetRef">
+            <div>右键点击此区域</div>
+        </div>
+        <ve-contextmenu eventTarget="#contextmenu-target" :options="options" />
     </div>
 </template>
 <script>
 export default {
     data() {
         return {
+            eventTarget:"",
             options: [
               [
                     {
@@ -43,7 +46,7 @@ export default {
                         ],
                     },
                     {
-                        type: "separator",
+                        type: "SEPARATOR",
                     },
                     {
                         label: "menu3",
@@ -51,6 +54,15 @@ export default {
                     },
             ],
         };
+    },
+     mounted() {
+            /*
+            eventTarget can be the following case:
+            1、this.eventTarget = "#contextmenu-target";
+            2、this.eventTarget = document.querySelector('#contextmenu-target');
+            3、this.eventTarget = this.$refs["contextmenuTargetRef"];
+            */
+            this.eventTarget = this.$refs["contextmenuTargetRef"];
     },
 };
 </script>

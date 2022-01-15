@@ -118,7 +118,7 @@ export const db = {
             },
             {
                 param: "columns",
-                desc: `Column configuration. See the following table columns configuration for specific items`,
+                desc: `Column option. See the following table columns option for specific items`,
                 type: `<code>Array</code>`,
                 optionalVal: "-",
                 default: "-",
@@ -182,84 +182,84 @@ export const db = {
 
             {
                 param: "cellSpanOption",
-                desc: "Cell merge configuration,Refer to cellSpanOption configuration for details",
+                desc: "Cell merge option,Refer to cellSpanOption option for details",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "cellStyleOption",
-                desc: "cell style configuration,Refer to cellStyleOption configuration for details",
+                desc: "cell style option,Refer to cellStyleOption option for details",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "rowStyleOption",
-                desc: "For row style configuration,Refer to rowStyleOption configuration for details",
+                desc: "For row style option,Refer to rowStyleOption option for details",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "expandOption",
-                desc: "row expand configuration,Refer to expandOption configuration for details",
+                desc: "row expand option,Refer to expandOption option for details",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "checkboxOption",
-                desc: "Row multiple selection configuration,Refer to checkboxOption configuration for details",
+                desc: "Row multiple selection option,Refer to checkboxOption option for details",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "radioOption",
-                desc: "Row radio configuration,Refer to radioOption configuration for details",
+                desc: "Row radio option,Refer to radioOption option for details",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "virtualScrollOption",
-                desc: "Virtual scroll configuration, it is recommended to display more than 1000 rows at a time.Refer to virtualScrollOption configuration for details",
+                desc: "Virtual scroll option, it is recommended to display more than 1000 rows at a time.Refer to virtualScrollOption option for details",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "sortOption",
-                desc: "Sort configuration,Refer to sortOption configuration for details",
+                desc: "Sort option,Refer to sortOption option for details",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "cellSelectionOption",
-                desc: "Cell selection configuration,Refer to cellSelectionOption configuration for details",
+                desc: "Cell selection option,Refer to cellSelectionOption option for details",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "editOption",
-                desc: "Cell edit configuration,Refer to editOption for details",
+                desc: "Cell edit option,Refer to editOption for details",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "contextmenuBodyOption",
-                desc: "contextmenu configuration,Refer to contextmenuBodyOption",
+                desc: "contextmenu option,Refer to contextmenuBodyOption",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "eventCustomOption",
-                desc: `Custom event configuration,Refer to eventCustomOption configuration for details`,
+                desc: `Custom event option,Refer to eventCustomOption option for details`,
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
@@ -338,7 +338,7 @@ export const db = {
             {
                 param: "renderBodyCell",
                 desc: `1、Custom cell rendering function in the table body. jsx ,Writing is close to template syntax<br>
-                2、Parameter information.<code>row</code>:Current row data、<code>column</code>:Current column configuration、<code>rowIndex</code>:Row index、<code>h</code>：createElement<br>3、For more JSX knowledge, please refer to<a href="https://vuejs.org/v2/guide/render-function.html#JSX"> Vue.js Official doc</a>`,
+                2、Parameter information.<code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index、<code>h</code>：createElement<br>3、For more JSX knowledge, please refer to<a href="https://vuejs.org/v2/guide/render-function.html#JSX"> Vue.js Official doc</a>`,
                 type: `<code>Function({row,column,rowIndex},h):VNode</code>`,
                 optionalVal: "-",
                 default: "-",
@@ -347,7 +347,7 @@ export const db = {
             {
                 param: "renderHeaderCell",
                 desc: `1、Header custom cell rendering function.The usage is the same as<code>renderBodyCell</code>。<br>
-                2、Parameter information.<code>column</code>:Current column configuration、<code>h</code>：createElement`,
+                2、Parameter information.<code>column</code>:Current column option、<code>h</code>：createElement`,
                 type: "<code>Function({ column },h):VNode</code>",
                 optionalVal: "-",
                 default: "-",
@@ -356,7 +356,7 @@ export const db = {
             {
                 param: "renderFooterCell",
                 desc: `1、footer custom cell rendering function.<br>
-                2、Parameter information.<code>row</code>:Current row data、<code>column</code>:Current column configuration、<code>rowIndex</code>:Row index、<code>h</code>：createElement<br>`,
+                2、Parameter information.<code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index、<code>h</code>：createElement<br>`,
                 type: `<code>Function({row,column,rowIndex},h):VNode</code>`,
                 optionalVal: "-",
                 default: "-",
@@ -364,7 +364,7 @@ export const db = {
             },
             {
                 param: "<span class='expand'>ellipsis</span>",
-                desc: `Cell ellipsis configuration`,
+                desc: `Cell ellipsis option`,
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
@@ -372,7 +372,7 @@ export const db = {
             },
             {
                 param: "<span class='expand'>filter</span>",
-                desc: `Filter configuration.`,
+                desc: `Filter option.`,
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
@@ -380,7 +380,7 @@ export const db = {
             },
             {
                 param: "<span class='expand'>filterCustom</span>",
-                desc: `Filter custom configuration.`,
+                desc: `Filter custom option.`,
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
@@ -528,7 +528,7 @@ export const db = {
             {
                 param: "expandable",
                 desc: `	1、Whether the row rendering function is allowed to expand. Returns a Boolean value<br>
-                2、Receive 3 parameter,<code>row</code>:Current row data、<code>column</code>:Column configuration、<code>rowIndex</code>:rowIndex`,
+                2、Receive 3 parameter,<code>row</code>:Current row data、<code>column</code>:Column option、<code>rowIndex</code>:rowIndex`,
                 type: "<code>Function({row,column,rowIndex})</code>",
                 optionalVal: "-",
                 default: "-",
@@ -536,7 +536,7 @@ export const db = {
             {
                 param: "render",
                 desc: `1、Render functions<br>
-                2、The parameters received by the render function. row:Current row data、column:Column configuration、rowIndex:rowIndex、<code>h</code>：createElement`,
+                2、The parameters received by the render function. row:Current row data、column:Column option、rowIndex:rowIndex、<code>h</code>：createElement`,
                 type: "<code>Function({row,column,rowIndex},h):VNode</code>",
                 optionalVal: "-",
                 default: "-",
@@ -749,14 +749,14 @@ export const db = {
         data: [
             {
                 param: "bodyCellSpan",
-                desc: `1、Body cell merge function<br>2、Parameter information. <code>row</code>:Current row data、<code>column</code>:Current column configuration、<code>rowIndex</code>:Row index`,
+                desc: `1、Body cell merge function<br>2、Parameter information. <code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index`,
                 type: `<code>Function({row,column,rowIndex})</code>`,
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "footerCellSpan",
-                desc: `1、footer ell merge function<br>2、Parameter information. <code>row</code>:Current row data、<code>column</code>:Current column configuration、<code>rowIndex</code>:Row index`,
+                desc: `1、footer ell merge function<br>2、Parameter information. <code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index`,
                 type: `<code>Function({row,column,rowIndex})</code>`,
                 optionalVal: "-",
                 default: "-",
@@ -777,7 +777,7 @@ export const db = {
             },
             {
                 param: "bodyCellEvents",
-                desc: `1、body column custom events,Returns the event that needs to be customized.<br>2、Receive 3 parameters.<code>row</code>Current row data、<code>column</code>:Current column configuration、<code>rowIndex</code>:Row index<br>3、Support for custom events: click、dblclick、contextmenu、mouseenter、mouseleave`,
+                desc: `1、body column custom events,Returns the event that needs to be customized.<br>2、Receive 3 parameters.<code>row</code>Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index<br>3、Support for custom events: click、dblclick、contextmenu、mouseenter、mouseleave`,
                 type: "<code>Function({row,column,rowIndx})</code>",
                 optionalVal: "-",
                 default: "-",
@@ -791,7 +791,7 @@ export const db = {
             },
             {
                 param: "headerCellEvents",
-                desc: `1、header column custom events,Returns the event that needs to be customized.<br>2、Receive 2 parameters.<code>column</code>:Current column configuration、<code>rowIndex</code>:Row index<br>3、Support for custom events: click、dblclick、contextmenu、mouseenter、mouseleave`,
+                desc: `1、header column custom events,Returns the event that needs to be customized.<br>2、Receive 2 parameters.<code>column</code>:Current column option、<code>rowIndex</code>:Row index<br>3、Support for custom events: click、dblclick、contextmenu、mouseenter、mouseleave`,
                 type: "<code>Function({column,rowIndx})</code>",
                 optionalVal: "-",
                 default: "-",
@@ -805,7 +805,7 @@ export const db = {
             },
             {
                 param: "footerCellEvents",
-                desc: `1、footer column custom events, Returns the event that needs to be customized.<br>2、Receive 3 parameters.<code>row</code>Current row data、<code>column</code>:Current column configuration、<code>rowIndex</code>:Row index<br>3、Support for custom events: click、dblclick、contextmenu、mouseenter、mouseleave`,
+                desc: `1、footer column custom events, Returns the event that needs to be customized.<br>2、Receive 3 parameters.<code>row</code>Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index<br>3、Support for custom events: click、dblclick、contextmenu、mouseenter、mouseleave`,
                 type: "<code>Function({row,column,rowIndx})</code>",
                 optionalVal: "-",
                 default: "-",
@@ -834,7 +834,7 @@ export const db = {
             {
                 param: "bodyCellClass",
                 desc: `1、Table body cell style<br>
-                2、Received 3 parameters,<code>row</code>:Current row data、<code>column</code>:Current column configuration、<code>rowIndex</code>:Row index`,
+                2、Received 3 parameters,<code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index`,
                 type: `<code>Function({row,column,rowIndex})</code>`,
                 optionalVal: "-",
                 default: "-",
@@ -842,7 +842,7 @@ export const db = {
             {
                 param: "headerCellClass",
                 desc: `1、Header cell style<br>
-                2、Received 2 parameters,<code>column</code>:Current column configuration、<code>rowIndex</code>:Row index`,
+                2、Received 2 parameters,<code>column</code>:Current column option、<code>rowIndex</code>:Row index`,
                 type: `<code>Function({column,rowIndex})</code>`,
                 optionalVal: "-",
                 default: "-",
@@ -850,7 +850,7 @@ export const db = {
             {
                 param: "footerCellClass",
                 desc: `1、Footer cell style<br>
-                2、Received 3 parameters,<code>row</code>:Current row data、<code>column</code>:Current column configuration、<code>rowIndex</code>:Row index`,
+                2、Received 3 parameters,<code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index`,
                 type: `<code>Function({row,column,rowIndex})</code>`,
                 optionalVal: "-",
                 default: "-",

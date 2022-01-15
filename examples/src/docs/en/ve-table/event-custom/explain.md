@@ -11,7 +11,7 @@
 
 :::
 
-Quick view of configuration code
+Quick view of option code
 
 ```
 eventCustomOption: {

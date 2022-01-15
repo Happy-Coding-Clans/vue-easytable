@@ -16,7 +16,7 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Event custom configuration",
+            default: "Event custom option",
         },
         desc: {
             type: String,

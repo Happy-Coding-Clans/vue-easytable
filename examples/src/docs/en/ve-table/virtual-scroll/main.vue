@@ -11,11 +11,7 @@
         <RowExpandTable />
         <ColumnFixed />
         <FooterSummary />
-        <API
-            title="API"
-            anchor="API"
-            desc="virtualScrollOption configuration"
-        />
+        <API title="API" anchor="API" desc="virtualScrollOption option" />
     </div>
 </template>
 <script>

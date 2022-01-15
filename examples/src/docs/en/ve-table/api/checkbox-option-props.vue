@@ -16,7 +16,7 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Row multiple selection configuration",
+            default: "Row multiple selection option",
         },
         desc: {
             type: String,

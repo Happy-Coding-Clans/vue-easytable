@@ -16,7 +16,7 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Cell merge configuration",
+            default: "Cell merge option",
         },
         desc: {
             type: String,

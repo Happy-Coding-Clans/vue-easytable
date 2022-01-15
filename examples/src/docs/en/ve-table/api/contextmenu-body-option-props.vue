@@ -16,7 +16,7 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Contextmenu Configuration",
+            default: "Contextmenu option",
         },
         desc: {
             type: String,

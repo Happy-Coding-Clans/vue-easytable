@@ -9,7 +9,7 @@
         <SelectedControl />
         <SelectedRowClick />
         <SelectedAllHide />
-        <API title="API" anchor="API" desc="checkboxOption configuration" />
+        <API title="API" anchor="API" desc="checkboxOption option" />
     </div>
 </template>
 <script>

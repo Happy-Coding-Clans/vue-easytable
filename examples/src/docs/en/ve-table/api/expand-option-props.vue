@@ -16,7 +16,7 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Row expand configuration",
+            default: "Row expand option",
         },
         desc: {
             type: String,

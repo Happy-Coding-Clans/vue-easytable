@@ -1,17 +1,17 @@
-:::anchor 基础示例
+:::anchor Example
 
-:::demo
+:::demo Split line by `type=SEPARATOR`
 
 ```html
 <template>
     <div>
-        <div id="contextmenu-container">
-            <div>右键点击此区域</div>
+        <div id="contextmenu-target" ref="contextmenuTargetRef">
+            <div>Right click this area</div>
             <div style="font-size:30px;color:red;">{{contextmenuType}}</div>
         </div>
 
         <ve-contextmenu
-            eventTarget="#contextmenu-container"
+            :eventTarget="eventTarget"
             :options="options"
             @on-node-click="contextmenuClick"
         ></ve-contextmenu>
@@ -22,6 +22,7 @@
     export default {
         data() {
             return {
+                eventTarget: "",
                 // contextmenu type
                 contextmenuType: "",
                 // contextmenu options
@@ -45,7 +46,7 @@
                         ],
                     },
                     {
-                        type: "separator",
+                        type: "SEPARATOR",
                     },
                     {
                         label: "menu3",
@@ -57,6 +58,7 @@
                         children: [
                             {
                                 label: "menu4-1",
+                                type: "menu4-1-type",
                             },
                         ],
                     },
@@ -70,6 +72,7 @@
                                 children: [
                                     {
                                         label: "menu5-1-1",
+                                        type: "menu5-1-1-type",
                                     },
                                     {
                                         label: "menu5-2-2",
@@ -82,13 +85,18 @@
                                 disabled: true,
                             },
                             {
-                                type: "separator",
+                                type: "SEPARATOR",
                             },
                             {
                                 label: "menu5-3",
                                 type: "menu5-3-type",
                             },
                         ],
+                    },
+                    {
+                        label: "menu6",
+                        type: "menu6-type",
+                        disabled: true,
                     },
                 ],
             };
@@ -98,10 +106,19 @@
                 this.contextmenuType = type;
             },
         },
+        mounted() {
+            /* 
+            eventTarget can be the following case:
+            1、this.eventTarget = "#contextmenu-target";
+            2、this.eventTarget = document.querySelector('#contextmenu-target');
+            3、this.eventTarget = this.$refs["contextmenuTargetRef"];
+            */
+            this.eventTarget = this.$refs["contextmenuTargetRef"];
+        },
     };
 </script>
 <style>
-    #contextmenu-container {
+    #contextmenu-target {
         display: flex;
         flex-direction: column;
         width: 300px;

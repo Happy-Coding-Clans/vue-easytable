@@ -8,7 +8,7 @@
         <OnHeaderCell />
         <OnFooterRow />
         <OnFooterCell />
-        <API title="API" anchor="API" desc="eventCustomOption configuration" />
+        <API title="API" anchor="API" desc="eventCustomOption option" />
     </div>
 </template>
 <script>

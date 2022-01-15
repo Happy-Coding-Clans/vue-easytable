@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>Contextmenu 右键菜单</h2>
+        <h2>Contextmenu</h2>
         <Usage />
         <Base />
         <Api />

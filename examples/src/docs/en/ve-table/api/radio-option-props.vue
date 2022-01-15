@@ -16,7 +16,7 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Row radio configuration",
+            default: "Row radio option",
         },
         desc: {
             type: String,

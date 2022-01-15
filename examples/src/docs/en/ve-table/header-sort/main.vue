@@ -5,7 +5,7 @@
         <SingleSort />
         <MultiSort />
         <SortAlways />
-        <API title="API" anchor="API" desc="sortOption Sort configuration" />
+        <API title="API" anchor="API" desc="sortOption Sort option" />
     </div>
 </template>
 <script>

@@ -20,7 +20,7 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Column configuration",
+            default: "Column option",
         },
         desc: {
             type: String,

@@ -16,7 +16,7 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Sort configuration",
+            default: "Sort option",
         },
         desc: {
             type: String,

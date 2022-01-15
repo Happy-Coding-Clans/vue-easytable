@@ -8,7 +8,7 @@
         <SelectedDisable />
         <SelectedControl />
         <SelectedRowClick />
-        <API title="API" anchor="API" desc="radioOption configuration" />
+        <API title="API" anchor="API" desc="radioOption option" />
     </div>
 </template>
 <script>

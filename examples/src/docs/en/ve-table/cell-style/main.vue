@@ -10,7 +10,7 @@
         <API
             title="API"
             anchor="API"
-            desc="cellStyleOption Cell style configuration"
+            desc="cellStyleOption Cell style option"
         />
     </div>
 </template>

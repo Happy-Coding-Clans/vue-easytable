@@ -16,7 +16,7 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Row style configuration",
+            default: "Row style option",
         },
         desc: {
             type: String,

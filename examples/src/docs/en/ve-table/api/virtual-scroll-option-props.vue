@@ -16,7 +16,7 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Virtual scroll configuration",
+            default: "Virtual scroll option",
         },
         desc: {
             type: String,

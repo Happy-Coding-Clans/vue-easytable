@@ -7,7 +7,7 @@
         <API
             title="API"
             anchor="API"
-            desc="filterCustom Custom filter configuration"
+            desc="filterCustom Custom filter option"
         />
     </div>
 </template>

@@ -11,7 +11,7 @@
         <ExpandControl />
         <ExpandChart />
         <ExpandTable />
-        <API title="API" anchor="API" desc="expandOption configuration" />
+        <API title="API" anchor="API" desc="expandOption option" />
     </div>
 </template>
 <script>

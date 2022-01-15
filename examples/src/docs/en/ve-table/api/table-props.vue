@@ -16,7 +16,7 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Table configuration",
+            default: "Table option",
         },
         desc: {
             type: String,
