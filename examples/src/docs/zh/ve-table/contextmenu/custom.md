@@ -25,6 +25,23 @@
                 contextmenuBodyOption: {
                     // callback for all options
                     callback: ({ type, selection }) => {
+                        const { rowKey, colKey } = selection;
+
+                        const rowIndex = this.tableData.findIndex((x) => x.rowKey === rowKey);
+
+                        // custom empty row
+                        if (type === "custom-empty-row") {
+                            this.tableData = this.tableData.map((rowData) => {
+                                // empty current row
+                                if (rowData.rowKey === rowKey) {
+                                    this.columns.forEach((column) => {
+                                        rowData[column.field] = "";
+                                    });
+                                }
+                                return rowData;
+                            });
+                        }
+
                         console.log("type::", type);
                         console.log("selection::", selection);
                     },
@@ -41,10 +58,8 @@
                             type: "SEPARATOR",
                         },
                         {
-                            type: "REMOVE_ROW",
-                        },
-                        {
-                            type: "SEPARATOR",
+                            type: "custom-empty-row",
+                            label: "empty row(custom)",
                         },
                         {
                             type: "customType1",
@@ -167,18 +182,6 @@
         methods: {},
     };
 </script>
-<style>
-    #contextmenu-container {
-        display: flex;
-        width: 300px;
-        height: 300px;
-        justify-content: center;
-        align-items: center;
-        background: #eee;
-        border: 3px dashed #666;
-        border-radius: 8px;
-    }
-</style>
 ```
 
 :::

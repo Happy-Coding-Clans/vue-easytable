@@ -1,5 +1,7 @@
 :::anchor 基础用法
 
+右键表格区域查看效果
+
 :::demo
 
 ```html
@@ -136,18 +138,6 @@
         methods: {},
     };
 </script>
-<style>
-    #contextmenu-container {
-        display: flex;
-        width: 300px;
-        height: 300px;
-        justify-content: center;
-        align-items: center;
-        background: #eee;
-        border: 3px dashed #666;
-        border-radius: 8px;
-    }
-</style>
 ```
 
 :::
