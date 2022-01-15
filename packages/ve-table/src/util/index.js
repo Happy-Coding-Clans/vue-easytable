@@ -241,10 +241,13 @@ export function getContextmenuBodyOptionCollection(t) {
             label: t("insertRowBelow"),
             type: CONTEXTMENU_TYPES.INSERT_ROW_BELOW,
         },
-
         {
             label: t("removeRow"),
             type: CONTEXTMENU_TYPES.REMOVE_ROW,
+        },
+        {
+            label: t("hideColumn"),
+            type: CONTEXTMENU_TYPES.HIDE_COLUMN,
         },
     ];
 }

@@ -150,4 +150,6 @@ export const CONTEXTMENU_TYPES = {
     INSERT_ROW_BELOW: "INSERT_ROW_BELOW",
     // remove row
     REMOVE_ROW: "REMOVE_ROW",
+    // hide column
+    HIDE_COLUMN: "HIDE_COLUMN",
 };

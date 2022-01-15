@@ -43,6 +43,9 @@
                         {
                             type: "REMOVE_ROW",
                         },
+                        {
+                            type: "HIDE_COLUMN",
+                        },
                     ],
                 },
 

@@ -1759,8 +1759,14 @@ export default {
                         0,
                         createEmptyRowData({ colgroups, rowKeyFieldName }),
                     );
-                } else if (CONTEXTMENU_TYPES.REMOVE_ROW === type) {
+                }
+                // remove row
+                else if (CONTEXTMENU_TYPES.REMOVE_ROW === type) {
                     tableData.splice(tableIndex, 1);
+                }
+                // hide column
+                else if (CONTEXTMENU_TYPES.HIDE_COLUMN === type) {
+                    this[INSTANCE_METHODS.HIDE_COLUMNS_BY_KEYS]([colKey]);
                 }
 
                 // callback
