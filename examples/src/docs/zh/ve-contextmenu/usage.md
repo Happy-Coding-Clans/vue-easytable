@@ -46,7 +46,7 @@ export default {
                         ],
                     },
                     {
-                        type: "separator",
+                        type: "SEPARATOR",
                     },
                     {
                         label: "menu3",

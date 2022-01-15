@@ -143,11 +143,11 @@ export const INSTANCE_METHODS = {
 // contextmenu types
 export const CONTEXTMENU_TYPES = {
     // separator
-    SEPARATOR: "separator",
+    SEPARATOR: "SEPARATOR",
     // insert row above
-    INSERT_ROW_ABOVE: "insertRowAbove",
+    INSERT_ROW_ABOVE: "INSERT_ROW_ABOVE",
     // insert row below
-    INSERT_ROW_BELOW: "insertRowBelow",
+    INSERT_ROW_BELOW: "INSERT_ROW_BELOW",
     // remove row
-    REMOVE_ROW: "removeRow",
+    REMOVE_ROW: "REMOVE_ROW",
 };

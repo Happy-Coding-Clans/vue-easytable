@@ -1,4 +1,4 @@
-:::anchor 基础用法
+:::anchor 自定义右键菜单
 
 :::demo
 
@@ -32,16 +32,50 @@
                     // contextmenus
                     contextmenus: [
                         {
-                            type: "insertRowAbove",
+                            type: "INSERT_ROW_ABOVE",
                         },
                         {
-                            type: "insertRowBelow",
+                            type: "INSERT_ROW_BELOW",
                         },
                         {
-                            type: "separator",
+                            type: "SEPARATOR",
                         },
                         {
-                            type: "removeRow",
+                            type: "REMOVE_ROW",
+                        },
+                        {
+                            type: "SEPARATOR",
+                        },
+                        {
+                            type: "customType1",
+                            label: "custom menu",
+                            children: [
+                                {
+                                    label: "menu5-1",
+                                    type: "menu5-1-type",
+                                    children: [
+                                        {
+                                            label: "menu5-1-1",
+                                            type: "menu5-1-1-type",
+                                        },
+                                        {
+                                            label: "menu5-2-2",
+                                            type: "menu5-2-2-type",
+                                        },
+                                    ],
+                                },
+                                {
+                                    label: "menu5-2",
+                                    disabled: true,
+                                },
+                                {
+                                    type: "separator",
+                                },
+                                {
+                                    label: "menu5-3",
+                                    type: "menu5-3-type",
+                                },
+                            ],
                         },
                     ],
                 },

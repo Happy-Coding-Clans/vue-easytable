@@ -1,6 +1,6 @@
 :::anchor 基础示例
 
-:::demo
+:::demo `type=SEPARATOR`为分割线
 
 ```html
 <template>
@@ -46,7 +46,7 @@
                         ],
                     },
                     {
-                        type: "separator",
+                        type: "SEPARATOR",
                     },
                     {
                         label: "menu3",
@@ -85,7 +85,7 @@
                                 disabled: true,
                             },
                             {
-                                type: "separator",
+                                type: "SEPARATOR",
                             },
                             {
                                 label: "menu5-3",

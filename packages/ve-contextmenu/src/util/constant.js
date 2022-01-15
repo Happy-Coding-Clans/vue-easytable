@@ -20,5 +20,5 @@ export const INIT_DATA = {
 // contextmenu types
 export const CONTEXTMENU_TYPES = {
     // Separator
-    SEPARATOR: "separator",
+    SEPARATOR: "SEPARATOR",
 };
