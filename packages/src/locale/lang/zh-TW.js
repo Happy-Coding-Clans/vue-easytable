@@ -12,7 +12,7 @@ export default {
         resetFilter: "置",
         // contextmenu event
         insertRowAbove: "上方插入行",
-        insertRowBelow: "下方插入航",
+        insertRowBelow: "下方插入行",
         removeRow: "移除該行",
         hideColumn: "隱藏該行",
     },
