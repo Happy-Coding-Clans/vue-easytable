@@ -203,6 +203,13 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
+                path: "contextmenu",
+                component: () =>
+                    import("@/docs/en/ve-table/contextmenu/main.vue"),
+                name: "Contextmenu",
+                meta: { keepAlive: true },
+            },
+            {
                 path: "cell-ellipsis",
                 component: () =>
                     import("@/docs/en/ve-table/cell-ellipsis/main.vue"),
