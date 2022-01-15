@@ -499,7 +499,7 @@ export const db = {
             {
                 name: "stopEditingCell",
                 desc: `Stop cell editing`,
-                param: "",
+                param: "-",
             },
             {
                 name: "hideColumnsByKeys",

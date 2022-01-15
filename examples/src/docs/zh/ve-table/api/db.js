@@ -505,7 +505,7 @@ export const db = {
             {
                 name: "stopEditingCell",
                 desc: `停止单元格编辑`,
-                param: "",
+                param: "-",
             },
             {
                 name: "hideColumnsByKeys",
