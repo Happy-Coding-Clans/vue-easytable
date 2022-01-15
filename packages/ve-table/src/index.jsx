@@ -1742,12 +1742,12 @@ export default {
             const { callback } = contextmenuBodyOption;
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                const tableIndex = allRowKeys.findIndex((x) => x === rowKey);
+                const rowIndex = allRowKeys.findIndex((x) => x === rowKey);
 
                 // insert row above
                 if (CONTEXTMENU_TYPES.INSERT_ROW_ABOVE === type) {
                     tableData.splice(
-                        tableIndex,
+                        rowIndex,
                         0,
                         createEmptyRowData({ colgroups, rowKeyFieldName }),
                     );
@@ -1755,14 +1755,14 @@ export default {
                 // insert row below
                 else if (CONTEXTMENU_TYPES.INSERT_ROW_BELOW === type) {
                     tableData.splice(
-                        tableIndex + 1,
+                        rowIndex + 1,
                         0,
                         createEmptyRowData({ colgroups, rowKeyFieldName }),
                     );
                 }
                 // remove row
                 else if (CONTEXTMENU_TYPES.REMOVE_ROW === type) {
-                    tableData.splice(tableIndex, 1);
+                    tableData.splice(rowIndex, 1);
                 }
                 // hide column
                 else if (CONTEXTMENU_TYPES.HIDE_COLUMN === type) {
