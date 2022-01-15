@@ -20,7 +20,7 @@ export default {
         },
         desc: {
             type: String,
-            default: "Table Instance Methods",
+            default: "Table instance methods",
         },
     },
     data() {
