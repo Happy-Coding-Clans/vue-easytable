@@ -15,5 +15,6 @@ export default {
         insertRowAbove: "insert row above",
         insertRowBelow: "insert row below",
         removeRow: "remove row",
+        hideColumn: "hide column",
     },
 };

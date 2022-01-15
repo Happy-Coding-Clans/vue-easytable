@@ -10,5 +10,10 @@ export default {
     table: {
         confirmFilter: "Qiniseka",
         resetFilter: "Setha Kabusha",
+        // contextmenu event
+        insertRowAbove: "insert row above",
+        insertRowBelow: "insert row below",
+        removeRow: "remove row",
+        hideColumn: "hide column",
     },
 };

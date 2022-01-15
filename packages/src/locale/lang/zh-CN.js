@@ -10,5 +10,10 @@ export default {
     table: {
         confirmFilter: "筛选",
         resetFilter: "重置",
+        // contextmenu event
+        insertRowAbove: "上方插入行",
+        insertRowBelow: "下方插入航",
+        removeRow: "移除该行",
+        hideColumn: "隐藏该行",
     },
 };
