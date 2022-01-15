@@ -1730,6 +1730,7 @@ export default {
         // contextmenu call back
         contextmenuCallBack(type) {
             const {
+                contextmenuBodyOption,
                 cellSelectionKeyData,
                 tableData,
                 allRowKeys,
@@ -1738,6 +1739,7 @@ export default {
             } = this;
 
             const { rowKey, colKey } = cellSelectionKeyData;
+            const { callback } = contextmenuBodyOption;
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
                 const tableIndex = allRowKeys.findIndex((x) => x === rowKey);
@@ -1760,7 +1762,11 @@ export default {
                 } else if (CONTEXTMENU_TYPES.REMOVE_ROW === type) {
                     tableData.splice(tableIndex, 1);
                 }
-                console.log(type);
+
+                // callback
+                if (isFunction(callback)) {
+                    callback({ type, selection: cellSelectionKeyData });
+                }
             }
         },
 

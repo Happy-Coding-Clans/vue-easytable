@@ -23,8 +23,11 @@
             return {
                 // contextmenu body option
                 contextmenuBodyOption: {
-                    //  callback for all options
-                    callback: ({ type }) => {},
+                    // callback for all options
+                    callback: ({ type, selection }) => {
+                        console.log("type::", type);
+                        console.log("selection::", selection);
+                    },
 
                     // contextmenus
                     contextmenus: [
