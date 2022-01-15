@@ -231,7 +231,7 @@ export const db = {
             {
                 param: "virtualScrollOption",
                 desc: "虚拟滚动配置，建议需要一次性展示1000条以上使用。具体见下表 virtualScrollOption 配置。",
-                type: "<code>Boolean</code>",
+                type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
             },
@@ -252,6 +252,13 @@ export const db = {
             {
                 param: "editOption",
                 desc: "单元格编辑配置，具体见下表 editOption 配置",
+                type: "<code>Object</code>",
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "contextmenuBodyOption",
+                desc: "右键菜单配置，具体见下表 contextmenuBodyOption 配置",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
@@ -893,6 +900,27 @@ export const db = {
                 param: "cellValueChange",
                 desc: `单元格停止编辑回调方法。<code>row</code>当前行数据，<code>column</code>当前列信息`,
                 type: `<code>Function({ row, column })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+        ],
+        columns: columnsType1,
+    },
+
+    // 右键菜单配置
+    contextmenuBodyOption: {
+        data: [
+            {
+                param: "callback",
+                desc: `右键菜单项被点击的回调。<code>type</code>菜单类型，<code>selection </code>当前选中单元格`,
+                type: `<code>Function({ type, selection  })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "contextmenus",
+                desc: `右键菜单配置项。 <a href='#/zh/doc/base/contextmenu'>右键菜单组件</a>`,
+                type: `<code>Array</code>`,
                 optionalVal: "-",
                 default: "-",
             },

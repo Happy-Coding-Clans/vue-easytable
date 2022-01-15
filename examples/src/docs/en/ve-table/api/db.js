@@ -225,7 +225,7 @@ export const db = {
             {
                 param: "virtualScrollOption",
                 desc: "Virtual scroll configuration, it is recommended to display more than 1000 rows at a time.Refer to virtualScrollOption configuration for details",
-                type: "<code>Boolean</code>",
+                type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
             },
@@ -246,6 +246,13 @@ export const db = {
             {
                 param: "editOption",
                 desc: "Cell edit configuration,Refer to editOption for details",
+                type: "<code>Object</code>",
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "contextmenuBodyOption",
+                desc: "contextmenu configuration,Refer to contextmenuBodyOption",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
@@ -887,6 +894,27 @@ export const db = {
                 param: "cellValueChange",
                 desc: `Cell stop edit callback method. <code>row</code>Current row data,<code>column</code>Current column `,
                 type: `<code>Function({ row, column })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+        ],
+        columns: columnsType1,
+    },
+
+    // 右键菜单配置
+    contextmenuBodyOption: {
+        data: [
+            {
+                param: "callback",
+                desc: `The callback of the right-click menu item.<code>type</code>menu type,<code>selection </code>Currently selected cell`,
+                type: `<code>Function({ type, selection  })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "contextmenus",
+                desc: `contextmenu option. <a href='#/en/doc/base/contextmenu'>contextmenu component</a>`,
+                type: `<code>Array</code>`,
                 optionalVal: "-",
                 default: "-",
             },

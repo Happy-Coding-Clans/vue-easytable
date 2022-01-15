@@ -29,6 +29,8 @@
         <CellSelectionOption />
         <!-- edit Option -->
         <EditOption />
+        <!-- contextmenu body option -->
+        <contextmenuBodyOption />
         <!-- Event Custom Option -->
         <EventCustomOption />
     </div>
@@ -50,6 +52,7 @@ import CellStyleOption from "./cell-style-option-props";
 import RowStyleOption from "./row-style-option-props";
 import CellSelectionOption from "./cell-selection-option-props";
 import EditOption from "./edit-option-props";
+import contextmenuBodyOption from "./contextmenu-body-option-props";
 export default {
     components: {
         TableProps,
@@ -67,6 +70,7 @@ export default {
         SortOption,
         CellSelectionOption,
         EditOption,
+        contextmenuBodyOption,
     },
     data() {
         return {
