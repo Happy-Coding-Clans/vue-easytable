@@ -69,7 +69,7 @@
                                     disabled: true,
                                 },
                                 {
-                                    type: "separator",
+                                    type: "SEPARATOR",
                                 },
                                 {
                                     label: "menu5-3",

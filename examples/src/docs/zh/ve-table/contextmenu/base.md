@@ -32,16 +32,16 @@
                     // contextmenus
                     contextmenus: [
                         {
-                            type: "insertRowAbove",
+                            type: "INSERT_ROW_ABOVE",
                         },
                         {
-                            type: "insertRowBelow",
+                            type: "INSERT_ROW_BELOW",
                         },
                         {
-                            type: "separator",
+                            type: "SEPARATOR",
                         },
                         {
-                            type: "removeRow",
+                            type: "REMOVE_ROW",
                         },
                     ],
                 },
