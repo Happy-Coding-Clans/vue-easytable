@@ -79,6 +79,25 @@ describe("veContextmenu", () => {
         },
     ];
 
+    beforeEach(() => {
+        return new Promise((resolve) => {
+            let containerEl = document.createElement("div");
+            containerEl.setAttribute("id", "contextmenu-target");
+            document.body.appendChild(containerEl);
+
+            resolve();
+        });
+    });
+
+    afterEach(() => {
+        return new Promise((resolve) => {
+            const containerEl = document.querySelector("#contextmenu-target");
+            containerEl.remove();
+
+            resolve();
+        });
+    });
+
     it("render", () => {
         const wrapper = mount({
             template: `
@@ -102,55 +121,9 @@ describe("veContextmenu", () => {
                 render() {
                     return (
                         <div>
-                            <div id="contextmenu-target">
-                                Right click this area
-                            </div>
-                            <ve-contextmenu
-                                eventTarget="#contextmenu-target"
-                                options={this.options}
-                            />
-                        </div>
-                    );
-                },
-                data() {
-                    return {
-                        options: OPTIONS,
-                    };
-                },
-            },
-            // need attach to documnet
-            { attachTo: document.body },
-        );
-
-        const contextmenuTargetEl = wrapper.find("#contextmenu-target");
-
-        expect(contextmenuTargetEl.exists()).toBe(true);
-
-        contextmenuTargetEl.trigger("contextmenu");
-
-        await later();
-
-        const contextmenuPoppers = document.querySelectorAll(
-            ".ve-contextmenu-popper",
-        );
-        expect(contextmenuPoppers.length).toBe(1);
-
-        wrapper.destroy();
-    });
-
-    it("contextmenu eventTarget", async () => {
-        let containerEl = document.createElement("div");
-        containerEl.setAttribute("id", "contextmenu-target2");
-        document.body.appendChild(containerEl);
-
-        const wrapper = mount(
-            {
-                render() {
-                    return (
-                        <div>
                             <ve-contextmenu
                                 eventTarget={document.querySelector(
-                                    "#contextmenu-target2",
+                                    "#contextmenu-target",
                                 )}
                                 options={this.options}
                             />
@@ -168,7 +141,55 @@ describe("veContextmenu", () => {
         );
 
         const contextmenuTargetEl = document.querySelector(
-            "#contextmenu-target2",
+            "#contextmenu-target",
+        );
+
+        //trigger element hover
+        const event = new MouseEvent("contextmenu", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
+
+        contextmenuTargetEl.dispatchEvent(event);
+
+        await later();
+
+        const contextmenuPoppers = document.querySelectorAll(
+            ".ve-contextmenu-popper",
+        );
+        expect(contextmenuPoppers.length).toBe(1);
+
+        wrapper.destroy();
+    });
+
+    it("contextmenu eventTarget", async () => {
+        const wrapper = mount(
+            {
+                render() {
+                    return (
+                        <div>
+                            <ve-contextmenu
+                                eventTarget={document.querySelector(
+                                    "#contextmenu-target",
+                                )}
+                                options={this.options}
+                            />
+                        </div>
+                    );
+                },
+                data() {
+                    return {
+                        options: OPTIONS,
+                    };
+                },
+            },
+            // need attach to documnet
+            { attachTo: document.body },
+        );
+
+        const contextmenuTargetEl = document.querySelector(
+            "#contextmenu-target",
         );
 
         //trigger element hover
@@ -196,11 +217,10 @@ describe("veContextmenu", () => {
                 render() {
                     return (
                         <div>
-                            <div id="contextmenu-target">
-                                Right click this area
-                            </div>
                             <ve-contextmenu
-                                eventTarget="#contextmenu-target"
+                                eventTarget={document.querySelector(
+                                    "#contextmenu-target",
+                                )}
                                 options={this.options}
                             />
                         </div>
@@ -216,11 +236,18 @@ describe("veContextmenu", () => {
             { attachTo: document.body },
         );
 
-        const contextmenuTargetEl = wrapper.find("#contextmenu-target");
+        const contextmenuTargetEl = document.querySelector(
+            "#contextmenu-target",
+        );
 
-        expect(contextmenuTargetEl.exists()).toBe(true);
+        //trigger element hover
+        const event1 = new MouseEvent("contextmenu", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
 
-        contextmenuTargetEl.trigger("contextmenu");
+        contextmenuTargetEl.dispatchEvent(event1);
 
         await later();
 
@@ -233,13 +260,13 @@ describe("veContextmenu", () => {
         );
 
         //trigger element hover
-        const event = new MouseEvent("mouseover", {
+        const event2 = new MouseEvent("mouseover", {
             view: window, // window
             bubbles: true,
             cancelable: true,
         });
 
-        contextmenuNodes[1].dispatchEvent(event);
+        contextmenuNodes[1].dispatchEvent(event2);
 
         await later(500);
 
@@ -251,12 +278,12 @@ describe("veContextmenu", () => {
         await later();
 
         // remove panel by hover or click parent node
-        const event2 = new MouseEvent("click", {
+        const event3 = new MouseEvent("click", {
             view: window, // window
             bubbles: true,
             cancelable: true,
         });
-        contextmenuNodes[0].dispatchEvent(event2);
+        contextmenuNodes[0].dispatchEvent(event3);
 
         await later(500);
 
@@ -293,11 +320,18 @@ describe("veContextmenu", () => {
             { attachTo: document.body },
         );
 
-        const contextmenuTargetEl = wrapper.find("#contextmenu-target");
+        const contextmenuTargetEl = document.querySelector(
+            "#contextmenu-target",
+        );
 
-        expect(contextmenuTargetEl.exists()).toBe(true);
+        //trigger element hover
+        const event1 = new MouseEvent("contextmenu", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
 
-        contextmenuTargetEl.trigger("contextmenu");
+        contextmenuTargetEl.dispatchEvent(event1);
 
         await later();
 
@@ -309,13 +343,13 @@ describe("veContextmenu", () => {
             ".ve-contextmenu-node",
         );
 
-        const event = new MouseEvent("click", {
+        const event2 = new MouseEvent("click", {
             view: window, // window
             bubbles: true,
             cancelable: true,
         });
 
-        contextmenuNodes[0].dispatchEvent(event);
+        contextmenuNodes[0].dispatchEvent(event2);
 
         expect(mockFn).toHaveBeenCalled();
         expect(mockFn).toHaveBeenCalledWith("menu1-type");
@@ -348,11 +382,18 @@ describe("veContextmenu", () => {
             { attachTo: document.body },
         );
 
-        const contextmenuTargetEl = wrapper.find("#contextmenu-target");
+        const contextmenuTargetEl = document.querySelector(
+            "#contextmenu-target",
+        );
 
-        expect(contextmenuTargetEl.exists()).toBe(true);
+        //trigger element hover
+        const event1 = new MouseEvent("contextmenu", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
 
-        contextmenuTargetEl.trigger("contextmenu");
+        contextmenuTargetEl.dispatchEvent(event1);
 
         await later();
 
@@ -365,13 +406,13 @@ describe("veContextmenu", () => {
         );
 
         //trigger element hover
-        const event = new MouseEvent("mouseover", {
+        const event2 = new MouseEvent("mouseover", {
             view: window, // window
             bubbles: true,
             cancelable: true,
         });
 
-        contextmenuNodes[1].dispatchEvent(event);
+        contextmenuNodes[1].dispatchEvent(event2);
 
         await later(500);
 
@@ -424,11 +465,18 @@ describe("veContextmenu", () => {
             { attachTo: document.body },
         );
 
-        const contextmenuTargetEl = wrapper.find("#contextmenu-target");
+        const contextmenuTargetEl = document.querySelector(
+            "#contextmenu-target",
+        );
 
-        expect(contextmenuTargetEl.exists()).toBe(true);
+        //trigger element hover
+        const event1 = new MouseEvent("contextmenu", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
 
-        contextmenuTargetEl.trigger("contextmenu");
+        contextmenuTargetEl.dispatchEvent(event1);
 
         await later();
 
@@ -479,11 +527,18 @@ describe("veContextmenu", () => {
             { attachTo: document.body },
         );
 
-        const contextmenuTargetEl = wrapper.find("#contextmenu-target");
+        const contextmenuTargetEl = document.querySelector(
+            "#contextmenu-target",
+        );
 
-        expect(contextmenuTargetEl.exists()).toBe(true);
+        //trigger element hover
+        const event1 = new MouseEvent("contextmenu", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
 
-        contextmenuTargetEl.trigger("contextmenu");
+        contextmenuTargetEl.dispatchEvent(event1);
 
         await later();
 
@@ -531,11 +586,18 @@ describe("veContextmenu", () => {
 
         const veContextmenuComp = wrapper.findComponent(veContextmenu);
 
-        const contextmenuTargetEl = wrapper.find("#contextmenu-target");
+        const contextmenuTargetEl = document.querySelector(
+            "#contextmenu-target",
+        );
 
-        expect(contextmenuTargetEl.exists()).toBe(true);
+        //trigger element hover
+        const event1 = new MouseEvent("contextmenu", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
 
-        contextmenuTargetEl.trigger("contextmenu");
+        contextmenuTargetEl.dispatchEvent(event1);
 
         veContextmenuComp.setData({
             isPanelRightDirection: false,
@@ -600,9 +662,18 @@ describe("veContextmenu", () => {
             { attachTo: document.body },
         );
 
-        const contextmenuTargetEl = wrapper.find("#contextmenu-target");
+        const contextmenuTargetEl = document.querySelector(
+            "#contextmenu-target",
+        );
 
-        contextmenuTargetEl.trigger("contextmenu");
+        //trigger element hover
+        const event1 = new MouseEvent("contextmenu", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
+
+        contextmenuTargetEl.dispatchEvent(event1);
 
         const veContextmenuComp = wrapper.findComponent(veContextmenu);
 
