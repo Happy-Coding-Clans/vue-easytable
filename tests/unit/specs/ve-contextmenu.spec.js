@@ -27,7 +27,7 @@ describe("veContextmenu", () => {
             ],
         },
         {
-            type: "separator",
+            type: "SEPARATOR",
         },
         {
             label: "menu3",
@@ -64,7 +64,7 @@ describe("veContextmenu", () => {
                     disabled: true,
                 },
                 {
-                    type: "separator",
+                    type: "SEPARATOR",
                 },
                 {
                     label: "menu5-3",
