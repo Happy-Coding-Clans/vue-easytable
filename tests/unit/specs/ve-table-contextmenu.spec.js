@@ -1,6 +1,7 @@
 import { mount } from "@vue/test-utils";
 import veTable from "@/ve-table";
 import { later } from "../util";
+import { cloneDeep } from "lodash";
 
 describe("veTable contextmenu", () => {
     const TABLE_DATA = [
@@ -100,6 +101,17 @@ describe("veTable contextmenu", () => {
         },
     ];
 
+    afterEach(() => {
+        return new Promise((resolve) => {
+            const contextmenuPopper = document.querySelector(
+                ".ve-contextmenu-popper",
+            );
+            contextmenuPopper && contextmenuPopper.remove();
+
+            resolve();
+        });
+    });
+
     it("render", () => {
         const wrapper = mount(veTable, {
             propsData: {
@@ -119,50 +131,41 @@ describe("veTable contextmenu", () => {
         expect(wrapper.html()).toMatchSnapshot();
     });
 
-    const mockFn = jest.fn();
+    it("contextmenu INSERT_ROW_ABOVE", async () => {
+        const mockFn = jest.fn();
 
-    const WRAPPER = mount(
-        {
-            render() {
-                return (
-                    <div>
-                        <ve-table
-                            row-key-field-name="rowKey"
-                            columns={COLUMNS}
-                            table-data={TABLE_DATA}
-                            contextmenu-body-option={this.contextmenuBodyOption}
-                        />
-                    </div>
-                );
-            },
-            data() {
-                return {
-                    contextmenuBodyOption: {
-                        callback: ({ type, selection }) => {
-                            console.log(11111111111111);
-                            mockFn({ type, selection });
+        let tableData = cloneDeep(TABLE_DATA);
+
+        const WRAPPER = mount(
+            {
+                render() {
+                    return (
+                        <div>
+                            <ve-table
+                                row-key-field-name="rowKey"
+                                columns={COLUMNS}
+                                table-data={tableData}
+                                contextmenu-body-option={
+                                    this.contextmenuBodyOption
+                                }
+                            />
+                        </div>
+                    );
+                },
+                data() {
+                    return {
+                        contextmenuBodyOption: {
+                            callback: ({ type, selection }) => {
+                                mockFn({ type, selection });
+                            },
+                            contextmenus: CONTEXTMENUS,
                         },
-                        contextmenus: CONTEXTMENUS,
-                    },
-                };
+                    };
+                },
             },
-        },
-        // need attach to documnet
-        { attachTo: document.body },
-    );
-
-    it("callback event", async () => {
-        /* const tdEl = document.querySelector(
-            ".ve-table-body tr[row-key='2'] td[col-key='number']",
+            // need attach to documnet
+            { attachTo: document.body },
         );
-
-        const clickEvent = new MouseEvent("click", {
-            view: window, // window
-            bubbles: true,
-            cancelable: true,
-        });
-
-        tdEl.dispatchEvent(clickEvent); */
 
         const firstTrTdEl = WRAPPER.findAll(".ve-table-body-tr")
             .at(2)
@@ -175,15 +178,6 @@ describe("veTable contextmenu", () => {
 
         expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
 
-        /*     const bodyEl = document.querySelector(".ve-table-body");
-
-        const contextmenuEvent = new MouseEvent("contextmenu", {
-            view: window, // window
-            bubbles: true,
-            cancelable: true,
-        });
-
-        bodyEl.dispatchEvent(contextmenuEvent); */
         const bodyEl = WRAPPER.find(".ve-table-body");
         bodyEl.trigger("contextmenu");
 
@@ -205,15 +199,93 @@ describe("veTable contextmenu", () => {
 
         contextmenuNodes[0].dispatchEvent(event2);
 
-        console.log(contextmenuNodes[0].innerHTML);
+        await later();
+
+        expect(tableData.length).toBe(6);
+
+        expect(mockFn).toHaveBeenCalled();
+        expect(mockFn).toHaveBeenCalledWith({
+            selection: { colKey: "date", rowKey: 2 },
+            type: "INSERT_ROW_ABOVE",
+        });
+    });
+
+    it("contextmenu INSERT_ROW_BELOW", async () => {
+        const mockFn = jest.fn();
+
+        let tableData = cloneDeep(TABLE_DATA);
+
+        const WRAPPER = mount(
+            {
+                render() {
+                    return (
+                        <div>
+                            <ve-table
+                                row-key-field-name="rowKey"
+                                columns={COLUMNS}
+                                table-data={tableData}
+                                contextmenu-body-option={
+                                    this.contextmenuBodyOption
+                                }
+                            />
+                        </div>
+                    );
+                },
+                data() {
+                    return {
+                        contextmenuBodyOption: {
+                            callback: ({ type, selection }) => {
+                                mockFn({ type, selection });
+                            },
+                            contextmenus: CONTEXTMENUS,
+                        },
+                    };
+                },
+            },
+            // need attach to documnet
+            { attachTo: document.body },
+        );
+
+        const firstTrTdEl = WRAPPER.findAll(".ve-table-body-tr")
+            .at(2)
+            .findAll(".ve-table-body-td")
+            .at(2);
+
+        firstTrTdEl.trigger("click");
 
         await later();
 
-        expect(TABLE_DATA.length).toBe(5);
+        expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
 
-        // expect(mockFn).toHaveBeenCalled();
-        // expect(mockFn).toHaveBeenCalledWith("menu1-type");
+        const bodyEl = WRAPPER.find(".ve-table-body");
+        bodyEl.trigger("contextmenu");
 
-        //expect(mockClickFn).toBeCalledWith(0, expect.any(Object));
+        await later();
+
+        const contextmenuPopper = document.querySelector(
+            ".ve-contextmenu-popper",
+        );
+
+        const contextmenuNodes = contextmenuPopper.querySelectorAll(
+            ".ve-contextmenu-node",
+        );
+
+        const event2 = new MouseEvent("click", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
+
+        contextmenuNodes[1].dispatchEvent(event2);
+
+        await later();
+
+        expect(tableData.length).toBe(6);
+
+        expect(mockFn).toHaveBeenCalled();
+        expect(mockFn).toHaveBeenCalledWith({
+            selection: { colKey: "date", rowKey: 2 },
+            type: "INSERT_ROW_BELOW",
+        });
     });
 });

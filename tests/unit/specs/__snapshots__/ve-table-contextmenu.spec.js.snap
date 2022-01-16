@@ -67,7 +67,7 @@ exports[`veTable contextmenu render 1`] = `
       <tfoot class="ve-table-fixed-footer ve-table-footer"></tfoot>
     </table>
   </div>
-  <div class="ve-contextmenu" style="display: none;" on="[object Object]">
+  <div class="ve-contextmenu" style="display: none;">
     <div class="ve-contextmenu-panel">
       <ul class="ve-contextmenu-list">
         <li class="ve-contextmenu-node"><span class="ve-contextmenu-node-label">insert row above</span></li>
