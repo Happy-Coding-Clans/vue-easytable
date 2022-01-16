@@ -2220,6 +2220,19 @@ export default {
             },
         };
 
+        // 直接在组件上写单元测试无法通过。如 on={{"on-node-click":()=>{}}}
+        const contextmenuProps = {
+            props: {
+                eventTarget: this.contextmenuEventTarget,
+                options: contextmenus,
+            },
+            on: {
+                "on-node-click": (type) => {
+                    this.contextmenuCallBack(type);
+                },
+            },
+        };
+
         return (
             <VueDomResizeObserver {...wrapperContainerProps}>
                 <div {...containerProps}>
@@ -2239,15 +2252,7 @@ export default {
                 {/* edit input */}
                 {this.hasEditColumn && <EditInput {...editInputProps} />}
                 {/* contextmenu */}
-                {this.hasContextmenu && (
-                    <VeContextmenu
-                        eventTarget={this.contextmenuEventTarget}
-                        options={contextmenus}
-                        on={{
-                            "on-node-click": this.contextmenuCallBack,
-                        }}
-                    />
-                )}
+                {this.hasContextmenu && <VeContextmenu {...contextmenuProps} />}
             </VueDomResizeObserver>
         );
     },
