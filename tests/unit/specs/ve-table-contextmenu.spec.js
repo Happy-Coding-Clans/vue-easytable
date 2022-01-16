@@ -288,4 +288,170 @@ describe("veTable contextmenu", () => {
             type: "INSERT_ROW_BELOW",
         });
     });
+
+    it("contextmenu REMOVE_ROW", async () => {
+        const mockFn = jest.fn();
+
+        let tableData = cloneDeep(TABLE_DATA);
+
+        const WRAPPER = mount(
+            {
+                render() {
+                    return (
+                        <div>
+                            <ve-table
+                                row-key-field-name="rowKey"
+                                columns={COLUMNS}
+                                table-data={tableData}
+                                contextmenu-body-option={
+                                    this.contextmenuBodyOption
+                                }
+                            />
+                        </div>
+                    );
+                },
+                data() {
+                    return {
+                        contextmenuBodyOption: {
+                            callback: ({ type, selection }) => {
+                                mockFn({ type, selection });
+                            },
+                            contextmenus: CONTEXTMENUS,
+                        },
+                    };
+                },
+            },
+            // need attach to documnet
+            { attachTo: document.body },
+        );
+
+        const firstTrTdEl = WRAPPER.findAll(".ve-table-body-tr")
+            .at(2)
+            .findAll(".ve-table-body-td")
+            .at(2);
+
+        firstTrTdEl.trigger("click");
+
+        await later();
+
+        expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
+
+        const bodyEl = WRAPPER.find(".ve-table-body");
+        bodyEl.trigger("contextmenu");
+
+        await later();
+
+        const contextmenuPopper = document.querySelector(
+            ".ve-contextmenu-popper",
+        );
+
+        const contextmenuNodes = contextmenuPopper.querySelectorAll(
+            ".ve-contextmenu-node",
+        );
+
+        const event2 = new MouseEvent("click", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
+
+        contextmenuNodes[2].dispatchEvent(event2);
+
+        await later();
+
+        expect(tableData.length).toBe(4);
+
+        expect(mockFn).toHaveBeenCalled();
+        expect(mockFn).toHaveBeenCalledWith({
+            selection: { colKey: "date", rowKey: 2 },
+            type: "REMOVE_ROW",
+        });
+    });
+
+    it("contextmenu HIDE_COLUMN", async () => {
+        const mockFn = jest.fn();
+
+        let tableData = cloneDeep(TABLE_DATA);
+
+        const WRAPPER = mount(
+            {
+                render() {
+                    return (
+                        <div>
+                            <ve-table
+                                row-key-field-name="rowKey"
+                                columns={COLUMNS}
+                                table-data={tableData}
+                                contextmenu-body-option={
+                                    this.contextmenuBodyOption
+                                }
+                            />
+                        </div>
+                    );
+                },
+                data() {
+                    return {
+                        contextmenuBodyOption: {
+                            callback: ({ type, selection }) => {
+                                mockFn({ type, selection });
+                            },
+                            contextmenus: CONTEXTMENUS,
+                        },
+                    };
+                },
+            },
+            // need attach to documnet
+            { attachTo: document.body },
+        );
+
+        const firstTrTdEl = WRAPPER.findAll(".ve-table-body-tr")
+            .at(2)
+            .findAll(".ve-table-body-td")
+            .at(2);
+
+        firstTrTdEl.trigger("click");
+
+        await later();
+
+        expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
+
+        const bodyEl = WRAPPER.find(".ve-table-body");
+        bodyEl.trigger("contextmenu");
+
+        await later();
+
+        const DateTh = WRAPPER.findAll(
+            ".ve-table-header-tr .ve-table-header-th",
+        ).at(2);
+        expect(DateTh.text()).toBe("Date");
+
+        const contextmenuPopper = document.querySelector(
+            ".ve-contextmenu-popper",
+        );
+
+        const contextmenuNodes = contextmenuPopper.querySelectorAll(
+            ".ve-contextmenu-node",
+        );
+
+        const event2 = new MouseEvent("click", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
+
+        contextmenuNodes[3].dispatchEvent(event2);
+
+        await later();
+
+        const DateTh2 = WRAPPER.findAll(
+            ".ve-table-header-tr .ve-table-header-th",
+        ).at(2);
+        expect(DateTh2.text()).toBe("Number");
+
+        expect(mockFn).toHaveBeenCalled();
+        expect(mockFn).toHaveBeenCalledWith({
+            selection: { colKey: "date", rowKey: 2 },
+            type: "HIDE_COLUMN",
+        });
+    });
 });
