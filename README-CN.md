@@ -48,6 +48,7 @@
 -   [x] [单元格合并](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-span)
 -   [x] [单元格选择（键盘操作）](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection)
 -   [x] [单元格编辑](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-edit)
+-   [x] [右键菜单](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/contextmenu)
 -   [x] [单元格省略](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-ellipsis)
 -   [x] [行单选](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-radio)
 -   [x] [行多选](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-checkbox)
