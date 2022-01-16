@@ -1,6 +1,6 @@
 :::anchor Usage
 
-引入 `VeContextmenu`
+import `VeContextmenu`
 
 ```javascript
 import Vue from "vue";
@@ -9,13 +9,13 @@ import { VeContextmenu } from "vue-easytable";
 Vue.use(VeContextmenu);
 ```
 
-使用
+use
 
 ```javascript
 <template>
     <div>
          <div id="contextmenu-target" ref="contextmenuTargetRef">
-            <div>右键点击此区域</div>
+            <div>Right click this area</div>
         </div>
         <ve-contextmenu eventTarget="#contextmenu-target" :options="options" />
     </div>
