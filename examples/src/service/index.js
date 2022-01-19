@@ -5,10 +5,11 @@ export function getVersions() {
     return new Promise((resolve, reject) => {
         let net = window.location;
 
+        // 包含 /vue-easytable/ 目录
         httpRequest({
             url: `${net.protocol}//${net.hostname}:${
                 net.port
-            }/versions.json?t=${new Date().getTime()}`,
+            }/vue-easytable/versions.json?t=${new Date().getTime()}`,
             method: "get",
         })
             .then((res) => {
