@@ -143,7 +143,9 @@ import locale from "./locale";
 import I18nMixins from "./mixins/i18n-mixins";
 import ThemeSwitchMixins from "./mixins/theme-switch-mixins.js";
 import clickoutside from "./directives/clickoutside.js";
-import { version as latestVersion, docVersions } from "../../../package.json";
+import { version as latestVersion } from "../../../package.json";
+
+import { getVersions } from "@/service/index.js";
 
 export default {
     directives: {
@@ -159,7 +161,7 @@ export default {
             ],
             showLangDropdown: false,
             //switch version option
-            switchVersionOptions: docVersions,
+            switchVersionOptions: [],
             showVersionDropdown: false,
         };
     },
@@ -248,6 +250,11 @@ export default {
             }
             return result;
         },
+    },
+    created() {
+        getVersions().then(({ data }) => {
+            this.switchVersionOptions = data;
+        });
     },
 };
 </script>

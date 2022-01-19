@@ -67,13 +67,14 @@
         "lint:fix": "vue-cli-service lint --fix",
         "prettier:once": "prettier --write .",
         "build:entry": "node build/build-entry.js",
+        "build:versions": "node build/build-versions.js",
         "build:clean": "rimraf libs",
         "build:locale": "node build/build-locale.js",
         "build:style": "gulp build --gulpfile build/build-style.js",
         "build:comps": "webpack --config build/webpack.comps.config.js",
         "build:main": "webpack --config build/webpack.main.config.js",
         "build:umd": "webpack --config build/webpack.umd.config.js",
-        "build:all": "npm run build:clean && npm run build:entry && npm run build:locale && npm run build:comps && npm run build:main && npm run build:umd && npm run build:style",
+        "build:all": "npm run build:clean && npm run build:entry && npm run build:versions && npm run build:locale && npm run build:comps && npm run build:main && npm run build:umd && npm run build:style",
         "prepare": "npm run test && npm run build:all"
     },
     "dependencies": {
