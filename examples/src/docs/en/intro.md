@@ -10,6 +10,16 @@ Based on vue2.x flexible table components.
 
 ### Supports
 
+**Base components**
+
+-   loading component
+-   pagination component
+-   contextmenu component
+-   icon component
+-   locale component
+
+**Table component**
+
 -   Internationalization
 -   Theme Custom
 -   Built in theme
@@ -31,7 +41,6 @@ Based on vue2.x flexible table components.
 -   Pagination
 -   Virtual Scroll
 -   Event Custom
--   Loading component
 
 ### Environment Support
 
