@@ -178,6 +178,14 @@ If you want to contribute,just create a
 -   [Join In Gitter Chat Room](https://gitter.im/vue-easytable/community)
 -   [Join In Discord Chat Room](https://discord.gg/gBm3k6r)
 
+## Contributors
+
+Thanks to the following friends for their contributions 🙏
+
+<a href="https://github.com/Happy-Coding-Clans/vue-easytable/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Happy-Coding-Clans/vue-easytable" />
+</a>
+
 ## License
 
 http://www.opensource.org/licenses/mit-license.php
