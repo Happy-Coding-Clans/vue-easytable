@@ -169,21 +169,18 @@ export default {
                 this.showHide = true;
             }
         },
-
-        setFavicon() {
-            var link =
-                document.querySelector("link[rel*='icon']") ||
-                document.createElement("link");
-            link.type = "image/x-icon";
-            link.rel = "shortcut icon";
-            link.href = require("./../../images/favicon.png");
-            document.getElementsByTagName("head")[0].appendChild(link);
-        },
+        // setFavicon() {
+        //     var link =
+        //         document.querySelector("link[rel*='icon']") ||
+        //         document.createElement("link");
+        //     link.type = "image/x-icon";
+        //     link.rel = "shortcut icon";
+        //     link.href = require("./../../images/favicon.png");
+        //     document.getElementsByTagName("head")[0].appendChild(link);
+        // },
     },
     mounted() {
         document.addEventListener("scroll", this.handleScroll);
-
-        this.setFavicon();
     },
     beforeDestroy() {
         document.removeEventListener("scroll", this.handleScroll);
