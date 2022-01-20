@@ -35,6 +35,17 @@
 
 ## 功能支持
 
+**基础组件**
+
+-   [x] [Loading 加载组件](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/base/loading)
+-   [x] [Pagination 分页组件](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/base/pagination)
+-   [x] [Contextmenu 右键菜单组件](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/base/contextmenu)
+-   [x] [Icon 图标组件](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/base/icon)
+-   [x] [Locale 国际化组件](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/base/locale)
+
+**Table 组件**
+
+
 -   [x] [国际化](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/locale)
 -   [x] [主题定制 & 内置主题](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/theme)
 -   [x] [虚拟滚动](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/virtual-scroll)
@@ -57,8 +68,6 @@
 -   [x] [行样式](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-style)
 -   [x] [footer 汇总](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/footer-summary)
 -   [x] [自定义事件](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/event-custom)
--   [x] [内置 loading 组件](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/base/loading)
--   [x] [内置分页组件](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/base/pagination)
 -   [更多](http://happy-coding-clans.github.io/vue-easytable)
 
 如果没有你想要的的功能
