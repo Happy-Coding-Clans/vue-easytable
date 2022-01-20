@@ -12,11 +12,11 @@ Based on vue2.x flexible table components.
 
 **Base components**
 
--   loading component
--   pagination component
--   contextmenu component
--   icon component
--   locale component
+-   Loading component
+-   Pagination component
+-   Contextmenu component
+-   Icon component
+-   Locale component
 
 **Table component**
 

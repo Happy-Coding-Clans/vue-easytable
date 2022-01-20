@@ -12,11 +12,11 @@
 
 **基础组件**
 
--   loading 加载组件
--   pagination 分页组件
--   contextmenu 右键菜单组件
--   icon 图标组件
--   locale 国际化组件
+-   Loading 加载组件
+-   Pagination 分页组件
+-   Contextmenu 右键菜单组件
+-   Icon 图标组件
+-   Locale 国际化组件
 
 **Table 组件**
 
