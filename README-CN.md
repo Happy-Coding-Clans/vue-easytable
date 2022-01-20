@@ -30,7 +30,8 @@
 
 ## API & 文档
 
-[官方文档](http://happy-coding-clans.github.io/vue-easytable/)
+- [官方文档 (Github)](http://happy-coding-clans.github.io/vue-easytable/) 
+- [官方文档 (国内)](http://huangshuwei.gitee.io/vue-easytable/)
 
 ## 功能支持
 
