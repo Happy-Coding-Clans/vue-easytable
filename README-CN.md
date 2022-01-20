@@ -174,6 +174,14 @@ Example:
 如果你希望参与贡献，欢迎
 [Pull Request](https://github.com/huangshuwei/vue-easytable/pulls)
 
+## 贡献者们
+
+感谢以下小伙伴们做出的贡献 🙏
+
+<a href="https://github.com/Happy-Coding-Clans/vue-easytable/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Happy-Coding-Clans/vue-easytable" />
+</a>
+
 ## Discussion 讨论组
 
 -   [加入 gitter 讨论](https://gitter.im/vue-easytable/community)
