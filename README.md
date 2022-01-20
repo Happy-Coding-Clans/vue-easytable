@@ -35,6 +35,16 @@ Based on vue2.x flexible table components.
 
 ## Features
 
+**Base components**
+
+-   [x] [Loading component](https://happy-coding-clans.github.io/vue-easytable/#/en/doc/base/loading)
+-   [x] [Pagination component](https://happy-coding-clans.github.io/vue-easytable/#/en/doc/base/pagination)
+-   [x] [Contextmenu component](https://happy-coding-clans.github.io/vue-easytable/#/en/doc/base/contextmenu)
+-   [x] [Icon component](https://happy-coding-clans.github.io/vue-easytable/#/en/doc/base/icon)
+-   [x] [Locale component](https://happy-coding-clans.github.io/vue-easytable/#/en/doc/base/locale)
+
+**Table component**
+
 -   [x] [Internationalization](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/locale)
 -   [x] [Theme Custom & Built in theme](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/theme)
 -   [x] [Virtual Scroll](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/virtual-scroll)
