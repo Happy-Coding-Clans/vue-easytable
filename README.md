@@ -30,8 +30,8 @@ Based on vue2.x flexible table components.
 
 ## API & Examples
 
-- [Official documents(Github)](http://happy-coding-clans.github.io/vue-easytable/) 
-- [Official documents(China)](http://huangshuwei.gitee.io/vue-easytable/)
+- [Official documents (Github)](http://happy-coding-clans.github.io/vue-easytable/) 
+- [Official documents (China)](http://huangshuwei.gitee.io/vue-easytable/)
 
 ## Features
 
