@@ -67,8 +67,6 @@ Based on vue2.x flexible table components.
 -   [x] [Row Style](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/row-style)
 -   [x] [Footer Summary](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/footer-summary)
 -   [x] [Event Custom](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/event-custom)
--   [x] [Loading component](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/base/loading)
--   [x] [Pagination component](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/base/pagination)
 -   [More](http://happy-coding-clans.github.io/vue-easytable)
 
 If there is no feature you want,
