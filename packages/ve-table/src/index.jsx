@@ -1706,11 +1706,11 @@ export default {
             };
         },
 
-        // set editing cell value
-        setEditingCellValue(value) {
+        // update editing cell value
+        updateEditingCellValue(value) {
             const { editingCell } = this;
-            let { row } = editingCell;
-            row[editingCell.colKey] = value;
+            let { row, column } = editingCell;
+            row[column.field] = value;
             this.editingCell.row = row;
         },
 
@@ -2215,7 +2215,7 @@ export default {
                 },
                 // edit input value change
                 [EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE]: (value) => {
-                    this.setEditingCellValue(value);
+                    this.updateEditingCellValue(value);
                 },
             },
         };
