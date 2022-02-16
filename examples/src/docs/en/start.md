@@ -129,7 +129,7 @@ Through [https://unpkg.com/vue-easytable/](https://unpkg.com/vue-easytable/), yo
 <!-- import style -->
 <link rel="stylesheet" href="https://unpkg.com/vue-easytable/libs/theme-default/index.css">
 <!-- import Vue -->
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <!-- import library -->
 <script src="https://unpkg.com/vue-easytable/libs/umd/index.js"></script>
 ```
@@ -153,7 +153,7 @@ Through [https://unpkg.com/vue-easytable/](https://unpkg.com/vue-easytable/), yo
         </div>
     </body>
     <!-- import Vue -->
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <!-- import library -->
     <script src="https://unpkg.com/vue-easytable/libs/umd/index.js"></script>
     <script>

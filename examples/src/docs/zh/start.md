@@ -136,7 +136,7 @@ new Vue({
 <!-- 引入样式 -->
 <link rel="stylesheet" href="https://unpkg.com/vue-easytable/libs/theme-default/index.css">
 <!-- 引入Vue -->
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <!-- 引入组件库 -->
 <script src="https://unpkg.com/vue-easytable/libs/umd/index.js"></script>
 ```
@@ -160,7 +160,7 @@ new Vue({
         </div>
     </body>
     <!-- 引入 Vue -->
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <!-- 引入组件库 -->
     <script src="https://unpkg.com/vue-easytable/libs/umd/index.js"></script>
     <script>
