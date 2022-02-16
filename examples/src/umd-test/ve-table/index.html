@@ -3,7 +3,10 @@
     <head>
         <meta charset="UTF-8" />
         <!-- 引入样式 -->
-        <link rel="stylesheet" href="../../../../libs/theme-dark/index.css" />
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/vue-easytable/libs/theme-default/index.css"
+        />
     </head>
 
     <body>
@@ -11,53 +14,35 @@
             <ve-table
                 :columns="columns"
                 :table-data="tableData"
-                :expand-option="expandOption"
                 row-key-field-name="rowKey"
+                :edit-option="editOption"
             ></ve-table>
         </div>
     </body>
     <!-- 先引入 Vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <!-- 引入组件库 -->
-    <script src="../../../../libs/umd/index.js"></script>
+    <script src="https://unpkg.com/vue-easytable/libs/umd/index.js"></script>
     <script>
         new Vue({
             el: "#app",
             data: function () {
                 return {
-                    expandOption: {
-                        defaultExpandedRowKeys: [1001, 1003],
-                        render: ({ row, column, rowIndex }, h) => {
-                            return h(
-                                "div",
-                                {
-                                    style: {
-                                        color: "red",
-                                    },
-                                },
-                                row.name,
-                            );
+                    editOption: {
+                        // cell value change
+                        cellValueChange: ({ row, column }) => {
+                            console.log("cellValueChange row::", row);
+                            console.log("cellValueChange column::", column);
                         },
                     },
                     columns: [
-                        {
-                            field: "",
-                            key: "a",
-                            // 设置需要显示展开图标的列
-                            type: "expand",
-                            title: "",
-                            width: 50,
-                            align: "center",
-                        },
                         {
                             field: "date",
                             key: "b",
                             title: "Date",
                             width: 200,
                             align: "center",
-                            renderBodyCell: ({ row }, h) => {
-                                return h("div", row.date);
-                            },
+                            edit: true,
                         },
                         {
                             field: "hobby",
@@ -65,6 +50,7 @@
                             title: "Hobby",
                             width: 300,
                             align: "left",
+                            edit: true,
                         },
                         {
                             field: "address",
@@ -72,6 +58,7 @@
                             title: "Address",
                             width: "",
                             align: "left",
+                            edit: true,
                         },
                     ],
                     tableData: [
