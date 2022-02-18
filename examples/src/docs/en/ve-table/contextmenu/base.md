@@ -46,6 +46,9 @@ Right click the table area to view the effect
                             type: "REMOVE_ROW",
                         },
                         {
+                            type: "SEPARATOR",
+                        },
+                        {
                             type: "HIDE_COLUMN",
                         },
                     ],

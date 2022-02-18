@@ -46,6 +46,9 @@
                             type: "REMOVE_ROW",
                         },
                         {
+                            type: "SEPARATOR",
+                        },
+                        {
                             type: "HIDE_COLUMN",
                         },
                     ],

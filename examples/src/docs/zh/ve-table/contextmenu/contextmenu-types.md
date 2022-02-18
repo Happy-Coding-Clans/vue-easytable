@@ -8,4 +8,4 @@
 | 在上方插入行 | `INSERT_ROW_ABOVE` |
 | 在下方插入行 | `INSERT_ROW_BELOW` |
 | 移除该行     | `REMOVE_ROW`       |
-| 隐藏该行     | `HIDE_COLUMN`      |
+| 隐藏该列     | `HIDE_COLUMN`      |
