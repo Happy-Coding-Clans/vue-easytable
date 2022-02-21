@@ -589,8 +589,6 @@ export default {
         },
         // get expand row
         getExpandRowComp({ rowData, rowIndex }) {
-            let result = null;
-
             if (this.isExpandRow({ rowData, rowIndex })) {
                 const expandTrProps = {
                     props: {
@@ -608,7 +606,7 @@ export default {
                 return <ExpandTr {...expandTrProps} />;
             }
 
-            return result;
+            return null;
         },
 
         // send to checkbox all
