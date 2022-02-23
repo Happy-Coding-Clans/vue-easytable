@@ -63,5 +63,6 @@ The following languages are currently supported：
 | South Africa (Afrikaans) | af-ZA |
 | South Africa (Zulu) | zu-ZA |
 | French（fr） | fr-FR |
+| Brazilian Portuguese | pt-BR |
 
 If you need to use other languages, you are welcome to contribute PR: just add a language configuration file in [here](https://github.com/huangshuwei/vue-easytable/tree/master/packages/src/locale/lang).

@@ -13,7 +13,7 @@ import VeSelect from './ve-select';
 import VeTable from './ve-table';
 
 
-const version = '2.13.1';
+const version = '2.14.0';
 const components = [
   VeCheckbox,
   VeCheckboxGroup,

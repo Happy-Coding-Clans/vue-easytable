@@ -64,5 +64,6 @@ VeLocale.update(lang);
 | 南非（荷兰语） | af-ZA |
 | 南非（Zulu） | zu-ZA |
 | 法语（fr） | fr-FR |
+| 巴西葡萄牙语 | pt-BR |
 
 如果你需要使用其他的语言，欢迎贡献 PR：只需在 [这里](https://github.com/huangshuwei/vue-easytable/tree/master/packages/src/locale/lang) 添加一个语言配置文件即可。
