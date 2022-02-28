@@ -18,6 +18,8 @@
 
 ## Sponsors
 
+Support this project by becoming a sponsor. Your logo or name will show up here with a link you provided. [Become a sponsor](https://www.patreon.com/huangshuwei)
+
 <h3 align="center">Gold Sponsor</h3>
 
 <h3 align="center">Silver Sponsor</h3>
