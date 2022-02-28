@@ -26,6 +26,8 @@ Support this project by becoming a sponsor. Your logo or name will show up here 
 
 <h3 align="center">Generous Sponsor</h3>
 
+- **Fulin Xu**
+
 ## Introduction
 
 Based on vue2.x flexible table components.
