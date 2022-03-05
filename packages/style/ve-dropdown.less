@@ -9,12 +9,6 @@
         outline: none;
     }
 
-    .ve-dropdown-dd,
-    .ve-dropdown-dt {
-        z-index: 9999;
-    }
-
-    .ve-dropdown-dd,
     .ve-dropdown-dt,
     .ve-dropdown-items {
         margin: 0px;
@@ -62,16 +56,21 @@
             text-align: left;
         }
     }
+}
+
+// dropdown popper
+.ve-dropdown-popper {
+    z-index: @ve-dropdown-z-index;
+
+    .ve-dropdown-dd,
+    .ve-dropdown-items {
+        margin: 0px;
+        padding: 0px;
+    }
 
     // 下拉项
     .ve-dropdown-dd {
-        position: absolute !important;
-        z-index: 9999999;
-        display: none;
-
-        &-show {
-            display: block;
-        }
+        display: block;
 
         .ve-dropdown-items {
             min-height: 50px;
@@ -79,7 +78,6 @@
             text-overflow: ellipsis;
             word-wrap: normal;
             white-space: nowrap;
-            position: fixed;
             top: 2px;
             left: 0px;
             list-style: none;
@@ -177,8 +175,10 @@
         font-size: 14px;
         border-top: 1px solid #e8e8e8;
 
+        display: flex;
+        justify-content: space-around;
+
         .ve-dropdown-operation-item {
-            padding: 0 8px;
             color: #495060;
 
             &.ve-dropdown-filter-disable {
