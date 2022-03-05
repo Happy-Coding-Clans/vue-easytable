@@ -15,20 +15,22 @@ exports[`veTable header filter render filter custom icon 1`] = `
           <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Name</th>
           <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Date<dl class="ve-dropdown">
               <dt class="ve-dropdown-dt"><a class="" style="width: 90px;"><span class="ve-table-filter"><span class="ve-table-filter-icon"><i class="ve-icon iconfont-vet icon-vet-search"></i></span></span></a></dt>
-              <dd class="ve-dropdown-dd">
-                <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx; top: 12px; left: 0px;">
-                  <div>
-                    <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
-                      <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left"><label class="ve-radio"><span class="ve-radio-container"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">1900-05-20</span></label></a></li>
-                      <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left"><label class="ve-radio"><span class="ve-radio-container"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">1910-06-20</span></label></a></li>
-                      <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left"><label class="ve-radio"><span class="ve-radio-container"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">2000-07-20</span></label></a></li>
-                      <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left"><label class="ve-radio"><span class="ve-radio-container"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">2010-08-20</span></label></a></li>
-                      <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left"><label class="ve-radio"><span class="ve-radio-container"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">2020-09-20</span></label></a></li>
+              <div style="display: none;">
+                <dd class="ve-dropdown-dd">
+                  <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx;">
+                    <div>
+                      <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
+                        <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left"><label class="ve-radio"><span class="ve-radio-container"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">1900-05-20</span></label></a></li>
+                        <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left"><label class="ve-radio"><span class="ve-radio-container"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">1910-06-20</span></label></a></li>
+                        <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left"><label class="ve-radio"><span class="ve-radio-container"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">2000-07-20</span></label></a></li>
+                        <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left"><label class="ve-radio"><span class="ve-radio-container"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">2010-08-20</span></label></a></li>
+                        <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left"><label class="ve-radio"><span class="ve-radio-container"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">2020-09-20</span></label></a></li>
+                      </div>
+                      <li class="ve-dropdown-operation"><a href="javascript:void(0)" class="ve-dropdown-operation-item ve-dropdown-filter-disable">Reset</a><a href="javascript:void(0)" class="ve-dropdown-operation-item">Confirm</a></li>
                     </div>
-                    <li class="ve-dropdown-operation"><a href="javascript:void(0)" class="ve-dropdown-operation-item ve-dropdown-filter-disable">Reset</a><a href="javascript:void(0)" class="ve-dropdown-operation-item">Confirm</a></li>
-                  </div>
-                </ul>
-              </dd>
+                  </ul>
+                </dd>
+              </div>
             </dl>
           </th>
           <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;">Hobby</th>
@@ -93,20 +95,22 @@ exports[`veTable header filter render multiple filter 1`] = `
         <tr class="ve-table-header-tr">
           <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Name<dl class="ve-dropdown">
               <dt class="ve-dropdown-dt"><a class="" style="width: 90px;"><span class="ve-table-filter"><span class="ve-table-filter-icon"><i class="ve-icon iconfont-vet icon-vet-filter"></i></span></span></a></dt>
-              <dd class="ve-dropdown-dd">
-                <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx; top: 12px; left: 0px;">
-                  <div>
-                    <div class="ve-dropdown-items-warpper" style="max-height: 120px;">
-                      <li class="ve-dropdown-items-multiple ve-dropdown-items-li ve-dropdown-items-li-a-left"><label class="ve-checkbox" style="display: inline-block;"><span class="ve-checkbox-content ve-checkbox-checked"><input type="checkbox" class="ve-checkbox-input" value="John"><span class="ve-checkbox-inner"></span></span><span class="ve-checkbox-label">John</span></label></li>
-                      <li class="ve-dropdown-items-multiple ve-dropdown-items-li ve-dropdown-items-li-a-left"><label class="ve-checkbox" style="display: inline-block;"><span class="ve-checkbox-content"><input type="checkbox" class="ve-checkbox-input" value="Dickerson"><span class="ve-checkbox-inner"></span></span><span class="ve-checkbox-label">Dickerson</span></label></li>
-                      <li class="ve-dropdown-items-multiple ve-dropdown-items-li ve-dropdown-items-li-a-left"><label class="ve-checkbox" style="display: inline-block;"><span class="ve-checkbox-content"><input type="checkbox" class="ve-checkbox-input" value="Larsen"><span class="ve-checkbox-inner"></span></span><span class="ve-checkbox-label">Larsen</span></label></li>
-                      <li class="ve-dropdown-items-multiple ve-dropdown-items-li ve-dropdown-items-li-a-left"><label class="ve-checkbox" style="display: inline-block;"><span class="ve-checkbox-content"><input type="checkbox" class="ve-checkbox-input" value="Geneva"><span class="ve-checkbox-inner"></span></span><span class="ve-checkbox-label">Geneva</span></label></li>
-                      <li class="ve-dropdown-items-multiple ve-dropdown-items-li ve-dropdown-items-li-a-left"><label class="ve-checkbox" style="display: inline-block;"><span class="ve-checkbox-content"><input type="checkbox" class="ve-checkbox-input" value="Jami"><span class="ve-checkbox-inner"></span></span><span class="ve-checkbox-label">Jami</span></label></li>
+              <div style="display: none;">
+                <dd class="ve-dropdown-dd">
+                  <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx;">
+                    <div>
+                      <div class="ve-dropdown-items-warpper" style="max-height: 120px;">
+                        <li class="ve-dropdown-items-multiple ve-dropdown-items-li ve-dropdown-items-li-a-left"><label class="ve-checkbox" style="display: inline-block;"><span class="ve-checkbox-content ve-checkbox-checked"><input type="checkbox" class="ve-checkbox-input" value="John"><span class="ve-checkbox-inner"></span></span><span class="ve-checkbox-label">John</span></label></li>
+                        <li class="ve-dropdown-items-multiple ve-dropdown-items-li ve-dropdown-items-li-a-left"><label class="ve-checkbox" style="display: inline-block;"><span class="ve-checkbox-content"><input type="checkbox" class="ve-checkbox-input" value="Dickerson"><span class="ve-checkbox-inner"></span></span><span class="ve-checkbox-label">Dickerson</span></label></li>
+                        <li class="ve-dropdown-items-multiple ve-dropdown-items-li ve-dropdown-items-li-a-left"><label class="ve-checkbox" style="display: inline-block;"><span class="ve-checkbox-content"><input type="checkbox" class="ve-checkbox-input" value="Larsen"><span class="ve-checkbox-inner"></span></span><span class="ve-checkbox-label">Larsen</span></label></li>
+                        <li class="ve-dropdown-items-multiple ve-dropdown-items-li ve-dropdown-items-li-a-left"><label class="ve-checkbox" style="display: inline-block;"><span class="ve-checkbox-content"><input type="checkbox" class="ve-checkbox-input" value="Geneva"><span class="ve-checkbox-inner"></span></span><span class="ve-checkbox-label">Geneva</span></label></li>
+                        <li class="ve-dropdown-items-multiple ve-dropdown-items-li ve-dropdown-items-li-a-left"><label class="ve-checkbox" style="display: inline-block;"><span class="ve-checkbox-content"><input type="checkbox" class="ve-checkbox-input" value="Jami"><span class="ve-checkbox-inner"></span></span><span class="ve-checkbox-label">Jami</span></label></li>
+                      </div>
+                      <li class="ve-dropdown-operation"><a href="javascript:void(0)" class="ve-dropdown-operation-item">Reset</a><a href="javascript:void(0)" class="ve-dropdown-operation-item">Confirm</a></li>
                     </div>
-                    <li class="ve-dropdown-operation"><a href="javascript:void(0)" class="ve-dropdown-operation-item">Reset</a><a href="javascript:void(0)" class="ve-dropdown-operation-item">Confirm</a></li>
-                  </div>
-                </ul>
-              </dd>
+                  </ul>
+                </dd>
+              </div>
             </dl>
           </th>
           <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Date</th>
@@ -173,20 +177,22 @@ exports[`veTable header filter render single filter 1`] = `
           <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Name</th>
           <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Date<dl class="ve-dropdown">
               <dt class="ve-dropdown-dt"><a class="" style="width: 90px;"><span class="ve-table-filter"><span class="ve-table-filter-icon"><i class="ve-icon iconfont-vet icon-vet-filter"></i></span></span></a></dt>
-              <dd class="ve-dropdown-dd">
-                <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx; top: 12px; left: 0px;">
-                  <div>
-                    <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
-                      <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left"><label class="ve-radio"><span class="ve-radio-container"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">1900-05-20</span></label></a></li>
-                      <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left"><label class="ve-radio"><span class="ve-radio-container"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">1910-06-20</span></label></a></li>
-                      <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left"><label class="ve-radio"><span class="ve-radio-container"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">2000-07-20</span></label></a></li>
-                      <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left"><label class="ve-radio"><span class="ve-radio-container"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">2010-08-20</span></label></a></li>
-                      <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left"><label class="ve-radio"><span class="ve-radio-container"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">2020-09-20</span></label></a></li>
+              <div style="display: none;">
+                <dd class="ve-dropdown-dd">
+                  <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx;">
+                    <div>
+                      <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
+                        <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left"><label class="ve-radio"><span class="ve-radio-container"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">1900-05-20</span></label></a></li>
+                        <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left"><label class="ve-radio"><span class="ve-radio-container"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">1910-06-20</span></label></a></li>
+                        <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left"><label class="ve-radio"><span class="ve-radio-container"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">2000-07-20</span></label></a></li>
+                        <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left"><label class="ve-radio"><span class="ve-radio-container"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">2010-08-20</span></label></a></li>
+                        <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left"><label class="ve-radio"><span class="ve-radio-container"><input type="radio" class="ve-radio-input" value=""><span class="ve-radio-inner"></span></span><span class="ve-radio-label">2020-09-20</span></label></a></li>
+                      </div>
+                      <li class="ve-dropdown-operation"><a href="javascript:void(0)" class="ve-dropdown-operation-item ve-dropdown-filter-disable">Reset</a><a href="javascript:void(0)" class="ve-dropdown-operation-item">Confirm</a></li>
                     </div>
-                    <li class="ve-dropdown-operation"><a href="javascript:void(0)" class="ve-dropdown-operation-item ve-dropdown-filter-disable">Reset</a><a href="javascript:void(0)" class="ve-dropdown-operation-item">Confirm</a></li>
-                  </div>
-                </ul>
-              </dd>
+                  </ul>
+                </dd>
+              </div>
             </dl>
           </th>
           <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;">Hobby</th>
