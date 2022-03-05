@@ -7,6 +7,17 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.14.1
+
+### Bug Fixes
+
+-   修复表头分组筛选下拉框会被遮盖 #455
+
+### Style changes
+
+-   添加下拉组件样式变量 @ve-dropdown-z-index
+-   修改表格过滤条件底部操作按钮的布局，改为两侧的间隔相等(justify-content: space-around)
+
 V2.12.3
 
 ### Bug Fixes
