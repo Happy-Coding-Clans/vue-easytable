@@ -1,16 +1,16 @@
 import clickoutside from "../../src/directives/clickoutside.js";
 import VeCheckbox from "vue-easytable/packages/ve-checkbox";
 import VeRadio from "vue-easytable/packages/ve-radio";
-import layerAdjustment from "../../src/mixins/layer-adjustment.js";
 import { COMPS_NAME, EMIT_EVENTS } from "./util/constant";
 import { clsName } from "./util/index";
+import { getRandomId } from "../../src/utils/random";
+import { getViewportOffset } from "../../src/utils/dom";
 
 export default {
     name: COMPS_NAME.VE_DROPDOWN,
     directives: {
         "click-outside": clickoutside,
     },
-    mixins: [layerAdjustment],
     props: {
         // 如果是select 组件将特殊处理
         isSelect: {
@@ -97,9 +97,9 @@ export default {
             default: false,
         },
         // instance between dropdown items and trigger element
-        instance: {
+        defaultInstance: {
             type: Number,
-            default: 12,
+            default: 5,
         },
     },
     data() {
@@ -107,6 +107,12 @@ export default {
             internalVisible: false,
             internalOptions: [],
             inputValue: "",
+            // 是否显示触发器被点击了（被点击将忽略 clickOutside 事件）
+            isDropdownShowTriggerClicked: false,
+            // root id
+            rootId: "",
+            // dropdown items panel id
+            dropdownItemsPanelId: "",
         };
     },
     computed: {
@@ -196,21 +202,104 @@ export default {
             this.hideDropDown();
         },
 
+        // hide dropdown
         hideDropDown() {
             this.$emit(EMIT_EVENTS.VISIBLE_CHANGE, false);
 
             if (!this.isControlled) {
                 setTimeout(() => {
                     this.internalVisible = false;
+                    this.removeOrEmptyRootPanel();
                 }, 150);
             }
         },
 
+        // remove or emoty root panel
+        removeOrEmptyRootPanel() {
+            const { rootId } = this;
+
+            let rootEl = document.querySelector(`#${rootId}`);
+            if (rootEl) {
+                rootEl.innerHTML = "";
+            }
+        },
+
+        // show dropdown
         showDropDown() {
+            const { rootId, dropdownItemsPanelId } = this;
+
+            let rootEl = document.querySelector(`#${rootId}`);
+
+            if (rootEl) {
+                // remove first
+                rootEl.innerHTML = "";
+                rootEl.appendChild(this.$refs[dropdownItemsPanelId]);
+
+                rootEl.style.position = "absolute";
+                rootEl.classList.add(clsName("popper"));
+
+                this.changDropdownPanelPosition();
+            }
+
             if (!this.isControlled) {
                 this.internalVisible = true;
             }
+
             this.$emit(EMIT_EVENTS.VISIBLE_CHANGE, true);
+        },
+
+        // change dropdown panel position
+        changDropdownPanelPosition() {
+            const { defaultInstance, rootId } = this;
+
+            let rootEl = document.querySelector(`#${rootId}`);
+
+            if (rootEl) {
+                const { width: currentPanelWidth, height: currentPanelHeight } =
+                    rootEl.getBoundingClientRect();
+
+                const triggerEl = this.$el.querySelector(".ve-dropdown-dt");
+                const { height: triggerElHeight } =
+                    triggerEl.getBoundingClientRect();
+                // const {
+                //     left: triggerElLeft,
+                //     top: triggerElTop,
+                //     right: triggerElRight,
+                //     bottom: triggerElBottom,
+                // } = getMousePosition(event);
+
+                const {
+                    offsetLeft: triggerElLeft,
+                    offsetTop: triggerElTop,
+                    right: triggerElRight,
+                    bottom: triggerElBottom,
+                } = getViewportOffset(triggerEl);
+
+                let panelX = 0;
+                let panelY = 0;
+
+                // 右方宽度够显示
+                if (triggerElRight >= currentPanelWidth) {
+                    panelX = triggerElLeft;
+                }
+                // 右方宽度不够显示在鼠标点击左方
+                else {
+                    panelX = triggerElLeft - currentPanelWidth;
+                }
+
+                // 下方高度够显示
+                if (triggerElBottom >= currentPanelHeight) {
+                    panelY = triggerElTop + triggerElHeight + defaultInstance;
+                }
+                // 下方高度不够显示在鼠标点击上方
+                else {
+                    panelY =
+                        triggerElTop - currentPanelHeight - defaultInstance;
+                }
+
+                rootEl.style.left = panelX + "px";
+                rootEl.style.top = panelY + "px";
+            }
         },
 
         // 设置文本框的值
@@ -225,16 +314,14 @@ export default {
             this.inputValue = result;
         },
 
-        // toggle dropdown
-        toggleDropdown() {
+        // dropdown show toggle
+        dropdownShowToggle() {
+            this.isDropdownShowTriggerClicked = true;
+
             if (this.isDropdownVisible) {
                 this.hideDropDown();
             } else {
                 this.showDropDown();
-
-                this.$nextTick(() => {
-                    this.dropDownClick();
-                });
             }
         },
 
@@ -250,7 +337,7 @@ export default {
             });
 
             if (this.hideByItemClick) {
-                this.toggleDropdown();
+                this.hideDropDown();
             }
 
             if (this.isInput) {
@@ -268,24 +355,18 @@ export default {
             return clsName(`items-li-a-${this.textAlign}`);
         },
 
-        // dropdown blur
-        dropdownBlur() {
-            this.hideDropDown();
-        },
-
-        // 下拉点击显示
-        dropDownClick() {
-            var dtEle = this.$el.querySelector(".ve-dropdown-dt"),
-                ddItem = this.$el.querySelector(".ve-dropdown-items");
-            this.layerAdjustmentOnce(ddItem, dtEle, this.instance);
-        },
-
-        // 确定下拉框的位置
-        dropdownAdjust() {
-            this.dropDownClick();
-            var dtEle = this.$el.querySelector(".ve-dropdown-dt"),
-                ddItem = this.$el.querySelector(".ve-dropdown-items");
-            this.layerAdjustmentBind(ddItem, dtEle, this.instance);
+        // dropdown click outSide
+        dropdownClickOutside() {
+            /*
+            是否显示触发器被点击了（被点击将忽略 clickOutside 事件）
+            */
+            setTimeout(() => {
+                if (this.isDropdownShowTriggerClicked) {
+                    this.isDropdownShowTriggerClicked = false;
+                } else {
+                    this.hideDropDown();
+                }
+            });
         },
 
         // checbox 受控属性管理
@@ -299,13 +380,47 @@ export default {
 
             this.$emit(EMIT_EVENTS.ITEM_SELECT_CHANGE, this.internalOptions);
         },
+
+        // get random id
+        getRandomIdWithPrefix() {
+            return clsName(getRandomId());
+        },
+
+        // add root contextmenu panel to body
+        addRootElementToBody() {
+            const { rootId } = this;
+
+            let rootEl = document.querySelector(`#${rootId}`);
+
+            if (rootEl) {
+                return false;
+            } else {
+                let containerEl = document.createElement("div");
+
+                containerEl.setAttribute("id", rootId);
+
+                document.body.appendChild(containerEl);
+            }
+        },
     },
 
     created() {
         this.init();
     },
     mounted() {
-        this.dropdownAdjust();
+        this.rootId = this.getRandomIdWithPrefix();
+        this.dropdownItemsPanelId = this.getRandomIdWithPrefix();
+        this.addRootElementToBody();
+
+        document.addEventListener("scroll", this.changDropdownPanelPosition);
+        window.addEventListener("resize", this.changDropdownPanelPosition);
+    },
+
+    destroyed() {
+        this.removeOrEmptyRootPanel();
+
+        document.removeEventListener("scroll", this.changDropdownPanelPosition);
+        window.removeEventListener("resize", this.changDropdownPanelPosition);
     },
 
     render() {
@@ -316,12 +431,14 @@ export default {
             isSelect,
             width,
             maxHeight,
-            toggleDropdown,
+            dropdownShowToggle,
             getMaxWidth,
             reset,
             singleSelectOptionClick,
             showOperation,
             isCustomContent,
+            dropdownItemsClass,
+            dropdownItemsPanelId,
         } = this;
 
         let content = "";
@@ -393,71 +510,79 @@ export default {
 
         const dropdownProps = {
             class: ["ve-dropdown"],
+        };
+
+        const dropdownItemsProps = {
+            ref: dropdownItemsPanelId,
+            class: dropdownItemsClass,
             directives: [
                 {
                     name: "click-outside",
-                    value: this.dropdownBlur,
+                    value: this.dropdownClickOutside,
                 },
             ],
         };
 
         return (
             <dl {...dropdownProps}>
-                <dt class="ve-dropdown-dt">
+                <dt class="ve-dropdown-dt" on-click={dropdownShowToggle}>
                     <a
                         class={[isSelect ? clsName("dt-selected") : ""]}
                         style={{ width: width + "px" }}
-                        on-click={toggleDropdown}
                     >
                         {this.$slots.default}
                     </a>
                 </dt>
-                <dd class={this.dropdownItemsClass}>
-                    <ul
-                        class={clsName("items")}
-                        style={{
-                            "min-width": width + "px",
-                            "max-width": getMaxWidth + "px",
-                        }}
-                    >
-                        {/* custome content */}
-                        {isCustomContent && this.$slots["custom-content"]}
-                        {/* not custom content */}
-                        {!isCustomContent && (
-                            <div>
-                                <div
-                                    style={{
-                                        "max-height": maxHeight + "px",
-                                    }}
-                                    class={clsName("items-warpper")}
-                                >
-                                    {content}
+                <div style={{ display: "none" }}>
+                    <dd {...dropdownItemsProps}>
+                        <ul
+                            class={clsName("items")}
+                            style={{
+                                "min-width": width + "px",
+                                "max-width": getMaxWidth + "px",
+                            }}
+                        >
+                            {/* custome content */}
+                            {isCustomContent && this.$slots["custom-content"]}
+                            {/* not custom content */}
+                            {!isCustomContent && (
+                                <div>
+                                    <div
+                                        style={{
+                                            "max-height": maxHeight + "px",
+                                        }}
+                                        class={clsName("items-warpper")}
+                                    >
+                                        {content}
+                                    </div>
+                                    {showOperation && (
+                                        <li class={clsName("operation")}>
+                                            <a
+                                                class={[
+                                                    clsName("operation-item"),
+                                                    this.operationFilterClass,
+                                                ]}
+                                                href="javascript:void(0)"
+                                                on-click={reset}
+                                            >
+                                                {this.resetFilterText}
+                                            </a>
+                                            <a
+                                                class={clsName(
+                                                    "operation-item",
+                                                )}
+                                                href="javascript:void(0)"
+                                                on-click={this.confirm}
+                                            >
+                                                {this.confirmFilterText}
+                                            </a>
+                                        </li>
+                                    )}
                                 </div>
-                                {showOperation && (
-                                    <li class={clsName("operation")}>
-                                        <a
-                                            class={[
-                                                clsName("operation-item"),
-                                                this.operationFilterClass,
-                                            ]}
-                                            href="javascript:void(0)"
-                                            on-click={reset}
-                                        >
-                                            {this.resetFilterText}
-                                        </a>
-                                        <a
-                                            class={clsName("operation-item")}
-                                            href="javascript:void(0)"
-                                            on-click={this.confirm}
-                                        >
-                                            {this.confirmFilterText}
-                                        </a>
-                                    </li>
-                                )}
-                            </div>
-                        )}
-                    </ul>
-                </dd>
+                            )}
+                        </ul>
+                    </dd>
+                </div>
             </dl>
         );
     },
