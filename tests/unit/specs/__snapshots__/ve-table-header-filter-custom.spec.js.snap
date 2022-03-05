@@ -14,15 +14,17 @@ exports[`veTable header filter custom render 1`] = `
         <tr class="ve-table-header-tr">
           <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Name<dl class="ve-dropdown">
               <dt class="ve-dropdown-dt"><a class="" style="width: 90px;"><span class="ve-table-filter"><span class="ve-table-filter-icon"><i class="ve-icon iconfont-vet icon-vet-search"></i></span></span></a></dt>
-              <dd class="ve-dropdown-dd ve-dropdown-dd-show">
-                <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx; top: 12px; left: 0px;">
-                  <div>
-                    <div class="custom-name-filter"><input placeholder="Search name">
-                      <div class="custom-name-filter-operation"><span class="name-filter-cancel">取消</span><span class="name-filter-confirm">查询</span></div>
+              <div style="display: none;">
+                <dd class="ve-dropdown-dd ve-dropdown-dd-show">
+                  <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx;">
+                    <div>
+                      <div class="custom-name-filter"><input placeholder="Search name">
+                        <div class="custom-name-filter-operation"><span class="name-filter-cancel">取消</span><span class="name-filter-confirm">查询</span></div>
+                      </div>
                     </div>
-                  </div>
-                </ul>
-              </dd>
+                  </ul>
+                </dd>
+              </div>
             </dl>
           </th>
           <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Date</th>

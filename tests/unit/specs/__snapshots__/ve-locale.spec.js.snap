@@ -7,17 +7,19 @@ exports[`veLocale render by update method 1`] = `
     <li class="ve-pagination-li ve-pagination-next"><a><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></a></li>
     <dl class="ve-dropdown ve-select ve-pagination-select">
       <dt class="ve-dropdown-dt"><a class="ve-dropdown-dt-selected" style="width: 90px;"><span><span class="ve-select-selected-span">10 / page</span><i class="ve-icon iconfont-vet icon-vet-bottom-arrow ve-select-toggle-icon"></i></span></a></dt>
-      <dd class="ve-dropdown-dd">
-        <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx; top: 12px; left: 0px;">
-          <div>
-            <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
-              <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 / page</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 / page</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 / page</a></li>
+      <div style="display: none;">
+        <dd class="ve-dropdown-dd">
+          <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx;">
+            <div>
+              <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
+                <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 / page</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 / page</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 / page</a></li>
+              </div>
             </div>
-          </div>
-        </ul>
-      </dd>
+          </ul>
+        </dd>
+      </div>
     </dl><span class="ve-pagination-goto">&nbsp;跳转到&nbsp;<input type="input" class="ve-pagination-goto-input">&nbsp;&nbsp;</span>
   </ul>
   <ul class="ve-pagination"><span class="ve-pagination-total">Total 600</span>
@@ -25,17 +27,19 @@ exports[`veLocale render by update method 1`] = `
     <li class="ve-pagination-li ve-pagination-next"><a><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></a></li>
     <dl class="ve-dropdown ve-select ve-pagination-select">
       <dt class="ve-dropdown-dt"><a class="ve-dropdown-dt-selected" style="width: 90px;"><span><span class="ve-select-selected-span">10 / page</span><i class="ve-icon iconfont-vet icon-vet-bottom-arrow ve-select-toggle-icon"></i></span></a></dt>
-      <dd class="ve-dropdown-dd">
-        <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx; top: 12px; left: 0px;">
-          <div>
-            <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
-              <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 / page</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 / page</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 / page</a></li>
+      <div style="display: none;">
+        <dd class="ve-dropdown-dd">
+          <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx;">
+            <div>
+              <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
+                <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 / page</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 / page</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 / page</a></li>
+              </div>
             </div>
-          </div>
-        </ul>
-      </dd>
+          </ul>
+        </dd>
+      </div>
     </dl><span class="ve-pagination-goto">&nbsp;跳转到&nbsp;<input type="input" class="ve-pagination-goto-input">&nbsp;&nbsp;</span>
   </ul>
   <ul class="ve-pagination"><span class="ve-pagination-total">Total 600</span>
@@ -43,17 +47,19 @@ exports[`veLocale render by update method 1`] = `
     <li class="ve-pagination-li ve-pagination-next"><a><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></a></li>
     <dl class="ve-dropdown ve-select ve-pagination-select">
       <dt class="ve-dropdown-dt"><a class="ve-dropdown-dt-selected" style="width: 90px;"><span><span class="ve-select-selected-span">10 / page</span><i class="ve-icon iconfont-vet icon-vet-bottom-arrow ve-select-toggle-icon"></i></span></a></dt>
-      <dd class="ve-dropdown-dd">
-        <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx; top: 12px; left: 0px;">
-          <div>
-            <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
-              <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 / page</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 / page</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 / page</a></li>
+      <div style="display: none;">
+        <dd class="ve-dropdown-dd">
+          <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx;">
+            <div>
+              <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
+                <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 / page</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 / page</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 / page</a></li>
+              </div>
             </div>
-          </div>
-        </ul>
-      </dd>
+          </ul>
+        </dd>
+      </div>
     </dl><span class="ve-pagination-goto">&nbsp;跳转到&nbsp;<input type="input" class="ve-pagination-goto-input">&nbsp;&nbsp;</span>
   </ul>
   <ul class="ve-pagination"><span class="ve-pagination-total">Total 600</span>
@@ -61,33 +67,37 @@ exports[`veLocale render by update method 1`] = `
     <li class="ve-pagination-li ve-pagination-next"><a><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></a></li>
     <dl class="ve-dropdown ve-select ve-pagination-select">
       <dt class="ve-dropdown-dt"><a class="ve-dropdown-dt-selected" style="width: 90px;"><span><span class="ve-select-selected-span">10 / page</span><i class="ve-icon iconfont-vet icon-vet-bottom-arrow ve-select-toggle-icon"></i></span></a></dt>
-      <dd class="ve-dropdown-dd">
-        <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx; top: 12px; left: 0px;">
-          <div>
-            <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
-              <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 / page</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 / page</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 / page</a></li>
+      <div style="display: none;">
+        <dd class="ve-dropdown-dd">
+          <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx;">
+            <div>
+              <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
+                <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 / page</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 / page</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 / page</a></li>
+              </div>
             </div>
-          </div>
-        </ul>
-      </dd>
+          </ul>
+        </dd>
+      </div>
     </dl><span class="ve-pagination-goto">&nbsp;跳转到&nbsp;<input type="input" class="ve-pagination-goto-input">&nbsp;&nbsp;</span>
   </ul>
   <ul class="ve-pagination"><span class="ve-pagination-total">Total 600</span>
     <dl class="ve-dropdown ve-select ve-pagination-select">
       <dt class="ve-dropdown-dt"><a class="ve-dropdown-dt-selected" style="width: 90px;"><span><span class="ve-select-selected-span">10 / page</span><i class="ve-icon iconfont-vet icon-vet-bottom-arrow ve-select-toggle-icon"></i></span></a></dt>
-      <dd class="ve-dropdown-dd">
-        <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx; top: 12px; left: 0px;">
-          <div>
-            <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
-              <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 / page</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 / page</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 / page</a></li>
+      <div style="display: none;">
+        <dd class="ve-dropdown-dd">
+          <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx;">
+            <div>
+              <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
+                <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 / page</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 / page</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 / page</a></li>
+              </div>
             </div>
-          </div>
-        </ul>
-      </dd>
+          </ul>
+        </dd>
+      </div>
     </dl>
     <li class="ve-pagination-disabled ve-pagination-li ve-pagination-prev"><a><i class="ve-icon iconfont-vet icon-vet-left-arrow"></i></a></li><span class="ve-pagination-pager"><li class="ve-pagination-li-active ve-pagination-li"><a>1</a></li><li class="ve-pagination-li"><a>2</a></li><li class="ve-pagination-li"><a>3</a></li><li class="ve-pagination-li"><a>4</a></li><li class="ve-pagination-li"><a>5</a></li><li class="ve-pagination-li"><a>6</a></li><li title="Next 5 Pages" class="ve-pagination-li ve-pagination-jump-next"><a><i class="ve-icon iconfont-vet icon-vet-double-right-arrow"></i></a></li><li class="ve-pagination-li"><a>60</a></li></span>
     <li class="ve-pagination-li ve-pagination-next"><a><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></a></li><span class="ve-pagination-goto">&nbsp;跳转到&nbsp;<input type="input" class="ve-pagination-goto-input">&nbsp;&nbsp;</span>
@@ -102,17 +112,19 @@ exports[`veLocale render with enUS 1`] = `
     <li class="ve-pagination-li ve-pagination-next"><a><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></a></li>
     <dl class="ve-dropdown ve-select ve-pagination-select">
       <dt class="ve-dropdown-dt"><a class="ve-dropdown-dt-selected" style="width: 90px;"><span><span class="ve-select-selected-span">10 / page</span><i class="ve-icon iconfont-vet icon-vet-bottom-arrow ve-select-toggle-icon"></i></span></a></dt>
-      <dd class="ve-dropdown-dd">
-        <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx; top: 12px; left: 0px;">
-          <div>
-            <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
-              <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 / page</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 / page</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 / page</a></li>
+      <div style="display: none;">
+        <dd class="ve-dropdown-dd">
+          <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx;">
+            <div>
+              <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
+                <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 / page</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 / page</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 / page</a></li>
+              </div>
             </div>
-          </div>
-        </ul>
-      </dd>
+          </ul>
+        </dd>
+      </div>
     </dl><span class="ve-pagination-goto">&nbsp;Go to&nbsp;<input type="input" class="ve-pagination-goto-input">&nbsp;&nbsp;</span>
   </ul>
   <ul class="ve-pagination"><span class="ve-pagination-total">Total 600</span>
@@ -120,17 +132,19 @@ exports[`veLocale render with enUS 1`] = `
     <li class="ve-pagination-li ve-pagination-next"><a><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></a></li>
     <dl class="ve-dropdown ve-select ve-pagination-select">
       <dt class="ve-dropdown-dt"><a class="ve-dropdown-dt-selected" style="width: 90px;"><span><span class="ve-select-selected-span">10 / page</span><i class="ve-icon iconfont-vet icon-vet-bottom-arrow ve-select-toggle-icon"></i></span></a></dt>
-      <dd class="ve-dropdown-dd">
-        <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx; top: 12px; left: 0px;">
-          <div>
-            <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
-              <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 / page</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 / page</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 / page</a></li>
+      <div style="display: none;">
+        <dd class="ve-dropdown-dd">
+          <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx;">
+            <div>
+              <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
+                <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 / page</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 / page</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 / page</a></li>
+              </div>
             </div>
-          </div>
-        </ul>
-      </dd>
+          </ul>
+        </dd>
+      </div>
     </dl><span class="ve-pagination-goto">&nbsp;Go to&nbsp;<input type="input" class="ve-pagination-goto-input">&nbsp;&nbsp;</span>
   </ul>
   <ul class="ve-pagination"><span class="ve-pagination-total">Total 600</span>
@@ -138,17 +152,19 @@ exports[`veLocale render with enUS 1`] = `
     <li class="ve-pagination-li ve-pagination-next"><a><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></a></li>
     <dl class="ve-dropdown ve-select ve-pagination-select">
       <dt class="ve-dropdown-dt"><a class="ve-dropdown-dt-selected" style="width: 90px;"><span><span class="ve-select-selected-span">10 / page</span><i class="ve-icon iconfont-vet icon-vet-bottom-arrow ve-select-toggle-icon"></i></span></a></dt>
-      <dd class="ve-dropdown-dd">
-        <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx; top: 12px; left: 0px;">
-          <div>
-            <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
-              <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 / page</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 / page</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 / page</a></li>
+      <div style="display: none;">
+        <dd class="ve-dropdown-dd">
+          <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx;">
+            <div>
+              <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
+                <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 / page</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 / page</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 / page</a></li>
+              </div>
             </div>
-          </div>
-        </ul>
-      </dd>
+          </ul>
+        </dd>
+      </div>
     </dl><span class="ve-pagination-goto">&nbsp;Go to&nbsp;<input type="input" class="ve-pagination-goto-input">&nbsp;&nbsp;</span>
   </ul>
   <ul class="ve-pagination"><span class="ve-pagination-total">Total 600</span>
@@ -156,33 +172,37 @@ exports[`veLocale render with enUS 1`] = `
     <li class="ve-pagination-li ve-pagination-next"><a><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></a></li>
     <dl class="ve-dropdown ve-select ve-pagination-select">
       <dt class="ve-dropdown-dt"><a class="ve-dropdown-dt-selected" style="width: 90px;"><span><span class="ve-select-selected-span">10 / page</span><i class="ve-icon iconfont-vet icon-vet-bottom-arrow ve-select-toggle-icon"></i></span></a></dt>
-      <dd class="ve-dropdown-dd">
-        <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx; top: 12px; left: 0px;">
-          <div>
-            <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
-              <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 / page</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 / page</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 / page</a></li>
+      <div style="display: none;">
+        <dd class="ve-dropdown-dd">
+          <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx;">
+            <div>
+              <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
+                <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 / page</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 / page</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 / page</a></li>
+              </div>
             </div>
-          </div>
-        </ul>
-      </dd>
+          </ul>
+        </dd>
+      </div>
     </dl><span class="ve-pagination-goto">&nbsp;Go to&nbsp;<input type="input" class="ve-pagination-goto-input">&nbsp;&nbsp;</span>
   </ul>
   <ul class="ve-pagination"><span class="ve-pagination-total">Total 600</span>
     <dl class="ve-dropdown ve-select ve-pagination-select">
       <dt class="ve-dropdown-dt"><a class="ve-dropdown-dt-selected" style="width: 90px;"><span><span class="ve-select-selected-span">10 / page</span><i class="ve-icon iconfont-vet icon-vet-bottom-arrow ve-select-toggle-icon"></i></span></a></dt>
-      <dd class="ve-dropdown-dd">
-        <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx; top: 12px; left: 0px;">
-          <div>
-            <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
-              <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 / page</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 / page</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 / page</a></li>
+      <div style="display: none;">
+        <dd class="ve-dropdown-dd">
+          <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx;">
+            <div>
+              <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
+                <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 / page</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 / page</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 / page</a></li>
+              </div>
             </div>
-          </div>
-        </ul>
-      </dd>
+          </ul>
+        </dd>
+      </div>
     </dl>
     <li class="ve-pagination-disabled ve-pagination-li ve-pagination-prev"><a><i class="ve-icon iconfont-vet icon-vet-left-arrow"></i></a></li><span class="ve-pagination-pager"><li class="ve-pagination-li-active ve-pagination-li"><a>1</a></li><li class="ve-pagination-li"><a>2</a></li><li class="ve-pagination-li"><a>3</a></li><li class="ve-pagination-li"><a>4</a></li><li class="ve-pagination-li"><a>5</a></li><li class="ve-pagination-li"><a>6</a></li><li title="Next 5 Pages" class="ve-pagination-li ve-pagination-jump-next"><a><i class="ve-icon iconfont-vet icon-vet-double-right-arrow"></i></a></li><li class="ve-pagination-li"><a>60</a></li></span>
     <li class="ve-pagination-li ve-pagination-next"><a><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></a></li><span class="ve-pagination-goto">&nbsp;Go to&nbsp;<input type="input" class="ve-pagination-goto-input">&nbsp;&nbsp;</span>
@@ -197,17 +217,19 @@ exports[`veLocale render with zhCN 1`] = `
     <li class="ve-pagination-li ve-pagination-next"><a><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></a></li>
     <dl class="ve-dropdown ve-select ve-pagination-select">
       <dt class="ve-dropdown-dt"><a class="ve-dropdown-dt-selected" style="width: 90px;"><span><span class="ve-select-selected-span">10 条/页</span><i class="ve-icon iconfont-vet icon-vet-bottom-arrow ve-select-toggle-icon"></i></span></a></dt>
-      <dd class="ve-dropdown-dd">
-        <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx; top: 12px; left: 0px;">
-          <div>
-            <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
-              <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 条/页</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 条/页</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 条/页</a></li>
+      <div style="display: none;">
+        <dd class="ve-dropdown-dd">
+          <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx;">
+            <div>
+              <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
+                <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 条/页</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 条/页</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 条/页</a></li>
+              </div>
             </div>
-          </div>
-        </ul>
-      </dd>
+          </ul>
+        </dd>
+      </div>
     </dl><span class="ve-pagination-goto">&nbsp;前往&nbsp;<input type="input" class="ve-pagination-goto-input">&nbsp;页&nbsp;</span>
   </ul>
   <ul class="ve-pagination"><span class="ve-pagination-total">共 600 条</span>
@@ -215,17 +237,19 @@ exports[`veLocale render with zhCN 1`] = `
     <li class="ve-pagination-li ve-pagination-next"><a><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></a></li>
     <dl class="ve-dropdown ve-select ve-pagination-select">
       <dt class="ve-dropdown-dt"><a class="ve-dropdown-dt-selected" style="width: 90px;"><span><span class="ve-select-selected-span">10 条/页</span><i class="ve-icon iconfont-vet icon-vet-bottom-arrow ve-select-toggle-icon"></i></span></a></dt>
-      <dd class="ve-dropdown-dd">
-        <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx; top: 12px; left: 0px;">
-          <div>
-            <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
-              <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 条/页</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 条/页</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 条/页</a></li>
+      <div style="display: none;">
+        <dd class="ve-dropdown-dd">
+          <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx;">
+            <div>
+              <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
+                <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 条/页</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 条/页</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 条/页</a></li>
+              </div>
             </div>
-          </div>
-        </ul>
-      </dd>
+          </ul>
+        </dd>
+      </div>
     </dl><span class="ve-pagination-goto">&nbsp;前往&nbsp;<input type="input" class="ve-pagination-goto-input">&nbsp;页&nbsp;</span>
   </ul>
   <ul class="ve-pagination"><span class="ve-pagination-total">共 600 条</span>
@@ -233,17 +257,19 @@ exports[`veLocale render with zhCN 1`] = `
     <li class="ve-pagination-li ve-pagination-next"><a><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></a></li>
     <dl class="ve-dropdown ve-select ve-pagination-select">
       <dt class="ve-dropdown-dt"><a class="ve-dropdown-dt-selected" style="width: 90px;"><span><span class="ve-select-selected-span">10 条/页</span><i class="ve-icon iconfont-vet icon-vet-bottom-arrow ve-select-toggle-icon"></i></span></a></dt>
-      <dd class="ve-dropdown-dd">
-        <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx; top: 12px; left: 0px;">
-          <div>
-            <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
-              <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 条/页</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 条/页</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 条/页</a></li>
+      <div style="display: none;">
+        <dd class="ve-dropdown-dd">
+          <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx;">
+            <div>
+              <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
+                <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 条/页</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 条/页</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 条/页</a></li>
+              </div>
             </div>
-          </div>
-        </ul>
-      </dd>
+          </ul>
+        </dd>
+      </div>
     </dl><span class="ve-pagination-goto">&nbsp;前往&nbsp;<input type="input" class="ve-pagination-goto-input">&nbsp;页&nbsp;</span>
   </ul>
   <ul class="ve-pagination"><span class="ve-pagination-total">共 600 条</span>
@@ -251,33 +277,37 @@ exports[`veLocale render with zhCN 1`] = `
     <li class="ve-pagination-li ve-pagination-next"><a><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></a></li>
     <dl class="ve-dropdown ve-select ve-pagination-select">
       <dt class="ve-dropdown-dt"><a class="ve-dropdown-dt-selected" style="width: 90px;"><span><span class="ve-select-selected-span">10 条/页</span><i class="ve-icon iconfont-vet icon-vet-bottom-arrow ve-select-toggle-icon"></i></span></a></dt>
-      <dd class="ve-dropdown-dd">
-        <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx; top: 12px; left: 0px;">
-          <div>
-            <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
-              <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 条/页</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 条/页</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 条/页</a></li>
+      <div style="display: none;">
+        <dd class="ve-dropdown-dd">
+          <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx;">
+            <div>
+              <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
+                <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 条/页</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 条/页</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 条/页</a></li>
+              </div>
             </div>
-          </div>
-        </ul>
-      </dd>
+          </ul>
+        </dd>
+      </div>
     </dl><span class="ve-pagination-goto">&nbsp;前往&nbsp;<input type="input" class="ve-pagination-goto-input">&nbsp;页&nbsp;</span>
   </ul>
   <ul class="ve-pagination"><span class="ve-pagination-total">共 600 条</span>
     <dl class="ve-dropdown ve-select ve-pagination-select">
       <dt class="ve-dropdown-dt"><a class="ve-dropdown-dt-selected" style="width: 90px;"><span><span class="ve-select-selected-span">10 条/页</span><i class="ve-icon iconfont-vet icon-vet-bottom-arrow ve-select-toggle-icon"></i></span></a></dt>
-      <dd class="ve-dropdown-dd">
-        <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx; top: 12px; left: 0px;">
-          <div>
-            <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
-              <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 条/页</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 条/页</a></li>
-              <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 条/页</a></li>
+      <div style="display: none;">
+        <dd class="ve-dropdown-dd">
+          <ul class="ve-dropdown-items" style="min-width: 90px; max-width: Infinitypx;">
+            <div>
+              <div class="ve-dropdown-items-warpper" style="max-height: 1000px;">
+                <li class="ve-dropdown-items-li active"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">10 条/页</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">20 条/页</a></li>
+                <li class="ve-dropdown-items-li"><a href="javascript:void(0);" class="ve-dropdown-items-li-a ve-dropdown-items-li-a-left">30 条/页</a></li>
+              </div>
             </div>
-          </div>
-        </ul>
-      </dd>
+          </ul>
+        </dd>
+      </div>
     </dl>
     <li class="ve-pagination-disabled ve-pagination-li ve-pagination-prev"><a><i class="ve-icon iconfont-vet icon-vet-left-arrow"></i></a></li><span class="ve-pagination-pager"><li class="ve-pagination-li-active ve-pagination-li"><a>1</a></li><li class="ve-pagination-li"><a>2</a></li><li class="ve-pagination-li"><a>3</a></li><li class="ve-pagination-li"><a>4</a></li><li class="ve-pagination-li"><a>5</a></li><li class="ve-pagination-li"><a>6</a></li><li title="向后 5 页" class="ve-pagination-li ve-pagination-jump-next"><a><i class="ve-icon iconfont-vet icon-vet-double-right-arrow"></i></a></li><li class="ve-pagination-li"><a>60</a></li></span>
     <li class="ve-pagination-li ve-pagination-next"><a><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></a></li><span class="ve-pagination-goto">&nbsp;前往&nbsp;<input type="input" class="ve-pagination-goto-input">&nbsp;页&nbsp;</span>
