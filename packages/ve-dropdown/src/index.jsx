@@ -388,18 +388,22 @@ export default {
 
         // add root contextmenu panel to body
         addRootElementToBody() {
-            const { rootId } = this;
+            this.rootId = this.getRandomIdWithPrefix();
+            this.dropdownItemsPanelId = this.getRandomIdWithPrefix();
 
-            let rootEl = document.querySelector(`#${rootId}`);
+            let rootEl = document.querySelector(`#${this.rootId}`);
 
             if (rootEl) {
                 return false;
             } else {
-                let containerEl = document.createElement("div");
+                // fixed unit test error: [Vue warn]: Error in v-on handler: "TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'."
+                this.$nextTick(() => {
+                    let containerEl = document.createElement("div");
 
-                containerEl.setAttribute("id", rootId);
+                    containerEl.setAttribute("id", this.rootId);
 
-                document.body.appendChild(containerEl);
+                    document.body.appendChild(containerEl);
+                });
             }
         },
     },
@@ -408,8 +412,6 @@ export default {
         this.init();
     },
     mounted() {
-        this.rootId = this.getRandomIdWithPrefix();
-        this.dropdownItemsPanelId = this.getRandomIdWithPrefix();
         this.addRootElementToBody();
 
         document.addEventListener("scroll", this.changDropdownPanelPosition);
