@@ -62,8 +62,10 @@ export function hasClass(el, cls) {
 }
 
 /*获取当前元素的left、top偏移
- *   left：元素最左侧距离文档左侧的距离，包含滚动条
- *   top:元素最顶端距离文档顶端的距离，包含滚动条
+ *   offsetTop：元素最顶端距离文档顶端的距离，包含滚动条
+ *   offsetleft：元素最左侧距离文档左侧的距离，包含滚动条
+ *   left：元素最左侧距离文档左侧的距离，不包含滚动条
+ *   top:元素最顶端距离文档顶端的距离，不包含滚动条
  *   right:元素最右侧距离文档右侧的距离，不包含滚动条
  *   bottom：元素最底端距离文档底端的距离，不包含滚动条
  *   right2：元素最左侧距离文档右侧的距离，不包含滚动条
@@ -86,8 +88,10 @@ export function getViewportOffset(element) {
         top = offsetTop - scrollTop;
 
     return {
-        left: left,
-        top: top,
+        offsetTop,
+        offsetLeft,
+        left,
+        top,
         right: window.document.documentElement.clientWidth - box.width - left,
         bottom: window.document.documentElement.clientHeight - box.height - top,
         right2: window.document.documentElement.clientWidth - left,
