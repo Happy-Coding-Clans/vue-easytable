@@ -7,6 +7,16 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.14.2
+
+### Performance Improvements
+
+-   优化表格渲染逻辑（使用防抖 debounce），提升表格渲染速度
+
+### Bug Fixes
+
+-   修复 keep-alive 对包含固定列的排序不生效的问题 #454
+
 V2.14.1
 
 ### Bug Fixes
