@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`veTable header paging render multiple field paging 1`] = `
+exports[`veTable header sort render multiple field sort 1`] = `
 <div class="ve-table ve-table-border-around">
   <div class="ve-table-container" style="height: 0px;">
     <table class="ve-table-content ve-table-border-x">
@@ -70,7 +70,7 @@ exports[`veTable header paging render multiple field paging 1`] = `
 </div>
 `;
 
-exports[`veTable header paging render single field paging 1`] = `
+exports[`veTable header sort render single field sort 1`] = `
 <div class="ve-table ve-table-border-around">
   <div class="ve-table-container" style="height: 0px;">
     <table class="ve-table-content ve-table-border-x">

@@ -2,7 +2,7 @@ import { mount } from "@vue/test-utils";
 import veTable from "@/ve-table";
 import { later } from "../util";
 
-describe("veTable header paging", () => {
+describe("veTable header sort", () => {
     const TABLE_DATA = [
         {
             name: "John",
@@ -41,7 +41,7 @@ describe("veTable header paging", () => {
         },
     ];
 
-    it("render single field paging", () => {
+    it("render single field sort", () => {
         const columns = [
             {
                 field: "name",
@@ -97,7 +97,7 @@ describe("veTable header paging", () => {
         expect(wrapper.html()).toMatchSnapshot();
     });
 
-    it("render multiple field paging", () => {
+    it("render multiple field sort", () => {
         const columns = [
             {
                 field: "name",
@@ -154,13 +154,14 @@ describe("veTable header paging", () => {
         expect(wrapper.html()).toMatchSnapshot();
     });
 
-    it("single field paging", async () => {
+    it("single field sort", async () => {
         const columns = [
             {
                 field: "name",
                 key: "a",
                 title: "Name",
                 align: "left",
+                fixed: "left", // combine with column fixed issue #454
             },
             {
                 field: "age",
@@ -223,6 +224,67 @@ describe("veTable header paging", () => {
         expect(mockFn).toBeCalled();
         expect(mockFn).toHaveBeenCalledWith(callBackData);
 
+        expect(wrapper.vm.colgroups).toEqual([
+            {
+                _colspan: 1,
+                _keys: "a",
+                _level: 1,
+                _realTimeWidth: undefined,
+                _rowspan: 1,
+                align: "left",
+                field: "name",
+                fixed: "left",
+                key: "a",
+                title: "Name",
+            },
+            {
+                _colspan: 1,
+                _keys: "b",
+                _level: 1,
+                _realTimeWidth: undefined,
+                _rowspan: 1,
+                align: "center",
+                field: "age",
+                key: "b",
+                sortBy: "asc",
+                title: "Age",
+            },
+            {
+                _colspan: 1,
+                _keys: "c",
+                _level: 1,
+                _realTimeWidth: undefined,
+                _rowspan: 1,
+                align: "center",
+                field: "weight",
+                key: "c",
+                sortBy: "asc",
+                title: "Weight(kg)",
+            },
+            {
+                _colspan: 1,
+                _keys: "d",
+                _level: 1,
+                _realTimeWidth: undefined,
+                _rowspan: 1,
+                align: "center",
+                field: "hobby",
+                key: "d",
+                title: "Hobby",
+            },
+            {
+                _colspan: 1,
+                _keys: "e",
+                _level: 1,
+                _realTimeWidth: undefined,
+                _rowspan: 1,
+                align: "left",
+                field: "address",
+                key: "e",
+                title: "Address",
+            },
+        ]);
+
         expect(
             thEls
                 .at(1)
@@ -233,7 +295,7 @@ describe("veTable header paging", () => {
         ).toBe(true);
     });
 
-    it("multiple field paging", async () => {
+    it("multiple field sort", async () => {
         const columns = [
             {
                 field: "name",
