@@ -2,22 +2,10 @@
     <div>
         <h2>Column fixed</h2>
         <Explain />
-        <div>
-            <anchor label="" />
-            <ColumnFixedLeft />
-        </div>
-        <div>
-            <anchor label="" />
-            <ColumnFixedRight />
-        </div>
-        <div>
-            <anchor label="" />
-            <ColumnFixedLeftRight />
-        </div>
-        <div>
-            <anchor label="" />
-            <ColumnFixedAutoWidth />
-        </div>
+        <ColumnFixedLeft />
+        <ColumnFixedRight />
+        <ColumnFixedLeftRight />
+        <ColumnFixedAutoWidth />
     </div>
 </template>
 <script>
