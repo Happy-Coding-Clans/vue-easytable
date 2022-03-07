@@ -637,6 +637,16 @@ export default {
             });
         }, 0),
 
+        // update colgroups by sort change
+        updateColgroupsBySortChange({ currentField, sortResult }) {
+            this.colgroups = this.colgroups.map((item) => {
+                if (item.field && item.field === currentField) {
+                    item.sortBy = sortResult;
+                }
+                return item;
+            });
+        },
+
         // init columns
         initColumns() {
             const { columnHiddenOption } = this;
@@ -1944,6 +1954,11 @@ export default {
 
         // create hook instance
         this.hooks = new Hooks();
+
+        // receive sort change
+        this.$on(EMIT_EVENTS.SORT_CHANGE, (params) => {
+            this.updateColgroupsBySortChange(params);
+        });
 
         // receive row selected change
         this.$on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_CHANGE, (params) => {
