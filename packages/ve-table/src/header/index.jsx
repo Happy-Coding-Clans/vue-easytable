@@ -1,8 +1,10 @@
 import { clsName } from "../util";
 import HeaderTr from "./header-tr";
 import { COMPS_NAME, EMIT_EVENTS } from "../util/constant";
+import emitter from "../../../src/mixins/emitter";
 export default {
     name: COMPS_NAME.VE_TABLE_THADER,
+    mixins: [emitter],
     props: {
         columnsOptionResetTime: {
             type: Number,
@@ -96,6 +98,12 @@ export default {
                     }
                 }
             }
+
+            this.dispatch(
+                COMPS_NAME.VE_TABLE,
+                EMIT_EVENTS.SORT_CHANGE,
+                sortColumns,
+            );
 
             // invoke
             sortChange(sortColumns);

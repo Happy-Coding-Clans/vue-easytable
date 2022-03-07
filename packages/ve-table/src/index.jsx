@@ -638,11 +638,13 @@ export default {
         }, 0),
 
         // update colgroups by sort change
-        updateColgroupsBySortChange({ currentField, sortResult }) {
+        updateColgroupsBySortChange(sortColumns) {
             this.colgroups = this.colgroups.map((item) => {
-                if (item.field && item.field === currentField) {
-                    item.sortBy = sortResult;
+                // update colgroups by sort columns
+                if (Object.keys(sortColumns).indexOf(item.field) > -1) {
+                    item.sortBy = sortColumns[item.field];
                 }
+
                 return item;
             });
         },

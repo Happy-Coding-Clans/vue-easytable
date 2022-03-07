@@ -287,11 +287,6 @@ export default {
                 currentField,
                 sortResult,
             });
-
-            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.SORT_CHANGE, {
-                currentField,
-                sortResult,
-            });
         },
 
         // get sort content
