@@ -1,4 +1,4 @@
-import { cloneDeep } from "lodash";
+import { cloneDeep, debounce } from "lodash";
 import {
     initGroupColumns,
     clsName,
@@ -629,13 +629,13 @@ export default {
         },
 
         // td width change
-        tdWidthChange(colWidths) {
+        tdWidthChange: debounce(function (colWidths) {
             this.colgroups = this.colgroups.map((item) => {
                 // map
                 item._realTimeWidth = colWidths.get(item.key);
                 return item;
             });
-        },
+        }, 0),
 
         // init columns
         initColumns() {

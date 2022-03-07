@@ -149,10 +149,6 @@ export default {
             1、存储当前单选功能的rowkey 信息
             */
             internalRadioSelectedRowKey: null,
-            // cols widths efficient count
-            colsWidthsEfficientCount: 0,
-            // has init columns widths 此属性可优化固定列表格初始化渲染慢问题
-            hasPreparedColsWidths: false,
             // virtual scroll preview rendered rowKey
             virtualScrollPreviewRenderedRowKeys: [],
             // virtual scroll repeat rendered rowKey
@@ -374,14 +370,6 @@ export default {
                 this.initInternalRadioSelectedRowKey();
             },
         },
-        // actual render table data
-        actualRenderTableData: {
-            handler: function (val) {
-                if (val.length === 0) {
-                    this.resetPreparedColsWidthsStatus();
-                }
-            },
-        },
     },
     methods: {
         // is last left fixed column
@@ -548,25 +536,10 @@ export default {
         tdSizeChange({ key, width }) {
             // 只有固定列才需要计算列宽
             if (this.hasFixedColumn) {
-                const { colsWidths, colgroups } = this;
+                const { colsWidths } = this;
                 colsWidths.set(key, width);
-
-                // 优化固定列表格初始化渲染速度慢问题
-                if (!this.hasPreparedColsWidths) {
-                    if (++this.colsWidthsEfficientCount === colgroups.length) {
-                        this.hasPreparedColsWidths = true;
-                    }
-                }
-                if (this.hasPreparedColsWidths) {
-                    this.$emit(EMIT_EVENTS.BODY_TD_WIDTH_CHANGE, colsWidths);
-                }
+                this.$emit(EMIT_EVENTS.BODY_TD_WIDTH_CHANGE, colsWidths);
             }
-        },
-
-        // reset prepared column widths status
-        resetPreparedColsWidthsStatus() {
-            this.colsWidthsEfficientCount = 0;
-            this.hasPreparedColsWidths = false;
         },
 
         // init internal expand row keys
