@@ -224,6 +224,9 @@ describe("veTable header sort", () => {
         expect(mockFn).toBeCalled();
         expect(mockFn).toHaveBeenCalledWith(callBackData);
 
+        // 只能单个字段排序
+        expect(wrapper.vm.colgroups.filter((x) => x.sortBy).length).toEqual(1);
+
         expect(wrapper.vm.colgroups).toEqual([
             {
                 _colspan: 1,
@@ -258,7 +261,7 @@ describe("veTable header sort", () => {
                 align: "center",
                 field: "weight",
                 key: "c",
-                sortBy: "asc",
+                sortBy: "",
                 title: "Weight(kg)",
             },
             {
@@ -368,6 +371,9 @@ describe("veTable header sort", () => {
         expect(
             wrapper.findAll(".ve-table-sort .ve-table-sort-icon.active").length,
         ).toBe(2);
+
+        // 多个字段排序
+        expect(wrapper.vm.colgroups.filter((x) => x.sortBy).length).toEqual(2);
     });
 
     it("sort always", async () => {
