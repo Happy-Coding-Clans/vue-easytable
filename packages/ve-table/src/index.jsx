@@ -1948,11 +1948,9 @@ export default {
         this.parentRendered = true;
 
         // set contextmenu event target
-        if (this.hasContextmenu) {
-            this.contextmenuEventTarget = this.$el.querySelector(
-                `.${clsName("body")}`,
-            );
-        }
+        this.contextmenuEventTarget = this.$el.querySelector(
+            `.${clsName("body")}`,
+        );
 
         // create hook instance
         this.hooks = new Hooks();

@@ -163,6 +163,67 @@ describe("veContextmenu", () => {
         wrapper.destroy();
     });
 
+    it("contextmenu async contextmenu option", async () => {
+        const wrapper = mount(
+            {
+                render() {
+                    return (
+                        <div>
+                            <ve-contextmenu
+                                eventTarget={document.querySelector(
+                                    "#contextmenu-target",
+                                )}
+                                options={this.options}
+                            />
+                        </div>
+                    );
+                },
+                data() {
+                    return {
+                        options: [],
+                    };
+                },
+            },
+            // need attach to documnet
+            { attachTo: document.body },
+        );
+
+        const contextmenuTargetEl = document.querySelector(
+            "#contextmenu-target",
+        );
+
+        //trigger element hover
+        const event = new MouseEvent("contextmenu", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
+
+        contextmenuTargetEl.dispatchEvent(event);
+
+        await later();
+
+        const contextmenuPoppers = document.querySelectorAll(
+            ".ve-contextmenu-popper",
+        );
+        expect(contextmenuPoppers.length).toBe(0);
+
+        wrapper.vm.options = OPTIONS;
+
+        await later();
+
+        contextmenuTargetEl.dispatchEvent(event);
+
+        await later();
+
+        const contextmenuPoppers2 = document.querySelectorAll(
+            ".ve-contextmenu-popper",
+        );
+        expect(contextmenuPoppers2.length).toBe(1);
+
+        wrapper.destroy();
+    });
+
     it("contextmenu eventTarget", async () => {
         const wrapper = mount(
             {

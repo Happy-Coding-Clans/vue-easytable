@@ -156,10 +156,13 @@ export default {
 
     watch: {
         options: {
-            handler: function () {
-                this.rootContextmenuId = this.getRandomIdWithPrefix();
-                this.createInternalOptions();
-                this.createPanelOptions({ options: this.internalOptions });
+            handler: function (val) {
+                if (Array.isArray(val) && val.length > 0) {
+                    this.rootContextmenuId = this.getRandomIdWithPrefix();
+                    this.createInternalOptions();
+                    this.createPanelOptions({ options: this.internalOptions });
+                    this.addRootContextmenuPanelToBody();
+                }
             },
             immediate: true,
         },
@@ -327,14 +330,16 @@ export default {
             event.preventDefault();
             const { rootContextmenuId } = this;
 
-            // refresh contextmenu
-            this.resetContextmenu();
-            this.showContextmenuPanel({
-                event,
-                contextmenuId: rootContextmenuId,
-                isRootContextmenu: true,
-            });
-            this.isPanelsEmptyed = false;
+            if (rootContextmenuId) {
+                // refresh contextmenu
+                this.resetContextmenu();
+                this.showContextmenuPanel({
+                    event,
+                    contextmenuId: rootContextmenuId,
+                    isRootContextmenu: true,
+                });
+                this.isPanelsEmptyed = false;
+            }
         },
 
         // show contextmenu panel
@@ -507,9 +512,11 @@ export default {
 
         // add root contextmenu panel to body
         addRootContextmenuPanelToBody() {
-            this.addContextmenuPanelToBody({
-                contextmenuId: this.rootContextmenuId,
-            });
+            if (this.rootContextmenuId) {
+                this.addContextmenuPanelToBody({
+                    contextmenuId: this.rootContextmenuId,
+                });
+            }
         },
 
         // register contextmenu event
