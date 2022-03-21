@@ -11,17 +11,20 @@ V2.15.0
 
 ### Feature
 
--   Pagination add new prop of `popper-append-to`. [Details]()
+-   Pagination add new prop of `popperAppendTo`. [Details]()
+-   Virtual scroll add new prop of `bufferCount`
 
 ### Bug Fixes
 
 -   Fix the bug that Pagination component drop-down option popper layer position error #464
+-   Fix the bug that Virtual scrolling merges to many rows, and the columns will be misaligned after scrolling up and down #458
 
 ---
 
 ### Feature
 
 -   分页组件新增属性 `popper-append-to`. [查看详情]()
+-   虚拟滚动添加新属性`bufferCount`
 
 ### Bug Fixes
 
