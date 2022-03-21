@@ -705,13 +705,13 @@ export const db = {
                 optionalVal: "-",
                 default: "-",
             },
-            /* {
-                param: "bufferScale",
-                desc: `缓冲比例。可视范围数据的整数倍，防止滚动过快白屏，默认无缓冲`,
+            {
+                param: "bufferCount",
+                desc: `Number of buffered renderings. By default, only the row data within the height of the current container is rendered. Buffered data can render additional row data, which can effectively solve the problem of merging too many rows of data`,
                 type: "<code>Number</code>",
                 optionalVal: "-",
-                default: "0"
-            } */
+                default: "1",
+            },
         ],
         columns: columnsType1,
     },

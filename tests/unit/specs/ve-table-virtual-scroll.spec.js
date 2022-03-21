@@ -248,6 +248,54 @@ describe("veTable virtual scroll", () => {
         );
     });
 
+    it("buffer count", async () => {
+        const bufferCount = 10;
+
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: [
+                    {
+                        field: "name",
+                        key: "b",
+                        title: "Name",
+                        width: 200,
+                        align: "left",
+                    },
+                    {
+                        field: "hobby",
+                        key: "c",
+                        title: "Hobby",
+                        width: 300,
+                        align: "left",
+                    },
+                    {
+                        field: "address",
+                        key: "d",
+                        title: "Address",
+                        width: "",
+                        align: "left",
+                    },
+                ],
+                tableData: TABLE_DATA_DIFFERENT_ROW_HEIGHT,
+                virtualScrollOption: {
+                    // 是否开启
+                    enable: true,
+                    bufferCount: bufferCount,
+                },
+                maxHeight: MAX_HEIGHT,
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        wrapper.triggerResizeObserver({ width: MAX_HEIGHT });
+
+        await later();
+
+        expect(wrapper.findAll(".ve-table-body-tr").length).toBe(
+            Math.ceil(MAX_HEIGHT / MIN_ROW_HEIGHT) + bufferCount,
+        );
+    });
+
     it("with row checkbox", async () => {
         const wrapper = mount(veTable, {
             propsData: {

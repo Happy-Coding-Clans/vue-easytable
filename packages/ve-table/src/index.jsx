@@ -143,8 +143,7 @@ export default {
         virual scroll option
         {
             enable:true,
-            isFixedRowHeight:false,  // 如果为 true 使用 rowHeight，否则使用 minRowHeight
-            fixedRowHeight:40,
+            bufferCount:10, // 缓冲的数据
             minRowHeight:40,
             scrolling:(startRowIndex,visibleStartIndex,visibleEndIndex,visibleAboveCount,visibleBelowCount)=>{}
         }
@@ -349,6 +348,24 @@ export default {
                 result = tableData.map((x) => {
                     return x[rowKeyFieldName];
                 });
+            }
+
+            return result;
+        },
+        // virtual scroll buffer count
+        virtualScrollBufferCount() {
+            const { virtualScrollOption, defaultVirtualScrollBufferCount } =
+                this;
+
+            let result = defaultVirtualScrollBufferCount;
+            if (virtualScrollOption) {
+                const { bufferCount } = virtualScrollOption;
+                if (
+                    isNumber(bufferCount) &&
+                    bufferCount > defaultVirtualScrollBufferCount
+                ) {
+                    result = bufferCount;
+                }
             }
 
             return result;
@@ -1125,14 +1142,14 @@ export default {
         // get virtual scroll above count
         getVirtualScrollAboveCount() {
             let result = 0;
-            const { isVirtualScroll, defaultVirtualScrollBufferCount } = this;
+            const { isVirtualScroll, virtualScrollBufferCount } = this;
 
             const virtualScrollStartIndex = this.virtualScrollStartIndex;
 
             if (isVirtualScroll) {
                 result = Math.min(
                     virtualScrollStartIndex,
-                    defaultVirtualScrollBufferCount,
+                    virtualScrollBufferCount,
                 );
             }
             return result;
@@ -1142,18 +1159,15 @@ export default {
         getVirtualScrollBelowCount() {
             let result = 0;
 
-            const {
-                isVirtualScroll,
-                tableData,
-                defaultVirtualScrollBufferCount,
-            } = this;
+            const { isVirtualScroll, tableData, virtualScrollBufferCount } =
+                this;
 
             const virtualScrollEndIndex = this.virtualScrollEndIndex;
 
             if (isVirtualScroll) {
                 result = Math.min(
                     tableData.length - virtualScrollEndIndex,
-                    defaultVirtualScrollBufferCount,
+                    virtualScrollBufferCount,
                 );
             }
 

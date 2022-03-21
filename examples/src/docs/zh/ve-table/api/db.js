@@ -711,13 +711,13 @@ export const db = {
                 optionalVal: "-",
                 default: "-",
             },
-            /* {
-                param: "bufferScale",
-                desc: `缓冲比例。可视范围数据的整数倍，防止滚动过快白屏，默认无缓冲`,
+            {
+                param: "bufferCount",
+                desc: `缓冲渲染数量。默认只渲染当前容器高度内的行数据，缓冲数据可以额外渲染行数据，可以有效解决合并过多行数据的问题`,
                 type: "<code>Number</code>",
                 optionalVal: "-",
-                default: "0"
-            } */
+                default: "1",
+            },
         ],
         columns: columnsType1,
     },
