@@ -61,7 +61,7 @@ export function hasClass(el, cls) {
     }
 }
 
-/*获取当前元素的left、top偏移
+/*获取当前元素的偏移（相对于整个document）
  *   offsetTop：元素最顶端距离文档顶端的距离，包含滚动条
  *   offsetleft：元素最左侧距离文档左侧的距离，包含滚动条
  *   left：元素最左侧距离文档左侧的距离，不包含滚动条
@@ -71,11 +71,11 @@ export function hasClass(el, cls) {
  *   right2：元素最左侧距离文档右侧的距离，不包含滚动条
  *   bottom2：元素最底端距离文档最底部的距离，不包含滚动条
  * */
-export function getViewportOffset(element) {
+export function getViewportOffset(triggerEl) {
     var doc = document.documentElement,
         box =
-            typeof element.getBoundingClientRect !== "undefined"
-                ? element.getBoundingClientRect()
+            typeof triggerEl.getBoundingClientRect !== "undefined"
+                ? triggerEl.getBoundingClientRect()
                 : 0,
         scrollLeft =
             (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0),
@@ -96,6 +96,51 @@ export function getViewportOffset(element) {
         bottom: window.document.documentElement.clientHeight - box.height - top,
         right2: window.document.documentElement.clientWidth - left,
         bottom2: window.document.documentElement.clientHeight - top,
+    };
+}
+
+/*获取当前元素的偏移(相对于外层容器)
+ *   offsetTop：元素最顶端距离文档顶端的距离，包含滚动条
+ *   offsetleft：元素最左侧距离文档左侧的距离，包含滚动条
+ *   left：元素最左侧距离文档左侧的距离，不包含滚动条
+ *   top:元素最顶端距离文档顶端的距离，不包含滚动条
+ *   right:元素最右侧距离文档右侧的距离，不包含滚动条
+ *   bottom：元素最底端距离文档底端的距离，不包含滚动条
+ *   right2：元素最左侧距离文档右侧的距离，不包含滚动条
+ *   bottom2：元素最底端距离文档最底部的距离，不包含滚动条
+ * */
+export function getViewportOffsetWithinContainer(triggerEl, containerEl) {
+    const {
+        offsetTop: tElOffsetTop,
+        offsetLeft: tElOffsetLeft,
+        left: tElLef,
+        top: tElTop,
+        right: tElRight,
+        bottom: tElBottom,
+        right2: tElRight2,
+        bottom2: tElBottom2,
+    } = getViewportOffset(triggerEl);
+
+    const {
+        offsetTop: cElOffsetTop,
+        offsetLeft: cElOffsetLeft,
+        left: cElLef,
+        top: cElTop,
+        right: cElRight,
+        bottom: cElBottom,
+        right2: cElRight2,
+        bottom2: cElBottom2,
+    } = getViewportOffset(containerEl);
+
+    return {
+        offsetTop: tElOffsetTop - cElOffsetTop,
+        offsetLeft: tElOffsetLeft - cElOffsetLeft,
+        left: tElLef - cElLef,
+        top: tElTop - cElTop,
+        right: tElRight - cElRight,
+        bottom: tElBottom - cElBottom,
+        right2: tElRight2 - cElRight2,
+        bottom2: tElBottom2 - cElBottom2,
     };
 }
 

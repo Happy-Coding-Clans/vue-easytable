@@ -72,6 +72,7 @@ export default {
                     <VeSelect
                         class={clsName("select")}
                         value={this.$parent.newPageSizeOption}
+                        popperAppendTo={this.$parent.popperAppendTo}
                         on-input={this.handleChange}
                         //v-model={this.$parent.newPageSizeOption}
                     />
@@ -152,6 +153,13 @@ export default {
             type: Array,
             default: function () {
                 return [10, 20, 30];
+            },
+        },
+        // popper append to element
+        popperAppendTo: {
+            type: [String, HTMLElement],
+            default: function () {
+                return document.body;
             },
         },
     },

@@ -50,6 +50,13 @@ export default {
             type: Boolean,
             default: false,
         },
+        // popper append to element
+        popperAppendTo: {
+            type: [String, HTMLElement],
+            default: function () {
+                return document.body;
+            },
+        },
     },
     data() {
         return {
@@ -133,6 +140,7 @@ export default {
                 // v-model
                 value: this.internalOptions,
                 hideByItemClick: true,
+                popperAppendTo: this.popperAppendTo,
             },
             style: {
                 width: this.width,

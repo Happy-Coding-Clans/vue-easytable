@@ -4,7 +4,10 @@ import VeRadio from "vue-easytable/packages/ve-radio";
 import { COMPS_NAME, EMIT_EVENTS } from "./util/constant";
 import { clsName } from "./util/index";
 import { getRandomId } from "../../src/utils/random";
-import { getViewportOffset } from "../../src/utils/dom";
+import {
+    getViewportOffset,
+    getViewportOffsetWithinContainer,
+} from "../../src/utils/dom";
 
 export default {
     name: COMPS_NAME.VE_DROPDOWN,
@@ -101,6 +104,13 @@ export default {
             type: Number,
             default: 5,
         },
+        // popper append to element
+        popperAppendTo: {
+            type: [String, HTMLElement],
+            default: function () {
+                return document.body;
+            },
+        },
     },
     data() {
         return {
@@ -113,6 +123,10 @@ export default {
             rootId: "",
             // dropdown items panel id
             dropdownItemsPanelId: "",
+            // 弹出被添加到的目标元素
+            popperAppendToEl: null,
+            // 弹出被添加到的目标元素标签名称
+            appendToElTagName: null,
         };
     },
     computed: {
@@ -250,7 +264,12 @@ export default {
 
         // change dropdown panel position
         changDropdownPanelPosition() {
-            const { defaultInstance, rootId } = this;
+            const {
+                defaultInstance,
+                rootId,
+                popperAppendToEl,
+                appendToElTagName,
+            } = this;
 
             let rootEl = document.querySelector(`#${rootId}`);
 
@@ -261,40 +280,61 @@ export default {
                 const triggerEl = this.$el.querySelector(".ve-dropdown-dt");
                 const { height: triggerElHeight } =
                     triggerEl.getBoundingClientRect();
-                // const {
-                //     left: triggerElLeft,
-                //     top: triggerElTop,
-                //     right: triggerElRight,
-                //     bottom: triggerElBottom,
-                // } = getMousePosition(event);
+
+                if (!popperAppendToEl) {
+                    return false;
+                }
+
+                // is append to body
+                const isAppendToBody = appendToElTagName === "BODY";
 
                 const {
                     offsetLeft: triggerElLeft,
                     offsetTop: triggerElTop,
                     right: triggerElRight,
                     bottom: triggerElBottom,
-                } = getViewportOffset(triggerEl);
+                } = isAppendToBody
+                    ? getViewportOffset(triggerEl)
+                    : getViewportOffsetWithinContainer(
+                          triggerEl,
+                          popperAppendToEl,
+                      );
 
                 let panelX = 0;
                 let panelY = 0;
 
+                // 如果不是添加到body 需要考虑外层容器滚动调的影响
+                let scrollLeft = 0;
+                let scrollTop = 0;
+                if (!isAppendToBody) {
+                    scrollLeft = popperAppendToEl.scrollLeft;
+                    scrollTop = popperAppendToEl.scrollTop;
+                }
+
                 // 右方宽度够显示
                 if (triggerElRight >= currentPanelWidth) {
-                    panelX = triggerElLeft;
+                    panelX = triggerElLeft + scrollLeft;
                 }
                 // 右方宽度不够显示在鼠标点击左方
                 else {
-                    panelX = triggerElLeft - currentPanelWidth;
+                    panelX = triggerElLeft - currentPanelWidth + scrollLeft;
                 }
 
                 // 下方高度够显示
                 if (triggerElBottom >= currentPanelHeight) {
-                    panelY = triggerElTop + triggerElHeight + defaultInstance;
+                    panelY =
+                        triggerElTop +
+                        triggerElHeight +
+                        defaultInstance +
+                        scrollTop;
                 }
                 // 下方高度不够显示在鼠标点击上方
                 else {
                     panelY =
-                        triggerElTop - currentPanelHeight - defaultInstance;
+                        triggerElTop -
+                        currentPanelHeight -
+                        defaultInstance +
+                        scrollTop;
                 }
 
                 rootEl.style.left = panelX + "px";
@@ -386,8 +426,13 @@ export default {
             return clsName(getRandomId());
         },
 
-        // add root contextmenu panel to body
-        addRootElementToBody() {
+        /*
+        add root contextmenu panel to element
+        如果不指定则添加到 body
+        */
+        addRootElementToElement() {
+            const { popperAppendTo } = this;
+
             this.rootId = this.getRandomIdWithPrefix();
             this.dropdownItemsPanelId = this.getRandomIdWithPrefix();
 
@@ -402,7 +447,19 @@ export default {
 
                     containerEl.setAttribute("id", this.rootId);
 
-                    document.body.appendChild(containerEl);
+                    if (
+                        typeof popperAppendTo === "string" &&
+                        popperAppendTo.length > 0
+                    ) {
+                        this.popperAppendToEl =
+                            document.querySelector(popperAppendTo);
+                    } else {
+                        this.popperAppendToEl = popperAppendTo;
+                    }
+
+                    this.appendToElTagName = this.popperAppendToEl.tagName;
+
+                    this.popperAppendToEl.appendChild(containerEl);
                 });
             }
         },
@@ -412,16 +469,34 @@ export default {
         this.init();
     },
     mounted() {
-        this.addRootElementToBody();
+        this.addRootElementToElement();
 
-        document.addEventListener("scroll", this.changDropdownPanelPosition);
+        this.$nextTick(() => {
+            const targetEl =
+                this.appendToElTagName === "BODY"
+                    ? document
+                    : this.popperAppendToEl;
+            targetEl.addEventListener(
+                "scroll",
+                this.changDropdownPanelPosition,
+            );
+        });
         window.addEventListener("resize", this.changDropdownPanelPosition);
     },
 
     destroyed() {
         this.removeOrEmptyRootPanel();
 
-        document.removeEventListener("scroll", this.changDropdownPanelPosition);
+        this.$nextTick(() => {
+            const targetEl =
+                this.appendToElTagName === "BODY"
+                    ? document
+                    : this.popperAppendToEl;
+            targetEl.removeEventListener(
+                "scroll",
+                this.changDropdownPanelPosition,
+            );
+        });
         window.removeEventListener("resize", this.changDropdownPanelPosition);
     },
 
