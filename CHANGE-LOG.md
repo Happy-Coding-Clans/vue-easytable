@@ -7,6 +7,26 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.15.0
+
+### Feature
+
+-   Pagination add new prop of `popper-append-to`. [Details]()
+
+### Bug Fixes
+
+-   Fix the bug that Pagination component drop-down option popper layer position error #464
+
+---
+
+### Feature
+
+-   分页组件新增属性 `popper-append-to`. [查看详情]()
+
+### Bug Fixes
+
+-   修复分页组件下拉选项弹层定位不准确的问题 #464
+
 V2.14.3
 
 ### Performance Improvements
