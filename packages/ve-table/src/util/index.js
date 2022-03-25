@@ -27,6 +27,18 @@ export function getRowKey(rowData, rowKeyFieldName) {
 }
 
 /*
+ * @getColumnByColkey
+ * @desc  get column by col key
+ * @param {string} rowKeyFieldName - row key field name
+ */
+export function getColumnByColkey(colKey, colgroups) {
+    if (colKey) {
+        return colgroups.find((x) => x.key === colKey);
+    }
+    return null;
+}
+
+/*
  * @getDomResizeObserverCompKey
  * @desc  get dom resize observer comp key
  * @param {Any} originalKey - original key
