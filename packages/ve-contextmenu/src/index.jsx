@@ -224,7 +224,7 @@ export default {
         },
 
         // create panel by hover
-        createPanelByHover: debounce(function ({ event, menu }) {
+        createPanelByHover({ event, menu }) {
             const { internalOptions, panelOptions } = this;
 
             // 如果被移除则不创建
@@ -279,7 +279,7 @@ export default {
                     });
                 });
             }
-        }, 300),
+        },
 
         // create panels option
         createPanelOptions({ options, currentMenu }) {
@@ -549,6 +549,14 @@ export default {
         },
     },
 
+    created() {
+        // bug fixed #467
+        this.debounceCreatePanelByHover = debounce(
+            this.createPanelByHover,
+            300,
+        );
+    },
+
     mounted() {
         this.addRootContextmenuPanelToBody();
     },
@@ -564,7 +572,7 @@ export default {
             activeMenuIds,
             hasChildren,
             emptyContextmenuPanels,
-            createPanelByHover,
+            debounceCreatePanelByHover,
         } = this;
 
         const contextmenuProps = {
@@ -625,10 +633,12 @@ export default {
                                                 mouseover: (event) => {
                                                     // disable
                                                     if (!menu.disabled) {
-                                                        createPanelByHover({
-                                                            event,
-                                                            menu,
-                                                        });
+                                                        debounceCreatePanelByHover(
+                                                            {
+                                                                event,
+                                                                menu,
+                                                            },
+                                                        );
                                                     }
                                                 },
                                                 click: () => {

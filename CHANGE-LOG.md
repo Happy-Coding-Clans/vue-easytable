@@ -7,6 +7,20 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.15.1
+
+### Bug Fixes
+
+-   Fix the bug that multiple tables have fixed columns, and only one is effective #467
+-   Fix the bug that multiple right-click menu component options are suspended and only one takes effect
+
+---
+
+### Bug Fixes
+
+-   修复多个表格包含固定列功能，只有一个生效的问题 #467
+-   修复多个右键菜单选项悬浮，只有一个生效的问题
+
 V2.15.0
 
 ### Feature

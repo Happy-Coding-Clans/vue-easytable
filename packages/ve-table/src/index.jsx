@@ -645,14 +645,14 @@ export default {
             this.footerRows.splice(rowIndex, 1, { rowHeight: height });
         },
 
-        // td width change
-        tdWidthChange: debounce(function (colWidths) {
+        tdWidthChange(colWidths) {
+            console.log("colWidths::", colWidths);
             this.colgroups = this.colgroups.map((item) => {
                 // map
                 item._realTimeWidth = colWidths.get(item.key);
                 return item;
             });
-        }, 0),
+        },
 
         // update colgroups by sort change
         updateColgroupsBySortChange(sortColumns) {
@@ -1958,6 +1958,10 @@ export default {
             this.highlightRowKey = rowKey;
         },
     },
+    created() {
+        // bug fixed #467
+        this.debouncedTdWidthChange = debounce(this.tdWidthChange, 0);
+    },
     mounted() {
         this.parentRendered = true;
 
@@ -2041,7 +2045,7 @@ export default {
             fixedHeader,
             fixedFooter,
             actualRenderTableData,
-            tdWidthChange,
+            debouncedTdWidthChange,
             expandOption,
             checkboxOption,
             radioOption,
@@ -2105,7 +2109,7 @@ export default {
                 showVirtualScrollingPlaceholder,
             },
             on: {
-                [EMIT_EVENTS.BODY_TD_WIDTH_CHANGE]: tdWidthChange,
+                [EMIT_EVENTS.BODY_TD_WIDTH_CHANGE]: debouncedTdWidthChange,
                 [EMIT_EVENTS.HIGHLIGHT_ROW_CHANGE]:
                     this[INSTANCE_METHODS.SET_HIGHLIGHT_ROW],
             },
