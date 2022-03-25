@@ -645,8 +645,8 @@ export default {
             this.footerRows.splice(rowIndex, 1, { rowHeight: height });
         },
 
+        // td width change
         tdWidthChange(colWidths) {
-            console.log("colWidths::", colWidths);
             this.colgroups = this.colgroups.map((item) => {
                 // map
                 item._realTimeWidth = colWidths.get(item.key);
