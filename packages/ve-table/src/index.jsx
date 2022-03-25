@@ -1812,7 +1812,11 @@ export default {
                 });
 
                 const column = getColumnByColkey(colKey, this.colgroups);
+                // column to visible
                 this.columnToVisible(column);
+                // row to visible
+                this.rowToVisible(KEY_CODES.ARROW_UP, rowKey);
+                this.rowToVisible(KEY_CODES.ARROW_DOWN, rowKey);
             }
         },
 
