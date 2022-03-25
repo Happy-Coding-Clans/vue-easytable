@@ -485,12 +485,17 @@ export const db = {
         data: [
             {
                 name: "scrollTo",
-                desc: `Scrolls the table to the specified position`,
+                desc: `Scrolls the table to the specified position  <a href='#/en/doc/table/instance-methods?anchor=scrollto'>Refer To Demo</a>`,
                 param: "Refer to <a href='https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollTo'> MDN scrollTo</a>",
             },
             {
                 name: "scrollToRowKey",
-                desc: `Scroll the table to the location of the row key`,
+                desc: `Scroll the table to the column position <a href='#/en/doc/table/instance-methods?anchor=scrolltocolkey-column-scroll-method'>Refer To Demo</a>`,
+                param: "{rowKey}",
+            },
+            {
+                name: "scrollToRowKey",
+                desc: `Scroll the table to the location of the row key <a href='#/en/doc/table/instance-methods?anchor=scrolltorowkey'>Refer To Demo</a>`,
                 param: "{rowKey}",
             },
             {

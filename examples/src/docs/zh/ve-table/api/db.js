@@ -491,12 +491,17 @@ export const db = {
         data: [
             {
                 name: "scrollTo",
-                desc: `使表格滚动到指定的位置`,
+                desc: `使表格滚动到指定的位置 <a href='#/zh/doc/table/instance-methods?anchor=scrollto-gun-dong-fang-fa'>参考示例</a>`,
                 param: "参考<a href='https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollTo'> MDN scrollTo</a>",
             },
             {
+                name: "scrollToColKey",
+                desc: `将指定的列显示在可视区域 <a href='#/zh/doc/table/instance-methods?anchor=scrolltocolkey-lie-gun-dong-fang-fa'>参考示例</a>`,
+                param: "{ rowKey, colKey }",
+            },
+            {
                 name: "scrollToRowKey",
-                desc: `将表格滚动到行为rowKey的位置`,
+                desc: `将表格滚动到行为rowKey的位置 <a href='#/zh/doc/table/instance-methods?anchor=scrolltorowkey-gun-dong-fang-fa'>参考示例</a>`,
                 param: "{rowKey}",
             },
             {
