@@ -7,7 +7,11 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
-V2.15.1
+V2.16.0
+
+### Feature
+
+-   Cell selection by click, and the hidden row will be automatically displayed in the visible range [detail](https://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-selection?anchor=basic-usage)
 
 ### Bug Fixes
 
@@ -15,6 +19,10 @@ V2.15.1
 -   Fix the bug that multiple right-click menu component options are suspended and only one takes effect
 
 ---
+
+### Feature
+
+-   单元格点击选择，自动将隐藏的行内容显示在可视范围 [查看详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection?anchor=ji-ben-yong-fa)
 
 ### Bug Fixes
 
