@@ -1,14 +1,21 @@
-:::anchor scrollToRowKey 行滚动方法
+:::anchor scrollToColKey Column scroll method
+When there are fixed columns, you can use this method to display the specified columns in the visual area
 
-:::demo 1、将表格滚动到指定行的位置
+:::demo 1、Scroll to the specified column position
 
 ```html
 <template>
     <div>
         <div style="margin-bottom:20px;line-height:3.0;">
-            <button class="button-demo" @click="scrollToRowKey(30)">滚动到rowKey为30的行</button>
-            <button class="button-demo" @click="scrollToRowKey(50)">滚动到rowKey为50的行</button>
-            <button class="button-demo" @click="scrollToRowKey(0)">滚动到rowKey为0的行</button>
+            <button class="button-demo" @click="scrollToColKey('col4')">
+                Scroll to col4 column
+            </button>
+            <button class="button-demo" @click="scrollToColKey('col5')">
+                Scroll to col5 column
+            </button>
+            <button class="button-demo" @click="scrollToColKey('col6')">
+                Scroll to col6 column
+            </button>
         </div>
         <ve-table
             ref="tableRef"
@@ -61,13 +68,13 @@
                                 children: [
                                     {
                                         field: "col4",
-                                        key: "d",
+                                        key: "col4",
                                         title: "col4",
                                         width: 130,
                                     },
                                     {
                                         field: "col5",
-                                        key: "e",
+                                        key: "col5",
                                         title: "col5",
                                         width: 140,
                                     },
@@ -76,7 +83,7 @@
                             {
                                 title: "col6",
                                 field: "col6",
-                                key: "f",
+                                key: "col6",
                                 width: 140,
                             },
                         ],
@@ -122,8 +129,8 @@
                 this.tableData = data;
             },
             // scroll y
-            scrollToRowKey(rowKey) {
-                this.$refs["tableRef"].scrollToRowKey({ rowKey: rowKey });
+            scrollToColKey(colKey) {
+                this.$refs["tableRef"].scrollToColKey({ colKey });
             },
         },
         created() {
