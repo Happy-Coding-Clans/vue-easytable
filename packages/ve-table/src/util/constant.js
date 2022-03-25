@@ -128,6 +128,8 @@ export const INSTANCE_METHODS = {
     SCROLL_TO: "scrollTo",
     // scroll to rowKey
     SCROLL_TO_ROW_KEY: "scrollToRowKey",
+    // scroll to colKey
+    SCROLL_TO_COL_KEY: "scrollToColKey",
     // start editing cell
     START_EDITING_CELL: "startEditingCell",
     // stop editing cell

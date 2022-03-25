@@ -1866,7 +1866,7 @@ export default {
         [INSTANCE_METHODS.SCROLL_TO](option) {
             scrollTo(this.$refs[this.tableContainerRef], option);
         },
-        // table scroll to rowKey
+        // table scroll to rowKey position
         [INSTANCE_METHODS.SCROLL_TO_ROW_KEY]({ rowKey }) {
             if (isEmptyValue(rowKey)) {
                 console.warn("Row key can't be empty!");
@@ -1906,6 +1906,13 @@ export default {
                 top: scrollTop,
                 behavior: "smooth",
             });
+        },
+        // scroll to col key position
+        [INSTANCE_METHODS.SCROLL_TO_COL_KEY]({ colKey }) {
+            const column = getColumnByColkey(colKey, this.colgroups);
+            if (column) {
+                this.columnToVisible(column);
+            }
         },
         // start editing cell
         [INSTANCE_METHODS.START_EDITING_CELL]({
