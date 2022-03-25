@@ -1594,7 +1594,11 @@ export default {
             this[INSTANCE_METHODS.SET_CELL_SELECTION]({
                 rowKey,
                 colKey: column.key,
+                isScrollToRow: false,
             });
+            // row to visible
+            this.rowToVisible(KEY_CODES.ARROW_UP, rowKey);
+            this.rowToVisible(KEY_CODES.ARROW_DOWN, rowKey);
         },
 
         /*
@@ -1794,7 +1798,11 @@ export default {
         /*
         set cell selection and column to visible
         */
-        [INSTANCE_METHODS.SET_CELL_SELECTION]({ rowKey, colKey }) {
+        [INSTANCE_METHODS.SET_CELL_SELECTION]({
+            rowKey,
+            colKey,
+            isScrollToRow = true,
+        }) {
             const { cellSelectionOption } = this;
 
             if (
@@ -1815,7 +1823,9 @@ export default {
                 // column to visible
                 this.columnToVisible(column);
                 // row to visible
-                this[INSTANCE_METHODS.SCROLL_TO_ROW_KEY]({ rowKey });
+                if (isScrollToRow) {
+                    this[INSTANCE_METHODS.SCROLL_TO_ROW_KEY]({ rowKey });
+                }
             }
         },
 
