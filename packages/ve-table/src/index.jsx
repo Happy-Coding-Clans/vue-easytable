@@ -769,8 +769,7 @@ export default {
 
         // clear cell selection
         clearCellSelectionKey() {
-            this.cellSelectionKeyData.rowKey = "";
-            this.cellSelectionKeyData.colKey = "";
+            this.cellSelectionKeyChange({ rowKey: "", colKey: "" });
         },
 
         // deal keydown event
