@@ -7,6 +7,8 @@ import {
     getContextmenuBodyOptionCollection,
     createEmptyRowData,
     isContextmenuPanelClicked,
+    getRowKey,
+    getColumnByColkey,
 } from "./util";
 import {
     getValByUnit,
@@ -1585,27 +1587,15 @@ export default {
 
         // cell selection by click
         cellSelectionByClick({ rowData, column }) {
-            const { rowKeyFieldName, cellSelectionOption } = this;
+            const { rowKeyFieldName } = this;
 
-            const rowKey = rowData[rowKeyFieldName];
+            const rowKey = getRowKey(rowData, rowKeyFieldName);
 
-            // update cell selection
-            if (
-                !(
-                    cellSelectionOption &&
-                    isBoolean(cellSelectionOption.enable) &&
-                    cellSelectionOption.enable === false
-                )
-            ) {
-                if (!isEmptyValue(rowKey) && !isEmptyValue(column.key)) {
-                    this.cellSelectionKeyChange({
-                        rowKey,
-                        colKey: column.key,
-                    });
-
-                    this.columnToVisible(column);
-                }
-            }
+            // set cell selection and column to visible
+            this[INSTANCE_METHODS.SET_CELL_SELECTION]({
+                rowKey,
+                colKey: column.key,
+            });
         },
 
         /*
@@ -1799,6 +1789,31 @@ export default {
                 if (isFunction(callback)) {
                     callback({ type, selection: cellSelectionKeyData });
                 }
+            }
+        },
+
+        /*
+        set cell selection and column to visible
+        */
+        [INSTANCE_METHODS.SET_CELL_SELECTION]({ rowKey, colKey }) {
+            const { cellSelectionOption } = this;
+
+            if (
+                cellSelectionOption &&
+                isBoolean(cellSelectionOption.enable) &&
+                cellSelectionOption.enable === false
+            ) {
+                return false;
+            }
+
+            if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+                this.cellSelectionKeyChange({
+                    rowKey,
+                    colKey,
+                });
+
+                const column = getColumnByColkey(colKey, this.colgroups);
+                this.columnToVisible(column);
             }
         },
 

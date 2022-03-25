@@ -573,6 +573,28 @@ describe("veTable cell selection", () => {
         expect(firstCell.find(".ve-table-cell-selection").exists()).toBe(false);
     });
 
+    it("table instance: setCellSelection method", async () => {
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        wrapper.vm.setCellSelection({ rowKey: "2", colKey: "a" });
+
+        await later();
+
+        const selectionTd = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(0);
+
+        expect(selectionTd.classes()).toContain("ve-table-cell-selection");
+    });
+
     /* it("virtual scroll keyboard events", async () => {
         const mockFn = jest.fn();
 
