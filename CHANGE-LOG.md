@@ -11,6 +11,8 @@ V2.16.0
 
 ### Feature
 
+-   Add new instance method `scrollToColKey({colKey})` [detail](https://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/instance-methods?anchor=scrolltocolkey-column-scroll-method)
+-   Add new instance method `setCellSelection({rowKey,colKey})` [detail](https://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-selection?anchor=cell-selection-instance-method)
 -   Cell selection by click, and the hidden row will be automatically displayed in the visible range [detail](https://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-selection?anchor=basic-usage)
 
 ### Bug Fixes
@@ -22,6 +24,8 @@ V2.16.0
 
 ### Feature
 
+-   新增列滚动实例方法 `scrollToColKey({colKey})` [查看详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/instance-methods?anchor=scrolltocolkey-lie-gun-dong-fang-fa)
+-   新增单元格选中实例方法 `setCellSelection({rowKey,colKey})` [查看详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection?anchor=dan-yuan-ge-xuan-zhong-shi-li-fang-fa)
 -   单元格点击选择，自动将隐藏的行内容显示在可视范围 [查看详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection?anchor=ji-ben-yong-fa)
 
 ### Bug Fixes
