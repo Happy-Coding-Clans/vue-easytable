@@ -524,6 +524,11 @@ export const db = {
                 desc: `显示列  <a href='#/zh/doc/table/column-hidden?anchor=shi-li-fang-fa'>参考示例</a>`,
                 param: "keys",
             },
+            {
+                name: "setCellSelection",
+                desc: `单元格选中  <a href='#/zh/doc/table/cell-selection?anchor=dan-yuan-ge-xuan-zhong-shi-li-fang-fa'>参考示例</a>`,
+                param: "{ rowKey, colKey }",
+            },
         ],
         columns: columnsType2,
     },

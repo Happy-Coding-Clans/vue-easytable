@@ -518,6 +518,11 @@ export const db = {
                 desc: `Show columns  <a href='#/en/doc/table/column-hidden?anchor=instance-methods'>Refer To Demo</a>`,
                 param: "keys",
             },
+            {
+                name: "setCellSelection",
+                desc: `Set cell selection  <a href='#/en/doc/table/cell-selection?anchor=cell-selection-instance-method'>Refer To Demo</a>`,
+                param: "{ rowKey, colKey }",
+            },
         ],
         columns: columnsType2,
     },
