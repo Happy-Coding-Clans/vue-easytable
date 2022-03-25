@@ -31,24 +31,76 @@
         data() {
             return {
                 columns: [
-                    { field: "col1", key: "a", title: "Title1", fixed: "left" },
-                    { field: "col2", key: "b", title: "Title2", fixed: "left" },
-                    { field: "col3", key: "c", title: "Title3" },
-                    { field: "col4", key: "d", title: "Title4" },
-                    { field: "col5", key: "e", title: "Title5" },
-                    { field: "col6", key: "f", title: "Title6" },
-                    { field: "col7", key: "g", title: "Title7" },
-                    { field: "col8", key: "h", title: "Title8" },
                     {
-                        field: "col9",
-                        key: "i",
-                        title: "Title9",
-                        fixed: "right",
+                        field: "col1",
+                        key: "a",
+                        title: "col1",
+                        width: 50,
+                        fixed: "left",
                     },
                     {
-                        field: "col10",
-                        key: "j",
-                        title: "Title10",
+                        title: "col2-col3",
+                        fixed: "left",
+                        children: [
+                            {
+                                field: "col2",
+                                key: "b",
+                                title: "col2",
+                                width: 50,
+                            },
+                            {
+                                field: "col3",
+                                key: "c",
+                                title: "col3",
+                                width: 50,
+                            },
+                        ],
+                    },
+                    {
+                        title: "col4-col5-col6",
+                        children: [
+                            {
+                                title: "col4-col5",
+                                children: [
+                                    {
+                                        field: "col4",
+                                        key: "d",
+                                        title: "col4",
+                                        width: 130,
+                                    },
+                                    {
+                                        field: "col5",
+                                        key: "e",
+                                        title: "col5",
+                                        width: 140,
+                                    },
+                                ],
+                            },
+                            {
+                                title: "col6",
+                                field: "col6",
+                                key: "f",
+                                width: 140,
+                            },
+                        ],
+                    },
+                    {
+                        title: "col7",
+                        fixed: "right",
+                        children: [
+                            {
+                                title: "col7-1",
+                                field: "col7",
+                                key: "g",
+                                width: 50,
+                            },
+                        ],
+                    },
+                    {
+                        field: "col8",
+                        key: "h",
+                        title: "col8",
+                        width: 50,
                         fixed: "right",
                     },
                 ],
