@@ -11,6 +11,7 @@
         <RowExpandTable />
         <ColumnFixed />
         <FooterSummary />
+        <CombineLazyLoad />
         <API title="API" anchor="API" desc="virtualScrollOption option" />
     </div>
 </template>
@@ -25,6 +26,7 @@ import RowExpandTable from "./row-expand-table.md";
 import FooterSummary from "../footer-summary/virtual-scroll.md";
 import ColumnFixed from "./column-fixed.md";
 import RowIndex from "./row-index.md";
+import CombineLazyLoad from "./combine-lazy-load.md";
 import API from "../api/virtual-scroll-option-props";
 
 export default {
@@ -40,6 +42,7 @@ export default {
         ColumnFixed,
         FooterSummary,
         RowIndex,
+        CombineLazyLoad,
         API,
     },
 };
