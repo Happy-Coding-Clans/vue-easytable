@@ -1887,6 +1887,14 @@ export default {
                 if (position) {
                     scrollTop = position.top;
                 }
+
+                // fix bug #470
+                setTimeout(() => {
+                    scrollTo(tableContainerRef, {
+                        top: scrollTop,
+                        behavior: "auto",
+                    });
+                }, 200);
             } else {
                 const rowEl = this.$el.querySelector(
                     `tbody tr[${COMPS_CUSTOM_ATTRS.BODY_ROW_KEY}="${rowKey}"]`,
@@ -1904,7 +1912,7 @@ export default {
 
             scrollTo(tableContainerRef, {
                 top: scrollTop,
-                behavior: "smooth",
+                behavior: isVirtualScroll ? "auto" : "smooth",
             });
         },
         // scroll to col key position
