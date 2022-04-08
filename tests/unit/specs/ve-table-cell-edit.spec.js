@@ -1,9 +1,9 @@
 import { mount } from "@vue/test-utils";
 import { cloneDeep } from "lodash";
 import veTable from "@/ve-table";
+import CellEditor from "@/ve-table/src/editor/edit-input.jsx";
 import { later } from "../util";
 import { KEY_CODES } from "../constant";
-// import cellEditor from "@/ve-table/src/editor/edit-input.jsx";
 import { HOOKS_NAME } from "@/ve-table/src/util/constant";
 
 describe("veTable cell edit", () => {
@@ -1830,6 +1830,73 @@ describe("veTable cell edit", () => {
                 width: "15%",
             },
         );
+    });
+
+    // table clickoutside
+    it("table cell focus", async () => {
+        const mockFn = jest.fn();
+
+        const ParentComp = {
+            template: `
+                <div>
+                    <button id="outsideButton">outside table</button>
+                    <veTable
+                        :columns="columns"
+                        :tableData="tableData"
+                        :editOption="editOption"
+                        rowKeyFieldName="rowKey"
+                    />
+                </div>
+
+            `,
+            data() {
+                return {
+                    columns: COLUMNS,
+                    tableData: cloneDeep(TABLE_DATA),
+                    editOption: {
+                        // cell value change
+                        cellValueChange: ({ row, column }) => {
+                            mockFn(row, column);
+                        },
+                    },
+                };
+            },
+            components: {
+                veTable,
+            },
+        };
+
+        await later();
+
+        const div = document.createElement("div");
+        document.body.appendChild(div);
+
+        // need attach to documnet
+        const wrapper = mount(ParentComp, { attachTo: div });
+
+        const cellEditor = wrapper.findComponent(CellEditor);
+
+        // td
+        const firstCell = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(1);
+
+        expect(cellEditor.vm.isEditCellFocus).toBe(false);
+
+        // set cell selection
+        firstCell.trigger("click");
+
+        await later();
+        expect(cellEditor.vm.isEditCellFocus).toBe(true);
+
+        // click outside
+        wrapper.find("#outsideButton").trigger("click");
+
+        await later();
+
+        expect(cellEditor.vm.isEditCellFocus).toBe(false);
     });
 
     it("disable editing columns", async () => {
