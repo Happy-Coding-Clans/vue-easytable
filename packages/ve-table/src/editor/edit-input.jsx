@@ -93,6 +93,8 @@ export default {
             cellEl: null,
             // auto resize
             autoResize: null,
+            // is edit cell focus
+            isEditCellFocus: false,
         };
     },
     computed: {
@@ -207,11 +209,14 @@ export default {
             handler: function (val) {
                 const { rowKey, colKey } = val;
                 if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+                    this.isEditCellFocus = true;
                     this.setCellEl();
                     // wait for selection cell rendered
                     this.$nextTick(() => {
                         this.setTextareaPosition();
                     });
+                } else {
+                    this.isEditCellFocus = false;
                 }
             },
             deep: true,
@@ -427,6 +432,7 @@ export default {
             textareaClass,
             rawCellValue,
             isCellEditing,
+            isEditCellFocus,
         } = this;
 
         const containerProps = {
@@ -441,7 +447,7 @@ export default {
                 {
                     name: "focus",
                     value: {
-                        focus: this.displayTextarea && !this.overflowViewport,
+                        focus: isEditCellFocus,
                     },
                 },
             ],
