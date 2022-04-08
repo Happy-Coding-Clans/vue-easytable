@@ -7,6 +7,20 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.16.1
+
+### Bug Fixes
+
+-   Fix the bug that the virtual list cannot scroll to the last row by `scrollToRowKey` #470
+-   Fix the bug that the first Chinese cannot match after entering Pinyin after clicking on the cell
+
+---
+
+### Bug Fixes
+
+-   修复虚拟滚动列表无法通过实例方法`scrollToRowKey`滚动到底部的问题 #470
+-   修复单元格点击后，输入拼音后第一个中文无法匹配的问题
+
 V2.16.0
 
 ### Feature
