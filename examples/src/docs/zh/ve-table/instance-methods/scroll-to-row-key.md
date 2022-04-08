@@ -6,19 +6,25 @@
 <template>
     <div>
         <div style="margin-bottom:20px;line-height:3.0;">
-            <button class="button-demo" @click="scrollToRowKey(30)">滚动到rowKey为30的行</button>
-            <button class="button-demo" @click="scrollToRowKey(50)">滚动到rowKey为50的行</button>
+            <button class="button-demo" @click="scrollToRowKey(9999)">
+                滚动到rowKey为9999的行
+            </button>
+            <button class="button-demo" @click="scrollToRowKey(9989)">
+                滚动到rowKey为9989的行
+            </button>
+            <button class="button-demo" @click="scrollToRowKey(5000)">滚动到rowKey为50的行</button>
             <button class="button-demo" @click="scrollToRowKey(0)">滚动到rowKey为0的行</button>
         </div>
         <ve-table
             ref="tableRef"
             style="width:1000px"
             :scroll-width="1600"
-            :max-height="350"
+            :max-height="400"
             border-y
             :columns="columns"
             :table-data="tableData"
             rowKeyFieldName="rowKey"
+            :virtual-scroll-option="virtualScrollOption"
         />
     </div>
 </template>
@@ -27,6 +33,11 @@
     export default {
         data() {
             return {
+                virtualScrollOption: {
+                    // 是否开启
+                    enable: true,
+                    minRowHeight: 40,
+                },
                 columns: [
                     {
                         field: "col1",
@@ -104,9 +115,23 @@
             };
         },
         methods: {
+            getRandom(min, max) {
+                return Math.floor(Math.random() * (max - min) + min);
+            },
             initTableData() {
                 let data = [];
-                for (let i = 0; i < 80; i++) {
+                for (let i = 0; i < 10000; i++) {
+                    let value = "";
+                    if (i % 2 === 0) {
+                        const rowCount = this.getRandom(2, 3);
+
+                        for (let i = 0; i < rowCount; i++) {
+                            value += `this is the long word.<br />`;
+                        }
+                    } else {
+                        value = `name${i}`;
+                    }
+
                     data.push({
                         rowKey: i,
                         col1: i,

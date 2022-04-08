@@ -6,19 +6,29 @@
 <template>
     <div>
         <div style="margin-bottom:20px;line-height:3.0;">
-            <button class="button-demo" @click="scrollToRowKey(30)">滚动到rowKey为30的行</button>
-            <button class="button-demo" @click="scrollToRowKey(50)">滚动到rowKey为50的行</button>
-            <button class="button-demo" @click="scrollToRowKey(0)">滚动到rowKey为0的行</button>
+            <button class="button-demo" @click="scrollToRowKey(9999)">
+                Scroll to the row with rowkey 9999
+            </button>
+            <button class="button-demo" @click="scrollToRowKey(9989)">
+                Scroll to the row with rowkey 9989
+            </button>
+            <button class="button-demo" @click="scrollToRowKey(5000)">
+                Scroll to the row with rowkey 5000
+            </button>
+            <button class="button-demo" @click="scrollToRowKey(0)">
+                Scroll to the row with rowkey 0
+            </button>
         </div>
         <ve-table
             ref="tableRef"
             style="width:1000px"
             :scroll-width="1600"
-            :max-height="350"
+            :max-height="400"
             border-y
             :columns="columns"
             :table-data="tableData"
             rowKeyFieldName="rowKey"
+            :virtual-scroll-option="virtualScrollOption"
         />
     </div>
 </template>
@@ -27,6 +37,12 @@
     export default {
         data() {
             return {
+                virtualScrollOption: {
+                    // 是否开启
+                    enable: true,
+                    minRowHeight: 40,
+                },
+                tableData: [],
                 columns: [
                     {
                         field: "col1",
@@ -104,10 +120,12 @@
             };
         },
         methods: {
+            getRandom(min, max) {
+                return Math.floor(Math.random() * (max - min) + min);
+            },
             initTableData() {
-                let data = [];
-                for (let i = 0; i < 80; i++) {
-                    data.push({
+                for (let i = 0; i < 10000; i++) {
+                    this.tableData.push({
                         rowKey: i,
                         col1: i,
                         col2: i,
@@ -119,7 +137,6 @@
                         col8: i,
                     });
                 }
-                this.tableData = data;
             },
             // scroll y
             scrollToRowKey(rowKey) {
