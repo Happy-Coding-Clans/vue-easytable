@@ -1956,7 +1956,20 @@ export default {
 
             const currentColumn = colgroups.find((x) => x.key === colKey);
             // 当前列是否可编辑
-            if (!currentColumn.edit) {
+            // if (!currentColumn.edit) {
+            //     return false;
+            // }
+
+            if (typeof currentColumn.edit === "function") {
+                if (
+                    !currentColumn.edit({
+                        row: currentRow,
+                        column: currentColumn,
+                    })
+                ) {
+                    return false;
+                }
+            } else if (!currentColumn.edit) {
                 return false;
             }
 
