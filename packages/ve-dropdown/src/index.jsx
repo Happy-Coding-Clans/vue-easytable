@@ -178,6 +178,22 @@ export default {
         value: function () {
             this.init();
         },
+        visible: {
+            handler(visible) {
+                const { isControlled, showDropDown, hideDropDown } = this;
+                // deal after mounted hook
+                setTimeout(() => {
+                    if (isControlled) {
+                        if (visible) {
+                            showDropDown();
+                        } else {
+                            hideDropDown();
+                        }
+                    }
+                });
+            },
+            immediate: true,
+        },
     },
     methods: {
         // 初始化
@@ -220,12 +236,10 @@ export default {
         hideDropDown() {
             this.$emit(EMIT_EVENTS.VISIBLE_CHANGE, false);
 
-            if (!this.isControlled) {
-                setTimeout(() => {
-                    this.internalVisible = false;
-                    this.removeOrEmptyRootPanel();
-                }, 150);
-            }
+            setTimeout(() => {
+                this.internalVisible = false;
+                this.removeOrEmptyRootPanel();
+            }, 150);
         },
 
         // remove or emoty root panel
@@ -255,9 +269,7 @@ export default {
                 this.changDropdownPanelPosition();
             }
 
-            if (!this.isControlled) {
-                this.internalVisible = true;
-            }
+            this.internalVisible = true;
 
             this.$emit(EMIT_EVENTS.VISIBLE_CHANGE, true);
         },
@@ -427,7 +439,7 @@ export default {
         },
 
         /*
-        add root contextmenu panel to element
+        add root element to element
         如果不指定则添加到 body
         */
         addRootElementToElement() {

@@ -7,6 +7,18 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.16.2
+
+### Bug Fixes
+
+-   Fix the bug that the filter custom layer could not be closed
+
+---
+
+### Bug Fixes
+
+-   修复筛选自定义弹层无法关闭的问题
+
 V2.16.1
 
 ### Bug Fixes

@@ -44,6 +44,15 @@ describe("veTable header filter custom", () => {
         },
     ];
 
+    afterEach(() => {
+        return new Promise((resolve) => {
+            const poppers = document.querySelector(".ve-dropdown-popper");
+            poppers && poppers.remove();
+
+            resolve();
+        });
+    });
+
     it("render", () => {
         const wrapper = mount({
             render() {
@@ -232,14 +241,26 @@ describe("veTable header filter custom", () => {
         expect(wrapper.find(".icon-vet-filter").exists()).toBe(true);
 
         wrapper.find(".ve-table-filter-icon").trigger("click");
-        await later();
-        expect(wrapper.find(".ve-dropdown-dd-show").exists()).toBe(true);
+        // 延迟展示
+        await later(100);
 
-        wrapper.find(".name-filter-confirm").trigger("click");
+        const showDropdownPopper = document.querySelector(
+            ".ve-dropdown-popper > .ve-dropdown-dd",
+        );
+
+        expect(showDropdownPopper.textContent.length).toBeGreaterThan(1);
+
+        const cancelClickEvent = new MouseEvent("click", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
+
+        document
+            .querySelector(".name-filter-cancel")
+            .dispatchEvent(cancelClickEvent);
+
         expect(mockFilterFn).toBeCalled();
         expect(mockFilterFn).toHaveBeenCalledWith(expect.any(Function));
-
-        await later();
-        expect(wrapper.find(".ve-dropdown-dd-show").exists()).toBe(false);
     });
 });
