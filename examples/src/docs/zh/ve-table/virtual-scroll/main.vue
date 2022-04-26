@@ -12,6 +12,7 @@
         <ColumnFixed />
         <FooterSummary />
         <CombineLazyLoad />
+        <DynamicEnable />
         <API title="API" anchor="API" desc="virtualScrollOption 虚拟滚动配置" />
     </div>
 </template>
@@ -27,6 +28,7 @@ import FooterSummary from "../footer-summary/virtual-scroll.md";
 import ColumnFixed from "./column-fixed.md";
 import RowIndex from "./row-index.md";
 import CombineLazyLoad from "./combine-lazy-load.md";
+import DynamicEnable from "./dynamic-enable.md";
 import API from "../api/virtual-scroll-option-props";
 
 export default {
@@ -43,6 +45,7 @@ export default {
         FooterSummary,
         RowIndex,
         CombineLazyLoad,
+        DynamicEnable,
         API,
     },
 };
