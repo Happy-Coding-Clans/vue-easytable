@@ -339,7 +339,17 @@ export default {
                         top: cellTop - tableTop,
                     };
                 } else {
-                    // 虚拟滚动,超出viewport
+                    /*
+                    存在以下可能：
+                    1、虚拟滚动超出viewport
+                    2、单元格被删除（通过右键菜单等方式）
+                    */
+
+                    // fixed #477
+                    this.textareaRect = {
+                        left: 0,
+                        top: 0,
+                    };
                     this.cellEl = null;
                     this.overflowViewport = true;
                 }
