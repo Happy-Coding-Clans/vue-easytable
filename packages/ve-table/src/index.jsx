@@ -612,6 +612,25 @@ export default {
             },
             immediate: true,
         },
+        /*
+        watch virtualScrollOption enable
+        允许按需开启虚拟滚动
+        */
+        "virtualScrollOption.enable": {
+            handler(newVal) {
+                // enable virtual scroll
+                if (newVal) {
+                    this.initVirtualScrollPositions();
+                    this.initVirtualScroll();
+                }
+                // disable virtual scroll
+                else {
+                    // clear table content top value
+                    this.setTableContentTopValue({ top: 0 });
+                }
+            },
+            immediate: false,
+        },
     },
 
     methods: {
@@ -1304,11 +1323,15 @@ export default {
                     this.virtualScrollPositions[start - 1].bottom - size;
             }
 
+            this.setTableContentTopValue({ top: startOffset });
+        },
+        // set table content top value
+        setTableContentTopValue({ top }) {
             //this.$refs[this.tableContentRef].style.transform = `translate3d(0,${startOffset}px,0)`;
             window.requestAnimationFrame(() => {
                 const ele = this.$refs[this.tableContentRef];
                 if (ele) {
-                    ele.$el.style.top = `${startOffset}px`;
+                    ele.$el.style.top = `${top}px`;
                 }
             });
         },
@@ -1425,9 +1448,13 @@ export default {
                 this.virtualScrollEndIndex =
                     startIndex + this.virtualScrollVisibleCount;
 
-                const tableContainerRef = this.$refs[this.tableContainerRef];
-                this.tableContainerVirtualScrollHandler(tableContainerRef);
-                this.setVirtualPhantomHeight();
+                // 修复渲染结束，同时开启虚拟滚动和设置表格数据，无法设置 virtual phantom 高度的问题
+                this.$nextTick(() => {
+                    const tableContainerRef =
+                        this.$refs[this.tableContainerRef];
+                    this.tableContainerVirtualScrollHandler(tableContainerRef);
+                    this.setVirtualPhantomHeight();
+                });
             }
         },
 
