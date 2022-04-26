@@ -12,14 +12,14 @@ V2.16.3
 ### Bug Fixes
 
 -   Fix the bug that the right-click menu is combined with cell editing. After deleting a row, the header will disappear #477
--   Fix the bug that dynamically turn on and off virtual scrolling, table rendering error #478
+-   Fix the bug that dynamically turn on or off virtual scrolling, table rendering error #478
 
 ---
 
 ### Bug Fixes
 
 -   修复开启单元格编辑功能，当最后一行数据被删除，表头消失的问题 #477
--   修复动态开启和关闭虚拟滚动，表格渲染异常的问题 #478
+-   修复动态开启或关闭虚拟滚动，表格渲染异常的问题 #478
 
 V2.16.2
 
