@@ -97,7 +97,7 @@ describe("veTable virtual scroll", () => {
         expect(wrapper.html()).toMatchSnapshot();
     });
 
-    it("virtualScrollOption disbale enable", async () => {
+    it("dynamically turns virtual scrolling on", async () => {
         const wrapper = mount(veTable, {
             propsData: {
                 columns: [
@@ -156,6 +156,9 @@ describe("veTable virtual scroll", () => {
 
         expect(wrapper.find(".ve-table-virtual-scroll").exists()).toBe(true);
         expect(wrapper.find(".ve-table-virtual-phantom").exists()).toBe(true);
+        expect(wrapper.findAll(".ve-table-body-tr").length).toBe(
+            TABLE_ROW_COUNT,
+        );
     });
 
     it("same row height", async () => {
