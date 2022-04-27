@@ -26,7 +26,6 @@ Support this project by becoming a sponsor. Your logo or name will show up here 
 
 <h3 align="center">Generous Sponsor</h3>
 
-- **Fulin Xu**
 
 ## Introduction
 
