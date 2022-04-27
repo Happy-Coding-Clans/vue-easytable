@@ -26,8 +26,6 @@
 
 <h3 align="center">Generous Sponsor</h3>
 
-- **Fulin Xu**
-
 ## 介绍
 
 一个基于 Vue2.x 的表格组件
