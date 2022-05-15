@@ -30,51 +30,6 @@
                             </a>
                         </span>
 
-                        <!-- switch version -->
-                        <span class="main-banner-menu-item">
-                            <div
-                                v-click-outside="
-                                    () => (showVersionDropdown = false)
-                                "
-                                class="switch-version-container"
-                            >
-                                <span
-                                    class="switch-version"
-                                    @click="
-                                        showVersionDropdown =
-                                            !showVersionDropdown
-                                    "
-                                >
-                                    {{ currentDocVersion }}
-                                    <i class="icon iconfont icon-dropdown" />
-                                </span>
-                                <div
-                                    class="switch-version-dropdown-pannel"
-                                    :class="
-                                        showVersionDropdown
-                                            ? 'dropdown-pannel-show'
-                                            : ''
-                                    "
-                                >
-                                    <span
-                                        v-for="item in switchVersionOptions"
-                                        :key="item.value"
-                                        :class="[
-                                            'dropdown-item',
-                                            {
-                                                active:
-                                                    item.label ===
-                                                    currentDocVersion,
-                                            },
-                                        ]"
-                                        @click.stop="versionChange(item)"
-                                    >
-                                        {{ item.label }}
-                                    </span>
-                                </div>
-                            </div>
-                        </span>
-
                         <!-- switch lang -->
                         <span class="main-banner-menu-item">
                             <div
@@ -156,6 +111,51 @@
                                             },
                                         ]"
                                         @click.stop="themeChange(item)"
+                                    >
+                                        {{ item.label }}
+                                    </span>
+                                </div>
+                            </div>
+                        </span>
+
+                        <!-- switch version -->
+                        <span class="main-banner-menu-item">
+                            <div
+                                v-click-outside="
+                                    () => (showVersionDropdown = false)
+                                "
+                                class="switch-version-container"
+                            >
+                                <span
+                                    class="switch-version"
+                                    @click="
+                                        showVersionDropdown =
+                                            !showVersionDropdown
+                                    "
+                                >
+                                    {{ currentDocVersion }}
+                                    <i class="icon iconfont icon-dropdown" />
+                                </span>
+                                <div
+                                    class="switch-version-dropdown-pannel"
+                                    :class="
+                                        showVersionDropdown
+                                            ? 'dropdown-pannel-show'
+                                            : ''
+                                    "
+                                >
+                                    <span
+                                        v-for="item in switchVersionOptions"
+                                        :key="item.value"
+                                        :class="[
+                                            'dropdown-item',
+                                            {
+                                                active:
+                                                    item.label ===
+                                                    currentDocVersion,
+                                            },
+                                        ]"
+                                        @click.stop="versionChange(item)"
                                     >
                                         {{ item.label }}
                                     </span>
