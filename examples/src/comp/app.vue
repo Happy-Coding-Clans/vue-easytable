@@ -268,6 +268,7 @@ export default {
         // theme change
         themeChange({ value }) {
             setDocTheme(value);
+            this.currentDocTheme = value;
             this.showThemeDropdown = false;
 
             if (window.env === "dev") {
