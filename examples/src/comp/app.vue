@@ -14,7 +14,7 @@
                 <div class="main-banner-menus-container">
                     <div class="main-banner-menus">
                         <span
-                            v-for="item in menus"
+                            v-for="item in currentLocal.menus"
                             :key="item.name"
                             :class="[
                                 'main-banner-menu-item',
@@ -119,6 +119,50 @@
                             </div>
                         </span>
 
+                        <!-- switch theme -->
+                        <span class="main-banner-menu-item">
+                            <div
+                                v-click-outside="
+                                    () => (showThemeDropdown = false)
+                                "
+                                class="switch-theme-container"
+                            >
+                                <span
+                                    class="switch-theme"
+                                    @click="
+                                        showThemeDropdown = !showThemeDropdown
+                                    "
+                                >
+                                    {{ currentLocal.docTheme }}
+                                    <i class="icon iconfont icon-dropdown" />
+                                </span>
+                                <div
+                                    class="switch-theme-dropdown-pannel"
+                                    :class="
+                                        showThemeDropdown
+                                            ? 'dropdown-pannel-show'
+                                            : ''
+                                    "
+                                >
+                                    <span
+                                        v-for="item in currentLocal.switchDocThemeOptions"
+                                        :key="item.value"
+                                        :class="[
+                                            'dropdown-item',
+                                            {
+                                                active:
+                                                    item.value ===
+                                                    currentDocTheme,
+                                            },
+                                        ]"
+                                        @click.stop="themeChange(item)"
+                                    >
+                                        {{ item.label }}
+                                    </span>
+                                </div>
+                            </div>
+                        </span>
+
                         <span class="main-banner-menu-item">
                             <a
                                 class="main-banner-menu-link"
@@ -139,6 +183,7 @@
 </template>
 
 <script>
+import { getDocTheme, setDocTheme } from "@/utils/cookies";
 import locale from "./locale";
 import I18nMixins from "./mixins/i18n-mixins";
 import ThemeSwitchMixins from "./mixins/theme-switch-mixins.js";
@@ -159,16 +204,23 @@ export default {
                 { value: "en", label: "English" },
                 { value: "zh", label: "简体中文" },
             ],
+            // show lang dropdown
             showLangDropdown: false,
-            //switch version option
+            //switch version option,
             switchVersionOptions: [],
             showVersionDropdown: false,
+            // show theme dropdown
+            showThemeDropdown: false,
+            // default doc theme
+            defalutDocTheme: "default",
+            // current doc theme
+            currentDocTheme: "",
         };
     },
     computed: {
-        // menus
-        menus() {
-            return locale[this.currentDocLang]["menus"];
+        // current local
+        currentLocal() {
+            return locale[this.currentDocLang];
         },
 
         // show logo
@@ -213,6 +265,21 @@ export default {
                 this.showLangDropdown = false;
             }, 150);
         },
+        // theme change
+        themeChange({ value }) {
+            setDocTheme(value);
+            this.showThemeDropdown = false;
+
+            if (window.env === "dev") {
+                setTimeout(() => {
+                    window.location.reload();
+                });
+            } else {
+                this.switchThemeMix(value).finally(() => {
+                    //this.loadingInstance.close();
+                });
+            }
+        },
         // version change
         versionChange(item) {
             const { protocol, host, pathname, hash } = window.location;
@@ -250,11 +317,23 @@ export default {
             }
             return result;
         },
+        // init theme
+        initDocTheme() {
+            this.currentDocTheme = getDocTheme() ?? this.defalutDocTheme;
+            // 初始化
+            if (window.env != "dev") {
+                this.switchThemeMix(this.currentDocTheme);
+            }
+            console.log("current doc theme ::", this.currentDocTheme);
+        },
     },
     created() {
         getVersions().then(({ data }) => {
             this.switchVersionOptions = data;
         });
+    },
+    mounted() {
+        this.initDocTheme();
     },
 };
 </script>

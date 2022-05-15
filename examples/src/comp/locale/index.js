@@ -20,6 +20,12 @@ export default {
                 isRouter: false,
             },
         ],
+        docTheme: "主题",
+        // 主题切换配置
+        switchDocThemeOptions: [
+            { value: "default", label: "默认" },
+            { value: "dark", label: "暗黑" },
+        ],
         anchorCatalogTitle: "目录",
         // 组件配置多语言跟着文档语言环境走
         compLang: zhCN,
@@ -78,6 +84,12 @@ export default {
                 path: "https://github.com/Happy-Coding-Clans/vue-easytable/releases",
                 isRouter: false,
             },
+        ],
+        docTheme: "Theme",
+        // 主题切换配置
+        switchDocThemeOptions: [
+            { value: "default", label: "default" },
+            { value: "dark", label: "dark" },
         ],
         anchorCatalogTitle: "Contents",
         compLang: enUS,

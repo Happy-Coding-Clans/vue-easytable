@@ -6,6 +6,8 @@ import Vue from "vue";
 import APP from "@/comp/app.vue";
 import router from "@/router/index";
 
+import { getDocTheme } from "@/utils/cookies";
+
 import NProgress from "nprogress"; // Progress 进度条
 
 import "@/css/index.less";
@@ -82,7 +84,12 @@ dev mode
 */
 
 if (window.env === "dev") {
-    require("../../packages/theme-default/index.less");
+    const docTheme = getDocTheme();
+    if (docTheme && docTheme === "dark") {
+        require("../../packages/theme-dark/index.less");
+    } else {
+        require("../../packages/theme-default/index.less");
+    }
 }
 
 import {

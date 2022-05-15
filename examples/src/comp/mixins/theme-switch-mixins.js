@@ -6,12 +6,12 @@ const themeSwitcherTool = ThemeSwitcherTool({
     // Your theme list
     themeList: [
         {
-            themeName: "theme-dark",
+            themeName: "dark",
             themePath:
                 "https://unpkg.com/vue-easytable/libs/theme-dark/index.css",
         },
         {
-            themeName: "theme-default",
+            themeName: "default",
             themePath:
                 "https://unpkg.com/vue-easytable/libs/theme-default/index.css",
         },
