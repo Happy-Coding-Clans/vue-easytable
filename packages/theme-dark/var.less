@@ -1,4 +1,5 @@
-@ve-primary-color: #262626;
+@ve-primary-color: #121212;
+@ve-secondary-color: #363636;
 @ve-dark-text-color: #ffffffd9;
 @ve-default-font-size: 14px;
 
@@ -35,7 +36,11 @@
 @ve-pagination-item-border-color: #434343;
 @ve-pagination-item-background-color: @ve-primary-color;
 @ve-pagination-item-text-color: @ve-dark-text-color;
+@ve-pagination-li-color: @ve-dark-text-color;
+@ve-pagination-jump-hover-color: @ve-dark-text-color;
 @ve-pagination-goto-background-color: #141414;
+@ve-pagination-goto-input-color: @ve-dark-text-color;
+@ve-pagination-goto-input-hover-color: @ve-dark-text-color;
 
 /* ve-checkbox */
 @ve-checkbox-checked-background-color: #108ee9;
@@ -50,26 +55,28 @@
 
 /* ve-dropdown */
 @ve-dropdown-z-index: 999;
-@ve-dropdown-background-color: @ve-primary-color;
+@ve-dropdown-background-color: @ve-secondary-color;
 @ve-dropdown-border-color: #434343;
 @ve-dropdown-text-color: @ve-dark-text-color;
-@ve-dropdown-item-background-color: @ve-primary-color;
-@ve-dropdown-item-active-background-color: #434343;
-@ve-dropdown-item-hover-background-color: #434343;
+@ve-dropdown-item-background-color: @ve-secondary-color;
+@ve-dropdown-item-border-color: @ve-secondary-color;
+@ve-dropdown-item-active-background-color: #666666;
+@ve-dropdown-item-hover-background-color: #464646;
 @ve-dropdown-item-hover-text-color: @ve-dark-text-color;
-@ve-dropdown-active-text-color: #108ee9;
+@ve-dropdown-active-text-color: @ve-dark-text-color;
 
 /* ve-contextmenu */
-@ve-contextmenu-background-color: #fff;
-@ve-contextmenu-border-color: #e4e7ed;
+@ve-contextmenu-background-color: @ve-secondary-color;
+@ve-contextmenu-border-color: @ve-secondary-color;
 @ve-contextmenu-border-radius: 4px;
 @ve-contextmenu-box-shadow-color: #0000001a;
 @ve-contextmenu-min-width: 180px;
 @ve-contextmenu-min-height: 50px;
-@ve-contextmenu-node-hover-background-color: #f5f7fa;
-@ve-contextmenu-node-hover-text-color: #409eff;
-@ve-contextmenu-node-active-text-color: #409eff;
+@ve-contextmenu-node-separator-line-color: hsla(0,0%,100%,.12);
+@ve-contextmenu-node-hover-background-color: #666666;
+@ve-contextmenu-node-text-color: @ve-dark-text-color;
+@ve-contextmenu-node-hover-text-color: @ve-dark-text-color;
+@ve-contextmenu-node-active-text-color: @ve-dark-text-color;
 @ve-contextmenu-node-disabled-text-color: #c0c4cc;
-@ve-contextmenu-node-icon-postfix-color: #666;
+@ve-contextmenu-node-icon-postfix-color: @ve-dark-text-color;
 @ve-contextmenu-node-disabled-icon-postfix-color: #c0c4cc;
-@ve-contextmenu-node-separator-line-color: #eee;

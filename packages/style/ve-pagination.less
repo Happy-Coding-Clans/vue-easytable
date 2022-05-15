@@ -51,14 +51,14 @@
             transition: border 0.2s ease-in-out,
                 background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
             border-radius: 4px;
+            color: @ve-pagination-goto-input-color;
             &:focus {
                 outline: none !important;
-                border-color: @ve-primary-color;
+                border-color: @ve-pagination-goto-input-hover-color;
             }
-        }
-
-        .ve-pagination-goto-input:hover {
-            border-color: @ve-primary-color;
+            &:hover {
+                border-color: @ve-pagination-goto-input-hover-color;
+            }
         }
     }
 
@@ -80,23 +80,23 @@
         }
 
         &:hover {
-            border-color: @ve-primary-color;
+            border-color: @ve-pagination-li-color;
             a {
-                color: @ve-primary-color;
+                color: @ve-pagination-li-color;
             }
         }
 
         &.ve-pagination-li-active {
-            border-color: @ve-primary-color;
+            border-color: @ve-pagination-li-color;
             a {
                 font-weight: bold;
-                color: @ve-primary-color;
+                color: @ve-pagination-li-color;
             }
             &:hover {
-                border-color: @ve-primary-color;
+                border-color: @ve-pagination-li-color;
                 a {
                     font-weight: bold;
-                    color: @ve-primary-color;
+                    color: @ve-pagination-li-color;
                 }
             }
         }
@@ -109,7 +109,7 @@
 
     .ve-pagination-prev:hover i,
     .ve-pagination-next:hover i {
-        color: @ve-primary-color;
+        color: @ve-pagination-jump-hover-color;
     }
 
     .ve-pagination-jump-prev:after,
@@ -131,7 +131,7 @@
     .ve-pagination-jump-prev:hover i,
     .ve-pagination-jump-next:hover i {
         display: inline;
-        color: @ve-primary-color;
+        color: @ve-pagination-jump-hover-color;
     }
 
     .ve-pagination-disabled {
