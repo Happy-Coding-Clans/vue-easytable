@@ -20,12 +20,6 @@
 
 通过成为赞助商来支持这个项目。您的商标或名称将与您提供的链接一起显示在此处。[成为赞助商](https://www.patreon.com/huangshuwei)
 
-<h3 align="center">Gold Sponsor</h3>
-
-<h3 align="center">Silver Sponsor</h3>
-
-<h3 align="center">Generous Sponsor</h3>
-
 ## 介绍
 
 一个基于 Vue2.x 的表格组件
