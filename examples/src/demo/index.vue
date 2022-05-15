@@ -63,15 +63,6 @@
                                 :inactive-color="switchInactiveColor"
                             ></el-switch>
                         </el-col>
-                        <el-col :span="3">
-                            {{ currentLocal["theme"] }}
-                            <el-switch
-                                v-model="enableDarkTheme"
-                                :active-color="switchActiveColor"
-                                :inactive-color="switchInactiveColor"
-                                @change="switchTheme"
-                            ></el-switch>
-                        </el-col>
                         <el-col :span="2"></el-col>
                     </el-row>
                 </div>
@@ -118,13 +109,12 @@
 import Mock from "mockjs";
 import locale from "../comp/locale";
 import I18nMixins from "../comp/mixins/i18n-mixins";
-import ThemeSwitchMixins from "../comp/mixins/theme-switch-mixins.js";
 export default {
     name: "demo",
     components: {
         /* Footer */
     },
-    mixins: [I18nMixins, ThemeSwitchMixins],
+    mixins: [I18nMixins],
     data() {
         return {
             // edit option 可控单元格编辑
@@ -139,7 +129,6 @@ export default {
             switchActiveColor: "#1890ff",
             switchInactiveColor: "rgba(0,0,0,.25)",
 
-            enableDarkTheme: false,
             enableColumnFixed: true,
             enableLoading: false,
             enableExpand: true,
@@ -541,19 +530,6 @@ export default {
             this.$refs["tableRef"].scrollTo({ top: 0 });
         },
 
-        // switch theme
-        switchTheme() {
-            this.loadingInstance.show();
-
-            const themeName = this.enableDarkTheme
-                ? "theme-dark"
-                : "theme-default";
-
-            this.switchThemeMix(themeName).finally(() => {
-                this.loadingInstance.close();
-            });
-        },
-
         // switch loading
         switchLoading() {
             if (this.enableLoading) {
@@ -620,7 +596,7 @@ export default {
         });
     },
     destroyed() {
-        this.switchThemeMix("theme-default");
+        //this.switchThemeMix("theme-default");
     },
 };
 </script>
