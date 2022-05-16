@@ -20,7 +20,7 @@ export default {
                 isRouter: false,
             },
         ],
-        docTheme: "主题",
+        docTheme: "组件主题",
         // 主题切换配置
         switchDocThemeOptions: [
             { value: "default", label: "默认" },
@@ -84,7 +84,7 @@ export default {
                 isRouter: false,
             },
         ],
-        docTheme: "Theme",
+        docTheme: "Component Theme",
         // 主题切换配置
         switchDocThemeOptions: [
             { value: "default", label: "default" },
