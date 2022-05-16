@@ -133,8 +133,16 @@
                     }
                 }
 
+                // 展开行
                 tr.ve-table-expand-tr {
                     display: table-row;
+                }
+
+                // 滚动中效果
+                tr.ve-table-body-row-scrolling {
+                    & > td {
+                        background-color: @ve-table-body-row-row-scrolling-background-color;
+                    }
                 }
 
                 // 斑马纹
@@ -161,6 +169,7 @@
                         }
                     }
                 }
+
                 .ve-table-body-tr {
                     .ve-table-body-td {
                         // 固定左列、右列

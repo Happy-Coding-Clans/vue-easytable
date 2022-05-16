@@ -15,6 +15,7 @@ export default {
 
             result = {
                 [clsName("body-tr")]: true,
+                [clsName("body-row-scrolling")]: true,
             };
 
             return result;

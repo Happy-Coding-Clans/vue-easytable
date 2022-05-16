@@ -103,7 +103,7 @@ exports[`veTable virtual scroll render same row height 1`] = `
 `;
 
 exports[`veTable virtual scroll virtual scroll palceholder 1`] = `
-<tr class="ve-table-body-tr">
+<tr class="ve-table-body-tr ve-table-body-row-scrolling">
   <td colspan="1"></td>
 </tr>
 `;
