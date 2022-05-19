@@ -179,6 +179,9 @@ export default {
         parentRendered: {
             handler: function (val) {
                 if (val) {
+                    // fixed #471
+                    this.setTableEl();
+
                     // add table container scroll hook
                     this.hooks.addHook(
                         HOOKS_NAME.TABLE_CONTAINER_SCROLL,
@@ -197,7 +200,6 @@ export default {
                     );
                     // add table size change hook
                     this.hooks.addHook(HOOKS_NAME.TABLE_SIZE_CHANGE, () => {
-                        this.setTableEl();
                         this.setTextareaPosition();
                     });
                 }
@@ -239,8 +241,10 @@ export default {
     methods: {
         // set table element
         setTableEl() {
-            const tableEl = this.$el.previousElementSibling;
-            this.tableEl = tableEl;
+            this.$nextTick(() => {
+                const tableEl = this.$el.previousElementSibling;
+                this.tableEl = tableEl;
+            });
         },
 
         // set cell element
