@@ -158,9 +158,14 @@ export default {
         options: {
             handler: function (val) {
                 if (Array.isArray(val) && val.length > 0) {
+                    /* 
+                    如果配置项修改,则重新销毁并创建
+                    */
+                    this.removeOrEmptyPanels(true);
                     this.rootContextmenuId = this.getRandomIdWithPrefix();
                     this.createInternalOptions();
                     this.createPanelOptions({ options: this.internalOptions });
+                    this.resetContextmenu();
                     this.addRootContextmenuPanelToBody();
                 }
             },
