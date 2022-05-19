@@ -7,6 +7,18 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.17.2
+
+### Bug Fixes
+
+-   Fix the bug that the contextment panel can't' be displayed after the dynamic modification of the contextment option
+-   Fix the bug that incorrect positioning of edit text box in some browsers (QQ, Safari, etc.)
+
+---
+
+-   修复右键菜单配置动态修改后，右键菜单功无法显示的问题
+-   修复在部分浏览器（QQ、Safari 等）编辑文本框定位不准确的问题
+
 V2.16.3
 
 ### Bug Fixes
