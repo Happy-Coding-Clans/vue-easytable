@@ -194,8 +194,8 @@ export default {
                                 if (!this.cellEl) {
                                     this.setCellEl();
                                 }
-                                this.setTextareaPosition();
                             }
+                            this.setTextareaPosition();
                         },
                     );
                     // add table size change hook
