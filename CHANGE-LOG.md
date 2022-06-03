@@ -16,6 +16,8 @@ V2.17.3
 
 ---
 
+### Bug Fixes
+
 -   修复分页组件跳转页码没有更新的问题 #483
 -   修复拖动滚动条导致编辑单元格显示位置不正确的问题 #485
 
@@ -27,6 +29,8 @@ V2.17.2
 -   Fix the bug that incorrect positioning of edit text box in some browsers (QQ, Safari, etc.)
 
 ---
+
+### Bug Fixes
 
 -   修复右键菜单配置动态修改后，右键菜单功无法显示的问题
 -   修复在部分浏览器（QQ、Safari 等）编辑文本框定位不准确的问题
