@@ -7,6 +7,18 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.17.3
+
+### Bug Fixes
+
+-   Fix the bug that page number jump is not updated #483
+-   Fix the bug that the edit cell position display error when drag scroll bar #485
+
+---
+
+-   修复分页组件跳转页码没有更新的问题 #483
+-   修复拖动滚动条导致编辑单元格显示位置不正确的问题 #485
+
 V2.17.2
 
 ### Bug Fixes
