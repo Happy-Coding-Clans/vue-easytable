@@ -97,6 +97,8 @@ export default {
                     if (event.keyCode !== 13) return;
 
                     var val = this.$parent.getValidNum(event.target.value);
+                    // bug fixed #483
+                    event.target.value = val;
                     this.$parent.jumpPageHandler(val);
                 },
             },
