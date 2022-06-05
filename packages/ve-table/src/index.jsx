@@ -226,7 +226,7 @@ export default {
             columnsOptionResetTime: 0,
             tableContainerRef: "tableContainerRef",
             tableBodyRef: "tableBodyRef",
-            tableContentRef: "tableContentRef",
+            tableContentWrapperRef: "tableContentWrapperRef",
             virtualPhantomRef: "virtualPhantomRef",
             editInputRef: "editInputRef",
             cloneColumns: [],
@@ -1061,6 +1061,8 @@ export default {
          */
         rowToVisible(keyCode, nextRowKey) {
             const tableContainerRef = this.$refs[this.tableContainerRef];
+            const tableContentWrapperRef =
+                this.$refs[this.tableContentWrapperRef].$el;
 
             const { isVirtualScroll, headerRows, footerRows } = this;
 
@@ -1077,6 +1079,8 @@ export default {
                 const { offsetTop: trOffsetTop, clientHeight: trClientHeight } =
                     nextRowEl;
 
+                const parentOffsetTop = tableContentWrapperRef.offsetTop;
+
                 // arrow up
                 if (keyCode === KEY_CODES.ARROW_UP) {
                     const totalHeaderHeight = headerRows.reduce(
@@ -1088,9 +1092,6 @@ export default {
 
                     let diff = 0;
                     if (isVirtualScroll) {
-                        const parentOffsetTop =
-                            nextRowEl.offsetParent.offsetTop;
-
                         diff =
                             totalHeaderHeight -
                             (trOffsetTop -
@@ -1117,9 +1118,6 @@ export default {
 
                     let diff = 0;
                     if (isVirtualScroll) {
-                        const parentOffsetTop =
-                            nextRowEl.offsetParent.offsetTop;
-
                         diff =
                             trOffsetTop -
                             (containerScrollTop - parentOffsetTop) +
@@ -1327,9 +1325,9 @@ export default {
         },
         // set table content top value
         setTableContentTopValue({ top }) {
-            //this.$refs[this.tableContentRef].style.transform = `translate3d(0,${startOffset}px,0)`;
+            //this.$refs[this.tableContentWrapperRef].style.transform = `translate3d(0,${startOffset}px,0)`;
             window.requestAnimationFrame(() => {
-                const ele = this.$refs[this.tableContentRef];
+                const ele = this.$refs[this.tableContentWrapperRef];
                 if (ele) {
                     ele.$el.style.top = `${top}px`;
                 }
@@ -2278,18 +2276,23 @@ export default {
         };
 
         // tale props
-        const tableProps = {
-            ref: this.tableContentRef,
-            class: [clsName("content"), tableClass],
-            style: tableStyle,
+        const tableWrapperProps = {
+            ref: this.tableContentWrapperRef,
+            class: [clsName("content-wrapper")],
             props: {
-                tagName: "table",
+                tagName: "div",
             },
             on: {
                 "on-dom-resize-change": ({ height }) => {
                     this.tableHeight = height;
                 },
             },
+        };
+
+        // tale props
+        const tableProps = {
+            class: [clsName("content"), tableClass],
+            style: tableStyle,
         };
 
         const editInputProps = {
@@ -2340,15 +2343,18 @@ export default {
                 <div {...containerProps}>
                     {/* virtual view phantom */}
                     {this.getVirtualViewPhantom()}
-                    <VueDomResizeObserver {...tableProps}>
-                        {/* colgroup */}
-                        <Colgroup colgroups={colgroups} />
-                        {/* table header */}
-                        <Header {...headerProps} />
-                        {/* table body */}
-                        <Body {...bodyProps} />
-                        {/* table footer */}
-                        <Footer {...footerProps} />
+                    {/* vue 实例类型，访问dom时需要通过$el属性访问 */}
+                    <VueDomResizeObserver {...tableWrapperProps}>
+                        <table {...tableProps}>
+                            {/* colgroup */}
+                            <Colgroup colgroups={colgroups} />
+                            {/* table header */}
+                            <Header {...headerProps} />
+                            {/* table body */}
+                            <Body {...bodyProps} />
+                            {/* table footer */}
+                            <Footer {...footerProps} />
+                        </table>
                     </VueDomResizeObserver>
                 </div>
                 {/* edit input */}
