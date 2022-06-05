@@ -12,7 +12,6 @@
             :fixed-header="true"
             :columns="columns"
             :table-data="tableData"
-            :edit-option="editOption"
             :row-style-option="rowStyleOption"
             :virtual-scroll-option="{enable:true}"
             border-y
