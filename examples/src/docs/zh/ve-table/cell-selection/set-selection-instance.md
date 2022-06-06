@@ -18,6 +18,7 @@
             :columns="columns"
             :table-data="tableData"
             rowKeyFieldName="rowKey"
+            :virtual-scroll-option="{enable:true}"
         />
     </div>
 </template>
