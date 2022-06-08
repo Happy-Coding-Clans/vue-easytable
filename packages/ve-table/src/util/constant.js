@@ -112,6 +112,8 @@ export const COMPS_NAME = {
     VE_TABLE_EXPAND_TR_ICON: "VeTableExpandTrIcon",
 
     VE_TABLE_EDIT_INPUT: "VeTableEditIput",
+
+    VE_TABLE_SELECTION: "VeTableSelection",
 };
 
 // comps custom attrs
