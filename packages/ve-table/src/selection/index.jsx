@@ -193,76 +193,45 @@ export default {
                 return result;
             }
 
-            result = (
-                <div class={clsName("selection-current")}>
-                    {/* top */}
-                    <div
-                        style={{
-                            width: startCellRect.width + "px",
-                            height: "2px",
-                            top: startCellRect.top + "px",
-                            left: startCellRect.left + "px",
-                        }}
-                        class={clsName("selection-border")}
-                    ></div>
-                    {/* right */}
-                    <div
-                        style={{
-                            width: "2px",
-                            height: startCellRect.height + "px",
-                            top: startCellRect.top + "px",
-                            left:
-                                startCellRect.left +
-                                startCellRect.width -
-                                2 +
-                                "px",
-                        }}
-                        class={clsName("selection-border")}
-                    ></div>
-                    {/* bottom */}
-                    <div
-                        style={{
-                            width: startCellRect.width + "px",
-                            height: "2px",
-                            top:
-                                startCellRect.top +
-                                startCellRect.height -
-                                2 +
-                                "px",
-                            left: startCellRect.left + "px",
-                        }}
-                        class={clsName("selection-border")}
-                    ></div>
-                    {/* left */}
-                    <div
-                        style={{
-                            width: "2px",
-                            height: startCellRect.height + "px",
-                            top: startCellRect.top + "px",
-                            left: startCellRect.left + "px",
-                        }}
-                        class={clsName("selection-border")}
-                    ></div>
-                    {/* corner */}
-                    {!endCellRect.width && (
-                        <div
-                            style={{
-                                top:
-                                    startCellRect.top +
-                                    startCellRect.height -
-                                    5 +
-                                    "px",
-                                left:
-                                    startCellRect.left +
-                                    startCellRect.width -
-                                    5 +
-                                    "px",
-                            }}
-                            class={clsName("selection-corner")}
-                        ></div>
-                    )}
-                </div>
-            );
+            const borderCollection = {
+                borderWidth: startCellRect.width,
+                borderHeight: startCellRect.height,
+
+                topBorder: {
+                    width: 0,
+                    height: 2,
+                    top: startCellRect.top,
+                    left: startCellRect.left,
+                },
+                rightBorder: {
+                    width: 2,
+                    height: 0,
+                    top: startCellRect.top,
+                    left: startCellRect.left + startCellRect.width - 2,
+                },
+                bottomBorder: {
+                    width: 0,
+                    height: 2,
+                    top: startCellRect.top + startCellRect.height - 2,
+                    left: startCellRect.left,
+                },
+                leftBorder: {
+                    width: 2,
+                    height: 0,
+                    top: startCellRect.top,
+                    left: startCellRect.left,
+                },
+                corner: {
+                    top: 0,
+                    left: 0,
+                },
+            };
+
+            borderCollection.corner.top = borderCollection.bottomBorder.top - 3;
+            borderCollection.corner.left =
+                borderCollection.rightBorder.left - 3;
+
+            result = this.getBorders({ ...borderCollection });
 
             return result;
         },
@@ -279,81 +248,123 @@ export default {
                 return result;
             }
 
-            let borderWidth = 0;
-            let borderHeight = 0;
+            const borderCollection = {
+                borderWidth: 0,
+                borderHeight: 0,
 
-            let topBorderTop = 0;
-            let topBorderLeft = 0;
-
-            let rightBorderTop = 0;
-            let rightBorderLeft = 0;
-
-            let bottomBorderTop = 0;
-            let bottomBorderLeft = 0;
-
-            let leftBorderTop = 0;
-            let leftBorderLeft = 0;
+                topBorder: {
+                    width: 0,
+                    height: 1,
+                    top: 0,
+                    left: 0,
+                },
+                rightBorder: {
+                    width: 1,
+                    height: 0,
+                    top: 0,
+                    left: 0,
+                },
+                bottomBorder: {
+                    width: 0,
+                    height: 1,
+                    top: 0,
+                    left: 0,
+                },
+                leftBorder: {
+                    width: 1,
+                    height: 0,
+                    top: 0,
+                    left: 0,
+                },
+                corner: {
+                    top: 0,
+                    left: 0,
+                },
+            };
 
             // end cell right
             if (endCellRect.left > startCellRect.left) {
-                borderWidth =
+                borderCollection.borderWidth =
                     endCellRect.left - startCellRect.left + endCellRect.width;
-                topBorderLeft = startCellRect.left;
-                rightBorderLeft = endCellRect.left + endCellRect.width;
-                bottomBorderLeft = startCellRect.left;
-                leftBorderLeft = startCellRect.left;
+                borderCollection.topBorder.left = startCellRect.left;
+                borderCollection.rightBorder.left =
+                    endCellRect.left + endCellRect.width - 1;
+                borderCollection.bottomBorder.left = startCellRect.left;
+                borderCollection.leftBorder.left = startCellRect.left;
             }
             // end cell left or equal
             else if (endCellRect.left <= startCellRect.left) {
-                borderWidth =
+                borderCollection.borderWidth =
                     startCellRect.left - endCellRect.left + startCellRect.width;
 
-                topBorderLeft = endCellRect.left;
-                rightBorderLeft = startCellRect.left + startCellRect.width;
-                bottomBorderLeft = endCellRect.left;
-                leftBorderLeft = endCellRect.left;
+                borderCollection.topBorder.left = endCellRect.left;
+                borderCollection.rightBorder.left =
+                    startCellRect.left + startCellRect.width - 1;
+                borderCollection.bottomBorder.left = endCellRect.left;
+                borderCollection.leftBorder.left = endCellRect.left;
             }
 
             // end cell below
             if (endCellRect.top > startCellRect.top) {
-                borderHeight =
+                borderCollection.borderHeight =
                     endCellRect.top - startCellRect.top + endCellRect.height;
 
-                topBorderTop = startCellRect.top;
-                rightBorderTop = startCellRect.top;
-                bottomBorderTop = endCellRect.top + endCellRect.height;
-                leftBorderTop = startCellRect.top;
+                borderCollection.topBorder.top = startCellRect.top;
+                borderCollection.rightBorder.top = startCellRect.top;
+                borderCollection.bottomBorder.top =
+                    endCellRect.top + endCellRect.height - 1;
+                borderCollection.leftBorder.top = startCellRect.top;
             }
             // end cell above or equal
             else if (endCellRect.top <= startCellRect.top) {
-                borderHeight =
+                borderCollection.borderHeight =
                     startCellRect.top - endCellRect.top + startCellRect.height;
 
-                topBorderTop = endCellRect.top;
-                rightBorderTop = endCellRect.top;
-                bottomBorderTop = startCellRect.top + startCellRect.height;
-                leftBorderTop = endCellRect.top;
+                borderCollection.topBorder.top = endCellRect.top;
+                borderCollection.rightBorder.top = endCellRect.top;
+                borderCollection.bottomBorder.top =
+                    startCellRect.top + startCellRect.height - 1;
+                borderCollection.leftBorder.top = endCellRect.top;
             }
 
-            result = (
+            borderCollection.corner.top = borderCollection.bottomBorder.top - 4;
+            borderCollection.corner.left =
+                borderCollection.rightBorder.left - 4;
+
+            result = this.getBorders({ ...borderCollection });
+
+            return result;
+        },
+
+        // get borders
+        getBorders({
+            borderWidth,
+            borderHeight,
+            topBorder,
+            rightBorder,
+            bottomBorder,
+            leftBorder,
+            corner,
+        }) {
+            return (
                 <div class={clsName("selection-area")}>
                     {/* top */}
                     <div
                         style={{
                             width: borderWidth + "px",
-                            height: "1px",
-                            top: topBorderTop + "px",
-                            left: topBorderLeft + "px",
+                            height: topBorder.height + "px",
+                            top: topBorder.top + "px",
+                            left: topBorder.left + "px",
                         }}
                         class={clsName("selection-border")}
                     ></div>
                     {/* right */}
                     <div
                         style={{
-                            width: "1px",
+                            width: rightBorder.width + "px",
                             height: borderHeight + "px",
-                            top: rightBorderTop + "px",
-                            left: rightBorderLeft - 1 + "px",
+                            top: rightBorder.top + "px",
+                            left: rightBorder.left + "px",
                         }}
                         class={clsName("selection-border")}
                     ></div>
@@ -361,34 +372,32 @@ export default {
                     <div
                         style={{
                             width: borderWidth + "px",
-                            height: "1px",
-                            top: bottomBorderTop - 1 + "px",
-                            left: bottomBorderLeft + "px",
+                            height: bottomBorder.height + "px",
+                            top: bottomBorder.top + "px",
+                            left: bottomBorder.left + "px",
                         }}
                         class={clsName("selection-border")}
                     ></div>
                     {/* left */}
                     <div
                         style={{
-                            width: "1px",
+                            width: leftBorder.width + "px",
                             height: borderHeight + "px",
-                            top: leftBorderTop + "px",
-                            left: leftBorderLeft + "px",
+                            top: leftBorder.top + "px",
+                            left: leftBorder.left + "px",
                         }}
                         class={clsName("selection-border")}
                     ></div>
                     {/* corner */}
                     <div
                         style={{
-                            top: bottomBorderTop - 5 + "px",
-                            left: rightBorderLeft - 5 + "px",
+                            top: corner.top + "px",
+                            left: corner.left + "px",
                         }}
                         class={clsName("selection-corner")}
                     ></div>
                 </div>
             );
-
-            return result;
         },
 
         // set start cell el
