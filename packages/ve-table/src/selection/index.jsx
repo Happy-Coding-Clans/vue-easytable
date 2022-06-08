@@ -231,7 +231,10 @@ export default {
             borderCollection.corner.left =
                 borderCollection.rightBorder.left - 3;
 
-            result = this.getBorders({ ...borderCollection });
+            result = this.getBorders({
+                ...borderCollection,
+                showCorner: !endCellRect.width,
+            });
 
             return result;
         },
@@ -345,6 +348,7 @@ export default {
             bottomBorder,
             leftBorder,
             corner,
+            showCorner = true,
         }) {
             return (
                 <div class={clsName("selection-area")}>
@@ -389,13 +393,15 @@ export default {
                         class={clsName("selection-border")}
                     ></div>
                     {/* corner */}
-                    <div
-                        style={{
-                            top: corner.top + "px",
-                            left: corner.left + "px",
-                        }}
-                        class={clsName("selection-corner")}
-                    ></div>
+                    {showCorner && (
+                        <div
+                            style={{
+                                top: corner.top + "px",
+                                left: corner.left + "px",
+                            }}
+                            class={clsName("selection-corner")}
+                        ></div>
+                    )}
                 </div>
             );
         },
