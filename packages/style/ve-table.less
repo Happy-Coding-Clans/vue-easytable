@@ -117,6 +117,7 @@
 
                 // tbody
                 tbody.ve-table-body {
+                    user-select: none;
                     tr.ve-table-body-tr,
                     tr.ve-table-expand-tr {
                         height: @ve-table-body-row-height;
@@ -184,10 +185,10 @@
                             }
 
                             // cell selection
-                            &.ve-table-cell-selection {
-                                border: 1px solid
-                                    @ve-table-td-selection-border-color;
-                            }
+                            // &.ve-table-cell-selection {
+                            //     border: 1px solid
+                            //         @ve-table-td-selection-border-color;
+                            // }
 
                             // expand row icon
                             .ve-table-row-expand-icon {
@@ -268,6 +269,72 @@
                     }
                 }
             }
+
+            // cell selection
+            .ve-table-selection-wrapper {
+                // .ve-table-selection-fixed-left,
+                // .ve-table-selection-middle,
+                // .ve-table-selection-fixed-right {
+                // }
+
+                .ve-table-selection-fixed-left {
+                    .ve-table-selection-current,
+                    .ve-table-selection-area {
+                        .ve-table-selection-corner {
+                            position: absolute;
+                            z-index: 1;
+                        }
+                        .ve-table-selection-border {
+                            position: absolute;
+                            z-index: 1;
+                        }
+                    }
+                }
+
+                .ve-table-selection-middle {
+                    .ve-table-selection-current,
+                    .ve-table-selection-area {
+                        .ve-table-selection-corner {
+                            position: absolute;
+                            z-index: 0;
+                        }
+                        .ve-table-selection-border {
+                            position: absolute;
+                            z-index: 0;
+                        }
+                    }
+                }
+
+                .ve-table-selection-fixed-right {
+                    .ve-table-selection-current,
+                    .ve-table-selection-area {
+                        .ve-table-selection-corner {
+                            position: absolute;
+                            z-index: 1;
+                        }
+                        .ve-table-selection-border {
+                            position: absolute;
+                            z-index: 1;
+                        }
+                    }
+                }
+
+                .ve-table-selection-current,
+                .ve-table-selection-area {
+                    .ve-table-selection-corner {
+                        display: block;
+                        height: 8px;
+                        width: 8px;
+                        border: 1px solid rgb(255, 255, 255);
+                        background-color: rgb(75, 137, 255);
+                    }
+
+                    .ve-table-selection-border {
+                        display: block;
+                        background-color: rgb(75, 137, 255);
+                    }
+                }
+            }
         }
 
         // virtual scroll phantom
@@ -294,17 +361,17 @@
         }
 
         // is cell editing
-        &.ve-table-is-cell-editing {
-            .ve-table-content {
-                .ve-table-body {
-                    .ve-table-body-tr {
-                        .ve-table-body-td.ve-table-cell-selection {
-                            border-width: 0px;
-                        }
-                    }
-                }
-            }
-        }
+        // &.ve-table-is-cell-editing {
+        //     .ve-table-content {
+        //         .ve-table-body {
+        //             .ve-table-body-tr {
+        //                 .ve-table-body-td.ve-table-cell-selection {
+        //                     border-width: 0px;
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
 
         // border x
         .ve-table-border-x {
