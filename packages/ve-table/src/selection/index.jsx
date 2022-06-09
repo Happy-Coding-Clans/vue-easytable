@@ -1,5 +1,15 @@
-import { clsName, getFixedTotalWidthByColumnKey } from "../util";
-import { COMPS_NAME, EMIT_EVENTS, HOOKS_NAME } from "../util/constant";
+import {
+    clsName,
+    getFixedTotalWidthByColumnKey,
+    isLastColumnByColKey,
+    isLastRowByRowKey,
+} from "../util";
+import {
+    COMPS_NAME,
+    EMIT_EVENTS,
+    HOOKS_NAME,
+    CELL_SELECTION_TYPES,
+} from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 import { isEmptyValue } from "../../../src/utils/index.js";
 
@@ -7,6 +17,14 @@ export default {
     name: COMPS_NAME.VE_TABLE_SELECTION,
     mixins: [emitter],
     props: {
+        allRowKeys: {
+            type: Array,
+            required: true,
+        },
+        colgroups: {
+            type: Array,
+            required: true,
+        },
         parentRendered: {
             type: Boolean,
             required: true,
@@ -68,6 +86,34 @@ export default {
         // start cell style
         startCellStyle() {
             return {};
+        },
+
+        // corner cell info
+        cornerCellInfo() {
+            const {
+                allRowKeys,
+                colgroups,
+                cellSelectionKeyData,
+                cellSelectionEndCell,
+            } = this;
+
+            return {
+                isLastColumn:
+                    isLastColumnByColKey(
+                        cellSelectionKeyData.colKey,
+                        colgroups,
+                    ) ||
+                    isLastColumnByColKey(
+                        cellSelectionEndCell.colKey,
+                        colgroups,
+                    ),
+                isLastRow:
+                    isLastRowByRowKey(
+                        cellSelectionKeyData.rowKey,
+                        allRowKeys,
+                    ) ||
+                    isLastRowByRowKey(cellSelectionEndCell.rowKey, allRowKeys),
+            };
         },
     },
 
@@ -164,7 +210,8 @@ export default {
                 };
             }
 
-            if (cellSelectionType === "range" && endCellEl) {
+            // range type
+            if (cellSelectionType === CELL_SELECTION_TYPES.RANGE && endCellEl) {
                 const {
                     left: cellLeft,
                     top: cellTop,
@@ -234,6 +281,7 @@ export default {
             result = this.getBorders({
                 ...borderCollection,
                 showCorner: !endCellRect.width,
+                className: "selection-current",
             });
 
             return result;
@@ -295,7 +343,7 @@ export default {
                 borderCollection.topBorder.left = startCellRect.left - 1;
                 borderCollection.rightBorder.left =
                     endCellRect.left + endCellRect.width - 1;
-                borderCollection.bottomBorder.left = startCellRect.left;
+                borderCollection.bottomBorder.left = startCellRect.left - 1;
                 borderCollection.leftBorder.left = startCellRect.left - 1;
             }
             // end cell left or equal
@@ -309,7 +357,7 @@ export default {
                 borderCollection.topBorder.left = endCellRect.left - 1;
                 borderCollection.rightBorder.left =
                     startCellRect.left + startCellRect.width - 1;
-                borderCollection.bottomBorder.left = endCellRect.left;
+                borderCollection.bottomBorder.left = endCellRect.left - 1;
                 borderCollection.leftBorder.left = endCellRect.left - 1;
             }
 
@@ -336,11 +384,14 @@ export default {
                 borderCollection.leftBorder.top = endCellRect.top;
             }
 
-            borderCollection.corner.top = borderCollection.bottomBorder.top - 3;
+            borderCollection.corner.top = borderCollection.bottomBorder.top - 4;
             borderCollection.corner.left =
-                borderCollection.rightBorder.left - 3;
+                borderCollection.rightBorder.left - 4;
 
-            result = this.getBorders({ ...borderCollection });
+            result = this.getBorders({
+                ...borderCollection,
+                className: "selection-area",
+            });
 
             return result;
         },
@@ -355,9 +406,27 @@ export default {
             leftBorder,
             corner,
             showCorner = true,
+            className,
         }) {
+            const { cornerCellInfo } = this;
+
+            let cornerTop = corner.top;
+            let cornerLeft = corner.left;
+            let cornerBorderRightWidth = "1px";
+            let cornerBorderBottomtWidth = "1px";
+
+            if (cornerCellInfo.isLastRow) {
+                cornerTop -= 3;
+                cornerBorderBottomtWidth = "0px";
+            }
+
+            if (cornerCellInfo.isLastColumn) {
+                cornerLeft -= 3;
+                cornerBorderRightWidth = "0px";
+            }
+
             return (
-                <div class={clsName("selection-area")}>
+                <div class={clsName(className)}>
                     {/* top */}
                     <div
                         style={{
@@ -402,8 +471,9 @@ export default {
                     {showCorner && (
                         <div
                             style={{
-                                top: corner.top + "px",
-                                left: corner.left + "px",
+                                top: cornerTop + "px",
+                                left: cornerLeft + "px",
+                                borderWidth: `1px ${cornerBorderRightWidth} ${cornerBorderBottomtWidth} 1px`,
                             }}
                             class={clsName("selection-corner")}
                         ></div>

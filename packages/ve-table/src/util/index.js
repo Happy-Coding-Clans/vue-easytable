@@ -29,13 +29,37 @@ export function getRowKey(rowData, rowKeyFieldName) {
 /*
  * @getColumnByColkey
  * @desc  get column by col key
- * @param {string} rowKeyFieldName - row key field name
+ * @param {string} colKey - column key
  */
 export function getColumnByColkey(colKey, colgroups) {
     if (colKey) {
         return colgroups.find((x) => x.key === colKey);
     }
     return null;
+}
+
+/*
+ * @isLastColumnByColKey
+ * @desc is last column by column key
+ * @param {string} colKey - column key
+ */
+export function isLastColumnByColKey(colKey, colgroups) {
+    if (!isEmptyValue(colKey) && !isEmptyArray(colgroups)) {
+        return colgroups[colgroups.length - 1].key === colKey;
+    }
+    return false;
+}
+
+/*
+ * @isLastRowByRowKey
+ * @desc is last row by row key
+ * @param {string} rowKey - row key
+ */
+export function isLastRowByRowKey(rowKey, allRowKeys) {
+    if (!isEmptyValue(rowKey) && !isEmptyArray(allRowKeys)) {
+        return allRowKeys[allRowKeys.length - 1] === rowKey;
+    }
+    return false;
 }
 
 /*

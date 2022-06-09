@@ -32,6 +32,12 @@ export const CELL_SELECTION_DIRECTION = {
     LEFT: "left",
 };
 
+// cell selection types
+export const CELL_SELECTION_TYPES = {
+    SINGLE: "single",
+    RANGE: "range",
+};
+
 // emit events
 export const EMIT_EVENTS = {
     // body-td-width-change
