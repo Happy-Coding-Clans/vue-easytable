@@ -151,6 +151,8 @@ export default {
                     this.$nextTick(() => {
                         this.setSelectionPositions();
                     });
+                } else {
+                    this.clearStartCellRect();
                 }
             },
             deep: true,
@@ -165,6 +167,8 @@ export default {
                     this.$nextTick(() => {
                         this.setSelectionPositions();
                     });
+                } else {
+                    this.clearEndCellRect();
                 }
             },
             deep: true,
@@ -226,6 +230,28 @@ export default {
                     height: cellHeight,
                 };
             }
+        },
+
+        // clear end cell rect
+        clearStartCellRect() {
+            this.startCellEl = null;
+            this.selectionRect.startCellRect = {
+                left: 0,
+                top: 0,
+                width: 0,
+                height: 0,
+            };
+        },
+
+        // clear end cell rect
+        clearEndCellRect() {
+            this.endCellEl = null;
+            this.selectionRect.endCellRect = {
+                left: 0,
+                top: 0,
+                width: 0,
+                height: 0,
+            };
         },
 
         // get selection current

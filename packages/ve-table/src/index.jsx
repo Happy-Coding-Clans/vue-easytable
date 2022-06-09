@@ -792,9 +792,20 @@ export default {
             this.cellSelectionKeyData.colKey = colKey;
         },
 
+        // cell selection end cell
+        cellSelectionEndCellChange({ rowKey, colKey }) {
+            this.cellSelectionEndCell.rowKey = rowKey;
+            this.cellSelectionEndCell.colKey = colKey;
+        },
+
         // clear cell selection
         clearCellSelectionKey() {
             this.cellSelectionKeyChange({ rowKey: "", colKey: "" });
+        },
+
+        // clear end cell selection
+        clearCellSelectionEndCell() {
+            this.cellSelectionEndCellChange({ rowKey: "", colKey: "" });
         },
 
         // deal keydown event
@@ -1518,7 +1529,7 @@ export default {
                 return false;
             }
 
-            const { cellSelectionKeyData } = this;
+            const { cellSelectionKeyData, cellSelectionEndCell } = this;
 
             const { rowKey, colKey } = cellSelectionKeyData;
 
@@ -1527,6 +1538,14 @@ export default {
                  clear cell selection
                 */
                 this.clearCellSelectionKey();
+            }
+
+            // 需要重构
+            if (
+                !isEmptyValue(cellSelectionEndCell.rowKey) &&
+                !isEmptyValue(cellSelectionEndCell.colKey)
+            ) {
+                this.clearCellSelectionEndCell();
             }
 
             // stop editing cell
@@ -1669,6 +1688,9 @@ export default {
                 this.cellSelectionEndCell.colKey = column.key;
 
                 return false;
+            } else {
+                this.cellSelectionEndCell.rowKey = "";
+                this.cellSelectionEndCell.colKey = "";
             }
 
             // cell selection by click
