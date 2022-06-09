@@ -38,6 +38,7 @@ import Header from "./header";
 import Body from "./body";
 import Footer from "./footer";
 import EditInput from "./editor/edit-input";
+import Selection from "./selection/index";
 import { KEY_CODES } from "../../src/utils/constant";
 import { getScrollbarWidth } from "../../src/utils/scroll-bar";
 import {
@@ -300,6 +301,11 @@ export default {
             previewTableContainerScrollLeft: null,
             // cell selection key
             cellSelectionKeyData: {
+                rowKey: "",
+                colKey: "",
+            },
+            // 临时的属性，后面合并到 cellSelectionKeyData 中
+            cellSelectionEndCell: {
                 rowKey: "",
                 colKey: "",
             },
@@ -1649,8 +1655,21 @@ export default {
          * @param {object} rowData - row data
          * @param {object} column - column data
          */
-        tdClick({ rowData, column }) {
-            const { editOption } = this;
+        tdClick({ event, rowData, column }) {
+            const { editOption, rowKeyFieldName } = this;
+
+            const { shiftKey } = event;
+
+            // cell selection range
+            if (shiftKey) {
+                // cellSelectionEndCell
+                const rowKey = getRowKey(rowData, rowKeyFieldName);
+
+                this.cellSelectionEndCell.rowKey = rowKey;
+                this.cellSelectionEndCell.colKey = column.key;
+
+                return false;
+            }
 
             // cell selection by click
             this.cellSelectionByClick({ rowData, column });
@@ -2125,6 +2144,7 @@ export default {
             cellSelectionKeyData,
             editOption,
             contextmenus,
+            allRowKeys,
         } = this;
 
         // header props
@@ -2170,7 +2190,7 @@ export default {
                 cellSelectionOption: this.cellSelectionOption,
                 hasFixedColumn: this.hasFixedColumn,
                 cellSelectionKeyData,
-                allRowKeys: this.allRowKeys,
+                allRowKeys,
                 editOption,
                 highlightRowKey: this.highlightRowKey,
                 showVirtualScrollingPlaceholder,
@@ -2194,7 +2214,7 @@ export default {
                 cellSpanOption: this.cellSpanOption,
                 eventCustomOption: this.eventCustomOption,
                 hasFixedColumn: this.hasFixedColumn,
-                allRowKeys: this.allRowKeys,
+                allRowKeys,
                 footerRows: this.footerRows,
             },
             nativeOn: {
@@ -2295,6 +2315,21 @@ export default {
             style: tableStyle,
         };
 
+        // selection props
+        const selectionProps = {
+            props: {
+                allRowKeys,
+                colgroups,
+                parentRendered: this.parentRendered,
+                hooks: this.hooks,
+                rowKeyFieldName,
+                cellSelectionKeyData,
+                cellSelectionEndCell: this.cellSelectionEndCell,
+                cellSelectionOption: this.cellSelectionOption,
+            },
+        };
+
+        // edit input props
         const editInputProps = {
             ref: this.editInputRef,
             props: {
@@ -2307,7 +2342,7 @@ export default {
                 colgroups,
                 editingCell: this.editingCell,
                 isCellEditing: this.isCellEditing,
-                allRowKeys: this.allRowKeys,
+                allRowKeys,
                 hasXScrollBar: this.hasXScrollBar,
                 hasYScrollBar: this.hasYScrollBar,
                 hasRightFixedColumn: this.hasRightFixedColumn,
@@ -2355,6 +2390,8 @@ export default {
                             {/* table footer */}
                             <Footer {...footerProps} />
                         </table>
+                        {/* cell selection */}
+                        <Selection {...selectionProps} />
                     </VueDomResizeObserver>
                 </div>
                 {/* edit input */}
