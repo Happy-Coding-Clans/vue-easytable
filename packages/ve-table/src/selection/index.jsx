@@ -194,14 +194,14 @@ export default {
             }
 
             const borderCollection = {
-                borderWidth: startCellRect.width,
+                borderWidth: startCellRect.width + 1,
                 borderHeight: startCellRect.height,
 
                 topBorder: {
                     width: 0,
                     height: 2,
-                    top: startCellRect.top,
-                    left: startCellRect.left,
+                    top: startCellRect.top - 1,
+                    left: startCellRect.left - 1,
                 },
                 rightBorder: {
                     width: 2,
@@ -213,13 +213,13 @@ export default {
                     width: 0,
                     height: 2,
                     top: startCellRect.top + startCellRect.height - 2,
-                    left: startCellRect.left,
+                    left: startCellRect.left - 1,
                 },
                 leftBorder: {
                     width: 2,
                     height: 0,
                     top: startCellRect.top,
-                    left: startCellRect.left,
+                    left: startCellRect.left - 1,
                 },
                 corner: {
                     top: 0,
@@ -288,23 +288,29 @@ export default {
             // end cell right
             if (endCellRect.left > startCellRect.left) {
                 borderCollection.borderWidth =
-                    endCellRect.left - startCellRect.left + endCellRect.width;
-                borderCollection.topBorder.left = startCellRect.left;
+                    endCellRect.left -
+                    startCellRect.left +
+                    endCellRect.width +
+                    1;
+                borderCollection.topBorder.left = startCellRect.left - 1;
                 borderCollection.rightBorder.left =
                     endCellRect.left + endCellRect.width - 1;
                 borderCollection.bottomBorder.left = startCellRect.left;
-                borderCollection.leftBorder.left = startCellRect.left;
+                borderCollection.leftBorder.left = startCellRect.left - 1;
             }
             // end cell left or equal
             else if (endCellRect.left <= startCellRect.left) {
                 borderCollection.borderWidth =
-                    startCellRect.left - endCellRect.left + startCellRect.width;
+                    startCellRect.left -
+                    endCellRect.left +
+                    startCellRect.width +
+                    1;
 
-                borderCollection.topBorder.left = endCellRect.left;
+                borderCollection.topBorder.left = endCellRect.left - 1;
                 borderCollection.rightBorder.left =
                     startCellRect.left + startCellRect.width - 1;
                 borderCollection.bottomBorder.left = endCellRect.left;
-                borderCollection.leftBorder.left = endCellRect.left;
+                borderCollection.leftBorder.left = endCellRect.left - 1;
             }
 
             // end cell below
@@ -312,7 +318,7 @@ export default {
                 borderCollection.borderHeight =
                     endCellRect.top - startCellRect.top + endCellRect.height;
 
-                borderCollection.topBorder.top = startCellRect.top;
+                borderCollection.topBorder.top = startCellRect.top - 1;
                 borderCollection.rightBorder.top = startCellRect.top;
                 borderCollection.bottomBorder.top =
                     endCellRect.top + endCellRect.height - 1;
@@ -323,16 +329,16 @@ export default {
                 borderCollection.borderHeight =
                     startCellRect.top - endCellRect.top + startCellRect.height;
 
-                borderCollection.topBorder.top = endCellRect.top;
+                borderCollection.topBorder.top = endCellRect.top - 1;
                 borderCollection.rightBorder.top = endCellRect.top;
                 borderCollection.bottomBorder.top =
                     startCellRect.top + startCellRect.height - 1;
                 borderCollection.leftBorder.top = endCellRect.top;
             }
 
-            borderCollection.corner.top = borderCollection.bottomBorder.top - 4;
+            borderCollection.corner.top = borderCollection.bottomBorder.top - 3;
             borderCollection.corner.left =
-                borderCollection.rightBorder.left - 4;
+                borderCollection.rightBorder.left - 3;
 
             result = this.getBorders({ ...borderCollection });
 
