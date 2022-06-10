@@ -1694,7 +1694,6 @@ export default {
 
                 return false;
             } else {
-                console.log(111);
                 this.cellSelectionEndCell.rowKey = "";
                 this.cellSelectionEndCell.colKey = "";
             }
