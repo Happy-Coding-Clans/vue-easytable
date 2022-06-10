@@ -310,6 +310,11 @@ export default {
                 colKey: "",
             },
             /*
+            is body td mouseup
+            用于阻止 selection area 绘制
+            */
+            isBodyTdMouseup: true,
+            /*
             table offest height（开启虚拟滚动时使用）
             1、当 :max-height="500" 时使用 max-height 
             2、当 max-height="calc(100vh - 210px)" 或者 max-height="80%" 时使用 tableOffestHeight
@@ -1689,6 +1694,7 @@ export default {
 
                 return false;
             } else {
+                console.log(111);
                 this.cellSelectionEndCell.rowKey = "";
                 this.cellSelectionEndCell.colKey = "";
             }
@@ -1713,6 +1719,54 @@ export default {
             if (editOption) {
                 this.editCellByClick({ isDblclick: true });
             }
+        },
+
+        /*
+         * @tdMouseover
+         * @desc  recieve td mouseover event
+         * @param {object} rowData - row data
+         * @param {object} column - column data
+         */
+        tdMouseover({ event, rowData, column }) {
+            const { rowKeyFieldName, isBodyTdMouseup } = this;
+
+            if (isBodyTdMouseup) {
+                return false;
+            }
+
+            const rowKey = getRowKey(rowData, rowKeyFieldName);
+
+            this.cellSelectionEndCell.rowKey = rowKey;
+            this.cellSelectionEndCell.colKey = column.key;
+        },
+
+        /*
+         * @tdMousedown
+         * @desc  recieve td mousedown event
+         * @param {object} rowData - row data
+         * @param {object} column - column data
+         */
+        tdMousedown({ event, rowData, column }) {
+            this.isBodyTdMouseup = false;
+
+            const { cellSelectionEndCell } = this;
+
+            if (cellSelectionEndCell.rowKey) {
+                return false;
+            }
+
+            // cell selection by click
+            this.cellSelectionByClick({ rowData, column });
+        },
+
+        /*
+         * @tdMouseup
+         * @desc  recieve td mouseup event
+         * @param {object} rowData - row data
+         * @param {object} column - column data
+         */
+        tdMouseup({ event, rowData, column }) {
+            this.isBodyTdMouseup = true;
         },
 
         // is edit column
@@ -2122,14 +2176,19 @@ export default {
             this.tdClick(params);
         });
 
-        // recieve td mousedown
-        this.$on(EMIT_EVENTS.BODY_TD_MOUSEDOWN, (params) => {
-            console.log("mousedown:", params);
+        // recieve td mouseover
+        this.$on(EMIT_EVENTS.BODY_TD_MOUSEOVER, (params) => {
+            this.tdMouseover(params);
         });
 
         // recieve td mousedown
-        this.$on(EMIT_EVENTS.BODY_TD_MOUSEOVER, (params) => {
-            console.log("mouseover:", params);
+        this.$on(EMIT_EVENTS.BODY_TD_MOUSEDOWN, (params) => {
+            this.tdMousedown(params);
+        });
+
+        // recieve td mousedown
+        this.$on(EMIT_EVENTS.BODY_TD_MOUSEUP, (params) => {
+            this.tdMouseup(params);
         });
 
         // recieve td contextmenu(right click)

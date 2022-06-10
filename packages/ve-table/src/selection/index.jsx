@@ -321,7 +321,7 @@ export default {
 
             const { startCellRect, endCellRect } = selectionRect;
 
-            if (!endCellRect.width) {
+            if (!startCellRect.width || !endCellRect.width) {
                 return result;
             }
 
