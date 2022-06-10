@@ -7,6 +7,16 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.18.0
+
+### Feature
+
+---
+
+### Feature
+
+-   事件自定义 body、header、footer 新增 mousemove、mousedown、mouseup 事件
+
 V2.17.3
 
 ### Bug Fixes
