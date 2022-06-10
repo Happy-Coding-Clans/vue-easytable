@@ -9,13 +9,17 @@ Vx.x.x(TPL)
 
 V2.18.0
 
+### 单元测试
+
+-   新增加的鼠标事件单元测试
+
 ### Feature
 
 ---
 
 ### Feature
 
--   事件自定义 body、header、footer 新增 mousemove、mousedown、mouseup 事件
+-   事件自定义 body、header、footer 新增 mousemove、mouseover、mousedown、mouseup 事件
 
 V2.17.3
 

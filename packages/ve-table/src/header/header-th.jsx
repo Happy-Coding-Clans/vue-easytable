@@ -391,6 +391,10 @@ export default {
         cellMousemove(e, fn) {
             fn && fn(e);
         },
+        // mouseover
+        cellMouseover(e, fn) {
+            fn && fn(e);
+        },
         // mousedown
         cellMousedown(e, fn) {
             fn && fn(e);
@@ -441,6 +445,7 @@ export default {
             mouseenter,
             mouseleave,
             mousemove,
+            mouseover,
             mousedown,
             mouseup,
         } = customEvents;
@@ -463,6 +468,9 @@ export default {
             },
             mousemove: (e) => {
                 this.cellMousemove(e, mousemove);
+            },
+            mouseover: (e) => {
+                this.cellMouseover(e, mouseover);
             },
             mousedown: (e) => {
                 this.cellMousedown(e, mousedown);

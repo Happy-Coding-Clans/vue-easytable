@@ -446,9 +446,29 @@ export default {
         cellMousemove(e, fn) {
             fn && fn(e);
         },
+        // mouseover
+        cellMouseover(e, fn) {
+            fn && fn(e);
+
+            const { column, rowData } = this;
+
+            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_TD_MOUSEOVER, {
+                event: e,
+                rowData,
+                column,
+            });
+        },
         // mousedown
         cellMousedown(e, fn) {
             fn && fn(e);
+
+            const { column, rowData } = this;
+
+            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_TD_MOUSEDOWN, {
+                event: e,
+                rowData,
+                column,
+            });
         },
         // mouseup
         cellMouseup(e, fn) {
@@ -502,6 +522,7 @@ export default {
             mouseenter,
             mouseleave,
             mousemove,
+            mouseover,
             mousedown,
             mouseup,
         } = customEvents;
@@ -524,6 +545,9 @@ export default {
             },
             mousemove: (e) => {
                 this.cellMousemove(e, mousemove);
+            },
+            mouseover: (e) => {
+                this.cellMouseover(e, mouseover);
             },
             mousedown: (e) => {
                 this.cellMousedown(e, mousedown);

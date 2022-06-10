@@ -2122,6 +2122,16 @@ export default {
             this.tdClick(params);
         });
 
+        // recieve td mousedown
+        this.$on(EMIT_EVENTS.BODY_TD_MOUSEDOWN, (params) => {
+            console.log("mousedown:", params);
+        });
+
+        // recieve td mousedown
+        this.$on(EMIT_EVENTS.BODY_TD_MOUSEOVER, (params) => {
+            console.log("mouseover:", params);
+        });
+
         // recieve td contextmenu(right click)
         this.$on(EMIT_EVENTS.BODY_TD_CONTEXTMENU, (params) => {
             this.tdContextmenu(params);
