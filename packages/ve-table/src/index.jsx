@@ -306,7 +306,7 @@ export default {
             },
             // cell selection data
             cellSelectionData: {
-                startCell: {
+                currentCell: {
                     rowKey: "",
                     colKey: "",
                 },
@@ -804,8 +804,8 @@ export default {
 
         // cell selection satrt cell change
         cellSelectionStartCellChange({ rowKey, colKey }) {
-            this.cellSelectionData.startCell.rowKey = rowKey;
-            this.cellSelectionData.startCell.colKey = colKey;
+            this.cellSelectionData.currentCell.rowKey = rowKey;
+            this.cellSelectionData.currentCell.colKey = colKey;
         },
 
         // cell selection end cell
@@ -828,14 +828,14 @@ export default {
         dealKeydownEvent(event) {
             const {
                 colgroups,
-                cellSelectionKeyData,
+                cellSelectionData,
                 enableStopEditing,
                 isCellEditing,
             } = this;
 
             const { keyCode, ctrlKey, shiftKey, altKey } = event;
 
-            const { rowKey, colKey } = cellSelectionKeyData;
+            const { rowKey, colKey } = cellSelectionData.currentCell;
 
             const currentColumn = colgroups.find((x) => x.key === colKey);
 
@@ -1008,9 +1008,9 @@ export default {
 
         // select cell by direction
         selectCellByDirection({ direction }) {
-            const { colgroups, allRowKeys, cellSelectionKeyData } = this;
+            const { colgroups, allRowKeys, cellSelectionData } = this;
 
-            const { rowKey, colKey } = cellSelectionKeyData;
+            const { rowKey, colKey } = cellSelectionData.currentCell;
 
             let columnIndex = colgroups.findIndex((x) => x.key === colKey);
             let rowIndex = allRowKeys.indexOf(rowKey);
@@ -1018,13 +1018,13 @@ export default {
             if (direction === CELL_SELECTION_DIRECTION.LEFT) {
                 if (columnIndex > 0) {
                     let nextColumn = colgroups[columnIndex - 1];
-                    this.cellSelectionKeyData.colKey = nextColumn.key;
+                    this.cellSelectionData.currentCell.colKey = nextColumn.key;
                     this.columnToVisible(nextColumn);
                 }
             } else if (direction === CELL_SELECTION_DIRECTION.RIGHT) {
                 if (columnIndex < colgroups.length - 1) {
                     let nextColumn = colgroups[columnIndex + 1];
-                    this.cellSelectionKeyData.colKey = nextColumn.key;
+                    this.cellSelectionData.currentCell.colKey = nextColumn.key;
                     this.columnToVisible(nextColumn);
                 }
             } else if (direction === CELL_SELECTION_DIRECTION.UP) {
@@ -1170,7 +1170,7 @@ export default {
                     }
                 }
                 // 解决滚动过快导致选中框消失的问题
-                this.cellSelectionKeyData.rowKey = nextRowKey;
+                this.cellSelectionData.currentCell.rowKey = nextRowKey;
             }
         },
 
@@ -1545,11 +1545,14 @@ export default {
                 return false;
             }
 
-            const { cellSelectionKeyData, cellSelectionEndCell } = this;
+            const { cellSelectionData } = this;
 
-            const { rowKey, colKey } = cellSelectionKeyData;
+            const { currentCell, endCell } = cellSelectionData;
 
-            if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+            if (
+                !isEmptyValue(currentCell.rowKey) &&
+                !isEmptyValue(currentCell.colKey)
+            ) {
                 /*
                  clear cell selection
                 */
@@ -1558,8 +1561,8 @@ export default {
 
             // 需要重构
             if (
-                !isEmptyValue(cellSelectionEndCell.rowKey) &&
-                !isEmptyValue(cellSelectionEndCell.colKey)
+                !isEmptyValue(endCell.rowKey) &&
+                !isEmptyValue(endCell.colKey)
             ) {
                 this.clearCellSelectionEndCell();
             }
@@ -1574,10 +1577,10 @@ export default {
                 colgroups,
                 rowKeyFieldName,
                 editOption,
-                cellSelectionKeyData,
+                cellSelectionData,
             } = this;
 
-            const { rowKey, colKey } = cellSelectionKeyData;
+            const { rowKey, colKey } = cellSelectionData.currentCell;
 
             if (isEmptyValue(rowKey) || isEmptyValue(colKey)) {
                 return false;
