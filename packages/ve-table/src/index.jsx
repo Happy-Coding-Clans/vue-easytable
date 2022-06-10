@@ -304,6 +304,17 @@ export default {
                 rowKey: "",
                 colKey: "",
             },
+            // cell selection data
+            cellSelectionData: {
+                startCell: {
+                    rowKey: "",
+                    colKey: "",
+                },
+                endCell: {
+                    rowKey: "",
+                    colKey: "",
+                },
+            },
             // 临时的属性，后面合并到 cellSelectionKeyData 中
             cellSelectionEndCell: {
                 rowKey: "",
@@ -791,24 +802,24 @@ export default {
             );
         },
 
-        // cell selection key change
-        cellSelectionKeyChange({ rowKey, colKey }) {
-            this.cellSelectionKeyData.rowKey = rowKey;
-            this.cellSelectionKeyData.colKey = colKey;
+        // cell selection satrt cell change
+        cellSelectionStartCellChange({ rowKey, colKey }) {
+            this.cellSelectionData.startCell.rowKey = rowKey;
+            this.cellSelectionData.startCell.colKey = colKey;
         },
 
         // cell selection end cell
         cellSelectionEndCellChange({ rowKey, colKey }) {
-            this.cellSelectionEndCell.rowKey = rowKey;
-            this.cellSelectionEndCell.colKey = colKey;
+            this.cellSelectionData.endCell.rowKey = rowKey;
+            this.cellSelectionData.endCell.colKey = colKey;
         },
 
-        // clear cell selection
-        clearCellSelectionKey() {
-            this.cellSelectionKeyChange({ rowKey: "", colKey: "" });
+        // clear cell selection start cell
+        clearCellSelectionStartCell() {
+            this.cellSelectionStartCellChange({ rowKey: "", colKey: "" });
         },
 
-        // clear end cell selection
+        // clear cell selection start cell
         clearCellSelectionEndCell() {
             this.cellSelectionEndCellChange({ rowKey: "", colKey: "" });
         },
@@ -1542,7 +1553,7 @@ export default {
                 /*
                  clear cell selection
                 */
-                this.clearCellSelectionKey();
+                this.clearCellSelectionStartCell();
             }
 
             // 需要重构
@@ -1933,7 +1944,7 @@ export default {
             }
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                this.cellSelectionKeyChange({
+                this.cellSelectionStartCellChange({
                     rowKey,
                     colKey,
                 });
@@ -2088,7 +2099,7 @@ export default {
                 cellSelectionKeyData.colKey !== colKey ||
                 cellSelectionKeyData.rowKey !== rowKey
             ) {
-                this.cellSelectionKeyChange({
+                this.cellSelectionStartCellChange({
                     rowKey,
                     colKey,
                 });
