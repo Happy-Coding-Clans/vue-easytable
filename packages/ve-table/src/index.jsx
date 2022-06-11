@@ -1748,11 +1748,14 @@ export default {
         tdMousedown({ event, rowData, column }) {
             this.isBodyTdMouseup = false;
 
+            const { shiftKey } = event;
+
             const { cellSelectionData } = this;
 
             const currentCell = cellSelectionData.currentCell;
 
             if (
+                shiftKey &&
                 !isEmptyValue(currentCell.rowKey) &&
                 !isEmptyValue(currentCell.colKey)
             ) {
