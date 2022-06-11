@@ -43,24 +43,16 @@ export default {
                 return null;
             },
         },
-        cellSelectionKeyData: {
+        cellSelectionData: {
             type: Object,
-            default: function () {
-                return null;
-            },
-        },
-        cellSelectionEndCell: {
-            type: Object,
-            default: function () {
-                return null;
-            },
+            required: true,
         },
     },
 
     data() {
         return {
-            // as current cell
-            startCellEl: null,
+            // current cell
+            currentCellEl: null,
             endCellEl: null,
             // selection rect
             selectionRect: {
@@ -90,29 +82,17 @@ export default {
 
         // corner cell info
         cornerCellInfo() {
-            const {
-                allRowKeys,
-                colgroups,
-                cellSelectionKeyData,
-                cellSelectionEndCell,
-            } = this;
+            const { allRowKeys, colgroups, cellSelectionData } = this;
+
+            const { currentCell, endCell } = cellSelectionData;
 
             return {
                 isLastColumn:
-                    isLastColumnByColKey(
-                        cellSelectionKeyData.colKey,
-                        colgroups,
-                    ) ||
-                    isLastColumnByColKey(
-                        cellSelectionEndCell.colKey,
-                        colgroups,
-                    ),
+                    isLastColumnByColKey(currentCell.colKey, colgroups) ||
+                    isLastColumnByColKey(endCell.colKey, colgroups),
                 isLastRow:
-                    isLastRowByRowKey(
-                        cellSelectionKeyData.rowKey,
-                        allRowKeys,
-                    ) ||
-                    isLastRowByRowKey(cellSelectionEndCell.rowKey, allRowKeys),
+                    isLastRowByRowKey(currentCell.rowKey, allRowKeys) ||
+                    isLastRowByRowKey(endCell.rowKey, allRowKeys),
             };
         },
     },
@@ -127,8 +107,8 @@ export default {
                     this.hooks.addHook(
                         HOOKS_NAME.TABLE_CONTAINER_SCROLL,
                         () => {
-                            if (!this.startCellEl) {
-                                this.setStartCellEl();
+                            if (!this.currentCellEl) {
+                                this.setCurrentCellEl();
                             }
                             this.setSelectionPositions();
                         },
@@ -141,12 +121,12 @@ export default {
             },
             immediate: true,
         },
-        // cell selection key data
-        cellSelectionKeyData: {
+        // watch current cell
+        "cellSelectionData.currentCell": {
             handler: function (val) {
                 const { rowKey, colKey } = val;
                 if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                    this.setStartCellEl();
+                    this.setCurrentCellEl();
                     // wait for selection cell rendered
                     this.$nextTick(() => {
                         this.setSelectionPositions();
@@ -158,7 +138,8 @@ export default {
             deep: true,
             immediate: true,
         },
-        cellSelectionEndCell: {
+        // watch current cell
+        "cellSelectionData.endCell": {
             handler: function (val) {
                 const { rowKey, colKey } = val;
                 if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
@@ -179,7 +160,7 @@ export default {
     methods: {
         // set selection positions
         setSelectionPositions() {
-            const { tableEl, startCellEl, endCellEl, cellSelectionOption } =
+            const { tableEl, currentCellEl, endCellEl, cellSelectionOption } =
                 this;
 
             if (!tableEl) {
@@ -196,7 +177,7 @@ export default {
             } = tableEl.getBoundingClientRect();
 
             // set start cell position
-            if (startCellEl) {
+            if (currentCellEl) {
                 const {
                     left: cellLeft,
                     top: cellTop,
@@ -204,7 +185,7 @@ export default {
                     width: cellWidth,
                     right: cellRight,
                     bottom: cellBottom,
-                } = startCellEl.getBoundingClientRect();
+                } = currentCellEl.getBoundingClientRect();
 
                 this.selectionRect.startCellRect = {
                     left: cellLeft - tableLeft,
@@ -234,7 +215,7 @@ export default {
 
         // clear end cell rect
         clearStartCellRect() {
-            this.startCellEl = null;
+            this.currentCellEl = null;
             this.selectionRect.startCellRect = {
                 left: 0,
                 top: 0,
@@ -509,18 +490,18 @@ export default {
         },
 
         // set start cell el
-        setStartCellEl() {
-            const { cellSelectionKeyData, tableEl } = this;
+        setCurrentCellEl() {
+            const { cellSelectionData, tableEl } = this;
 
-            const { rowKey, colKey } = cellSelectionKeyData;
+            const { rowKey, colKey } = cellSelectionData.currentCell;
 
             if (tableEl) {
-                const startCellEl = tableEl.querySelector(
+                const currentCellEl = tableEl.querySelector(
                     `tbody.ve-table-body tr[row-key="${rowKey}"] td[col-key="${colKey}"]`,
                 );
 
-                if (startCellEl) {
-                    this.startCellEl = startCellEl;
+                if (currentCellEl) {
+                    this.currentCellEl = currentCellEl;
                     //this.overflowViewport = false;
                 }
             }
@@ -528,9 +509,9 @@ export default {
 
         // set end cell el
         setEndCellEl() {
-            const { cellSelectionEndCell, tableEl } = this;
+            const { cellSelectionData, tableEl } = this;
 
-            const { rowKey, colKey } = cellSelectionEndCell;
+            const { rowKey, colKey } = cellSelectionData.endCell;
 
             if (tableEl) {
                 const endCellEl = tableEl.querySelector(

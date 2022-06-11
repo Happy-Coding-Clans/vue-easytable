@@ -315,11 +315,6 @@ export default {
                     colKey: "",
                 },
             },
-            // 临时的属性，后面合并到 cellSelectionKeyData 中
-            cellSelectionEndCell: {
-                rowKey: "",
-                colKey: "",
-            },
             /*
             is body td mouseup
             用于阻止 selection area 绘制
@@ -1700,16 +1695,13 @@ export default {
 
             // cell selection range
             if (shiftKey) {
-                // cellSelectionEndCell
                 const rowKey = getRowKey(rowData, rowKeyFieldName);
 
-                this.cellSelectionEndCell.rowKey = rowKey;
-                this.cellSelectionEndCell.colKey = column.key;
+                this.cellSelectionEndCellChange({ rowKey, colKey: column.key });
 
                 return false;
             } else {
-                this.cellSelectionEndCell.rowKey = "";
-                this.cellSelectionEndCell.colKey = "";
+                this.clearCellSelectionEndCell();
             }
 
             // cell selection by click
@@ -1749,8 +1741,7 @@ export default {
 
             const rowKey = getRowKey(rowData, rowKeyFieldName);
 
-            this.cellSelectionEndCell.rowKey = rowKey;
-            this.cellSelectionEndCell.colKey = column.key;
+            this.cellSelectionEndCellChange({ rowKey, colKey: column.key });
         },
 
         /*
@@ -1762,9 +1753,14 @@ export default {
         tdMousedown({ event, rowData, column }) {
             this.isBodyTdMouseup = false;
 
-            const { cellSelectionEndCell } = this;
+            const { cellSelectionData } = this;
 
-            if (cellSelectionEndCell.rowKey) {
+            const currentCell = cellSelectionData.currentCell;
+
+            if (
+                !isEmptyValue(currentCell.rowKey) &&
+                !isEmptyValue(currentCell.colKey)
+            ) {
                 return false;
             }
 
@@ -1798,7 +1794,7 @@ export default {
                 isCellEditing,
                 hasEditColumn,
                 editingCell,
-                cellSelectionKeyData,
+                cellSelectionData,
                 isEditColumn,
             } = this;
 
@@ -1811,7 +1807,7 @@ export default {
                 return false;
             }
 
-            const { rowKey, colKey } = cellSelectionKeyData;
+            const { rowKey, colKey } = cellSelectionData.currentCell;
 
             if (isEmptyValue(rowKey) || isEmptyValue(colKey)) {
                 return false;
@@ -1883,14 +1879,14 @@ export default {
         contextmenuCallBack(type) {
             const {
                 contextmenuBodyOption,
-                cellSelectionKeyData,
+                cellSelectionData,
                 tableData,
                 allRowKeys,
                 colgroups,
                 rowKeyFieldName,
             } = this;
 
-            const { rowKey, colKey } = cellSelectionKeyData;
+            const { rowKey, colKey } = cellSelectionData.currentCell;
             const { callback } = contextmenuBodyOption;
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
@@ -1923,7 +1919,10 @@ export default {
 
                 // callback
                 if (isFunction(callback)) {
-                    callback({ type, selection: cellSelectionKeyData });
+                    callback({
+                        type,
+                        selection: cellSelectionData.currentCell,
+                    });
                 }
             }
         },
@@ -2066,7 +2065,7 @@ export default {
                 colgroups,
                 rowKeyFieldName,
                 editingCell,
-                cellSelectionKeyData,
+                cellSelectionData,
             } = this;
 
             if (!editOption) {
@@ -2099,8 +2098,8 @@ export default {
             }
 
             if (
-                cellSelectionKeyData.colKey !== colKey ||
-                cellSelectionKeyData.rowKey !== rowKey
+                cellSelectionData.currentCell.colKey !== colKey ||
+                cellSelectionData.currentCell.rowKey !== rowKey
             ) {
                 this.cellSelectionStartCellChange({
                     rowKey,
@@ -2245,6 +2244,7 @@ export default {
             sortOption,
             cellStyleOption,
             showVirtualScrollingPlaceholder,
+            cellSelectionData,
             cellSelectionKeyData,
             editOption,
             contextmenus,
@@ -2427,9 +2427,8 @@ export default {
                 parentRendered: this.parentRendered,
                 hooks: this.hooks,
                 rowKeyFieldName,
-                cellSelectionKeyData,
-                cellSelectionEndCell: this.cellSelectionEndCell,
                 cellSelectionOption: this.cellSelectionOption,
+                cellSelectionData,
             },
         };
 
