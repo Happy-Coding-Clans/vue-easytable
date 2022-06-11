@@ -299,11 +299,6 @@ export default {
             scrollBarWidth: 0,
             // preview table container scrollLeft （处理左列或右列固定效果）
             previewTableContainerScrollLeft: null,
-            // cell selection key
-            cellSelectionKeyData: {
-                rowKey: "",
-                colKey: "",
-            },
             // cell selection data
             cellSelectionData: {
                 currentCell: {
@@ -2245,7 +2240,6 @@ export default {
             cellStyleOption,
             showVirtualScrollingPlaceholder,
             cellSelectionData,
-            cellSelectionKeyData,
             editOption,
             contextmenus,
             allRowKeys,
@@ -2293,7 +2287,7 @@ export default {
                 eventCustomOption: this.eventCustomOption,
                 cellSelectionOption: this.cellSelectionOption,
                 hasFixedColumn: this.hasFixedColumn,
-                cellSelectionKeyData,
+                cellSelectionData,
                 allRowKeys,
                 editOption,
                 highlightRowKey: this.highlightRowKey,
@@ -2441,7 +2435,7 @@ export default {
                 value: "",
                 rowKeyFieldName,
                 tableData: this.tableData,
-                cellSelectionKeyData,
+                cellSelectionData,
                 colgroups,
                 editingCell: this.editingCell,
                 isCellEditing: this.isCellEditing,

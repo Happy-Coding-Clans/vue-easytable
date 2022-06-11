@@ -111,7 +111,7 @@ export default {
             },
         },
         // cell selection key data
-        cellSelectionKeyData: {
+        cellSelectionData: {
             type: Object,
             default: function () {
                 return null;
@@ -231,7 +231,7 @@ export default {
                         cellStyleOption,
                         cellSpanOption: this.cellSpanOption,
                         eventCustomOption,
-                        cellSelectionKeyData: this.cellSelectionKeyData,
+                        cellSelectionData: this.cellSelectionData,
                         editOption: this.editOption,
                     },
                     on: {

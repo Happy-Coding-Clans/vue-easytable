@@ -39,7 +39,7 @@ export default {
             required: true,
         },
         // cell selection option
-        cellSelectionKeyData: {
+        cellSelectionData: {
             type: Object,
             required: true,
         },
@@ -102,12 +102,15 @@ export default {
         currentColumn() {
             let result = null;
 
-            const { colgroups, cellSelectionKeyData } = this;
+            const { colgroups, cellSelectionData } = this;
 
-            if (cellSelectionKeyData) {
-                result = colgroups.find(
-                    (x) => x.key === cellSelectionKeyData.colKey,
-                );
+            const { currentCell } = cellSelectionData;
+
+            if (
+                !isEmptyValue(currentCell.rowKey) &&
+                !isEmptyValue(currentCell.colKey)
+            ) {
+                result = colgroups.find((x) => x.key === currentCell.colKey);
             }
 
             return result;
@@ -207,7 +210,7 @@ export default {
             immediate: true,
         },
         // cell selection key data
-        cellSelectionKeyData: {
+        cellSelectionData: {
             handler: function (val) {
                 const { rowKey, colKey } = val;
                 if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
@@ -249,9 +252,9 @@ export default {
 
         // set cell element
         setCellEl() {
-            const { cellSelectionKeyData, tableEl } = this;
+            const { cellSelectionData, tableEl } = this;
 
-            const { rowKey, colKey } = cellSelectionKeyData;
+            const { rowKey, colKey } = cellSelectionData.currentCell;
 
             if (tableEl) {
                 const cellEl = tableEl.querySelector(
@@ -384,11 +387,11 @@ export default {
             const {
                 tableData,
                 rowKeyFieldName,
-                cellSelectionKeyData,
+                cellSelectionData,
                 currentColumn: column,
             } = this;
 
-            const { rowKey } = cellSelectionKeyData;
+            const { rowKey } = cellSelectionData.currentCell;
 
             const rowData = tableData.find((x) => x[rowKeyFieldName] == rowKey);
 

@@ -109,8 +109,8 @@ export default {
                 return null;
             },
         },
-        // cell selection key data
-        cellSelectionKeyData: {
+        // cell selection data
+        cellSelectionData: {
             type: Object,
             default: function () {
                 return null;
@@ -204,7 +204,7 @@ export default {
                 rowData,
                 column,
                 rowIndex,
-                cellSelectionKeyData,
+                cellSelectionData,
                 currentRowKey,
             } = this;
 
@@ -230,8 +230,8 @@ export default {
             }
 
             // cell selection option
-            if (cellSelectionKeyData) {
-                const { rowKey, colKey } = cellSelectionKeyData;
+            if (cellSelectionData) {
+                const { rowKey, colKey } = cellSelectionData.currentCell;
                 if (currentRowKey === rowKey && column["key"] === colKey) {
                     result[clsName("cell-selection")] = true;
                 }

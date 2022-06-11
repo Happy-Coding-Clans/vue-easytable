@@ -45,7 +45,7 @@ export default {
             },
         },
         // cell selection key data
-        cellSelectionKeyData: {
+        cellSelectionData: {
             type: Object,
             default: function () {
                 return null;
@@ -148,7 +148,7 @@ export default {
                         colgroups,
                         rowKeyFieldName,
                         cellStyleOption,
-                        cellSelectionKeyData: this.cellSelectionKeyData,
+                        cellSelectionData: this.cellSelectionData,
                         footerRows: this.footerRows,
                         fixedFooter: this.fixedFooter,
                         cellSpanOption: this.cellSpanOption,

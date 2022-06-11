@@ -118,7 +118,7 @@ export default {
             },
         },
         // cell selection key data
-        cellSelectionKeyData: {
+        cellSelectionData: {
             type: Object,
             default: function () {
                 return null;
@@ -895,7 +895,7 @@ export default {
                             cellSpanOption: this.cellSpanOption,
                             highlightRowKey: this.highlightRowKey,
                             eventCustomOption: this.eventCustomOption,
-                            cellSelectionKeyData: this.cellSelectionKeyData,
+                            cellSelectionData: this.cellSelectionData,
                             editOption: this.editOption,
                             columnCollection: this.columnCollection,
                         },
