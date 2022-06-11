@@ -210,7 +210,7 @@ export default {
             immediate: true,
         },
         // cell selection key data
-        cellSelectionData: {
+        "cellSelectionData.currentCell": {
             handler: function (val) {
                 const { rowKey, colKey } = val;
                 if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
