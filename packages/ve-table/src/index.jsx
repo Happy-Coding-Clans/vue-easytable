@@ -806,10 +806,16 @@ export default {
             this.cellSelectionData.currentCell.colKey = colKey;
         },
 
-        // cell selection end cell
+        // cell selection end cell change
         cellSelectionEndCellChange({ rowKey, colKey }) {
             this.cellSelectionData.endCell.rowKey = rowKey;
             this.cellSelectionData.endCell.colKey = colKey;
+        },
+
+        // cell selection auto fill cell change
+        cellSelectionAutofillCellChange({ rowKey, colKey }) {
+            this.cellSelectionData.autoFillEndCell.rowKey = rowKey;
+            this.cellSelectionData.autoFillEndCell.colKey = colKey;
         },
 
         // clear cell selection start cell
@@ -1748,15 +1754,24 @@ export default {
          * @param {object} column - column data
          */
         tdMouseover({ event, rowData, column }) {
-            const { rowKeyFieldName, isBodyTdMousedown } = this;
-
-            if (!isBodyTdMousedown) {
-                return false;
-            }
+            const {
+                rowKeyFieldName,
+                isBodyTdMousedown,
+                isCellSelectionCornerMousedown,
+            } = this;
 
             const rowKey = getRowKey(rowData, rowKeyFieldName);
 
-            this.cellSelectionEndCellChange({ rowKey, colKey: column.key });
+            if (isBodyTdMousedown) {
+                this.cellSelectionEndCellChange({ rowKey, colKey: column.key });
+            }
+
+            if (isCellSelectionCornerMousedown) {
+                this.cellSelectionAutofillCellChange({
+                    rowKey,
+                    colKey: column.key,
+                });
+            }
         },
 
         /*
