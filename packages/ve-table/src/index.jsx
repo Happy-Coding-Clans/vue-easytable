@@ -800,7 +800,7 @@ export default {
             );
         },
 
-        // cell selection satrt cell change
+        // cell selection current cell change
         cellSelectionCurrentCellChange({ rowKey, colKey }) {
             this.cellSelectionData.currentCell.rowKey = rowKey;
             this.cellSelectionData.currentCell.colKey = colKey;
