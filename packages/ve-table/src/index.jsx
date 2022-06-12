@@ -1543,8 +1543,6 @@ export default {
                 return false;
             }
 
-            console.log("tableClickOutside");
-
             this.isBodyTdMousedown = false;
             this.isCellSelectionCornerMousedown = false;
 

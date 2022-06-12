@@ -442,7 +442,6 @@ export default {
                 },
                 on: {
                     mousedown: (e) => {
-                        console.log("corner mousedown");
                         this.dispatch(
                             COMPS_NAME.VE_TABLE,
                             EMIT_EVENTS.SELECTION_CORNER_MOUSEDOWN,
