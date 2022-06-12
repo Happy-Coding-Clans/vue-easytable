@@ -1715,24 +1715,6 @@ export default {
         },
 
         /*
-         * @tdMouseover
-         * @desc  recieve td mouseover event
-         * @param {object} rowData - row data
-         * @param {object} column - column data
-         */
-        tdMouseover({ event, rowData, column }) {
-            const { rowKeyFieldName, isBodyTdMousedown } = this;
-
-            if (!isBodyTdMousedown) {
-                return false;
-            }
-
-            const rowKey = getRowKey(rowData, rowKeyFieldName);
-
-            this.cellSelectionEndCellChange({ rowKey, colKey: column.key });
-        },
-
-        /*
          * @tdMousedown
          * @desc  recieve td mousedown event
          * @param {object} rowData - row data
@@ -1757,6 +1739,24 @@ export default {
 
             // cell selection by click
             this.cellSelectionByClick({ rowData, column });
+        },
+
+        /*
+         * @tdMouseover
+         * @desc  recieve td mouseover event
+         * @param {object} rowData - row data
+         * @param {object} column - column data
+         */
+        tdMouseover({ event, rowData, column }) {
+            const { rowKeyFieldName, isBodyTdMousedown } = this;
+
+            if (!isBodyTdMousedown) {
+                return false;
+            }
+
+            const rowKey = getRowKey(rowData, rowKeyFieldName);
+
+            this.cellSelectionEndCellChange({ rowKey, colKey: column.key });
         },
 
         /*
