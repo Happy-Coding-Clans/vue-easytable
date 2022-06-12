@@ -117,12 +117,12 @@
 
                 // tbody
                 tbody.ve-table-body {
-                    user-select: none;
                     tr.ve-table-body-tr,
                     tr.ve-table-expand-tr {
                         height: @ve-table-body-row-height;
                         td.ve-table-body-td,
                         td.ve-table-expand-td {
+                            user-select: none;
                             background-color: @ve-table-body-background-color;
                             color: @ve-table-body-text-color;
                             // hack content fill td height
@@ -328,6 +328,8 @@
                         border-style: solid;
                         border-color: rgb(255, 255, 255);
                         background-color: rgb(75, 137, 255);
+                        cursor: crosshair;
+                        user-select: none;
                     }
 
                     .ve-table-selection-border {
