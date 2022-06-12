@@ -279,7 +279,8 @@
 
                 .ve-table-selection-fixed-left {
                     .ve-table-selection-current,
-                    .ve-table-selection-area {
+                    .ve-table-selection-area,
+                    .ve-table-selection-auto-fill {
                         .ve-table-selection-corner {
                             position: absolute;
                             z-index: 1;
@@ -293,7 +294,8 @@
 
                 .ve-table-selection-middle {
                     .ve-table-selection-current,
-                    .ve-table-selection-area {
+                    .ve-table-selection-area,
+                    .ve-table-selection-auto-fill {
                         .ve-table-selection-corner {
                             position: absolute;
                             z-index: 0;
@@ -307,7 +309,8 @@
 
                 .ve-table-selection-fixed-right {
                     .ve-table-selection-current,
-                    .ve-table-selection-area {
+                    .ve-table-selection-area,
+                    .ve-table-selection-auto-fill {
                         .ve-table-selection-corner {
                             position: absolute;
                             z-index: 1;
@@ -335,6 +338,13 @@
                     .ve-table-selection-border {
                         display: block;
                         background-color: rgb(75, 137, 255);
+                    }
+                }
+
+                .ve-table-selection-auto-fill {
+                    .ve-table-selection-border {
+                        display: block;
+                        background-color: green;
                     }
                 }
             }
