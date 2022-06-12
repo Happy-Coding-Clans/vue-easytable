@@ -432,6 +432,31 @@ export default {
                 cornerBorderRightWidth = "0px";
             }
 
+            // corner props
+            const cornerProps = {
+                class: clsName("selection-corner"),
+                style: {
+                    top: cornerTop + "px",
+                    left: cornerLeft + "px",
+                    borderWidth: `1px ${cornerBorderRightWidth} ${cornerBorderBottomtWidth} 1px`,
+                },
+                on: {
+                    mousedown: (e) => {
+                        console.log("corner mousedown");
+                        this.dispatch(
+                            COMPS_NAME.VE_TABLE,
+                            EMIT_EVENTS.SELECTION_CORNER_MOUSEDOWN,
+                            {
+                                event: e,
+                            },
+                        );
+                    },
+                    // mouseup: (e) => {
+                    //     console.log("corner mouseup");
+                    // },
+                },
+            };
+
             return (
                 <div class={clsName(className)}>
                     {/* top */}
@@ -475,16 +500,7 @@ export default {
                         class={clsName("selection-border")}
                     ></div>
                     {/* corner */}
-                    {showCorner && (
-                        <div
-                            style={{
-                                top: cornerTop + "px",
-                                left: cornerLeft + "px",
-                                borderWidth: `1px ${cornerBorderRightWidth} ${cornerBorderBottomtWidth} 1px`,
-                            }}
-                            class={clsName("selection-corner")}
-                        ></div>
-                    )}
+                    {showCorner && <div {...cornerProps}></div>}
                 </div>
             );
         },

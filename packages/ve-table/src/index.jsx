@@ -309,12 +309,20 @@ export default {
                     rowKey: "",
                     colKey: "",
                 },
+                autoFillEndCell: {
+                    rowKey: "",
+                    colKey: "",
+                },
             },
             /*
-            is body td mouseup
-            用于阻止 selection area 绘制
+            is body td mousedown
+            mousedown+mouseup 才允许 area 绘制
             */
-            isBodyTdMouseup: true,
+            isBodyTdMousedown: false,
+            /* 
+            is cell selection corner mousedown
+            */
+            isCellSelectionCornerMousedown: false,
             /*
             table offest height（开启虚拟滚动时使用）
             1、当 :max-height="500" 时使用 max-height 
@@ -793,7 +801,7 @@ export default {
         },
 
         // cell selection satrt cell change
-        cellSelectionStartCellChange({ rowKey, colKey }) {
+        cellSelectionCurrentCellChange({ rowKey, colKey }) {
             this.cellSelectionData.currentCell.rowKey = rowKey;
             this.cellSelectionData.currentCell.colKey = colKey;
         },
@@ -805,8 +813,8 @@ export default {
         },
 
         // clear cell selection start cell
-        clearCellSelectionStartCell() {
-            this.cellSelectionStartCellChange({ rowKey: "", colKey: "" });
+        clearCellSelectionCurrentCell() {
+            this.cellSelectionCurrentCellChange({ rowKey: "", colKey: "" });
         },
 
         // clear cell selection start cell
@@ -1535,27 +1543,14 @@ export default {
                 return false;
             }
 
-            const { cellSelectionData } = this;
+            console.log("tableClickOutside");
 
-            const { currentCell, endCell } = cellSelectionData;
+            this.isBodyTdMousedown = false;
+            this.isCellSelectionCornerMousedown = false;
 
-            if (
-                !isEmptyValue(currentCell.rowKey) &&
-                !isEmptyValue(currentCell.colKey)
-            ) {
-                /*
-                 clear cell selection
-                */
-                this.clearCellSelectionStartCell();
-            }
-
-            // 需要重构
-            if (
-                !isEmptyValue(endCell.rowKey) &&
-                !isEmptyValue(endCell.colKey)
-            ) {
-                this.clearCellSelectionEndCell();
-            }
+            // clear cell selection
+            this.clearCellSelectionCurrentCell();
+            this.clearCellSelectionEndCell();
 
             // stop editing cell
             this[INSTANCE_METHODS.STOP_EDITING_CELL]();
@@ -1728,9 +1723,9 @@ export default {
          * @param {object} column - column data
          */
         tdMouseover({ event, rowData, column }) {
-            const { rowKeyFieldName, isBodyTdMouseup } = this;
+            const { rowKeyFieldName, isBodyTdMousedown } = this;
 
-            if (isBodyTdMouseup) {
+            if (!isBodyTdMousedown) {
                 return false;
             }
 
@@ -1746,7 +1741,7 @@ export default {
          * @param {object} column - column data
          */
         tdMousedown({ event, rowData, column }) {
-            this.isBodyTdMouseup = false;
+            this.isBodyTdMousedown = true;
 
             const { shiftKey } = event;
 
@@ -1773,7 +1768,16 @@ export default {
          * @param {object} column - column data
          */
         tdMouseup({ event, rowData, column }) {
-            this.isBodyTdMouseup = true;
+            this.isBodyTdMousedown = false;
+            this.isCellSelectionCornerMousedown = false;
+        },
+
+        /*
+         * @cellSelectionCornerMousedown
+         * @desc  recieve cell selection corner mousedown
+         */
+        cellSelectionCornerMousedown({ event }) {
+            this.isCellSelectionCornerMousedown = true;
         },
 
         // is edit column
@@ -1944,7 +1948,7 @@ export default {
             }
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                this.cellSelectionStartCellChange({
+                this.cellSelectionCurrentCellChange({
                     rowKey,
                     colKey,
                 });
@@ -2099,7 +2103,7 @@ export default {
                 cellSelectionData.currentCell.colKey !== colKey ||
                 cellSelectionData.currentCell.rowKey !== rowKey
             ) {
-                this.cellSelectionStartCellChange({
+                this.cellSelectionCurrentCellChange({
                     rowKey,
                     colKey,
                 });
@@ -2194,6 +2198,11 @@ export default {
         // recieve td mousedown
         this.$on(EMIT_EVENTS.BODY_TD_MOUSEDOWN, (params) => {
             this.tdMousedown(params);
+        });
+
+        // recieve selection corner mousedown
+        this.$on(EMIT_EVENTS.SELECTION_CORNER_MOUSEDOWN, (params) => {
+            this.cellSelectionCornerMousedown(params);
         });
 
         // recieve td mousedown

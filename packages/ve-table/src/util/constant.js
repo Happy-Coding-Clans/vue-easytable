@@ -89,6 +89,11 @@ export const EMIT_EVENTS = {
     EDIT_INPUT_BLUR: "on-edit-input-blur",
     // edit input value change
     EDIT_INPUT_VALUE_CHANGE: "on-edit-input-value-change",
+
+    // selection corner mousedown
+    SELECTION_CORNER_MOUSEDOWN: "selection-corner-mousedown",
+    // selection corner mouseup
+    //SELECTION_CORNER_MOUSEUP: "selection-corner-mouseup",
 };
 
 // hooks name
