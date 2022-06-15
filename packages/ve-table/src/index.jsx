@@ -2448,6 +2448,8 @@ export default {
                 rowKeyFieldName,
                 cellSelectionOption: this.cellSelectionOption,
                 cellSelectionData,
+                isCellSelectionCornerMousedown:
+                    this.isCellSelectionCornerMousedown,
             },
         };
 

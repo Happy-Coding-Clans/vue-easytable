@@ -47,6 +47,10 @@ export default {
             type: Object,
             required: true,
         },
+        isCellSelectionCornerMousedown: {
+            type: Boolean,
+            required: true,
+        },
     },
 
     data() {
@@ -54,6 +58,7 @@ export default {
             // current cell
             currentCellEl: null,
             endCellEl: null,
+            autoFillEndCellEl: null,
             // selection rect
             selectionRect: {
                 // start cell element rect
@@ -70,16 +75,20 @@ export default {
                     width: 0,
                     height: 0,
                 },
+                // auto fill end cell element rect
+                autoFillEndCellRect: {
+                    left: 0,
+                    top: 0,
+                    width: 0,
+                    height: 0,
+                },
             },
+            // area postion
+            areaPostions: null,
         };
     },
 
     computed: {
-        // start cell style
-        startCellStyle() {
-            return {};
-        },
-
         // corner cell info
         cornerCellInfo() {
             const { allRowKeys, colgroups, cellSelectionData } = this;
@@ -110,12 +119,12 @@ export default {
                             if (!this.currentCellEl) {
                                 this.setCurrentCellEl();
                             }
-                            this.setSelectionPositions();
+                            this.setSelectionPositions({ type: "currentCell" });
                         },
                     );
                     // add table size change hook
                     this.hooks.addHook(HOOKS_NAME.TABLE_SIZE_CHANGE, () => {
-                        this.setSelectionPositions();
+                        this.setSelectionPositions({ type: "currentCell" });
                     });
                 }
             },
@@ -129,7 +138,7 @@ export default {
                     this.setCurrentCellEl();
                     // wait for selection cell rendered
                     this.$nextTick(() => {
-                        this.setSelectionPositions();
+                        this.setSelectionPositions({ type: "currentCell" });
                     });
                 } else {
                     this.clearStartCellRect();
@@ -146,7 +155,7 @@ export default {
                     this.setEndCellEl();
                     // wait for selection cell rendered
                     this.$nextTick(() => {
-                        this.setSelectionPositions();
+                        this.setSelectionPositions({ type: "endCell" });
                     });
                 } else {
                     this.clearEndCellRect();
@@ -155,61 +164,88 @@ export default {
             deep: true,
             immediate: true,
         },
+        // watch current cell
+        "cellSelectionData.autoFillEndCell": {
+            handler: function (val) {
+                const { rowKey, colKey } = val;
+                if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+                    this.setAutoFillEndCellEl();
+                    // wait for selection cell rendered
+                    this.$nextTick(() => {
+                        this.setSelectionPositions({ type: "autoFillEndCell" });
+                    });
+                } else {
+                    this.clearAutoFillEndCellRect();
+                }
+            },
+            deep: true,
+            immediate: true,
+        },
     },
 
     methods: {
+        // get cell position
+        getCellPosition({ cellEl, tableLeft, tableTop }) {
+            const {
+                left: cellLeft,
+                top: cellTop,
+                height: cellHeight,
+                width: cellWidth,
+            } = cellEl.getBoundingClientRect();
+
+            return {
+                left: cellLeft - tableLeft,
+                top: cellTop - tableTop,
+                width: cellWidth,
+                height: cellHeight,
+            };
+        },
+
         // set selection positions
-        setSelectionPositions() {
-            const { tableEl, currentCellEl, endCellEl, cellSelectionOption } =
-                this;
+        setSelectionPositions({ type }) {
+            const {
+                tableEl,
+                currentCellEl,
+                endCellEl,
+                autoFillEndCellEl,
+                // cellSelectionOption,
+                // isCellSelectionCornerMousedown,
+            } = this;
 
             if (!tableEl) {
                 return false;
             }
 
-            const { type: cellSelectionType } = cellSelectionOption;
-
             const {
                 left: tableLeft,
                 top: tableTop,
-                right: tableRight,
-                bottom: tableBottom,
+                // right: tableRight,
+                // bottom: tableBottom,
             } = tableEl.getBoundingClientRect();
 
             // set start cell position
-            if (currentCellEl) {
-                const {
-                    left: cellLeft,
-                    top: cellTop,
-                    height: cellHeight,
-                    width: cellWidth,
-                    right: cellRight,
-                    bottom: cellBottom,
-                } = currentCellEl.getBoundingClientRect();
-
-                this.selectionRect.startCellRect = {
-                    left: cellLeft - tableLeft,
-                    top: cellTop - tableTop,
-                    width: cellWidth,
-                    height: cellHeight,
-                };
+            if (currentCellEl && type === "currentCell") {
+                this.selectionRect.startCellRect = this.getCellPosition({
+                    cellEl: currentCellEl,
+                    tableLeft,
+                    tableTop,
+                });
             }
 
-            // range type
-            if (cellSelectionType === CELL_SELECTION_TYPES.RANGE && endCellEl) {
-                const {
-                    left: cellLeft,
-                    top: cellTop,
-                    height: cellHeight,
-                    width: cellWidth,
-                } = endCellEl.getBoundingClientRect();
+            if (endCellEl && type === "endCell") {
+                this.selectionRect.endCellRect = this.getCellPosition({
+                    cellEl: endCellEl,
+                    tableLeft,
+                    tableTop,
+                });
+            }
 
-                this.selectionRect.endCellRect = {
-                    left: cellLeft - tableLeft,
-                    top: cellTop - tableTop,
-                    width: cellWidth,
-                    height: cellHeight,
-                };
+            if (autoFillEndCellEl && type === "autoFillEndCell") {
+                this.selectionRect.autoFillEndCellRect = this.getCellPosition({
+                    cellEl: autoFillEndCellEl,
+                    tableLeft,
+                    tableTop,
+                });
             }
         },
 
@@ -228,6 +264,17 @@ export default {
         clearEndCellRect() {
             this.endCellEl = null;
             this.selectionRect.endCellRect = {
+                left: 0,
+                top: 0,
+                width: 0,
+                height: 0,
+            };
+        },
+
+        // clear auto fill end cell rect
+        clearAutoFillEndCellRect() {
+            this.autoFillEndCellEl = null;
+            this.selectionRect.autoFillEndCellRect = {
                 left: 0,
                 top: 0,
                 width: 0,
@@ -395,9 +442,140 @@ export default {
             borderCollection.corner.left =
                 borderCollection.rightBorder.left - 4;
 
+            // set area positions
+            this.areaPostions = borderCollection;
+
             result = this.getBorders({
                 ...borderCollection,
                 className: "selection-area",
+            });
+
+            return result;
+        },
+
+        // get selection auto fill
+        getSelectionAutoFill() {
+            let result = null;
+
+            const {
+                selectionRect,
+                areaPostions,
+                isCellSelectionCornerMousedown,
+            } = this;
+
+            if (!isCellSelectionCornerMousedown) {
+                return result;
+            }
+
+            const { startCellRect, endCellRect, autoFillEndCellRect } =
+                selectionRect;
+
+            if (
+                !startCellRect.width ||
+                !endCellRect.width ||
+                !autoFillEndCellRect.width
+            ) {
+                return result;
+            }
+
+            if (!areaPostions) {
+                return result;
+            }
+
+            const borderCollection = {
+                borderWidth: 0,
+                borderHeight: 0,
+
+                topBorder: {
+                    width: 0,
+                    height: 1,
+                    top: 0,
+                    left: 0,
+                },
+                rightBorder: {
+                    width: 1,
+                    height: 0,
+                    top: 0,
+                    left: 0,
+                },
+                bottomBorder: {
+                    width: 0,
+                    height: 1,
+                    top: 0,
+                    left: 0,
+                },
+                leftBorder: {
+                    width: 1,
+                    height: 0,
+                    top: 0,
+                    left: 0,
+                },
+                corner: {
+                    top: 0,
+                    left: 0,
+                },
+            };
+
+            // auto fill end cell right
+            if (autoFillEndCellRect.left > areaPostions.rightBorder.left) {
+                borderCollection.borderWidth =
+                    autoFillEndCellRect.left -
+                    areaPostions.rightBorder.left +
+                    autoFillEndCellRect.width +
+                    1;
+                borderCollection.topBorder.left = areaPostions.rightBorder.left;
+                borderCollection.rightBorder.left =
+                    autoFillEndCellRect.left + autoFillEndCellRect.width;
+                borderCollection.bottomBorder.left =
+                    areaPostions.rightBorder.left;
+                borderCollection.leftBorder.left =
+                    areaPostions.leftBorder.left - 1;
+            }
+            // auto fill end cell left
+            else if (autoFillEndCellRect.left < areaPostions.leftBorder.left) {
+                borderCollection.borderWidth =
+                    areaPostions.leftBorder.left - autoFillEndCellRect.left + 1;
+
+                borderCollection.topBorder.left = autoFillEndCellRect.left - 1;
+                borderCollection.rightBorder.left =
+                    autoFillEndCellRect.left + autoFillEndCellRect.width - 1;
+                borderCollection.bottomBorder.left =
+                    autoFillEndCellRect.left - 1;
+                borderCollection.leftBorder.left = autoFillEndCellRect.left - 1;
+            }
+
+            // auto fill end cell below
+            if (autoFillEndCellRect.top > areaPostions.bottomBorder.top) {
+                borderCollection.borderHeight =
+                    autoFillEndCellRect.top -
+                    areaPostions.topBorder.top +
+                    autoFillEndCellRect.height;
+
+                borderCollection.topBorder.top =
+                    areaPostions.bottomBorder.top - 1;
+                borderCollection.rightBorder.top =
+                    areaPostions.bottomBorder.top;
+                borderCollection.bottomBorder.top =
+                    autoFillEndCellRect.top + autoFillEndCellRect.height - 1;
+                borderCollection.leftBorder.top = areaPostions.bottomBorder.top;
+            }
+            // end cell above or equal
+            else if (autoFillEndCellRect.top < areaPostions.topBorder.top) {
+                borderCollection.borderHeight =
+                    areaPostions.topBorder.top -
+                    autoFillEndCellRect.top +
+                    autoFillEndCellRect.height;
+
+                borderCollection.topBorder.top = autoFillEndCellRect.top - 1;
+                borderCollection.rightBorder.top = autoFillEndCellRect.top;
+                borderCollection.bottomBorder.top = areaPostions.topBorder.top;
+                borderCollection.leftBorder.top = areaPostions.topBorder.top;
+            }
+
+            result = this.getBorders({
+                ...borderCollection,
+                className: "selection-auto-fill",
+                showCorner: false,
             });
 
             return result;
@@ -517,7 +695,6 @@ export default {
 
                 if (currentCellEl) {
                     this.currentCellEl = currentCellEl;
-                    //this.overflowViewport = false;
                 }
             }
         },
@@ -535,7 +712,23 @@ export default {
 
                 if (endCellEl) {
                     this.endCellEl = endCellEl;
-                    //this.overflowViewport = false;
+                }
+            }
+        },
+
+        // set auto fill cell el
+        setAutoFillEndCellEl() {
+            const { cellSelectionData, tableEl } = this;
+
+            const { rowKey, colKey } = cellSelectionData.autoFillEndCell;
+
+            if (tableEl) {
+                const autoFillEndCellEl = tableEl.querySelector(
+                    `tbody.ve-table-body tr[row-key="${rowKey}"] td[col-key="${colKey}"]`,
+                );
+
+                if (autoFillEndCellEl) {
+                    this.autoFillEndCellEl = autoFillEndCellEl;
                 }
             }
         },
@@ -561,11 +754,15 @@ export default {
     },
 
     render() {
-        // const { selectionRect } = this;
-        // const { startCellRect, endCellRect } = selectionRect;
+        const { isCellSelectionCornerMousedown } = this;
 
         const selectionCurrent = this.getSelectionCurrent();
         const selectionArea = this.getSelectionArea();
+
+        let selectionAutoFill = null;
+        if (isCellSelectionCornerMousedown) {
+            selectionAutoFill = this.getSelectionAutoFill();
+        }
 
         return (
             <div class={clsName("selection-wrapper")}>
@@ -583,7 +780,7 @@ export default {
                     {/* area */}
                     {selectionArea}
                     {/* auto fill */}
-                    <div class={clsName("selection-auto-fill")}></div>
+                    {selectionAutoFill}
                 </div>
                 <div class={clsName("selection-fixed-right")}>
                     {/* current */}
