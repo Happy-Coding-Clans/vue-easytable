@@ -455,14 +455,14 @@ export default {
 
             result = this.getBorders({
                 ...borders,
-                className: "selection-area",
+                className: "selection-normal-area",
             });
 
             return result;
         },
 
         // get selection auto fill
-        getSelectionAutoFill() {
+        getSelectionAutoFillArea() {
             let result = null;
 
             const {
@@ -474,6 +474,8 @@ export default {
             if (!isCellSelectionCornerMousedown) {
                 return result;
             }
+
+            console.log("getSelectionAutoFillArea::");
 
             const { startCellRect, endCellRect, autoFillEndCellRect } =
                 selectionRect;
@@ -495,28 +497,28 @@ export default {
                 borderHeight: 0,
 
                 topBorder: {
-                    show: false,
+                    show: true,
                     width: 0,
                     height: 1,
                     top: 0,
                     left: 0,
                 },
                 rightBorder: {
-                    show: false,
+                    show: true,
                     width: 1,
                     height: 0,
                     top: 0,
                     left: 0,
                 },
                 bottomBorder: {
-                    show: false,
+                    show: true,
                     width: 0,
                     height: 1,
                     top: 0,
                     left: 0,
                 },
                 leftBorder: {
-                    show: false,
+                    show: true,
                     width: 1,
                     height: 0,
                     top: 0,
@@ -531,26 +533,28 @@ export default {
 
             // auto fill end cell below
             if (autoFillEndCellRect.top > areaPostions.bottomBorder.top) {
+                borders.topBorder.show = false;
+
                 borders.borderWidth = areaPostions.borderWidth;
                 borders.borderHeight =
                     autoFillEndCellRect.top -
                     areaPostions.bottomBorder.top +
                     autoFillEndCellRect.height;
 
-                borders.topBorder.top = areaPostions.bottomBorder.top - 1;
-
                 borders.rightBorder.top = areaPostions.bottomBorder.top;
                 borders.rightBorder.left = areaPostions.rightBorder.left;
 
-                borders.leftBorder.left = areaPostions.leftBorder.left;
                 borders.leftBorder.top = areaPostions.bottomBorder.top;
+                borders.leftBorder.left = areaPostions.leftBorder.left;
 
                 borders.bottomBorder.top =
                     autoFillEndCellRect.top + autoFillEndCellRect.height - 1;
                 borders.bottomBorder.left = areaPostions.bottomBorder.left;
             }
-            // end cell above or equal
+            // end cell above
             else if (autoFillEndCellRect.top < areaPostions.topBorder.top) {
+                borders.bottomBorder.show = false;
+
                 borders.borderWidth = areaPostions.borderWidth;
                 borders.borderHeight =
                     areaPostions.topBorder.top -
@@ -558,9 +562,13 @@ export default {
                     autoFillEndCellRect.height;
 
                 borders.topBorder.top = autoFillEndCellRect.top - 1;
+                borders.topBorder.left = areaPostions.topBorder.left;
+
                 borders.rightBorder.top = autoFillEndCellRect.top;
-                borders.bottomBorder.top = areaPostions.topBorder.top;
-                borders.leftBorder.top = areaPostions.topBorder.top;
+                borders.rightBorder.left = areaPostions.rightBorder.left;
+
+                borders.leftBorder.top = autoFillEndCellRect.top;
+                borders.leftBorder.left = areaPostions.leftBorder.left;
             }
             // auto fill end cell right
             else if (autoFillEndCellRect.left > areaPostions.rightBorder.left) {
@@ -589,7 +597,7 @@ export default {
 
             result = this.getBorders({
                 ...borders,
-                className: "selection-auto-fill",
+                className: "selection-auto-fill-area",
             });
 
             return result;
@@ -772,14 +780,15 @@ export default {
     },
 
     render() {
+        console.log("render--------------ing");
         const { isCellSelectionCornerMousedown } = this;
 
         const selectionCurrent = this.getSelectionCurrent();
         const selectionArea = this.getSelectionArea();
 
-        let selectionAutoFill = this.getSelectionAutoFill();
+        let selectionAutoFill = this.getSelectionAutoFillArea();
         // if (isCellSelectionCornerMousedown) {
-        //     selectionAutoFill = this.getSelectionAutoFill();
+        //     selectionAutoFill = this.getSelectionAutoFillArea();
         // }
 
         return (
@@ -790,7 +799,7 @@ export default {
                     {/* area */}
                     {selectionArea}
                     {/* auto fill */}
-                    <div class={clsName("selection-auto-fill")}></div>
+                    <div class={clsName("selection-auto-fill-area")}></div>
                 </div>
                 <div class={clsName("selection-middle")}>
                     {/* current */}
@@ -806,7 +815,7 @@ export default {
                     {/* area */}
                     {selectionArea}
                     {/* auto fill */}
-                    <div class={clsName("selection-auto-fill")}></div>
+                    <div class={clsName("selection-auto-fill-area")}></div>
                 </div>
             </div>
         );
