@@ -294,46 +294,50 @@ export default {
                 return result;
             }
 
-            const borderCollection = {
+            const borders = {
                 borderWidth: startCellRect.width + 1,
                 borderHeight: startCellRect.height,
 
                 topBorder: {
+                    show: true,
                     width: 0,
                     height: 2,
                     top: startCellRect.top - 1,
                     left: startCellRect.left - 1,
                 },
                 rightBorder: {
+                    show: true,
                     width: 2,
                     height: 0,
                     top: startCellRect.top,
                     left: startCellRect.left + startCellRect.width - 2,
                 },
                 bottomBorder: {
+                    show: true,
                     width: 0,
                     height: 2,
                     top: startCellRect.top + startCellRect.height - 2,
                     left: startCellRect.left - 1,
                 },
                 leftBorder: {
+                    show: true,
                     width: 2,
                     height: 0,
                     top: startCellRect.top,
                     left: startCellRect.left - 1,
                 },
                 corner: {
+                    show: !endCellRect.width,
                     top: 0,
                     left: 0,
                 },
             };
 
-            borderCollection.corner.top = borderCollection.bottomBorder.top - 3;
-            borderCollection.corner.left =
-                borderCollection.rightBorder.left - 3;
+            borders.corner.top = borders.bottomBorder.top - 3;
+            borders.corner.left = borders.rightBorder.left - 3;
 
             result = this.getBorders({
-                ...borderCollection,
+                ...borders,
                 showCorner: !endCellRect.width,
                 className: "selection-current",
             });
@@ -353,35 +357,40 @@ export default {
                 return result;
             }
 
-            const borderCollection = {
+            const borders = {
                 borderWidth: 0,
                 borderHeight: 0,
 
                 topBorder: {
+                    show: true,
                     width: 0,
                     height: 1,
                     top: 0,
                     left: 0,
                 },
                 rightBorder: {
+                    show: true,
                     width: 1,
                     height: 0,
                     top: 0,
                     left: 0,
                 },
                 bottomBorder: {
+                    show: true,
                     width: 0,
                     height: 1,
                     top: 0,
                     left: 0,
                 },
                 leftBorder: {
+                    show: true,
                     width: 1,
                     height: 0,
                     top: 0,
                     left: 0,
                 },
                 corner: {
+                    show: true,
                     top: 0,
                     left: 0,
                 },
@@ -389,64 +398,63 @@ export default {
 
             // end cell right
             if (endCellRect.left > startCellRect.left) {
-                borderCollection.borderWidth =
+                borders.borderWidth =
                     endCellRect.left -
                     startCellRect.left +
                     endCellRect.width +
                     1;
-                borderCollection.topBorder.left = startCellRect.left - 1;
-                borderCollection.rightBorder.left =
+                borders.topBorder.left = startCellRect.left - 1;
+                borders.rightBorder.left =
                     endCellRect.left + endCellRect.width - 1;
-                borderCollection.bottomBorder.left = startCellRect.left - 1;
-                borderCollection.leftBorder.left = startCellRect.left - 1;
+                borders.bottomBorder.left = startCellRect.left - 1;
+                borders.leftBorder.left = startCellRect.left - 1;
             }
             // end cell left or equal
             else if (endCellRect.left <= startCellRect.left) {
-                borderCollection.borderWidth =
+                borders.borderWidth =
                     startCellRect.left -
                     endCellRect.left +
                     startCellRect.width +
                     1;
 
-                borderCollection.topBorder.left = endCellRect.left - 1;
-                borderCollection.rightBorder.left =
+                borders.topBorder.left = endCellRect.left - 1;
+                borders.rightBorder.left =
                     startCellRect.left + startCellRect.width - 1;
-                borderCollection.bottomBorder.left = endCellRect.left - 1;
-                borderCollection.leftBorder.left = endCellRect.left - 1;
+                borders.bottomBorder.left = endCellRect.left - 1;
+                borders.leftBorder.left = endCellRect.left - 1;
             }
 
             // end cell below
             if (endCellRect.top > startCellRect.top) {
-                borderCollection.borderHeight =
+                borders.borderHeight =
                     endCellRect.top - startCellRect.top + endCellRect.height;
 
-                borderCollection.topBorder.top = startCellRect.top - 1;
-                borderCollection.rightBorder.top = startCellRect.top;
-                borderCollection.bottomBorder.top =
+                borders.topBorder.top = startCellRect.top - 1;
+                borders.rightBorder.top = startCellRect.top;
+                borders.bottomBorder.top =
                     endCellRect.top + endCellRect.height - 1;
-                borderCollection.leftBorder.top = startCellRect.top;
+                borders.leftBorder.top = startCellRect.top;
             }
             // end cell above or equal
             else if (endCellRect.top <= startCellRect.top) {
-                borderCollection.borderHeight =
+                borders.borderHeight =
                     startCellRect.top - endCellRect.top + startCellRect.height;
 
-                borderCollection.topBorder.top = endCellRect.top - 1;
-                borderCollection.rightBorder.top = endCellRect.top;
-                borderCollection.bottomBorder.top =
+                borders.topBorder.top = endCellRect.top - 1;
+                borders.rightBorder.top = endCellRect.top;
+                borders.bottomBorder.top =
                     startCellRect.top + startCellRect.height - 1;
-                borderCollection.leftBorder.top = endCellRect.top;
+                borders.leftBorder.top = endCellRect.top;
             }
 
-            borderCollection.corner.top = borderCollection.bottomBorder.top - 4;
-            borderCollection.corner.left =
-                borderCollection.rightBorder.left - 4;
+            borders.corner.top = borders.bottomBorder.top - 4;
+            borders.corner.left = borders.rightBorder.left - 4;
 
             // set area positions
-            this.areaPostions = borderCollection;
+            this.areaPostions = borders;
 
             result = this.getBorders({
-                ...borderCollection,
+                ...borders,
                 className: "selection-area",
             });
 
@@ -482,100 +490,106 @@ export default {
                 return result;
             }
 
-            const borderCollection = {
+            const borders = {
                 borderWidth: 0,
                 borderHeight: 0,
 
                 topBorder: {
+                    show: false,
                     width: 0,
                     height: 1,
                     top: 0,
                     left: 0,
                 },
                 rightBorder: {
+                    show: false,
                     width: 1,
                     height: 0,
                     top: 0,
                     left: 0,
                 },
                 bottomBorder: {
+                    show: false,
                     width: 0,
                     height: 1,
                     top: 0,
                     left: 0,
                 },
                 leftBorder: {
+                    show: false,
                     width: 1,
                     height: 0,
                     top: 0,
                     left: 0,
                 },
                 corner: {
+                    show: false,
                     top: 0,
                     left: 0,
                 },
             };
 
-            // auto fill end cell right
-            if (autoFillEndCellRect.left > areaPostions.rightBorder.left) {
-                borderCollection.borderWidth =
-                    autoFillEndCellRect.left -
-                    areaPostions.rightBorder.left +
-                    autoFillEndCellRect.width +
-                    1;
-                borderCollection.topBorder.left = areaPostions.rightBorder.left;
-                borderCollection.rightBorder.left =
-                    autoFillEndCellRect.left + autoFillEndCellRect.width;
-                borderCollection.bottomBorder.left =
-                    areaPostions.rightBorder.left;
-                borderCollection.leftBorder.left =
-                    areaPostions.leftBorder.left - 1;
-            }
-            // auto fill end cell left
-            else if (autoFillEndCellRect.left < areaPostions.leftBorder.left) {
-                borderCollection.borderWidth =
-                    areaPostions.leftBorder.left - autoFillEndCellRect.left + 1;
-
-                borderCollection.topBorder.left = autoFillEndCellRect.left - 1;
-                borderCollection.rightBorder.left =
-                    autoFillEndCellRect.left + autoFillEndCellRect.width - 1;
-                borderCollection.bottomBorder.left =
-                    autoFillEndCellRect.left - 1;
-                borderCollection.leftBorder.left = autoFillEndCellRect.left - 1;
-            }
-
             // auto fill end cell below
             if (autoFillEndCellRect.top > areaPostions.bottomBorder.top) {
-                borderCollection.borderHeight =
+                borders.borderWidth = areaPostions.borderWidth;
+                borders.borderHeight =
                     autoFillEndCellRect.top -
-                    areaPostions.topBorder.top +
+                    areaPostions.bottomBorder.top +
                     autoFillEndCellRect.height;
 
-                borderCollection.topBorder.top =
-                    areaPostions.bottomBorder.top - 1;
-                borderCollection.rightBorder.top =
-                    areaPostions.bottomBorder.top;
-                borderCollection.bottomBorder.top =
+                borders.topBorder.top = areaPostions.bottomBorder.top - 1;
+
+                borders.rightBorder.top = areaPostions.bottomBorder.top;
+                borders.rightBorder.left = areaPostions.rightBorder.left;
+
+                borders.leftBorder.left = areaPostions.leftBorder.left;
+                borders.leftBorder.top = areaPostions.bottomBorder.top;
+
+                borders.bottomBorder.top =
                     autoFillEndCellRect.top + autoFillEndCellRect.height - 1;
-                borderCollection.leftBorder.top = areaPostions.bottomBorder.top;
+                borders.bottomBorder.left = areaPostions.bottomBorder.left;
             }
             // end cell above or equal
             else if (autoFillEndCellRect.top < areaPostions.topBorder.top) {
-                borderCollection.borderHeight =
+                borders.borderWidth = areaPostions.borderWidth;
+                borders.borderHeight =
                     areaPostions.topBorder.top -
                     autoFillEndCellRect.top +
                     autoFillEndCellRect.height;
 
-                borderCollection.topBorder.top = autoFillEndCellRect.top - 1;
-                borderCollection.rightBorder.top = autoFillEndCellRect.top;
-                borderCollection.bottomBorder.top = areaPostions.topBorder.top;
-                borderCollection.leftBorder.top = areaPostions.topBorder.top;
+                borders.topBorder.top = autoFillEndCellRect.top - 1;
+                borders.rightBorder.top = autoFillEndCellRect.top;
+                borders.bottomBorder.top = areaPostions.topBorder.top;
+                borders.leftBorder.top = areaPostions.topBorder.top;
+            }
+            // auto fill end cell right
+            else if (autoFillEndCellRect.left > areaPostions.rightBorder.left) {
+                borders.borderWidth =
+                    autoFillEndCellRect.left -
+                    areaPostions.rightBorder.left +
+                    autoFillEndCellRect.width +
+                    1;
+                borders.topBorder.left = areaPostions.rightBorder.left;
+                borders.rightBorder.left =
+                    autoFillEndCellRect.left + autoFillEndCellRect.width;
+                borders.bottomBorder.left = areaPostions.rightBorder.left;
+                borders.leftBorder.left = areaPostions.leftBorder.left - 1;
+            }
+            // auto fill end cell left
+            else if (autoFillEndCellRect.left < areaPostions.leftBorder.left) {
+                borders.borderWidth =
+                    areaPostions.leftBorder.left - autoFillEndCellRect.left + 1;
+
+                borders.topBorder.left = autoFillEndCellRect.left - 1;
+                borders.rightBorder.left =
+                    autoFillEndCellRect.left + autoFillEndCellRect.width - 1;
+                borders.bottomBorder.left = autoFillEndCellRect.left - 1;
+                borders.leftBorder.left = autoFillEndCellRect.left - 1;
             }
 
             result = this.getBorders({
-                ...borderCollection,
+                ...borders,
                 className: "selection-auto-fill",
-                showCorner: false,
             });
 
             return result;
@@ -590,7 +604,6 @@ export default {
             bottomBorder,
             leftBorder,
             corner,
-            showCorner = true,
             className,
         }) {
             const { cornerCellInfo } = this;
@@ -614,6 +627,7 @@ export default {
             const cornerProps = {
                 class: clsName("selection-corner"),
                 style: {
+                    display: corner.show || "none",
                     top: cornerTop + "px",
                     left: cornerLeft + "px",
                     borderWidth: `1px ${cornerBorderRightWidth} ${cornerBorderBottomtWidth} 1px`,
@@ -639,6 +653,7 @@ export default {
                     {/* top */}
                     <div
                         style={{
+                            display: topBorder.show || "none",
                             width: borderWidth + "px",
                             height: topBorder.height + "px",
                             top: topBorder.top + "px",
@@ -649,6 +664,7 @@ export default {
                     {/* right */}
                     <div
                         style={{
+                            display: rightBorder.show || "none",
                             width: rightBorder.width + "px",
                             height: borderHeight + "px",
                             top: rightBorder.top + "px",
@@ -659,6 +675,7 @@ export default {
                     {/* bottom */}
                     <div
                         style={{
+                            display: bottomBorder.show || "none",
                             width: borderWidth + "px",
                             height: bottomBorder.height + "px",
                             top: bottomBorder.top + "px",
@@ -669,6 +686,7 @@ export default {
                     {/* left */}
                     <div
                         style={{
+                            display: leftBorder.show || "none",
                             width: leftBorder.width + "px",
                             height: borderHeight + "px",
                             top: leftBorder.top + "px",
@@ -677,7 +695,7 @@ export default {
                         class={clsName("selection-border")}
                     ></div>
                     {/* corner */}
-                    {showCorner && <div {...cornerProps}></div>}
+                    {<div {...cornerProps}></div>}
                 </div>
             );
         },
@@ -759,10 +777,10 @@ export default {
         const selectionCurrent = this.getSelectionCurrent();
         const selectionArea = this.getSelectionArea();
 
-        let selectionAutoFill = null;
-        if (isCellSelectionCornerMousedown) {
-            selectionAutoFill = this.getSelectionAutoFill();
-        }
+        let selectionAutoFill = this.getSelectionAutoFill();
+        // if (isCellSelectionCornerMousedown) {
+        //     selectionAutoFill = this.getSelectionAutoFill();
+        // }
 
         return (
             <div class={clsName("selection-wrapper")}>
