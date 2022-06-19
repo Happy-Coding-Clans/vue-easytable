@@ -1,15 +1,5 @@
-import {
-    clsName,
-    getFixedTotalWidthByColumnKey,
-    isLastColumnByColKey,
-    isLastRowByRowKey,
-} from "../util";
-import {
-    COMPS_NAME,
-    EMIT_EVENTS,
-    HOOKS_NAME,
-    CELL_SELECTION_TYPES,
-} from "../util/constant";
+import { clsName, isLastColumnByColKey, isLastRowByRowKey } from "../util";
+import { COMPS_NAME, EMIT_EVENTS, HOOKS_NAME } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 import { isEmptyValue } from "../../../src/utils/index.js";
 
