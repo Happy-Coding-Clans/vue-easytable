@@ -280,9 +280,16 @@ export default {
             };
         },
 
-        // get selection current
+        /*
+        get selection current
+        1、selection current
+        2、auto fill area
+        */
         getSelectionCurrent() {
-            let result = null;
+            let result = {
+                selectionCurrent: null,
+                autoFillArea: null,
+            };
 
             const { selectionRect } = this;
 
@@ -334,11 +341,15 @@ export default {
             borders.corner.top = borders.bottomBorder.top - 3;
             borders.corner.left = borders.rightBorder.left - 3;
 
-            result = this.getBorders({
+            result.selectionCurrent = this.getBorders({
                 ...borders,
                 showCorner: !endCellRect.width,
                 className: "selection-current",
             });
+
+            if (!endCellRect.width) {
+                result.autoFillArea = this.getSelectionAutoFillArea(borders);
+            }
 
             return result;
         },
@@ -460,7 +471,9 @@ export default {
                 className: "selection-normal-area",
             });
 
-            result.autoFillArea = this.getSelectionAutoFillArea(borders);
+            if (endCellRect.width) {
+                result.autoFillArea = this.getSelectionAutoFillArea(borders);
+            }
 
             return result;
         },
@@ -475,14 +488,9 @@ export default {
                 return result;
             }
 
-            const { startCellRect, endCellRect, autoFillEndCellRect } =
-                selectionRect;
+            const { startCellRect, autoFillEndCellRect } = selectionRect;
 
-            if (
-                !startCellRect.width ||
-                !endCellRect.width ||
-                !autoFillEndCellRect.width
-            ) {
+            if (!startCellRect.width || !autoFillEndCellRect.width) {
                 return result;
             }
 
@@ -792,31 +800,34 @@ export default {
         const selectionCurrent = this.getSelectionCurrent();
         const selectionArea = this.getSelectionAreas();
 
+        const autoFillArea =
+            selectionCurrent.autoFillArea || selectionArea.autoFillArea;
+
         return (
             <div class={clsName("selection-wrapper")}>
                 <div class={clsName("selection-fixed-left")}>
                     {/* current */}
-                    {selectionCurrent}
+                    {selectionCurrent.selectionCurrent}
                     {/* area */}
                     {selectionArea.normalArea}
                     {/* auto fill */}
-                    <div class={clsName("selection-auto-fill-area")}></div>
+                    {autoFillArea}
                 </div>
                 <div class={clsName("selection-middle")}>
                     {/* current */}
-                    {selectionCurrent}
+                    {selectionCurrent.selectionCurrent}
                     {/* area */}
                     {selectionArea.normalArea}
                     {/* auto fill */}
-                    {selectionArea.autoFillArea}
+                    {autoFillArea}
                 </div>
                 <div class={clsName("selection-fixed-right")}>
                     {/* current */}
-                    {selectionCurrent}
+                    {selectionCurrent.selectionCurrent}
                     {/* area */}
-                    {selectionArea}
+                    {selectionArea.normalArea}
                     {/* auto fill */}
-                    <div class={clsName("selection-auto-fill-area")}></div>
+                    {autoFillArea}
                 </div>
             </div>
         );
