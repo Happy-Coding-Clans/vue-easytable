@@ -169,6 +169,15 @@ export default {
             deep: true,
             immediate: true,
         },
+        // watch is cell selection corner mousedown
+        // isCellSelectionCornerMousedown: {
+        //     handler: function (val) {
+        //         if (!val) {
+        //             //
+
+        //         }
+        //     },
+        // },
     },
 
     methods: {
