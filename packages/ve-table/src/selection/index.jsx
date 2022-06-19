@@ -563,9 +563,7 @@ export default {
 
                 borders.borderWidth = areaPostions.borderWidth;
                 borders.borderHeight =
-                    areaPostions.topBorder.top -
-                    autoFillEndCellRect.top +
-                    autoFillEndCellRect.height;
+                    areaPostions.topBorder.top - autoFillEndCellRect.top;
 
                 borders.topBorder.top = autoFillEndCellRect.top - 1;
                 borders.topBorder.left = areaPostions.topBorder.left;
