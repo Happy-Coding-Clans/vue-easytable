@@ -588,14 +588,14 @@ export default {
                 borders.borderHeight = areaPostions.borderHeight;
 
                 borders.topBorder.top = areaPostions.topBorder.top;
-                borders.topBorder.left = areaPostions.rightBorder.left;
+                borders.topBorder.left = areaPostions.rightBorder.left - 1;
 
                 borders.rightBorder.top = areaPostions.topBorder.top;
                 borders.rightBorder.left =
-                    autoFillEndCellRect.left + autoFillEndCellRect.width;
+                    autoFillEndCellRect.left + autoFillEndCellRect.width - 1;
 
                 borders.bottomBorder.top = areaPostions.bottomBorder.top;
-                borders.bottomBorder.left = areaPostions.rightBorder.left;
+                borders.bottomBorder.left = areaPostions.rightBorder.left - 1;
             }
             // auto fill end cell left
             else if (autoFillEndCellRect.left < areaPostions.leftBorder.left) {
@@ -606,13 +606,13 @@ export default {
                 borders.borderHeight = areaPostions.borderHeight;
 
                 borders.topBorder.top = areaPostions.topBorder.top;
-                borders.topBorder.left = autoFillEndCellRect.left - 1;
+                borders.topBorder.left = autoFillEndCellRect.left;
 
                 borders.bottomBorder.top = areaPostions.bottomBorder.top;
-                borders.bottomBorder.left = autoFillEndCellRect.left - 1;
+                borders.bottomBorder.left = autoFillEndCellRect.left;
 
                 borders.leftBorder.top = areaPostions.topBorder.top;
-                borders.leftBorder.left = autoFillEndCellRect.left - 1;
+                borders.leftBorder.left = autoFillEndCellRect.left;
             }
 
             result = this.getBorders({
