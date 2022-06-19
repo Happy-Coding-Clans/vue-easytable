@@ -781,17 +781,6 @@ export default {
                 this.tableEl = tableEl;
             });
         },
-
-        // current column
-        // getCurrentColumn(colKey) {
-        //     let result = null;
-
-        //     const { colgroups } = this;
-
-        //     result = colgroups.find((x) => x.key === colKey);
-
-        //     return result;
-        // },
     },
 
     render() {
