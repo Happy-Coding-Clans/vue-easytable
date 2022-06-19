@@ -305,7 +305,7 @@ export default {
                     rowKey: "",
                     colKey: "",
                 },
-                endCell: {
+                normalEndCell: {
                     rowKey: "",
                     colKey: "",
                 },
@@ -807,9 +807,9 @@ export default {
         },
 
         // cell selection end cell change
-        cellSelectionEndCellChange({ rowKey, colKey }) {
-            this.cellSelectionData.endCell.rowKey = rowKey;
-            this.cellSelectionData.endCell.colKey = colKey;
+        cellSelectionNormalEndCellChange({ rowKey, colKey }) {
+            this.cellSelectionData.normalEndCell.rowKey = rowKey;
+            this.cellSelectionData.normalEndCell.colKey = colKey;
         },
 
         // cell selection auto fill cell change
@@ -825,7 +825,7 @@ export default {
 
         // clear cell selection start cell
         clearCellSelectionEndCell() {
-            this.cellSelectionEndCellChange({ rowKey: "", colKey: "" });
+            this.cellSelectionNormalEndCellChange({ rowKey: "", colKey: "" });
         },
 
         // deal keydown event
@@ -1691,7 +1691,10 @@ export default {
             if (shiftKey) {
                 const rowKey = getRowKey(rowData, rowKeyFieldName);
 
-                this.cellSelectionEndCellChange({ rowKey, colKey: column.key });
+                this.cellSelectionNormalEndCellChange({
+                    rowKey,
+                    colKey: column.key,
+                });
 
                 return false;
             } else {
@@ -1763,7 +1766,10 @@ export default {
             const rowKey = getRowKey(rowData, rowKeyFieldName);
 
             if (isBodyTdMousedown) {
-                this.cellSelectionEndCellChange({ rowKey, colKey: column.key });
+                this.cellSelectionNormalEndCellChange({
+                    rowKey,
+                    colKey: column.key,
+                });
             }
 
             if (isCellSelectionCornerMousedown) {

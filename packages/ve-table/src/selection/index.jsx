@@ -81,15 +81,15 @@ export default {
         cornerCellInfo() {
             const { allRowKeys, colgroups, cellSelectionData } = this;
 
-            const { currentCell, endCell } = cellSelectionData;
+            const { currentCell, normalEndCell } = cellSelectionData;
 
             return {
                 isLastColumn:
                     isLastColumnByColKey(currentCell.colKey, colgroups) ||
-                    isLastColumnByColKey(endCell.colKey, colgroups),
+                    isLastColumnByColKey(normalEndCell.colKey, colgroups),
                 isLastRow:
                     isLastRowByRowKey(currentCell.rowKey, allRowKeys) ||
-                    isLastRowByRowKey(endCell.rowKey, allRowKeys),
+                    isLastRowByRowKey(normalEndCell.rowKey, allRowKeys),
             };
         },
     },
@@ -136,17 +136,17 @@ export default {
             immediate: true,
         },
         // watch current cell
-        "cellSelectionData.endCell": {
+        "cellSelectionData.normalEndCell": {
             handler: function (val) {
                 const { rowKey, colKey } = val;
                 if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
                     this.setEndCellEl();
                     // wait for selection cell rendered
                     this.$nextTick(() => {
-                        this.setSelectionPositions({ type: "endCell" });
+                        this.setSelectionPositions({ type: "normalEndCell" });
                     });
                 } else {
-                    this.clearEndCellRect();
+                    this.clearNormalEndCellRect();
                 }
             },
             deep: true,
@@ -229,7 +229,7 @@ export default {
                 });
             }
 
-            if (endCellEl && type === "endCell") {
+            if (endCellEl && type === "normalEndCell") {
                 this.selectionRect.endCellRect = this.getCellPosition({
                     cellEl: endCellEl,
                     tableLeft,
@@ -257,8 +257,8 @@ export default {
             };
         },
 
-        // clear end cell rect
-        clearEndCellRect() {
+        // clear normal end cell rect
+        clearNormalEndCellRect() {
             this.endCellEl = null;
             this.selectionRect.endCellRect = {
                 left: 0,
@@ -743,7 +743,7 @@ export default {
         setEndCellEl() {
             const { cellSelectionData, tableEl } = this;
 
-            const { rowKey, colKey } = cellSelectionData.endCell;
+            const { rowKey, colKey } = cellSelectionData.normalEndCell;
 
             if (tableEl) {
                 const endCellEl = tableEl.querySelector(
