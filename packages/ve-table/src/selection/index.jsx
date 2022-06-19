@@ -345,9 +345,16 @@ export default {
             return result;
         },
 
-        // get selection area
-        getSelectionArea() {
-            let result = null;
+        /*
+        get selection areas
+        1、normal area
+        2、auto fill area
+        */
+        getSelectionAreas() {
+            let result = {
+                normalArea: null,
+                autoFillArea: null,
+            };
 
             const { selectionRect } = this;
 
@@ -450,32 +457,25 @@ export default {
             borders.corner.top = borders.bottomBorder.top - 4;
             borders.corner.left = borders.rightBorder.left - 4;
 
-            // set area positions
-            this.areaPostions = borders;
-
-            result = this.getBorders({
+            result.normalArea = this.getBorders({
                 ...borders,
                 className: "selection-normal-area",
             });
+
+            result.autoFillArea = this.getSelectionAutoFillArea(borders);
 
             return result;
         },
 
         // get selection auto fill
-        getSelectionAutoFillArea() {
+        getSelectionAutoFillArea(areaPostions) {
             let result = null;
 
-            const {
-                selectionRect,
-                areaPostions,
-                isCellSelectionCornerMousedown,
-            } = this;
+            const { selectionRect, isCellSelectionCornerMousedown } = this;
 
             if (!isCellSelectionCornerMousedown) {
                 return result;
             }
-
-            console.log("getSelectionAutoFillArea::");
 
             const { startCellRect, endCellRect, autoFillEndCellRect } =
                 selectionRect;
@@ -572,26 +572,40 @@ export default {
             }
             // auto fill end cell right
             else if (autoFillEndCellRect.left > areaPostions.rightBorder.left) {
+                borders.leftBorder.show = false;
+
                 borders.borderWidth =
                     autoFillEndCellRect.left -
                     areaPostions.rightBorder.left +
                     autoFillEndCellRect.width +
                     1;
+                borders.borderHeight = areaPostions.borderHeight;
+
+                borders.topBorder.top = areaPostions.topBorder.top;
                 borders.topBorder.left = areaPostions.rightBorder.left;
+
+                borders.rightBorder.top = areaPostions.topBorder.top;
                 borders.rightBorder.left =
                     autoFillEndCellRect.left + autoFillEndCellRect.width;
+
+                borders.bottomBorder.top = areaPostions.bottomBorder.top;
                 borders.bottomBorder.left = areaPostions.rightBorder.left;
-                borders.leftBorder.left = areaPostions.leftBorder.left - 1;
             }
             // auto fill end cell left
             else if (autoFillEndCellRect.left < areaPostions.leftBorder.left) {
+                borders.rightBorder.show = false;
+
                 borders.borderWidth =
                     areaPostions.leftBorder.left - autoFillEndCellRect.left + 1;
+                borders.borderHeight = areaPostions.borderHeight;
 
+                borders.topBorder.top = areaPostions.topBorder.top;
                 borders.topBorder.left = autoFillEndCellRect.left - 1;
-                borders.rightBorder.left =
-                    autoFillEndCellRect.left + autoFillEndCellRect.width - 1;
+
+                borders.bottomBorder.top = areaPostions.bottomBorder.top;
                 borders.bottomBorder.left = autoFillEndCellRect.left - 1;
+
+                borders.leftBorder.top = areaPostions.topBorder.top;
                 borders.leftBorder.left = autoFillEndCellRect.left - 1;
             }
 
@@ -635,7 +649,7 @@ export default {
             const cornerProps = {
                 class: clsName("selection-corner"),
                 style: {
-                    display: corner.show || "none",
+                    display: corner.show ? "block" : "none",
                     top: cornerTop + "px",
                     left: cornerLeft + "px",
                     borderWidth: `1px ${cornerBorderRightWidth} ${cornerBorderBottomtWidth} 1px`,
@@ -650,9 +664,6 @@ export default {
                             },
                         );
                     },
-                    // mouseup: (e) => {
-                    //     console.log("corner mouseup");
-                    // },
                 },
             };
 
@@ -661,7 +672,7 @@ export default {
                     {/* top */}
                     <div
                         style={{
-                            display: topBorder.show || "none",
+                            display: topBorder.show ? "block" : "none",
                             width: borderWidth + "px",
                             height: topBorder.height + "px",
                             top: topBorder.top + "px",
@@ -672,7 +683,7 @@ export default {
                     {/* right */}
                     <div
                         style={{
-                            display: rightBorder.show || "none",
+                            display: rightBorder.show ? "block" : "none",
                             width: rightBorder.width + "px",
                             height: borderHeight + "px",
                             top: rightBorder.top + "px",
@@ -683,7 +694,7 @@ export default {
                     {/* bottom */}
                     <div
                         style={{
-                            display: bottomBorder.show || "none",
+                            display: bottomBorder.show ? "block" : "none",
                             width: borderWidth + "px",
                             height: bottomBorder.height + "px",
                             top: bottomBorder.top + "px",
@@ -694,7 +705,7 @@ export default {
                     {/* left */}
                     <div
                         style={{
-                            display: leftBorder.show || "none",
+                            display: leftBorder.show ? "block" : "none",
                             width: leftBorder.width + "px",
                             height: borderHeight + "px",
                             top: leftBorder.top + "px",
@@ -780,16 +791,8 @@ export default {
     },
 
     render() {
-        console.log("render--------------ing");
-        const { isCellSelectionCornerMousedown } = this;
-
         const selectionCurrent = this.getSelectionCurrent();
-        const selectionArea = this.getSelectionArea();
-
-        let selectionAutoFill = this.getSelectionAutoFillArea();
-        // if (isCellSelectionCornerMousedown) {
-        //     selectionAutoFill = this.getSelectionAutoFillArea();
-        // }
+        const selectionArea = this.getSelectionAreas();
 
         return (
             <div class={clsName("selection-wrapper")}>
@@ -797,7 +800,7 @@ export default {
                     {/* current */}
                     {selectionCurrent}
                     {/* area */}
-                    {selectionArea}
+                    {selectionArea.normalArea}
                     {/* auto fill */}
                     <div class={clsName("selection-auto-fill-area")}></div>
                 </div>
@@ -805,9 +808,9 @@ export default {
                     {/* current */}
                     {selectionCurrent}
                     {/* area */}
-                    {selectionArea}
+                    {selectionArea.normalArea}
                     {/* auto fill */}
-                    {selectionAutoFill}
+                    {selectionArea.autoFillArea}
                 </div>
                 <div class={clsName("selection-fixed-right")}>
                     {/* current */}
