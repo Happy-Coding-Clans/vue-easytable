@@ -37,7 +37,7 @@ export default {
             type: Object,
             required: true,
         },
-        isCellSelectionCornerMousedown: {
+        isAutofillStarting: {
             type: Boolean,
             required: true,
         },
@@ -157,27 +157,18 @@ export default {
             handler: function (val) {
                 const { rowKey, colKey } = val;
                 if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                    this.setAutoFillEndCellEl();
+                    this.setAutofillEndCellEl();
                     // wait for selection cell rendered
                     this.$nextTick(() => {
                         this.setSelectionPositions({ type: "autoFillEndCell" });
                     });
                 } else {
-                    this.clearAutoFillEndCellRect();
+                    this.clearAutofillEndCellRect();
                 }
             },
             deep: true,
             immediate: true,
         },
-        // watch is cell selection corner mousedown
-        // isCellSelectionCornerMousedown: {
-        //     handler: function (val) {
-        //         if (!val) {
-        //             //
-
-        //         }
-        //     },
-        // },
     },
 
     methods: {
@@ -200,25 +191,15 @@ export default {
 
         // set selection positions
         setSelectionPositions({ type }) {
-            const {
-                tableEl,
-                currentCellEl,
-                endCellEl,
-                autoFillEndCellEl,
-                // cellSelectionOption,
-                // isCellSelectionCornerMousedown,
-            } = this;
+            const { tableEl, currentCellEl, endCellEl, autoFillEndCellEl } =
+                this;
 
             if (!tableEl) {
                 return false;
             }
 
-            const {
-                left: tableLeft,
-                top: tableTop,
-                // right: tableRight,
-                // bottom: tableBottom,
-            } = tableEl.getBoundingClientRect();
+            const { left: tableLeft, top: tableTop } =
+                tableEl.getBoundingClientRect();
 
             // set start cell position
             if (currentCellEl && type === "currentCell") {
@@ -269,7 +250,7 @@ export default {
         },
 
         // clear auto fill end cell rect
-        clearAutoFillEndCellRect() {
+        clearAutofillEndCellRect() {
             this.autoFillEndCellEl = null;
             this.selectionRect.autoFillEndCellRect = {
                 left: 0,
@@ -347,7 +328,7 @@ export default {
             });
 
             if (!endCellRect.width) {
-                result.autoFillArea = this.getSelectionAutoFillArea(borders);
+                result.autoFillArea = this.getSelectionAutofillArea(borders);
             }
 
             return result;
@@ -471,19 +452,19 @@ export default {
             });
 
             if (endCellRect.width) {
-                result.autoFillArea = this.getSelectionAutoFillArea(borders);
+                result.autoFillArea = this.getSelectionAutofillArea(borders);
             }
 
             return result;
         },
 
         // get selection auto fill
-        getSelectionAutoFillArea(areaPostions) {
+        getSelectionAutofillArea(areaPostions) {
             let result = null;
 
-            const { selectionRect, isCellSelectionCornerMousedown } = this;
+            const { selectionRect, isAutofillStarting } = this;
 
-            if (!isCellSelectionCornerMousedown) {
+            if (!isAutofillStarting) {
                 return result;
             }
 
@@ -614,7 +595,7 @@ export default {
 
             result = this.getBorders({
                 ...borders,
-                className: "selection-auto-fill-area",
+                className: "selection-autofill-area",
             });
 
             return result;
@@ -662,6 +643,15 @@ export default {
                         this.dispatch(
                             COMPS_NAME.VE_TABLE,
                             EMIT_EVENTS.SELECTION_CORNER_MOUSEDOWN,
+                            {
+                                event: e,
+                            },
+                        );
+                    },
+                    mouseup: (e) => {
+                        this.dispatch(
+                            COMPS_NAME.VE_TABLE,
+                            EMIT_EVENTS.SELECTION_CORNER_MOUSEUP,
                             {
                                 event: e,
                             },
@@ -757,7 +747,7 @@ export default {
         },
 
         // set auto fill cell el
-        setAutoFillEndCellEl() {
+        setAutofillEndCellEl() {
             const { cellSelectionData, tableEl } = this;
 
             const { rowKey, colKey } = cellSelectionData.autoFillEndCell;

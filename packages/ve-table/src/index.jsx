@@ -322,7 +322,7 @@ export default {
             /* 
             is cell selection corner mousedown
             */
-            isCellSelectionCornerMousedown: false,
+            isAutofillStarting: false,
             /*
             table offest height（开启虚拟滚动时使用）
             1、当 :max-height="500" 时使用 max-height 
@@ -651,6 +651,15 @@ export default {
             },
             immediate: false,
         },
+        // is auto fill starting
+        isAutofillStarting: {
+            handler(val) {
+                if (!val) {
+                    this.setCellSelectionNormalEndCellByAutofill();
+                    this.clearCellSelectionAutofillEndCell();
+                }
+            },
+        },
     },
 
     methods: {
@@ -818,14 +827,30 @@ export default {
             this.cellSelectionData.autoFillEndCell.colKey = colKey;
         },
 
-        // clear cell selection start cell
+        // clear cell selection current cell
         clearCellSelectionCurrentCell() {
             this.cellSelectionCurrentCellChange({ rowKey: "", colKey: "" });
         },
 
-        // clear cell selection start cell
-        clearCellSelectionEndCell() {
+        // clear cell selection normal end cell
+        clearCellSelectionNormalEndCell() {
             this.cellSelectionNormalEndCellChange({ rowKey: "", colKey: "" });
+        },
+
+        // clear cell selection autofill end cell
+        clearCellSelectionAutofillEndCell() {
+            this.cellSelectionAutofillCellChange({ rowKey: "", colKey: "" });
+        },
+
+        // set cell selection normal end cell by autofill
+        setCellSelectionNormalEndCellByAutofill() {
+            const { autoFillEndCell } = this.cellSelectionData;
+            const { rowKey, colKey } = autoFillEndCell;
+
+            if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+                // 自动填充功能待开发
+                //this.cellSelectionNormalEndCellChange({ rowKey, colKey });
+            }
         },
 
         // deal keydown event
@@ -1550,11 +1575,11 @@ export default {
             }
 
             this.isBodyTdMousedown = false;
-            this.isCellSelectionCornerMousedown = false;
+            this.isAutofillStarting = false;
 
             // clear cell selection
             this.clearCellSelectionCurrentCell();
-            this.clearCellSelectionEndCell();
+            this.clearCellSelectionNormalEndCell();
 
             // stop editing cell
             this[INSTANCE_METHODS.STOP_EDITING_CELL]();
@@ -1698,7 +1723,7 @@ export default {
 
                 return false;
             } else {
-                this.clearCellSelectionEndCell();
+                this.clearCellSelectionNormalEndCell();
             }
 
             // cell selection by click
@@ -1757,11 +1782,8 @@ export default {
          * @param {object} column - column data
          */
         tdMouseover({ event, rowData, column }) {
-            const {
-                rowKeyFieldName,
-                isBodyTdMousedown,
-                isCellSelectionCornerMousedown,
-            } = this;
+            const { rowKeyFieldName, isBodyTdMousedown, isAutofillStarting } =
+                this;
 
             const rowKey = getRowKey(rowData, rowKeyFieldName);
 
@@ -1772,7 +1794,7 @@ export default {
                 });
             }
 
-            if (isCellSelectionCornerMousedown) {
+            if (isAutofillStarting) {
                 this.cellSelectionAutofillCellChange({
                     rowKey,
                     colKey: column.key,
@@ -1788,7 +1810,7 @@ export default {
          */
         tdMouseup({ event, rowData, column }) {
             this.isBodyTdMousedown = false;
-            this.isCellSelectionCornerMousedown = false;
+            this.isAutofillStarting = false;
         },
 
         /*
@@ -1796,7 +1818,15 @@ export default {
          * @desc  recieve cell selection corner mousedown
          */
         cellSelectionCornerMousedown({ event }) {
-            this.isCellSelectionCornerMousedown = true;
+            this.isAutofillStarting = true;
+        },
+
+        /*
+         * @cellSelectionCornerMouseup
+         * @desc  recieve cell selection corner mouseup
+         */
+        cellSelectionCornerMouseup({ event }) {
+            this.isAutofillStarting = false;
         },
 
         // is edit column
@@ -2224,6 +2254,11 @@ export default {
             this.cellSelectionCornerMousedown(params);
         });
 
+        // recieve selection corner mousedown
+        this.$on(EMIT_EVENTS.SELECTION_CORNER_MOUSEUP, (params) => {
+            this.cellSelectionCornerMouseup(params);
+        });
+
         // recieve td mousedown
         this.$on(EMIT_EVENTS.BODY_TD_MOUSEUP, (params) => {
             this.tdMouseup(params);
@@ -2454,8 +2489,7 @@ export default {
                 rowKeyFieldName,
                 cellSelectionOption: this.cellSelectionOption,
                 cellSelectionData,
-                isCellSelectionCornerMousedown:
-                    this.isCellSelectionCornerMousedown,
+                isAutofillStarting: this.isAutofillStarting,
             },
         };
 

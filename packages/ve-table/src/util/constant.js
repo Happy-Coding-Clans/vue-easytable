@@ -93,7 +93,7 @@ export const EMIT_EVENTS = {
     // selection corner mousedown
     SELECTION_CORNER_MOUSEDOWN: "selection-corner-mousedown",
     // selection corner mouseup
-    //SELECTION_CORNER_MOUSEUP: "selection-corner-mouseup",
+    SELECTION_CORNER_MOUSEUP: "selection-corner-mouseup",
 };
 
 // hooks name
