@@ -83,8 +83,6 @@ export default {
                     height: 0,
                 },
             },
-            // area postion
-            areaPostions: null,
         };
     },
 
