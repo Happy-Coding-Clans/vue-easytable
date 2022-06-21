@@ -314,6 +314,13 @@ export default {
                     colKey: "",
                 },
             },
+            // cell selection range data
+            cellSelectionRangeData: {
+                leftColumnKey: "col3",
+                rightColumnKey: "col5",
+                topRowKey: "row100",
+                bottomRowKey: "row200",
+            },
             /*
             is body td mousedown
             mousedown+mouseup 才允许 area 绘制
@@ -2490,6 +2497,7 @@ export default {
                 cellSelectionOption: this.cellSelectionOption,
                 cellSelectionData,
                 isAutofillStarting: this.isAutofillStarting,
+                cellSelectionRangeData: this.cellSelectionRangeData,
             },
         };
 

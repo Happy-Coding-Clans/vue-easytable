@@ -37,6 +37,10 @@ export default {
             type: Object,
             required: true,
         },
+        cellSelectionRangeData: {
+            type: Object,
+            required: true,
+        },
         isAutofillStarting: {
             type: Boolean,
             required: true,
@@ -49,8 +53,8 @@ export default {
             currentCellEl: null,
             endCellEl: null,
             autoFillEndCellEl: null,
-            // selection rect
-            selectionRect: {
+            // cell selection rect
+            cellSelectionRect: {
                 // current cell element rect
                 currentCellRect: {
                     left: 0,
@@ -203,7 +207,7 @@ export default {
 
             // set start cell position
             if (currentCellEl && type === "currentCell") {
-                this.selectionRect.currentCellRect = this.getCellPosition({
+                this.cellSelectionRect.currentCellRect = this.getCellPosition({
                     cellEl: currentCellEl,
                     tableLeft,
                     tableTop,
@@ -211,26 +215,29 @@ export default {
             }
 
             if (endCellEl && type === "normalEndCell") {
-                this.selectionRect.normalEndCellRect = this.getCellPosition({
-                    cellEl: endCellEl,
-                    tableLeft,
-                    tableTop,
-                });
+                this.cellSelectionRect.normalEndCellRect = this.getCellPosition(
+                    {
+                        cellEl: endCellEl,
+                        tableLeft,
+                        tableTop,
+                    },
+                );
             }
 
             if (autoFillEndCellEl && type === "autoFillEndCell") {
-                this.selectionRect.autoFillEndCellRect = this.getCellPosition({
-                    cellEl: autoFillEndCellEl,
-                    tableLeft,
-                    tableTop,
-                });
+                this.cellSelectionRect.autoFillEndCellRect =
+                    this.getCellPosition({
+                        cellEl: autoFillEndCellEl,
+                        tableLeft,
+                        tableTop,
+                    });
             }
         },
 
         // clear end cell rect
         clearStartCellRect() {
             this.currentCellEl = null;
-            this.selectionRect.currentCellRect = {
+            this.cellSelectionRect.currentCellRect = {
                 left: 0,
                 top: 0,
                 width: 0,
@@ -241,7 +248,7 @@ export default {
         // clear normal end cell rect
         clearNormalEndCellRect() {
             this.endCellEl = null;
-            this.selectionRect.normalEndCellRect = {
+            this.cellSelectionRect.normalEndCellRect = {
                 left: 0,
                 top: 0,
                 width: 0,
@@ -252,7 +259,7 @@ export default {
         // clear auto fill end cell rect
         clearAutofillEndCellRect() {
             this.autoFillEndCellEl = null;
-            this.selectionRect.autoFillEndCellRect = {
+            this.cellSelectionRect.autoFillEndCellRect = {
                 left: 0,
                 top: 0,
                 width: 0,
@@ -271,9 +278,9 @@ export default {
                 autoFillArea: null,
             };
 
-            const { selectionRect } = this;
+            const { cellSelectionRect } = this;
 
-            const { currentCellRect, normalEndCellRect } = selectionRect;
+            const { currentCellRect, normalEndCellRect } = cellSelectionRect;
 
             if (!currentCellRect.width) {
                 return result;
@@ -345,9 +352,9 @@ export default {
                 autoFillArea: null,
             };
 
-            const { selectionRect } = this;
+            const { cellSelectionRect } = this;
 
-            const { currentCellRect, normalEndCellRect } = selectionRect;
+            const { currentCellRect, normalEndCellRect } = cellSelectionRect;
 
             if (!currentCellRect.width || !normalEndCellRect.width) {
                 return result;
@@ -466,13 +473,13 @@ export default {
         getSelectionAutofillArea(areaPostions) {
             let result = null;
 
-            const { selectionRect, isAutofillStarting } = this;
+            const { cellSelectionRect, isAutofillStarting } = this;
 
             if (!isAutofillStarting) {
                 return result;
             }
 
-            const { currentCellRect, autoFillEndCellRect } = selectionRect;
+            const { currentCellRect, autoFillEndCellRect } = cellSelectionRect;
 
             if (!currentCellRect.width || !autoFillEndCellRect.width) {
                 return result;
