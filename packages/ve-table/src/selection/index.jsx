@@ -51,15 +51,15 @@ export default {
             autoFillEndCellEl: null,
             // selection rect
             selectionRect: {
-                // start cell element rect
+                // current cell element rect
                 currentCellRect: {
                     left: 0,
                     top: 0,
                     width: 0,
                     height: 0,
                 },
-                // end cell element rect
-                endCellRect: {
+                // normal end cell element rect
+                normalEndCellRect: {
                     left: 0,
                     top: 0,
                     width: 0,
@@ -211,7 +211,7 @@ export default {
             }
 
             if (endCellEl && type === "normalEndCell") {
-                this.selectionRect.endCellRect = this.getCellPosition({
+                this.selectionRect.normalEndCellRect = this.getCellPosition({
                     cellEl: endCellEl,
                     tableLeft,
                     tableTop,
@@ -241,7 +241,7 @@ export default {
         // clear normal end cell rect
         clearNormalEndCellRect() {
             this.endCellEl = null;
-            this.selectionRect.endCellRect = {
+            this.selectionRect.normalEndCellRect = {
                 left: 0,
                 top: 0,
                 width: 0,
@@ -273,7 +273,7 @@ export default {
 
             const { selectionRect } = this;
 
-            const { currentCellRect, endCellRect } = selectionRect;
+            const { currentCellRect, normalEndCellRect } = selectionRect;
 
             if (!currentCellRect.width) {
                 return result;
@@ -312,7 +312,7 @@ export default {
                     left: currentCellRect.left - 1,
                 },
                 corner: {
-                    show: !endCellRect.width,
+                    show: !normalEndCellRect.width,
                     top: 0,
                     left: 0,
                 },
@@ -323,11 +323,11 @@ export default {
 
             result.selectionCurrent = this.getBorders({
                 ...borders,
-                showCorner: !endCellRect.width,
+                showCorner: !normalEndCellRect.width,
                 className: "selection-current",
             });
 
-            if (!endCellRect.width) {
+            if (!normalEndCellRect.width) {
                 result.autoFillArea = this.getSelectionAutofillArea(borders);
             }
 
@@ -347,9 +347,9 @@ export default {
 
             const { selectionRect } = this;
 
-            const { currentCellRect, endCellRect } = selectionRect;
+            const { currentCellRect, normalEndCellRect } = selectionRect;
 
-            if (!currentCellRect.width || !endCellRect.width) {
+            if (!currentCellRect.width || !normalEndCellRect.width) {
                 return result;
             }
 
@@ -393,56 +393,58 @@ export default {
             };
 
             // end cell right
-            if (endCellRect.left > currentCellRect.left) {
+            if (normalEndCellRect.left > currentCellRect.left) {
                 borders.borderWidth =
-                    endCellRect.left -
+                    normalEndCellRect.left -
                     currentCellRect.left +
-                    endCellRect.width +
+                    normalEndCellRect.width +
                     1;
                 borders.topBorder.left = currentCellRect.left - 1;
                 borders.rightBorder.left =
-                    endCellRect.left + endCellRect.width - 1;
+                    normalEndCellRect.left + normalEndCellRect.width - 1;
                 borders.bottomBorder.left = currentCellRect.left - 1;
                 borders.leftBorder.left = currentCellRect.left - 1;
             }
             // end cell left or equal
-            else if (endCellRect.left <= currentCellRect.left) {
+            else if (normalEndCellRect.left <= currentCellRect.left) {
                 borders.borderWidth =
                     currentCellRect.left -
-                    endCellRect.left +
+                    normalEndCellRect.left +
                     currentCellRect.width +
                     1;
 
-                borders.topBorder.left = endCellRect.left - 1;
+                borders.topBorder.left = normalEndCellRect.left - 1;
                 borders.rightBorder.left =
                     currentCellRect.left + currentCellRect.width - 1;
-                borders.bottomBorder.left = endCellRect.left - 1;
-                borders.leftBorder.left = endCellRect.left - 1;
+                borders.bottomBorder.left = normalEndCellRect.left - 1;
+                borders.leftBorder.left = normalEndCellRect.left - 1;
             }
 
             // end cell below
-            if (endCellRect.top > currentCellRect.top) {
+            if (normalEndCellRect.top > currentCellRect.top) {
                 borders.borderHeight =
-                    endCellRect.top - currentCellRect.top + endCellRect.height;
+                    normalEndCellRect.top -
+                    currentCellRect.top +
+                    normalEndCellRect.height;
 
                 borders.topBorder.top = currentCellRect.top - 1;
                 borders.rightBorder.top = currentCellRect.top;
                 borders.bottomBorder.top =
-                    endCellRect.top + endCellRect.height - 1;
+                    normalEndCellRect.top + normalEndCellRect.height - 1;
                 borders.leftBorder.top = currentCellRect.top;
             }
             // end cell above or equal
-            else if (endCellRect.top <= currentCellRect.top) {
+            else if (normalEndCellRect.top <= currentCellRect.top) {
                 borders.borderHeight =
                     currentCellRect.top -
-                    endCellRect.top +
+                    normalEndCellRect.top +
                     currentCellRect.height;
 
-                borders.topBorder.top = endCellRect.top - 1;
-                borders.rightBorder.top = endCellRect.top;
+                borders.topBorder.top = normalEndCellRect.top - 1;
+                borders.rightBorder.top = normalEndCellRect.top;
                 borders.bottomBorder.top =
                     currentCellRect.top + currentCellRect.height - 1;
-                borders.leftBorder.top = endCellRect.top;
+                borders.leftBorder.top = normalEndCellRect.top;
             }
 
             borders.corner.top = borders.bottomBorder.top - 4;
@@ -453,7 +455,7 @@ export default {
                 className: "selection-normal-area",
             });
 
-            if (endCellRect.width) {
+            if (normalEndCellRect.width) {
                 result.autoFillArea = this.getSelectionAutofillArea(borders);
             }
 
