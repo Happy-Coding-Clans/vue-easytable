@@ -2499,6 +2499,14 @@ export default {
                 isAutofillStarting: this.isAutofillStarting,
                 cellSelectionRangeData: this.cellSelectionRangeData,
             },
+            on: {
+                [EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE]: (data) => {
+                    this.cellSelectionRangeData = Object.assign(
+                        this.cellSelectionRangeData,
+                        data,
+                    );
+                },
+            },
         };
 
         // edit input props

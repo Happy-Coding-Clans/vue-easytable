@@ -76,6 +76,8 @@ export const EMIT_EVENTS = {
     SORT_CHANGE: "on-sort-change",
     // on-cell-selection-key-change
     CELL_SELECTION_KEY_CHANGE: "on-cell-selection-key-change",
+    // on-cell-selection-range-data-change
+    CELL_SELECTION_RANGE_DATA_CHANGE: "on-cell-selection-range-data-change",
     // header filter confirm
     HEADER_FILTER_CONFIRM: "on-filter-confirm",
     // header filter reset

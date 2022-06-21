@@ -127,6 +127,7 @@ export default {
             handler: function (val) {
                 const { rowKey, colKey } = val;
                 if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+                    // set current cell el
                     this.setCurrentCellEl();
                     // wait for selection cell rendered
                     this.$nextTick(() => {
@@ -139,11 +140,14 @@ export default {
             deep: true,
             immediate: true,
         },
-        // watch current cell
+        // watch normal end cell
         "cellSelectionData.normalEndCell": {
             handler: function (val) {
                 const { rowKey, colKey } = val;
                 if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+                    // set cell selection range data
+                    this.setCellSelectionRangeData();
+                    // set end cell el
                     this.setEndCellEl();
                     // wait for selection cell rendered
                     this.$nextTick(() => {
@@ -151,12 +155,13 @@ export default {
                     });
                 } else {
                     this.clearNormalEndCellRect();
+                    this.clearCellSelectionRangeData();
                 }
             },
             deep: true,
             immediate: true,
         },
-        // watch current cell
+        // watch autofill cell
         "cellSelectionData.autoFillEndCell": {
             handler: function (val) {
                 const { rowKey, colKey } = val;
@@ -176,6 +181,59 @@ export default {
     },
 
     methods: {
+        // set cell selection range data
+        setCellSelectionRangeData() {
+            /* 
+            cellSelectionRangeData: {
+                leftColumnKey: "col3",
+                rightColumnKey: "col5",
+                topRowKey: "row100",
+                bottomRowKey: "row200",
+            },
+            */
+
+            const { currentCell, normalEndCell } = this.cellSelectionData;
+            const { currentCellRect, normalEndCellRect } =
+                this.cellSelectionRect;
+
+            let result = {
+                leftColumnKey: "",
+                rightColumnKey: "",
+                topRowKey: "",
+                bottomRowKey: "",
+            };
+
+            // current cell left less than normal end cell left
+            if (currentCellRect.left < normalEndCellRect.left) {
+                result.leftColumnKey = currentCell.colKey;
+                result.rightColumnKey = normalEndCell.colKey;
+            } else {
+                result.leftColumnKey = normalEndCell.colKey;
+                result.rightColumnKey = currentCell.colKey;
+            }
+
+            // current cell top less than normal end cell top
+            if (currentCellRect.top < normalEndCellRect.top) {
+                result.topRowKey = currentCell.rowKey;
+                result.bottomRowKey = normalEndCell.rowKey;
+            } else {
+                result.topRowKey = normalEndCell.rowKey;
+                result.bottomRowKey = currentCell.rowKey;
+            }
+
+            this.$emit(EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE, result);
+        },
+        // clear cell selection range data
+        clearCellSelectionRangeData() {
+            let result = {
+                leftColumnKey: "",
+                rightColumnKey: "",
+                topRowKey: "",
+                bottomRowKey: "",
+            };
+            this.$emit(EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE, result);
+        },
+
         // get cell position
         getCellPosition({ cellEl, tableLeft, tableTop }) {
             const {
