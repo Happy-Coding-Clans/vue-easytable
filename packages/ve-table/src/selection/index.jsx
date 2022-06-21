@@ -52,7 +52,7 @@ export default {
             // selection rect
             selectionRect: {
                 // start cell element rect
-                startCellRect: {
+                currentCellRect: {
                     left: 0,
                     top: 0,
                     width: 0,
@@ -203,7 +203,7 @@ export default {
 
             // set start cell position
             if (currentCellEl && type === "currentCell") {
-                this.selectionRect.startCellRect = this.getCellPosition({
+                this.selectionRect.currentCellRect = this.getCellPosition({
                     cellEl: currentCellEl,
                     tableLeft,
                     tableTop,
@@ -230,7 +230,7 @@ export default {
         // clear end cell rect
         clearStartCellRect() {
             this.currentCellEl = null;
-            this.selectionRect.startCellRect = {
+            this.selectionRect.currentCellRect = {
                 left: 0,
                 top: 0,
                 width: 0,
@@ -273,43 +273,43 @@ export default {
 
             const { selectionRect } = this;
 
-            const { startCellRect, endCellRect } = selectionRect;
+            const { currentCellRect, endCellRect } = selectionRect;
 
-            if (!startCellRect.width) {
+            if (!currentCellRect.width) {
                 return result;
             }
 
             const borders = {
-                borderWidth: startCellRect.width + 1,
-                borderHeight: startCellRect.height,
+                borderWidth: currentCellRect.width + 1,
+                borderHeight: currentCellRect.height,
 
                 topBorder: {
                     show: true,
                     width: 0,
                     height: 2,
-                    top: startCellRect.top - 1,
-                    left: startCellRect.left - 1,
+                    top: currentCellRect.top - 1,
+                    left: currentCellRect.left - 1,
                 },
                 rightBorder: {
                     show: true,
                     width: 2,
                     height: 0,
-                    top: startCellRect.top,
-                    left: startCellRect.left + startCellRect.width - 2,
+                    top: currentCellRect.top,
+                    left: currentCellRect.left + currentCellRect.width - 2,
                 },
                 bottomBorder: {
                     show: true,
                     width: 0,
                     height: 2,
-                    top: startCellRect.top + startCellRect.height - 2,
-                    left: startCellRect.left - 1,
+                    top: currentCellRect.top + currentCellRect.height - 2,
+                    left: currentCellRect.left - 1,
                 },
                 leftBorder: {
                     show: true,
                     width: 2,
                     height: 0,
-                    top: startCellRect.top,
-                    left: startCellRect.left - 1,
+                    top: currentCellRect.top,
+                    left: currentCellRect.left - 1,
                 },
                 corner: {
                     show: !endCellRect.width,
@@ -347,9 +347,9 @@ export default {
 
             const { selectionRect } = this;
 
-            const { startCellRect, endCellRect } = selectionRect;
+            const { currentCellRect, endCellRect } = selectionRect;
 
-            if (!startCellRect.width || !endCellRect.width) {
+            if (!currentCellRect.width || !endCellRect.width) {
                 return result;
             }
 
@@ -393,53 +393,55 @@ export default {
             };
 
             // end cell right
-            if (endCellRect.left > startCellRect.left) {
+            if (endCellRect.left > currentCellRect.left) {
                 borders.borderWidth =
                     endCellRect.left -
-                    startCellRect.left +
+                    currentCellRect.left +
                     endCellRect.width +
                     1;
-                borders.topBorder.left = startCellRect.left - 1;
+                borders.topBorder.left = currentCellRect.left - 1;
                 borders.rightBorder.left =
                     endCellRect.left + endCellRect.width - 1;
-                borders.bottomBorder.left = startCellRect.left - 1;
-                borders.leftBorder.left = startCellRect.left - 1;
+                borders.bottomBorder.left = currentCellRect.left - 1;
+                borders.leftBorder.left = currentCellRect.left - 1;
             }
             // end cell left or equal
-            else if (endCellRect.left <= startCellRect.left) {
+            else if (endCellRect.left <= currentCellRect.left) {
                 borders.borderWidth =
-                    startCellRect.left -
+                    currentCellRect.left -
                     endCellRect.left +
-                    startCellRect.width +
+                    currentCellRect.width +
                     1;
 
                 borders.topBorder.left = endCellRect.left - 1;
                 borders.rightBorder.left =
-                    startCellRect.left + startCellRect.width - 1;
+                    currentCellRect.left + currentCellRect.width - 1;
                 borders.bottomBorder.left = endCellRect.left - 1;
                 borders.leftBorder.left = endCellRect.left - 1;
             }
 
             // end cell below
-            if (endCellRect.top > startCellRect.top) {
+            if (endCellRect.top > currentCellRect.top) {
                 borders.borderHeight =
-                    endCellRect.top - startCellRect.top + endCellRect.height;
+                    endCellRect.top - currentCellRect.top + endCellRect.height;
 
-                borders.topBorder.top = startCellRect.top - 1;
-                borders.rightBorder.top = startCellRect.top;
+                borders.topBorder.top = currentCellRect.top - 1;
+                borders.rightBorder.top = currentCellRect.top;
                 borders.bottomBorder.top =
                     endCellRect.top + endCellRect.height - 1;
-                borders.leftBorder.top = startCellRect.top;
+                borders.leftBorder.top = currentCellRect.top;
             }
             // end cell above or equal
-            else if (endCellRect.top <= startCellRect.top) {
+            else if (endCellRect.top <= currentCellRect.top) {
                 borders.borderHeight =
-                    startCellRect.top - endCellRect.top + startCellRect.height;
+                    currentCellRect.top -
+                    endCellRect.top +
+                    currentCellRect.height;
 
                 borders.topBorder.top = endCellRect.top - 1;
                 borders.rightBorder.top = endCellRect.top;
                 borders.bottomBorder.top =
-                    startCellRect.top + startCellRect.height - 1;
+                    currentCellRect.top + currentCellRect.height - 1;
                 borders.leftBorder.top = endCellRect.top;
             }
 
@@ -468,9 +470,9 @@ export default {
                 return result;
             }
 
-            const { startCellRect, autoFillEndCellRect } = selectionRect;
+            const { currentCellRect, autoFillEndCellRect } = selectionRect;
 
-            if (!startCellRect.width || !autoFillEndCellRect.width) {
+            if (!currentCellRect.width || !autoFillEndCellRect.width) {
                 return result;
             }
 
