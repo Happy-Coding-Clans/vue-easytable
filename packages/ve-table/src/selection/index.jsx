@@ -185,8 +185,8 @@ export default {
         setCellSelectionRangeData() {
             /* 
             cellSelectionRangeData: {
-                leftColumnKey: "col3",
-                rightColumnKey: "col5",
+                leftColKey: "col3",
+                rightColKey: "col5",
                 topRowKey: "row100",
                 bottomRowKey: "row200",
             },
@@ -197,19 +197,19 @@ export default {
                 this.cellSelectionRect;
 
             let result = {
-                leftColumnKey: "",
-                rightColumnKey: "",
+                leftColKey: "",
+                rightColKey: "",
                 topRowKey: "",
                 bottomRowKey: "",
             };
 
             // current cell left less than normal end cell left
             if (currentCellRect.left < normalEndCellRect.left) {
-                result.leftColumnKey = currentCell.colKey;
-                result.rightColumnKey = normalEndCell.colKey;
+                result.leftColKey = currentCell.colKey;
+                result.rightColKey = normalEndCell.colKey;
             } else {
-                result.leftColumnKey = normalEndCell.colKey;
-                result.rightColumnKey = currentCell.colKey;
+                result.leftColKey = normalEndCell.colKey;
+                result.rightColKey = currentCell.colKey;
             }
 
             // current cell top less than normal end cell top
@@ -226,8 +226,8 @@ export default {
         // clear cell selection range data
         clearCellSelectionRangeData() {
             let result = {
-                leftColumnKey: "",
-                rightColumnKey: "",
+                leftColKey: "",
+                rightColKey: "",
                 topRowKey: "",
                 bottomRowKey: "",
             };

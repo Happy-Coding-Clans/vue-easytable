@@ -9,6 +9,7 @@ import {
     isContextmenuPanelClicked,
     getRowKey,
     getColumnByColkey,
+    isCellInSelectionRange,
 } from "./util";
 import {
     getValByUnit,
@@ -316,10 +317,10 @@ export default {
             },
             // cell selection range data
             cellSelectionRangeData: {
-                leftColumnKey: "col3",
-                rightColumnKey: "col5",
-                topRowKey: "row100",
-                bottomRowKey: "row200",
+                leftColKey: "",
+                rightColKey: "",
+                topRowKey: "",
+                bottomRowKey: "",
             },
             /*
             is body td mousedown
@@ -851,12 +852,21 @@ export default {
 
         // set cell selection normal end cell by autofill
         setCellSelectionNormalEndCellByAutofill() {
+            const { cellSelectionRangeData, colgroups, allRowKeys } = this;
             const { autoFillEndCell } = this.cellSelectionData;
+
             const { rowKey, colKey } = autoFillEndCell;
 
-            if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+            if (
+                !isCellInSelectionRange({
+                    cellData: autoFillEndCell,
+                    cellSelectionRangeData,
+                    colgroups,
+                    allRowKeys,
+                })
+            ) {
                 // 自动填充功能待开发
-                //this.cellSelectionNormalEndCellChange({ rowKey, colKey });
+                this.cellSelectionNormalEndCellChange({ rowKey, colKey });
             }
         },
 

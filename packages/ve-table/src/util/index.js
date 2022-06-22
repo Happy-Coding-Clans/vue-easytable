@@ -317,3 +317,89 @@ export function isContextmenuPanelClicked(event) {
 
     return result;
 }
+
+/*
+ * @getColKeysByRangeColKeys
+ * @desc  get col keys by range col keys
+ * @param {any} leftColKey - left col key
+ * @param {any} rightColKey - right col key
+ * @return Array<colKeys>
+ */
+export function getColKeysByRangeColKeys({
+    leftColKey,
+    rightColKey,
+    colgroups,
+}) {
+    let result = null;
+
+    const beginIndex = colgroups.findIndex((x) => x.key === leftColKey);
+    const endIndex = colgroups.findIndex((x) => x.key === rightColKey);
+
+    if (beginIndex !== -1 && endIndex !== -1) {
+        result = colgroups.slice(beginIndex, endIndex + 1).map((x) => x.key);
+    }
+
+    return result;
+}
+
+/*
+ * @getRowKeysByRangeRowKeys
+ * @desc get row keys by range row keys
+ * @param {any} topRowKey - top row key
+ * @param {any} bottomRowKey - bottom row key
+ * @return Array<colKeys>
+ */
+export function getRowKeysByRangeRowKeys({
+    topRowKey,
+    bottomRowKey,
+    allRowKeys,
+}) {
+    let result = null;
+
+    const beginIndex = allRowKeys.findIndex((x) => x === topRowKey);
+    const endIndex = allRowKeys.findIndex((x) => x === bottomRowKey);
+
+    if (beginIndex !== -1 && endIndex !== -1) {
+        result = allRowKeys.slice(beginIndex, endIndex + 1);
+    }
+
+    return result;
+}
+
+/*
+ * @isCellInSelectionRange
+ * @desc is cell in selection range
+ * @param {object} cellData - cell data
+ * @param {object} cellSelectionRangeData
+ * @param {array<object>} colgroups
+ * @param {array<object>} allRowKeys
+ * @return Array<colKeys>
+ */
+export function isCellInSelectionRange({
+    cellData,
+    cellSelectionRangeData,
+    colgroups,
+    allRowKeys,
+}) {
+    const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
+        cellSelectionRangeData;
+
+    const colKeys = getColKeysByRangeColKeys({
+        leftColKey,
+        rightColKey,
+        colgroups,
+    });
+    const rowKeys = getRowKeysByRangeRowKeys({
+        topRowKey,
+        bottomRowKey,
+        allRowKeys,
+    });
+
+    if (
+        colKeys.indexOf(cellData.colKey) > -1 &&
+        rowKeys.indexOf(cellData.rowKey) > -1
+    ) {
+        return true;
+    }
+    return false;
+}
