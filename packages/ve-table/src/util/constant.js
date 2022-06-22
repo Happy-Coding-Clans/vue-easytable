@@ -32,6 +32,14 @@ export const CELL_SELECTION_DIRECTION = {
     LEFT: "left",
 };
 
+// autofilling direction
+export const AUTOFILLING_DIRECTION = {
+    UP: "up",
+    RIGHT: "right",
+    DOWN: "down",
+    LEFT: "left",
+};
+
 // cell selection types
 // export const CELL_SELECTION_TYPES = {
 //     SINGLE: "single",
@@ -96,6 +104,8 @@ export const EMIT_EVENTS = {
     SELECTION_CORNER_MOUSEDOWN: "selection-corner-mousedown",
     // selection corner mouseup
     SELECTION_CORNER_MOUSEUP: "selection-corner-mouseup",
+    // autofilling direction change
+    AUTOFILLING_DIRECTION_CHANGE: "autofilling-direction-change",
 };
 
 // hooks name

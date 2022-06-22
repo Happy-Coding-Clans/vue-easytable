@@ -1,5 +1,10 @@
 import { clsName, isLastColumnByColKey, isLastRowByRowKey } from "../util";
-import { COMPS_NAME, EMIT_EVENTS, HOOKS_NAME } from "../util/constant";
+import {
+    COMPS_NAME,
+    EMIT_EVENTS,
+    HOOKS_NAME,
+    AUTOFILLING_DIRECTION,
+} from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 import { isEmptyValue } from "../../../src/utils/index.js";
 
@@ -145,13 +150,13 @@ export default {
             handler: function (val) {
                 const { rowKey, colKey } = val;
                 if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                    // set cell selection range data
-                    this.setCellSelectionRangeData();
                     // set end cell el
                     this.setEndCellEl();
                     // wait for selection cell rendered
                     this.$nextTick(() => {
                         this.setSelectionPositions({ type: "normalEndCell" });
+                        // set cell selection range data
+                        this.setCellSelectionRangeData();
                     });
                 } else {
                     this.clearNormalEndCellRect();
@@ -183,15 +188,6 @@ export default {
     methods: {
         // set cell selection range data
         setCellSelectionRangeData() {
-            /* 
-            cellSelectionRangeData: {
-                leftColKey: "col3",
-                rightColKey: "col5",
-                topRowKey: "row100",
-                bottomRowKey: "row200",
-            },
-            */
-
             const { currentCell, normalEndCell } = this.cellSelectionData;
             const { currentCellRect, normalEndCellRect } =
                 this.cellSelectionRect;
@@ -586,8 +582,11 @@ export default {
                 },
             };
 
+            let autofillingDirection;
             // auto fill end cell below
             if (autoFillEndCellRect.top > areaPostions.bottomBorder.top) {
+                autofillingDirection = AUTOFILLING_DIRECTION.DOWN;
+
                 borders.topBorder.show = false;
 
                 borders.borderWidth = areaPostions.borderWidth;
@@ -608,6 +607,8 @@ export default {
             }
             // end cell above
             else if (autoFillEndCellRect.top < areaPostions.topBorder.top) {
+                autofillingDirection = AUTOFILLING_DIRECTION.UP;
+
                 borders.bottomBorder.show = false;
 
                 borders.borderWidth = areaPostions.borderWidth;
@@ -625,6 +626,8 @@ export default {
             }
             // auto fill end cell right
             else if (autoFillEndCellRect.left > areaPostions.rightBorder.left) {
+                autofillingDirection = AUTOFILLING_DIRECTION.RIGHT;
+
                 borders.leftBorder.show = false;
 
                 borders.borderWidth =
@@ -646,6 +649,8 @@ export default {
             }
             // auto fill end cell left
             else if (autoFillEndCellRect.left < areaPostions.leftBorder.left) {
+                autofillingDirection = AUTOFILLING_DIRECTION.LEFT;
+
                 borders.rightBorder.show = false;
 
                 borders.borderWidth =
@@ -661,6 +666,12 @@ export default {
                 borders.leftBorder.top = areaPostions.topBorder.top;
                 borders.leftBorder.left = autoFillEndCellRect.left;
             }
+
+            this.dispatch(
+                COMPS_NAME.VE_TABLE,
+                EMIT_EVENTS.AUTOFILLING_DIRECTION_CHANGE,
+                autofillingDirection,
+            );
 
             result = this.getBorders({
                 ...borders,

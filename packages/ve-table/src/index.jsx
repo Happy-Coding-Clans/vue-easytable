@@ -33,6 +33,7 @@ import {
     CELL_SELECTION_DIRECTION,
     LOCALE_COMP_NAME,
     CONTEXTMENU_TYPES,
+    AUTOFILLING_DIRECTION,
 } from "./util/constant";
 import Colgroup from "./colgroup";
 import Header from "./header";
@@ -331,6 +332,10 @@ export default {
             is cell selection corner mousedown
             */
             isAutofillStarting: false,
+            /* 
+            autofilling direction
+            */
+            autofillingDirection: null,
             /*
             table offest height（开启虚拟滚动时使用）
             1、当 :max-height="500" 时使用 max-height 
@@ -663,7 +668,7 @@ export default {
         isAutofillStarting: {
             handler(val) {
                 if (!val) {
-                    this.setCellSelectionNormalEndCellByAutofill();
+                    this.setCellSelectionByAutofill();
                     this.clearCellSelectionAutofillEndCell();
                 }
             },
@@ -850,10 +855,16 @@ export default {
             this.cellSelectionAutofillCellChange({ rowKey: "", colKey: "" });
         },
 
-        // set cell selection normal end cell by autofill
-        setCellSelectionNormalEndCellByAutofill() {
-            const { cellSelectionRangeData, colgroups, allRowKeys } = this;
-            const { autoFillEndCell } = this.cellSelectionData;
+        // set cell selection by autofill
+        setCellSelectionByAutofill() {
+            const {
+                cellSelectionRangeData,
+                colgroups,
+                allRowKeys,
+                autofillingDirection,
+            } = this;
+            const { autoFillEndCell, normalEndCell, currentCell } =
+                this.cellSelectionData;
 
             const { rowKey, colKey } = autoFillEndCell;
 
@@ -865,9 +876,56 @@ export default {
                     allRowKeys,
                 })
             ) {
-                // 自动填充功能待开发
-                this.cellSelectionNormalEndCellChange({ rowKey, colKey });
+                const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
+                    cellSelectionRangeData;
+
+                if (autofillingDirection === AUTOFILLING_DIRECTION.RIGHT) {
+                    this.cellSelectionCurrentCellChange({
+                        rowKey: topRowKey,
+                        colKey: leftColKey,
+                    });
+                    this.cellSelectionNormalEndCellChange({
+                        rowKey: bottomRowKey,
+                        colKey,
+                    });
+                } else if (
+                    autofillingDirection === AUTOFILLING_DIRECTION.DOWN
+                ) {
+                    this.cellSelectionCurrentCellChange({
+                        rowKey: topRowKey,
+                        colKey: leftColKey,
+                    });
+                    this.cellSelectionNormalEndCellChange({
+                        rowKey,
+                        colKey: rightColKey,
+                    });
+                } else if (autofillingDirection === AUTOFILLING_DIRECTION.UP) {
+                    this.cellSelectionCurrentCellChange({
+                        rowKey,
+                        colKey: leftColKey,
+                    });
+                    this.cellSelectionNormalEndCellChange({
+                        rowKey: bottomRowKey,
+                        colKey: rightColKey,
+                    });
+                } else if (
+                    autofillingDirection === AUTOFILLING_DIRECTION.LEFT
+                ) {
+                    this.cellSelectionCurrentCellChange({
+                        rowKey: topRowKey,
+                        colKey,
+                    });
+                    this.cellSelectionNormalEndCellChange({
+                        rowKey: bottomRowKey,
+                        colKey: rightColKey,
+                    });
+                }
             }
+        },
+
+        // autofilling direction change
+        autofillingDirectionChange(direction) {
+            this.autofillingDirection = direction;
         },
 
         // deal keydown event
@@ -2274,6 +2332,11 @@ export default {
         // recieve selection corner mousedown
         this.$on(EMIT_EVENTS.SELECTION_CORNER_MOUSEUP, (params) => {
             this.cellSelectionCornerMouseup(params);
+        });
+
+        // autofilling direction change
+        this.$on(EMIT_EVENTS.AUTOFILLING_DIRECTION_CHANGE, (params) => {
+            this.autofillingDirectionChange(params);
         });
 
         // recieve td mousedown
