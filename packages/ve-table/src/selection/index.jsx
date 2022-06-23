@@ -137,9 +137,12 @@ export default {
                     // wait for selection cell rendered
                     this.$nextTick(() => {
                         this.setSelectionPositions({ type: "currentCell" });
+                        // set cell selection range data
+                        this.setCellSelectionRangeData();
                     });
                 } else {
                     this.clearStartCellRect();
+                    this.clearCellSelectionRangeData();
                 }
             },
             deep: true,
