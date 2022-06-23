@@ -34,6 +34,7 @@ import {
     LOCALE_COMP_NAME,
     CONTEXTMENU_TYPES,
     AUTOFILLING_DIRECTION,
+    CURRENT_CELL_SELECTION_TYPES,
 } from "./util/constant";
 import Colgroup from "./colgroup";
 import Header from "./header";
@@ -336,6 +337,8 @@ export default {
             autofilling direction
             */
             autofillingDirection: null,
+            // current cell selection type
+            currentCellSelectionType: "",
             /*
             table offest height（开启虚拟滚动时使用）
             1、当 :max-height="500" 时使用 max-height 
@@ -673,6 +676,22 @@ export default {
                 }
             },
         },
+        // watch current cell
+        "cellSelectionData.currentCell": {
+            handler: function () {
+                this.setCurrentCellSelectionType();
+            },
+            deep: true,
+            immediate: true,
+        },
+        // watch normal end cell
+        "cellSelectionData.normalEndCell": {
+            handler: function () {
+                this.setCurrentCellSelectionType();
+            },
+            deep: true,
+            immediate: true,
+        },
     },
 
     methods: {
@@ -862,63 +881,116 @@ export default {
                 colgroups,
                 allRowKeys,
                 autofillingDirection,
+                currentCellSelectionType,
             } = this;
             const { autoFillEndCell, normalEndCell, currentCell } =
                 this.cellSelectionData;
 
             const { rowKey, colKey } = autoFillEndCell;
 
+            // cell selection range auto fill
             if (
-                !isCellInSelectionRange({
-                    cellData: autoFillEndCell,
-                    cellSelectionRangeData,
-                    colgroups,
-                    allRowKeys,
-                })
+                currentCellSelectionType === CURRENT_CELL_SELECTION_TYPES.RANGE
             ) {
-                const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
-                    cellSelectionRangeData;
+                if (
+                    !isCellInSelectionRange({
+                        cellData: autoFillEndCell,
+                        cellSelectionRangeData,
+                        colgroups,
+                        allRowKeys,
+                    })
+                ) {
+                    const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
+                        cellSelectionRangeData;
 
-                if (autofillingDirection === AUTOFILLING_DIRECTION.RIGHT) {
-                    this.cellSelectionCurrentCellChange({
-                        rowKey: topRowKey,
-                        colKey: leftColKey,
-                    });
-                    this.cellSelectionNormalEndCellChange({
-                        rowKey: bottomRowKey,
-                        colKey,
-                    });
-                } else if (
-                    autofillingDirection === AUTOFILLING_DIRECTION.DOWN
+                    if (autofillingDirection === AUTOFILLING_DIRECTION.RIGHT) {
+                        this.cellSelectionCurrentCellChange({
+                            rowKey: topRowKey,
+                            colKey: leftColKey,
+                        });
+                        this.cellSelectionNormalEndCellChange({
+                            rowKey: bottomRowKey,
+                            colKey,
+                        });
+                    } else if (
+                        autofillingDirection === AUTOFILLING_DIRECTION.DOWN
+                    ) {
+                        this.cellSelectionCurrentCellChange({
+                            rowKey: topRowKey,
+                            colKey: leftColKey,
+                        });
+                        this.cellSelectionNormalEndCellChange({
+                            rowKey,
+                            colKey: rightColKey,
+                        });
+                    } else if (
+                        autofillingDirection === AUTOFILLING_DIRECTION.UP
+                    ) {
+                        this.cellSelectionCurrentCellChange({
+                            rowKey,
+                            colKey: leftColKey,
+                        });
+                        this.cellSelectionNormalEndCellChange({
+                            rowKey: bottomRowKey,
+                            colKey: rightColKey,
+                        });
+                    } else if (
+                        autofillingDirection === AUTOFILLING_DIRECTION.LEFT
+                    ) {
+                        this.cellSelectionCurrentCellChange({
+                            rowKey: topRowKey,
+                            colKey,
+                        });
+                        this.cellSelectionNormalEndCellChange({
+                            rowKey: bottomRowKey,
+                            colKey: rightColKey,
+                        });
+                    }
+                }
+            }
+            // cell selection single auto fill
+            else if (
+                currentCellSelectionType === CURRENT_CELL_SELECTION_TYPES.SINGLE
+            ) {
+                if (
+                    currentCell.rowKey !== rowKey ||
+                    currentCell.colKey !== colKey
                 ) {
-                    this.cellSelectionCurrentCellChange({
-                        rowKey: topRowKey,
-                        colKey: leftColKey,
-                    });
-                    this.cellSelectionNormalEndCellChange({
-                        rowKey,
-                        colKey: rightColKey,
-                    });
-                } else if (autofillingDirection === AUTOFILLING_DIRECTION.UP) {
-                    this.cellSelectionCurrentCellChange({
-                        rowKey,
-                        colKey: leftColKey,
-                    });
-                    this.cellSelectionNormalEndCellChange({
-                        rowKey: bottomRowKey,
-                        colKey: rightColKey,
-                    });
-                } else if (
-                    autofillingDirection === AUTOFILLING_DIRECTION.LEFT
-                ) {
-                    this.cellSelectionCurrentCellChange({
-                        rowKey: topRowKey,
-                        colKey,
-                    });
-                    this.cellSelectionNormalEndCellChange({
-                        rowKey: bottomRowKey,
-                        colKey: rightColKey,
-                    });
+                    if (autofillingDirection === AUTOFILLING_DIRECTION.RIGHT) {
+                        this.cellSelectionNormalEndCellChange({
+                            rowKey: currentCell.rowKey,
+                            colKey,
+                        });
+                    } else if (
+                        autofillingDirection === AUTOFILLING_DIRECTION.DOWN
+                    ) {
+                        this.cellSelectionNormalEndCellChange({
+                            rowKey,
+                            colKey: currentCell.colKey,
+                        });
+                    } else if (
+                        autofillingDirection === AUTOFILLING_DIRECTION.UP
+                    ) {
+                        this.cellSelectionNormalEndCellChange({
+                            rowKey: currentCell.rowKey,
+                            colKey: currentCell.colKey,
+                        });
+                        this.cellSelectionCurrentCellChange({
+                            rowKey,
+                            colKey: currentCell.colKey,
+                        });
+                    } else if (
+                        autofillingDirection === AUTOFILLING_DIRECTION.LEFT
+                    ) {
+                        this.cellSelectionNormalEndCellChange({
+                            rowKey: currentCell.rowKey,
+                            colKey: currentCell.colKey,
+                        });
+                        this.cellSelectionCurrentCellChange({
+                            rowKey: currentCell.rowKey,
+                            colKey,
+                        });
+                    }
                 }
             }
         },
@@ -926,6 +998,31 @@ export default {
         // autofilling direction change
         autofillingDirectionChange(direction) {
             this.autofillingDirection = direction;
+        },
+
+        // set current cell selection type
+        setCurrentCellSelectionType() {
+            const { currentCell, normalEndCell } = this.cellSelectionData;
+
+            let result;
+
+            if (
+                isEmptyValue(currentCell.rowKey) ||
+                isEmptyValue(currentCell.colKey)
+            ) {
+                result = "";
+            } else {
+                if (
+                    !isEmptyValue(normalEndCell.rowKey) &&
+                    !isEmptyValue(normalEndCell.colKey)
+                ) {
+                    result = CURRENT_CELL_SELECTION_TYPES.RANGE;
+                } else {
+                    result = CURRENT_CELL_SELECTION_TYPES.SINGLE;
+                }
+            }
+
+            this.currentCellSelectionType = result;
         },
 
         // deal keydown event

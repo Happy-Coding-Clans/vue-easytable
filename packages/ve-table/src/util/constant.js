@@ -40,11 +40,11 @@ export const AUTOFILLING_DIRECTION = {
     LEFT: "left",
 };
 
-// cell selection types
-// export const CELL_SELECTION_TYPES = {
-//     SINGLE: "single",
-//     RANGE: "range",
-// };
+// current cell selection types
+export const CURRENT_CELL_SELECTION_TYPES = {
+    SINGLE: "single",
+    RANGE: "range",
+};
 
 // emit events
 export const EMIT_EVENTS = {

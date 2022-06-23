@@ -391,6 +391,7 @@ export default {
                 className: "selection-current",
             });
 
+            // cell selection single autofill
             if (!normalEndCellRect.width) {
                 result.autoFillArea = this.getSelectionAutofillArea(borders);
             }
