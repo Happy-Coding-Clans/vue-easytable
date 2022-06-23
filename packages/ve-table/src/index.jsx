@@ -2421,6 +2421,11 @@ export default {
             this.tdMousedown(params);
         });
 
+        // recieve td mousedown
+        this.$on(EMIT_EVENTS.BODY_TD_MOUSEUP, (params) => {
+            this.tdMouseup(params);
+        });
+
         // recieve selection corner mousedown
         this.$on(EMIT_EVENTS.SELECTION_CORNER_MOUSEDOWN, (params) => {
             this.cellSelectionCornerMousedown(params);
@@ -2434,11 +2439,6 @@ export default {
         // autofilling direction change
         this.$on(EMIT_EVENTS.AUTOFILLING_DIRECTION_CHANGE, (params) => {
             this.autofillingDirectionChange(params);
-        });
-
-        // recieve td mousedown
-        this.$on(EMIT_EVENTS.BODY_TD_MOUSEUP, (params) => {
-            this.tdMouseup(params);
         });
 
         // recieve td contextmenu(right click)
