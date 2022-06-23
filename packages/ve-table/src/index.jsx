@@ -1981,6 +1981,11 @@ export default {
          * @param {object} column - column data
          */
         tdMouseup({ event, rowData, column }) {
+            // feature...
+        },
+
+        // table content wrapper mouseup
+        tableContentWrapperMouseup() {
             this.isBodyTdMousedown = false;
             this.isAutofillStarting = false;
         },
@@ -2646,6 +2651,11 @@ export default {
             on: {
                 "on-dom-resize-change": ({ height }) => {
                     this.tableHeight = height;
+                },
+            },
+            nativeOn: {
+                mouseup: () => {
+                    this.tableContentWrapperMouseup();
                 },
             },
         };
