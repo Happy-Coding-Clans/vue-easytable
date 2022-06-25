@@ -883,8 +883,7 @@ export default {
                 autofillingDirection,
                 currentCellSelectionType,
             } = this;
-            const { autoFillEndCell, normalEndCell, currentCell } =
-                this.cellSelectionData;
+            const { autoFillEndCell, currentCell } = this.cellSelectionData;
 
             const { rowKey, colKey } = autoFillEndCell;
 
@@ -2678,6 +2677,7 @@ export default {
                 cellSelectionData,
                 isAutofillStarting: this.isAutofillStarting,
                 cellSelectionRangeData: this.cellSelectionRangeData,
+                currentCellSelectionType: this.currentCellSelectionType,
             },
             on: {
                 [EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE]: (data) => {

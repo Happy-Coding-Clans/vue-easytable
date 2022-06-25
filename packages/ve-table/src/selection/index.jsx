@@ -4,6 +4,7 @@ import {
     EMIT_EVENTS,
     HOOKS_NAME,
     AUTOFILLING_DIRECTION,
+    CURRENT_CELL_SELECTION_TYPES,
 } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 import { isEmptyValue } from "../../../src/utils/index.js";
@@ -49,6 +50,10 @@ export default {
         isAutofillStarting: {
             type: Boolean,
             required: true,
+        },
+        currentCellSelectionType: {
+            type: String,
+            default: "",
         },
     },
 
@@ -531,7 +536,11 @@ export default {
         getSelectionAutofillArea(areaPostions) {
             let result = null;
 
-            const { cellSelectionRect, isAutofillStarting } = this;
+            const {
+                cellSelectionRect,
+                isAutofillStarting,
+                currentCellSelectionType,
+            } = this;
 
             if (!isAutofillStarting) {
                 return result;
@@ -601,6 +610,12 @@ export default {
 
                 borders.rightBorder.top = areaPostions.bottomBorder.top;
                 borders.rightBorder.left = areaPostions.rightBorder.left;
+                if (
+                    currentCellSelectionType ===
+                    CURRENT_CELL_SELECTION_TYPES.SINGLE
+                ) {
+                    borders.rightBorder.left++;
+                }
 
                 borders.leftBorder.top = areaPostions.bottomBorder.top;
                 borders.leftBorder.left = areaPostions.leftBorder.left;
@@ -624,6 +639,12 @@ export default {
 
                 borders.rightBorder.top = autoFillEndCellRect.top;
                 borders.rightBorder.left = areaPostions.rightBorder.left;
+                if (
+                    currentCellSelectionType ===
+                    CURRENT_CELL_SELECTION_TYPES.SINGLE
+                ) {
+                    borders.rightBorder.left++;
+                }
 
                 borders.leftBorder.top = autoFillEndCellRect.top;
                 borders.leftBorder.left = areaPostions.leftBorder.left;
