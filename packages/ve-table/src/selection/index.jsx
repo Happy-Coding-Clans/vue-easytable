@@ -878,37 +878,57 @@ export default {
     },
 
     render() {
-        const selectionCurrent = this.getSelectionCurrent();
-        const selectionArea = this.getSelectionAreas();
+        // fixed left
+        const fixedLeftSelectionCurrent = this.getSelectionCurrent({
+            fixedType: "fixedLeft",
+        });
+        const fixedLeftSelectionArea = this.getSelectionAreas();
 
-        const autoFillArea =
-            selectionCurrent.autoFillArea || selectionArea.autoFillArea;
+        const fixedLeftAutoFillArea =
+            fixedLeftSelectionCurrent.autoFillArea ||
+            fixedLeftSelectionArea.autoFillArea;
+
+        // normal
+        const normalSelectionCurrent = this.getSelectionCurrent();
+        const normalSelectionArea = this.getSelectionAreas();
+
+        const normalAutoFillArea =
+            normalSelectionCurrent.autoFillArea ||
+            normalSelectionArea.autoFillArea;
+
+        // fixed right
+        const fixedRightSelectionCurrent = this.getSelectionCurrent();
+        const fixedRightSelectionArea = this.getSelectionAreas();
+
+        const fixedRightAutoFillArea =
+            fixedRightSelectionCurrent.autoFillArea ||
+            fixedRightSelectionArea.autoFillArea;
 
         return (
             <div class={clsName("selection-wrapper")}>
                 <div class={clsName("selection-fixed-left")}>
                     {/* current */}
-                    {selectionCurrent.selectionCurrent}
+                    {fixedLeftSelectionCurrent.selectionCurrent}
                     {/* area */}
-                    {selectionArea.normalArea}
+                    {fixedLeftSelectionArea.normalArea}
                     {/* auto fill */}
-                    {autoFillArea}
+                    {fixedLeftAutoFillArea}
                 </div>
                 <div class={clsName("selection-middle")}>
                     {/* current */}
-                    {selectionCurrent.selectionCurrent}
+                    {normalSelectionCurrent.selectionCurrent}
                     {/* area */}
-                    {selectionArea.normalArea}
+                    {normalSelectionArea.normalArea}
                     {/* auto fill */}
-                    {autoFillArea}
+                    {normalAutoFillArea}
                 </div>
                 <div class={clsName("selection-fixed-right")}>
                     {/* current */}
-                    {selectionCurrent.selectionCurrent}
+                    {fixedRightSelectionCurrent.selectionCurrent}
                     {/* area */}
-                    {selectionArea.normalArea}
+                    {fixedRightSelectionArea.normalArea}
                     {/* auto fill */}
-                    {autoFillArea}
+                    {fixedRightAutoFillArea}
                 </div>
             </div>
         );
