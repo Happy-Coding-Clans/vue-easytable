@@ -1,9 +1,17 @@
-@ve-fixed-header-index: 2;
-@ve-fixed-header-cell-index: 3;
-@ve-fixed-body-cell-index: 1;
-@ve-fixed-foot-index: 2;
-@ve-fixed-foot-cell-index: 3;
 @ve-virtual-phantom-index: -1;
+
+@ve-normal-cell-selection-border-index: 0;
+@ve-normal-cell-selection-corner-index: 1;
+
+@ve-fixed-body-cell-index: 10;
+@ve-fixed-cell-selection-border-index: 10;
+@ve-fixed-cell-selection-corner-index: 11;
+
+@ve-fixed-header-index: 20;
+@ve-fixed-foot-index: 20;
+
+@ve-fixed-header-cell-index: 30;
+@ve-fixed-foot-cell-index: 30;
 
 .ve-table *,
 .ve-table *:before,
@@ -283,11 +291,11 @@
                     .ve-table-selection-autofill-area {
                         .ve-table-selection-corner {
                             position: absolute;
-                            z-index: 1;
+                            z-index: @ve-fixed-cell-selection-corner-index;
                         }
                         .ve-table-selection-border {
                             position: absolute;
-                            z-index: 1;
+                            z-index: @ve-fixed-cell-selection-border-index;
                         }
                     }
                 }
@@ -298,11 +306,11 @@
                     .ve-table-selection-autofill-area {
                         .ve-table-selection-corner {
                             position: absolute;
-                            z-index: 0;
+                            z-index: @ve-normal-cell-selection-border-index;
                         }
                         .ve-table-selection-border {
                             position: absolute;
-                            z-index: 0;
+                            z-index: @ve-normal-cell-selection-border-index;
                         }
                     }
                 }
@@ -313,11 +321,11 @@
                     .ve-table-selection-autofill-area {
                         .ve-table-selection-corner {
                             position: absolute;
-                            z-index: 1;
+                            z-index: @ve-fixed-cell-selection-corner-index;
                         }
                         .ve-table-selection-border {
                             position: absolute;
-                            z-index: 1;
+                            z-index: @ve-fixed-cell-selection-border-index;
                         }
                     }
                 }
