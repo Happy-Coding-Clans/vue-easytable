@@ -149,8 +149,8 @@ export default {
                     top: top + "px",
                     left: left + "px",
                     height: null,
-                    // because @ve-fixed-body-cell-index: 1;
-                    "z-index": column.fixed ? 1 : 0,
+                    // because @ve-fixed-body-cell-index: 10;
+                    "z-index": column.fixed ? 10 : 0,
                     opacity: 1,
                 };
             } else {
