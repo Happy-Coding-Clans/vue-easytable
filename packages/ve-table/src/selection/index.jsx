@@ -130,11 +130,15 @@ export default {
                                 this.setCurrentCellEl();
                             }
                             this.setSelectionPositions({ type: "currentCell" });
+                            this.setSelectionPositions({
+                                type: "normalEndCell",
+                            });
                         },
                     );
                     // add table size change hook
                     this.hooks.addHook(HOOKS_NAME.TABLE_SIZE_CHANGE, () => {
                         this.setSelectionPositions({ type: "currentCell" });
+                        this.setSelectionPositions({ type: "normalEndCell" });
                     });
                 }
             },
@@ -501,20 +505,21 @@ export default {
                 },
             };
 
-            // end cell right
+            // end cell column key right
             if (leftmost === currentCell.colKey) {
                 borders.borderWidth =
                     normalEndCellRect.left -
                     currentCellRect.left +
                     normalEndCellRect.width +
                     1;
+
                 borders.topBorder.left = currentCellRect.left - 1;
                 borders.rightBorder.left =
                     normalEndCellRect.left + normalEndCellRect.width - 1;
                 borders.bottomBorder.left = currentCellRect.left - 1;
                 borders.leftBorder.left = currentCellRect.left - 1;
             }
-            // end cell left or equal
+            // end cell column key left or equal
             else if (leftmost === normalEndCell.colKey) {
                 borders.borderWidth =
                     currentCellRect.left -
