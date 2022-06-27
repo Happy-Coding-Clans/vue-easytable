@@ -1,4 +1,4 @@
-import { PREFIX_CLS, CONTEXTMENU_TYPES } from "./constant";
+import { PREFIX_CLS, CONTEXTMENU_TYPES, COLUMN_FIXED_TYPE } from "./constant";
 import { isEmptyValue, isEmptyArray } from "../../../src/utils/index";
 import { getRandomId } from "../../../src/utils/random";
 
@@ -402,4 +402,18 @@ export function isCellInSelectionRange({
         return true;
     }
     return false;
+}
+
+/*
+ * @isExistFixedColKey
+ * @desc is exist fixed col key
+ * @param {string} fixedType - fixed type
+ * @param {array<T>} colKeys
+ * @param {array<object>} colgroups
+ * @return bool
+ */
+export function isExistFixedColKey({ fixedType, colKeys, colgroups }) {
+    return colgroups.some((x) => {
+        return colKeys.indexOf(x.key) > -1 && x.fixed === fixedType;
+    });
 }

@@ -14,6 +14,12 @@ export const COLUMN_TYPES = {
     RADIO: "radio",
 };
 
+// column fixed type
+export const COLUMN_FIXED_TYPE = {
+    LEFT: "left",
+    RIGHT: "right",
+};
+
 // expand row trigger types
 export const EXPAND_TRIGGER_TYPES = {
     // trigger by click icon

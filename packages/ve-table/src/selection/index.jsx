@@ -1,10 +1,17 @@
-import { clsName, isLastColumnByColKey, isLastRowByRowKey } from "../util";
+import {
+    clsName,
+    isLastColumnByColKey,
+    isLastRowByRowKey,
+    getColKeysByRangeColKeys,
+    isExistFixedColKey,
+} from "../util";
 import {
     COMPS_NAME,
     EMIT_EVENTS,
     HOOKS_NAME,
     AUTOFILLING_DIRECTION,
     CURRENT_CELL_SELECTION_TYPES,
+    COLUMN_FIXED_TYPE,
 } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 import { isEmptyValue } from "../../../src/utils/index.js";
@@ -334,13 +341,13 @@ export default {
         1、selection current
         2、auto fill area
         */
-        getSelectionCurrent() {
+        getSelectionCurrent({ fixedType }) {
             let result = {
                 selectionCurrent: null,
                 autoFillArea: null,
             };
 
-            const { cellSelectionRect } = this;
+            const { cellSelectionRect, colgroups, cellSelectionData } = this;
 
             const { currentCellRect, normalEndCellRect } = cellSelectionRect;
 
@@ -390,15 +397,32 @@ export default {
             borders.corner.top = borders.bottomBorder.top - 3;
             borders.corner.left = borders.rightBorder.left - 3;
 
-            result.selectionCurrent = this.getBorders({
-                ...borders,
-                showCorner: !normalEndCellRect.width,
-                className: "selection-current",
-            });
-
             // cell selection single autofill
             if (!normalEndCellRect.width) {
                 result.autoFillArea = this.getSelectionAutofillArea(borders);
+            }
+
+            let isRender = true;
+
+            if (
+                fixedType === COLUMN_FIXED_TYPE.LEFT ||
+                fixedType === COLUMN_FIXED_TYPE.RIGHT
+            ) {
+                isRender = isExistFixedColKey({
+                    fixedType,
+                    colKeys: [cellSelectionData.currentCell.colKey],
+                    colgroups,
+                });
+            }
+
+            if (isRender) {
+                // console.log(`getSelectionCurrent fixedType:${fixedType}`);
+
+                result.selectionCurrent = this.getBorders({
+                    ...borders,
+                    showCorner: !normalEndCellRect.width,
+                    className: "selection-current",
+                });
             }
 
             return result;
@@ -409,13 +433,14 @@ export default {
         1、normal area
         2、auto fill area
         */
-        getSelectionAreas() {
+        getSelectionAreas({ fixedType }) {
             let result = {
                 normalArea: null,
                 autoFillArea: null,
             };
 
-            const { cellSelectionRect } = this;
+            const { cellSelectionRect, cellSelectionRangeData, colgroups } =
+                this;
 
             const { currentCellRect, normalEndCellRect } = cellSelectionRect;
 
@@ -520,13 +545,38 @@ export default {
             borders.corner.top = borders.bottomBorder.top - 4;
             borders.corner.left = borders.rightBorder.left - 4;
 
-            result.normalArea = this.getBorders({
-                ...borders,
-                className: "selection-normal-area",
-            });
-
             if (normalEndCellRect.width) {
                 result.autoFillArea = this.getSelectionAutofillArea(borders);
+            }
+
+            const { leftColKey, rightColKey } = cellSelectionRangeData;
+
+            const colKeys = getColKeysByRangeColKeys({
+                leftColKey,
+                rightColKey,
+                colgroups,
+            });
+
+            let isRender = true;
+
+            if (
+                fixedType === COLUMN_FIXED_TYPE.LEFT ||
+                fixedType === COLUMN_FIXED_TYPE.RIGHT
+            ) {
+                isRender = isExistFixedColKey({
+                    fixedType,
+                    colKeys,
+                    colgroups,
+                });
+            }
+
+            if (isRender) {
+                // console.log(`getSelectionAreas fixedType:${fixedType}`);
+
+                result.normalArea = this.getBorders({
+                    ...borders,
+                    className: "selection-normal-area",
+                });
             }
 
             return result;
@@ -880,25 +930,35 @@ export default {
     render() {
         // fixed left
         const fixedLeftSelectionCurrent = this.getSelectionCurrent({
-            fixedType: "fixedLeft",
+            fixedType: COLUMN_FIXED_TYPE.LEFT,
         });
-        const fixedLeftSelectionArea = this.getSelectionAreas();
+        const fixedLeftSelectionArea = this.getSelectionAreas({
+            fixedType: COLUMN_FIXED_TYPE.LEFT,
+        });
 
         const fixedLeftAutoFillArea =
             fixedLeftSelectionCurrent.autoFillArea ||
             fixedLeftSelectionArea.autoFillArea;
 
         // normal
-        const normalSelectionCurrent = this.getSelectionCurrent();
-        const normalSelectionArea = this.getSelectionAreas();
+        const normalSelectionCurrent = this.getSelectionCurrent({
+            fixedType: "",
+        });
+        const normalSelectionArea = this.getSelectionAreas({
+            fixedType: "",
+        });
 
         const normalAutoFillArea =
             normalSelectionCurrent.autoFillArea ||
             normalSelectionArea.autoFillArea;
 
         // fixed right
-        const fixedRightSelectionCurrent = this.getSelectionCurrent();
-        const fixedRightSelectionArea = this.getSelectionAreas();
+        const fixedRightSelectionCurrent = this.getSelectionCurrent({
+            fixedType: COLUMN_FIXED_TYPE.RIGHT,
+        });
+        const fixedRightSelectionArea = this.getSelectionAreas({
+            fixedType: COLUMN_FIXED_TYPE.RIGHT,
+        });
 
         const fixedRightAutoFillArea =
             fixedRightSelectionCurrent.autoFillArea ||
