@@ -4,6 +4,7 @@ import {
     isLastRowByRowKey,
     getColKeysByRangeColKeys,
     isExistFixedColKey,
+    getLeftmostColKey,
 } from "../util";
 import {
     COMPS_NAME,
@@ -214,8 +215,14 @@ export default {
                 bottomRowKey: "",
             };
 
-            // current cell left less than normal end cell left
-            if (currentCellRect.left < normalEndCellRect.left) {
+            const leftmost = getLeftmostColKey(
+                this.colgroups,
+                currentCell.colKey,
+                normalEndCell.colKey,
+            );
+
+            // current cell col key is leftmost
+            if (leftmost === currentCell.colKey) {
                 result.leftColKey = currentCell.colKey;
                 result.rightColKey = normalEndCell.colKey;
             } else {
@@ -439,6 +446,13 @@ export default {
                 autoFillArea: null,
             };
 
+            const { currentCell, normalEndCell } = this.cellSelectionData;
+            const leftmost = getLeftmostColKey(
+                this.colgroups,
+                currentCell.colKey,
+                normalEndCell.colKey,
+            );
+
             const { cellSelectionRect, cellSelectionRangeData, colgroups } =
                 this;
 
@@ -488,7 +502,7 @@ export default {
             };
 
             // end cell right
-            if (normalEndCellRect.left > currentCellRect.left) {
+            if (leftmost === currentCell.colKey) {
                 borders.borderWidth =
                     normalEndCellRect.left -
                     currentCellRect.left +
@@ -501,7 +515,7 @@ export default {
                 borders.leftBorder.left = currentCellRect.left - 1;
             }
             // end cell left or equal
-            else if (normalEndCellRect.left <= currentCellRect.left) {
+            else if (leftmost === normalEndCell.colKey) {
                 borders.borderWidth =
                     currentCellRect.left -
                     normalEndCellRect.left +

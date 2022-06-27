@@ -417,3 +417,20 @@ export function isExistFixedColKey({ fixedType, colKeys, colgroups }) {
         return colKeys.indexOf(x.key) > -1 && x.fixed === fixedType;
     });
 }
+
+/*
+ * @getLeftmostColKey
+ * @desc get leftmost column key
+ * @param {any} colKey1
+ * @param {any} colKey2
+ * @return colKey
+ */
+export function getLeftmostColKey(colgroups, colKey1, colKey2) {
+    if (
+        colgroups.findIndex((x) => x.key === colKey1) <
+        colgroups.findIndex((x) => x.key === colKey2)
+    ) {
+        return colKey1;
+    }
+    return colKey2;
+}
