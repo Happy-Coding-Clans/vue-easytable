@@ -3,7 +3,8 @@ import {
     isLastColumnByColKey,
     isLastRowByRowKey,
     getColKeysByRangeColKeys,
-    isExistFixedColKey,
+    isExistGivenFixedColKey,
+    isExistNotFixedColKey,
     getLeftmostColKey,
 } from "../util";
 import {
@@ -426,7 +427,7 @@ export default {
                 fixedType === COLUMN_FIXED_TYPE.LEFT ||
                 fixedType === COLUMN_FIXED_TYPE.RIGHT
             ) {
-                isRender = isExistFixedColKey({
+                isRender = isExistGivenFixedColKey({
                     fixedType,
                     colKeys: [cellSelectionData.currentCell.colKey],
                     colgroups,
@@ -589,11 +590,15 @@ export default {
                 fixedType === COLUMN_FIXED_TYPE.LEFT ||
                 fixedType === COLUMN_FIXED_TYPE.RIGHT
             ) {
-                isRender = isExistFixedColKey({
+                isRender = isExistGivenFixedColKey({
                     fixedType,
                     colKeys,
                     colgroups,
                 });
+            }
+            // middle normal area
+            else {
+                isRender = isExistNotFixedColKey({ colKeys, colgroups });
             }
 
             if (isRender) {

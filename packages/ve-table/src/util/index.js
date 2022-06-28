@@ -406,16 +406,30 @@ export function isCellInSelectionRange({
 
 /*
  * @isExistFixedColKey
- * @desc is exist fixed col key
+ * @desc is exist given fixed col key
  * @param {string} fixedType - fixed type
  * @param {array<T>} colKeys
  * @param {array<object>} colgroups
  * @return bool
  */
-export function isExistFixedColKey({ fixedType, colKeys, colgroups }) {
+export function isExistGivenFixedColKey({ fixedType, colKeys, colgroups }) {
     return colgroups.some((x) => {
         return colKeys.indexOf(x.key) > -1 && x.fixed === fixedType;
     });
+}
+
+/*
+ * @isExistNotFixedColKey
+ * @desc is exist not fixed col key
+ * @param {array<T>} colKeys
+ * @param {array<object>} colgroups
+ * @return bool
+ */
+export function isExistNotFixedColKey({ colKeys, colgroups }) {
+    return (
+        colgroups.filter((x) => !x.fixed && colKeys.indexOf(x.key) > -1)
+            .length === colKeys.length
+    );
 }
 
 /*
