@@ -590,9 +590,9 @@ export default {
                 }
 
                 borders.topBorder.left =
-                    borders.rightBorder.left - borders.borderWidth;
+                    borders.rightBorder.left - borders.borderWidth + 1;
                 borders.bottomBorder.left =
-                    borders.rightBorder.left - borders.borderWidth;
+                    borders.rightBorder.left - borders.borderWidth + 1;
             }
 
             // end cell below
