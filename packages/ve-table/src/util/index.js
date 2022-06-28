@@ -338,21 +338,19 @@ export function isContextmenuPanelClicked(event) {
 /*
  * @getColKeysByRangeColKeys
  * @desc  get col keys by range col keys
- * @param {any} leftColKey - left col key
- * @param {any} rightColKey - right col key
+ * @param {any} colKey1
+ * @param {any} colKey2
  * @return Array<colKeys>
  */
-export function getColKeysByRangeColKeys({
-    leftColKey,
-    rightColKey,
-    colgroups,
-}) {
+export function getColKeysByRangeColKeys({ colKey1, colKey2, colgroups }) {
     let result = null;
 
-    const beginIndex = colgroups.findIndex((x) => x.key === leftColKey);
-    const endIndex = colgroups.findIndex((x) => x.key === rightColKey);
+    const index1 = colgroups.findIndex((x) => x.key === colKey1);
+    const index2 = colgroups.findIndex((x) => x.key === colKey2);
 
-    if (beginIndex !== -1 && endIndex !== -1) {
+    if (index1 !== -1 && index1 !== -1) {
+        const beginIndex = index1 < index2 ? index1 : index2;
+        const endIndex = index1 < index2 ? index2 : index1;
         result = colgroups.slice(beginIndex, endIndex + 1).map((x) => x.key);
     }
 
