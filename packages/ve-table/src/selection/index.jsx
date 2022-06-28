@@ -525,28 +525,6 @@ export default {
                 },
             };
 
-            const { leftColKey, rightColKey } = cellSelectionRangeData;
-            const totalColKeys = getColKeysByRangeColKeys({
-                colKey1: leftColKey,
-                colKey2: rightColKey,
-                colgroups,
-            });
-
-            const fixedColKeys = getColKeysByFixedType({
-                colKeys: totalColKeys,
-                fixedType,
-                colgroups,
-            });
-
-            // fixed columns total width
-            let fixedColsTotalWidth = 0;
-            if (fixedColKeys.length) {
-                fixedColsTotalWidth = getTotalWidthByColKeys({
-                    colKeys: fixedColKeys,
-                    colgroups,
-                });
-            }
-
             // end cell column key right
             if (leftmostColKey === currentCell.colKey) {
                 borders.borderWidth =
@@ -574,6 +552,28 @@ export default {
                     currentCellRect.left + currentCellRect.width - 1;
                 borders.bottomBorder.left = normalEndCellRect.left - 1;
                 borders.leftBorder.left = normalEndCellRect.left - 1;
+            }
+
+            const { leftColKey, rightColKey } = cellSelectionRangeData;
+            const totalColKeys = getColKeysByRangeColKeys({
+                colKey1: leftColKey,
+                colKey2: rightColKey,
+                colgroups,
+            });
+
+            const fixedColKeys = getColKeysByFixedType({
+                colKeys: totalColKeys,
+                fixedType,
+                colgroups,
+            });
+
+            // fixed columns total width
+            let fixedColsTotalWidth = 0;
+            if (fixedColKeys.length) {
+                fixedColsTotalWidth = getTotalWidthByColKeys({
+                    colKeys: fixedColKeys,
+                    colgroups,
+                });
             }
 
             if (fixedType) {
@@ -667,9 +667,12 @@ export default {
             let result = null;
 
             const {
+                cellSelectionRangeData,
                 cellSelectionRect,
+                cellSelectionData,
                 isAutofillStarting,
                 currentCellSelectionType,
+                colgroups,
             } = this;
 
             if (!isAutofillStarting) {
@@ -725,10 +728,23 @@ export default {
                 },
             };
 
+            const { leftColKey, rightColKey } = cellSelectionRangeData;
+
+            const { autoFillEndCell } = cellSelectionData;
+
+            // autofilling direction
             let autofillingDirection;
+
+            //
+            let rangeColKey1;
+            let rangeColKey2;
+
             // auto fill end cell below
             if (autoFillEndCellRect.top > areaPostions.bottomBorder.top) {
                 autofillingDirection = AUTOFILLING_DIRECTION.DOWN;
+
+                rangeColKey1 = leftColKey;
+                rangeColKey1 = rightColKey;
 
                 borders.topBorder.show = false;
 
@@ -758,6 +774,9 @@ export default {
             else if (autoFillEndCellRect.top < areaPostions.topBorder.top) {
                 autofillingDirection = AUTOFILLING_DIRECTION.UP;
 
+                rangeColKey1 = leftColKey;
+                rangeColKey1 = rightColKey;
+
                 borders.bottomBorder.show = false;
 
                 borders.borderWidth = areaPostions.borderWidth;
@@ -783,6 +802,9 @@ export default {
             else if (autoFillEndCellRect.left > areaPostions.rightBorder.left) {
                 autofillingDirection = AUTOFILLING_DIRECTION.RIGHT;
 
+                rangeColKey1 = leftColKey;
+                rangeColKey1 = autoFillEndCell.colKey;
+
                 borders.leftBorder.show = false;
 
                 borders.borderWidth =
@@ -806,6 +828,9 @@ export default {
             else if (autoFillEndCellRect.left < areaPostions.leftBorder.left) {
                 autofillingDirection = AUTOFILLING_DIRECTION.LEFT;
 
+                rangeColKey1 = rightColKey;
+                rangeColKey1 = autoFillEndCell.colKey;
+
                 borders.rightBorder.show = false;
 
                 borders.borderWidth =
@@ -821,6 +846,12 @@ export default {
                 borders.leftBorder.top = areaPostions.topBorder.top;
                 borders.leftBorder.left = autoFillEndCellRect.left;
             }
+
+            const totalColKeys = getColKeysByRangeColKeys({
+                colKey1: rangeColKey1,
+                colKey2: rangeColKey2,
+                colgroups,
+            });
 
             this.dispatch(
                 COMPS_NAME.VE_TABLE,
