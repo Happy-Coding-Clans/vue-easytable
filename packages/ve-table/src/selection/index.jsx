@@ -69,7 +69,7 @@ export default {
         return {
             // current cell
             currentCellEl: null,
-            endCellEl: null,
+            normalEndCellEl: null,
             autoFillEndCellEl: null,
             // cell selection rect
             cellSelectionRect: {
@@ -278,8 +278,12 @@ export default {
 
         // set selection positions
         setSelectionPositions({ type }) {
-            const { tableEl, currentCellEl, endCellEl, autoFillEndCellEl } =
-                this;
+            const {
+                tableEl,
+                currentCellEl,
+                normalEndCellEl,
+                autoFillEndCellEl,
+            } = this;
 
             if (!tableEl) {
                 return false;
@@ -297,10 +301,10 @@ export default {
                 });
             }
 
-            if (endCellEl && type === "normalEndCell") {
+            if (normalEndCellEl && type === "normalEndCell") {
                 this.cellSelectionRect.normalEndCellRect = this.getCellPosition(
                     {
-                        cellEl: endCellEl,
+                        cellEl: normalEndCellEl,
                         tableLeft,
                         tableTop,
                     },
@@ -330,7 +334,7 @@ export default {
 
         // clear normal end cell rect
         clearNormalEndCellRect() {
-            this.endCellEl = null;
+            this.normalEndCellEl = null;
             this.cellSelectionRect.normalEndCellRect = {
                 left: 0,
                 top: 0,
@@ -913,12 +917,12 @@ export default {
             const { rowKey, colKey } = cellSelectionData.normalEndCell;
 
             if (tableEl) {
-                const endCellEl = tableEl.querySelector(
+                const normalEndCellEl = tableEl.querySelector(
                     `tbody.ve-table-body tr[row-key="${rowKey}"] td[col-key="${colKey}"]`,
                 );
 
-                if (endCellEl) {
-                    this.endCellEl = endCellEl;
+                if (normalEndCellEl) {
+                    this.normalEndCellEl = normalEndCellEl;
                 }
             }
         },
