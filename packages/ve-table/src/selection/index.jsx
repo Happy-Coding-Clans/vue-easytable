@@ -225,7 +225,10 @@ export default {
                 normalEndCell.colKey,
             );
 
-            // current cell col key is leftmost
+            /*
+            current cell col key is leftmost
+            需要用 colKey 的位置进行判断，不能根据当前单元格 left 值判断（固定列时）
+            */
             if (leftmost === currentCell.colKey) {
                 result.leftColKey = currentCell.colKey;
                 result.rightColKey = normalEndCell.colKey;
