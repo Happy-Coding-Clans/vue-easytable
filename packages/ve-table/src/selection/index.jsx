@@ -535,6 +535,7 @@ export default {
                 colgroups,
             });
 
+            // fixed columns total width
             let fixedColsTotalWidth = 0;
             if (fixedColKeys.length) {
                 fixedColsTotalWidth = getTotalWidthByColKeys({
@@ -545,39 +546,17 @@ export default {
 
             // end cell column key right
             if (leftmost === currentCell.colKey) {
-                if (fixedType) {
-                    borders.borderWidth = fixedColsTotalWidth;
-                } else {
-                    borders.borderWidth =
-                        normalEndCellRect.left -
-                        currentCellRect.left +
-                        normalEndCellRect.width +
-                        1;
-                }
+                borders.borderWidth =
+                    normalEndCellRect.left -
+                    currentCellRect.left +
+                    normalEndCellRect.width +
+                    1;
 
                 borders.topBorder.left = currentCellRect.left - 1;
                 borders.bottomBorder.left = currentCellRect.left - 1;
                 borders.leftBorder.left = currentCellRect.left - 1;
                 borders.rightBorder.left =
                     normalEndCellRect.left + normalEndCellRect.width - 1;
-
-                if (fixedType === COLUMN_FIXED_TYPE.RIGHT) {
-                    if (totalColKeys.length !== fixedColKeys.length) {
-                        borders.leftBorder.show = false;
-                    }
-
-                    borders.topBorder.left =
-                        borders.rightBorder.left - borders.borderWidth;
-                    borders.bottomBorder.left =
-                        borders.rightBorder.left - borders.borderWidth;
-                }
-
-                if (fixedType === COLUMN_FIXED_TYPE.LEFT) {
-                    if (totalColKeys.length !== fixedColKeys.length) {
-                        borders.rightBorder.show = false;
-                        borders.corner.show = false;
-                    }
-                }
             }
             // end cell column key left or equal
             else if (leftmost === normalEndCell.colKey) {
@@ -592,6 +571,28 @@ export default {
                     currentCellRect.left + currentCellRect.width - 1;
                 borders.bottomBorder.left = normalEndCellRect.left - 1;
                 borders.leftBorder.left = normalEndCellRect.left - 1;
+            }
+
+            if (fixedType) {
+                borders.borderWidth = fixedColsTotalWidth;
+            }
+
+            if (fixedType === COLUMN_FIXED_TYPE.LEFT) {
+                if (totalColKeys.length !== fixedColKeys.length) {
+                    borders.rightBorder.show = false;
+                    borders.corner.show = false;
+                }
+            }
+
+            if (fixedType === COLUMN_FIXED_TYPE.RIGHT) {
+                if (totalColKeys.length !== fixedColKeys.length) {
+                    borders.leftBorder.show = false;
+                }
+
+                borders.topBorder.left =
+                    borders.rightBorder.left - borders.borderWidth;
+                borders.bottomBorder.left =
+                    borders.rightBorder.left - borders.borderWidth;
             }
 
             // end cell below
