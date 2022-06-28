@@ -163,6 +163,23 @@ export function getNotFixedTotalWidthByColumnKey({
 }
 
 /*
+ * @getTotalWidthByColKeys
+ * @desc get total width by collumn keys
+ * @param {array<T>} colKeys
+ * @param {array<object>} colgroups
+ * @return {number} width
+ */
+export function getTotalWidthByColKeys({ colKeys, colgroups }) {
+    let result = colgroups.reduce((total, currentVal, index) => {
+        return colKeys.indexOf(currentVal.key) > -1
+            ? currentVal._realTimeWidth + total
+            : total;
+    }, 0);
+
+    return result;
+}
+
+/*
  * @initGroupColumns
  * @desc  int group columns
  * @param {array} cloneColumns - clone columns
@@ -343,6 +360,20 @@ export function getColKeysByRangeColKeys({
 }
 
 /*
+ * @getColKeysByFixedType
+ * @desc  get col keys by fixed type
+ * @param {array<T>} colKeys
+ * @param {string} fixedType - fixed type
+ * @param {array<object>} colgroups
+ * @return {array} colKeys
+ */
+export function getColKeysByFixedType({ colKeys, fixedType, colgroups }) {
+    return colgroups
+        .filter((x) => colKeys.indexOf(x.key) > -1 && x.fixed === fixedType)
+        .map((x) => x.key);
+}
+
+/*
  * @getRowKeysByRangeRowKeys
  * @desc get row keys by range row keys
  * @param {any} topRowKey - top row key
@@ -426,10 +457,8 @@ export function isExistGivenFixedColKey({ fixedType, colKeys, colgroups }) {
  * @return bool
  */
 export function isExistNotFixedColKey({ colKeys, colgroups }) {
-    return (
-        colgroups.filter((x) => !x.fixed && colKeys.indexOf(x.key) > -1)
-            .length === colKeys.length
-    );
+    return colgroups.filter((x) => !x.fixed && colKeys.indexOf(x.key) > -1)
+        .length;
 }
 
 /*
