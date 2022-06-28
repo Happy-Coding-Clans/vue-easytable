@@ -222,17 +222,17 @@ export default {
                 bottomRowKey: "",
             };
 
-            const leftmost = getLeftmostColKey(
+            const leftmostColKey = getLeftmostColKey(
                 this.colgroups,
                 currentCell.colKey,
                 normalEndCell.colKey,
             );
 
             /*
-            current cell col key is leftmost
+            current cell col key is leftmost colKey
             需要用 colKey 的位置进行判断，不能根据当前单元格 left 值判断（固定列时）
             */
-            if (leftmost === currentCell.colKey) {
+            if (leftmostColKey === currentCell.colKey) {
                 result.leftColKey = currentCell.colKey;
                 result.rightColKey = normalEndCell.colKey;
             } else {
@@ -420,7 +420,10 @@ export default {
 
             // cell selection single autofill
             if (!normalEndCellRect.width) {
-                result.autoFillArea = this.getSelectionAutofillArea(borders);
+                result.autoFillArea = this.getSelectionAutofillArea({
+                    areaPostions: borders,
+                    fixedType,
+                });
             }
 
             let isRender = true;
@@ -468,7 +471,7 @@ export default {
             };
 
             const { currentCell, normalEndCell } = this.cellSelectionData;
-            const leftmost = getLeftmostColKey(
+            const leftmostColKey = getLeftmostColKey(
                 this.colgroups,
                 currentCell.colKey,
                 normalEndCell.colKey,
@@ -545,7 +548,7 @@ export default {
             }
 
             // end cell column key right
-            if (leftmost === currentCell.colKey) {
+            if (leftmostColKey === currentCell.colKey) {
                 borders.borderWidth =
                     normalEndCellRect.left -
                     currentCellRect.left +
@@ -559,7 +562,7 @@ export default {
                     normalEndCellRect.left + normalEndCellRect.width - 1;
             }
             // end cell column key left or equal
-            else if (leftmost === normalEndCell.colKey) {
+            else if (leftmostColKey === normalEndCell.colKey) {
                 borders.borderWidth =
                     currentCellRect.left -
                     normalEndCellRect.left +
@@ -626,7 +629,10 @@ export default {
             borders.corner.left = borders.rightBorder.left - 4;
 
             if (normalEndCellRect.width) {
-                result.autoFillArea = this.getSelectionAutofillArea(borders);
+                result.autoFillArea = this.getSelectionAutofillArea({
+                    areaPostions: borders,
+                    fixedType,
+                });
             }
 
             let isRender = true;
@@ -657,7 +663,7 @@ export default {
         },
 
         // get selection auto fill
-        getSelectionAutofillArea(areaPostions) {
+        getSelectionAutofillArea({ areaPostions, fixedType }) {
             let result = null;
 
             const {
