@@ -527,8 +527,8 @@ export default {
 
             const { leftColKey, rightColKey } = cellSelectionRangeData;
             const totalColKeys = getColKeysByRangeColKeys({
-                leftColKey,
-                rightColKey,
+                colKey1: leftColKey,
+                colKey2: rightColKey,
                 colgroups,
             });
 
