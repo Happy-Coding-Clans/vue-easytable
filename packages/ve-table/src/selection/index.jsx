@@ -433,6 +433,13 @@ export default {
                     colgroups,
                 });
             }
+            // middle normal area
+            else {
+                isRender = isExistNotFixedColKey({
+                    colKeys: [cellSelectionData.currentCell.colKey],
+                    colgroups,
+                });
+            }
 
             if (isRender) {
                 // console.log(`getSelectionCurrent fixedType:${fixedType}`);
