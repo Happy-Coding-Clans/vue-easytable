@@ -170,8 +170,8 @@ export default {
             handler: function (val) {
                 const { rowKey, colKey } = val;
                 if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                    // set end cell el
-                    this.setEndCellEl();
+                    // set normal end cell el
+                    this.setNormalEndCellEl();
                     // wait for selection cell rendered
                     this.$nextTick(() => {
                         this.setSelectionPositions({ type: "normalEndCell" });
@@ -910,8 +910,8 @@ export default {
             }
         },
 
-        // set end cell el
-        setEndCellEl() {
+        // set normal end cell el
+        setNormalEndCellEl() {
             const { cellSelectionData, tableEl } = this;
 
             const { rowKey, colKey } = cellSelectionData.normalEndCell;
