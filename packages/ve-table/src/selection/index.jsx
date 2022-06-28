@@ -6,6 +6,8 @@ import {
     isExistGivenFixedColKey,
     isExistNotFixedColKey,
     getLeftmostColKey,
+    getColKeysByFixedType,
+    getTotalWidthByColKeys,
 } from "../util";
 import {
     COMPS_NAME,
@@ -520,19 +522,62 @@ export default {
                 },
             };
 
+            const { leftColKey, rightColKey } = cellSelectionRangeData;
+            const totalColKeys = getColKeysByRangeColKeys({
+                leftColKey,
+                rightColKey,
+                colgroups,
+            });
+
+            const fixedColKeys = getColKeysByFixedType({
+                colKeys: totalColKeys,
+                fixedType,
+                colgroups,
+            });
+
+            let fixedColsTotalWidth = 0;
+            if (fixedColKeys.length) {
+                fixedColsTotalWidth = getTotalWidthByColKeys({
+                    colKeys: fixedColKeys,
+                    colgroups,
+                });
+            }
+
             // end cell column key right
             if (leftmost === currentCell.colKey) {
-                borders.borderWidth =
-                    normalEndCellRect.left -
-                    currentCellRect.left +
-                    normalEndCellRect.width +
-                    1;
+                if (fixedType) {
+                    borders.borderWidth = fixedColsTotalWidth;
+                } else {
+                    borders.borderWidth =
+                        normalEndCellRect.left -
+                        currentCellRect.left +
+                        normalEndCellRect.width +
+                        1;
+                }
 
                 borders.topBorder.left = currentCellRect.left - 1;
-                borders.rightBorder.left =
-                    normalEndCellRect.left + normalEndCellRect.width - 1;
                 borders.bottomBorder.left = currentCellRect.left - 1;
                 borders.leftBorder.left = currentCellRect.left - 1;
+                borders.rightBorder.left =
+                    normalEndCellRect.left + normalEndCellRect.width - 1;
+
+                if (fixedType === COLUMN_FIXED_TYPE.RIGHT) {
+                    if (totalColKeys.length !== fixedColKeys.length) {
+                        borders.leftBorder.show = false;
+                    }
+
+                    borders.topBorder.left =
+                        borders.rightBorder.left - borders.borderWidth;
+                    borders.bottomBorder.left =
+                        borders.rightBorder.left - borders.borderWidth;
+                }
+
+                if (fixedType === COLUMN_FIXED_TYPE.LEFT) {
+                    if (totalColKeys.length !== fixedColKeys.length) {
+                        borders.rightBorder.show = false;
+                        borders.corner.show = false;
+                    }
+                }
             }
             // end cell column key left or equal
             else if (leftmost === normalEndCell.colKey) {
@@ -583,34 +628,24 @@ export default {
                 result.autoFillArea = this.getSelectionAutofillArea(borders);
             }
 
-            const { leftColKey, rightColKey } = cellSelectionRangeData;
-
-            const colKeys = getColKeysByRangeColKeys({
-                leftColKey,
-                rightColKey,
-                colgroups,
-            });
-
             let isRender = true;
 
-            if (
-                fixedType === COLUMN_FIXED_TYPE.LEFT ||
-                fixedType === COLUMN_FIXED_TYPE.RIGHT
-            ) {
+            if (fixedType) {
                 isRender = isExistGivenFixedColKey({
                     fixedType,
-                    colKeys,
+                    colKeys: totalColKeys,
                     colgroups,
                 });
             }
             // middle normal area
             else {
-                isRender = isExistNotFixedColKey({ colKeys, colgroups });
+                isRender = isExistNotFixedColKey({
+                    colKeys: totalColKeys,
+                    colgroups,
+                });
             }
 
             if (isRender) {
-                // console.log(`getSelectionAreas fixedType:${fixedType}`);
-
                 result.normalArea = this.getBorders({
                     ...borders,
                     className: "selection-normal-area",
