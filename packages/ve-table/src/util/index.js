@@ -555,7 +555,7 @@ export function getNextColKey({ colgroups, currentColKey }) {
         const index = colgroups.findIndex((x) => x.key === currentColKey);
         if (index === colgroups.length - 1) {
             result = currentColKey;
-        } else if (index > 0 && index < colgroups.length - 1) {
+        } else if (index < colgroups.length - 1) {
             result = colgroups[index + 1].key;
         }
     }
