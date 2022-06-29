@@ -448,9 +448,13 @@ export function isCellInSelectionRange({
  * @return bool
  */
 export function isExistGivenFixedColKey({ fixedType, colKeys, colgroups }) {
-    return colgroups.some((x) => {
-        return colKeys.indexOf(x.key) > -1 && x.fixed === fixedType;
-    });
+    let result = false;
+    if (Array.isArray(colKeys)) {
+        result = colgroups.some((x) => {
+            return colKeys.indexOf(x.key) > -1 && x.fixed === fixedType;
+        });
+    }
+    return result;
 }
 
 /*
@@ -461,8 +465,13 @@ export function isExistGivenFixedColKey({ fixedType, colKeys, colgroups }) {
  * @return bool
  */
 export function isExistNotFixedColKey({ colKeys, colgroups }) {
-    return colgroups.filter((x) => !x.fixed && colKeys.indexOf(x.key) > -1)
-        .length;
+    let result = false;
+    if (Array.isArray(colKeys)) {
+        result = colgroups.filter(
+            (x) => !x.fixed && colKeys.indexOf(x.key) > -1,
+        ).length;
+    }
+    return result;
 }
 
 /*
@@ -472,12 +481,19 @@ export function isExistNotFixedColKey({ colKeys, colgroups }) {
  * @param {any} colKey2
  * @return colKey
  */
-export function getLeftmostColKey(colgroups, colKey1, colKey2) {
-    if (
-        colgroups.findIndex((x) => x.key === colKey1) <
-        colgroups.findIndex((x) => x.key === colKey2)
-    ) {
-        return colKey1;
+export function getLeftmostColKey({ colgroups, colKey1, colKey2 }) {
+    let result = null;
+
+    if (!isEmptyValue(colKey1) && !isEmptyValue(colKey2)) {
+        if (
+            colgroups.findIndex((x) => x.key === colKey1) <
+            colgroups.findIndex((x) => x.key === colKey2)
+        ) {
+            result = colKey1;
+        } else {
+            result = colKey2;
+        }
     }
-    return colKey2;
+
+    return result;
 }
