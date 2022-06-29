@@ -8,6 +8,8 @@ import {
     getLeftmostColKey,
     getColKeysByFixedType,
     getTotalWidthByColKeys,
+    getPreviewColKey,
+    getNextColKey,
 } from "../util";
 import {
     COMPS_NAME,
@@ -755,10 +757,15 @@ export default {
                 borders.leftBorder.left = areaPostions.leftBorder.left;
             }
             // auto fill end cell right
-            else if (autoFillEndCellRect.left > areaPostions.rightBorder.left) {
+            else if (
+                autoFillEndCellRect.left >= areaPostions.rightBorder.left
+            ) {
                 autofillingDirection = AUTOFILLING_DIRECTION.RIGHT;
 
-                rangeColKey1 = leftColKey;
+                rangeColKey1 = getNextColKey({
+                    colgroups,
+                    currentColKey: rightColKey,
+                });
                 rangeColKey2 = autoFillEndCell.colKey;
 
                 borders.leftBorder.show = false;
@@ -781,10 +788,13 @@ export default {
                 borders.bottomBorder.left = areaPostions.rightBorder.left - 1;
             }
             // auto fill end cell left
-            else if (autoFillEndCellRect.left < areaPostions.leftBorder.left) {
+            else if (autoFillEndCellRect.left <= areaPostions.leftBorder.left) {
                 autofillingDirection = AUTOFILLING_DIRECTION.LEFT;
 
-                rangeColKey1 = rightColKey;
+                rangeColKey1 = getPreviewColKey({
+                    colgroups,
+                    currentColKey: leftColKey,
+                });
                 rangeColKey2 = autoFillEndCell.colKey;
 
                 borders.rightBorder.show = false;
@@ -795,6 +805,8 @@ export default {
 
                 borders.topBorder.top = areaPostions.topBorder.top;
                 borders.topBorder.left = autoFillEndCellRect.left;
+
+                borders.rightBorder.left = areaPostions.topBorder.left;
 
                 borders.bottomBorder.top = areaPostions.bottomBorder.top;
                 borders.bottomBorder.left = autoFillEndCellRect.left;
@@ -816,6 +828,8 @@ export default {
                 fixedType,
                 colgroups,
             });
+
+            //console.log("borders::", borders);
 
             result = this.getBorders({
                 className: "selection-autofill-area",
