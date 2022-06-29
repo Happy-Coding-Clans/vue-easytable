@@ -211,6 +211,7 @@ export default {
     methods: {
         // set cell selection range data
         setCellSelectionRangeData() {
+            const { currentCellSelectionType } = this;
             const { currentCell, normalEndCell } = this.cellSelectionData;
             const { currentCellRect, normalEndCellRect } =
                 this.cellSelectionRect;
@@ -222,31 +223,42 @@ export default {
                 bottomRowKey: "",
             };
 
-            const leftmostColKey = getLeftmostColKey(
-                this.colgroups,
-                currentCell.colKey,
-                normalEndCell.colKey,
-            );
-
-            /*
-            current cell col key is leftmost colKey
-            需要用 colKey 的位置进行判断，不能根据当前单元格 left 值判断（固定列时）
-            */
-            if (leftmostColKey === currentCell.colKey) {
-                result.leftColKey = currentCell.colKey;
-                result.rightColKey = normalEndCell.colKey;
+            if (
+                currentCellSelectionType === CURRENT_CELL_SELECTION_TYPES.SINGLE
+            ) {
+                result = {
+                    leftColKey: currentCell.colKey,
+                    rightColKey: currentCell.colKey,
+                    topRowKey: currentCell.rowKey,
+                    bottomRowKey: currentCell.rowKey,
+                };
             } else {
-                result.leftColKey = normalEndCell.colKey;
-                result.rightColKey = currentCell.colKey;
-            }
+                const leftmostColKey = getLeftmostColKey(
+                    this.colgroups,
+                    currentCell.colKey,
+                    normalEndCell.colKey,
+                );
 
-            // current cell top less than normal end cell top
-            if (currentCellRect.top < normalEndCellRect.top) {
-                result.topRowKey = currentCell.rowKey;
-                result.bottomRowKey = normalEndCell.rowKey;
-            } else {
-                result.topRowKey = normalEndCell.rowKey;
-                result.bottomRowKey = currentCell.rowKey;
+                /*
+                current cell col key is leftmost colKey
+                需要用 colKey 的位置进行判断，不能根据当前单元格 left 值判断（固定列时）
+                */
+                if (leftmostColKey === currentCell.colKey) {
+                    result.leftColKey = currentCell.colKey;
+                    result.rightColKey = normalEndCell.colKey;
+                } else {
+                    result.leftColKey = normalEndCell.colKey;
+                    result.rightColKey = currentCell.colKey;
+                }
+
+                // current cell top less than normal end cell top
+                if (currentCellRect.top < normalEndCellRect.top) {
+                    result.topRowKey = currentCell.rowKey;
+                    result.bottomRowKey = normalEndCell.rowKey;
+                } else {
+                    result.topRowKey = normalEndCell.rowKey;
+                    result.bottomRowKey = currentCell.rowKey;
+                }
             }
 
             this.$emit(EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE, result);
@@ -554,6 +566,43 @@ export default {
                 borders.leftBorder.left = normalEndCellRect.left - 1;
             }
 
+            // end cell below
+            if (normalEndCellRect.top > currentCellRect.top) {
+                borders.borderHeight =
+                    normalEndCellRect.top -
+                    currentCellRect.top +
+                    normalEndCellRect.height;
+
+                borders.topBorder.top = currentCellRect.top - 1;
+                borders.rightBorder.top = currentCellRect.top;
+                borders.bottomBorder.top =
+                    normalEndCellRect.top + normalEndCellRect.height - 1;
+                borders.leftBorder.top = currentCellRect.top;
+            }
+            // end cell above or equal
+            else if (normalEndCellRect.top <= currentCellRect.top) {
+                borders.borderHeight =
+                    currentCellRect.top -
+                    normalEndCellRect.top +
+                    currentCellRect.height;
+
+                borders.topBorder.top = normalEndCellRect.top - 1;
+                borders.rightBorder.top = normalEndCellRect.top;
+                borders.bottomBorder.top =
+                    currentCellRect.top + currentCellRect.height - 1;
+                borders.leftBorder.top = normalEndCellRect.top;
+            }
+
+            borders.corner.top = borders.bottomBorder.top - 4;
+            borders.corner.left = borders.rightBorder.left - 4;
+
+            if (normalEndCellRect.width) {
+                result.autoFillArea = this.getSelectionAutofillArea({
+                    areaPostions: borders,
+                    fixedType,
+                });
+            }
+
             const { leftColKey, rightColKey } = cellSelectionRangeData;
             const totalColKeys = getColKeysByRangeColKeys({
                 colKey1: leftColKey,
@@ -596,43 +645,6 @@ export default {
                     borders.rightBorder.left - borders.borderWidth + 1;
                 borders.bottomBorder.left =
                     borders.rightBorder.left - borders.borderWidth + 1;
-            }
-
-            // end cell below
-            if (normalEndCellRect.top > currentCellRect.top) {
-                borders.borderHeight =
-                    normalEndCellRect.top -
-                    currentCellRect.top +
-                    normalEndCellRect.height;
-
-                borders.topBorder.top = currentCellRect.top - 1;
-                borders.rightBorder.top = currentCellRect.top;
-                borders.bottomBorder.top =
-                    normalEndCellRect.top + normalEndCellRect.height - 1;
-                borders.leftBorder.top = currentCellRect.top;
-            }
-            // end cell above or equal
-            else if (normalEndCellRect.top <= currentCellRect.top) {
-                borders.borderHeight =
-                    currentCellRect.top -
-                    normalEndCellRect.top +
-                    currentCellRect.height;
-
-                borders.topBorder.top = normalEndCellRect.top - 1;
-                borders.rightBorder.top = normalEndCellRect.top;
-                borders.bottomBorder.top =
-                    currentCellRect.top + currentCellRect.height - 1;
-                borders.leftBorder.top = normalEndCellRect.top;
-            }
-
-            borders.corner.top = borders.bottomBorder.top - 4;
-            borders.corner.left = borders.rightBorder.left - 4;
-
-            if (normalEndCellRect.width) {
-                result.autoFillArea = this.getSelectionAutofillArea({
-                    areaPostions: borders,
-                    fixedType,
-                });
             }
 
             let isRender = true;
@@ -735,7 +747,6 @@ export default {
             // autofilling direction
             let autofillingDirection;
 
-            //
             let rangeColKey1;
             let rangeColKey2;
 
@@ -744,7 +755,7 @@ export default {
                 autofillingDirection = AUTOFILLING_DIRECTION.DOWN;
 
                 rangeColKey1 = leftColKey;
-                rangeColKey1 = rightColKey;
+                rangeColKey2 = rightColKey;
 
                 borders.topBorder.show = false;
 
@@ -775,7 +786,7 @@ export default {
                 autofillingDirection = AUTOFILLING_DIRECTION.UP;
 
                 rangeColKey1 = leftColKey;
-                rangeColKey1 = rightColKey;
+                rangeColKey2 = rightColKey;
 
                 borders.bottomBorder.show = false;
 
@@ -803,7 +814,7 @@ export default {
                 autofillingDirection = AUTOFILLING_DIRECTION.RIGHT;
 
                 rangeColKey1 = leftColKey;
-                rangeColKey1 = autoFillEndCell.colKey;
+                rangeColKey2 = autoFillEndCell.colKey;
 
                 borders.leftBorder.show = false;
 
@@ -829,7 +840,7 @@ export default {
                 autofillingDirection = AUTOFILLING_DIRECTION.LEFT;
 
                 rangeColKey1 = rightColKey;
-                rangeColKey1 = autoFillEndCell.colKey;
+                rangeColKey2 = autoFillEndCell.colKey;
 
                 borders.rightBorder.show = false;
 
@@ -845,6 +856,8 @@ export default {
 
                 borders.leftBorder.top = areaPostions.topBorder.top;
                 borders.leftBorder.left = autoFillEndCellRect.left;
+            } else {
+                return result;
             }
 
             const totalColKeys = getColKeysByRangeColKeys({
@@ -852,6 +865,42 @@ export default {
                 colKey2: rangeColKey2,
                 colgroups,
             });
+
+            let fixedColKeys = getColKeysByFixedType({
+                colKeys: totalColKeys,
+                fixedType,
+                colgroups,
+            });
+
+            // fixed columns total width
+            let fixedColsTotalWidth = 0;
+            if (Array.isArray(fixedColKeys) && fixedColKeys.length) {
+                fixedColsTotalWidth = getTotalWidthByColKeys({
+                    colKeys: fixedColKeys,
+                    colgroups,
+                });
+            }
+
+            if (fixedType) {
+                borders.borderWidth = fixedColsTotalWidth;
+            }
+
+            if (fixedType === COLUMN_FIXED_TYPE.LEFT) {
+                if (totalColKeys.length !== fixedColKeys.length) {
+                    borders.rightBorder.show = false;
+                }
+            }
+
+            if (fixedType === COLUMN_FIXED_TYPE.RIGHT) {
+                if (totalColKeys.length !== fixedColKeys.length) {
+                    borders.leftBorder.show = false;
+                }
+
+                borders.topBorder.left =
+                    borders.rightBorder.left - borders.borderWidth + 1;
+                borders.bottomBorder.left =
+                    borders.rightBorder.left - borders.borderWidth + 1;
+            }
 
             this.dispatch(
                 COMPS_NAME.VE_TABLE,
