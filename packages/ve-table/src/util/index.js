@@ -420,8 +420,8 @@ export function isCellInSelectionRange({
         cellSelectionRangeData;
 
     const colKeys = getColKeysByRangeColKeys({
-        leftColKey,
-        rightColKey,
+        colKey1: leftColKey,
+        colKey2: rightColKey,
         colgroups,
     });
     const rowKeys = getRowKeysByRangeRowKeys({
