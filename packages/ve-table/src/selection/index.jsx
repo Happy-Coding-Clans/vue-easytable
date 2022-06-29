@@ -440,10 +440,7 @@ export default {
 
             let isRender = true;
 
-            if (
-                fixedType === COLUMN_FIXED_TYPE.LEFT ||
-                fixedType === COLUMN_FIXED_TYPE.RIGHT
-            ) {
+            if (fixedType) {
                 isRender = isExistGivenFixedColKey({
                     fixedType,
                     colKeys: [cellSelectionData.currentCell.colKey],
@@ -902,16 +899,35 @@ export default {
                     borders.rightBorder.left - borders.borderWidth + 1;
             }
 
+            let isRender = true;
+
+            if (fixedType) {
+                isRender = isExistGivenFixedColKey({
+                    fixedType,
+                    colKeys: totalColKeys,
+                    colgroups,
+                });
+            }
+            // middle normal area
+            else {
+                isRender = isExistNotFixedColKey({
+                    colKeys: totalColKeys,
+                    colgroups,
+                });
+            }
+
             this.dispatch(
                 COMPS_NAME.VE_TABLE,
                 EMIT_EVENTS.AUTOFILLING_DIRECTION_CHANGE,
                 autofillingDirection,
             );
 
-            result = this.getBorders({
-                ...borders,
-                className: "selection-autofill-area",
-            });
+            if (isRender) {
+                result = this.getBorders({
+                    ...borders,
+                    className: "selection-autofill-area",
+                });
+            }
 
             return result;
         },
