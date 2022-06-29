@@ -835,8 +835,6 @@ export default {
                 colgroups,
             });
 
-            //console.log("borders::", borders);
-
             result = this.getBorders({
                 className: "selection-autofill-area",
                 ...borders,
