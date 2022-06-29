@@ -233,11 +233,10 @@ export default {
                     bottomRowKey: currentCell.rowKey,
                 };
             } else {
-                const leftmostColKey = getLeftmostColKey(
-                    this.colgroups,
-                    currentCell.colKey,
-                    normalEndCell.colKey,
-                );
+                const leftmostColKey = getLeftmostColKey({
+                    colgroups: this.colgroups,
+                    colKeys: [currentCell.colKey, normalEndCell.colKey],
+                });
 
                 /*
                 current cell col key is leftmost colKey
@@ -438,32 +437,22 @@ export default {
                 });
             }
 
-            let isRender = true;
+            const totalColKeys = [cellSelectionData.currentCell.colKey];
 
-            if (fixedType) {
-                isRender = isExistGivenFixedColKey({
-                    fixedType,
-                    colKeys: [cellSelectionData.currentCell.colKey],
-                    colgroups,
-                });
-            }
-            // middle normal area
-            else {
-                isRender = isExistNotFixedColKey({
-                    colKeys: [cellSelectionData.currentCell.colKey],
-                    colgroups,
-                });
-            }
+            const fixedColKeys = getColKeysByFixedType({
+                colKeys: totalColKeys,
+                fixedType,
+                colgroups,
+            });
 
-            if (isRender) {
-                // console.log(`getSelectionCurrent fixedType:${fixedType}`);
-
-                result.selectionCurrent = this.getBorders({
-                    ...borders,
-                    showCorner: !normalEndCellRect.width,
-                    className: "selection-current",
-                });
-            }
+            result.selectionCurrent = this.getBorders({
+                ...borders,
+                showCorner: !normalEndCellRect.width,
+                className: "selection-current",
+                fixedType,
+                totalColKeys,
+                fixedColKeys,
+            });
 
             return result;
         },
@@ -480,11 +469,6 @@ export default {
             };
 
             const { currentCell, normalEndCell } = this.cellSelectionData;
-            const leftmostColKey = getLeftmostColKey(
-                this.colgroups,
-                currentCell.colKey,
-                normalEndCell.colKey,
-            );
 
             const { cellSelectionRect, cellSelectionRangeData, colgroups } =
                 this;
@@ -533,6 +517,11 @@ export default {
                     left: 0,
                 },
             };
+
+            const leftmostColKey = getLeftmostColKey({
+                colgroups: this.colgroups,
+                colKeys: [currentCell.colKey, normalEndCell.colKey],
+            });
 
             // end cell column key right
             if (leftmostColKey === currentCell.colKey) {
@@ -613,60 +602,13 @@ export default {
                 colgroups,
             });
 
-            // fixed columns total width
-            let fixedColsTotalWidth = 0;
-            if (fixedColKeys.length) {
-                fixedColsTotalWidth = getTotalWidthByColKeys({
-                    colKeys: fixedColKeys,
-                    colgroups,
-                });
-            }
-
-            if (fixedType) {
-                borders.borderWidth = fixedColsTotalWidth;
-            }
-
-            if (fixedType === COLUMN_FIXED_TYPE.LEFT) {
-                if (totalColKeys.length !== fixedColKeys.length) {
-                    borders.rightBorder.show = false;
-                    borders.corner.show = false;
-                }
-            }
-
-            if (fixedType === COLUMN_FIXED_TYPE.RIGHT) {
-                if (totalColKeys.length !== fixedColKeys.length) {
-                    borders.leftBorder.show = false;
-                }
-
-                borders.topBorder.left =
-                    borders.rightBorder.left - borders.borderWidth + 1;
-                borders.bottomBorder.left =
-                    borders.rightBorder.left - borders.borderWidth + 1;
-            }
-
-            let isRender = true;
-
-            if (fixedType) {
-                isRender = isExistGivenFixedColKey({
-                    fixedType,
-                    colKeys: totalColKeys,
-                    colgroups,
-                });
-            }
-            // middle normal area
-            else {
-                isRender = isExistNotFixedColKey({
-                    colKeys: totalColKeys,
-                    colgroups,
-                });
-            }
-
-            if (isRender) {
-                result.normalArea = this.getBorders({
-                    ...borders,
-                    className: "selection-normal-area",
-                });
-            }
+            result.normalArea = this.getBorders({
+                ...borders,
+                className: "selection-normal-area",
+                fixedType,
+                totalColKeys,
+                fixedColKeys,
+            });
 
             return result;
         },
@@ -740,6 +682,12 @@ export default {
             const { leftColKey, rightColKey } = cellSelectionRangeData;
 
             const { autoFillEndCell } = cellSelectionData;
+
+            // const leftmostColKey = getLeftmostColKey({
+            //     colgroups,
+            //     colKey1: leftColKey,
+            //     colKey2: autoFillEndCell.colKey,
+            // });
 
             // autofilling direction
             let autofillingDirection;
@@ -869,36 +817,40 @@ export default {
                 colgroups,
             });
 
-            // fixed columns total width
-            let fixedColsTotalWidth = 0;
-            if (Array.isArray(fixedColKeys) && fixedColKeys.length) {
-                fixedColsTotalWidth = getTotalWidthByColKeys({
-                    colKeys: fixedColKeys,
-                    colgroups,
-                });
+            result = this.getBorders({
+                className: "selection-autofill-area",
+                ...borders,
+                fixedType,
+                totalColKeys,
+                fixedColKeys,
+            });
+
+            if (result) {
+                this.dispatch(
+                    COMPS_NAME.VE_TABLE,
+                    EMIT_EVENTS.AUTOFILLING_DIRECTION_CHANGE,
+                    autofillingDirection,
+                );
             }
 
-            if (fixedType) {
-                borders.borderWidth = fixedColsTotalWidth;
-            }
+            return result;
+        },
 
-            if (fixedType === COLUMN_FIXED_TYPE.LEFT) {
-                if (totalColKeys.length !== fixedColKeys.length) {
-                    borders.rightBorder.show = false;
-                    borders.corner.show = false;
-                }
-            }
-
-            if (fixedType === COLUMN_FIXED_TYPE.RIGHT) {
-                if (totalColKeys.length !== fixedColKeys.length) {
-                    borders.leftBorder.show = false;
-                }
-
-                borders.topBorder.left =
-                    borders.rightBorder.left - borders.borderWidth + 1;
-                borders.bottomBorder.left =
-                    borders.rightBorder.left - borders.borderWidth + 1;
-            }
+        // get borders
+        getBorders({
+            borderWidth,
+            borderHeight,
+            topBorder,
+            rightBorder,
+            bottomBorder,
+            leftBorder,
+            corner,
+            className,
+            fixedType,
+            totalColKeys,
+            fixedColKeys,
+        }) {
+            const { cornerCellInfo, colgroups } = this;
 
             let isRender = true;
 
@@ -917,34 +869,38 @@ export default {
                 });
             }
 
-            this.dispatch(
-                COMPS_NAME.VE_TABLE,
-                EMIT_EVENTS.AUTOFILLING_DIRECTION_CHANGE,
-                autofillingDirection,
-            );
+            if (!isRender) {
+                return null;
+            }
 
-            if (isRender) {
-                result = this.getBorders({
-                    ...borders,
-                    className: "selection-autofill-area",
+            // fixed columns total width
+            let fixedColsTotalWidth = 0;
+            if (fixedColKeys.length) {
+                fixedColsTotalWidth = getTotalWidthByColKeys({
+                    colKeys: fixedColKeys,
+                    colgroups,
                 });
             }
 
-            return result;
-        },
+            if (fixedType) {
+                borderWidth = fixedColsTotalWidth;
+            }
 
-        // get borders
-        getBorders({
-            borderWidth,
-            borderHeight,
-            topBorder,
-            rightBorder,
-            bottomBorder,
-            leftBorder,
-            corner,
-            className,
-        }) {
-            const { cornerCellInfo } = this;
+            if (fixedType === COLUMN_FIXED_TYPE.LEFT) {
+                if (totalColKeys.length !== fixedColKeys.length) {
+                    rightBorder.show = false;
+                    corner.show = false;
+                }
+            }
+
+            if (fixedType === COLUMN_FIXED_TYPE.RIGHT) {
+                if (totalColKeys.length !== fixedColKeys.length) {
+                    leftBorder.show = false;
+                }
+
+                topBorder.left = rightBorder.left - borderWidth + 1;
+                bottomBorder.left = rightBorder.left - borderWidth + 1;
+            }
 
             let cornerTop = corner.top;
             let cornerLeft = corner.left;
