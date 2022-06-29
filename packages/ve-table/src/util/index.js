@@ -477,6 +477,7 @@ export function isExistNotFixedColKey({ colKeys, colgroups }) {
 /*
  * @getLeftmostColKey
  * @desc get leftmost column key
+ * @param {array<object>} colgroups
  * @param {array<any>} colKeys
  * @return colKey
  */
@@ -516,5 +517,47 @@ export function getLeftmostColKey({ colgroups, colKeys }) {
         result = leftmostObj.colKey;
     }
 
+    return result;
+}
+
+/*
+ * @getPreviewColKey
+ * @desc get preview column key
+ * @param {array<object>} colgroups
+ * @param {any} currentColKey
+ * @return colKey
+ */
+export function getPreviewColKey({ colgroups, currentColKey }) {
+    let result = null;
+
+    if (!isEmptyValue(currentColKey)) {
+        const index = colgroups.findIndex((x) => x.key === currentColKey);
+        if (index === 0) {
+            result = currentColKey;
+        } else if (index > 0) {
+            result = colgroups[index - 1].key;
+        }
+    }
+    return result;
+}
+
+/*
+ * @getNextColKey
+ * @desc get next column key
+ * @param {array<object>} colgroups
+ * @param {any} currentColKey
+ * @return colKey
+ */
+export function getNextColKey({ colgroups, currentColKey }) {
+    let result = null;
+
+    if (!isEmptyValue(currentColKey)) {
+        const index = colgroups.findIndex((x) => x.key === currentColKey);
+        if (index === colgroups.length - 1) {
+            result = currentColKey;
+        } else if (index > 0 && index < colgroups.length - 1) {
+            result = colgroups[index + 1].key;
+        }
+    }
     return result;
 }
