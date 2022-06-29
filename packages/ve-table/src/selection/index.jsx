@@ -885,6 +885,7 @@ export default {
             if (fixedType === COLUMN_FIXED_TYPE.LEFT) {
                 if (totalColKeys.length !== fixedColKeys.length) {
                     borders.rightBorder.show = false;
+                    borders.corner.show = false;
                 }
             }
 
