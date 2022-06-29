@@ -685,11 +685,13 @@ export default {
 
             const { autoFillEndCell } = cellSelectionData;
 
-            // const leftmostColKey = getLeftmostColKey({
-            //     colgroups,
-            //     colKey1: leftColKey,
-            //     colKey2: autoFillEndCell.colKey,
-            // });
+            let leftmostColKey;
+            if (leftColKey !== autoFillEndCell.colKey) {
+                leftmostColKey = getLeftmostColKey({
+                    colgroups,
+                    colKeys: [leftColKey, autoFillEndCell.colKey],
+                });
+            }
 
             // autofilling direction
             let autofillingDirection;
@@ -758,7 +760,8 @@ export default {
             }
             // auto fill end cell right
             else if (
-                autoFillEndCellRect.left >= areaPostions.rightBorder.left
+                leftmostColKey === leftColKey &&
+                !isEmptyValue(leftmostColKey)
             ) {
                 autofillingDirection = AUTOFILLING_DIRECTION.RIGHT;
 
@@ -788,7 +791,10 @@ export default {
                 borders.bottomBorder.left = areaPostions.rightBorder.left - 1;
             }
             // auto fill end cell left
-            else if (autoFillEndCellRect.left <= areaPostions.leftBorder.left) {
+            else if (
+                leftmostColKey === autoFillEndCell.colKey &&
+                !isEmptyValue(leftmostColKey)
+            ) {
                 autofillingDirection = AUTOFILLING_DIRECTION.LEFT;
 
                 rangeColKey1 = getPreviewColKey({
