@@ -477,22 +477,43 @@ export function isExistNotFixedColKey({ colKeys, colgroups }) {
 /*
  * @getLeftmostColKey
  * @desc get leftmost column key
- * @param {any} colKey1
- * @param {any} colKey2
+ * @param {array<any>} colKeys
  * @return colKey
  */
-export function getLeftmostColKey({ colgroups, colKey1, colKey2 }) {
+export function getLeftmostColKey({ colgroups, colKeys }) {
     let result = null;
 
-    if (!isEmptyValue(colKey1) && !isEmptyValue(colKey2)) {
-        if (
-            colgroups.findIndex((x) => x.key === colKey1) <
-            colgroups.findIndex((x) => x.key === colKey2)
-        ) {
-            result = colKey1;
-        } else {
-            result = colKey2;
-        }
+    if (Array.isArray(colKeys) && colKeys.length) {
+        let leftmostObj = {
+            colKey: null,
+            colIndex: null,
+        };
+        colKeys.forEach((colKey) => {
+            const colIndex = colgroups.findIndex((x) => x.key === colKey);
+
+            if (colIndex === -1) {
+                console.error(
+                    `getLeftmostColKey error:: can't find colKey:${colKey}`,
+                );
+                return false;
+            }
+
+            if (isEmptyValue(leftmostObj.colKey)) {
+                leftmostObj = {
+                    colKey,
+                    colIndex: colIndex,
+                };
+            } else {
+                if (colIndex < leftmostObj.colIndex) {
+                    leftmostObj = {
+                        colKey,
+                        colIndex: colIndex,
+                    };
+                }
+            }
+        });
+
+        result = leftmostObj.colKey;
     }
 
     return result;
