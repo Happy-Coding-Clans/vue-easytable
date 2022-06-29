@@ -366,9 +366,15 @@ export function getColKeysByRangeColKeys({ colKey1, colKey2, colgroups }) {
  * @return {array} colKeys
  */
 export function getColKeysByFixedType({ colKeys, fixedType, colgroups }) {
-    return colgroups
-        .filter((x) => colKeys.indexOf(x.key) > -1 && x.fixed === fixedType)
-        .map((x) => x.key);
+    let result = null;
+
+    if (Array.isArray(colKeys)) {
+        result = colgroups
+            .filter((x) => colKeys.indexOf(x.key) > -1 && x.fixed === fixedType)
+            .map((x) => x.key);
+    }
+
+    return result;
 }
 
 /*
