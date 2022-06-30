@@ -284,12 +284,22 @@ export default {
                 width: cellWidth,
             } = cellEl.getBoundingClientRect();
 
-            return {
-                left: cellLeft - tableLeft,
-                top: cellTop - tableTop,
-                width: cellWidth,
-                height: cellHeight,
-            };
+            if (cellHeight && cellWidth) {
+                return {
+                    left: cellLeft - tableLeft,
+                    top: cellTop - tableTop,
+                    width: cellWidth,
+                    height: cellHeight,
+                };
+            } else {
+                console.log("overflowViewport!!");
+                return {
+                    left: 0,
+                    top: 0,
+                    width: 0,
+                    height: 0,
+                };
+            }
         },
 
         // set selection positions
