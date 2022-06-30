@@ -681,9 +681,15 @@ export default {
                 },
             };
 
-            const { leftColKey, rightColKey } = cellSelectionRangeData;
+            const { currentCell, autoFillEndCell } = cellSelectionData;
 
-            const { autoFillEndCell } = cellSelectionData;
+            let { leftColKey, rightColKey } = cellSelectionRangeData;
+            if (
+                currentCellSelectionType === CURRENT_CELL_SELECTION_TYPES.SINGLE
+            ) {
+                leftColKey = currentCell.colKey;
+                rightColKey = currentCell.colKey;
+            }
 
             let leftmostColKey;
             if (leftColKey !== autoFillEndCell.colKey) {
