@@ -76,6 +76,9 @@ export default {
             currentCellEl: null,
             normalEndCellEl: null,
             autoFillEndCellEl: null,
+            isCurrentCellOverflow: true,
+            isNormalEndCellOverflow: true,
+            isAutoFillEndCellOverflow: true,
             // cell selection rect
             cellSelectionRect: {
                 // current cell element rect
@@ -131,8 +134,11 @@ export default {
                     this.hooks.addHook(
                         HOOKS_NAME.TABLE_CONTAINER_SCROLL,
                         () => {
-                            if (!this.currentCellEl) {
+                            if (this.isCurrentCellOverflow) {
                                 this.setCurrentCellEl();
+                            }
+                            if (this.isNormalEndCellOverflow) {
+                                this.setNormalEndCellEl();
                             }
                             this.setSelectionPositions({ type: "currentCell" });
                             this.setSelectionPositions({
@@ -284,20 +290,14 @@ export default {
                 width: cellWidth,
             } = cellEl.getBoundingClientRect();
 
+            //console.log("cellHeight::", cellHeight);
+
             if (cellHeight && cellWidth) {
                 return {
                     left: cellLeft - tableLeft,
                     top: cellTop - tableTop,
                     width: cellWidth,
                     height: cellHeight,
-                };
-            } else {
-                console.log("overflowViewport!!");
-                return {
-                    left: 0,
-                    top: 0,
-                    width: 0,
-                    height: 0,
                 };
             }
         },
@@ -320,30 +320,46 @@ export default {
 
             // set start cell position
             if (currentCellEl && type === "currentCell") {
-                this.cellSelectionRect.currentCellRect = this.getCellPosition({
+                const rect = this.getCellPosition({
                     cellEl: currentCellEl,
                     tableLeft,
                     tableTop,
                 });
+                if (rect) {
+                    this.cellSelectionRect.currentCellRect = rect;
+                    this.isCurrentCellOverflow = false;
+                } else {
+                    this.isCurrentCellOverflow = true;
+                }
             }
 
             if (normalEndCellEl && type === "normalEndCell") {
-                this.cellSelectionRect.normalEndCellRect = this.getCellPosition(
-                    {
-                        cellEl: normalEndCellEl,
-                        tableLeft,
-                        tableTop,
-                    },
-                );
+                const rect = this.getCellPosition({
+                    cellEl: normalEndCellEl,
+                    tableLeft,
+                    tableTop,
+                });
+                if (rect) {
+                    this.cellSelectionRect.normalEndCellRect = rect;
+                    this.isNormalEndCellOverflow = false;
+                } else {
+                    this.isNormalEndCellOverflow = true;
+                }
             }
 
             if (autoFillEndCellEl && type === "autoFillEndCell") {
-                this.cellSelectionRect.autoFillEndCellRect =
-                    this.getCellPosition({
-                        cellEl: autoFillEndCellEl,
-                        tableLeft,
-                        tableTop,
-                    });
+                const rect = this.getCellPosition({
+                    cellEl: autoFillEndCellEl,
+                    tableLeft,
+                    tableTop,
+                });
+
+                if (rect) {
+                    this.cellSelectionRect.autoFillEndCellRect = rect;
+                    //this.isAutoFillEndCellOverflow = false;
+                } else {
+                    //this.isAutoFillEndCellOverflow = true;
+                }
             }
         },
 
@@ -1040,7 +1056,7 @@ export default {
 
             const { rowKey, colKey } = cellSelectionData.currentCell;
 
-            if (tableEl) {
+            if (tableEl && !isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
                 const currentCellEl = tableEl.querySelector(
                     `tbody.ve-table-body tr[row-key="${rowKey}"] td[col-key="${colKey}"]`,
                 );
@@ -1057,7 +1073,7 @@ export default {
 
             const { rowKey, colKey } = cellSelectionData.normalEndCell;
 
-            if (tableEl) {
+            if (tableEl && !isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
                 const normalEndCellEl = tableEl.querySelector(
                     `tbody.ve-table-body tr[row-key="${rowKey}"] td[col-key="${colKey}"]`,
                 );
