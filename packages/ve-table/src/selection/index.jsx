@@ -395,13 +395,14 @@ export default {
                 left: cellLeft,
                 //top: cellTop,
                 //height: cellHeight,
-                //width: cellWidth,
+                width: cellWidth,
             } = cellEl.getBoundingClientRect();
 
-            if (cellLeft) {
-                console.log("left::", cellLeft - tableLeft);
-
-                return cellLeft - tableLeft;
+            if (cellWidth) {
+                return {
+                    left: cellLeft - tableLeft,
+                    width: cellWidth,
+                };
             }
         },
 
@@ -436,12 +437,15 @@ export default {
                         isTableSizeChange ||
                         this.previewTableContainerScrollLeft !== scrollLeft
                     ) {
-                        this.cellSelectionRect.currentCellRect.left =
-                            this.getCellPositionByColKey({
-                                tableLeft,
-                                colKey: this.cellSelectionData.currentCell
-                                    .colKey,
-                            });
+                        const someRect = this.getCellPositionByColKey({
+                            tableLeft,
+                            colKey: this.cellSelectionData.currentCell.colKey,
+                        });
+
+                        Object.assign(
+                            this.cellSelectionRect.normalEndCellRect,
+                            someRect,
+                        );
                     }
                 }
             }
@@ -461,12 +465,15 @@ export default {
                         isTableSizeChange ||
                         this.previewTableContainerScrollLeft !== scrollLeft
                     ) {
-                        this.cellSelectionRect.normalEndCellRect.left =
-                            this.getCellPositionByColKey({
-                                tableLeft,
-                                colKey: this.cellSelectionData.normalEndCell
-                                    .colKey,
-                            });
+                        const someRect = this.getCellPositionByColKey({
+                            tableLeft,
+                            colKey: this.cellSelectionData.normalEndCell.colKey,
+                        });
+
+                        Object.assign(
+                            this.cellSelectionRect.normalEndCellRect,
+                            someRect,
+                        );
                     }
                 }
             }
