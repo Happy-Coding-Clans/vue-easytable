@@ -2640,10 +2640,13 @@ export default {
             style: tableContainerStyle,
             on: {
                 scroll: () => {
-                    this.hooks.triggerHook(HOOKS_NAME.TABLE_CONTAINER_SCROLL);
-
                     const tableContainerRef =
                         this.$refs[this.tableContainerRef];
+
+                    this.hooks.triggerHook(
+                        HOOKS_NAME.TABLE_CONTAINER_SCROLL,
+                        tableContainerRef,
+                    );
                     this.setScrolling(tableContainerRef);
 
                     if (isVirtualScroll) {
@@ -2715,6 +2718,8 @@ export default {
                 showVirtualScrollingPlaceholder,
                 isVirtualScroll,
                 virtualScrollVisibleIndexs: this.virtualScrollVisibleIndexs,
+                previewTableContainerScrollLeft:
+                    this.previewTableContainerScrollLeft,
             },
             on: {
                 [EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE]: (data) => {

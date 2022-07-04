@@ -77,6 +77,10 @@ export default {
             type: Object,
             required: true,
         },
+        previewTableContainerScrollLeft: {
+            type: Number,
+            default: 0,
+        },
     },
 
     data() {
@@ -191,7 +195,9 @@ export default {
                     // add table container scroll hook
                     this.hooks.addHook(
                         HOOKS_NAME.TABLE_CONTAINER_SCROLL,
-                        () => {
+                        (tableContainerRef) => {
+                            const { scrollLeft } = tableContainerRef;
+
                             if (
                                 this.isVirtualScroll &&
                                 this.selectionBordersVisibility
@@ -200,16 +206,29 @@ export default {
                                 this.setNormalEndCellEl();
                             }
 
-                            this.setSelectionPositions({ type: "currentCell" });
+                            this.setSelectionPositions({
+                                type: "currentCell",
+                                scrollLeft,
+                            });
                             this.setSelectionPositions({
                                 type: "normalEndCell",
+                                scrollLeft,
                             });
                         },
                     );
                     // add table size change hook
                     this.hooks.addHook(HOOKS_NAME.TABLE_SIZE_CHANGE, () => {
-                        this.setSelectionPositions({ type: "currentCell" });
-                        this.setSelectionPositions({ type: "normalEndCell" });
+                        // wait for selection cell rendered
+                        setTimeout(() => {
+                            this.setSelectionPositions({
+                                type: "currentCell",
+                                isTableSizeChange: true,
+                            });
+                            this.setSelectionPositions({
+                                type: "normalEndCell",
+                                isTableSizeChange: true,
+                            });
+                        });
                     });
                 }
             },
@@ -343,14 +362,16 @@ export default {
 
         // get cell position
         getCellPosition({ cellEl, tableLeft, tableTop }) {
+            if (!this.selectionBordersVisibility) {
+                return false;
+            }
+
             const {
                 left: cellLeft,
                 top: cellTop,
                 height: cellHeight,
                 width: cellWidth,
             } = cellEl.getBoundingClientRect();
-
-            //console.log("cellHeight::", cellHeight);
 
             if (cellHeight && cellWidth) {
                 return {
@@ -362,19 +383,36 @@ export default {
             }
         },
 
+        // get cell position
+        getCellPositionByColKey({ tableLeft, colKey }) {
+            if (!this.selectionBordersVisibility) {
+                return false;
+            }
+
+            const cellEl = this.getTableFirstRowCellByColKey(colKey);
+
+            const {
+                left: cellLeft,
+                //top: cellTop,
+                //height: cellHeight,
+                //width: cellWidth,
+            } = cellEl.getBoundingClientRect();
+
+            if (cellLeft) {
+                console.log("left::", cellLeft - tableLeft);
+
+                return cellLeft - tableLeft;
+            }
+        },
+
         // set selection positions
-        setSelectionPositions({ type }) {
+        setSelectionPositions({ type, scrollLeft, isTableSizeChange }) {
             const {
                 tableEl,
                 currentCellEl,
                 normalEndCellEl,
                 autoFillEndCellEl,
-                selectionBordersVisibility,
             } = this;
-
-            if (!selectionBordersVisibility) {
-                return false;
-            }
 
             if (!tableEl) {
                 return false;
@@ -392,6 +430,19 @@ export default {
                 });
                 if (rect) {
                     this.cellSelectionRect.currentCellRect = rect;
+                } else {
+                    // 当存在表格宽度变化或者横向滚动条时的区域选择纠正功能
+                    if (
+                        isTableSizeChange ||
+                        this.previewTableContainerScrollLeft !== scrollLeft
+                    ) {
+                        this.cellSelectionRect.currentCellRect.left =
+                            this.getCellPositionByColKey({
+                                tableLeft,
+                                colKey: this.cellSelectionData.currentCell
+                                    .colKey,
+                            });
+                    }
                 }
             }
 
@@ -404,6 +455,19 @@ export default {
                 });
                 if (rect) {
                     this.cellSelectionRect.normalEndCellRect = rect;
+                } else {
+                    // 当存在表格宽度变化或者横向滚动条时的区域选择纠正功能
+                    if (
+                        isTableSizeChange ||
+                        this.previewTableContainerScrollLeft !== scrollLeft
+                    ) {
+                        this.cellSelectionRect.normalEndCellRect.left =
+                            this.getCellPositionByColKey({
+                                tableLeft,
+                                colKey: this.cellSelectionData.normalEndCell
+                                    .colKey,
+                            });
+                    }
                 }
             }
 
@@ -1107,36 +1171,69 @@ export default {
             );
         },
 
+        /* 
+        get table first row cell by col key
+        用作跨页单元格选择，表格大小变化或者存在横向滚动条时，区域选择位置自动校准
+        */
+        getTableFirstRowCellByColKey(colKey) {
+            let result = null;
+
+            const { tableEl } = this;
+
+            if (tableEl) {
+                result = tableEl.querySelector(
+                    `tbody.ve-table-body tr td[col-key="${colKey}"]`,
+                );
+            }
+            return result;
+        },
+
+        // get table el
+        getTableCellEl({ rowKey, colKey }) {
+            let result = null;
+
+            const { tableEl } = this;
+
+            if (tableEl) {
+                result = tableEl.querySelector(
+                    `tbody.ve-table-body tr[row-key="${rowKey}"] td[col-key="${colKey}"]`,
+                );
+            }
+            return result;
+        },
+
         // set current cell el
         setCurrentCellEl() {
-            const { cellSelectionData, tableEl } = this;
+            const { cellSelectionData } = this;
 
             const { rowKey, colKey } = cellSelectionData.currentCell;
 
-            if (tableEl && !isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                const currentCellEl = tableEl.querySelector(
-                    `tbody.ve-table-body tr[row-key="${rowKey}"] td[col-key="${colKey}"]`,
-                );
+            if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+                const cellEl = this.getTableCellEl({
+                    rowKey,
+                    colKey,
+                });
 
-                if (currentCellEl) {
-                    this.currentCellEl = currentCellEl;
+                if (cellEl) {
+                    this.currentCellEl = cellEl;
                 }
             }
         },
 
         // set normal end cell el
         setNormalEndCellEl() {
-            const { cellSelectionData, tableEl } = this;
+            const { cellSelectionData } = this;
 
             const { rowKey, colKey } = cellSelectionData.normalEndCell;
 
-            if (tableEl && !isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                const normalEndCellEl = tableEl.querySelector(
-                    `tbody.ve-table-body tr[row-key="${rowKey}"] td[col-key="${colKey}"]`,
-                );
+            if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+                const cellEl = this.getTableCellEl({
+                    rowKey,
+                    colKey,
+                });
 
-                if (normalEndCellEl) {
-                    this.normalEndCellEl = normalEndCellEl;
+                if (cellEl) {
+                    this.normalEndCellEl = cellEl;
                 }
             }
         },
