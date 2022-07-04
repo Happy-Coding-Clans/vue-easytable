@@ -116,7 +116,6 @@ export default {
         // selection borders visibility
         selectionBordersVisibility() {
             let result = true;
-
             if (this.isVirtualScroll) {
                 const {
                     showVirtualScrollingPlaceholder,
@@ -193,7 +192,10 @@ export default {
                     this.hooks.addHook(
                         HOOKS_NAME.TABLE_CONTAINER_SCROLL,
                         () => {
-                            if (this.isVirtualScroll) {
+                            if (
+                                this.isVirtualScroll &&
+                                this.selectionBordersVisibility
+                            ) {
                                 this.setCurrentCellEl();
                                 this.setNormalEndCellEl();
                             }
@@ -367,7 +369,12 @@ export default {
                 currentCellEl,
                 normalEndCellEl,
                 autoFillEndCellEl,
+                selectionBordersVisibility,
             } = this;
+
+            if (!selectionBordersVisibility) {
+                return false;
+            }
 
             if (!tableEl) {
                 return false;
