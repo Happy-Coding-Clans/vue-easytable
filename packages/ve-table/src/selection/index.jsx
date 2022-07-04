@@ -42,10 +42,6 @@ export default {
             type: Object,
             required: true,
         },
-        rowKeyFieldName: {
-            type: String,
-            default: null,
-        },
         cellSelectionOption: {
             type: Object,
             default: function () {
@@ -68,6 +64,19 @@ export default {
             type: String,
             default: "",
         },
+        // is scrolling
+        showVirtualScrollingPlaceholder: {
+            type: Boolean,
+            default: false,
+        },
+        isVirtualScroll: {
+            type: Boolean,
+            default: false,
+        },
+        virtualScrollVisibleIndexs: {
+            type: Object,
+            required: true,
+        },
     },
 
     data() {
@@ -76,9 +85,6 @@ export default {
             currentCellEl: null,
             normalEndCellEl: null,
             autoFillEndCellEl: null,
-            isCurrentCellOverflow: true,
-            isNormalEndCellOverflow: true,
-            isAutoFillEndCellOverflow: true,
             // cell selection rect
             cellSelectionRect: {
                 // current cell element rect
@@ -107,6 +113,59 @@ export default {
     },
 
     computed: {
+        // selection borders visibility
+        selectionBordersVisibility() {
+            let result = true;
+
+            if (this.isVirtualScroll) {
+                const {
+                    showVirtualScrollingPlaceholder,
+                    cellSelectionData,
+                    virtualScrollVisibleIndexs,
+                    currentCellSelectionType,
+                } = this;
+
+                if (showVirtualScrollingPlaceholder) {
+                    result = false;
+                } else {
+                    const { currentCell, normalEndCell } = cellSelectionData;
+
+                    if (
+                        currentCellSelectionType ===
+                        CURRENT_CELL_SELECTION_TYPES.SINGLE
+                    ) {
+                        if (
+                            currentCell.rowIndex <
+                                virtualScrollVisibleIndexs.start ||
+                            currentCell.rowIndex >
+                                virtualScrollVisibleIndexs.end
+                        ) {
+                            result = false;
+                        }
+                    }
+
+                    if (
+                        currentCellSelectionType ===
+                        CURRENT_CELL_SELECTION_TYPES.RANGE
+                    ) {
+                        if (
+                            (currentCell.rowIndex <
+                                virtualScrollVisibleIndexs.start &&
+                                normalEndCell.rowIndex <
+                                    virtualScrollVisibleIndexs.start) ||
+                            (currentCell.rowIndex >
+                                virtualScrollVisibleIndexs.end &&
+                                normalEndCell.rowIndex >
+                                    virtualScrollVisibleIndexs.end)
+                        ) {
+                            result = false;
+                        }
+                    }
+                }
+            }
+
+            return result;
+        },
         // corner cell info
         cornerCellInfo() {
             const { allRowKeys, colgroups, cellSelectionData } = this;
@@ -134,12 +193,11 @@ export default {
                     this.hooks.addHook(
                         HOOKS_NAME.TABLE_CONTAINER_SCROLL,
                         () => {
-                            if (this.isCurrentCellOverflow) {
+                            if (this.isVirtualScroll) {
                                 this.setCurrentCellEl();
-                            }
-                            if (this.isNormalEndCellOverflow) {
                                 this.setNormalEndCellEl();
                             }
+
                             this.setSelectionPositions({ type: "currentCell" });
                             this.setSelectionPositions({
                                 type: "normalEndCell",
@@ -169,7 +227,7 @@ export default {
                         this.setCellSelectionRangeData();
                     });
                 } else {
-                    this.clearStartCellRect();
+                    this.clearCurrentCellRect();
                     this.clearCellSelectionRangeData();
                 }
             },
@@ -318,7 +376,7 @@ export default {
             const { left: tableLeft, top: tableTop } =
                 tableEl.getBoundingClientRect();
 
-            // set start cell position
+            // set current cell position
             if (currentCellEl && type === "currentCell") {
                 const rect = this.getCellPosition({
                     cellEl: currentCellEl,
@@ -327,12 +385,10 @@ export default {
                 });
                 if (rect) {
                     this.cellSelectionRect.currentCellRect = rect;
-                    this.isCurrentCellOverflow = false;
-                } else {
-                    this.isCurrentCellOverflow = true;
                 }
             }
 
+            // set nromal end cell position`
             if (normalEndCellEl && type === "normalEndCell") {
                 const rect = this.getCellPosition({
                     cellEl: normalEndCellEl,
@@ -341,9 +397,6 @@ export default {
                 });
                 if (rect) {
                     this.cellSelectionRect.normalEndCellRect = rect;
-                    this.isNormalEndCellOverflow = false;
-                } else {
-                    this.isNormalEndCellOverflow = true;
                 }
             }
 
@@ -356,15 +409,12 @@ export default {
 
                 if (rect) {
                     this.cellSelectionRect.autoFillEndCellRect = rect;
-                    //this.isAutoFillEndCellOverflow = false;
-                } else {
-                    //this.isAutoFillEndCellOverflow = true;
                 }
             }
         },
 
-        // clear end cell rect
-        clearStartCellRect() {
+        // clear current cell rect
+        clearCurrentCellRect() {
             this.currentCellEl = null;
             this.cellSelectionRect.currentCellRect = {
                 left: 0,
@@ -1050,7 +1100,7 @@ export default {
             );
         },
 
-        // set start cell el
+        // set current cell el
         setCurrentCellEl() {
             const { cellSelectionData, tableEl } = this;
 
@@ -1111,6 +1161,10 @@ export default {
     },
 
     render() {
+        if (!this.selectionBordersVisibility) {
+            return null;
+        }
+
         // fixed left
         const fixedLeftSelectionCurrent = this.getSelectionCurrent({
             fixedType: COLUMN_FIXED_TYPE.LEFT,
