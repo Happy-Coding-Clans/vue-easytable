@@ -274,8 +274,13 @@ export default {
             */
             // virtual scroll visible data
             virtualScrollVisibleData: [],
-            // default virtual scroll buffer count
-            defaultVirtualScrollBufferCount: 1,
+            // virtual scroll visible indexs
+            virtualScrollVisibleIndexs: {
+                start: -1,
+                end: -1,
+            },
+            // default virtual scroll buffer scale
+            defaultVirtualScrollBufferScale: 1,
             // default virtual scroll min row height
             defaultVirtualScrollMinRowHeight: 40,
             // default placeholder per scrolling row count
@@ -307,10 +312,12 @@ export default {
                 currentCell: {
                     rowKey: "",
                     colKey: "",
+                    rowIndex: -1,
                 },
                 normalEndCell: {
                     rowKey: "",
                     colKey: "",
+                    rowIndex: -1,
                 },
                 autoFillEndCell: {
                     rowKey: "",
@@ -392,18 +399,23 @@ export default {
         },
         // virtual scroll buffer count
         virtualScrollBufferCount() {
-            const { virtualScrollOption, defaultVirtualScrollBufferCount } =
-                this;
+            let result = 0;
 
-            let result = defaultVirtualScrollBufferCount;
+            const {
+                virtualScrollOption,
+                defaultVirtualScrollBufferScale,
+                virtualScrollVisibleCount,
+            } = this;
+
             if (virtualScrollOption) {
-                const { bufferCount } = virtualScrollOption;
-                if (
-                    isNumber(bufferCount) &&
-                    bufferCount > defaultVirtualScrollBufferCount
-                ) {
-                    result = bufferCount;
-                }
+                const { bufferScale } = virtualScrollOption;
+
+                let realBufferScale =
+                    isNumber(bufferScale) && bufferScale > 0
+                        ? bufferScale
+                        : defaultVirtualScrollBufferScale;
+
+                result = realBufferScale * virtualScrollVisibleCount;
             }
 
             return result;
@@ -845,12 +857,16 @@ export default {
         cellSelectionCurrentCellChange({ rowKey, colKey }) {
             this.cellSelectionData.currentCell.rowKey = rowKey;
             this.cellSelectionData.currentCell.colKey = colKey;
+            this.cellSelectionData.currentCell.rowIndex =
+                this.allRowKeys.indexOf(rowKey);
         },
 
         // cell selection end cell change
         cellSelectionNormalEndCellChange({ rowKey, colKey }) {
             this.cellSelectionData.normalEndCell.rowKey = rowKey;
             this.cellSelectionData.normalEndCell.colKey = colKey;
+            this.cellSelectionData.normalEndCell.rowIndex =
+                this.allRowKeys.indexOf(rowKey);
         },
 
         // cell selection auto fill cell change
@@ -861,12 +877,20 @@ export default {
 
         // clear cell selection current cell
         clearCellSelectionCurrentCell() {
-            this.cellSelectionCurrentCellChange({ rowKey: "", colKey: "" });
+            this.cellSelectionCurrentCellChange({
+                rowKey: "",
+                colKey: "",
+                rowIndex: -1,
+            });
         },
 
         // clear cell selection normal end cell
         clearCellSelectionNormalEndCell() {
-            this.cellSelectionNormalEndCellChange({ rowKey: "", colKey: "" });
+            this.cellSelectionNormalEndCellChange({
+                rowKey: "",
+                colKey: "",
+                rowIndex: -1,
+            });
         },
 
         // clear cell selection autofill end cell
@@ -887,6 +911,9 @@ export default {
 
             const { rowKey, colKey } = autoFillEndCell;
 
+            let currentCellData = {};
+            let normalCellData = {};
+
             // cell selection range auto fill
             if (
                 currentCellSelectionType === CURRENT_CELL_SELECTION_TYPES.RANGE
@@ -903,47 +930,38 @@ export default {
                         cellSelectionRangeData;
 
                     if (autofillingDirection === AUTOFILLING_DIRECTION.RIGHT) {
-                        this.cellSelectionCurrentCellChange({
+                        currentCellData = {
                             rowKey: topRowKey,
                             colKey: leftColKey,
-                        });
-                        this.cellSelectionNormalEndCellChange({
-                            rowKey: bottomRowKey,
-                            colKey,
-                        });
+                        };
+                        normalCellData = { rowKey: bottomRowKey, colKey };
                     } else if (
                         autofillingDirection === AUTOFILLING_DIRECTION.DOWN
                     ) {
-                        this.cellSelectionCurrentCellChange({
+                        currentCellData = {
                             rowKey: topRowKey,
                             colKey: leftColKey,
-                        });
-                        this.cellSelectionNormalEndCellChange({
-                            rowKey,
-                            colKey: rightColKey,
-                        });
+                        };
+                        normalCellData = { rowKey, colKey: rightColKey };
                     } else if (
                         autofillingDirection === AUTOFILLING_DIRECTION.UP
                     ) {
-                        this.cellSelectionCurrentCellChange({
+                        currentCellData = {
                             rowKey,
                             colKey: leftColKey,
-                        });
-                        this.cellSelectionNormalEndCellChange({
+                        };
+                        normalCellData = {
                             rowKey: bottomRowKey,
                             colKey: rightColKey,
-                        });
+                        };
                     } else if (
                         autofillingDirection === AUTOFILLING_DIRECTION.LEFT
                     ) {
-                        this.cellSelectionCurrentCellChange({
-                            rowKey: topRowKey,
-                            colKey,
-                        });
-                        this.cellSelectionNormalEndCellChange({
+                        currentCellData = { rowKey: topRowKey, colKey };
+                        normalCellData = {
                             rowKey: bottomRowKey,
                             colKey: rightColKey,
-                        });
+                        };
                     }
                 }
             }
@@ -956,41 +974,55 @@ export default {
                     currentCell.colKey !== colKey
                 ) {
                     if (autofillingDirection === AUTOFILLING_DIRECTION.RIGHT) {
-                        this.cellSelectionNormalEndCellChange({
+                        normalCellData = {
                             rowKey: currentCell.rowKey,
                             colKey,
-                        });
+                        };
                     } else if (
                         autofillingDirection === AUTOFILLING_DIRECTION.DOWN
                     ) {
-                        this.cellSelectionNormalEndCellChange({
+                        normalCellData = {
                             rowKey,
                             colKey: currentCell.colKey,
-                        });
+                        };
                     } else if (
                         autofillingDirection === AUTOFILLING_DIRECTION.UP
                     ) {
-                        this.cellSelectionNormalEndCellChange({
-                            rowKey: currentCell.rowKey,
-                            colKey: currentCell.colKey,
-                        });
-                        this.cellSelectionCurrentCellChange({
+                        currentCellData = {
                             rowKey,
                             colKey: currentCell.colKey,
-                        });
+                        };
+                        normalCellData = {
+                            rowKey: currentCell.rowKey,
+                            colKey: currentCell.colKey,
+                        };
                     } else if (
                         autofillingDirection === AUTOFILLING_DIRECTION.LEFT
                     ) {
-                        this.cellSelectionNormalEndCellChange({
-                            rowKey: currentCell.rowKey,
-                            colKey: currentCell.colKey,
-                        });
-                        this.cellSelectionCurrentCellChange({
+                        currentCellData = {
                             rowKey: currentCell.rowKey,
                             colKey,
-                        });
+                        };
+                        normalCellData = {
+                            rowKey: currentCell.rowKey,
+                            colKey: currentCell.colKey,
+                        };
                     }
                 }
+            }
+
+            if (!isEmptyValue(currentCellData.rowKey)) {
+                this.cellSelectionCurrentCellChange({
+                    rowKey: currentCellData.rowKey,
+                    colKey: currentCellData.colKey,
+                });
+            }
+
+            if (!isEmptyValue(normalCellData.rowKey)) {
+                this.cellSelectionNormalEndCellChange({
+                    rowKey: normalCellData.rowKey,
+                    colKey: normalCellData.colKey,
+                });
             }
         },
 
@@ -1386,6 +1418,9 @@ export default {
 
             let start = startIndex - aboveCount;
             let end = endIndex + belowCount;
+
+            this.virtualScrollVisibleIndexs.start = start;
+            this.virtualScrollVisibleIndexs.end = end;
 
             this.virtualScrollVisibleData = tableData.slice(start, end);
         },
@@ -2672,12 +2707,14 @@ export default {
                 colgroups,
                 parentRendered: this.parentRendered,
                 hooks: this.hooks,
-                rowKeyFieldName,
                 cellSelectionOption: this.cellSelectionOption,
                 cellSelectionData,
                 isAutofillStarting: this.isAutofillStarting,
                 cellSelectionRangeData: this.cellSelectionRangeData,
                 currentCellSelectionType: this.currentCellSelectionType,
+                showVirtualScrollingPlaceholder,
+                isVirtualScroll,
+                virtualScrollVisibleIndexs: this.virtualScrollVisibleIndexs,
             },
             on: {
                 [EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE]: (data) => {
