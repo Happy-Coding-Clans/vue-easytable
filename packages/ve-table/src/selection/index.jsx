@@ -443,7 +443,7 @@ export default {
                         });
 
                         Object.assign(
-                            this.cellSelectionRect.normalEndCellRect,
+                            this.cellSelectionRect.currentCellRect,
                             someRect,
                         );
                     }
