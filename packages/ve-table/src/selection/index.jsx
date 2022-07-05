@@ -432,7 +432,7 @@ export default {
                 if (rect) {
                     this.cellSelectionRect.currentCellRect = rect;
                 } else {
-                    // 当存在表格宽度变化或者横向滚动条时的区域选择纠正功能
+                    // 当存在表格宽度变化或者横向滚动条拖动时的区域选择纠正功能
                     if (
                         isTableSizeChange ||
                         this.previewTableContainerScrollLeft !== scrollLeft
@@ -460,7 +460,7 @@ export default {
                 if (rect) {
                     this.cellSelectionRect.normalEndCellRect = rect;
                 } else {
-                    // 当存在表格宽度变化或者横向滚动条时的区域选择纠正功能
+                    // 当存在表格宽度变化或者横向滚动条拖动时的区域选择纠正功能
                     if (
                         isTableSizeChange ||
                         this.previewTableContainerScrollLeft !== scrollLeft
