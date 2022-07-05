@@ -22,6 +22,7 @@ import {
 } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 import { isEmptyValue } from "../../../src/utils/index.js";
+import { debounce } from "lodash";
 
 export default {
     name: COMPS_NAME.VE_TABLE_SELECTION,
@@ -205,30 +206,18 @@ export default {
                             ) {
                                 this.setCurrentCellEl();
                                 this.setNormalEndCellEl();
+                                // debounce reset cell positions
+                                this.debounceResetCellPositions({ scrollLeft });
                             }
 
-                            this.setSelectionPositions({
-                                type: "currentCell",
-                                scrollLeft,
-                            });
-                            this.setSelectionPositions({
-                                type: "normalEndCell",
-                                scrollLeft,
-                            });
+                            this.resetCellPositions({ scrollLeft });
                         },
                     );
                     // add table size change hook
                     this.hooks.addHook(HOOKS_NAME.TABLE_SIZE_CHANGE, () => {
-                        // wait for selection cell rendered
-                        setTimeout(() => {
-                            this.setSelectionPositions({
-                                type: "currentCell",
-                                isTableSizeChange: true,
-                            });
-                            this.setSelectionPositions({
-                                type: "normalEndCell",
-                                isTableSizeChange: true,
-                            });
+                        // debounce reset cell positions
+                        this.debounceResetCellPositions({
+                            isTableSizeChange: true,
                         });
                     });
                 }
@@ -297,6 +286,18 @@ export default {
     },
 
     methods: {
+        // reset cell position
+        resetCellPositions({ scrollLeft, isTableSizeChange }) {
+            this.setSelectionPositions({
+                type: "currentCell",
+                scrollLeft,
+            });
+            this.setSelectionPositions({
+                type: "normalEndCell",
+                scrollLeft,
+            });
+        },
+
         // set cell selection range data
         setCellSelectionRangeData() {
             const { currentCellSelectionType } = this;
@@ -1278,6 +1279,11 @@ export default {
                 this.tableEl = tableEl;
             });
         },
+    },
+
+    created() {
+        // debounce reset cell positions
+        this.debounceResetCellPositions = debounce(this.resetCellPositions, 50);
     },
 
     render() {
