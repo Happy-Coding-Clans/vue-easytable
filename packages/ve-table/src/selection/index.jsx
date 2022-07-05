@@ -6,6 +6,7 @@ import {
     isExistGivenFixedColKey,
     isExistNotFixedColKey,
     getLeftmostColKey,
+    getRightmostColKey,
     getColKeysByFixedType,
     getTotalWidthByColKeys,
     getPreviewColKey,
@@ -853,6 +854,14 @@ export default {
                 });
             }
 
+            let rightmostColKey;
+            if (rightColKey !== autoFillEndCell.colKey) {
+                rightmostColKey = getRightmostColKey({
+                    colgroups,
+                    colKeys: [rightColKey, autoFillEndCell.colKey],
+                });
+            }
+
             // autofilling direction
             let autofillingDirection;
 
@@ -920,8 +929,8 @@ export default {
             }
             // auto fill end cell right
             else if (
-                leftmostColKey === leftColKey &&
-                !isEmptyValue(leftmostColKey)
+                rightmostColKey === autoFillEndCell.colKey &&
+                !isEmptyValue(rightmostColKey)
             ) {
                 autofillingDirection = AUTOFILLING_DIRECTION.RIGHT;
 
