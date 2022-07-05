@@ -384,7 +384,7 @@ export default {
             }
         },
 
-        // get cell position
+        // get cell position by column key
         getCellPositionByColKey({ tableLeft, colKey }) {
             if (!this.selectionBordersVisibility) {
                 return false;
