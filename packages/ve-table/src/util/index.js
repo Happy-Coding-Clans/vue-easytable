@@ -475,17 +475,18 @@ export function isExistNotFixedColKey({ colKeys, colgroups }) {
 }
 
 /*
- * @getLeftmostColKey
- * @desc get leftmost column key
+ * @getLeftmostOrRightmostColKey
+ * @desc get leftmost or rightmost column key
+ * @param {string} type
  * @param {array<object>} colgroups
  * @param {array<any>} colKeys
  * @return colKey
  */
-export function getLeftmostColKey({ colgroups, colKeys }) {
+function getLeftmostOrRightmostColKey({ type, colgroups, colKeys }) {
     let result = null;
 
     if (Array.isArray(colKeys) && colKeys.length) {
-        let leftmostObj = {
+        let mostObj = {
             colKey: null,
             colIndex: null,
         };
@@ -494,30 +495,69 @@ export function getLeftmostColKey({ colgroups, colKeys }) {
 
             if (colIndex === -1) {
                 console.error(
-                    `getLeftmostColKey error:: can't find colKey:${colKey}`,
+                    `getLeftmostOrRightmostColKey error:: can't find colKey:${colKey}`,
                 );
                 return false;
             }
 
-            if (isEmptyValue(leftmostObj.colKey)) {
-                leftmostObj = {
+            if (isEmptyValue(mostObj.colKey)) {
+                mostObj = {
                     colKey,
                     colIndex: colIndex,
                 };
             } else {
-                if (colIndex < leftmostObj.colIndex) {
-                    leftmostObj = {
-                        colKey,
-                        colIndex: colIndex,
-                    };
+                if (type === "leftmost") {
+                    if (colIndex < mostObj.colIndex) {
+                        mostObj = {
+                            colKey,
+                            colIndex: colIndex,
+                        };
+                    }
+                } else if (type === "rightmost") {
+                    if (colIndex > mostObj.colIndex) {
+                        mostObj = {
+                            colKey,
+                            colIndex: colIndex,
+                        };
+                    }
                 }
             }
         });
 
-        result = leftmostObj.colKey;
+        result = mostObj.colKey;
     }
 
     return result;
+}
+
+/*
+ * @getLeftmostColKey
+ * @desc get leftmost column key
+ * @param {array<object>} colgroups
+ * @param {array<any>} colKeys
+ * @return colKey
+ */
+export function getLeftmostColKey({ colgroups, colKeys }) {
+    return getLeftmostOrRightmostColKey({
+        type: "leftmost",
+        colgroups,
+        colKeys,
+    });
+}
+
+/*
+ * @getRightmostColKey
+ * @desc get rightmost column key
+ * @param {array<object>} colgroups
+ * @param {array<any>} colKeys
+ * @return colKey
+ */
+export function getRightmostColKey({ colgroups, colKeys }) {
+    return getLeftmostOrRightmostColKey({
+        type: "rightmost",
+        colgroups,
+        colKeys,
+    });
 }
 
 /*
