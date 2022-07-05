@@ -2019,7 +2019,7 @@ export default {
         },
 
         // table content wrapper mouseup
-        tableContentWrapperMouseup() {
+        tableContainerMouseup() {
             this.isBodyTdMousedown = false;
             this.isAutofillStarting = false;
         },
@@ -2675,6 +2675,9 @@ export default {
                         this.debounceScrollEnded();
                     }
                 },
+                mouseup: () => {
+                    this.tableContainerMouseup();
+                },
             },
         };
 
@@ -2688,11 +2691,6 @@ export default {
             on: {
                 "on-dom-resize-change": ({ height }) => {
                     this.tableHeight = height;
-                },
-            },
-            nativeOn: {
-                mouseup: () => {
-                    this.tableContentWrapperMouseup();
                 },
             },
         };
