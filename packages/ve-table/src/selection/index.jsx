@@ -1158,6 +1158,9 @@ export default {
 
             if (fixedType) {
                 borderWidth = fixedColsTotalWidth;
+                if (fixedType === COLUMN_FIXED_TYPE.LEFT) {
+                    borderWidth += 1;
+                }
             }
 
             if (fixedType === COLUMN_FIXED_TYPE.LEFT) {
