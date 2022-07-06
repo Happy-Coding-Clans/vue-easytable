@@ -291,10 +291,12 @@ export default {
             this.setSelectionPositions({
                 type: "currentCell",
                 scrollLeft,
+                isTableSizeChange,
             });
             this.setSelectionPositions({
                 type: "normalEndCell",
                 scrollLeft,
+                isTableSizeChange,
             });
         },
 
@@ -409,7 +411,11 @@ export default {
         },
 
         // set selection positions
-        setSelectionPositions({ type, scrollLeft, isTableSizeChange }) {
+        setSelectionPositions({
+            type,
+            scrollLeft = 0,
+            isTableSizeChange = false,
+        }) {
             const {
                 tableEl,
                 currentCellEl,
