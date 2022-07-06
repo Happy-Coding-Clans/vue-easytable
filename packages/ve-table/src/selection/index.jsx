@@ -21,7 +21,7 @@ import {
     COLUMN_FIXED_TYPE,
 } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
-import { isEmptyValue } from "../../../src/utils/index.js";
+import { isEmptyValue, isNumber } from "../../../src/utils/index.js";
 import { debounce } from "lodash";
 
 export default {
@@ -200,7 +200,6 @@ export default {
                         HOOKS_NAME.TABLE_CONTAINER_SCROLL,
                         (tableContainerRef) => {
                             const { scrollLeft } = tableContainerRef;
-
                             if (
                                 this.isVirtualScroll &&
                                 this.selectionBordersVisibility
@@ -494,7 +493,8 @@ export default {
                 // 当存在表格宽度变化或者横向滚动条拖动时的区域选择纠正功能
                 if (
                     isTableSizeChange ||
-                    this.previewTableContainerScrollLeft !== scrollLeft
+                    (this.previewTableContainerScrollLeft != scrollLeft &&
+                        isNumber(this.previewTableContainerScrollLeft))
                 ) {
                     let mackUpRectParams = {
                         tableLeft,
