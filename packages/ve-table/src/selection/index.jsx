@@ -87,6 +87,7 @@ export default {
 
     data() {
         return {
+            tableEl: null,
             // current cell
             currentCellEl: null,
             normalEndCellEl: null,
@@ -388,16 +389,27 @@ export default {
         },
 
         // get cell position by column key
-        getCellPositionByColKey({ tableLeft, colKey }) {
+        getCellPositionByColKey({
+            tableLeft,
+            tableTop,
+            colKey,
+            isFirstRow,
+            isLastRow,
+        }) {
             if (!this.selectionBordersVisibility) {
                 return false;
             }
 
-            const cellEl = this.getTableFirstRowCellByColKey(colKey);
+            let cellEl;
+            if (isFirstRow) {
+                cellEl = this.getTableFirstRowCellByColKey(colKey);
+            } else if (isLastRow) {
+                cellEl = this.getTableLastRowCellByColKey(colKey);
+            }
 
             const {
                 left: cellLeft,
-                //top: cellTop,
+                top: cellTop,
                 //height: cellHeight,
                 width: cellWidth,
             } = cellEl.getBoundingClientRect();
@@ -405,6 +417,7 @@ export default {
             if (cellWidth) {
                 return {
                     left: cellLeft - tableLeft,
+                    top: cellTop - tableTop,
                     width: cellWidth,
                 };
             }
@@ -421,6 +434,8 @@ export default {
                 currentCellEl,
                 normalEndCellEl,
                 autoFillEndCellEl,
+                cellSelectionData,
+                virtualScrollVisibleIndexs,
             } = this;
 
             if (!tableEl) {
@@ -430,6 +445,8 @@ export default {
             const { left: tableLeft, top: tableTop } =
                 tableEl.getBoundingClientRect();
 
+            let isCurrentCellOverflow = false;
+            let isNormalEndCellOverflow = false;
             // set current cell position
             if (currentCellEl && type === "currentCell") {
                 const rect = this.getCellPosition({
@@ -440,21 +457,7 @@ export default {
                 if (rect) {
                     this.cellSelectionRect.currentCellRect = rect;
                 } else {
-                    // 当存在表格宽度变化或者横向滚动条拖动时的区域选择纠正功能
-                    if (
-                        isTableSizeChange ||
-                        this.previewTableContainerScrollLeft !== scrollLeft
-                    ) {
-                        const someRect = this.getCellPositionByColKey({
-                            tableLeft,
-                            colKey: this.cellSelectionData.currentCell.colKey,
-                        });
-
-                        Object.assign(
-                            this.cellSelectionRect.currentCellRect,
-                            someRect,
-                        );
-                    }
+                    isCurrentCellOverflow = true;
                 }
             }
 
@@ -468,21 +471,77 @@ export default {
                 if (rect) {
                     this.cellSelectionRect.normalEndCellRect = rect;
                 } else {
-                    // 当存在表格宽度变化或者横向滚动条拖动时的区域选择纠正功能
-                    if (
-                        isTableSizeChange ||
-                        this.previewTableContainerScrollLeft !== scrollLeft
-                    ) {
-                        const someRect = this.getCellPositionByColKey({
-                            tableLeft,
-                            colKey: this.cellSelectionData.normalEndCell.colKey,
-                        });
+                    isNormalEndCellOverflow = true;
+                }
+            }
 
-                        Object.assign(
-                            this.cellSelectionRect.normalEndCellRect,
-                            someRect,
-                        );
+            // current cell overflow or normal end cell overflow
+            if (isCurrentCellOverflow || isNormalEndCellOverflow) {
+                const { currentCell, normalEndCell } = cellSelectionData;
+                // 弥补的
+                let mackUpColKey;
+                let mackUpRowIndex;
+
+                if (isCurrentCellOverflow) {
+                    mackUpColKey = currentCell.colKey;
+                    mackUpRowIndex = currentCell.rowIndex;
+                } else {
+                    mackUpColKey = normalEndCell.colKey;
+                    mackUpRowIndex = normalEndCell.rowIndex;
+                }
+
+                let mackUpRect;
+                // 当存在表格宽度变化或者横向滚动条拖动时的区域选择纠正功能
+                if (
+                    isTableSizeChange ||
+                    this.previewTableContainerScrollLeft !== scrollLeft
+                ) {
+                    let mackUpRectParams = {
+                        tableLeft,
+                        tableTop,
+                        colKey: mackUpColKey,
+                    };
+                    // 上方超出
+                    if (mackUpRowIndex < virtualScrollVisibleIndexs.start) {
+                        mackUpRect = this.getCellPositionByColKey({
+                            ...mackUpRectParams,
+                            isFirstRow: true,
+                        });
                     }
+                    // 下方超出
+                    else if (mackUpRowIndex > virtualScrollVisibleIndexs.end) {
+                        mackUpRect = this.getCellPositionByColKey({
+                            ...mackUpRectParams,
+                            isLastRow: true,
+                        });
+                    }
+                }
+                // 仅更新 top 值
+                else {
+                    // 上方超出
+                    if (mackUpRowIndex < virtualScrollVisibleIndexs.start) {
+                        mackUpRect = {
+                            top: 0,
+                        };
+                    }
+                    // 下方超出
+                    else if (mackUpRowIndex > virtualScrollVisibleIndexs.end) {
+                        mackUpRect = {
+                            top: tableEl.clientHeight,
+                        };
+                    }
+                }
+
+                if (isCurrentCellOverflow) {
+                    Object.assign(
+                        this.cellSelectionRect.currentCellRect,
+                        mackUpRect,
+                    );
+                } else {
+                    Object.assign(
+                        this.cellSelectionRect.normalEndCellRect,
+                        mackUpRect,
+                    );
                 }
             }
 
@@ -1206,6 +1265,23 @@ export default {
             if (tableEl) {
                 result = tableEl.querySelector(
                     `tbody.ve-table-body tr td[col-key="${colKey}"]`,
+                );
+            }
+            return result;
+        },
+
+        /* 
+        get table last row cell by col key
+        用作跨页单元格选择，表格大小变化或者存在横向滚动条时，区域选择位置自动校准
+        */
+        getTableLastRowCellByColKey(colKey) {
+            let result = null;
+
+            const { tableEl } = this;
+
+            if (tableEl) {
+                result = tableEl.querySelector(
+                    `tbody.ve-table-body tr:last-child td[col-key="${colKey}"]`,
                 );
             }
             return result;
