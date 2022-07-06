@@ -197,6 +197,21 @@ export default {
             const { colgroups, cellSelectionRangeData } = this;
             return colgroups[0].key === cellSelectionRangeData.leftColKey;
         },
+        // is first not fixed selection column
+        isFirstNotFixedSelectionCol() {
+            let result = false;
+
+            const { colgroups, cellSelectionRangeData } = this;
+
+            if (colgroups.find((x) => x.fixed === "left")) {
+                const col = colgroups.find((x) => !x.fixed);
+                if (col && col.field === cellSelectionRangeData.leftColKey) {
+                    result = true;
+                }
+            }
+
+            return result;
+        },
     },
 
     watch: {
@@ -1103,7 +1118,13 @@ export default {
             totalColKeys,
             fixedColKeys,
         }) {
-            const { cornerCellInfo, colgroups } = this;
+            const {
+                cornerCellInfo,
+                colgroups,
+                isFirstSelectionRow,
+                isFirstSelectionCol,
+                isFirstNotFixedSelectionCol,
+            } = this;
 
             let isRender = true;
 
@@ -1153,6 +1174,17 @@ export default {
 
                 topBorder.left = rightBorder.left - borderWidth + 1;
                 bottomBorder.left = rightBorder.left - borderWidth + 1;
+            }
+
+            // solved first row、first column、first not fixed column selection border hidden
+            if (isFirstSelectionRow) {
+                topBorder.top += 1;
+            }
+            if (isFirstSelectionCol) {
+                leftBorder.left += 1;
+            }
+            if (isFirstNotFixedSelectionCol) {
+                leftBorder.left += 1;
             }
 
             let cornerTop = corner.top;
