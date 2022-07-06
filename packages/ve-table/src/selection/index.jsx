@@ -187,6 +187,16 @@ export default {
                     isLastRowByRowKey(normalEndCell.rowKey, allRowKeys),
             };
         },
+        // is first selection row
+        isFirstSelectionRow() {
+            const { allRowKeys, cellSelectionRangeData } = this;
+            return allRowKeys[0] === cellSelectionRangeData.topRowKey;
+        },
+        // is first selection column
+        isFirstSelectionCol() {
+            const { colgroups, cellSelectionRangeData } = this;
+            return colgroups[0].key === cellSelectionRangeData.leftColKey;
+        },
     },
 
     watch: {
@@ -234,13 +244,11 @@ export default {
                     // wait for selection cell rendered
                     this.$nextTick(() => {
                         this.setSelectionPositions({ type: "currentCell" });
-                        // set cell selection range data
-                        this.setCellSelectionRangeData();
                     });
                 } else {
                     this.clearCurrentCellRect();
-                    this.clearCellSelectionRangeData();
                 }
+                this.setCellSelectionRangeData();
             },
             deep: true,
             immediate: true,
@@ -255,13 +263,11 @@ export default {
                     // wait for selection cell rendered
                     this.$nextTick(() => {
                         this.setSelectionPositions({ type: "normalEndCell" });
-                        // set cell selection range data
-                        this.setCellSelectionRangeData();
                     });
                 } else {
                     this.clearNormalEndCellRect();
-                    this.clearCellSelectionRangeData();
                 }
+                this.setCellSelectionRangeData();
             },
             deep: true,
             immediate: true,
@@ -323,7 +329,9 @@ export default {
                     topRowKey: currentCell.rowKey,
                     bottomRowKey: currentCell.rowKey,
                 };
-            } else {
+            } else if (
+                currentCellSelectionType === CURRENT_CELL_SELECTION_TYPES.RANGE
+            ) {
                 const leftmostColKey = getLeftmostColKey({
                     colgroups: this.colgroups,
                     colKeys: [currentCell.colKey, normalEndCell.colKey],
@@ -349,18 +357,10 @@ export default {
                     result.topRowKey = normalEndCell.rowKey;
                     result.bottomRowKey = currentCell.rowKey;
                 }
+            } else {
+                console.log("DELETE");
             }
 
-            this.$emit(EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE, result);
-        },
-        // clear cell selection range data
-        clearCellSelectionRangeData() {
-            let result = {
-                leftColKey: "",
-                rightColKey: "",
-                topRowKey: "",
-                bottomRowKey: "",
-            };
             this.$emit(EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE, result);
         },
 
