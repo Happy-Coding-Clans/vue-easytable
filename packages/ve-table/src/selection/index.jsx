@@ -178,9 +178,28 @@ export default {
 
             const { rightColKey, bottomRowKey } = cellSelectionRangeData;
 
+            let isLastColumn = false;
+            if (isLastColumnByColKey(rightColKey, colgroups)) {
+                isLastColumn = true;
+            } else {
+                const index = colgroups.findIndex((x) => x.key === rightColKey);
+                // right col is right fixed and current col is not right fixed
+                if (
+                    colgroups[index + 1].fixed === COLUMN_FIXED_TYPE.RIGHT &&
+                    colgroups[index].fixed !== COLUMN_FIXED_TYPE.RIGHT
+                ) {
+                    isLastColumn = true;
+                }
+            }
+
+            let isLastRow = false;
+            if (isLastRowByRowKey(bottomRowKey, allRowKeys)) {
+                isLastRow = true;
+            }
+
             return {
-                isLastColumn: isLastColumnByColKey(rightColKey, colgroups),
-                isLastRow: isLastRowByRowKey(bottomRowKey, allRowKeys),
+                isLastColumn,
+                isLastRow,
             };
         },
         // is first selection row
