@@ -612,6 +612,18 @@ export default {
 
             return result;
         },
+        // header total height
+        headerTotalHeight() {
+            return this.headerRows.reduce((total, currentVal) => {
+                return currentVal.rowHeight + total;
+            }, 0);
+        },
+        // footer total height
+        footerTotalHeight() {
+            return this.footerRows.reduce((total, currentVal) => {
+                return currentVal.rowHeight + total;
+            }, 0);
+        },
     },
     watch: {
         // watch clone table data
@@ -862,24 +874,36 @@ export default {
 
         // cell selection current cell change
         cellSelectionCurrentCellChange({ rowKey, colKey }) {
-            this.cellSelectionData.currentCell.rowKey = rowKey;
-            this.cellSelectionData.currentCell.colKey = colKey;
-            this.cellSelectionData.currentCell.rowIndex =
-                this.allRowKeys.indexOf(rowKey);
+            if (!isEmptyValue(colKey)) {
+                this.cellSelectionData.currentCell.colKey = colKey;
+            }
+            if (!isEmptyValue(rowKey)) {
+                this.cellSelectionData.currentCell.rowKey = rowKey;
+                this.cellSelectionData.currentCell.rowIndex =
+                    this.allRowKeys.indexOf(rowKey);
+            }
         },
 
         // cell selection end cell change
         cellSelectionNormalEndCellChange({ rowKey, colKey }) {
-            this.cellSelectionData.normalEndCell.rowKey = rowKey;
-            this.cellSelectionData.normalEndCell.colKey = colKey;
-            this.cellSelectionData.normalEndCell.rowIndex =
-                this.allRowKeys.indexOf(rowKey);
+            if (!isEmptyValue(colKey)) {
+                this.cellSelectionData.normalEndCell.colKey = colKey;
+            }
+            if (!isEmptyValue(rowKey)) {
+                this.cellSelectionData.normalEndCell.rowKey = rowKey;
+                this.cellSelectionData.normalEndCell.rowIndex =
+                    this.allRowKeys.indexOf(rowKey);
+            }
         },
 
         // cell selection auto fill cell change
         cellSelectionAutofillCellChange({ rowKey, colKey }) {
-            this.cellSelectionData.autoFillEndCell.rowKey = rowKey;
-            this.cellSelectionData.autoFillEndCell.colKey = colKey;
+            if (!isEmptyValue(colKey)) {
+                this.cellSelectionData.autoFillEndCell.colKey = colKey;
+            }
+            if (!isEmptyValue(rowKey)) {
+                this.cellSelectionData.autoFillEndCell.rowKey = rowKey;
+            }
         },
 
         // clear cell selection current cell
@@ -1336,7 +1360,8 @@ export default {
             const tableContentWrapperRef =
                 this.$refs[this.tableContentWrapperRef].$el;
 
-            const { isVirtualScroll, headerRows, footerRows } = this;
+            const { isVirtualScroll, headerTotalHeight, footerTotalHeight } =
+                this;
 
             const {
                 clientHeight: containerClientHeight,
@@ -1355,23 +1380,16 @@ export default {
 
                 // arrow up
                 if (keyCode === KEY_CODES.ARROW_UP) {
-                    const totalHeaderHeight = headerRows.reduce(
-                        (total, currentVal) => {
-                            return currentVal.rowHeight + total;
-                        },
-                        0,
-                    );
-
                     let diff = 0;
                     if (isVirtualScroll) {
                         diff =
-                            totalHeaderHeight -
+                            headerTotalHeight -
                             (trOffsetTop -
                                 (containerScrollTop - parentOffsetTop));
                     } else {
                         diff =
                             containerScrollTop +
-                            totalHeaderHeight -
+                            headerTotalHeight -
                             trOffsetTop;
                     }
 
@@ -1381,26 +1399,19 @@ export default {
                 }
                 // arrow down
                 else if (keyCode === KEY_CODES.ARROW_DOWN) {
-                    const totalFooterHeight = footerRows.reduce(
-                        (total, currentVal) => {
-                            return currentVal.rowHeight + total;
-                        },
-                        0,
-                    );
-
                     let diff = 0;
                     if (isVirtualScroll) {
                         diff =
                             trOffsetTop -
                             (containerScrollTop - parentOffsetTop) +
                             trClientHeight +
-                            totalFooterHeight -
+                            footerTotalHeight -
                             containerClientHeight;
                     } else {
                         diff =
                             trOffsetTop +
                             trClientHeight +
-                            totalFooterHeight -
+                            footerTotalHeight -
                             (containerClientHeight + containerScrollTop);
                     }
 
@@ -1409,7 +1420,9 @@ export default {
                     }
                 }
                 // 解决滚动过快导致选中框消失的问题
-                this.cellSelectionData.currentCell.rowKey = nextRowKey;
+                this.cellSelectionCurrentCellChange({
+                    rowKey: nextRowKey,
+                });
             }
         },
 
