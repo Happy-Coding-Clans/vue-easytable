@@ -343,12 +343,7 @@ export default {
             const { currentCellRect, normalEndCellRect } =
                 this.cellSelectionRect;
 
-            let result = {
-                leftColKey: "",
-                rightColKey: "",
-                topRowKey: "",
-                bottomRowKey: "",
-            };
+            let result = {};
 
             if (
                 currentCellSelectionType === CURRENT_CELL_SELECTION_TYPES.SINGLE
@@ -388,7 +383,13 @@ export default {
                     result.bottomRowKey = currentCell.rowKey;
                 }
             } else {
-                console.log("DELETE");
+                // clear
+                result = {
+                    leftColKey: "",
+                    rightColKey: "",
+                    topRowKey: "",
+                    bottomRowKey: "",
+                };
             }
 
             this.$emit(EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE, result);
