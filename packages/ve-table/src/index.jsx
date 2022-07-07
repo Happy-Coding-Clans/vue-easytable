@@ -35,6 +35,7 @@ import {
     CONTEXTMENU_TYPES,
     AUTOFILLING_DIRECTION,
     CURRENT_CELL_SELECTION_TYPES,
+    COLUMN_FIXED_TYPE,
 } from "./util/constant";
 import Colgroup from "./colgroup";
 import Header from "./header";
@@ -542,16 +543,22 @@ export default {
         // has fixed column
         hasFixedColumn() {
             return this.colgroups.some(
-                (x) => x.fixed === "left" || x.fixed === "right",
+                (x) =>
+                    x.fixed === COLUMN_FIXED_TYPE.LEFT ||
+                    x.fixed === COLUMN_FIXED_TYPE.RIGHT,
             );
         },
         // has left fixed column
         hasLeftFixedColumn() {
-            return this.colgroups.some((x) => x.fixed === "left");
+            return this.colgroups.some(
+                (x) => x.fixed === COLUMN_FIXED_TYPE.LEFT,
+            );
         },
         // has right fixed column
         hasRightFixedColumn() {
-            return this.colgroups.some((x) => x.fixed === "right");
+            return this.colgroups.some(
+                (x) => x.fixed === COLUMN_FIXED_TYPE.RIGHT,
+            );
         },
         // is editing cell
         isCellEditing() {
@@ -1292,13 +1299,13 @@ export default {
                 const leftTotalWidth = getNotFixedTotalWidthByColumnKey({
                     colgroups,
                     colKey: nextColumn.key,
-                    direction: "left",
+                    fixed: COLUMN_FIXED_TYPE.LEFT,
                 });
 
                 const rightTotalWidth = getNotFixedTotalWidthByColumnKey({
                     colgroups,
                     colKey: nextColumn.key,
-                    direction: "right",
+                    fixed: COLUMN_FIXED_TYPE.RIGHT,
                 });
 
                 if (scrollLeft) {

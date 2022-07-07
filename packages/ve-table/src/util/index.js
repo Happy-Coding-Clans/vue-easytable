@@ -108,17 +108,19 @@ export function getFixedTotalWidthByColumnKey({ colgroups, colKey, fixed }) {
 
     let result = 0;
 
-    if (fixed === "left") {
+    if (fixed === COLUMN_FIXED_TYPE.LEFT) {
         // 只计算左列固定的
         result = colgroups.reduce((total, currentVal, index) => {
-            return index < currentIndex && currentVal.fixed == "left"
+            return index < currentIndex &&
+                currentVal.fixed == COLUMN_FIXED_TYPE.LEFT
                 ? currentVal._realTimeWidth + total
                 : total;
         }, 0);
-    } else if (fixed === "right") {
+    } else if (fixed === COLUMN_FIXED_TYPE.RIGHT) {
         // 只计算右列固定的
         result = colgroups.reduce((total, currentVal, index) => {
-            return index > currentIndex && currentVal.fixed == "right"
+            return index > currentIndex &&
+                currentVal.fixed == COLUMN_FIXED_TYPE.RIGHT
                 ? currentVal._realTimeWidth + total
                 : total;
         }, 0);
@@ -134,23 +136,19 @@ export function getFixedTotalWidthByColumnKey({ colgroups, colKey, fixed }) {
  * @param {any} colKey - column key
  * @param {string} direction - left|right
  */
-export function getNotFixedTotalWidthByColumnKey({
-    colgroups,
-    colKey,
-    direction,
-}) {
+export function getNotFixedTotalWidthByColumnKey({ colgroups, colKey, fixed }) {
     const currentIndex = colgroups.findIndex((x) => x.key === colKey);
 
     let result = 0;
 
-    if (direction === "left") {
+    if (fixed === COLUMN_FIXED_TYPE.LEFT) {
         // 只计算左侧非固定列
         result = colgroups.reduce((total, currentVal, index) => {
             return index < currentIndex && !currentVal.fixed
                 ? currentVal._realTimeWidth + total
                 : total;
         }, 0);
-    } else if (direction === "right") {
+    } else if (fixed === COLUMN_FIXED_TYPE.RIGHT) {
         // 只计算右侧非固定列
         result = colgroups.reduce((total, currentVal, index) => {
             return index > currentIndex && !currentVal.fixed
