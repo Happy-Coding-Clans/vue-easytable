@@ -174,17 +174,13 @@ export default {
         },
         // corner cell info
         cornerCellInfo() {
-            const { allRowKeys, colgroups, cellSelectionData } = this;
+            const { allRowKeys, colgroups, cellSelectionRangeData } = this;
 
-            const { currentCell, normalEndCell } = cellSelectionData;
+            const { rightColKey, bottomRowKey } = cellSelectionRangeData;
 
             return {
-                isLastColumn:
-                    isLastColumnByColKey(currentCell.colKey, colgroups) ||
-                    isLastColumnByColKey(normalEndCell.colKey, colgroups),
-                isLastRow:
-                    isLastRowByRowKey(currentCell.rowKey, allRowKeys) ||
-                    isLastRowByRowKey(normalEndCell.rowKey, allRowKeys),
+                isLastColumn: isLastColumnByColKey(rightColKey, colgroups),
+                isLastRow: isLastRowByRowKey(bottomRowKey, allRowKeys),
             };
         },
         // is first selection row
