@@ -1099,6 +1099,8 @@ export default {
                                 direction,
                             });
 
+                            this.clearCellSelectionNormalEndCell();
+
                             this[INSTANCE_METHODS.STOP_EDITING_CELL]();
                             event.preventDefault();
                         }
@@ -1117,6 +1119,8 @@ export default {
                             direction,
                         });
 
+                        this.clearCellSelectionNormalEndCell();
+
                         this[INSTANCE_METHODS.STOP_EDITING_CELL]();
                         event.preventDefault();
                         break;
@@ -1128,6 +1132,8 @@ export default {
                             this.selectCellByDirection({
                                 direction,
                             });
+
+                            this.clearCellSelectionNormalEndCell();
 
                             this[INSTANCE_METHODS.STOP_EDITING_CELL]();
                             event.preventDefault();
@@ -1142,6 +1148,8 @@ export default {
                                 direction,
                             });
 
+                            this.clearCellSelectionNormalEndCell();
+
                             this[INSTANCE_METHODS.STOP_EDITING_CELL]();
                             event.preventDefault();
                         }
@@ -1154,6 +1162,8 @@ export default {
                             this.selectCellByDirection({
                                 direction,
                             });
+
+                            this.clearCellSelectionNormalEndCell();
 
                             this[INSTANCE_METHODS.STOP_EDITING_CELL]();
                             event.preventDefault();
@@ -1185,6 +1195,7 @@ export default {
                         }
 
                         if (direction) {
+                            this.clearCellSelectionNormalEndCell();
                             this.selectCellByDirection({
                                 direction,
                             });
