@@ -874,36 +874,24 @@ export default {
 
         // cell selection current cell change
         cellSelectionCurrentCellChange({ rowKey, colKey }) {
-            if (!isEmptyValue(colKey)) {
-                this.cellSelectionData.currentCell.colKey = colKey;
-            }
-            if (!isEmptyValue(rowKey)) {
-                this.cellSelectionData.currentCell.rowKey = rowKey;
-                this.cellSelectionData.currentCell.rowIndex =
-                    this.allRowKeys.indexOf(rowKey);
-            }
+            this.cellSelectionData.currentCell.colKey = colKey;
+            this.cellSelectionData.currentCell.rowKey = rowKey;
+            this.cellSelectionData.currentCell.rowIndex =
+                this.allRowKeys.indexOf(rowKey);
         },
 
         // cell selection end cell change
         cellSelectionNormalEndCellChange({ rowKey, colKey }) {
-            if (!isEmptyValue(colKey)) {
-                this.cellSelectionData.normalEndCell.colKey = colKey;
-            }
-            if (!isEmptyValue(rowKey)) {
-                this.cellSelectionData.normalEndCell.rowKey = rowKey;
-                this.cellSelectionData.normalEndCell.rowIndex =
-                    this.allRowKeys.indexOf(rowKey);
-            }
+            this.cellSelectionData.normalEndCell.colKey = colKey;
+            this.cellSelectionData.normalEndCell.rowKey = rowKey;
+            this.cellSelectionData.normalEndCell.rowIndex =
+                this.allRowKeys.indexOf(rowKey);
         },
 
         // cell selection auto fill cell change
         cellSelectionAutofillCellChange({ rowKey, colKey }) {
-            if (!isEmptyValue(colKey)) {
-                this.cellSelectionData.autoFillEndCell.colKey = colKey;
-            }
-            if (!isEmptyValue(rowKey)) {
-                this.cellSelectionData.autoFillEndCell.rowKey = rowKey;
-            }
+            this.cellSelectionData.autoFillEndCell.colKey = colKey;
+            this.cellSelectionData.autoFillEndCell.rowKey = rowKey;
         },
 
         // clear cell selection current cell
@@ -1419,9 +1407,10 @@ export default {
                         tableContainerRef.scrollTop = containerScrollTop + diff;
                     }
                 }
-                // 解决滚动过快导致选中框消失的问题
+                const { currentCell } = this.cellSelectionData;
                 this.cellSelectionCurrentCellChange({
                     rowKey: nextRowKey,
+                    colKey: currentCell.colKey,
                 });
             }
         },
