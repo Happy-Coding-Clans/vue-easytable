@@ -169,7 +169,6 @@ export default {
                     }
                 }
             }
-
             return result;
         },
         // corner cell info
@@ -240,17 +239,13 @@ export default {
                         HOOKS_NAME.TABLE_CONTAINER_SCROLL,
                         (tableContainerRef) => {
                             const { scrollLeft } = tableContainerRef;
-                            if (
-                                this.isVirtualScroll &&
-                                this.selectionBordersVisibility
-                            ) {
-                                this.setCurrentCellEl();
-                                this.setNormalEndCellEl();
-                                // debounce reset cell positions
-                                this.debounceResetCellPositions({ scrollLeft });
-                            }
+
+                            this.setCellEls();
+                            this.debounceSetCellEls();
 
                             this.resetCellPositions({ scrollLeft });
+                            // debounce reset cell positions
+                            this.debounceResetCellPositions({ scrollLeft });
                         },
                     );
                     // add table size change hook
@@ -334,6 +329,14 @@ export default {
                 scrollLeft,
                 isTableSizeChange,
             });
+        },
+
+        // set cell els
+        setCellEls() {
+            if (this.isVirtualScroll && this.selectionBordersVisibility) {
+                this.setCurrentCellEl();
+                this.setNormalEndCellEl();
+            }
         },
 
         // set cell selection range data
@@ -1416,7 +1419,14 @@ export default {
 
     created() {
         // debounce reset cell positions
-        this.debounceResetCellPositions = debounce(this.resetCellPositions, 50);
+        this.debounceResetCellPositions = debounce(
+            this.resetCellPositions,
+            210,
+        );
+        // debounce set cell els
+        this.debounceSetCellEls = debounce(() => {
+            this.setCellEls();
+        }, 200);
     },
 
     render() {
