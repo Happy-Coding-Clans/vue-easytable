@@ -347,8 +347,6 @@ export default {
         setCellSelectionRangeData() {
             const { currentCellSelectionType } = this;
             const { currentCell, normalEndCell } = this.cellSelectionData;
-            const { currentCellRect, normalEndCellRect } =
-                this.cellSelectionRect;
 
             let result = {};
 
@@ -381,8 +379,7 @@ export default {
                     result.rightColKey = currentCell.colKey;
                 }
 
-                // current cell top less than normal end cell top
-                if (currentCellRect.top < normalEndCellRect.top) {
+                if (currentCell.rowIndex < normalEndCell.rowIndex) {
                     result.topRowKey = currentCell.rowKey;
                     result.bottomRowKey = normalEndCell.rowKey;
                 } else {
