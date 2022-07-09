@@ -5,6 +5,7 @@ import focus from "../../../src/directives/focus.js";
 import { autoResize } from "../../../src/utils/auto-resize";
 import { isEmptyValue } from "../../../src/utils/index.js";
 import { getCaretPosition, setCaretPosition } from "../../../src/utils/dom";
+import { debounce } from "lodash";
 
 export default {
     name: COMPS_NAME.VE_TABLE_EDIT_INPUT,
@@ -189,16 +190,14 @@ export default {
                     this.hooks.addHook(
                         HOOKS_NAME.TABLE_CONTAINER_SCROLL,
                         () => {
-                            /*
-                            Solve the problem that virtual scrolling editing cells cannot be located after scrolling
-                            解决虚拟滚动编辑单元格滚动后无法定位的问题
-                            */
                             if (this.displayTextarea) {
                                 if (!this.cellEl) {
                                     this.setCellEl();
                                 }
                             }
+                            this.debounceSetCellEl();
                             this.setTextareaPosition();
+                            this.debounceSetTextareaPosition();
                         },
                     );
                     // add table size change hook
@@ -433,15 +432,27 @@ export default {
             }
         },
     },
-
+    created() {
+        // debounce set textarea position
+        this.debounceSetTextareaPosition = debounce(
+            this.setTextareaPosition,
+            210,
+        );
+        // debounce set cell el
+        this.debounceSetCellEl = debounce(() => {
+            if (this.displayTextarea) {
+                if (!this.cellEl) {
+                    this.setCellEl();
+                }
+            }
+        }, 200);
+    },
     mounted() {
         this.autoResize = autoResize();
     },
-
     destroyed() {
         this.textareaUnObserve();
     },
-
     render() {
         const {
             containerClass,
