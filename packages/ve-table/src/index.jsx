@@ -10,6 +10,7 @@ import {
     getRowKey,
     getColumnByColkey,
     isCellInSelectionRange,
+    cellSelectionAutofill,
 } from "./util";
 import {
     getValByUnit,
@@ -1043,6 +1044,14 @@ export default {
                     colKey: normalCellData.colKey,
                 });
             }
+        },
+
+        // cell selection range data change
+        cellSelectionRangeDataChange(newData) {
+            this.cellSelectionRangeData = Object.assign(
+                this.cellSelectionRangeData,
+                newData,
+            );
         },
 
         // autofilling direction change
@@ -2731,11 +2740,8 @@ export default {
                 isCellEditing: this.isCellEditing,
             },
             on: {
-                [EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE]: (data) => {
-                    this.cellSelectionRangeData = Object.assign(
-                        this.cellSelectionRangeData,
-                        data,
-                    );
+                [EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE]: (newData) => {
+                    this.cellSelectionRangeDataChange(newData);
                 },
             },
         };
