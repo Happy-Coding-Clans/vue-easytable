@@ -1917,13 +1917,37 @@ export default {
          * @param {object} column - column data
          */
         tdContextmenu({ rowData, column }) {
-            const { editOption } = this;
+            const { editOption, rowKeyFieldName } = this;
 
             // cell selection by click
             this.cellSelectionByClick({ rowData, column });
 
             if (editOption) {
-                this.editCellByClick({ isDblclick: false });
+                const rowKey = getRowKey(rowData, rowKeyFieldName);
+                this.editCellByClick({
+                    isDblclick: false,
+                    rowKey,
+                    colKey: column.key,
+                });
+            }
+        },
+
+        /*
+         * @tdDoubleClick
+         * @desc  recieve td double click event
+         * @param {object} rowData - row data
+         * @param {object} column - column data
+         */
+        tdDoubleClick({ event, rowData, column }) {
+            const { editOption, rowKeyFieldName } = this;
+
+            if (editOption) {
+                const rowKey = getRowKey(rowData, rowKeyFieldName);
+                this.editCellByClick({
+                    isDblclick: true,
+                    rowKey,
+                    colKey: column.key,
+                });
             }
         },
 
@@ -1934,44 +1958,7 @@ export default {
          * @param {object} column - column data
          */
         tdClick({ event, rowData, column }) {
-            const { editOption, rowKeyFieldName } = this;
-
-            const { shiftKey } = event;
-
-            // cell selection range
-            if (shiftKey) {
-                const rowKey = getRowKey(rowData, rowKeyFieldName);
-
-                this.cellSelectionNormalEndCellChange({
-                    rowKey,
-                    colKey: column.key,
-                });
-
-                return false;
-            } else {
-                this.clearCellSelectionNormalEndCell();
-            }
-
-            // cell selection by click
-            this.cellSelectionByClick({ rowData, column });
-
-            if (editOption) {
-                this.editCellByClick({ isDblclick: false });
-            }
-        },
-
-        /*
-         * @tdDoubleClick
-         * @desc  recieve td double click event
-         * @param {object} rowData - row data
-         * @param {object} column - column data
-         */
-        tdDoubleClick() {
-            const { editOption } = this;
-
-            if (editOption) {
-                this.editCellByClick({ isDblclick: true });
-            }
+            //
         },
 
         /*
@@ -1985,20 +1972,28 @@ export default {
 
             const { shiftKey } = event;
 
-            const { cellSelectionData } = this;
+            const { editOption, rowKeyFieldName } = this;
 
-            const currentCell = cellSelectionData.currentCell;
-
-            if (
-                shiftKey &&
-                !isEmptyValue(currentCell.rowKey) &&
-                !isEmptyValue(currentCell.colKey)
-            ) {
-                return false;
+            // cell selection range
+            const rowKey = getRowKey(rowData, rowKeyFieldName);
+            if (shiftKey) {
+                this.cellSelectionNormalEndCellChange({
+                    rowKey,
+                    colKey: column.key,
+                });
+            } else {
+                // cell selection by click
+                this.cellSelectionByClick({ rowData, column });
+                this.clearCellSelectionNormalEndCell();
             }
 
-            // cell selection by click
-            this.cellSelectionByClick({ rowData, column });
+            if (editOption) {
+                this.editCellByClick({
+                    isDblclick: false,
+                    rowKey,
+                    colKey: column.key,
+                });
+            }
         },
 
         /*
@@ -2070,13 +2065,12 @@ export default {
          * @desc  recieve td click event
          * @param {boolean} isDblclick - is dblclick
          */
-        editCellByClick({ isDblclick }) {
+        editCellByClick({ isDblclick, rowKey, colKey }) {
             const {
                 editOption,
                 isCellEditing,
                 hasEditColumn,
                 editingCell,
-                cellSelectionData,
                 isEditColumn,
             } = this;
 
@@ -2089,12 +2083,9 @@ export default {
                 return false;
             }
 
-            const { rowKey, colKey } = cellSelectionData.currentCell;
-
             if (isEmptyValue(rowKey) || isEmptyValue(colKey)) {
                 return false;
             }
-
             if (
                 editingCell &&
                 editingCell.rowKey == rowKey &&
@@ -2102,7 +2093,6 @@ export default {
             ) {
                 return false;
             }
-
             if (isCellEditing) {
                 this[INSTANCE_METHODS.STOP_EDITING_CELL]();
             }
@@ -2738,6 +2728,7 @@ export default {
                 virtualScrollVisibleIndexs: this.virtualScrollVisibleIndexs,
                 previewTableContainerScrollLeft:
                     this.previewTableContainerScrollLeft,
+                isCellEditing: this.isCellEditing,
             },
             on: {
                 [EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE]: (data) => {
