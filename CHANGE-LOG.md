@@ -9,14 +9,6 @@ Vx.x.x(TPL)
 
 V2.18.0
 
-### 单元测试
-
--   新增加的鼠标事件单元测试
-
-### Feature
-
----
-
 ### Breaking Changes
 
 -   移除 `virtualScrollOption.bufferCount` 虚拟滚动缓冲数量 props
@@ -25,6 +17,10 @@ V2.18.0
 
 -   事件自定义 body、header、footer 新增 mousemove、mouseover、mousedown、mouseup 事件
 -   添加 `virtualScrollOption.bufferScale` 虚拟滚动缓冲倍数 props
+
+### Bug Fixes
+
+-   修复虚拟滚动过快，编辑单元格消失的问题
 
 V2.17.3
 
