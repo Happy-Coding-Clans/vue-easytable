@@ -83,6 +83,10 @@ export default {
             type: Number,
             default: 0,
         },
+        isCellEditing: {
+            type: Boolean,
+            default: false,
+        },
     },
 
     data() {
@@ -1471,7 +1475,10 @@ export default {
             fixedRightSelectionArea.autoFillArea;
 
         return (
-            <div class={clsName("selection-wrapper")}>
+            <div
+                class={clsName("selection-wrapper")}
+                style={{ visibility: this.isCellEditing ? "hidden" : "" }}
+            >
                 <div class={clsName("selection-fixed-left")}>
                     {/* current */}
                     {fixedLeftSelectionCurrent.selectionCurrent}
