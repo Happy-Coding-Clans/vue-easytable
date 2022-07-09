@@ -1428,9 +1428,7 @@ export default {
             210,
         );
         // debounce set cell els
-        this.debounceSetCellEls = debounce(() => {
-            this.setCellEls();
-        }, 200);
+        this.debounceSetCellEls = debounce(this.setCellEls, 200);
     },
 
     render() {
