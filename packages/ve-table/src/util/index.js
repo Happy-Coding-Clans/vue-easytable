@@ -599,3 +599,12 @@ export function getNextColKey({ colgroups, currentColKey }) {
     }
     return result;
 }
+
+/*
+ * @cellSelectionAutofill
+ * @desc cell selection auto fill
+ * @return tableData ?
+ */
+export function cellSelectionAutofill({ cellSelectionRangeData }) {
+    console.log("cellSelectionRangeData::", cellSelectionRangeData);
+}
