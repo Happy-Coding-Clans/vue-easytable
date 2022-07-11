@@ -613,23 +613,22 @@ export function getNextColKey({ colgroups, currentColKey }) {
  * @param {array<any>} allRowKeys
  * @param {array<object>} colgroups
  * @param {string} direction
- * @param {string} currentCellSelectionType range|single
+ * @param {string} rowKeyFieldName
  * @param {object} nextCurrentCell next current cell
  * @param {object} nextNormalEndCell next normal end cell
- * @return tableData ?
+ * @return autofillChangeDatas
  */
 export function tableDataAutofill({
     tableData,
     allRowKeys,
     colgroups,
     direction,
-    currentCellSelectionType,
+    rowKeyFieldName,
     cellSelectionRangeData,
     nextCurrentCell,
     nextNormalEndCell,
 }) {
     let cellSelectionTableData = [];
-    //let autofillTableData = [];
 
     const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
         cellSelectionRangeData;
@@ -803,10 +802,22 @@ export function tableDataAutofill({
         }
     }
 
-    // autofillTableData = tableData.slice(
-    //     cellSelectionStartRowIndex,
-    //     cellSelectionEndRowIndex + 1,
-    // );
+    const autofillFieldNames = colgroups
+        .slice(autofillStartColIndex, autofillEndColIndex + 1)
+        .map((x) => x.field);
 
-    // emit change datas [{},{}]
+    // emit to user
+    let autofillChangeDatas = tableData
+        .slice(autofillStartRowIndex, autofillEndRowIndex + 1)
+        .map((rowData) => {
+            let newData = {
+                [rowKeyFieldName]: rowData[rowKeyFieldName],
+            };
+            autofillFieldNames.forEach((fieldName) => {
+                newData[fieldName] = rowData[fieldName];
+            });
+            return newData;
+        });
+
+    return autofillChangeDatas;
 }
