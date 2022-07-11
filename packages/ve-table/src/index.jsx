@@ -10,7 +10,7 @@ import {
     getRowKey,
     getColumnByColkey,
     isCellInSelectionRange,
-    cellSelectionAutofill,
+    tableDataAutofill,
 } from "./util";
 import {
     getValByUnit,
@@ -932,7 +932,7 @@ export default {
             const { rowKey, colKey } = autoFillEndCell;
 
             let currentCellData = {};
-            let normalCellData = {};
+            let normalEndCellData = {};
 
             // cell selection range auto fill
             if (
@@ -954,7 +954,7 @@ export default {
                             rowKey: topRowKey,
                             colKey: leftColKey,
                         };
-                        normalCellData = { rowKey: bottomRowKey, colKey };
+                        normalEndCellData = { rowKey: bottomRowKey, colKey };
                     } else if (
                         autofillingDirection === AUTOFILLING_DIRECTION.DOWN
                     ) {
@@ -962,7 +962,7 @@ export default {
                             rowKey: topRowKey,
                             colKey: leftColKey,
                         };
-                        normalCellData = { rowKey, colKey: rightColKey };
+                        normalEndCellData = { rowKey, colKey: rightColKey };
                     } else if (
                         autofillingDirection === AUTOFILLING_DIRECTION.UP
                     ) {
@@ -970,7 +970,7 @@ export default {
                             rowKey,
                             colKey: leftColKey,
                         };
-                        normalCellData = {
+                        normalEndCellData = {
                             rowKey: bottomRowKey,
                             colKey: rightColKey,
                         };
@@ -978,7 +978,7 @@ export default {
                         autofillingDirection === AUTOFILLING_DIRECTION.LEFT
                     ) {
                         currentCellData = { rowKey: topRowKey, colKey };
-                        normalCellData = {
+                        normalEndCellData = {
                             rowKey: bottomRowKey,
                             colKey: rightColKey,
                         };
@@ -994,14 +994,14 @@ export default {
                     currentCell.colKey !== colKey
                 ) {
                     if (autofillingDirection === AUTOFILLING_DIRECTION.RIGHT) {
-                        normalCellData = {
+                        normalEndCellData = {
                             rowKey: currentCell.rowKey,
                             colKey,
                         };
                     } else if (
                         autofillingDirection === AUTOFILLING_DIRECTION.DOWN
                     ) {
-                        normalCellData = {
+                        normalEndCellData = {
                             rowKey,
                             colKey: currentCell.colKey,
                         };
@@ -1012,7 +1012,7 @@ export default {
                             rowKey,
                             colKey: currentCell.colKey,
                         };
-                        normalCellData = {
+                        normalEndCellData = {
                             rowKey: currentCell.rowKey,
                             colKey: currentCell.colKey,
                         };
@@ -1023,13 +1023,25 @@ export default {
                             rowKey: currentCell.rowKey,
                             colKey,
                         };
-                        normalCellData = {
+                        normalEndCellData = {
                             rowKey: currentCell.rowKey,
                             colKey: currentCell.colKey,
                         };
                     }
                 }
             }
+
+            // table data autofill
+            tableDataAutofill({
+                tableData: this.tableData,
+                allRowKeys: this.allRowKeys,
+                colgroups: this.colgroups,
+                direction: autofillingDirection,
+                currentCellSelectionType,
+                cellSelectionRangeData,
+                nextCurrentCell: currentCellData,
+                nextNormalEndCell: normalEndCellData,
+            });
 
             if (!isEmptyValue(currentCellData.rowKey)) {
                 this.cellSelectionCurrentCellChange({
@@ -1038,10 +1050,10 @@ export default {
                 });
             }
 
-            if (!isEmptyValue(normalCellData.rowKey)) {
+            if (!isEmptyValue(normalEndCellData.rowKey)) {
                 this.cellSelectionNormalEndCellChange({
-                    rowKey: normalCellData.rowKey,
-                    colKey: normalCellData.colKey,
+                    rowKey: normalEndCellData.rowKey,
+                    colKey: normalEndCellData.colKey,
                 });
             }
         },
