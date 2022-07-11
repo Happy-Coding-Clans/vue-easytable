@@ -17,6 +17,7 @@ V2.18.0
 
 -   事件自定义 body、header、footer 新增 mousemove、mouseover、mousedown、mouseup 事件
 -   添加 `virtualScrollOption.bufferScale` 虚拟滚动缓冲倍数 props
+-   `cellSelectionOption` add props `autofillChange`
 
 ### Bug Fixes
 
