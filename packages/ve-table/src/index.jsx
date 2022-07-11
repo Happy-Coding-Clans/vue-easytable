@@ -1031,11 +1031,15 @@ export default {
                 }
             }
 
+            // beforeAutofill function
+            // afterAutofill function
+
             // table data autofill
-            tableDataAutofill({
+            const autofillChangeDatas = tableDataAutofill({
                 tableData: this.tableData,
                 allRowKeys: this.allRowKeys,
                 colgroups: this.colgroups,
+                rowKeyFieldName: this.rowKeyFieldName,
                 direction: autofillingDirection,
                 currentCellSelectionType,
                 cellSelectionRangeData,
