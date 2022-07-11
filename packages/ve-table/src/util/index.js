@@ -1,4 +1,10 @@
-import { PREFIX_CLS, CONTEXTMENU_TYPES, COLUMN_FIXED_TYPE } from "./constant";
+import {
+    PREFIX_CLS,
+    CONTEXTMENU_TYPES,
+    COLUMN_FIXED_TYPE,
+    AUTOFILLING_DIRECTION,
+    CURRENT_CELL_SELECTION_TYPES,
+} from "./constant";
 import { isEmptyValue, isEmptyArray } from "../../../src/utils/index";
 import { getRandomId } from "../../../src/utils/random";
 
@@ -601,10 +607,206 @@ export function getNextColKey({ colgroups, currentColKey }) {
 }
 
 /*
- * @cellSelectionAutofill
- * @desc cell selection auto fill
+ * @tableDataAutofill
+ * @desc table data auto fill
+ * @param {array<object>} tableData
+ * @param {array<any>} allRowKeys
+ * @param {array<object>} colgroups
+ * @param {string} direction
+ * @param {string} currentCellSelectionType range|single
+ * @param {object} nextCurrentCell next current cell
+ * @param {object} nextNormalEndCell next normal end cell
  * @return tableData ?
  */
-export function cellSelectionAutofill({ cellSelectionRangeData }) {
-    console.log("cellSelectionRangeData::", cellSelectionRangeData);
+export function tableDataAutofill({
+    tableData,
+    allRowKeys,
+    colgroups,
+    direction,
+    currentCellSelectionType,
+    cellSelectionRangeData,
+    nextCurrentCell,
+    nextNormalEndCell,
+}) {
+    let cellSelectionTableData = [];
+    //let autofillTableData = [];
+
+    const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
+        cellSelectionRangeData;
+
+    const cellSelectionStartRowIndex = allRowKeys.indexOf(topRowKey);
+    const cellSelectionEndRowIndex = allRowKeys.indexOf(bottomRowKey);
+    const cellSelectionStartColIndex = colgroups.findIndex(
+        (x) => x.key === leftColKey,
+    );
+    const cellSelectionEndColIndex = colgroups.findIndex(
+        (x) => x.key === rightColKey,
+    );
+
+    cellSelectionTableData = tableData.slice(
+        cellSelectionStartRowIndex,
+        cellSelectionEndRowIndex + 1,
+    );
+
+    let autofillStartRowIndex;
+    let autofillEndRowIndex;
+    let autofillStartColIndex;
+    let autofillEndColIndex;
+
+    if (direction === AUTOFILLING_DIRECTION.UP) {
+        //
+        autofillStartRowIndex = allRowKeys.indexOf(nextCurrentCell.rowKey);
+        autofillEndRowIndex = cellSelectionStartRowIndex - 1;
+        autofillStartColIndex = cellSelectionStartColIndex;
+        autofillEndColIndex = cellSelectionEndColIndex;
+
+        let cellSelectionTableDataRowIndex = cellSelectionTableData.length - 1;
+        for (
+            let rowIndex = autofillEndRowIndex;
+            rowIndex >= autofillStartRowIndex;
+            rowIndex--
+        ) {
+            for (
+                let colIndex = autofillStartColIndex;
+                colIndex <= autofillEndColIndex;
+                colIndex++
+            ) {
+                const colKey = colgroups[colIndex].key;
+
+                // repeat autofill cell selection data
+                if (cellSelectionTableDataRowIndex < 0) {
+                    cellSelectionTableDataRowIndex =
+                        cellSelectionTableData.length - 1;
+                }
+                tableData[rowIndex][colKey] =
+                    cellSelectionTableData[cellSelectionTableDataRowIndex][
+                        colKey
+                    ];
+            }
+
+            --cellSelectionTableDataRowIndex;
+        }
+    } else if (direction === AUTOFILLING_DIRECTION.DOWN) {
+        //
+        autofillStartRowIndex = cellSelectionEndRowIndex + 1;
+        autofillEndRowIndex = allRowKeys.indexOf(nextNormalEndCell.rowKey);
+        autofillStartColIndex = cellSelectionStartColIndex;
+        autofillEndColIndex = cellSelectionEndColIndex;
+
+        let cellSelectionTableDataRowIndex = 0;
+        for (
+            let rowIndex = autofillStartRowIndex;
+            rowIndex <= autofillEndRowIndex;
+            rowIndex++
+        ) {
+            for (
+                let colIndex = autofillStartColIndex;
+                colIndex <= autofillEndColIndex;
+                colIndex++
+            ) {
+                const colKey = colgroups[colIndex].key;
+
+                // repeat autofill cell selection data
+                if (
+                    cellSelectionTableDataRowIndex >
+                    cellSelectionTableData.length - 1
+                ) {
+                    cellSelectionTableDataRowIndex = 0;
+                }
+                tableData[rowIndex][colKey] =
+                    cellSelectionTableData[cellSelectionTableDataRowIndex][
+                        colKey
+                    ];
+            }
+
+            ++cellSelectionTableDataRowIndex;
+        }
+    } else if (direction === AUTOFILLING_DIRECTION.LEFT) {
+        //
+        autofillStartRowIndex = cellSelectionStartRowIndex;
+        autofillEndRowIndex = cellSelectionEndRowIndex;
+        autofillStartColIndex = colgroups.findIndex(
+            (x) => x.key === nextCurrentCell.colKey,
+        );
+        autofillEndColIndex = cellSelectionStartColIndex - 1;
+
+        let cellSelectionTableDataRowIndex = 0;
+        for (
+            let rowIndex = autofillStartRowIndex;
+            rowIndex <= autofillEndRowIndex;
+            rowIndex++
+        ) {
+            let cellSelectionTableDataColIndex = cellSelectionEndColIndex;
+
+            for (
+                let colIndex = autofillEndColIndex;
+                colIndex >= autofillStartColIndex;
+                colIndex--
+            ) {
+                const colKey = colgroups[colIndex].key;
+
+                // repeat autofill cell selection data
+                if (
+                    cellSelectionTableDataColIndex < cellSelectionStartColIndex
+                ) {
+                    cellSelectionTableDataColIndex = cellSelectionEndColIndex;
+                }
+
+                tableData[rowIndex][colKey] =
+                    cellSelectionTableData[cellSelectionTableDataRowIndex][
+                        colgroups[cellSelectionTableDataColIndex].key
+                    ];
+                --cellSelectionTableDataColIndex;
+            }
+            ++cellSelectionTableDataRowIndex;
+        }
+    } else if (direction === AUTOFILLING_DIRECTION.RIGHT) {
+        //
+        autofillStartRowIndex = cellSelectionStartRowIndex;
+        autofillEndRowIndex = cellSelectionEndRowIndex;
+        autofillStartColIndex = cellSelectionEndColIndex + 1;
+        autofillEndColIndex = colgroups.findIndex(
+            (x) => x.key === nextNormalEndCell.colKey,
+        );
+
+        let cellSelectionTableDataRowIndex = 0;
+        for (
+            let rowIndex = autofillStartRowIndex;
+            rowIndex <= autofillEndRowIndex;
+            rowIndex++
+        ) {
+            let cellSelectionTableDataColIndex = cellSelectionStartColIndex;
+
+            for (
+                let colIndex = autofillStartColIndex;
+                colIndex <= autofillEndColIndex;
+                colIndex++
+            ) {
+                const colKey = colgroups[colIndex].key;
+
+                // repeat autofill cell selection data
+                if (
+                    cellSelectionTableDataColIndex >
+                    cellSelectionStartColIndex +
+                        (cellSelectionEndColIndex - cellSelectionStartColIndex)
+                ) {
+                    cellSelectionTableDataColIndex = cellSelectionStartColIndex;
+                }
+
+                tableData[rowIndex][colKey] =
+                    cellSelectionTableData[cellSelectionTableDataRowIndex][
+                        colgroups[cellSelectionTableDataColIndex].key
+                    ];
+                ++cellSelectionTableDataColIndex;
+            }
+            ++cellSelectionTableDataRowIndex;
+        }
+    }
+
+    // autofillTableData = tableData.slice(
+    //     cellSelectionStartRowIndex,
+    //     cellSelectionEndRowIndex + 1,
+    // );
+
+    // emit change datas [{},{}]
 }
