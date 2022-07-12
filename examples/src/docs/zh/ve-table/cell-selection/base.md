@@ -22,7 +22,7 @@
                 columns: [
                     {
                         field: "col1",
-                        key: "a",
+                        key: "col1",
                         title: "col1",
                         width: 50,
                         fixed: "left",
@@ -33,13 +33,13 @@
                         children: [
                             {
                                 field: "col2",
-                                key: "b",
+                                key: "col2",
                                 title: "col2",
                                 width: 50,
                             },
                             {
                                 field: "col3",
-                                key: "c",
+                                key: "col3",
                                 title: "col3",
                                 width: 50,
                             },
@@ -53,13 +53,13 @@
                                 children: [
                                     {
                                         field: "col4",
-                                        key: "d",
+                                        key: "col4",
                                         title: "col4",
                                         width: 130,
                                     },
                                     {
                                         field: "col5",
-                                        key: "e",
+                                        key: "col5",
                                         title: "col5",
                                         width: 140,
                                     },
@@ -68,7 +68,7 @@
                             {
                                 title: "col6",
                                 field: "col6",
-                                key: "f",
+                                key: "col6",
                                 width: 140,
                             },
                         ],
@@ -80,14 +80,14 @@
                             {
                                 title: "col7-1",
                                 field: "col7",
-                                key: "g",
+                                key: "col7",
                                 width: 50,
                             },
                         ],
                     },
                     {
                         field: "col8",
-                        key: "h",
+                        key: "col8",
                         title: "col8",
                         width: 50,
                         fixed: "right",
@@ -101,15 +101,15 @@
                 let data = [];
                 for (let i = 0; i < 10; i++) {
                     data.push({
-                        rowKey: i,
-                        col1: i,
-                        col2: i,
-                        col3: i,
-                        col4: i,
-                        col5: i,
-                        col6: i,
-                        col7: i,
-                        col8: i,
+                        rowKey: `row${i}`,
+                        col1: `A${i + 1}`,
+                        col2: `B${i + 1}`,
+                        col3: `C${i + 1}`,
+                        col4: `D${i + 1}`,
+                        col5: `E${i + 1}`,
+                        col6: `F${i + 1}`,
+                        col7: `G${i + 1}`,
+                        col8: `H${i + 1}`,
                     });
                 }
                 this.tableData = data;

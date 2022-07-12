@@ -670,16 +670,16 @@ export function tableDataAutofill({
                 colIndex <= autofillEndColIndex;
                 colIndex++
             ) {
-                const colKey = colgroups[colIndex].key;
+                const fieldName = colgroups[colIndex].field;
 
                 // repeat autofill cell selection data
                 if (cellSelectionTableDataRowIndex < 0) {
                     cellSelectionTableDataRowIndex =
                         cellSelectionTableData.length - 1;
                 }
-                tableData[rowIndex][colKey] =
+                tableData[rowIndex][fieldName] =
                     cellSelectionTableData[cellSelectionTableDataRowIndex][
-                        colKey
+                        fieldName
                     ];
             }
 
@@ -703,7 +703,7 @@ export function tableDataAutofill({
                 colIndex <= autofillEndColIndex;
                 colIndex++
             ) {
-                const colKey = colgroups[colIndex].key;
+                const fieldName = colgroups[colIndex].field;
 
                 // repeat autofill cell selection data
                 if (
@@ -712,9 +712,9 @@ export function tableDataAutofill({
                 ) {
                     cellSelectionTableDataRowIndex = 0;
                 }
-                tableData[rowIndex][colKey] =
+                tableData[rowIndex][fieldName] =
                     cellSelectionTableData[cellSelectionTableDataRowIndex][
-                        colKey
+                        fieldName
                     ];
             }
 
@@ -742,7 +742,7 @@ export function tableDataAutofill({
                 colIndex >= autofillStartColIndex;
                 colIndex--
             ) {
-                const colKey = colgroups[colIndex].key;
+                const fieldName = colgroups[colIndex].field;
 
                 // repeat autofill cell selection data
                 if (
@@ -751,9 +751,9 @@ export function tableDataAutofill({
                     cellSelectionTableDataColIndex = cellSelectionEndColIndex;
                 }
 
-                tableData[rowIndex][colKey] =
+                tableData[rowIndex][fieldName] =
                     cellSelectionTableData[cellSelectionTableDataRowIndex][
-                        colgroups[cellSelectionTableDataColIndex].key
+                        colgroups[cellSelectionTableDataColIndex].field
                     ];
                 --cellSelectionTableDataColIndex;
             }
@@ -781,7 +781,7 @@ export function tableDataAutofill({
                 colIndex <= autofillEndColIndex;
                 colIndex++
             ) {
-                const colKey = colgroups[colIndex].key;
+                const fieldName = colgroups[colIndex].field;
 
                 // repeat autofill cell selection data
                 if (
@@ -792,9 +792,9 @@ export function tableDataAutofill({
                     cellSelectionTableDataColIndex = cellSelectionStartColIndex;
                 }
 
-                tableData[rowIndex][colKey] =
+                tableData[rowIndex][fieldName] =
                     cellSelectionTableData[cellSelectionTableDataRowIndex][
-                        colgroups[cellSelectionTableDataColIndex].key
+                        colgroups[cellSelectionTableDataColIndex].field
                     ];
                 ++cellSelectionTableDataColIndex;
             }
@@ -818,6 +818,8 @@ export function tableDataAutofill({
             });
             return newData;
         });
+
+    console.log("autofillChangeDatas::", autofillChangeDatas);
 
     return autofillChangeDatas;
 }
