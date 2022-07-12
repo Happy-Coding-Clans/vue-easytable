@@ -9,7 +9,6 @@
         border-y
         :columns="columns"
         :table-data="tableData"
-        :cell-selection-option="cellSelectionOption"
         :cell-autofill-option="cellAutofillOption"
         rowKeyFieldName="rowKey"
     />
@@ -20,7 +19,7 @@
         data() {
             return {
                 cellAutofillOption: {
-                    directionX: true,
+                    directionX: false,
                     directionY: true,
                 },
                 columns: [
