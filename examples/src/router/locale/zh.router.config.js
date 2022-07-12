@@ -196,6 +196,13 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
+                path: "cell-autofill",
+                component: () =>
+                    import("@/docs/zh/ve-table/cell-autofill/main.vue"),
+                name: "单元格自动填充",
+                meta: { keepAlive: true },
+            },
+            {
                 path: "cell-edit",
                 component: () =>
                     import("@/docs/zh/ve-table/cell-edit/main.vue"),
