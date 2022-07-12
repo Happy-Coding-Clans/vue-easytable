@@ -2783,6 +2783,7 @@ export default {
                 previewTableContainerScrollLeft:
                     this.previewTableContainerScrollLeft,
                 isCellEditing: this.isCellEditing,
+                cellAutofillOption: this.cellAutofillOption,
             },
             on: {
                 [EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE]: (newData) => {
