@@ -268,12 +268,8 @@ export default {
             handler: function (val) {
                 const { rowKey, colKey } = val;
                 if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                    // set current cell el
                     this.setCurrentCellEl();
-                    // wait for selection cell rendered
-                    this.$nextTick(() => {
-                        this.setSelectionPositions({ type: "currentCell" });
-                    });
+                    this.setSelectionPositions({ type: "currentCell" });
                 } else {
                     this.clearCurrentCellRect();
                 }
@@ -289,10 +285,7 @@ export default {
                 if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
                     // set normal end cell el
                     this.setNormalEndCellEl();
-                    // wait for selection cell rendered
-                    this.$nextTick(() => {
-                        this.setSelectionPositions({ type: "normalEndCell" });
-                    });
+                    this.setSelectionPositions({ type: "normalEndCell" });
                 } else {
                     this.clearNormalEndCellRect();
                 }
@@ -307,10 +300,7 @@ export default {
                 const { rowKey, colKey } = val;
                 if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
                     this.setAutofillEndCellEl();
-                    // wait for selection cell rendered
-                    this.$nextTick(() => {
-                        this.setSelectionPositions({ type: "autoFillEndCell" });
-                    });
+                    this.setSelectionPositions({ type: "autoFillEndCell" });
                 } else {
                     this.clearAutofillEndCellRect();
                 }
