@@ -121,7 +121,7 @@
                 let data = [];
                 for (let i = 0; i < 50; i++) {
                     data.push({
-                        rowKey: `row${i}`,
+                        rowKey: i,
                         col1: `A${i + 1}`,
                         col2: `B${i + 1}`,
                         col3: `C${i + 1}`,
