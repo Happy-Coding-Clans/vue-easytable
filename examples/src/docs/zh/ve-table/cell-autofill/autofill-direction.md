@@ -4,22 +4,32 @@
 
 ```html
 <template>
-    <ve-table
-        fixed-header
-        border-y
-        :columns="columns"
-        :table-data="tableData"
-        :cell-autofill-option="cellAutofillOption"
-        rowKeyFieldName="rowKey"
-    />
+    <div>
+        <el-radio-group @change="autofillTypeChang" v-model="autofillType">
+            <el-radio :label="1">horizontal</el-radio>
+            <el-radio :label="2">vertical</el-radio>
+            <el-radio :label="3">All</el-radio>
+        </el-radio-group>
+        <br />
+        <br />
+        <ve-table
+            fixed-header
+            border-y
+            :columns="columns"
+            :table-data="tableData"
+            :cell-autofill-option="cellAutofillOption"
+            rowKeyFieldName="rowKey"
+        />
+    </div>
 </template>
 
 <script>
     export default {
         data() {
             return {
+                autofillType: 3,
                 cellAutofillOption: {
-                    directionX: false,
+                    directionX: true,
                     directionY: true,
                 },
                 columns: [
@@ -34,6 +44,18 @@
             };
         },
         methods: {
+            autofillTypeChang(type) {
+                this.cellAutofillOption.directionX = false;
+                this.cellAutofillOption.directionY = false;
+                if (type === 1) {
+                    this.cellAutofillOption.directionX = true;
+                } else if (type === 2) {
+                    this.cellAutofillOption.directionY = true;
+                } else if (type === 3) {
+                    this.cellAutofillOption.directionX = true;
+                    this.cellAutofillOption.directionY = true;
+                }
+            },
             initTableData() {
                 let data = [];
                 for (let i = 0; i < 8; i++) {

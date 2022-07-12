@@ -30,6 +30,7 @@ import {
     Switch,
     Row,
     Col,
+    Radio,
     RadioButton,
     RadioGroup,
     Select,
@@ -43,6 +44,7 @@ import {
 Vue.use(Switch);
 Vue.use(Row);
 Vue.use(Col);
+Vue.use(Radio);
 Vue.use(RadioButton);
 Vue.use(RadioGroup);
 Vue.use(Select);
