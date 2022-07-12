@@ -21,7 +21,7 @@ import {
     COLUMN_FIXED_TYPE,
 } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
-import { isEmptyValue, isNumber } from "../../../src/utils/index.js";
+import { isEmptyValue, isNumber, isBoolean } from "../../../src/utils/index.js";
 import { debounce } from "lodash";
 
 export default {
@@ -45,6 +45,13 @@ export default {
             required: true,
         },
         cellSelectionOption: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
+        // cell autofill option
+        cellAutofillOption: {
             type: Object,
             default: function () {
                 return null;
@@ -173,6 +180,26 @@ export default {
                     }
                 }
             }
+            return result;
+        },
+        // show corner
+        showCorner() {
+            let result = true;
+            const { cellAutofillOption } = this;
+            if (cellAutofillOption) {
+                const { directionX, directionY } = this.cellAutofillOption;
+                if (
+                    isBoolean(directionY) &&
+                    !directionY &&
+                    isBoolean(directionX) &&
+                    !directionX
+                ) {
+                    result = false;
+                }
+            } else {
+                result = false;
+            }
+
             return result;
         },
         // corner cell info
@@ -866,6 +893,7 @@ export default {
             let result = null;
 
             const {
+                cellAutofillOption,
                 cellSelectionRangeData,
                 cellSelectionRect,
                 cellSelectionData,
@@ -1083,6 +1111,25 @@ export default {
                 return result;
             }
 
+            const { directionX, directionY } = cellAutofillOption;
+            if (isBoolean(directionX) && !directionX) {
+                if (
+                    autofillingDirection === AUTOFILLING_DIRECTION.LEFT ||
+                    autofillingDirection === AUTOFILLING_DIRECTION.RIGHT
+                ) {
+                    return false;
+                }
+            }
+
+            if (isBoolean(directionY) && !directionY) {
+                if (
+                    autofillingDirection === AUTOFILLING_DIRECTION.UP ||
+                    autofillingDirection === AUTOFILLING_DIRECTION.DOWN
+                ) {
+                    return false;
+                }
+            }
+
             const totalColKeys = getColKeysByRangeColKeys({
                 colKey1: rangeColKey1,
                 colKey2: rangeColKey2,
@@ -1134,6 +1181,7 @@ export default {
                 isFirstSelectionRow,
                 isFirstSelectionCol,
                 isFirstNotFixedSelectionCol,
+                showCorner,
             } = this;
 
             let isRender = true;
@@ -1213,6 +1261,10 @@ export default {
             if (cornerCellInfo.isLastColumn) {
                 cornerLeft -= 3;
                 cornerBorderRightWidth = "0px";
+            }
+
+            if (!showCorner) {
+                corner.show = false;
             }
 
             // corner props
