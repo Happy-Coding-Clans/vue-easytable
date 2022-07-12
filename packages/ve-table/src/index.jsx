@@ -10,7 +10,7 @@ import {
     getRowKey,
     getColumnByColkey,
     isCellInSelectionRange,
-    tableDataAutofill,
+    cellAutofill,
 } from "./util";
 import {
     getValByUnit,
@@ -190,6 +190,13 @@ export default {
         },
         // cell selection option
         cellSelectionOption: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
+        // cell autofill option
+        cellAutofillOption: {
             type: Object,
             default: function () {
                 return null;
@@ -921,6 +928,7 @@ export default {
         // set cell selection by autofill
         setCellSelectionByAutofill() {
             const {
+                cellAutofillOption,
                 cellSelectionRangeData,
                 colgroups,
                 allRowKeys,
@@ -1031,11 +1039,7 @@ export default {
                 }
             }
 
-            // beforeAutofill function
-            // afterAutofill function
-
-            // table data autofill
-            const autofillChangeDatas = tableDataAutofill({
+            const cellAutofillParams = {
                 tableData: this.tableData,
                 allRowKeys: this.allRowKeys,
                 colgroups: this.colgroups,
@@ -1045,7 +1049,32 @@ export default {
                 cellSelectionRangeData,
                 nextCurrentCell: currentCellData,
                 nextNormalEndCell: normalEndCellData,
-            });
+            };
+
+            if (cellAutofillOption) {
+                const { beforeAutofill, afterAutofill } = cellAutofillOption;
+
+                if (isFunction(beforeAutofill)) {
+                    // before autofill
+                    const autofillResponse = cellAutofill({
+                        isReplaceData: false,
+                        ...cellAutofillParams,
+                    });
+                    const callback = beforeAutofill(autofillResponse);
+                    if (isBoolean(callback) && !callback) {
+                        return false;
+                    }
+                }
+
+                // after autofill
+                const autofillResponse = cellAutofill({
+                    isReplaceData: true,
+                    ...cellAutofillParams,
+                });
+                if (isFunction(beforeAutofill)) {
+                    afterAutofill(autofillResponse);
+                }
+            }
 
             if (!isEmptyValue(currentCellData.rowKey)) {
                 this.cellSelectionCurrentCellChange({
