@@ -320,11 +320,19 @@ export const db = {
                 rowKey: 30,
             },
             {
+                param: "operationColumn",
+                desc: "is operation column",
+                type: "<code>Boolean</code>",
+                optionalVal: `-`,
+                default: `false`,
+                rowKey: 31,
+            },
+            {
                 param: "edit",
                 desc: "Enable cell edit",
                 type: "<code>Boolean</code>",
                 optionalVal: `-`,
-                default: `"false"`,
+                default: `false`,
                 rowKey: 32,
             },
             {
@@ -333,7 +341,7 @@ export const db = {
                 type: "<code>String</code>",
                 optionalVal: `""、"desc"、"asc"`,
                 default: `""`,
-                rowKey: 31,
+                rowKey: 33,
             },
             {
                 param: "renderBodyCell",
