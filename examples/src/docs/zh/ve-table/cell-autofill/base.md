@@ -59,6 +59,15 @@
                 },
                 columns: [
                     {
+                        field: "index",
+                        key: "index",
+                        // is operation column
+                        isOperationColumn: true,
+                        title: "#",
+                        width: 15,
+                        fixed: "left",
+                    },
+                    {
                         field: "col1",
                         key: "a",
                         title: "col1",
@@ -93,13 +102,13 @@
                                         field: "col4",
                                         key: "col4",
                                         title: "col4",
-                                        width: 130,
+                                        width: 110,
                                     },
                                     {
                                         field: "col5",
                                         key: "col5",
                                         title: "col5",
-                                        width: 140,
+                                        width: 120,
                                     },
                                 ],
                             },
@@ -107,7 +116,7 @@
                                 title: "col6",
                                 field: "col6",
                                 key: "col6",
-                                width: 140,
+                                width: 130,
                             },
                         ],
                     },
@@ -123,13 +132,6 @@
                             },
                         ],
                     },
-                    {
-                        field: "col8",
-                        key: "col8",
-                        title: "col8",
-                        width: 50,
-                        fixed: "right",
-                    },
                 ],
                 tableData: [],
             };
@@ -140,6 +142,7 @@
                 for (let i = 0; i < 100; i++) {
                     data.push({
                         rowKey: i,
+                        index: i + 1,
                         col1: `A${i + 1}`,
                         col2: `B${i + 1}`,
                         col3: `C${i + 1}`,
@@ -147,7 +150,6 @@
                         col5: `E${i + 1}`,
                         col6: `F${i + 1}`,
                         col7: `G${i + 1}`,
-                        col8: `H${i + 1}`,
                     });
                 }
                 this.tableData = data;

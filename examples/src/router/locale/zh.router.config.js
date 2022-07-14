@@ -189,6 +189,13 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
+                path: "operation-column",
+                component: () =>
+                    import("@/docs/zh/ve-table/operation-column/main.vue"),
+                name: "操作列",
+                meta: { keepAlive: true },
+            },
+            {
                 path: "cell-selection",
                 component: () =>
                     import("@/docs/zh/ve-table/cell-selection/main.vue"),
