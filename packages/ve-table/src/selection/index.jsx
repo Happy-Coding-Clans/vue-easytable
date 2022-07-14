@@ -52,7 +52,7 @@ export default {
         },
         // cell autofill option
         cellAutofillOption: {
-            type: Object,
+            type: [Object, Boolean],
             default: function () {
                 return null;
             },
