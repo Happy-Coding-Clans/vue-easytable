@@ -21,7 +21,10 @@
         data() {
             return {
                 cellAutofillOption: true,
-                editOption: true,
+                editOption: {
+                    // cell value change
+                    cellValueChange: ({ row, column }) => {},
+                },
                 columns: [
                     {
                         field: "index",
