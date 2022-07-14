@@ -10,6 +10,7 @@
             :table-data="tableData"
             borderY
             :cell-autofill-option="cellAutofillOption"
+            :editOption="editOption"
             rowKeyFieldName="rowKey"
         />
     </div>
@@ -20,6 +21,7 @@
         data() {
             return {
                 cellAutofillOption: true,
+                editOption: true,
                 columns: [
                     {
                         field: "index",
@@ -31,8 +33,9 @@
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
                             return ++rowIndex;
                         },
+                        edit: true,
                     },
-                    { field: "col1", key: "col1", title: "Col1" },
+                    { field: "col1", key: "col1", title: "Col1", edit: true },
                     { field: "col2", key: "col2", title: "Col2" },
                     { field: "col3", key: "col3", title: "Col3" },
                     { field: "col4", key: "col4", title: "Col4" },
