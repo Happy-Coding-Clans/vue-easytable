@@ -193,7 +193,7 @@ export default {
         bodyTdClass() {
             const { currentColumnCollectionItem } = this;
 
-            const { fixed } = this.column;
+            const { fixed, operationColumn } = this.column;
 
             let result = {
                 [clsName("body-td")]: true,
@@ -212,6 +212,11 @@ export default {
             if (fixed) {
                 result[clsName("fixed-left")] = fixed === "left";
                 result[clsName("fixed-right")] = fixed === "right";
+            }
+
+            // operation column
+            if (operationColumn) {
+                result[clsName("operation-col")] = true;
             }
 
             // cell style option
