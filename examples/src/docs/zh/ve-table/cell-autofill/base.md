@@ -62,7 +62,7 @@
                         field: "index",
                         key: "index",
                         // is operation column
-                        isOperationColumn: true,
+                        operationColumn: true,
                         title: "#",
                         width: 15,
                         fixed: "left",

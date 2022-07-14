@@ -26,7 +26,7 @@
                     {
                         field: "index",
                         key: "index",
-                        isOperationColumn: true,
+                        operationColumn: true,
                         title: "#",
                         width: 50,
                         align: "center",

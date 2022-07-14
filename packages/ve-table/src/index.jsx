@@ -11,6 +11,7 @@ import {
     getColumnByColkey,
     isCellInSelectionRange,
     cellAutofill,
+    isOperationColumn,
 } from "./util";
 import {
     getValByUnit,
@@ -1993,7 +1994,17 @@ export default {
          * @param {object} column - column data
          */
         tdDoubleClick({ event, rowData, column }) {
-            const { editOption, rowKeyFieldName } = this;
+            const { editOption, rowKeyFieldName, colgroups } = this;
+
+            if (isOperationColumn(column.key, colgroups)) {
+                // clear cell selection
+                this.clearCellSelectionCurrentCell();
+                this.clearCellSelectionNormalEndCell();
+
+                // stop editing cell
+                this[INSTANCE_METHODS.STOP_EDITING_CELL]();
+                return false;
+            }
 
             if (editOption) {
                 const rowKey = getRowKey(rowData, rowKeyFieldName);
@@ -2026,14 +2037,25 @@ export default {
 
             const { shiftKey } = event;
 
-            const { editOption, rowKeyFieldName } = this;
+            const { editOption, rowKeyFieldName, colgroups } = this;
 
-            // cell selection range
             const rowKey = getRowKey(rowData, rowKeyFieldName);
+            const colKey = column.key;
+
+            if (isOperationColumn(colKey, colgroups)) {
+                // clear cell selection
+                this.clearCellSelectionCurrentCell();
+                this.clearCellSelectionNormalEndCell();
+
+                // stop editing cell
+                this[INSTANCE_METHODS.STOP_EDITING_CELL]();
+                return false;
+            }
+
             if (shiftKey) {
                 this.cellSelectionNormalEndCellChange({
                     rowKey,
-                    colKey: column.key,
+                    colKey,
                 });
             } else {
                 // cell selection by click
@@ -2045,7 +2067,7 @@ export default {
                 this.editCellByClick({
                     isDblclick: false,
                     rowKey,
-                    colKey: column.key,
+                    colKey,
                 });
             }
         },
@@ -2061,6 +2083,10 @@ export default {
                 this;
 
             const rowKey = getRowKey(rowData, rowKeyFieldName);
+            const colKey = column.key;
+            if (isOperationColumn(colKey, this.colgroups)) {
+                return false;
+            }
 
             if (isBodyTdMousedown) {
                 this.cellSelectionNormalEndCellChange({

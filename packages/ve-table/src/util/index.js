@@ -3,7 +3,6 @@ import {
     CONTEXTMENU_TYPES,
     COLUMN_FIXED_TYPE,
     AUTOFILLING_DIRECTION,
-    CURRENT_CELL_SELECTION_TYPES,
 } from "./constant";
 import { isEmptyValue, isEmptyArray } from "../../../src/utils/index";
 import { getRandomId } from "../../../src/utils/random";
@@ -52,6 +51,22 @@ export function getColumnByColkey(colKey, colgroups) {
 export function isLastColumnByColKey(colKey, colgroups) {
     if (!isEmptyValue(colKey) && !isEmptyArray(colgroups)) {
         return colgroups[colgroups.length - 1].key === colKey;
+    }
+    return false;
+}
+
+/*
+ * @isOperationColumn
+ * @desc is operation column
+ * @param {string} colKey - column key
+ * @param {arrat<object>} colgroups - column key
+ */
+export function isOperationColumn(colKey, colgroups) {
+    if (!isEmptyValue(colKey) && !isEmptyArray(colgroups)) {
+        const firstCol = colgroups[0];
+        if (firstCol.key === colKey && firstCol.operationColumn) {
+            return true;
+        }
     }
     return false;
 }
