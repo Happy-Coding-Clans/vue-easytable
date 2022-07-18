@@ -217,6 +217,13 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
+                path: "clipboard",
+                component: () =>
+                    import("@/docs/zh/ve-table/clipboard/main.vue"),
+                name: "剪贴板",
+                meta: { keepAlive: true },
+            },
+            {
                 path: "contextmenu",
                 component: () =>
                     import("@/docs/zh/ve-table/contextmenu/main.vue"),
