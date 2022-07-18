@@ -224,6 +224,13 @@ export default {
                 return null;
             },
         },
+        // clipboard option
+        clipboardOption: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
     },
     data() {
         return {
