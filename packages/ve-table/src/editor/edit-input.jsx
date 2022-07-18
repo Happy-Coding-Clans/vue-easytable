@@ -211,16 +211,18 @@ export default {
         // cell selection key data
         "cellSelectionData.currentCell": {
             handler: function (val) {
+                this.isEditCellFocus = false;
+
                 const { rowKey, colKey } = val;
                 if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                    this.isEditCellFocus = true;
                     this.setCellEl();
                     // wait for selection cell rendered
                     this.$nextTick(() => {
                         this.setTextareaPosition();
+                        setTimeout(() => {
+                            this.isEditCellFocus = true;
+                        });
                     });
-                } else {
-                    this.isEditCellFocus = false;
                 }
             },
             deep: true,
