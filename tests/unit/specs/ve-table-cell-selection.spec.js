@@ -103,7 +103,7 @@ describe("veTable cell selection", () => {
             .findAll(".ve-table-body-td")
             .at(2);
 
-        firstTrTdEl.trigger("click");
+        firstTrTdEl.trigger("mousedown");
 
         await later();
         expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
@@ -149,7 +149,7 @@ describe("veTable cell selection", () => {
             .findAll(".ve-table-body-td")
             .at(2);
 
-        firstTrTdEl.trigger("click");
+        firstTrTdEl.trigger("mousedown");
 
         await later();
         expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
@@ -198,7 +198,7 @@ describe("veTable cell selection", () => {
             .findAll(".ve-table-body-td")
             .at(2);
 
-        firstTrTdEl.trigger("click");
+        firstTrTdEl.trigger("mousedown");
 
         await later();
         expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
@@ -244,7 +244,7 @@ describe("veTable cell selection", () => {
             .findAll(".ve-table-body-td")
             .at(2);
 
-        firstTrTdEl.trigger("click");
+        firstTrTdEl.trigger("mousedown");
 
         await later();
         expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
@@ -290,7 +290,7 @@ describe("veTable cell selection", () => {
             .findAll(".ve-table-body-td")
             .at(2);
 
-        firstTrTdEl.trigger("click");
+        firstTrTdEl.trigger("mousedown");
 
         await later();
         expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
@@ -336,7 +336,7 @@ describe("veTable cell selection", () => {
             .findAll(".ve-table-body-td")
             .at(2);
 
-        firstTrTdEl.trigger("click");
+        firstTrTdEl.trigger("mousedown");
 
         await later();
         expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
@@ -385,7 +385,7 @@ describe("veTable cell selection", () => {
             .findAll(".ve-table-body-td")
             .at(2);
 
-        firstTrTdEl.trigger("click");
+        firstTrTdEl.trigger("mousedown");
 
         await later();
         expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
@@ -431,7 +431,7 @@ describe("veTable cell selection", () => {
             .findAll(".ve-table-body-td")
             .at(2);
 
-        firstTrTdEl.trigger("click");
+        firstTrTdEl.trigger("mousedown");
 
         await later();
         expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
@@ -480,7 +480,7 @@ describe("veTable cell selection", () => {
 
         expect(firstCell.find(".ve-table-cell-selection").exists()).toBe(false);
 
-        firstCell.trigger("click");
+        firstCell.trigger("mousedown");
 
         await later();
 
@@ -508,7 +508,7 @@ describe("veTable cell selection", () => {
 
         expect(firstCell.find(".ve-table-cell-selection").exists()).toBe(false);
 
-        firstCell.trigger("click");
+        firstCell.trigger("mousedown");
 
         await later();
 
@@ -559,7 +559,7 @@ describe("veTable cell selection", () => {
             .at(1);
 
         // set cell selection
-        firstCell.trigger("click");
+        firstCell.trigger("mousedown");
 
         await later();
 
