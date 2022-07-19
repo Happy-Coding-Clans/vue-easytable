@@ -603,6 +603,19 @@ export default {
             }
             return result;
         },
+        // has cell selection
+        hasCellSelection() {
+            const { cellSelectionOption } = this;
+
+            if (
+                cellSelectionOption &&
+                isBoolean(cellSelectionOption.enable) &&
+                cellSelectionOption.enable === false
+            ) {
+                return false;
+            }
+            return true;
+        },
         // contextmenus
         contextmenus() {
             let result = [];
@@ -2294,13 +2307,9 @@ export default {
             colKey,
             isScrollToRow = true,
         }) {
-            const { cellSelectionOption } = this;
+            const { hasCellSelection } = this;
 
-            if (
-                cellSelectionOption &&
-                isBoolean(cellSelectionOption.enable) &&
-                cellSelectionOption.enable === false
-            ) {
+            if (!hasCellSelection) {
                 return false;
             }
 
@@ -2805,7 +2814,6 @@ export default {
                 colgroups,
                 parentRendered: this.parentRendered,
                 hooks: this.hooks,
-                cellSelectionOption: this.cellSelectionOption,
                 cellSelectionData,
                 isAutofillStarting: this.isAutofillStarting,
                 cellSelectionRangeData: this.cellSelectionRangeData,
@@ -2887,7 +2895,9 @@ export default {
                             <Footer {...footerProps} />
                         </table>
                         {/* cell selection */}
-                        <Selection {...selectionProps} />
+                        {this.hasCellSelection && (
+                            <Selection {...selectionProps} />
+                        )}
                     </VueDomResizeObserver>
                 </div>
                 {/* edit input */}

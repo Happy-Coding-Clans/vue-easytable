@@ -44,12 +44,6 @@ export default {
             type: Object,
             required: true,
         },
-        cellSelectionOption: {
-            type: Object,
-            default: function () {
-                return null;
-            },
-        },
         // cell autofill option
         cellAutofillOption: {
             type: [Object, Boolean],
