@@ -1096,7 +1096,7 @@ export default {
                     isReplaceData: true,
                     ...cellAutofillParams,
                 });
-                if (isFunction(beforeAutofill)) {
+                if (isFunction(afterAutofill)) {
                     afterAutofill(autofillResponse);
                 }
             }
