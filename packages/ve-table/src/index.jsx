@@ -605,16 +605,20 @@ export default {
         },
         // has cell selection
         hasCellSelection() {
-            const { cellSelectionOption } = this;
+            let result = true;
 
-            if (
+            const { cellSelectionOption, rowKeyFieldName } = this;
+
+            if (isEmptyValue(rowKeyFieldName)) {
+                result = false;
+            } else if (
                 cellSelectionOption &&
                 isBoolean(cellSelectionOption.enable) &&
                 cellSelectionOption.enable === false
             ) {
-                return false;
+                result = false;
             }
-            return true;
+            return result;
         },
         // contextmenus
         contextmenus() {
