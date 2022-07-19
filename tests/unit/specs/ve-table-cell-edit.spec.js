@@ -154,7 +154,6 @@ describe("veTable cell edit", () => {
             .at(1);
 
         // set cell selection
-        tdEl.trigger("click");
         tdEl.trigger("dblclick");
 
         await later();
@@ -173,7 +172,7 @@ describe("veTable cell edit", () => {
             .at(1)
             .findAll(".ve-table-body-td")
             .at(2)
-            .trigger("click");
+            .trigger("mousedown");
 
         await later();
 
@@ -206,7 +205,7 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(1);
 
-        tdEl.trigger("click");
+        tdEl.trigger("mousedown");
 
         await later();
 
@@ -224,7 +223,7 @@ describe("veTable cell edit", () => {
             .at(1)
             .findAll(".ve-table-body-td")
             .at(2)
-            .trigger("click");
+            .trigger("mousedown");
 
         await later();
 
