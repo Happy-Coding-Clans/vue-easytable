@@ -964,8 +964,15 @@ export default {
 
             const { rowKey, colKey } = autoFillEndCell;
 
+            if (isEmptyValue(rowKey) || isEmptyValue(colKey)) {
+                return false;
+            }
+
             let currentCellData = {};
             let normalEndCellData = {};
+
+            const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
+                cellSelectionRangeData;
 
             // cell selection range auto fill
             if (
@@ -979,9 +986,6 @@ export default {
                         allRowKeys,
                     })
                 ) {
-                    const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
-                        cellSelectionRangeData;
-
                     if (autofillingDirection === AUTOFILLING_DIRECTION.RIGHT) {
                         currentCellData = {
                             rowKey: topRowKey,
@@ -1016,6 +1020,9 @@ export default {
                             colKey: rightColKey,
                         };
                     }
+                } else {
+                    // return if within the range
+                    return false;
                 }
             }
             // cell selection single auto fill
@@ -1027,38 +1034,46 @@ export default {
                     currentCell.colKey !== colKey
                 ) {
                     if (autofillingDirection === AUTOFILLING_DIRECTION.RIGHT) {
+                        currentCellData = {
+                            rowKey,
+                            colKey: leftColKey,
+                        };
                         normalEndCellData = {
-                            rowKey: currentCell.rowKey,
+                            rowKey,
                             colKey,
                         };
                     } else if (
                         autofillingDirection === AUTOFILLING_DIRECTION.DOWN
                     ) {
+                        currentCellData = {
+                            rowKey: topRowKey,
+                            colKey: leftColKey,
+                        };
                         normalEndCellData = {
                             rowKey,
-                            colKey: currentCell.colKey,
+                            colKey: leftColKey,
                         };
                     } else if (
                         autofillingDirection === AUTOFILLING_DIRECTION.UP
                     ) {
                         currentCellData = {
                             rowKey,
-                            colKey: currentCell.colKey,
+                            colKey: leftColKey,
                         };
                         normalEndCellData = {
-                            rowKey: currentCell.rowKey,
-                            colKey: currentCell.colKey,
+                            rowKey: bottomRowKey,
+                            colKey: leftColKey,
                         };
                     } else if (
                         autofillingDirection === AUTOFILLING_DIRECTION.LEFT
                     ) {
                         currentCellData = {
-                            rowKey: currentCell.rowKey,
+                            rowKey,
                             colKey,
                         };
                         normalEndCellData = {
-                            rowKey: currentCell.rowKey,
-                            colKey: currentCell.colKey,
+                            rowKey,
+                            colKey: rightColKey,
                         };
                     }
                 }
