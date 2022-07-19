@@ -3,60 +3,67 @@
 exports[`veTable header group render 1`] = `
 <div class="ve-table ve-table-border-around">
   <div class="ve-table-container" style="height: 0px;">
-    <table class="ve-table-content ve-table-border-x">
-      <colgroup>
-        <col style="width: 10%;">
-        <col style="width: 100px;">
-        <col style="width: 110px;">
-        <col style="width: 130px;">
-        <col style="width: 140px;">
-        <col style="width: 140px;">
-      </colgroup>
-      <thead class="ve-table-fixed-header ve-table-header">
-        <tr class="ve-table-header-tr">
-          <th rowspan="3" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;">col1</th>
-          <th rowspan="1" colspan="2" class="ve-table-header-th" style="text-align: center; top: 0px;">col2-col3</th>
-          <th rowspan="1" colspan="3" class="ve-table-header-th ve-table-last-column" style="text-align: center; top: 0px;">col4-col5-col6</th>
-        </tr>
-        <tr class="ve-table-header-tr">
-          <th rowspan="2" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;">col2</th>
-          <th rowspan="2" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;">col3</th>
-          <th rowspan="1" colspan="2" class="ve-table-header-th" style="text-align: center; top: 0px;">col4-col5</th>
-          <th rowspan="2" colspan="1" class="ve-table-header-th ve-table-last-column" style="text-align: center; top: 0px;">col6</th>
-        </tr>
-        <tr class="ve-table-header-tr">
-          <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;">col4</th>
-          <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;">col5</th>
-        </tr>
-      </thead>
-      <tbody class="ve-table-body ve-table-row-hover ve-table-row-highlight">
-        <tr style="height: 0px;">
-          <td style="padding: 0px; border: 0px; height: 0px;"></td>
-          <td style="padding: 0px; border: 0px; height: 0px;"></td>
-          <td style="padding: 0px; border: 0px; height: 0px;"></td>
-          <td style="padding: 0px; border: 0px; height: 0px;"></td>
-          <td style="padding: 0px; border: 0px; height: 0px;"></td>
-          <td style="padding: 0px; border: 0px; height: 0px;"></td>
-        </tr>
-        <tr row-key="0" class="ve-table-body-tr">
-          <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: center;">1</td>
-          <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: center;">2</td>
-          <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: center;">3</td>
-          <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: center;">4</td>
-          <td rowspan="1" colspan="1" col-key="e" class="ve-table-body-td" style="text-align: center;">5</td>
-          <td rowspan="1" colspan="1" col-key="f" class="ve-table-body-td" style="text-align: center;">6</td>
-        </tr>
-        <tr row-key="1" class="ve-table-body-tr">
-          <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: center;">1</td>
-          <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: center;">2</td>
-          <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: center;">3</td>
-          <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: center;">4</td>
-          <td rowspan="1" colspan="1" col-key="e" class="ve-table-body-td" style="text-align: center;">5</td>
-          <td rowspan="1" colspan="1" col-key="f" class="ve-table-body-td" style="text-align: center;">6</td>
-        </tr>
-      </tbody>
-      <tfoot class="ve-table-fixed-footer ve-table-footer"></tfoot>
-    </table>
+    <div class="ve-table-content-wrapper">
+      <table class="ve-table-content ve-table-border-x">
+        <colgroup>
+          <col style="width: 10%;">
+          <col style="width: 100px;">
+          <col style="width: 110px;">
+          <col style="width: 130px;">
+          <col style="width: 140px;">
+          <col style="width: 140px;">
+        </colgroup>
+        <thead class="ve-table-fixed-header ve-table-header">
+          <tr class="ve-table-header-tr">
+            <th rowspan="3" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;">col1</th>
+            <th rowspan="1" colspan="2" class="ve-table-header-th" style="text-align: center; top: 0px;">col2-col3</th>
+            <th rowspan="1" colspan="3" class="ve-table-header-th ve-table-last-column" style="text-align: center; top: 0px;">col4-col5-col6</th>
+          </tr>
+          <tr class="ve-table-header-tr">
+            <th rowspan="2" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;">col2</th>
+            <th rowspan="2" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;">col3</th>
+            <th rowspan="1" colspan="2" class="ve-table-header-th" style="text-align: center; top: 0px;">col4-col5</th>
+            <th rowspan="2" colspan="1" class="ve-table-header-th ve-table-last-column" style="text-align: center; top: 0px;">col6</th>
+          </tr>
+          <tr class="ve-table-header-tr">
+            <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;">col4</th>
+            <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;">col5</th>
+          </tr>
+        </thead>
+        <tbody class="ve-table-body ve-table-row-hover ve-table-row-highlight">
+          <tr style="height: 0px;">
+            <td style="padding: 0px; border: 0px; height: 0px;"></td>
+            <td style="padding: 0px; border: 0px; height: 0px;"></td>
+            <td style="padding: 0px; border: 0px; height: 0px;"></td>
+            <td style="padding: 0px; border: 0px; height: 0px;"></td>
+            <td style="padding: 0px; border: 0px; height: 0px;"></td>
+            <td style="padding: 0px; border: 0px; height: 0px;"></td>
+          </tr>
+          <tr row-key="0" class="ve-table-body-tr">
+            <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: center;">1</td>
+            <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: center;">2</td>
+            <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: center;">3</td>
+            <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: center;">4</td>
+            <td rowspan="1" colspan="1" col-key="e" class="ve-table-body-td" style="text-align: center;">5</td>
+            <td rowspan="1" colspan="1" col-key="f" class="ve-table-body-td" style="text-align: center;">6</td>
+          </tr>
+          <tr row-key="1" class="ve-table-body-tr">
+            <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: center;">1</td>
+            <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: center;">2</td>
+            <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: center;">3</td>
+            <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: center;">4</td>
+            <td rowspan="1" colspan="1" col-key="e" class="ve-table-body-td" style="text-align: center;">5</td>
+            <td rowspan="1" colspan="1" col-key="f" class="ve-table-body-td" style="text-align: center;">6</td>
+          </tr>
+        </tbody>
+        <tfoot class="ve-table-fixed-footer ve-table-footer"></tfoot>
+      </table>
+      <div class="ve-table-selection-wrapper">
+        <div class="ve-table-selection-fixed-left"></div>
+        <div class="ve-table-selection-middle"></div>
+        <div class="ve-table-selection-fixed-right"></div>
+      </div>
+    </div>
   </div>
 </div>
 `;
