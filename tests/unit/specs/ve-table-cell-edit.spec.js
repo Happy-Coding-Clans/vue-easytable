@@ -2002,8 +2002,6 @@ describe("veTable cell edit", () => {
 
         await later(100);
 
-        console.log(firstCell.html());
-
         expect(firstCell.find(".ve-table-cell-selection").exists()).toBe(true);
 
         document.dispatchEvent(
