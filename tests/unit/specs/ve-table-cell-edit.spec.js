@@ -256,7 +256,6 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(0);
 
-        firstCell.trigger("click");
         firstCell.trigger("dblclick");
 
         await later();
@@ -275,7 +274,7 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(1);
 
-        secondCell.trigger("click");
+        secondCell.trigger("mousedown");
 
         await later();
 
@@ -328,7 +327,7 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(0);
 
-        firstCell.trigger("click");
+        firstCell.trigger("mousedown");
 
         await later();
 
@@ -351,7 +350,7 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(1);
 
-        secondCell.trigger("click");
+        secondCell.trigger("mousedown");
 
         await later();
 
@@ -415,7 +414,7 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(1);
 
-        secondCell.trigger("click");
+        secondCell.trigger("mousedown");
 
         await later();
 
@@ -527,7 +526,7 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(1);
 
-        firstCell.trigger("click");
+        firstCell.trigger("mousedown");
 
         await later();
 
@@ -611,7 +610,6 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(1);
 
-        firstCell.trigger("click");
         firstCell.trigger("dblclick");
 
         await later();
@@ -645,7 +643,7 @@ describe("veTable cell edit", () => {
             .at(1)
             .findAll(".ve-table-body-td")
             .at(2)
-            .trigger("click");
+            .trigger("mousedown");
 
         await later();
 
@@ -700,7 +698,7 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(1);
 
-        firstCell.trigger("click");
+        firstCell.trigger("mousedown");
 
         await later();
 
@@ -784,7 +782,6 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(1);
 
-        firstCell.trigger("click");
         firstCell.trigger("dblclick");
 
         await later();
@@ -818,7 +815,7 @@ describe("veTable cell edit", () => {
             .at(1)
             .findAll(".ve-table-body-td")
             .at(2)
-            .trigger("click");
+            .trigger("mousedown");
 
         await later();
 
@@ -873,7 +870,7 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(1);
 
-        firstCell.trigger("click");
+        firstCell.trigger("mousedown");
 
         await later();
 
@@ -957,7 +954,6 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(1);
 
-        firstCell.trigger("click");
         firstCell.trigger("dblclick");
 
         await later();
@@ -991,7 +987,7 @@ describe("veTable cell edit", () => {
             .at(1)
             .findAll(".ve-table-body-td")
             .at(2)
-            .trigger("click");
+            .trigger("mousedown");
 
         await later();
 
@@ -1046,7 +1042,7 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(1);
 
-        firstCell.trigger("click");
+        firstCell.trigger("mousedown");
 
         await later();
 
@@ -1130,7 +1126,6 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(1);
 
-        firstCell.trigger("click");
         firstCell.trigger("dblclick");
 
         await later();
@@ -1164,7 +1159,7 @@ describe("veTable cell edit", () => {
             .at(1)
             .findAll(".ve-table-body-td")
             .at(2)
-            .trigger("click");
+            .trigger("mousedown");
 
         await later();
 
@@ -1219,7 +1214,7 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(1);
 
-        firstCell.trigger("click");
+        firstCell.trigger("mousedown");
 
         await later();
 
@@ -1280,7 +1275,6 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(1);
 
-        firstCell.trigger("click");
         firstCell.trigger("dblclick");
 
         await later();
@@ -1358,7 +1352,6 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(1);
 
-        firstCell.trigger("click");
         firstCell.trigger("dblclick");
 
         await later();
@@ -1439,7 +1432,6 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(1);
 
-        firstCell.trigger("click");
         firstCell.trigger("dblclick");
 
         await later();
@@ -1517,7 +1509,6 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(1);
 
-        firstCell.trigger("click");
         firstCell.trigger("dblclick");
 
         await later();
@@ -1597,7 +1588,7 @@ describe("veTable cell edit", () => {
             .at(1)
             .findAll(".ve-table-body-td")
             .at(1)
-            .trigger("click");
+            .trigger("mousedown");
 
         document.dispatchEvent(
             new KeyboardEvent("keydown", { keyCode: KEY_CODES.F2 }),
@@ -1616,7 +1607,7 @@ describe("veTable cell edit", () => {
             .at(1)
             .findAll(".ve-table-body-td")
             .at(2)
-            .trigger("click");
+            .trigger("mousedown");
 
         await later();
 
@@ -1680,7 +1671,6 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(1);
 
-        firstCell.trigger("click");
         firstCell.trigger("dblclick");
 
         await later();
@@ -1706,7 +1696,7 @@ describe("veTable cell edit", () => {
             .at(1)
             .findAll(".ve-table-body-td")
             .at(2)
-            .trigger("click");
+            .trigger("mousedown");
 
         expect(mockFn).toHaveBeenCalled();
 
@@ -1784,7 +1774,6 @@ describe("veTable cell edit", () => {
             .at(1);
 
         // set cell selection
-        firstCell.trigger("click");
         firstCell.trigger("dblclick");
 
         await later();
@@ -1885,9 +1874,9 @@ describe("veTable cell edit", () => {
         expect(cellEditor.vm.isEditCellFocus).toBe(false);
 
         // set cell selection
-        firstCell.trigger("click");
+        firstCell.trigger("mousedown");
 
-        await later();
+        await later(100);
         expect(cellEditor.vm.isEditCellFocus).toBe(true);
 
         // click outside
@@ -1919,7 +1908,6 @@ describe("veTable cell edit", () => {
             .at(3);
 
         // set cell selection
-        tdEl.trigger("click");
         tdEl.trigger("dblclick");
 
         await later();
@@ -1954,7 +1942,6 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(1);
 
-        firstCell.trigger("click");
         firstCell.trigger("dblclick");
 
         await later();
@@ -1963,7 +1950,7 @@ describe("veTable cell edit", () => {
             ".ve-table-edit-input-container-show .ve-table-edit-input",
         );
 
-        textInput.trigger("click");
+        textInput.trigger("mousedown");
 
         await later();
 
@@ -1993,7 +1980,12 @@ describe("veTable cell edit", () => {
             propsData: {
                 columns: COLUMNS,
                 tableData: cloneDeep(TABLE_DATA),
-                editOption: {},
+                editOption: {
+                    // cell value change
+                    cellValueChange: ({ row, column }) => {
+                        mockFn(row, column);
+                    },
+                },
                 rowKeyFieldName: "rowKey",
             },
         });
@@ -2005,10 +1997,12 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(3);
 
-        firstCell.trigger("click");
+        firstCell.trigger("mousedown");
         firstCell.trigger("dblclick");
 
-        await later();
+        await later(100);
+
+        console.log(firstCell.html());
 
         expect(firstCell.find(".ve-table-cell-selection").exists()).toBe(true);
 
@@ -2051,15 +2045,16 @@ describe("veTable cell edit", () => {
             .findAll(".ve-table-body-td")
             .at(1);
 
-        firstCell.trigger("click");
         firstCell.trigger("dblclick");
 
-        await later();
+        await later(300);
 
-        const cellEditor = wrapper.findComponent({ name: "VeTableEditIput" });
+        const cellEditor = wrapper.findComponent({ name: "VeTableEditInput" });
 
         cellEditor.vm.hooks.triggerHook(HOOKS_NAME.TABLE_SIZE_CHANGE);
-        cellEditor.vm.hooks.triggerHook(HOOKS_NAME.TABLE_CONTAINER_SCROLL);
+        cellEditor.vm.hooks.triggerHook(HOOKS_NAME.TABLE_CONTAINER_SCROLL, {
+            scrollLeft: 1000,
+        });
 
         expect(
             wrapper.find(".ve-table-edit-input-container-show").exists(),
@@ -2070,7 +2065,7 @@ describe("veTable cell edit", () => {
             .at(1)
             .findAll(".ve-table-body-td")
             .at(2)
-            .trigger("click");
+            .trigger("mousedown");
 
         expect(
             wrapper.find(".ve-table-edit-input-container-show").exists(),
