@@ -730,8 +730,8 @@ export const db = {
                 default: "-",
             },
             {
-                param: "bufferCount",
-                desc: `缓冲渲染数量。默认只渲染当前容器高度内的行数据，缓冲数据可以额外渲染行数据，可以有效解决合并过多行数据的问题`,
+                param: "bufferScale",
+                desc: `缓冲倍数。1个缓冲倍数为当前表格高度内的行数量`,
                 type: "<code>Number</code>",
                 optionalVal: "-",
                 default: "1",

@@ -724,8 +724,8 @@ export const db = {
                 default: "-",
             },
             {
-                param: "bufferCount",
-                desc: `Number of buffered renderings. By default, only the row data within the height of the current container is rendered. Buffered data can render additional row data, which can effectively solve the problem of merging too many rows of data`,
+                param: "bufferScale",
+                desc: `Buffer scale. 1 buffer scale is the number of rows within the current table height`,
                 type: "<code>Number</code>",
                 optionalVal: "-",
                 default: "1",
