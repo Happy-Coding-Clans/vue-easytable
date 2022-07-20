@@ -10,9 +10,9 @@
             :table-data="tableData"
             borderY
             :cell-autofill-option="cellAutofillOption"
-            :editOption="editOption"
+            :edit-option="editOption"
             row-key-field-name="rowKey"
-            clipboard-option="clipboardOption"
+            :clipboard-option="clipboardOption"
         />
     </div>
 </template>
