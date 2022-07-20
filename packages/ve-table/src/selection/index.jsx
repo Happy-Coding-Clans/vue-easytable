@@ -280,6 +280,13 @@ export default {
                             isTableSizeChange: true,
                         });
                     });
+                    // add table td width change hook
+                    this.hooks.addHook(HOOKS_NAME.TABLE_TD_WIDTH_CHANGE, () => {
+                        // debounce reset cell positions
+                        this.debounceResetCellPositions({
+                            isTableSizeChange: true,
+                        });
+                    });
                 }
             },
             immediate: true,

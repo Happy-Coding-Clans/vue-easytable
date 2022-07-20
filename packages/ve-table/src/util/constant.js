@@ -126,6 +126,8 @@ export const HOOKS_NAME = {
     TABLE_CONTAINER_SCROLL: "table-container-scroll",
     // table size change
     TABLE_SIZE_CHANGE: "table-size-change",
+    // table td width change
+    TABLE_TD_WIDTH_CHANGE: "table-td-width-change",
 };
 
 // comps name

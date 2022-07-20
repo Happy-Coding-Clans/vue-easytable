@@ -799,6 +799,7 @@ export default {
                 item._realTimeWidth = colWidths.get(item.key);
                 return item;
             });
+            this.hooks.triggerHook(HOOKS_NAME.TABLE_TD_WIDTH_CHANGE);
         },
 
         // update colgroups by sort change
