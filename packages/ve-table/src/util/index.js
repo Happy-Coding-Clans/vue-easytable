@@ -7,7 +7,7 @@ import {
 import { isEmptyValue, isEmptyArray } from "../../../src/utils/index";
 import { getRandomId } from "../../../src/utils/random";
 
-/*
+/**
  * @clsName
  * @desc  get class name
  * @param {string} cls - class
@@ -16,7 +16,7 @@ export function clsName(cls) {
     return PREFIX_CLS + cls;
 }
 
-/*
+/**
  * @getRowKey
  * @desc  get row key
  * @param {Object} rowData - rowData
@@ -31,7 +31,7 @@ export function getRowKey(rowData, rowKeyFieldName) {
     return result;
 }
 
-/*
+/**
  * @getColumnByColkey
  * @desc  get column by col key
  * @param {string} colKey - column key
@@ -43,7 +43,7 @@ export function getColumnByColkey(colKey, colgroups) {
     return null;
 }
 
-/*
+/**
  * @isLastColumnByColKey
  * @desc is last column by column key
  * @param {string} colKey - column key
@@ -55,7 +55,7 @@ export function isLastColumnByColKey(colKey, colgroups) {
     return false;
 }
 
-/*
+/**
  * @isOperationColumn
  * @desc is operation column
  * @param {string} colKey - column key
@@ -71,7 +71,7 @@ export function isOperationColumn(colKey, colgroups) {
     return false;
 }
 
-/*
+/**
  * @isLastRowByRowKey
  * @desc is last row by row key
  * @param {string} rowKey - row key
@@ -83,7 +83,7 @@ export function isLastRowByRowKey(rowKey, allRowKeys) {
     return false;
 }
 
-/*
+/**
  * @getDomResizeObserverCompKey
  * @desc  get dom resize observer comp key
  * @param {Any} originalKey - original key
@@ -102,7 +102,7 @@ export function getDomResizeObserverCompKey(
     return result;
 }
 
-/*
+/**
  * @recursiveRemoveColumnByKey
  * @desc recursive remove column key
  * @param {object} columns - deep clone column
@@ -117,7 +117,7 @@ export function recursiveRemoveColumnByKey(columns, key) {
     });
 }
 
-/*
+/**
  * @getFixedTotalWidthByColumnKey
  * @desc  get fixed total width by column key
  * @param {object} colgroups - columns info
@@ -150,7 +150,7 @@ export function getFixedTotalWidthByColumnKey({ colgroups, colKey, fixed }) {
     return result;
 }
 
-/*
+/**
  * @getNotFixedTotalWidthByColumnKey
  * @desc  get not fixed total width by column key
  * @param {object} colgroups - 列信息
@@ -181,7 +181,7 @@ export function getNotFixedTotalWidthByColumnKey({ colgroups, colKey, fixed }) {
     return result;
 }
 
-/*
+/**
  * @getTotalWidthByColKeys
  * @desc get total width by collumn keys
  * @param {array<T>} colKeys
@@ -198,7 +198,7 @@ export function getTotalWidthByColKeys({ colKeys, colgroups }) {
     return result;
 }
 
-/*
+/**
  * @initGroupColumns
  * @desc  int group columns
  * @param {array} cloneColumns - clone columns
@@ -354,7 +354,7 @@ export function isContextmenuPanelClicked(event) {
     return result;
 }
 
-/*
+/**
  * @getColKeysByRangeColKeys
  * @desc  get col keys by range col keys
  * @param {any} colKey1
@@ -376,7 +376,7 @@ export function getColKeysByRangeColKeys({ colKey1, colKey2, colgroups }) {
     return result;
 }
 
-/*
+/**
  * @getColKeysByFixedType
  * @desc  get col keys by fixed type
  * @param {array<T>} colKeys
@@ -396,7 +396,7 @@ export function getColKeysByFixedType({ colKeys, fixedType, colgroups }) {
     return result;
 }
 
-/*
+/**
  * @getRowKeysByRangeRowKeys
  * @desc get row keys by range row keys
  * @param {any} topRowKey - top row key
@@ -420,7 +420,7 @@ export function getRowKeysByRangeRowKeys({
     return result;
 }
 
-/*
+/**
  * @isCellInSelectionRange
  * @desc is cell in selection range
  * @param {object} cellData - cell data
@@ -458,7 +458,7 @@ export function isCellInSelectionRange({
     return false;
 }
 
-/*
+/**
  * @isExistFixedColKey
  * @desc is exist given fixed col key
  * @param {string} fixedType - fixed type
@@ -476,7 +476,7 @@ export function isExistGivenFixedColKey({ fixedType, colKeys, colgroups }) {
     return result;
 }
 
-/*
+/**
  * @isExistNotFixedColKey
  * @desc is exist not fixed col key
  * @param {array<T>} colKeys
@@ -493,7 +493,7 @@ export function isExistNotFixedColKey({ colKeys, colgroups }) {
     return result;
 }
 
-/*
+/**
  * @getLeftmostOrRightmostColKey
  * @desc get leftmost or rightmost column key
  * @param {string} type
@@ -549,7 +549,7 @@ function getLeftmostOrRightmostColKey({ type, colgroups, colKeys }) {
     return result;
 }
 
-/*
+/**
  * @getLeftmostColKey
  * @desc get leftmost column key
  * @param {array<object>} colgroups
@@ -564,7 +564,7 @@ export function getLeftmostColKey({ colgroups, colKeys }) {
     });
 }
 
-/*
+/**
  * @getRightmostColKey
  * @desc get rightmost column key
  * @param {array<object>} colgroups
@@ -579,7 +579,7 @@ export function getRightmostColKey({ colgroups, colKeys }) {
     });
 }
 
-/*
+/**
  * @getPreviewColKey
  * @desc get preview column key
  * @param {array<object>} colgroups
@@ -600,7 +600,7 @@ export function getPreviewColKey({ colgroups, currentColKey }) {
     return result;
 }
 
-/*
+/**
  * @getNextColKey
  * @desc get next column key
  * @param {array<object>} colgroups
@@ -621,7 +621,7 @@ export function getNextColKey({ colgroups, currentColKey }) {
     return result;
 }
 
-/*
+/***
  * @cellAutofill
  * @desc cell auto fill
  * @param {bool} isReplaceData
