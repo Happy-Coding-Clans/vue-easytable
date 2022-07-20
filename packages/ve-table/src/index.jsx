@@ -1186,21 +1186,6 @@ export default {
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
                 switch (keyCode) {
-                    case KEY_CODES.ARROW_LEFT: {
-                        const direction = CELL_SELECTION_DIRECTION.LEFT;
-                        if (enableStopEditing) {
-                            this.selectCellByDirection({
-                                direction,
-                            });
-
-                            this.clearCellSelectionNormalEndCell();
-
-                            this[INSTANCE_METHODS.STOP_EDITING_CELL]();
-                            event.preventDefault();
-                        }
-
-                        break;
-                    }
                     case KEY_CODES.TAB: {
                         let direction;
                         if (shiftKey) {
@@ -1217,6 +1202,21 @@ export default {
 
                         this[INSTANCE_METHODS.STOP_EDITING_CELL]();
                         event.preventDefault();
+                        break;
+                    }
+                    case KEY_CODES.ARROW_LEFT: {
+                        const direction = CELL_SELECTION_DIRECTION.LEFT;
+                        if (enableStopEditing) {
+                            this.selectCellByDirection({
+                                direction,
+                            });
+
+                            this.clearCellSelectionNormalEndCell();
+
+                            this[INSTANCE_METHODS.STOP_EDITING_CELL]();
+                            event.preventDefault();
+                        }
+
                         break;
                     }
                     case KEY_CODES.ARROW_RIGHT: {
