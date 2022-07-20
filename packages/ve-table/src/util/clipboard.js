@@ -93,7 +93,7 @@ export function decodeSpreadsheetStr(str) {
  * @return onCopy
  */
 export function onCopy({ event }) {
-    console.log("event::", event);
+    // feature
 }
 
 /**
@@ -110,8 +110,6 @@ export function onPaste({
     colgroups,
     allRowKeys,
 }) {
-    console.log("event::", event);
-
     event.preventDefault();
 
     let pastedData;
@@ -187,5 +185,5 @@ export function onPaste({
  * @return onCut
  */
 export function onCut({ event }) {
-    console.log("event::", event);
+    // feature
 }
