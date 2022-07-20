@@ -13,6 +13,7 @@ import {
     cellAutofill,
     isOperationColumn,
 } from "./util";
+import { onCopy, onPaste, onCut } from "./util/clipboard";
 import {
     getValByUnit,
     isFunction,
@@ -2318,6 +2319,60 @@ export default {
             }
         },
 
+        // editor copy
+        editorCopy(event) {
+            onCopy({
+                event,
+            });
+        },
+
+        // editor paste
+        editorPaste(event) {
+            const { clipboardOption } = this;
+
+            const { paste, beforePaste, afterPaste } = clipboardOption;
+
+            if (isBoolean(paste) && !paste) {
+                return false;
+            }
+
+            const pasteParams = {
+                event,
+                tableData: this.tableData,
+                cellSelectionRangeData: this.cellSelectionRangeData,
+                colgroups: this.colgroups,
+                allRowKeys: this.allRowKeys,
+                rowKeyFieldName: this.rowKeyFieldName,
+            };
+
+            if (isFunction(beforePaste)) {
+                const response = onPaste({
+                    isReplaceData: false,
+                    ...pasteParams,
+                });
+
+                const callback = beforePaste(response);
+                if (isBoolean(callback) && !callback) {
+                    return false;
+                }
+            }
+
+            const response = onPaste({
+                isReplaceData: true,
+                ...pasteParams,
+            });
+            if (isFunction(afterPaste)) {
+                afterPaste(response);
+            }
+        },
+
+        // editor cut
+        editorCut(event) {
+            onCut({
+                event,
+            });
+        },
+
         /*
         set cell selection and column to visible
         */
@@ -2879,6 +2934,18 @@ export default {
                 // edit input value change
                 [EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE]: (value) => {
                     this.updateEditingCellValue(value);
+                },
+                // copy
+                [EMIT_EVENTS.EDIT_INPUT_COPY]: (e) => {
+                    this.editorCopy(e);
+                },
+                // paste
+                [EMIT_EVENTS.EDIT_INPUT_PASTE]: (e) => {
+                    this.editorPaste(e);
+                },
+                // cut
+                [EMIT_EVENTS.EDIT_INPUT_CUT]: (e) => {
+                    this.editorCut(e);
                 },
             },
         };

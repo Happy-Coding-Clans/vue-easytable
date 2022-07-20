@@ -105,6 +105,12 @@ export const EMIT_EVENTS = {
     EDIT_INPUT_BLUR: "on-edit-input-blur",
     // edit input value change
     EDIT_INPUT_VALUE_CHANGE: "on-edit-input-value-change",
+    // edit input copy
+    EDIT_INPUT_COPY: "on-edit-input-copy",
+    // edit input paste
+    EDIT_INPUT_PASTE: "on-edit-input-paste",
+    // edit input cut
+    EDIT_INPUT_CUT: "on-edit-input-cut",
 
     // selection corner mousedown
     SELECTION_CORNER_MOUSEDOWN: "selection-corner-mousedown",

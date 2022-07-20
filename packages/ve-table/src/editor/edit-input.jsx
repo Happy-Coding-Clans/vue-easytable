@@ -495,6 +495,15 @@ export default {
                 click: () => {
                     this.$emit(EMIT_EVENTS.EDIT_INPUT_CLICK);
                 },
+                copy: (e) => {
+                    this.$emit(EMIT_EVENTS.EDIT_INPUT_COPY, e);
+                },
+                paste: (e) => {
+                    this.$emit(EMIT_EVENTS.EDIT_INPUT_PASTE, e);
+                },
+                cut: (e) => {
+                    this.$emit(EMIT_EVENTS.EDIT_INPUT_CUT, e);
+                },
             },
         };
 
