@@ -2373,9 +2373,11 @@ export default {
                     ...pasteParams,
                 });
 
-                const callback = beforePaste(response);
-                if (isBoolean(callback) && !callback) {
-                    return false;
+                if (response) {
+                    const callback = beforePaste(response);
+                    if (isBoolean(callback) && !callback) {
+                        return false;
+                    }
                 }
             }
 
@@ -2383,12 +2385,13 @@ export default {
                 isReplaceData: true,
                 ...pasteParams,
             });
-            if (isFunction(afterPaste)) {
-                afterPaste(response);
-            }
 
             // change selection
             if (response && response.selectionRangeKeys) {
+                if (isFunction(afterPaste)) {
+                    afterPaste(response);
+                }
+
                 const { startColKey, endColKey, startRowKey, endRowKey } =
                     response.selectionRangeKeys;
 
