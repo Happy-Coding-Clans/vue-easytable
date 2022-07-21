@@ -2374,8 +2374,8 @@ export default {
                 response.data.length
             ) {
                 if (isFunction(beforePaste)) {
-                    const callback = beforePaste(response);
-                    if (isBoolean(callback) && !callback) {
+                    const allowPasting = beforePaste(response);
+                    if (isBoolean(allowPasting) && !allowPasting) {
                         return false;
                     }
                 }
