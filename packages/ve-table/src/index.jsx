@@ -13,7 +13,7 @@ import {
     cellAutofill,
     isOperationColumn,
 } from "./util";
-import { onCopy, onPaste, onCut } from "./util/clipboard";
+import { onCopy, onBeforePaste, onAfterPaste, onCut } from "./util/clipboard";
 import {
     getValByUnit,
     isFunction,
@@ -2358,36 +2358,33 @@ export default {
                 return false;
             }
 
-            const pasteParams = {
+            event.preventDefault();
+
+            const response = onBeforePaste({
                 event,
-                tableData: this.tableData,
                 cellSelectionRangeData: this.cellSelectionRangeData,
                 colgroups: this.colgroups,
                 allRowKeys: this.allRowKeys,
                 rowKeyFieldName: this.rowKeyFieldName,
-            };
+            });
 
-            if (isFunction(beforePaste)) {
-                const response = onPaste({
-                    isReplaceData: false,
-                    ...pasteParams,
-                });
-
-                if (response) {
+            if (
+                response &&
+                Array.isArray(response.data) &&
+                response.data.length
+            ) {
+                if (isFunction(beforePaste)) {
                     const callback = beforePaste(response);
                     if (isBoolean(callback) && !callback) {
                         return false;
                     }
                 }
-            }
+                // change table cell data
+                onAfterPaste({
+                    tableData: this.tableData,
+                    beforePasteResponse: response,
+                });
 
-            const response = onPaste({
-                isReplaceData: true,
-                ...pasteParams,
-            });
-
-            // change selection
-            if (response && response.selectionRangeKeys) {
                 if (isFunction(afterPaste)) {
                     afterPaste(response);
                 }
