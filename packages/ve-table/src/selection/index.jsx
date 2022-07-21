@@ -282,11 +282,24 @@ export default {
                     });
                     // add table td width change hook
                     this.hooks.addHook(HOOKS_NAME.TABLE_TD_WIDTH_CHANGE, () => {
-                        // debounce reset cell positions
-                        this.debounceResetCellPositions({
-                            isTableSizeChange: true,
+                        this.$nextTick(() => {
+                            this.resetCellPositions({
+                                isTableSizeChange: true,
+                            });
                         });
                     });
+
+                    // add clipboard cell value change hook
+                    this.hooks.addHook(
+                        HOOKS_NAME.CLIPBOARD_CELL_VALUE_CHANGE,
+                        () => {
+                            this.$nextTick(() => {
+                                this.resetCellPositions({
+                                    isTableSizeChange: true,
+                                });
+                            });
+                        },
+                    );
                 }
             },
             immediate: true,

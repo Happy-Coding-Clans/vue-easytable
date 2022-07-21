@@ -128,6 +128,11 @@ export const HOOKS_NAME = {
     TABLE_SIZE_CHANGE: "table-size-change",
     // table td width change
     TABLE_TD_WIDTH_CHANGE: "table-td-width-change",
+    /*
+    clipboard cell value change
+    可能导致单元格高度变化，需要重新修改区域选择的定位信息
+    */
+    CLIPBOARD_CELL_VALUE_CHANGE: "clipboard-cell-value-change",
 };
 
 // comps name

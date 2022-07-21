@@ -2404,6 +2404,9 @@ export default {
                     rowKey: endRowKey,
                     colKey: endColKey,
                 });
+
+                // clipboard cell value change
+                this.hooks.triggerHook(HOOKS_NAME.CLIPBOARD_CELL_VALUE_CHANGE);
             }
         },
 
