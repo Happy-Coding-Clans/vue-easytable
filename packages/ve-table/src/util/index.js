@@ -651,55 +651,57 @@ export function cellAutofill({
         cellSelectionRangeData;
 
     // source selection range
-    let sourceSelectionRange = {
+    let sourceSelectionRangeIndexes = {
         startRowIndex: -1,
         endRowIndex: -1,
         startColIndex: -1,
         endColIndex: -1,
     };
     // target selection range
-    let targetSelectionRange = {
+    let targetSelectionRangeIndexes = {
         startRowIndex: -1,
         endRowIndex: -1,
         startColIndex: -1,
         endColIndex: -1,
     };
 
-    sourceSelectionRange.startRowIndex = allRowKeys.indexOf(topRowKey);
-    sourceSelectionRange.endRowIndex = allRowKeys.indexOf(bottomRowKey);
-    sourceSelectionRange.startColIndex = colgroups.findIndex(
+    sourceSelectionRangeIndexes.startRowIndex = allRowKeys.indexOf(topRowKey);
+    sourceSelectionRangeIndexes.endRowIndex = allRowKeys.indexOf(bottomRowKey);
+    sourceSelectionRangeIndexes.startColIndex = colgroups.findIndex(
         (x) => x.key === leftColKey,
     );
-    sourceSelectionRange.endColIndex = colgroups.findIndex(
+    sourceSelectionRangeIndexes.endColIndex = colgroups.findIndex(
         (x) => x.key === rightColKey,
     );
 
     cellSelectionTableData = tableData.slice(
-        sourceSelectionRange.startRowIndex,
-        sourceSelectionRange.endRowIndex + 1,
+        sourceSelectionRangeIndexes.startRowIndex,
+        sourceSelectionRangeIndexes.endRowIndex + 1,
     );
 
     if (direction === AUTOFILLING_DIRECTION.UP) {
         //
-        targetSelectionRange.startRowIndex = allRowKeys.indexOf(
+        targetSelectionRangeIndexes.startRowIndex = allRowKeys.indexOf(
             nextCurrentCell.rowKey,
         );
-        targetSelectionRange.endRowIndex =
-            sourceSelectionRange.startRowIndex - 1;
-        targetSelectionRange.startColIndex = sourceSelectionRange.startColIndex;
-        targetSelectionRange.endColIndex = sourceSelectionRange.endColIndex;
+        targetSelectionRangeIndexes.endRowIndex =
+            sourceSelectionRangeIndexes.startRowIndex - 1;
+        targetSelectionRangeIndexes.startColIndex =
+            sourceSelectionRangeIndexes.startColIndex;
+        targetSelectionRangeIndexes.endColIndex =
+            sourceSelectionRangeIndexes.endColIndex;
 
         if (isReplaceData) {
             let cellSelectionTableDataRowIndex =
                 cellSelectionTableData.length - 1;
             for (
-                let rowIndex = targetSelectionRange.endRowIndex;
-                rowIndex >= targetSelectionRange.startRowIndex;
+                let rowIndex = targetSelectionRangeIndexes.endRowIndex;
+                rowIndex >= targetSelectionRangeIndexes.startRowIndex;
                 rowIndex--
             ) {
                 for (
-                    let colIndex = targetSelectionRange.startColIndex;
-                    colIndex <= targetSelectionRange.endColIndex;
+                    let colIndex = targetSelectionRangeIndexes.startColIndex;
+                    colIndex <= targetSelectionRangeIndexes.endColIndex;
                     colIndex++
                 ) {
                     const fieldName = colgroups[colIndex].field;
@@ -720,24 +722,26 @@ export function cellAutofill({
         }
     } else if (direction === AUTOFILLING_DIRECTION.DOWN) {
         //
-        targetSelectionRange.startRowIndex =
-            sourceSelectionRange.endRowIndex + 1;
-        targetSelectionRange.endRowIndex = allRowKeys.indexOf(
+        targetSelectionRangeIndexes.startRowIndex =
+            sourceSelectionRangeIndexes.endRowIndex + 1;
+        targetSelectionRangeIndexes.endRowIndex = allRowKeys.indexOf(
             nextNormalEndCell.rowKey,
         );
-        targetSelectionRange.startColIndex = sourceSelectionRange.startColIndex;
-        targetSelectionRange.endColIndex = sourceSelectionRange.endColIndex;
+        targetSelectionRangeIndexes.startColIndex =
+            sourceSelectionRangeIndexes.startColIndex;
+        targetSelectionRangeIndexes.endColIndex =
+            sourceSelectionRangeIndexes.endColIndex;
 
         if (isReplaceData) {
             let cellSelectionTableDataRowIndex = 0;
             for (
-                let rowIndex = targetSelectionRange.startRowIndex;
-                rowIndex <= targetSelectionRange.endRowIndex;
+                let rowIndex = targetSelectionRangeIndexes.startRowIndex;
+                rowIndex <= targetSelectionRangeIndexes.endRowIndex;
                 rowIndex++
             ) {
                 for (
-                    let colIndex = targetSelectionRange.startColIndex;
-                    colIndex <= targetSelectionRange.endColIndex;
+                    let colIndex = targetSelectionRangeIndexes.startColIndex;
+                    colIndex <= targetSelectionRangeIndexes.endColIndex;
                     colIndex++
                 ) {
                     const fieldName = colgroups[colIndex].field;
@@ -760,27 +764,29 @@ export function cellAutofill({
         }
     } else if (direction === AUTOFILLING_DIRECTION.LEFT) {
         //
-        targetSelectionRange.startRowIndex = sourceSelectionRange.startRowIndex;
-        targetSelectionRange.endRowIndex = sourceSelectionRange.endRowIndex;
-        targetSelectionRange.startColIndex = colgroups.findIndex(
+        targetSelectionRangeIndexes.startRowIndex =
+            sourceSelectionRangeIndexes.startRowIndex;
+        targetSelectionRangeIndexes.endRowIndex =
+            sourceSelectionRangeIndexes.endRowIndex;
+        targetSelectionRangeIndexes.startColIndex = colgroups.findIndex(
             (x) => x.key === nextCurrentCell.colKey,
         );
-        targetSelectionRange.endColIndex =
-            sourceSelectionRange.startColIndex - 1;
+        targetSelectionRangeIndexes.endColIndex =
+            sourceSelectionRangeIndexes.startColIndex - 1;
 
         if (isReplaceData) {
             let cellSelectionTableDataRowIndex = 0;
             for (
-                let rowIndex = targetSelectionRange.startRowIndex;
-                rowIndex <= targetSelectionRange.endRowIndex;
+                let rowIndex = targetSelectionRangeIndexes.startRowIndex;
+                rowIndex <= targetSelectionRangeIndexes.endRowIndex;
                 rowIndex++
             ) {
                 let cellSelectionTableDataColIndex =
-                    sourceSelectionRange.endColIndex;
+                    sourceSelectionRangeIndexes.endColIndex;
 
                 for (
-                    let colIndex = targetSelectionRange.endColIndex;
-                    colIndex >= targetSelectionRange.startColIndex;
+                    let colIndex = targetSelectionRangeIndexes.endColIndex;
+                    colIndex >= targetSelectionRangeIndexes.startColIndex;
                     colIndex--
                 ) {
                     const fieldName = colgroups[colIndex].field;
@@ -788,10 +794,10 @@ export function cellAutofill({
                     // repeat autofill cell selection data
                     if (
                         cellSelectionTableDataColIndex <
-                        sourceSelectionRange.startColIndex
+                        sourceSelectionRangeIndexes.startColIndex
                     ) {
                         cellSelectionTableDataColIndex =
-                            sourceSelectionRange.endColIndex;
+                            sourceSelectionRangeIndexes.endColIndex;
                     }
 
                     tableData[rowIndex][fieldName] =
@@ -805,27 +811,29 @@ export function cellAutofill({
         }
     } else if (direction === AUTOFILLING_DIRECTION.RIGHT) {
         //
-        targetSelectionRange.startRowIndex = sourceSelectionRange.startRowIndex;
-        targetSelectionRange.endRowIndex = sourceSelectionRange.endRowIndex;
-        targetSelectionRange.startColIndex =
-            sourceSelectionRange.endColIndex + 1;
-        targetSelectionRange.endColIndex = colgroups.findIndex(
+        targetSelectionRangeIndexes.startRowIndex =
+            sourceSelectionRangeIndexes.startRowIndex;
+        targetSelectionRangeIndexes.endRowIndex =
+            sourceSelectionRangeIndexes.endRowIndex;
+        targetSelectionRangeIndexes.startColIndex =
+            sourceSelectionRangeIndexes.endColIndex + 1;
+        targetSelectionRangeIndexes.endColIndex = colgroups.findIndex(
             (x) => x.key === nextNormalEndCell.colKey,
         );
 
         if (isReplaceData) {
             let cellSelectionTableDataRowIndex = 0;
             for (
-                let rowIndex = targetSelectionRange.startRowIndex;
-                rowIndex <= targetSelectionRange.endRowIndex;
+                let rowIndex = targetSelectionRangeIndexes.startRowIndex;
+                rowIndex <= targetSelectionRangeIndexes.endRowIndex;
                 rowIndex++
             ) {
                 let cellSelectionTableDataColIndex =
-                    sourceSelectionRange.startColIndex;
+                    sourceSelectionRangeIndexes.startColIndex;
 
                 for (
-                    let colIndex = targetSelectionRange.startColIndex;
-                    colIndex <= targetSelectionRange.endColIndex;
+                    let colIndex = targetSelectionRangeIndexes.startColIndex;
+                    colIndex <= targetSelectionRangeIndexes.endColIndex;
                     colIndex++
                 ) {
                     const fieldName = colgroups[colIndex].field;
@@ -833,12 +841,12 @@ export function cellAutofill({
                     // repeat autofill cell selection data
                     if (
                         cellSelectionTableDataColIndex >
-                        sourceSelectionRange.startColIndex +
-                            (sourceSelectionRange.endColIndex -
-                                sourceSelectionRange.startColIndex)
+                        sourceSelectionRangeIndexes.startColIndex +
+                            (sourceSelectionRangeIndexes.endColIndex -
+                                sourceSelectionRangeIndexes.startColIndex)
                     ) {
                         cellSelectionTableDataColIndex =
-                            sourceSelectionRange.startColIndex;
+                            sourceSelectionRangeIndexes.startColIndex;
                     }
 
                     tableData[rowIndex][fieldName] =
@@ -854,22 +862,22 @@ export function cellAutofill({
 
     let response = {
         direction,
-        sourceSelectionRange,
-        targetSelectionRange,
+        sourceSelectionRangeIndexes,
+        targetSelectionRangeIndexes,
         sourceSelectionData: [],
         targetSelectionData: [],
     };
 
     const sourceFieldNames = colgroups
         .slice(
-            sourceSelectionRange.startColIndex,
-            sourceSelectionRange.endColIndex + 1,
+            sourceSelectionRangeIndexes.startColIndex,
+            sourceSelectionRangeIndexes.endColIndex + 1,
         )
         .map((x) => x.field);
     response.sourceSelectionData = tableData
         .slice(
-            sourceSelectionRange.startRowIndex,
-            sourceSelectionRange.endRowIndex + 1,
+            sourceSelectionRangeIndexes.startRowIndex,
+            sourceSelectionRangeIndexes.endRowIndex + 1,
         )
         .map((rowData) => {
             let newData = {
@@ -883,14 +891,14 @@ export function cellAutofill({
 
     const targetFieldNames = colgroups
         .slice(
-            targetSelectionRange.startColIndex,
-            targetSelectionRange.endColIndex + 1,
+            targetSelectionRangeIndexes.startColIndex,
+            targetSelectionRangeIndexes.endColIndex + 1,
         )
         .map((x) => x.field);
     response.targetSelectionData = tableData
         .slice(
-            targetSelectionRange.startRowIndex,
-            targetSelectionRange.endRowIndex + 1,
+            targetSelectionRangeIndexes.startRowIndex,
+            targetSelectionRangeIndexes.endRowIndex + 1,
         )
         .map((rowData) => {
             let newData = {
