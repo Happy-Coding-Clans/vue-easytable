@@ -28,14 +28,14 @@
                     copy: true,
                     paste: true,
                     cut: true,
-                    beforeCopy: ({ data, selectionRangeIndexes }) => {
+                    beforeCopy: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {
                         return true;
                     },
-                    afterCopy: ({ data, selectionRangeIndexes }) => {},
-                    beforePaste: ({ data, selectionRangeIndexes }) => {},
-                    afterPaste: ({ data, selectionRangeIndexes }) => {},
-                    beforeCut: ({ data, selectionRangeIndexes }) => {},
-                    afterCut: ({ data, selectionRangeIndexes }) => {},
+                    afterCopy: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {},
+                    beforePaste: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {},
+                    afterPaste: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {},
+                    beforeCut: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {},
+                    afterCut: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {},
                 },
                 virtualScrollOption: {
                     // 是否开启
@@ -73,7 +73,7 @@
                 let data = [];
                 for (let i = 0; i < 100; i++) {
                     data.push({
-                        rowKey: i,
+                        rowKey: `row${i}`,
                         col1: `A${i + 1}`,
                         col2: `B${i + 1}`,
                         col3: `C${i + 1}`,
