@@ -628,6 +628,10 @@ export default {
             }
             return result;
         },
+        // enable clipboard
+        enableClipboard() {
+            return this.clipboardOption;
+        },
         // contextmenus
         contextmenus() {
             let result = [];
@@ -2329,6 +2333,12 @@ export default {
 
         // editor copy
         editorCopy(event) {
+            const { enableClipboard } = this;
+
+            if (!enableClipboard) {
+                return false;
+            }
+
             onCopy({
                 event,
             });
@@ -2336,7 +2346,11 @@ export default {
 
         // editor paste
         editorPaste(event) {
-            const { clipboardOption } = this;
+            const { enableClipboard, clipboardOption } = this;
+
+            if (!enableClipboard) {
+                return false;
+            }
 
             const { paste, beforePaste, afterPaste } = clipboardOption;
 
@@ -2392,6 +2406,12 @@ export default {
 
         // editor cut
         editorCut(event) {
+            const { enableClipboard } = this;
+
+            if (!enableClipboard) {
+                return false;
+            }
+
             onCut({
                 event,
             });
