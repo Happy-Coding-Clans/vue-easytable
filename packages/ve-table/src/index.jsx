@@ -590,8 +590,15 @@ export default {
         hasEditColumn() {
             return this.colgroups.some((x) => x.edit);
         },
-        // has contextmenu
-        hasContextmenu() {
+        /*
+         enable edit 
+         剪贴板功能依赖此功能
+         */
+        enableEdit() {
+            return !isEmptyValue(this.rowKeyFieldName);
+        },
+        // enable contextmenu
+        enableContextmenu() {
             let result = false;
 
             const { contextmenuBodyOption } = this;
@@ -604,8 +611,8 @@ export default {
             }
             return result;
         },
-        // has cell selection
-        hasCellSelection() {
+        // enable cell selection
+        enableCellSelection() {
             let result = true;
 
             const { cellSelectionOption, rowKeyFieldName } = this;
@@ -624,8 +631,8 @@ export default {
         // contextmenus
         contextmenus() {
             let result = [];
-            const { hasContextmenu, contextmenuBodyOption } = this;
-            if (hasContextmenu) {
+            const { enableContextmenu, contextmenuBodyOption } = this;
+            if (enableContextmenu) {
                 const { contextmenus } = contextmenuBodyOption;
 
                 const contextmenuBodyOptionCollection =
@@ -2398,9 +2405,9 @@ export default {
             colKey,
             isScrollToRow = true,
         }) {
-            const { hasCellSelection } = this;
+            const { enableCellSelection } = this;
 
-            if (!hasCellSelection) {
+            if (!enableCellSelection) {
                 return false;
             }
 
@@ -2998,15 +3005,17 @@ export default {
                             <Footer {...footerProps} />
                         </table>
                         {/* cell selection */}
-                        {this.hasCellSelection && (
+                        {this.enableCellSelection && (
                             <Selection {...selectionProps} />
                         )}
                     </VueDomResizeObserver>
                 </div>
                 {/* edit input */}
-                {this.hasEditColumn && <EditInput {...editInputProps} />}
+                {this.enableEdit && <EditInput {...editInputProps} />}
                 {/* contextmenu */}
-                {this.hasContextmenu && <VeContextmenu {...contextmenuProps} />}
+                {this.enableContextmenu && (
+                    <VeContextmenu {...contextmenuProps} />
+                )}
             </VueDomResizeObserver>
         );
     },
