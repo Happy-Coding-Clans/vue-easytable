@@ -142,11 +142,17 @@ export function onPaste({
     );
 
     let response = {
-        coords: {
+        selectionRangeIndexes: {
             startColIndex,
             endColIndex,
             startRowIndex,
             endRowIndex,
+        },
+        selectionRangeKeys: {
+            startColKey: colgroups[startColIndex].key,
+            endColKey: colgroups[endColIndex].key,
+            startRowKey: allRowKeys[startRowIndex],
+            endRowKey: allRowKeys[endRowIndex],
         },
         data: [],
     };
@@ -174,7 +180,6 @@ export function onPaste({
             Object.assign(tableData[startRowIndex + rowIndex], rowData);
         });
     }
-
     return response;
 }
 
