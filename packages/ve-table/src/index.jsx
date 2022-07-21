@@ -630,7 +630,7 @@ export default {
         },
         // enable clipboard
         enableClipboard() {
-            return this.clipboardOption;
+            return this.rowKeyFieldName;
         },
         // contextmenus
         contextmenus() {
@@ -2352,7 +2352,7 @@ export default {
                 return false;
             }
 
-            const { paste, beforePaste, afterPaste } = clipboardOption;
+            const { paste, beforePaste, afterPaste } = clipboardOption || {};
 
             if (isBoolean(paste) && !paste) {
                 return false;
