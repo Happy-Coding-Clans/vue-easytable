@@ -30,28 +30,28 @@
                     directionY: true,
                     beforeAutofill: ({
                         direction,
-                        sourceSelectionRange,
-                        targetSelectionRange,
+                        sourceSelectionRangeIndexes,
+                        targetSelectionRangeIndexes,
                         sourceSelectionData,
                         targetSelectionData,
                     }) => {
                         console.log("direction::", direction);
-                        console.log("sourceSelectionRange::", sourceSelectionRange);
-                        console.log("targetSelectionRange::", targetSelectionRange);
+                        console.log("sourceSelectionRangeIndexes::", sourceSelectionRangeIndexes);
+                        console.log("targetSelectionRangeIndexes::", targetSelectionRangeIndexes);
                         console.log("sourceSelectionData::", sourceSelectionData);
                         console.log("targetSelectionData::", targetSelectionData);
                         console.log("---");
                     },
                     afterAutofill: ({
                         direction,
-                        sourceSelectionRange,
-                        targetSelectionRange,
+                        sourceSelectionRangeIndexes,
+                        targetSelectionRangeIndexes,
                         sourceSelectionData,
                         targetSelectionData,
                     }) => {
                         console.log("direction::", direction);
-                        console.log("sourceSelectionRange::", sourceSelectionRange);
-                        console.log("targetSelectionRange::", targetSelectionRange);
+                        console.log("sourceSelectionRangeIndexes::", sourceSelectionRangeIndexes);
+                        console.log("targetSelectionRangeIndexes::", targetSelectionRangeIndexes);
                         console.log("sourceSelectionData::", sourceSelectionData);
                         console.log("targetSelectionData::", targetSelectionData);
                         console.log("---");

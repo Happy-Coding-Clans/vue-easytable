@@ -33,11 +33,11 @@
                     beforeCopy: ({ data, selectionRange }) => {
                         return true;
                     },
-                    afterCopy: ({ data, selectionRange }) => {},
-                    beforePaste: ({ data, selectionRange }) => {},
-                    afterPaste: ({ data, selectionRange }) => {},
-                    beforeCut: ({ data, selectionRange }) => {},
-                    afterCut: ({ data, selectionRange }) => {},
+                    afterCopy: ({ data, selectionRangeIndexs }) => {},
+                    beforePaste: ({ data, selectionRangeIndexs }) => {},
+                    afterPaste: ({ data, selectionRangeIndexs }) => {},
+                    beforeCut: ({ data, selectionRangeIndexs }) => {},
+                    afterCut: ({ data, selectionRangeIndexs }) => {},
                 },
                 columns: [
                     {
