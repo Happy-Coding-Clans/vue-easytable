@@ -9,7 +9,7 @@ const regNextEmptyCell = /^\t/;
  * @returns {Array}
  */
 export function decodeSpreadsheetStr(str) {
-    const arr = [[""]];
+    let arr = [[""]];
 
     if (str.length === 0) {
         return arr;
@@ -82,6 +82,12 @@ export function decodeSpreadsheetStr(str) {
             arr[row][column] = nextCell;
         }
     }
+    // 去除 excel 最后一个多余的换行数据
+    if (Array.isArray(arr) && arr.length > 1) {
+        if (arr[arr.length - 1].length === 1) {
+            arr = arr.slice(0, arr.length - 1);
+        }
+    }
 
     return arr;
 }
@@ -123,7 +129,7 @@ export function onPaste({
     }
 
     if (typeof pastedData !== "string") {
-        return false;
+        return null;
     }
 
     let decodePastedData = decodeSpreadsheetStr(pastedData);
