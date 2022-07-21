@@ -2365,6 +2365,22 @@ export default {
             if (isFunction(afterPaste)) {
                 afterPaste(response);
             }
+
+            // change selection
+            if (response && response.selectionRangeKeys) {
+                const { startColKey, endColKey, startRowKey, endRowKey } =
+                    response.selectionRangeKeys;
+
+                this.cellSelectionCurrentCellChange({
+                    rowKey: startRowKey,
+                    colKey: startColKey,
+                });
+
+                this.cellSelectionNormalEndCellChange({
+                    rowKey: endRowKey,
+                    colKey: endColKey,
+                });
+            }
         },
 
         // editor cut
