@@ -84,7 +84,7 @@ export function decodeSpreadsheetStr(str) {
     }
     // 去除 excel 最后一个多余的换行数据
     if (Array.isArray(arr) && arr.length > 1) {
-        if (arr[arr.length - 1].length === 1) {
+        if (arr[arr.length - 1].length === 1 && arr[arr.length - 1][0] === "") {
             arr = arr.slice(0, arr.length - 1);
         }
     }
@@ -103,21 +103,17 @@ export function onCopy({ event }) {
 }
 
 /**
- * @onPaste
- * @desc on paste
+ * @onBeforePaste
+ * @desc on before paste
  * @param {Event} event
- * @return onPaste
+ * @return
  */
-export function onPaste({
+export function onBeforePaste({
     event,
-    isReplaceData,
-    tableData,
     cellSelectionRangeData,
     colgroups,
     allRowKeys,
 }) {
-    event.preventDefault();
-
     let pastedData;
 
     if (event.clipboardData) {
@@ -132,18 +128,18 @@ export function onPaste({
         return null;
     }
 
-    let decodePastedData = decodeSpreadsheetStr(pastedData);
+    let decodePasteData = decodeSpreadsheetStr(pastedData);
 
     const startColIndex = colgroups.findIndex(
         (x) => x.key === cellSelectionRangeData.leftColKey,
     );
     const endColIndex = Math.min(
-        startColIndex + decodePastedData[0].length - 1,
+        startColIndex + decodePasteData[0].length - 1,
         colgroups.length - 1,
     );
     const startRowIndex = allRowKeys.indexOf(cellSelectionRangeData.topRowKey);
     const endRowIndex = Math.min(
-        startRowIndex + decodePastedData.length - 1,
+        startRowIndex + decodePasteData.length - 1,
         allRowKeys.length - 1,
     );
 
@@ -167,7 +163,7 @@ export function onPaste({
         .slice(startColIndex, endColIndex + 1)
         .map((x) => x.field);
 
-    response.data = decodePastedData
+    response.data = decodePasteData
         .slice(0, endRowIndex - startRowIndex + 1)
         .map((rowData) => {
             let newRow = {};
@@ -180,13 +176,24 @@ export function onPaste({
             return newRow;
         });
 
-    if (Array.isArray(decodePastedData) && isReplaceData) {
-        //
-        response.data.forEach((rowData, rowIndex) => {
-            Object.assign(tableData[startRowIndex + rowIndex], rowData);
-        });
-    }
     return response;
+}
+
+/**
+ * @onAfterPaste
+ * @desc on after paste
+ * @param {Event} event
+ * @return
+ */
+export function onAfterPaste({ tableData, beforePasteResponse }) {
+    const { data: pasteData, selectionRangeIndexes } = beforePasteResponse;
+
+    pasteData.forEach((rowData, rowIndex) => {
+        Object.assign(
+            tableData[selectionRangeIndexes.startRowIndex + rowIndex],
+            rowData,
+        );
+    });
 }
 
 /**
