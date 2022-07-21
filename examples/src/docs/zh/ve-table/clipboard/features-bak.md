@@ -30,14 +30,14 @@
                     copy: true,
                     paste: true,
                     cut: true,
-                    beforeCopy: ({ data, coords }) => {
+                    beforeCopy: ({ data, selectionRange }) => {
                         return true;
                     },
-                    afterCopy: ({ data, coords }) => {},
-                    beforePaste: ({ data, coords }) => {},
-                    afterPaste: ({ data, coords }) => {},
-                    beforeCut: ({ data, coords }) => {},
-                    afterCut: ({ data, coords }) => {},
+                    afterCopy: ({ data, selectionRange }) => {},
+                    beforePaste: ({ data, selectionRange }) => {},
+                    afterPaste: ({ data, selectionRange }) => {},
+                    beforeCut: ({ data, selectionRange }) => {},
+                    afterCut: ({ data, selectionRange }) => {},
                 },
                 columns: [
                     {

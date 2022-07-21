@@ -6,6 +6,7 @@
 <template>
     <div>
         <ve-table
+            :max-height="350"
             :columns="columns"
             :table-data="tableData"
             borderY
@@ -13,6 +14,7 @@
             :edit-option="editOption"
             row-key-field-name="rowKey"
             :clipboard-option="clipboardOption"
+            :virtual-scroll-option="virtualScrollOption"
         />
     </div>
 </template>
@@ -26,14 +28,18 @@
                     copy: true,
                     paste: true,
                     cut: true,
-                    beforeCopy: ({ data, coords }) => {
+                    beforeCopy: ({ data, selectionRange }) => {
                         return true;
                     },
-                    afterCopy: ({ data, coords }) => {},
-                    beforePaste: ({ data, coords }) => {},
-                    afterPaste: ({ data, coords }) => {},
-                    beforeCut: ({ data, coords }) => {},
-                    afterCut: ({ data, coords }) => {},
+                    afterCopy: ({ data, selectionRange }) => {},
+                    beforePaste: ({ data, selectionRange }) => {},
+                    afterPaste: ({ data, selectionRange }) => {},
+                    beforeCut: ({ data, selectionRange }) => {},
+                    afterCut: ({ data, selectionRange }) => {},
+                },
+                virtualScrollOption: {
+                    // 是否开启
+                    enable: false,
                 },
                 cellAutofillOption: true,
                 editOption: {
@@ -65,7 +71,7 @@
         methods: {
             initTableData() {
                 let data = [];
-                for (let i = 0; i < 8; i++) {
+                for (let i = 0; i < 100; i++) {
                     data.push({
                         rowKey: i,
                         col1: `A${i + 1}`,
