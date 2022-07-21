@@ -6,7 +6,7 @@ const regNextEmptyCell = /^\t/;
  * @decodeSpreadsheetStr
  * @desc Decode spreadsheet string into array.  refer from http://github.com/warpech/sheetclip/
  * @param {string} str The string to parse.
- * @returns {Array}
+ * @returns {array}
  */
 export function decodeSpreadsheetStr(str) {
     let arr = [[""]];
@@ -93,13 +93,104 @@ export function decodeSpreadsheetStr(str) {
 }
 
 /**
- * @onCopy
- * @desc on copy
- * @param {Event} event
- * @return onCopy
+ * @decodeSpreadsheetStr
+ * @desc encode array to spreadsheet string.  refer from http://github.com/warpech/sheetclip/
+ * @param {array} str The string to parse.
+ * @returns {string}
  */
-export function onCopy({ event }) {
-    // feature
+export function encodeToSpreadsheetStr(arr) {
+    let r;
+    let rLen;
+    let c;
+    let cLen;
+    let str = "";
+    let val;
+
+    for (r = 0, rLen = arr.length; r < rLen; r += 1) {
+        cLen = arr[r].length;
+
+        for (c = 0; c < cLen; c += 1) {
+            if (c > 0) {
+                str += "\t";
+            }
+            val = arr[r][c];
+
+            if (typeof val === "string") {
+                if (val.indexOf("\n") > -1) {
+                    str += `"${val.replace(/"/g, '""')}"`;
+                } else {
+                    str += val;
+                }
+            } else if (val === null || val === void 0) {
+                // void 0 resolves to undefined
+                str += "";
+            } else {
+                str += val;
+            }
+        }
+
+        if (r !== rLen - 1) {
+            str += "\n";
+        }
+    }
+
+    return str;
+}
+
+/**
+ * @onBeforeCopy
+ * @desc on before copy
+ * @param {Event} event
+ * @return {selectionRangeIndexes,selectionRangeKeys,data}
+ */
+export function onBeforeCopy({
+    cellSelectionRangeData,
+    selectionRangeData,
+    colgroups,
+    allRowKeys,
+}) {
+    const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
+        cellSelectionRangeData;
+
+    const selectionRangeIndexes = {
+        startColIndex: colgroups.findIndex((x) => x.key === leftColKey),
+        endColIndex: colgroups.findIndex((x) => x.key === rightColKey),
+        startRowIndex: allRowKeys.indexOf(topRowKey),
+        endRowIndex: allRowKeys.indexOf(bottomRowKey),
+    };
+
+    const selectionRangeKeys = {
+        startColKey: leftColKey,
+        endColKey: rightColKey,
+        startRowKey: topRowKey,
+        endRowKey: bottomRowKey,
+    };
+
+    const response = {
+        selectionRangeIndexes,
+        selectionRangeKeys,
+        data: selectionRangeData,
+    };
+
+    return response;
+}
+
+/**
+ * @onAfterCopy
+ * @desc on after copy
+ * @param {Event} event
+ * @return
+ */
+export function onAfterCopy({ selectionRangeData }) {
+    const spreadsheetStr = encodeToSpreadsheetStr(selectionRangeData);
+
+    if (event.clipboardData) {
+        event.clipboardData.setData("text/plain", spreadsheetStr);
+    }
+    // IE browser
+    else if (window.clipboardData) {
+        window.clipboardData.setData("Text", spreadsheetStr);
+    }
 }
 
 /**

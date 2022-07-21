@@ -12,8 +12,16 @@ import {
     isCellInSelectionRange,
     cellAutofill,
     isOperationColumn,
+    getSelectionRangeData,
 } from "./util";
-import { onCopy, onBeforePaste, onAfterPaste, onCut } from "./util/clipboard";
+import {
+    onBeforeCopy,
+    onAfterCopy,
+    onBeforePaste,
+    onAfterPaste,
+    onCut,
+    encodeToSpreadsheetStr,
+} from "./util/clipboard";
 import {
     getValByUnit,
     isFunction,
@@ -2333,15 +2341,58 @@ export default {
 
         // editor copy
         editorCopy(event) {
-            const { enableClipboard } = this;
+            const {
+                enableClipboard,
+                clipboardOption,
+                cellSelectionRangeData,
+                tableData,
+                colgroups,
+                allRowKeys,
+            } = this;
 
             if (!enableClipboard) {
                 return false;
             }
 
-            onCopy({
-                event,
+            const {
+                copy,
+                beforeCopy: beforeCopyCallback,
+                afterCopy: afterCopyCallback,
+            } = clipboardOption || {};
+
+            if (isBoolean(copy) && !copy) {
+                return false;
+            }
+
+            event.preventDefault();
+
+            const selectionRangeData = getSelectionRangeData({
+                cellSelectionRangeData,
+                resultType: "flat",
+                tableData,
+                colgroups,
+                allRowKeys,
             });
+
+            const response = onBeforeCopy({
+                cellSelectionRangeData,
+                selectionRangeData,
+                colgroups,
+                allRowKeys,
+            });
+
+            if (isFunction(beforeCopyCallback)) {
+                const allowCoping = beforeCopyCallback(response);
+                if (isBoolean(allowCoping) && !allowCoping) {
+                    return false;
+                }
+            }
+
+            onAfterCopy({ selectionRangeData });
+
+            if (isFunction(afterCopyCallback)) {
+                afterCopyCallback(response);
+            }
         },
 
         // editor paste
@@ -2352,7 +2403,11 @@ export default {
                 return false;
             }
 
-            const { paste, beforePaste, afterPaste } = clipboardOption || {};
+            const {
+                paste,
+                beforePaste: beforePasteCallback,
+                afterPaste: afterPasteCallback,
+            } = clipboardOption || {};
 
             if (isBoolean(paste) && !paste) {
                 return false;
@@ -2373,8 +2428,8 @@ export default {
                 Array.isArray(response.data) &&
                 response.data.length
             ) {
-                if (isFunction(beforePaste)) {
-                    const allowPasting = beforePaste(response);
+                if (isFunction(beforePasteCallback)) {
+                    const allowPasting = beforePasteCallback(response);
                     if (isBoolean(allowPasting) && !allowPasting) {
                         return false;
                     }
@@ -2385,8 +2440,8 @@ export default {
                     beforePasteResponse: response,
                 });
 
-                if (isFunction(afterPaste)) {
-                    afterPaste(response);
+                if (isFunction(afterPasteCallback)) {
+                    afterPasteCallback(response);
                 }
 
                 const { startColKey, endColKey, startRowKey, endRowKey } =

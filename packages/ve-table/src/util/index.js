@@ -459,6 +459,66 @@ export function isCellInSelectionRange({
 }
 
 /**
+ * @getSelectionRangeData
+ * @desc get selection range data
+ * @param {object} cellSelectionRangeData
+ * @param {string} resultType "normal": contains key/value ; "flat":only contains value
+ * @param {array<object>} tableData
+ * @param {array<object>} colgroups
+ * @param {array<object>} allRowKeys
+ * @return Array<colKeys>
+ */
+export function getSelectionRangeData({
+    cellSelectionRangeData,
+    resultType = "normal",
+    tableData,
+    colgroups,
+    allRowKeys,
+}) {
+    let result = null;
+
+    const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
+        cellSelectionRangeData;
+
+    const startColIndex = colgroups.findIndex((x) => x.key === leftColKey);
+    const endColIndex = colgroups.findIndex((x) => x.key === rightColKey);
+    const startRowIndex = allRowKeys.indexOf(topRowKey);
+    const endRowIndex = allRowKeys.indexOf(bottomRowKey);
+
+    const fieldNames = colgroups
+        .slice(startColIndex, endColIndex + 1)
+        .map((x) => x.field);
+
+    if (resultType === "normal") {
+        result = tableData
+            .slice(startRowIndex, endRowIndex + 1)
+            .map((rowData) => {
+                let newRow = {};
+
+                fieldNames.forEach((fieldName) => {
+                    newRow[fieldName] = rowData[fieldName] ?? "";
+                });
+
+                return newRow;
+            });
+    } else {
+        result = tableData
+            .slice(startRowIndex, endRowIndex + 1)
+            .map((rowData) => {
+                let newRow = [];
+
+                fieldNames.forEach((fieldName) => {
+                    newRow.push(rowData[fieldName] ?? "");
+                });
+
+                return newRow;
+            });
+    }
+
+    return result;
+}
+
+/**
  * @isExistFixedColKey
  * @desc is exist given fixed col key
  * @param {string} fixedType - fixed type
