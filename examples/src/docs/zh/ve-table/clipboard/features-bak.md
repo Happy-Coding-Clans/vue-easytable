@@ -30,14 +30,14 @@
                     copy: true,
                     paste: true,
                     cut: true,
-                    beforeCopy: ({ data, selectionRange }) => {
+                    beforeCopy: ({ data, selectionRangeIndexes }) => {
                         return true;
                     },
-                    afterCopy: ({ data, selectionRangeIndexs }) => {},
-                    beforePaste: ({ data, selectionRangeIndexs }) => {},
-                    afterPaste: ({ data, selectionRangeIndexs }) => {},
-                    beforeCut: ({ data, selectionRangeIndexs }) => {},
-                    afterCut: ({ data, selectionRangeIndexs }) => {},
+                    afterCopy: ({ data, selectionRangeIndexes }) => {},
+                    beforePaste: ({ data, selectionRangeIndexes }) => {},
+                    afterPaste: ({ data, selectionRangeIndexes }) => {},
+                    beforeCut: ({ data, selectionRangeIndexes }) => {},
+                    afterCut: ({ data, selectionRangeIndexes }) => {},
                 },
                 columns: [
                     {

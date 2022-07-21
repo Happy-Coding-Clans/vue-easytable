@@ -28,14 +28,14 @@
                     copy: true,
                     paste: true,
                     cut: true,
-                    beforeCopy: ({ data, selectionRange }) => {
+                    beforeCopy: ({ data, selectionRangeIndexes }) => {
                         return true;
                     },
-                    afterCopy: ({ data, selectionRange }) => {},
-                    beforePaste: ({ data, selectionRange }) => {},
-                    afterPaste: ({ data, selectionRange }) => {},
-                    beforeCut: ({ data, selectionRange }) => {},
-                    afterCut: ({ data, selectionRange }) => {},
+                    afterCopy: ({ data, selectionRangeIndexes }) => {},
+                    beforePaste: ({ data, selectionRangeIndexes }) => {},
+                    afterPaste: ({ data, selectionRangeIndexes }) => {},
+                    beforeCut: ({ data, selectionRangeIndexes }) => {},
+                    afterCut: ({ data, selectionRangeIndexes }) => {},
                 },
                 virtualScrollOption: {
                     // 是否开启
