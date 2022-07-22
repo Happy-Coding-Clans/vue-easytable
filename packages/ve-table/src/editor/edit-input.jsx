@@ -228,6 +228,25 @@ export default {
             deep: true,
             immediate: true,
         },
+        // watch normal end cell
+        "cellSelectionData.normalEndCell": {
+            handler: function (val) {
+                /*
+                trigger editor(textarea) element select
+                解决通过点击的区域选择，无法复制的问题
+                */
+                if (!isEmptyValue(val.colKey)) {
+                    const textareaInputEl = this.$refs[this.textareaInputRef];
+                    if (textareaInputEl) {
+                        setTimeout(() => {
+                            textareaInputEl.select();
+                        });
+                    }
+                }
+            },
+            deep: true,
+            immediate: true,
+        },
         // is editing cell
         isCellEditing: {
             handler: function (val) {
