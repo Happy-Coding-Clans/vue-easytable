@@ -2387,7 +2387,7 @@ export default {
                 }
             }
 
-            onAfterCopy({ selectionRangeData });
+            onAfterCopy({ event, selectionRangeData });
 
             if (isFunction(afterCopyCallback)) {
                 afterCopyCallback(response);

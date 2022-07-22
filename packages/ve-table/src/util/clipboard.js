@@ -181,7 +181,7 @@ export function onBeforeCopy({
  * @param {Event} event
  * @return
  */
-export function onAfterCopy({ selectionRangeData }) {
+export function onAfterCopy({ event, selectionRangeData }) {
     const spreadsheetStr = encodeToSpreadsheetStr(selectionRangeData);
 
     if (event.clipboardData) {
