@@ -20,7 +20,6 @@ import {
     onBeforePaste,
     onAfterPaste,
     onCut,
-    encodeToSpreadsheetStr,
 } from "./util/clipboard";
 import {
     getValByUnit,
