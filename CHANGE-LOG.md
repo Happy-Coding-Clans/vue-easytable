@@ -19,6 +19,7 @@ V2.18.0
 -   添加 `virtualScrollOption.bufferScale` 虚拟滚动缓冲倍数 props
 -   `cellSelectionOption` add props `autofillChange`
 -   add operation column
+-   add theme vars @ve-table-td-editing-font-color、@ve-table-td-editing-background-color
 
 ### Bug Fixes
 
