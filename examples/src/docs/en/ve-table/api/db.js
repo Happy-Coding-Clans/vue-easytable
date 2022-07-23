@@ -345,8 +345,7 @@ export const db = {
             },
             {
                 param: "renderBodyCell",
-                desc: `1、Custom cell rendering function in the table body. jsx ,Writing is close to template syntax<br>
-                2、Parameter information.<code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index、<code>h</code>：createElement<br>3、For more JSX knowledge, please refer to<a href="https://vuejs.org/v2/guide/render-function.html#JSX"> Vue.js Official doc</a>`,
+                desc: `1、Custom cell rendering function in the table body. jsx ,Writing is close to template syntax\r2、Parameter information.<code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index、<code>h</code>：createElement<br>3、For more JSX knowledge, please refer to<a href="https://vuejs.org/v2/guide/render-function.html#JSX"> Vue.js Official doc</a>`,
                 type: `<code>Function({row,column,rowIndex},h):VNode</code>`,
                 optionalVal: "-",
                 default: "-",
@@ -354,8 +353,7 @@ export const db = {
             },
             {
                 param: "renderHeaderCell",
-                desc: `1、Header custom cell rendering function.The usage is the same as<code>renderBodyCell</code>。<br>
-                2、Parameter information.<code>column</code>:Current column option、<code>h</code>：createElement`,
+                desc: `1、Header custom cell rendering function.The usage is the same as<code>renderBodyCell</code>。\r2、Parameter information.<code>column</code>:Current column option、<code>h</code>：createElement`,
                 type: "<code>Function({ column },h):VNode</code>",
                 optionalVal: "-",
                 default: "-",
@@ -363,8 +361,7 @@ export const db = {
             },
             {
                 param: "renderFooterCell",
-                desc: `1、footer custom cell rendering function.<br>
-                2、Parameter information.<code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index、<code>h</code>：createElement<br>`,
+                desc: `1、footer custom cell rendering function.\r2、Parameter information.<code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index、<code>h</code>：createElement<br>`,
                 type: `<code>Function({row,column,rowIndex},h):VNode</code>`,
                 optionalVal: "-",
                 default: "-",
@@ -543,16 +540,14 @@ export const db = {
         data: [
             {
                 param: "expandable",
-                desc: `	1、Whether the row rendering function is allowed to expand. Returns a Boolean value<br>
-                2、Receive 3 parameter,<code>row</code>:Current row data、<code>column</code>:Column option、<code>rowIndex</code>:rowIndex`,
+                desc: `	1、Whether the row rendering function is allowed to expand. Returns a Boolean value\r2、Receive 3 parameter,<code>row</code>:Current row data、<code>column</code>:Column option、<code>rowIndex</code>:rowIndex`,
                 type: "<code>Function({row,column,rowIndex})</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "render",
-                desc: `1、Render functions<br>
-                2、The parameters received by the render function. row:Current row data、column:Column option、rowIndex:rowIndex、<code>h</code>：createElement`,
+                desc: `1、Render functions\r2、The parameters received by the render function. row:Current row data、column:Column option、rowIndex:rowIndex、<code>h</code>：createElement`,
                 type: "<code>Function({row,column,rowIndex},h):VNode</code>",
                 optionalVal: "-",
                 default: "-",
@@ -580,16 +575,14 @@ export const db = {
             },
             {
                 param: "beforeExpandRowChange",
-                desc: `1、Expand functions before switching,If false is returned, execution is interrupted.<br>
-                2、Receive 3 parameter,<code>beforeExpandedRowKeys</code>:All expanded keys before the change,<code>row</code>:The current row data,<code>rowIndex</code>row index`,
+                desc: `1、Expand functions before switching,If false is returned, execution is interrupted.\r2、Receive 3 parameter,<code>beforeExpandedRowKeys</code>:All expanded keys before the change,<code>row</code>:The current row data,<code>rowIndex</code>row index`,
                 type: "<code>Function({beforeExpandedRowKeys,row,rowIndex})</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "afterExpandRowChange",
-                desc: `1、Expand the function after switching.<br>
-                2、Receive 3 parameter,<code>afterExpandedRowKeys</code>:All expanded keys after change,<code>row</code>:Current row data,<code>rowIndex</code>row index`,
+                desc: `1、Expand the function after switching.\r2、Receive 3 parameter,<code>afterExpandedRowKeys</code>:All expanded keys after change,<code>row</code>:Current row data,<code>rowIndex</code>row index`,
                 type: "<code>Function({afterExpandedRowKeys,row,rowIndex})</code>",
                 optionalVal: "-",
                 default: "-",
@@ -849,24 +842,21 @@ export const db = {
         data: [
             {
                 param: "bodyCellClass",
-                desc: `1、Table body cell style<br>
-                2、Received 3 parameters,<code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index`,
+                desc: `1、Table body cell style\r2、Received 3 parameters,<code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index`,
                 type: `<code>Function({row,column,rowIndex})</code>`,
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "headerCellClass",
-                desc: `1、Header cell style<br>
-                2、Received 2 parameters,<code>column</code>:Current column option、<code>rowIndex</code>:Row index`,
+                desc: `1、Header cell style\r2、Received 2 parameters,<code>column</code>:Current column option、<code>rowIndex</code>:Row index`,
                 type: `<code>Function({column,rowIndex})</code>`,
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "footerCellClass",
-                desc: `1、Footer cell style<br>
-                2、Received 3 parameters,<code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index`,
+                desc: `1、Footer cell style\r2、Received 3 parameters,<code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index`,
                 type: `<code>Function({row,column,rowIndex})</code>`,
                 optionalVal: "-",
                 default: "-",
