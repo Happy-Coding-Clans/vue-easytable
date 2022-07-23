@@ -29,13 +29,29 @@
                     paste: true,
                     cut: true,
                     beforeCopy: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {
-                        return true;
+                        console.log("beforeCopy");
+                        this.log({ data, selectionRangeIndexes, selectionRangeKeys });
                     },
-                    afterCopy: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {},
-                    beforePaste: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {},
-                    afterPaste: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {},
-                    beforeCut: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {},
-                    afterCut: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {},
+                    afterCopy: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {
+                        console.log("afterCopy");
+                        this.log({ data, selectionRangeIndexes, selectionRangeKeys });
+                    },
+                    beforePaste: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {
+                        console.log("beforePaste");
+                        this.log({ data, selectionRangeIndexes, selectionRangeKeys });
+                    },
+                    afterPaste: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {
+                        console.log("afterPaste");
+                        this.log({ data, selectionRangeIndexes, selectionRangeKeys });
+                    },
+                    beforeCut: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {
+                        console.log("beforeCut");
+                        this.log({ data, selectionRangeIndexes, selectionRangeKeys });
+                    },
+                    afterCut: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {
+                        console.log("afterCut");
+                        this.log({ data, selectionRangeIndexes, selectionRangeKeys });
+                    },
                 },
                 virtualScrollOption: {
                     // 是否开启
@@ -85,6 +101,11 @@
                     });
                 }
                 this.tableData = data;
+            },
+            log({ data, selectionRangeIndexes, selectionRangeKeys }) {
+                console.log("data::", data);
+                console.log("selectionRangeIndexes::", selectionRangeIndexes);
+                console.log("selectionRangeKeys::", selectionRangeKeys);
             },
         },
         created() {
