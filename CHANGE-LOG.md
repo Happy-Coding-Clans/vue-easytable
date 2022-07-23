@@ -22,6 +22,7 @@ V2.18.0
 -   add theme vars @ve-table-td-editing-font-color、@ve-table-td-editing-background-color
 -   添加单元格批量复制功能
 -   添加单元格批量粘贴功能
+-   添加单元格批量剪切功能
 
 ### Bug Fixes
 
