@@ -288,11 +288,79 @@ export function onAfterPaste({ tableData, beforePasteResponse }) {
 }
 
 /**
- * @onCut
- * @desc on cut
+ * @onBeforeCut
+ * @desc on before cut
  * @param {Event} event
- * @return onCut
+ * @return {selectionRangeIndexes,selectionRangeKeys,data}
  */
-export function onCut({ event }) {
-    // feature
+export function onBeforeCut({
+    cellSelectionRangeData,
+    selectionRangeData,
+    colgroups,
+    allRowKeys,
+}) {
+    const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
+        cellSelectionRangeData;
+
+    const selectionRangeIndexes = {
+        startColIndex: colgroups.findIndex((x) => x.key === leftColKey),
+        endColIndex: colgroups.findIndex((x) => x.key === rightColKey),
+        startRowIndex: allRowKeys.indexOf(topRowKey),
+        endRowIndex: allRowKeys.indexOf(bottomRowKey),
+    };
+
+    const selectionRangeKeys = {
+        startColKey: leftColKey,
+        endColKey: rightColKey,
+        startRowKey: topRowKey,
+        endRowKey: bottomRowKey,
+    };
+
+    const response = {
+        selectionRangeIndexes,
+        selectionRangeKeys,
+        data: selectionRangeData,
+    };
+
+    return response;
+}
+
+/**
+ * @onAfterCut
+ * @desc on after cut
+ * @param {Event} event
+ * @return
+ */
+export function onAfterCut({
+    event,
+    tableData,
+    colgroups,
+    selectionRangeData,
+    selectionRangeIndexes,
+}) {
+    const spreadsheetStr = encodeToSpreadsheetStr(selectionRangeData);
+
+    const { endColIndex, endRowIndex, startColIndex, startRowIndex } =
+        selectionRangeIndexes;
+
+    // 移除制定的表格数据
+    const fieldNames = colgroups
+        .slice(startColIndex, endColIndex + 1)
+        .map((x) => x.field);
+
+    tableData.forEach((rowData, rowIndex) => {
+        if (rowIndex >= startRowIndex && rowIndex <= endRowIndex) {
+            fieldNames.forEach((fieldName) => {
+                rowData[fieldName] = "";
+            });
+        }
+    });
+
+    if (event.clipboardData) {
+        event.clipboardData.setData("text/plain", spreadsheetStr);
+    }
+    // IE browser
+    else if (window.clipboardData) {
+        window.clipboardData.setData("Text", spreadsheetStr);
+    }
 }

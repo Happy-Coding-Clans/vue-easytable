@@ -19,7 +19,8 @@ import {
     onAfterCopy,
     onBeforePaste,
     onAfterPaste,
-    onCut,
+    onBeforeCut,
+    onAfterCut,
 } from "./util/clipboard";
 import {
     getValByUnit,
@@ -2474,15 +2475,70 @@ export default {
 
         // editor cut
         editorCut(event) {
-            const { enableClipboard } = this;
+            const {
+                isCellEditing,
+                enableClipboard,
+                clipboardOption,
+                cellSelectionRangeData,
+                tableData,
+                colgroups,
+                allRowKeys,
+            } = this;
 
             if (!enableClipboard) {
                 return false;
             }
 
-            onCut({
-                event,
+            // 正在编辑的单元格不进行自定义剪切功能
+            if (isCellEditing) {
+                return false;
+            }
+
+            const {
+                cut,
+                beforeCut: beforeCutCallback,
+                afterCut: afterCutCallback,
+            } = clipboardOption || {};
+
+            if (isBoolean(cut) && !cut) {
+                return false;
+            }
+
+            event.preventDefault();
+
+            const selectionRangeData = getSelectionRangeData({
+                cellSelectionRangeData,
+                resultType: "flat",
+                tableData,
+                colgroups,
+                allRowKeys,
             });
+
+            const response = onBeforeCut({
+                cellSelectionRangeData,
+                selectionRangeData,
+                colgroups,
+                allRowKeys,
+            });
+
+            if (isFunction(beforeCutCallback)) {
+                const allowCuting = beforeCutCallback(response);
+                if (isBoolean(allowCuting) && !allowCuting) {
+                    return false;
+                }
+            }
+
+            onAfterCut({
+                event,
+                tableData,
+                colgroups,
+                selectionRangeData,
+                selectionRangeIndexes: response.selectionRangeIndexes,
+            });
+
+            if (isFunction(afterCutCallback)) {
+                afterCutCallback(response);
+            }
         },
 
         /*
