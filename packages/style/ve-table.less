@@ -279,11 +279,6 @@
 
             // cell selection
             .ve-table-selection-wrapper {
-                // .ve-table-selection-fixed-left,
-                // .ve-table-selection-middle,
-                // .ve-table-selection-fixed-right {
-                // }
-
                 .ve-table-selection-fixed-left {
                     .ve-table-selection-current,
                     .ve-table-selection-normal-area,
@@ -296,6 +291,11 @@
                             position: absolute;
                             z-index: @ve-fixed-cell-selection-border-index;
                         }
+                    }
+
+                    .ve-table-selection-normal-area-layer {
+                        position: absolute;
+                        z-index: @ve-fixed-cell-selection-border-index;
                     }
                 }
 
@@ -312,6 +312,11 @@
                             z-index: @ve-normal-cell-selection-border-index;
                         }
                     }
+
+                    .ve-table-selection-normal-area-layer {
+                        position: absolute;
+                        z-index: @ve-normal-cell-selection-border-index;
+                    }
                 }
 
                 .ve-table-selection-fixed-right {
@@ -327,6 +332,18 @@
                             z-index: @ve-fixed-cell-selection-border-index;
                         }
                     }
+
+                    .ve-table-selection-normal-area-layer {
+                        position: absolute;
+                        z-index: @ve-fixed-cell-selection-border-index;
+                    }
+                }
+
+                // 浮层
+                .ve-table-selection-normal-area-layer {
+                    background-color: rgb(14, 101, 235);
+                    opacity: 0.1;
+                    pointer-events: none;
                 }
 
                 .ve-table-selection-current,

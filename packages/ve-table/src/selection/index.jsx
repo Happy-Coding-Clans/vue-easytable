@@ -899,6 +899,14 @@ export default {
                 fixedColKeys,
             });
 
+            result.normalAreaLayer = this.getAreaLayer({
+                ...borders,
+                className: "selection-normal-area-layer",
+                fixedType,
+                totalColKeys,
+                fixedColKeys,
+            });
+
             return result;
         },
 
@@ -1364,6 +1372,68 @@ export default {
             );
         },
 
+        // get area rect
+        getAreaLayer({
+            borderWidth,
+            borderHeight,
+            topBorder,
+            className,
+            fixedType,
+            totalColKeys,
+            fixedColKeys,
+        }) {
+            const { colgroups } = this;
+
+            let isRender = true;
+
+            if (fixedType) {
+                isRender = isExistGivenFixedColKey({
+                    fixedType,
+                    colKeys: totalColKeys,
+                    colgroups,
+                });
+            }
+            // middle normal area
+            else {
+                isRender = isExistNotFixedColKey({
+                    colKeys: totalColKeys,
+                    colgroups,
+                });
+            }
+
+            if (!isRender) {
+                return null;
+            }
+
+            // fixed columns total width
+            let fixedColsTotalWidth = 0;
+            if (fixedColKeys.length) {
+                fixedColsTotalWidth = getTotalWidthByColKeys({
+                    colKeys: fixedColKeys,
+                    colgroups,
+                });
+            }
+
+            if (fixedType) {
+                borderWidth = fixedColsTotalWidth;
+                if (fixedType === COLUMN_FIXED_TYPE.LEFT) {
+                    borderWidth += 1;
+                }
+            }
+
+            return (
+                <div
+                    class={clsName(className)}
+                    style={{
+                        top: topBorder.top + "px",
+                        left: topBorder.left + "px",
+                        width: borderWidth + "px",
+                        height: borderHeight + "px",
+                    }}
+                ></div>
+            );
+        },
+
         /* 
         get table first row cell by col key
         用作跨页单元格选择，表格大小变化或者存在横向滚动条时，区域选择位置自动校准
@@ -1501,17 +1571,17 @@ export default {
             fixedLeftSelectionCurrent.autoFillArea ||
             fixedLeftSelectionArea.autoFillArea;
 
-        // normal
-        const normalSelectionCurrent = this.getSelectionCurrent({
+        // middle
+        const middleSelectionCurrent = this.getSelectionCurrent({
             fixedType: "",
         });
-        const normalSelectionArea = this.getSelectionAreas({
+        const middleSelectionArea = this.getSelectionAreas({
             fixedType: "",
         });
 
-        const normalAutoFillArea =
-            normalSelectionCurrent.autoFillArea ||
-            normalSelectionArea.autoFillArea;
+        const middleAutoFillArea =
+            middleSelectionCurrent.autoFillArea ||
+            middleSelectionArea.autoFillArea;
 
         // fixed right
         const fixedRightSelectionCurrent = this.getSelectionCurrent({
@@ -1537,14 +1607,18 @@ export default {
                     {fixedLeftSelectionArea.normalArea}
                     {/* auto fill */}
                     {fixedLeftAutoFillArea}
+                    {/* area layer */}
+                    {fixedLeftSelectionArea.normalAreaLayer}
                 </div>
                 <div class={clsName("selection-middle")}>
                     {/* current */}
-                    {normalSelectionCurrent.selectionCurrent}
+                    {middleSelectionCurrent.selectionCurrent}
                     {/* area */}
-                    {normalSelectionArea.normalArea}
+                    {middleSelectionArea.normalArea}
                     {/* auto fill */}
-                    {normalAutoFillArea}
+                    {middleAutoFillArea}
+                    {/* area layer */}
+                    {middleSelectionArea.normalAreaLayer}
                 </div>
                 <div class={clsName("selection-fixed-right")}>
                     {/* current */}
@@ -1553,6 +1627,8 @@ export default {
                     {fixedRightSelectionArea.normalArea}
                     {/* auto fill */}
                     {fixedRightAutoFillArea}
+                    {/* area layer */}
+                    {fixedRightSelectionArea.normalAreaLayer}
                 </div>
             </div>
         );
