@@ -955,4 +955,133 @@ export const db = {
         ],
         columns: columnsType1,
     },
+
+    // 单元格自动填充配置
+    cellAutofillOption: {
+        data: [
+            {
+                param: "directionX",
+                desc: `是否开启横向填充`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "directionY",
+                desc: `是否开启纵向填充`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "beforeAutofill",
+                desc: `单元格自动填充前的回调方法,返回false 则取消自动填充。参数说明：\r1、<code>direction</code>自动填充的方向\r2、<code>sourceSelectionRangeIndexes</code>自动填充来源的行和列索引\r3、<code>targetSelectionRangeIndexes</code>自动填充目标的行和列索引\r4、<code>sourceSelectionData</code>自动填充来源的数据，超出会自动去除\r5、<code>targetSelectionData</code>自动填充目标的数据`,
+                type: `<code>Function({
+                        direction,
+                        sourceSelectionRangeIndexes,
+                        targetSelectionRangeIndexes,
+                        sourceSelectionData,
+                        targetSelectionData,
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterAutofill",
+                desc: `单元格自动填充后的回调方法。参数说明：\r1、<code>direction</code>自动填充的方向\r2、<code>sourceSelectionRangeIndexes</code>自动填充来源的行和列索引\r3、<code>targetSelectionRangeIndexes</code>自动填充目标的行和列索引\r4、<code>sourceSelectionData</code>自动填充来源的数据，超出会自动去除\r5、<code>targetSelectionData</code>自动填充目标的数据`,
+                type: `<code>Function({
+                        direction,
+                        sourceSelectionRangeIndexes,
+                        targetSelectionRangeIndexes,
+                        sourceSelectionData,
+                        targetSelectionData,
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+        ],
+        columns: columnsType1,
+    },
+
+    // 剪贴板配置
+    clipboardOption: {
+        data: [
+            {
+                param: "copy",
+                desc: `是否开启单元格复制`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "paste",
+                desc: `是否单元格粘贴`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "cut",
+                desc: `是否单元格剪切`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "beforeCopy",
+                desc: `单元格拷贝前的回调方法,返回false 则取消拷贝。参数说明：\r1、<code>data</code>拷贝的数据\r2、<code>selectionRangeIndexes</code>拷贝区域的索引信息\r3、<code>selectionRangeKeys</code>拷贝区域的key信息`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterCopy",
+                desc: `单元格拷贝后回调方法。参数说明：\r1、<code>data</code>拷贝的数据\r2、<code>selectionRangeIndexes</code>拷贝区域的索引信息\r3、<code>selectionRangeKeys</code>拷贝区域的key信息`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "beforePaste",
+                desc: `单元格粘贴前的回调方法,返回false 则取消粘贴。参数说明：\r1、<code>data</code>粘贴的数据\r2、<code>selectionRangeIndexes</code>粘贴区域的索引信息\r3、<code>selectionRangeKeys</code>粘贴区域的key信息`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterPaste",
+                desc: `单元格粘贴后回调方法。参数说明：\r1、<code>data</code>粘贴的数据\r2、<code>selectionRangeIndexes</code>粘贴区域的索引信息\r3、<code>selectionRangeKeys</code>粘贴区域的key信息`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "beforeCut",
+                desc: `单元格剪切前的回调方法,返回false 则取消剪切。参数说明：\r1、<code>data</code>粘贴的数据\r2、<code>selectionRangeIndexes</code>粘贴区域的索引信息\r3、<code>selectionRangeKeys</code>粘贴区域的key信息`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterCut",
+                desc: `单元格剪切后回调方法。参数说明：\r1、<code>data</code>剪切的数据\r2、<code>selectionRangeIndexes</code>剪切区域的索引信息\r3、<code>selectionRangeKeys</code>剪切区域的key信息`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+        ],
+        columns: columnsType1,
+    },
 };

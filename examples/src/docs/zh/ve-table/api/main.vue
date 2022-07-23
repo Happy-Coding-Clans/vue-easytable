@@ -33,6 +33,10 @@
         <contextmenuBodyOption />
         <!-- Event Custom Option -->
         <EventCustomOption />
+        <!-- Cell Autofill Option -->
+        <cellAutofillOption />
+        <!-- Clipboard Option -->
+        <clipboardOption />
     </div>
 </template>
 <script>
@@ -53,6 +57,8 @@ import RowStyleOption from "./row-style-option-props";
 import CellSelectionOption from "./cell-selection-option-props";
 import EditOption from "./edit-option-props";
 import contextmenuBodyOption from "./contextmenu-body-option-props";
+import cellAutofillOption from "./cell-autofill-option-props";
+import clipboardOption from "./clipboard-option-props";
 export default {
     components: {
         TableProps,
@@ -71,6 +77,8 @@ export default {
         CellSelectionOption,
         EditOption,
         contextmenuBodyOption,
+        cellAutofillOption,
+        clipboardOption,
     },
     data() {
         return {
