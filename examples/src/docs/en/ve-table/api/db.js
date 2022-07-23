@@ -1029,7 +1029,7 @@ export const db = {
             },
             {
                 param: "beforeCopy",
-                desc: `单元格拷贝前的回调方法,返回false 则取消拷贝。参数说明：\r1、<code>data</code>拷贝的数据\r2、<code>selectionRangeIndexes</code>拷贝区域的索引信息\r3、<code>selectionRangeKeys</code>拷贝区域的key信息`,
+                desc: `The callback method before cell copy. If false is returned, the copy will be canceled. Parameter Description:\r1、<code>data</code>copy data\r2、<code>selectionRangeIndexes</code>The indexs information of copy area\r3、<code>selectionRangeKeys</code>The keys information of copy area`,
                 type: `<code>Function({
                     data, selectionRangeIndexes, selectionRangeKeys
 })</code>`,
@@ -1038,7 +1038,7 @@ export const db = {
             },
             {
                 param: "afterCopy",
-                desc: `单元格拷贝后回调方法。参数说明：\r1、<code>data</code>拷贝的数据\r2、<code>selectionRangeIndexes</code>拷贝区域的索引信息\r3、<code>selectionRangeKeys</code>拷贝区域的key信息`,
+                desc: `The callback method after cell copy. Parameter Description:\r1、<code>data</code>copy data\r2、<code>selectionRangeIndexes</code>The indexs information of copy area\r3、<code>selectionRangeKeys</code>The keys information of copy area`,
                 type: `<code>Function({
                     data, selectionRangeIndexes, selectionRangeKeys
 })</code>`,
@@ -1047,7 +1047,7 @@ export const db = {
             },
             {
                 param: "beforePaste",
-                desc: `单元格粘贴前的回调方法,返回false 则取消粘贴。参数说明：\r1、<code>data</code>粘贴的数据\r2、<code>selectionRangeIndexes</code>粘贴区域的索引信息\r3、<code>selectionRangeKeys</code>粘贴区域的key信息`,
+                desc: `The callback method before cell paste. If false is returned, the copy will be canceled. Parameter Description:\r1、<code>data</code>paste data\r2、<code>selectionRangeIndexes</code>The indexs information of paste area\r3、<code>selectionRangeKeys</code>The keys information of copy paste`,
                 type: `<code>Function({
                     data, selectionRangeIndexes, selectionRangeKeys
 })</code>`,
@@ -1056,7 +1056,7 @@ export const db = {
             },
             {
                 param: "afterPaste",
-                desc: `单元格粘贴后回调方法。参数说明：\r1、<code>data</code>粘贴的数据\r2、<code>selectionRangeIndexes</code>粘贴区域的索引信息\r3、<code>selectionRangeKeys</code>粘贴区域的key信息`,
+                desc: `The callback method after cell paste. Parameter Description:\r1、<code>data</code>paste data\r2、<code>selectionRangeIndexes</code>The indexs information of paste area\r3、<code>selectionRangeKeys</code>The keys information of copy paste`,
                 type: `<code>Function({
                     data, selectionRangeIndexes, selectionRangeKeys
 })</code>`,
@@ -1065,7 +1065,7 @@ export const db = {
             },
             {
                 param: "beforeCut",
-                desc: `单元格剪切前的回调方法,返回false 则取消剪切。参数说明：\r1、<code>data</code>粘贴的数据\r2、<code>selectionRangeIndexes</code>粘贴区域的索引信息\r3、<code>selectionRangeKeys</code>粘贴区域的key信息`,
+                desc: `The callback method before cell cut. If false is returned, the copy will be canceled. Parameter Description:\r1、<code>data</code>cut data\r2、<code>selectionRangeIndexes</code>The indexs information of cut area\r3、<code>selectionRangeKeys</code>The keys information of cut paste`,
                 type: `<code>Function({
                     data, selectionRangeIndexes, selectionRangeKeys
 })</code>`,
@@ -1074,7 +1074,7 @@ export const db = {
             },
             {
                 param: "afterCut",
-                desc: `单元格剪切后回调方法。参数说明：\r1、<code>data</code>剪切的数据\r2、<code>selectionRangeIndexes</code>剪切区域的索引信息\r3、<code>selectionRangeKeys</code>剪切区域的key信息`,
+                desc: `The callback method after cell cut. Parameter Description:\r1、<code>data</code>cut data\r2、<code>selectionRangeIndexes</code>The indexs information of cut area\r3、<code>selectionRangeKeys</code>The keys information of cut paste`,
                 type: `<code>Function({
                     data, selectionRangeIndexes, selectionRangeKeys
 })</code>`,
