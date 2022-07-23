@@ -961,21 +961,21 @@ export const db = {
         data: [
             {
                 param: "directionX",
-                desc: `是否开启横向填充`,
+                desc: `enable horizontal autofill`,
                 type: `<code>Boolean</code>`,
                 optionalVal: "-",
                 default: "true",
             },
             {
                 param: "directionY",
-                desc: `是否开启纵向填充`,
+                desc: `enable vertical autofill`,
                 type: `<code>Boolean</code>`,
                 optionalVal: "-",
                 default: "true",
             },
             {
                 param: "beforeAutofill",
-                desc: `单元格自动填充前的回调方法,返回false 则取消自动填充。参数说明：\r1、<code>direction</code>自动填充的方向\r2、<code>sourceSelectionRangeIndexes</code>自动填充来源的行和列索引\r3、<code>targetSelectionRangeIndexes</code>自动填充目标的行和列索引\r4、<code>sourceSelectionData</code>自动填充来源的数据，超出会自动去除\r5、<code>targetSelectionData</code>自动填充目标的数据`,
+                desc: `The callback method before cell autofilling. If false is returned, the autofilling will be cancelled.Parameter Description:\r1、<code>direction</code>autofill direction\r2、<code>sourceSelectionRangeIndexes</code>Autofilling the row and column indexes of the source\r3、<code>targetSelectionRangeIndexes</code>Autofilling the row and column indexes of the target\r4、<code>sourceSelectionData</code>autofilling source data,Excess will be removed automatically\r5、<code>targetSelectionData</code>autofilling target data`,
                 type: `<code>Function({
                         direction,
                         sourceSelectionRangeIndexes,
@@ -988,7 +988,7 @@ export const db = {
             },
             {
                 param: "afterAutofill",
-                desc: `单元格自动填充后的回调方法。参数说明：\r1、<code>direction</code>自动填充的方向\r2、<code>sourceSelectionRangeIndexes</code>自动填充来源的行和列索引\r3、<code>targetSelectionRangeIndexes</code>自动填充目标的行和列索引\r4、<code>sourceSelectionData</code>自动填充来源的数据，超出会自动去除\r5、<code>targetSelectionData</code>自动填充目标的数据`,
+                desc: `The callback method after cell autofilling.Parameter Description:\r1、<code>direction</code>autofill direction\r2、<code>sourceSelectionRangeIndexes</code>Autofilling the row and column indexes of the source\r3、<code>targetSelectionRangeIndexes</code>Autofilling the row and column indexes of the target\r4、<code>sourceSelectionData</code>autofilling source data,Excess will be removed automatically\r5、<code>targetSelectionData</code>autofilling target data`,
                 type: `<code>Function({
                         direction,
                         sourceSelectionRangeIndexes,
@@ -1008,21 +1008,21 @@ export const db = {
         data: [
             {
                 param: "copy",
-                desc: `是否开启单元格复制`,
+                desc: `enable cell copy`,
                 type: `<code>Boolean</code>`,
                 optionalVal: "-",
                 default: "true",
             },
             {
                 param: "paste",
-                desc: `是否单元格粘贴`,
+                desc: `enable cell paste`,
                 type: `<code>Boolean</code>`,
                 optionalVal: "-",
                 default: "true",
             },
             {
                 param: "cut",
-                desc: `是否单元格剪切`,
+                desc: `enable cell cut`,
                 type: `<code>Boolean</code>`,
                 optionalVal: "-",
                 default: "true",
