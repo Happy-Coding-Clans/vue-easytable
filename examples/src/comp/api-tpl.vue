@@ -9,7 +9,7 @@
             :border-around="true"
             :border-x="true"
             :border-y="false"
-            row-key-field-name="rowKey"
+            row-key-field-name="param"
             :expand-option="expandOption"
             :cell-selection-option="cellSelectionOption"
         />
@@ -47,7 +47,7 @@ export default {
         return {
             cellSelectionOption: {
                 // default true
-                enable: false,
+                enable: true,
             },
         };
     },

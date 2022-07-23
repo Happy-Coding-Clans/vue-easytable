@@ -376,7 +376,7 @@ export const db = {
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
-                rowKey: 49,
+                expandId: 49,
             },
             {
                 param: "<span class='expand'>filter</span>",
@@ -384,7 +384,7 @@ export const db = {
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
-                rowKey: 50,
+                expandId: 50,
             },
             {
                 param: "<span class='expand'>filterCustom</span>",
@@ -392,7 +392,7 @@ export const db = {
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
-                rowKey: 55,
+                expandId: 55,
             },
         ],
         columns: columnsType1,
@@ -401,8 +401,7 @@ export const db = {
             data: [
                 {
                     param: "filterList",
-                    desc: `	1、filter conditions<br>
-                    2、It contains three attributes: label、 value and selected. like:<code>[{ value: 0, label: "1900-05-20", selected: false }]</code>`,
+                    desc: `1、filter conditions<br>2、It contains three attributes: label、 value and selected. like:<code>[{ value: 0, label: "1900-05-20", selected: false }]</code>`,
                     type: "<code>Array</code>",
                     optionalVal: "-",
                     default: "-",
@@ -450,8 +449,7 @@ export const db = {
             data: [
                 {
                     param: "render",
-                    desc: `1、Render function<br>
-                    2、Parameters received by render functions,showFn:show filter box function、closeFn:close filter box function、<code>h</code>：createElement`,
+                    desc: `1、Render function<br>2、Parameters received by render functions,showFn:show filter box function、closeFn:close filter box function、<code>h</code>：createElement`,
                     type: "<code>Function({showFn,closeFn},h):VNode</code>",
                     optionalVal: "-",
                     default: "-",
