@@ -20,6 +20,8 @@ V2.18.0
 -   `cellSelectionOption` add props `autofillChange`
 -   add operation column
 -   add theme vars @ve-table-td-editing-font-color、@ve-table-td-editing-background-color
+-   添加单元格批量复制功能
+-   添加单元格批量粘贴功能
 
 ### Bug Fixes
 
