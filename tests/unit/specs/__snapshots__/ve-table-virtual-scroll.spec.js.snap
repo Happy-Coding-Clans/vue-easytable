@@ -166,6 +166,7 @@ exports[`veTable virtual scroll render same row height 1`] = `
       </div>
     </div>
   </div>
+  <div class="ve-table-edit-input-container" style="top: 0px; left: 0px; height: 1px; z-index: -1; opacity: 0;"><textarea tabindex="-1" class="ve-table-edit-input"></textarea></div>
 </div>
 `;
 
