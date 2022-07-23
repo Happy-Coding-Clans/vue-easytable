@@ -2341,6 +2341,7 @@ export default {
         // editor copy
         editorCopy(event) {
             const {
+                isCellEditing,
                 enableClipboard,
                 clipboardOption,
                 cellSelectionRangeData,
@@ -2350,6 +2351,11 @@ export default {
             } = this;
 
             if (!enableClipboard) {
+                return false;
+            }
+
+            // 正在编辑的单元格不进行自定义复制功能
+            if (isCellEditing) {
                 return false;
             }
 
@@ -2396,9 +2402,14 @@ export default {
 
         // editor paste
         editorPaste(event) {
-            const { enableClipboard, clipboardOption } = this;
+            const { isCellEditing, enableClipboard, clipboardOption } = this;
 
             if (!enableClipboard) {
+                return false;
+            }
+
+            // 正在编辑的单元格不进行自定义粘贴功能
+            if (isCellEditing) {
                 return false;
             }
 
