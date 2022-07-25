@@ -690,6 +690,20 @@ export default {
             },
             immediate: true,
         },
+        allRowKeys: {
+            handler(newVal) {
+                if (Array.isArray(newVal)) {
+                    const { currentCell } = this.cellSelectionData;
+                    // 行被移除，清空单元格选中
+                    if (currentCell.rowIndex > -1) {
+                        if (newVal.indexOf(currentCell.rowKey) === -1) {
+                            this.clearCellSelectionCurrentCell();
+                        }
+                    }
+                }
+            },
+            immediate: false,
+        },
         columns: {
             handler(newVal, oldVal) {
                 this.initColumns();
