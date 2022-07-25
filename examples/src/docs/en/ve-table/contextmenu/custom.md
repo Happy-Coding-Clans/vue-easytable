@@ -30,15 +30,13 @@
                     callback: ({ type, selection }) => {
                         const { rowKey, colKey } = selection;
 
-                        const rowIndex = this.tableData.findIndex((x) => x.rowKey === rowKey);
-
                         // custom empty row
                         if (type === "custom-empty-row") {
                             this.tableData = this.tableData.map((rowData) => {
                                 // empty current row
                                 if (rowData.rowKey === rowKey) {
-                                    this.columns.forEach((column) => {
-                                        rowData[column.field] = "";
+                                    Object.keys(rowData).forEach((field) => {
+                                        rowData[field] = "";
                                     });
                                 }
                                 return rowData;
