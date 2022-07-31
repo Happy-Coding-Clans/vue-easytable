@@ -331,6 +331,8 @@ export default {
             enableStopEditing: true,
             // contextmenu event target
             contextmenuEventTarget: "",
+            start: 0,
+            end: 0
         };
     },
     computed: {
@@ -1155,8 +1157,29 @@ export default {
 
             let start = startIndex - aboveCount;
             let end = endIndex + belowCount;
-
-            this.virtualScrollVisibleData = tableData.slice(start, end);
+            if(end <= this.start) {
+                this.virtualScrollVisibleData = tableData.slice(start, end);
+                return
+            };
+            if(start >= this.start) {
+                this.virtualScrollVisibleData = tableData.slice(this.start, end);
+            } else {
+                this.virtualScrollVisibleData = tableData.slice(start, this.end);
+            }
+            
+            this.$nextTick(() => {
+                
+                if(start >= this.start) {
+                    this.start= start;
+                    this.end= end;
+                    this.virtualScrollVisibleData = tableData.slice(this.start, end);
+                } else {
+                    this.start= start;
+                    this.end= end;
+                    this.virtualScrollVisibleData = tableData.slice(start, this.end);
+                }
+       
+            })
         },
 
         // get virtual scroll above count
@@ -1447,7 +1470,9 @@ export default {
                 this.virtualScrollStartIndex = startIndex;
                 this.virtualScrollEndIndex =
                     startIndex + this.virtualScrollVisibleCount;
-
+                this.start = startIndex;
+                const belowCount = this.getVirtualScrollBelowCount();
+                this.end = this.virtualScrollEndIndex + belowCount; 
                 // 修复渲染结束，同时开启虚拟滚动和设置表格数据，无法设置 virtual phantom 高度的问题
                 this.$nextTick(() => {
                     const tableContainerRef =
