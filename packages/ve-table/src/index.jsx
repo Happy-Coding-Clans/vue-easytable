@@ -526,14 +526,21 @@ export default {
         },
         // table container class
         tableContainerClass() {
-            const { isVirtualScroll, isLeftScrolling, isRightScrolling } = this;
+            const {
+                isVirtualScroll,
+                isLeftScrolling,
+                isRightScrolling,
+                isCellEditing,
+                isAutofillStarting,
+            } = this;
 
             return {
                 [clsName("container")]: true,
                 [clsName("virtual-scroll")]: isVirtualScroll,
                 [clsName("container-left-scrolling")]: isLeftScrolling,
                 [clsName("container-right-scrolling")]: isRightScrolling,
-                [clsName("is-cell-editing")]: this.isCellEditing,
+                [clsName("is-cell-editing")]: isCellEditing,
+                [clsName("autofilling")]: isAutofillStarting,
             };
         },
         // table body class
@@ -2966,8 +2973,8 @@ export default {
             },
         };
 
-        // wrapper container props
-        const wrapperContainerProps = {
+        // table root props
+        const tableRootProps = {
             class: {
                 "ve-table": true,
                 [clsName("border-around")]: this.borderAround,
@@ -2995,8 +3002,8 @@ export default {
             ],
         };
 
-        // container props
-        const containerProps = {
+        // table container props
+        const tableContainerProps = {
             ref: this.tableContainerRef,
             class: this.tableContainerClass,
             style: tableContainerStyle,
@@ -3043,7 +3050,7 @@ export default {
             },
         };
 
-        // tale props
+        // table wrapper props
         const tableWrapperProps = {
             ref: this.tableContentWrapperRef,
             class: [clsName("content-wrapper")],
@@ -3146,8 +3153,8 @@ export default {
         };
 
         return (
-            <VueDomResizeObserver {...wrapperContainerProps}>
-                <div {...containerProps}>
+            <VueDomResizeObserver {...tableRootProps}>
+                <div {...tableContainerProps}>
                     {/* virtual view phantom */}
                     {this.getVirtualViewPhantom()}
                     {/* vue 实例类型，访问dom时需要通过$el属性访问 */}

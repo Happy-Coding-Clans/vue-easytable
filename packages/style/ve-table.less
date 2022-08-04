@@ -356,7 +356,6 @@
                         border-color: rgb(255, 255, 255);
                         background-color: rgb(75, 137, 255);
                         cursor: crosshair;
-                        user-select: none;
                     }
 
                     .ve-table-selection-border {
@@ -399,6 +398,11 @@
             .ve-table-first-right-fixed-column {
                 border-left: 1px solid @ve-table-column-fixed-border-color;
             }
+        }
+
+        // autofilling
+        &.ve-table-autofilling {
+            cursor: crosshair;
         }
 
         // border x
