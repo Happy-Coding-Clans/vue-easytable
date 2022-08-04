@@ -48,7 +48,7 @@ export default {
         return {
             cellSelectionOption: {
                 // default true
-                enable: true,
+                enable: false,
             },
             cloneTable: [],
         };
