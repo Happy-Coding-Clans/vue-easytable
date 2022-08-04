@@ -2,7 +2,7 @@
 
 exports[`veTable cell ellipsis render single line ellipsis 1`] = `
 <div class="ve-table ve-table-border-around">
-  <div class="ve-table-container" style="height: 0px;">
+  <div class="ve-table-container ve-table-enable-cell-selection" style="height: 0px;">
     <div class="ve-table-content-wrapper">
       <table class="ve-table-content ve-table-border-x">
         <colgroup>
