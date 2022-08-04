@@ -532,6 +532,7 @@ export default {
                 isRightScrolling,
                 isCellEditing,
                 isAutofillStarting,
+                enableCellSelection,
             } = this;
 
             return {
@@ -541,6 +542,8 @@ export default {
                 [clsName("container-right-scrolling")]: isRightScrolling,
                 [clsName("is-cell-editing")]: isCellEditing,
                 [clsName("autofilling")]: isAutofillStarting,
+                // 如果开启单元格选择，则关闭 user-select
+                [clsName("enable-cell-selection")]: enableCellSelection,
             };
         },
         // table body class

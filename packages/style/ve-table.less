@@ -24,7 +24,6 @@
 .ve-table {
     position: relative;
     overflow: hidden;
-    user-select: none;
 
     // table container
     .ve-table-container {
@@ -131,7 +130,6 @@
                         height: @ve-table-body-row-height;
                         td.ve-table-body-td,
                         td.ve-table-expand-td {
-                            user-select: none;
                             background-color: @ve-table-body-background-color;
                             color: @ve-table-body-text-color;
                             // hack content fill td height
@@ -403,6 +401,11 @@
         // autofilling
         &.ve-table-autofilling {
             cursor: crosshair;
+        }
+
+        // enable cell selection
+        &.ve-table-enable-cell-selection {
+            user-select: none;
         }
 
         // border x
