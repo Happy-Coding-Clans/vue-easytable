@@ -608,13 +608,6 @@ export default {
         hasEditColumn() {
             return this.colgroups.some((x) => x.edit);
         },
-        /*
-         enable edit 
-         剪贴板功能依赖此功能
-         */
-        enableEdit() {
-            return !isEmptyValue(this.rowKeyFieldName);
-        },
         // enable contextmenu
         enableContextmenu() {
             let result = false;
@@ -629,7 +622,10 @@ export default {
             }
             return result;
         },
-        // enable cell selection
+        /*
+        enable cell selection
+        单元格编辑、剪贴板都依赖单元格选择
+        */
         enableCellSelection() {
             let result = true;
 
@@ -3179,7 +3175,7 @@ export default {
                     </VueDomResizeObserver>
                 </div>
                 {/* edit input */}
-                {this.enableEdit && <EditInput {...editInputProps} />}
+                {this.enableCellSelection && <EditInput {...editInputProps} />}
                 {/* contextmenu */}
                 {this.enableContextmenu && (
                     <VeContextmenu {...contextmenuProps} />
