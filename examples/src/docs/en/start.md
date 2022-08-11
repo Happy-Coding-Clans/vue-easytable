@@ -16,7 +16,7 @@ yarn add vue-easytable
 
 #### Fully import
 
-Write the following in mian.js：
+Write the following in main.js：
 
 ```javascript
 import Vue from "vue";
@@ -35,7 +35,7 @@ The above code completes the introduction of vue-easytable.Don't forget to impor
 
 #### On demand
 
-Write the following in mian.js：
+Write the following in main.js：
 
 ```javascript
 import Vue from "vue";
