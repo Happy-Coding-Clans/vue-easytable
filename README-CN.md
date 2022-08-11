@@ -83,9 +83,9 @@ yarn add vue-easytable
 
 ## 使用
 
-Write the following in mian.js：
+Write the following in main.js:
 
-```
+```javascript
 import Vue from "vue";
 import "vue-easytable/libs/theme-default/index.css";
 import VueEasytable from "vue-easytable";
@@ -100,7 +100,7 @@ new Vue({
 
 Example:
 
-```
+```javascript
 <template>
   <ve-table :columns="columns" :table-data="tableData" />
 </template>
