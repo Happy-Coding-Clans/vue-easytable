@@ -85,6 +85,10 @@ export default {
                 return [];
             },
         },
+        showHeader: {
+            type: Boolean,
+            default: true,
+        },
         columns: {
             type: Array,
             required: true,
@@ -673,9 +677,13 @@ export default {
         },
         // header total height
         headerTotalHeight() {
-            return this.headerRows.reduce((total, currentVal) => {
-                return currentVal.rowHeight + total;
-            }, 0);
+            let result = 0;
+            if (this.showHeader) {
+                result = this.headerRows.reduce((total, currentVal) => {
+                    return currentVal.rowHeight + total;
+                }, 0);
+            }
+            return result;
         },
         // footer total height
         footerTotalHeight() {
@@ -2637,7 +2645,7 @@ export default {
 
             let scrollTop = 0;
 
-            const { isVirtualScroll, headerRows } = this;
+            const { isVirtualScroll, headerTotalHeight } = this;
 
             const tableContainerRef = this.$refs[this.tableContainerRef];
 
@@ -2662,14 +2670,7 @@ export default {
                     `tbody tr[${COMPS_CUSTOM_ATTRS.BODY_ROW_KEY}="${rowKey}"]`,
                 );
 
-                const totalHeaderHeight = headerRows.reduce(
-                    (total, currentVal) => {
-                        return currentVal.rowHeight + total;
-                    },
-                    0,
-                );
-
-                scrollTop = rowEl.offsetTop - totalHeaderHeight;
+                scrollTop = rowEl.offsetTop - headerTotalHeight;
             }
 
             scrollTo(tableContainerRef, {
@@ -2870,6 +2871,7 @@ export default {
     },
     render() {
         const {
+            showHeader,
             tableViewportWidth,
             tableContainerStyle,
             tableStyle,
@@ -3162,7 +3164,7 @@ export default {
                             {/* colgroup */}
                             <Colgroup colgroups={colgroups} />
                             {/* table header */}
-                            <Header {...headerProps} />
+                            {showHeader && <Header {...headerProps} />}
                             {/* table body */}
                             <Body {...bodyProps} />
                             {/* table footer */}
