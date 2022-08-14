@@ -141,6 +141,13 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
+                path: "header-hidden",
+                component: () =>
+                    import("@/docs/en/ve-table/header-hidden/main.vue"),
+                name: "Header Hidden",
+                meta: { keepAlive: true },
+            },
+            {
                 path: "header-filter",
                 component: () =>
                     import("@/docs/en/ve-table/header-filter/main.vue"),

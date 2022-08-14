@@ -124,6 +124,13 @@ export const db = {
                 default: "-",
             },
             {
+                param: "showHeader",
+                desc: `是否展示表头`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
                 param: "fixedHeader",
                 desc: "是否固定表头，默认启用。需要和 `maxHeight`结合使用",
                 type: "<code>Boolean</code>",

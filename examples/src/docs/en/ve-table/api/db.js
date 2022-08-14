@@ -104,7 +104,7 @@ export const db = {
         data: [
             {
                 param: "tableData",
-                desc: "table data",
+                desc: "Table data",
                 type: "<code>Array</code>",
                 optionalVal: "-",
                 default: "-",
@@ -122,6 +122,13 @@ export const db = {
                 type: `<code>Array</code>`,
                 optionalVal: "-",
                 default: "-",
+            },
+            {
+                param: "showHeader",
+                desc: `Show header`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
             },
             {
                 param: "fixedHeader",
@@ -189,7 +196,7 @@ export const db = {
             },
             {
                 param: "cellStyleOption",
-                desc: "cell style option,Refer to cellStyleOption option for details",
+                desc: "Cell style option,Refer to cellStyleOption option for details",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
@@ -203,7 +210,7 @@ export const db = {
             },
             {
                 param: "expandOption",
-                desc: "row expand option,Refer to expandOption option for details",
+                desc: "Row expand option,Refer to expandOption option for details",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",

@@ -141,6 +141,13 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
+                path: "header-hidden",
+                component: () =>
+                    import("@/docs/zh/ve-table/header-hidden/main.vue"),
+                name: "表头隐藏",
+                meta: { keepAlive: true },
+            },
+            {
                 path: "header-filter",
                 component: () =>
                     import("@/docs/zh/ve-table/header-filter/main.vue"),
