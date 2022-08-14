@@ -99,9 +99,10 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
-                path: "border",
-                component: () => import("@/docs/zh/ve-table/border/main.vue"),
-                name: "边框",
+                path: "table-border",
+                component: () =>
+                    import("@/docs/zh/ve-table/table-border/main.vue"),
+                name: "表格边框",
                 meta: { keepAlive: true },
             },
             {
