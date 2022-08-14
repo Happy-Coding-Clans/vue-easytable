@@ -6,9 +6,9 @@
 <template>
     <div>
         <el-radio-group @change="autofillTypeChang" v-model="autofillType">
-            <el-radio :label="1">horizontal</el-radio>
-            <el-radio :label="2">vertical</el-radio>
-            <el-radio :label="3">All</el-radio>
+            <el-radio label="Horizontal">Horizontal</el-radio>
+            <el-radio label="Vertical">Vertical</el-radio>
+            <el-radio label="All">All</el-radio>
         </el-radio-group>
         <br />
         <br />
@@ -27,7 +27,7 @@
     export default {
         data() {
             return {
-                autofillType: 3,
+                autofillType: "All",
                 cellAutofillOption: {
                     directionX: true,
                     directionY: true,
@@ -47,11 +47,11 @@
             autofillTypeChang(type) {
                 this.cellAutofillOption.directionX = false;
                 this.cellAutofillOption.directionY = false;
-                if (type === 1) {
+                if (type === "Horizontal") {
                     this.cellAutofillOption.directionX = true;
-                } else if (type === 2) {
+                } else if (type === "Vertical") {
                     this.cellAutofillOption.directionY = true;
-                } else if (type === 3) {
+                } else if (type === "All") {
                     this.cellAutofillOption.directionX = true;
                     this.cellAutofillOption.directionY = true;
                 }
