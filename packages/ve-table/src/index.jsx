@@ -2060,10 +2060,12 @@ export default {
          * @param {object} column - column data
          */
         tdContextmenu({ rowData, column }) {
-            const { editOption, rowKeyFieldName } = this;
+            const { editOption, rowKeyFieldName, colgroups } = this;
 
             // cell selection by click
-            this.cellSelectionByClick({ rowData, column });
+            if (!isOperationColumn(column.key, colgroups)) {
+                this.cellSelectionByClick({ rowData, column });
+            }
 
             if (editOption) {
                 const rowKey = getRowKey(rowData, rowKeyFieldName);
