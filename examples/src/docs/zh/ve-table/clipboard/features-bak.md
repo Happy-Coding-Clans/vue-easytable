@@ -30,6 +30,7 @@
                     copy: true,
                     paste: true,
                     cut: true,
+                    delete: true,
                     beforeCopy: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {
                         return true;
                     },
@@ -38,6 +39,8 @@
                     afterPaste: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {},
                     beforeCut: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {},
                     afterCut: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {},
+                    beforeDelete: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {},
+                    afterDelete: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {},
                 },
                 columns: [
                     {

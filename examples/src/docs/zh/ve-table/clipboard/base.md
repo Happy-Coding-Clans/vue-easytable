@@ -28,6 +28,7 @@
                     copy: true,
                     paste: true,
                     cut: true,
+                    delete: true,
                     beforeCopy: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {
                         console.log("beforeCopy");
                         this.log({ data, selectionRangeIndexes, selectionRangeKeys });
@@ -50,6 +51,16 @@
                     },
                     afterCut: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {
                         console.log("afterCut");
+                        this.log({ data, selectionRangeIndexes, selectionRangeKeys });
+                    },
+                    beforeDelete: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {
+                        return false;
+
+                        console.log("beforeDelete");
+                        this.log({ data, selectionRangeIndexes, selectionRangeKeys });
+                    },
+                    afterDelete: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {
+                        console.log("afterDelete");
                         this.log({ data, selectionRangeIndexes, selectionRangeKeys });
                     },
                 },
