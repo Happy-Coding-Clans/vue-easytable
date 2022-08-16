@@ -21,6 +21,8 @@ import {
     onAfterPaste,
     onBeforeCut,
     onAfterCut,
+    onBeforeDelete,
+    onAfterDelete,
 } from "./util/clipboard";
 import {
     getValByUnit,
@@ -1374,8 +1376,8 @@ export default {
                     }
                     case KEY_CODES.DELETE: {
                         if (!isCellEditing) {
-                            // delete selection cell value
-                            this.deleteCellValue();
+                            // delete cell selection range value
+                            this.deleteCellSelectionRangeValue();
                             event.preventDefault();
                         }
 
@@ -1954,47 +1956,6 @@ export default {
             this[INSTANCE_METHODS.STOP_EDITING_CELL]();
         },
 
-        // delete selection cell value
-        deleteCellValue() {
-            const {
-                colgroups,
-                rowKeyFieldName,
-                editOption,
-                cellSelectionData,
-            } = this;
-
-            const { rowKey, colKey } = cellSelectionData.currentCell;
-
-            if (isEmptyValue(rowKey) || isEmptyValue(colKey)) {
-                return false;
-            }
-
-            if (!editOption) {
-                return false;
-            }
-
-            const currentColumn = colgroups.find((x) => x.key === colKey);
-
-            if (!currentColumn.edit) {
-                return false;
-            }
-
-            const { cellValueChange } = editOption;
-
-            let currentRow = this.tableData.find(
-                (x) => x[rowKeyFieldName] === rowKey,
-            );
-
-            if (currentRow) {
-                currentRow[currentColumn.field] = "";
-                cellValueChange &&
-                    cellValueChange({
-                        row: currentRow,
-                        column: currentColumn,
-                    });
-            }
-        },
-
         // save cell when stop editing
         saveCellWhenStopEditing() {
             const {
@@ -2568,6 +2529,73 @@ export default {
 
             if (isFunction(afterCutCallback)) {
                 afterCutCallback(response);
+            }
+        },
+
+        // delete selection cell value
+        deleteCellSelectionRangeValue() {
+            const {
+                isCellEditing,
+                enableClipboard,
+                clipboardOption,
+                cellSelectionRangeData,
+                tableData,
+                colgroups,
+                allRowKeys,
+            } = this;
+
+            if (!enableClipboard) {
+                return false;
+            }
+
+            // 正在编辑的单元格不进行删除区域单元格功能
+            if (isCellEditing) {
+                return false;
+            }
+
+            const {
+                // delete is key word
+                delete: delete2,
+                beforeDelete: beforeDeleteCallback,
+                afterDelete: afterDeleteCallback,
+            } = clipboardOption || {};
+
+            if (isBoolean(delete2) && !delete2) {
+                return false;
+            }
+
+            event.preventDefault();
+
+            const selectionRangeData = getSelectionRangeData({
+                cellSelectionRangeData,
+                resultType: "flat",
+                tableData,
+                colgroups,
+                allRowKeys,
+            });
+
+            const response = onBeforeDelete({
+                cellSelectionRangeData,
+                selectionRangeData,
+                colgroups,
+                allRowKeys,
+            });
+
+            if (isFunction(beforeDeleteCallback)) {
+                const allowDeleting = beforeDeleteCallback(response);
+                if (isBoolean(allowDeleting) && !allowDeleting) {
+                    return false;
+                }
+            }
+
+            onAfterDelete({
+                tableData,
+                colgroups,
+                selectionRangeIndexes: response.selectionRangeIndexes,
+            });
+
+            if (isFunction(afterDeleteCallback)) {
+                afterDeleteCallback(response);
             }
         },
 

@@ -364,3 +364,65 @@ export function onAfterCut({
         window.clipboardData.setData("Text", spreadsheetStr);
     }
 }
+
+/**
+ * @onBeforeDelete
+ * @desc on before delete
+ * @param {Event} event
+ * @return {selectionRangeIndexes,selectionRangeKeys,data}
+ */
+export function onBeforeDelete({
+    cellSelectionRangeData,
+    selectionRangeData,
+    colgroups,
+    allRowKeys,
+}) {
+    const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
+        cellSelectionRangeData;
+
+    const selectionRangeIndexes = {
+        startColIndex: colgroups.findIndex((x) => x.key === leftColKey),
+        endColIndex: colgroups.findIndex((x) => x.key === rightColKey),
+        startRowIndex: allRowKeys.indexOf(topRowKey),
+        endRowIndex: allRowKeys.indexOf(bottomRowKey),
+    };
+
+    const selectionRangeKeys = {
+        startColKey: leftColKey,
+        endColKey: rightColKey,
+        startRowKey: topRowKey,
+        endRowKey: bottomRowKey,
+    };
+
+    const response = {
+        selectionRangeIndexes,
+        selectionRangeKeys,
+        data: selectionRangeData,
+    };
+
+    return response;
+}
+
+/**
+ * @onAfterDelete
+ * @desc on after delete
+ * @param {Event} event
+ * @return
+ */
+export function onAfterDelete({ tableData, colgroups, selectionRangeIndexes }) {
+    const { endColIndex, endRowIndex, startColIndex, startRowIndex } =
+        selectionRangeIndexes;
+
+    // 移除制定的表格数据
+    const fieldNames = colgroups
+        .slice(startColIndex, endColIndex + 1)
+        .map((x) => x.field);
+
+    tableData.forEach((rowData, rowIndex) => {
+        if (rowIndex >= startRowIndex && rowIndex <= endRowIndex) {
+            fieldNames.forEach((fieldName) => {
+                rowData[fieldName] = "";
+            });
+        }
+    });
+}
