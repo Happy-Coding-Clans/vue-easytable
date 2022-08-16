@@ -1015,14 +1015,21 @@ export const db = {
             },
             {
                 param: "paste",
-                desc: `是否单元格粘贴`,
+                desc: `是否开启单元格粘贴`,
                 type: `<code>Boolean</code>`,
                 optionalVal: "-",
                 default: "true",
             },
             {
                 param: "cut",
-                desc: `是否单元格剪切`,
+                desc: `是否开启单元格剪切`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "cut",
+                desc: `是否开启单元格删除`,
                 type: `<code>Boolean</code>`,
                 optionalVal: "-",
                 default: "true",
@@ -1075,6 +1082,24 @@ export const db = {
             {
                 param: "afterCut",
                 desc: `单元格剪切后回调方法。参数说明：\r1、<code>data</code>剪切的数据\r2、<code>selectionRangeIndexes</code>剪切区域的索引信息\r3、<code>selectionRangeKeys</code>剪切区域的key信息`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "beforeDelete",
+                desc: `单元格删除前的回调方法,返回false 则取消删除。参数说明：\r1、<code>data</code>粘贴的数据\r2、<code>selectionRangeIndexes</code>粘贴区域的索引信息\r3、<code>selectionRangeKeys</code>粘贴区域的key信息`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterDelete",
+                desc: `单元格删除后回调方法。参数说明：\r1、<code>data</code>删除的数据\r2、<code>selectionRangeIndexes</code>删除区域的索引信息\r3、<code>selectionRangeKeys</code>删除区域的key信息`,
                 type: `<code>Function({
                     data, selectionRangeIndexes, selectionRangeKeys
 })</code>`,

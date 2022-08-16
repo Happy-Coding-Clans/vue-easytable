@@ -1035,6 +1035,13 @@ export const db = {
                 default: "true",
             },
             {
+                param: "delete",
+                desc: `enable cell delete`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
                 param: "beforeCopy",
                 desc: `The callback method before cell copy. If false is returned, the copy will be canceled. Parameter Description:\r1、<code>data</code>copy data\r2、<code>selectionRangeIndexes</code>The indexs information of copy area\r3、<code>selectionRangeKeys</code>The keys information of copy area`,
                 type: `<code>Function({
@@ -1082,6 +1089,24 @@ export const db = {
             {
                 param: "afterCut",
                 desc: `The callback method after cell cut. Parameter Description:\r1、<code>data</code>cut data\r2、<code>selectionRangeIndexes</code>The indexs information of cut area\r3、<code>selectionRangeKeys</code>The keys information of cut paste`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "beforeCut",
+                desc: `The callback method before cell delete. If false is returned, the copy will be canceled. Parameter Description:\r1、<code>data</code>delete data\r2、<code>selectionRangeIndexes</code>The indexs information of delete area\r3、<code>selectionRangeKeys</code>The keys information of delete paste`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterCut",
+                desc: `The callback method after cell delete. Parameter Description:\r1、<code>data</code>delete data\r2、<code>selectionRangeIndexes</code>The indexs information of delete area\r3、<code>selectionRangeKeys</code>The keys information of delete paste`,
                 type: `<code>Function({
                     data, selectionRangeIndexes, selectionRangeKeys
 })</code>`,
