@@ -911,9 +911,16 @@ export const db = {
     editOption: {
         data: [
             {
-                param: "cellValueChange",
-                desc: `单元格停止编辑回调方法。<code>row</code>当前行数据，<code>column</code>当前列信息`,
-                type: `<code>Function({ row, column })</code>`,
+                param: "beforeCellValueChange",
+                desc: `单元格内容改变前的回调方法。<code>row</code>当前行数据，<code>column</code>当前列信息，<code>changeValue</code>单元格改变的值。如果返回false，将会阻止编辑，单元格还原为编辑前状态`,
+                type: `<code>Function({ row, column,changeValue })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterCellValueChange",
+                desc: `单元格内容改变后的回调方法。<code>row</code>当前行数据，<code>column</code>当前列信息，<code>changeValue</code>单元格改变的值`,
+                type: `<code>Function({ row, column,changeValue })</code>`,
                 optionalVal: "-",
                 default: "-",
             },

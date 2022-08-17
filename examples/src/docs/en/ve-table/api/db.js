@@ -918,9 +918,16 @@ export const db = {
     editOption: {
         data: [
             {
-                param: "cellValueChange",
-                desc: `Cell stop edit callback method. <code>row</code>Current row data,<code>column</code>Current column `,
-                type: `<code>Function({ row, column })</code>`,
+                param: "beforeCellValueChange",
+                desc: `before cell value change callback method. <code>row</code>Current row data,<code>column</code>Current column,<code>changeValue</code>change value. If false is returned, cell editing will be blocked, the cell will back to the state before editing`,
+                type: `<code>Function({ row, column,changeValue  })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterCellValueChange",
+                desc: `after cell value change callback method. <code>row</code>Current row data,<code>column</code>Current column,<code>changeValue</code>change value `,
+                type: `<code>Function({ row, column,changeValue  })</code>`,
                 optionalVal: "-",
                 default: "-",
             },

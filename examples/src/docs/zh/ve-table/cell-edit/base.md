@@ -2,7 +2,7 @@
 
 尝试将 “Number”列的值改为非数字
 
-:::demo 1、单元格停止编辑后首先触发`beforeCellValueChange`回调，如果返回 false，则不会编辑成功。编辑成功将触发`afterCellValueChange`方法<br>2、你可以利用`beforeCellValueChange`做编辑校验功能
+:::demo 1、单元格停止编辑后首先触发`beforeCellValueChange`回调，如果返回 false，则会阻止编辑，单元格还原为编辑前状态。编辑成功将触发`afterCellValueChange`方法<br>2、你可以利用`beforeCellValueChange`做编辑校验功能
 
 ```html
 <template>
