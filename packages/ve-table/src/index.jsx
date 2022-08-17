@@ -1990,7 +1990,7 @@ export default {
 
                     if (isFunction(beforeCellValueChange)) {
                         const allowChange = beforeCellValueChange({
-                            row: currentRow,
+                            row: cloneDeep(currentRow),
                             column: currentColumn,
                             changeValue,
                         });
@@ -2008,12 +2008,14 @@ export default {
                         cellValueChange({
                             row: currentRow,
                             column: currentColumn,
+                            changeValue,
                         });
 
                     afterCellValueChange &&
                         afterCellValueChange({
                             row: currentRow,
                             column: currentColumn,
+                            changeValue,
                         });
 
                     // celar editing cell
