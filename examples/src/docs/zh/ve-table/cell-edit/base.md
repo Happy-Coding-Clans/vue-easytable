@@ -1,6 +1,8 @@
 :::anchor 基本用法
 
-:::demo 单元格停止编辑后将触发`cellValueChange`方法，参数`row`为更新后的行数据信息，参数`column`为当前编辑的列信息
+尝试将 “Number”列的值改为非数字
+
+:::demo 1、单元格停止编辑后首先触发`beforeCellValueChange`回调，如果返回 false，则不会编辑成功。编辑成功将触发`afterCellValueChange`方法<br>2、你可以利用`beforeCellValueChange`做编辑校验功能
 
 ```html
 <template>
@@ -26,10 +28,25 @@
                 },
                 // edit option 可控单元格编辑
                 editOption: {
-                    // cell value change
-                    cellValueChange: ({ row, column }) => {
-                        console.log("cellValueChange row::", row);
-                        console.log("cellValueChange column::", column);
+                    beforeCellValueChange: ({ row, column, changeValue }) => {
+                        console.log("beforeCellValueChange");
+                        console.log("row::", row);
+                        console.log("column::", column);
+                        console.log("changeValue::", changeValue);
+
+                        console.log("---");
+
+                        if (column.field === "number" && !/^\d+$/.test(changeValue)) {
+                            alert("请输入数字");
+                            return false;
+                        }
+                    },
+                    afterCellValueChange: ({ row, column, changeValue }) => {
+                        console.log("afterCellValueChange");
+                        console.log("row::", row);
+                        console.log("column::", column);
+                        console.log("changeValue::", changeValue);
+                        console.log("---");
                     },
                 },
                 columns: [
