@@ -22,7 +22,8 @@ export default {
             type: Object,
             required: true,
         },
-        value: {
+        // start input value every time
+        inputStartValue: {
             type: [String, Number],
             required: true,
         },
@@ -259,6 +260,12 @@ export default {
             deep: true,
             immediate: true,
         },
+        inputStartValue: {
+            handler: function () {
+                this.setRawCellValue();
+            },
+            immediate: true,
+        },
     },
 
     methods: {
@@ -404,20 +411,7 @@ export default {
 
         // set raw cell value
         setRawCellValue() {
-            const {
-                tableData,
-                rowKeyFieldName,
-                cellSelectionData,
-                currentColumn: column,
-            } = this;
-
-            const { rowKey } = cellSelectionData.currentCell;
-
-            const rowData = tableData.find((x) => x[rowKeyFieldName] == rowKey);
-
-            if (rowData && column) {
-                this.rawCellValue = rowData[column.field];
-            }
+            this.rawCellValue = this.inputStartValue;
         },
 
         // textarea value change

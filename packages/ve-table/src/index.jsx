@@ -397,6 +397,8 @@ export default {
                 row: null,
                 column: null,
             },
+            // 编辑单元格每次开始编辑前的初始值
+            editorInputStartValue: "",
             /* 
             是否允许按下方向键时，停止编辑并移动选中单元格。当双击可编辑单元格或者点击输入文本框时设置为false值
 
@@ -1966,7 +1968,11 @@ export default {
                 isCellEditing,
             } = this;
 
-            const { cellValueChange } = editOption;
+            const {
+                cellValueChange,
+                beforeCellValueChange,
+                afterCellValueChange,
+            } = editOption;
 
             if (isCellEditing) {
                 const { rowKey, colKey } = editingCell;
@@ -1980,10 +1986,32 @@ export default {
                         (x) => x.key === colKey,
                     );
 
-                    currentRow[currentColumn.field] =
-                        editingCell.row[currentColumn.field];
+                    const changeValue = editingCell.row[currentColumn.field];
+
+                    if (isFunction(beforeCellValueChange)) {
+                        const allowChange = beforeCellValueChange({
+                            row: currentRow,
+                            column: currentColumn,
+                            changeValue,
+                        });
+                        if (isBoolean(allowChange) && !allowChange) {
+                            // celar editing cell
+                            this.clearEditingCell();
+                            return false;
+                        }
+                    }
+
+                    currentRow[currentColumn.field] = changeValue;
+
+                    // 同 afterCellValueChange，未来被移除
                     cellValueChange &&
                         cellValueChange({
+                            row: currentRow,
+                            column: currentColumn,
+                        });
+
+                    afterCellValueChange &&
+                        afterCellValueChange({
                             row: currentRow,
                             column: currentColumn,
                         });
@@ -2564,8 +2592,6 @@ export default {
                 return false;
             }
 
-            event.preventDefault();
-
             const selectionRangeData = getSelectionRangeData({
                 cellSelectionRangeData,
                 resultType: "flat",
@@ -2737,6 +2763,8 @@ export default {
                 (x) => x[rowKeyFieldName] === rowKey,
             );
 
+            currentRow = cloneDeep(currentRow);
+
             /* 
             调用API编辑的情况，需要关闭之前编辑的单元格
             */
@@ -2755,7 +2783,11 @@ export default {
 
             // 给当前列赋默认值
             if (isDefined(defaultValue)) {
+                this.editorInputStartValue = defaultValue;
+                // doesn't change cell original value
                 currentRow[currentColumn.field] = defaultValue;
+            } else {
+                this.editorInputStartValue = currentRow[currentColumn.field];
             }
 
             if (
@@ -2783,6 +2815,9 @@ export default {
             if (!editOption) {
                 return false;
             }
+
+            // clear editor input start value
+            this.editorInputStartValue = "";
 
             if (isCellEditing) {
                 this.saveCellWhenStopEditing();
@@ -3133,7 +3168,7 @@ export default {
             props: {
                 hooks: this.hooks,
                 parentRendered: this.parentRendered,
-                value: "",
+                inputStartValue: this.editorInputStartValue,
                 rowKeyFieldName,
                 tableData: this.tableData,
                 cellSelectionData,
