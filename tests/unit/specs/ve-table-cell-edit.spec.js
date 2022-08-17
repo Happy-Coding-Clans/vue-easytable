@@ -87,7 +87,7 @@ describe("veTable cell edit", () => {
                 tableData: TABLE_DATA,
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {},
+                    afterCellValueChange: ({ row, column }) => {},
                 },
                 rowKeyFieldName: "rowKey",
             },
@@ -103,7 +103,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {},
+                    afterCellValueChange: ({ row, column }) => {},
                 },
                 rowKeyFieldName: "rowKey",
             },
@@ -136,7 +136,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {},
+                    afterCellValueChange: ({ row, column }) => {},
                 },
                 rowKeyFieldName: "rowKey",
             },
@@ -188,7 +188,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {},
+                    afterCellValueChange: ({ row, column }) => {},
                 },
                 rowKeyFieldName: "rowKey",
             },
@@ -232,7 +232,7 @@ describe("veTable cell edit", () => {
         ).toBe(false);
     });
 
-    it("cellValueChange callback function by dblclick", async () => {
+    it("afterCellValueChange callback function by dblclick", async () => {
         const mockFn = jest.fn();
 
         const wrapper = mount(veTable, {
@@ -241,7 +241,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {
+                    afterCellValueChange: ({ row, column }) => {
                         mockFn(row, column);
                     },
                 },
@@ -303,7 +303,7 @@ describe("veTable cell edit", () => {
         );
     });
 
-    it("cellValueChange callback function by input letter directly", async () => {
+    it("afterCellValueChange callback function by input letter directly", async () => {
         const mockFn = jest.fn();
 
         const wrapper = mount(veTable, {
@@ -312,7 +312,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {
+                    afterCellValueChange: ({ row, column }) => {
                         mockFn(row, column);
                     },
                 },
@@ -388,7 +388,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {
+                    afterCellValueChange: ({ row, column }) => {
                         mockFn(row, column);
                     },
                 },
@@ -452,7 +452,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {
+                    afterCellValueChange: ({ row, column }) => {
                         mockFn(row, column);
                     },
                 },
@@ -511,7 +511,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {
+                    afterCellValueChange: ({ row, column }) => {
                         mockFn(row, column);
                     },
                 },
@@ -595,7 +595,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {
+                    afterCellValueChange: ({ row, column }) => {
                         mockFn(row, column);
                     },
                 },
@@ -683,7 +683,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {
+                    afterCellValueChange: ({ row, column }) => {
                         mockFn(row, column);
                     },
                 },
@@ -767,7 +767,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {
+                    afterCellValueChange: ({ row, column }) => {
                         mockFn(row, column);
                     },
                 },
@@ -855,7 +855,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {
+                    afterCellValueChange: ({ row, column }) => {
                         mockFn(row, column);
                     },
                 },
@@ -939,7 +939,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {
+                    afterCellValueChange: ({ row, column }) => {
                         mockFn(row, column);
                     },
                 },
@@ -1027,7 +1027,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {
+                    afterCellValueChange: ({ row, column }) => {
                         mockFn(row, column);
                     },
                 },
@@ -1111,7 +1111,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {
+                    afterCellValueChange: ({ row, column }) => {
                         mockFn(row, column);
                     },
                 },
@@ -1199,7 +1199,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {
+                    afterCellValueChange: ({ row, column }) => {
                         mockFn(row, column);
                     },
                 },
@@ -1276,7 +1276,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {
+                    afterCellValueChange: ({ row, column }) => {
                         mockFn(row, column);
                     },
                 },
@@ -1356,7 +1356,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {
+                    afterCellValueChange: ({ row, column }) => {
                         mockFn(row, column);
                     },
                 },
@@ -1433,7 +1433,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {
+                    afterCellValueChange: ({ row, column }) => {
                         mockFn(row, column);
                     },
                 },
@@ -1513,7 +1513,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {
+                    afterCellValueChange: ({ row, column }) => {
                         mockFn(row, column);
                     },
                 },
@@ -1595,7 +1595,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {
+                    afterCellValueChange: ({ row, column }) => {
                         mockFn(row, column);
                     },
                 },
@@ -1686,7 +1686,7 @@ describe("veTable cell edit", () => {
                     tableData: cloneDeep(TABLE_DATA),
                     editOption: {
                         // cell value change
-                        cellValueChange: ({ row, column }) => {
+                        afterCellValueChange: ({ row, column }) => {
                             mockFn(row, column);
                         },
                     },
@@ -1782,7 +1782,7 @@ describe("veTable cell edit", () => {
                     tableData: cloneDeep(TABLE_DATA),
                     editOption: {
                         // cell value change
-                        cellValueChange: ({ row, column }) => {
+                        afterCellValueChange: ({ row, column }) => {
                             mockFn(row, column);
                         },
                     },
@@ -1833,7 +1833,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {},
+                    afterCellValueChange: ({ row, column }) => {},
                 },
                 rowKeyFieldName: "rowKey",
             },
@@ -1866,7 +1866,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {
+                    afterCellValueChange: ({ row, column }) => {
                         mockFn(row, column);
                     },
                 },
@@ -1914,14 +1914,14 @@ describe("veTable cell edit", () => {
     /* 
     不可编辑文本框双击允许移动单元格
     */
-    it("nnormal cell dblclick move active cell", async () => {
+    it("normal cell dblclick move active cell", async () => {
         const wrapper = mount(veTable, {
             propsData: {
                 columns: COLUMNS,
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {
+                    afterCellValueChange: ({ row, column }) => {
                         mockFn(row, column);
                     },
                 },
@@ -1969,7 +1969,7 @@ describe("veTable cell edit", () => {
                 tableData: cloneDeep(TABLE_DATA),
                 editOption: {
                     // cell value change
-                    cellValueChange: ({ row, column }) => {},
+                    afterCellValueChange: ({ row, column }) => {},
                 },
                 rowKeyFieldName: "rowKey",
             },
