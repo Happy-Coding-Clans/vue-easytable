@@ -1189,67 +1189,6 @@ describe("veTable cell edit", () => {
         );
     });
 
-    // `Delete`键清空可编辑活动单元格内容
-    it("key code delete event", async () => {
-        const mockFn = jest.fn();
-
-        const wrapper = mount(veTable, {
-            propsData: {
-                columns: COLUMNS,
-                tableData: cloneDeep(TABLE_DATA),
-                editOption: {
-                    // cell value change
-                    cellValueChange: ({ row, column }) => {
-                        mockFn(row, column);
-                    },
-                },
-                rowKeyFieldName: "rowKey",
-            },
-        });
-
-        // td
-        const firstCell = wrapper
-            .findAll(".ve-table-body-tr")
-            .at(1)
-            .findAll(".ve-table-body-td")
-            .at(1);
-
-        firstCell.trigger("mousedown");
-
-        await later();
-
-        document.dispatchEvent(
-            new KeyboardEvent("keydown", { keyCode: KEY_CODES.DELETE }),
-        );
-
-        await later();
-
-        expect(mockFn).toHaveBeenCalled();
-
-        expect(mockFn).toHaveBeenCalledWith(
-            {
-                address: "No.1 Century Avenue, Beijing",
-                date: "",
-                hobby: "coding and coding repeat",
-                name: "Dickerson",
-                rowKey: 1,
-            },
-            {
-                _colspan: 1,
-                _keys: "date",
-                _level: 1,
-                _realTimeWidth: "15%",
-                _rowspan: 1,
-                align: "left",
-                edit: true,
-                field: "date",
-                key: "date",
-                title: "Date",
-                width: "15%",
-            },
-        );
-    });
-
     // `Enter`键停止编辑状态并键向下移动活动单元格
     it("key code enter event", async () => {
         const mockFn = jest.fn();
