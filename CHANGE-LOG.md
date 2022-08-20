@@ -15,18 +15,33 @@ V2.18.0
 
 ### Feature
 
--   事件自定义 body、header、footer 新增 mousemove、mouseover、mousedown、mouseup 事件
--   添加 `virtualScrollOption.bufferScale` 虚拟滚动缓冲倍数 props
--   `cellSelectionOption` add props `autofillChange`
--   add operation column
--   add theme vars @ve-table-td-editing-font-color、@ve-table-td-editing-background-color
--   单元格编辑功能添加单元格内容变更前的回调方法 `beforeCellValueChange`
--   添加剪贴板功能 [详情]()
+-   单元格选择支持批量单元格选择[详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection)
+-   添加操作列功能 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/operation-column)
+-   添加单元格自动填充功能 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-autofill)
+-   添加剪贴板功能 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/clipboard)
     -   添加单元格批量复制功能
     -   添加单元格批量粘贴功能
     -   添加单元格批量剪切功能
     -   添加单元格批量删除功能
     -   添加隐藏表头功能
+-   单元格编辑功能-添加编辑回调方法 `beforeCellValueChange` 和 `afterCellValueChange`[详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-edit?anchor=ji-ben-yong-fa)
+-   事件自定义 body、header、footer 新增 mousemove、mouseover、mousedown、mouseup 事件
+-   添加 `virtualScrollOption.bufferScale` 虚拟滚动缓冲倍数 props
+-   添加主题变量 @ve-table-td-editing-font-color、@ve-table-td-editing-background-color
+
+---
+
+### Breaking Changes
+
+-   移除 `virtualScrollOption.bufferCount` 虚拟滚动缓冲数量 props
+
+### Feature
+
+-
+
+### Feature
+
+add operation column [detail](https://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/operation-column)
 
 ### Bug Fixes
 
