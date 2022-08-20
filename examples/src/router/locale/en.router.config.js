@@ -211,6 +211,13 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
+                path: "cell-autofill",
+                component: () =>
+                    import("@/docs/en/ve-table/cell-autofill/main.vue"),
+                name: "Cell Autofill",
+                meta: { keepAlive: true },
+            },
+            {
                 path: "cell-edit",
                 component: () =>
                     import("@/docs/en/ve-table/cell-edit/main.vue"),

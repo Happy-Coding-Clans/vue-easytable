@@ -1,6 +1,6 @@
-:::anchor 自动填充方向
+:::anchor Cell autifill direction
 
-:::demo 可以设置在某一个方向开启自动填充
+:::demo It can be set to enable autofilling in a certain direction
 
 ```html
 <template>
