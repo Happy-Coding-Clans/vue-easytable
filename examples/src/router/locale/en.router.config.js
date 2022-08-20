@@ -200,7 +200,7 @@ const config = [
                 path: "operation-column",
                 component: () =>
                     import("@/docs/en/ve-table/operation-column/main.vue"),
-                name: "operation column",
+                name: "Operation Column",
                 meta: { keepAlive: true },
             },
             {
