@@ -8,6 +8,10 @@
 -   contextmen
 -   mouseenter
 -   mouseleave
+-   mousemove
+-   mouseover
+-   mousedown
+-   mouseup
 
 :::
 
@@ -23,6 +27,10 @@ eventCustomOption: {
       contextmenu: (event) => {},
       mouseenter: (event) => {},
       mouseleave: (event) => {},
+      mousemove: (event) => {},
+      mouseover: (event) => {},
+      mousedown: (event) => {},
+      mouseup: (event) => {},
     };
   },
   // body column event custom
@@ -33,6 +41,10 @@ eventCustomOption: {
       contextmenu: (event) => {},
       mouseenter: (event) => {},
       mouseleave: (event) => {},
+      mousemove: (event) => {},
+      mouseover: (event) => {},
+      mousedown: (event) => {},
+      mouseup: (event) => {},
     };
   },
   // header row event custom
@@ -43,6 +55,10 @@ eventCustomOption: {
       contextmenu: (event) => {},
       mouseenter: (event) => {},
       mouseleave: (event) => {},
+      mousemove: (event) => {},
+      mouseover: (event) => {},
+      mousedown: (event) => {},
+      mouseup: (event) => {},
     };
   },
   // header column event custom
@@ -53,6 +69,10 @@ eventCustomOption: {
       contextmenu: (event) => {},
       mouseenter: (event) => {},
       mouseleave: (event) => {},
+      mousemove: (event) => {},
+      mouseover: (event) => {},
+      mousedown: (event) => {},
+      mouseup: (event) => {},
     };
   },
   // footer row event custom
@@ -63,6 +83,10 @@ eventCustomOption: {
       contextmenu: (event) => {},
       mouseenter: (event) => {},
       mouseleave: (event) => {},
+      mousemove: (event) => {},
+      mouseover: (event) => {},
+      mousedown: (event) => {},
+      mouseup: (event) => {},
     };
   },
   // footer column event custom
@@ -73,6 +97,10 @@ eventCustomOption: {
       contextmenu: (event) => {},
       mouseenter: (event) => {},
       mouseleave: (event) => {},
+      mousemove: (event) => {},
+      mouseover: (event) => {},
+      mousedown: (event) => {},
+      mouseup: (event) => {},
     };
   },
 },
