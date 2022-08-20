@@ -197,6 +197,13 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
+                path: "operation-column",
+                component: () =>
+                    import("@/docs/en/ve-table/operation-column/main.vue"),
+                name: "operation column",
+                meta: { keepAlive: true },
+            },
+            {
                 path: "cell-selection",
                 component: () =>
                     import("@/docs/en/ve-table/cell-selection/main.vue"),
