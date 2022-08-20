@@ -931,6 +931,13 @@ export const db = {
                 optionalVal: "-",
                 default: "-",
             },
+            {
+                param: "cellValueChange",
+                desc: `Will be removed`,
+                type: `<code>Function({ row, column })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
         ],
         columns: columnsType1,
     },
