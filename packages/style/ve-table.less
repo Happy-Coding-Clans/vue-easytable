@@ -339,7 +339,7 @@
 
                 // 浮层
                 .ve-table-selection-normal-area-layer {
-                    background-color: rgb(14, 101, 235);
+                    background-color: @ve-table-selection-area-layer-background-color;
                     opacity: 0.1;
                     pointer-events: none;
                 }
@@ -351,21 +351,21 @@
                         height: 8px;
                         width: 8px;
                         border-style: solid;
-                        border-color: rgb(255, 255, 255);
-                        background-color: rgb(75, 137, 255);
+                        border-color: @ve-table-selection-corner-border-color;
+                        background-color: @ve-table-selection-corner-background-color;
                         cursor: crosshair;
                     }
 
                     .ve-table-selection-border {
                         display: block;
-                        background-color: rgb(75, 137, 255);
+                        background-color: @ve-table-selection-border-color;
                     }
                 }
 
                 .ve-table-selection-autofill-area {
                     .ve-table-selection-border {
                         display: block;
-                        background-color: #ff000085;
+                        background-color: @ve-table-selection-autofill-border-color;
                     }
                 }
 
@@ -480,7 +480,7 @@
             line-height: @ve-table-td-editing-line-height;
             font-size: inherit;
             border: 2px solid @ve-table-td-editing-border-color;
-            box-shadow: 1px 2px 5px 0 #1f232966;
+            box-shadow: 1px 2px 5px 0 @ve-table-td-editing-box-shadow-color;
             display: block;
             color: @ve-table-td-editing-font-color;
             border-radius: 0;
