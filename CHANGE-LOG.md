@@ -11,36 +11,6 @@ V2.18.0
 
 ### Breaking Changes
 
--   移除 `virtualScrollOption.bufferCount` 虚拟滚动缓冲数量 prop
-
-### Feature
-
--   添加隐藏表头功能 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-hidden) #495
--   单元格选择支持批量单元格选择 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection)
--   添加操作列功能 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/operation-column)
--   添加单元格自动填充功能 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-autofill)
--   添加剪贴板功能 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/clipboard)
-    -   添加单元格批量复制功能
-    -   添加单元格批量粘贴功能
-    -   添加单元格批量剪切功能
-    -   添加单元格批量删除功能
--   添加单元格编辑回调方法 `beforeCellValueChange` 和 `afterCellValueChange` [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-edit)
--   body、header、footer 新增 mousemove、mouseover、mousedown、mouseup 自定义事件 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/event-custom)
--   添加 `virtualScrollOption.bufferScale` 虚拟滚动缓冲倍数 props
--   添加主题变量
-    -   @ve-table-td-editing-font-color
-    -   @ve-table-td-editing-background-color
-    -   @ve-table-td-editing-box-shadow-color
-    -   @ve-table-selection-border-color
-    -   @ve-table-selection-autofill-border-color
-    -   @ve-table-selection-corner-border-color
-    -   @ve-table-selection-corner-background-color
-    -   @ve-table-selection-area-layer-background-color
-
----
-
-### Breaking Changes
-
 -   Remove `virtualScrollOption.bufferCount` prop
 
 ### Feature
@@ -58,6 +28,36 @@ V2.18.0
 -   body、header、footer add mousemove、mouseover、mousedown、mouseup custom events [detail](https://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/event-custom)
 -   Add `virtualScrollOption.bufferScale` virtual scroll buffer scale prop
 -   Add theme css variables
+    -   @ve-table-td-editing-font-color
+    -   @ve-table-td-editing-background-color
+    -   @ve-table-td-editing-box-shadow-color
+    -   @ve-table-selection-border-color
+    -   @ve-table-selection-autofill-border-color
+    -   @ve-table-selection-corner-border-color
+    -   @ve-table-selection-corner-background-color
+    -   @ve-table-selection-area-layer-background-color
+
+---
+
+### Breaking Changes
+
+-   移除 `virtualScrollOption.bufferCount` 虚拟滚动缓冲数量 prop
+
+### Feature
+
+-   添加隐藏表头功能 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-hidden) #495
+-   单元格选择支持批量单元格选择 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection)
+-   添加操作列功能 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/operation-column)
+-   添加单元格自动填充功能 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-autofill)
+-   添加剪贴板功能 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/clipboard)
+    -   添加单元格批量复制功能
+    -   添加单元格批量粘贴功能
+    -   添加单元格批量剪切功能
+    -   添加单元格批量删除功能
+-   添加单元格编辑回调方法 `beforeCellValueChange` 和 `afterCellValueChange` [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-edit)
+-   body、header、footer 新增 mousemove、mouseover、mousedown、mouseup 自定义事件 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/event-custom)
+-   添加 `virtualScrollOption.bufferScale` 虚拟滚动缓冲倍数 props
+-   添加主题变量
     -   @ve-table-td-editing-font-color
     -   @ve-table-td-editing-background-color
     -   @ve-table-td-editing-box-shadow-color
