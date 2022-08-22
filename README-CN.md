@@ -26,8 +26,8 @@
 
 ## API & 文档
 
-- [官方文档 (Github)](http://happy-coding-clans.github.io/vue-easytable/) 
-- [官方文档 (国内)](http://huangshuwei.gitee.io/vue-easytable/)
+-   [官方文档 (Github)](http://happy-coding-clans.github.io/vue-easytable/)
+-   [官方文档 (国内)](http://huangshuwei.gitee.io/vue-easytable/)
 
 ## 功能支持
 
@@ -40,7 +40,6 @@
 -   [x] [Locale 国际化组件](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/base/locale)
 
 **Table 组件**
-
 
 -   [x] [国际化](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/locale)
 -   [x] [主题定制 & 内置主题](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/theme)
@@ -55,7 +54,9 @@
 -   [x] [单元格自定义](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-custom)
 -   [x] [单元格合并](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-span)
 -   [x] [单元格选择（键盘操作）](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection)
+-   [x] [单元格自动填充](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-autofill)
 -   [x] [单元格编辑](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-edit)
+-   [x] [剪贴板](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/clipboard)
 -   [x] [右键菜单](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/contextmenu)
 -   [x] [单元格省略](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-ellipsis)
 -   [x] [行单选](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-radio)
@@ -93,8 +94,8 @@ import VueEasytable from "vue-easytable";
 Vue.use(VueEasytable);
 
 new Vue({
-  el: "#app",
-  render: (h) => h(App),
+    el: "#app",
+    render: (h) => h(App),
 });
 ```
 
