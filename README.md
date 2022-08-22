@@ -20,15 +20,14 @@
 
 Support this project by becoming a sponsor. Your logo or name will show up here with a link you provided. [Become a sponsor](https://www.patreon.com/huangshuwei)
 
-
 ## Introduction
 
 Based on vue2.x flexible table components.
 
 ## API & Examples
 
-- [Official documents (Github)](http://happy-coding-clans.github.io/vue-easytable/) 
-- [Official documents (China)](http://huangshuwei.gitee.io/vue-easytable/)
+-   [Official documents (Github)](http://happy-coding-clans.github.io/vue-easytable/)
+-   [Official documents (China)](http://huangshuwei.gitee.io/vue-easytable/)
 
 ## Features
 
@@ -55,7 +54,9 @@ Based on vue2.x flexible table components.
 -   [x] [Cell Custom](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-custom)
 -   [x] [Cell Span](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-span)
 -   [x] [Cell Selection(keyboard operation)](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-selection)
+-   [x] [Cell Autofill](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-autofill)
 -   [x] [Cell Edit](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-edit)
+-   [x] [Clipboard](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/clipboard)
 -   [x] [Contextmenu](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/contextmenu)
 -   [x] [Cell Ellipsis](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-ellipsis)
 -   [x] [Row Radio](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/row-radio)
@@ -93,8 +94,8 @@ import VueEasytable from "vue-easytable";
 Vue.use(VueEasytable);
 
 new Vue({
-  el: "#app",
-  render: (h) => h(App),
+    el: "#app",
+    render: (h) => h(App),
 });
 ```
 
