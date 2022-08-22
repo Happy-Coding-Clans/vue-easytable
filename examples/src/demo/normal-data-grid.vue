@@ -82,7 +82,7 @@
                 ref="tableRef"
                 fixed-header
                 border-y
-                max-height="calc(100vh - 160px)"
+                :max-height="500"
                 :scroll-width="tableScrollWdith"
                 :sort-option="sortOption"
                 :virtual-scroll-option="virtualScrollOption"
@@ -597,6 +597,8 @@ export default {
 </script>
 <style lang="less">
 .normal-data-grid {
+    margin: 10px 0;
+    padding: 0 100px;
     .operation {
         margin: 10px 0;
 
