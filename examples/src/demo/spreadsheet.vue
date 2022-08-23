@@ -167,9 +167,9 @@ export default {
                     dataItem["D"] = "CAN";
                     dataItem["E"] = "TRY";
                     dataItem["F"] = "ENTER";
-                    dataItem["G"] = "SOMET";
-                    dataItem["G"] = "WORD";
-                    dataItem["H"] = "!!!";
+                    dataItem["G"] = "SOME";
+                    dataItem["H"] = "WORDS";
+                    dataItem["I"] = "!!!";
                 }
 
                 tableData.push(dataItem);
