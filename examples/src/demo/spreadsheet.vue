@@ -117,7 +117,7 @@ export default {
                     // is operation column
                     operationColumn: true,
                     title: "#",
-                    width: 30,
+                    width: 35,
                     fixed: "left",
                     renderBodyCell: this.renderRowIndex,
                 },
@@ -153,7 +153,7 @@ export default {
         },
         initTableData() {
             let tableData = [];
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 5000; i++) {
                 let dataItem = {
                     rowKey: i,
                 };
