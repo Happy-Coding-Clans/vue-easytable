@@ -188,7 +188,7 @@ export default {
     computed: {
         // current local
         currentLocal() {
-            return locale[this.currentDocLang]["completeDemo"];
+            return locale[this.currentDocLang]["completeDemo"]["demo1"];
         },
 
         // tableScrollWidth

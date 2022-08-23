@@ -3,13 +3,13 @@
         <div class="site-demo-container">
             <div class="demo-title">
                 <div class="demo-title-text">
-                    This is a simple data table display.
+                    {{ currentLocal.demo1.selection }}
                 </div>
             </div>
             <NormalDataGrid />
             <div class="demo-title last">
                 <div class="demo-title-text">
-                    Of course, you can also use it like Excel or Google Sheets .
+                    {{ currentLocal.demo2.selection }}
                 </div>
             </div>
             <Spreadsheet />
@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import locale from "../comp/locale";
+import I18nMixins from "../comp/mixins/i18n-mixins";
 import NormalDataGrid from "./normal-data-grid.vue";
 import Spreadsheet from "./spreadsheet.vue";
 export default {
@@ -26,8 +28,15 @@ export default {
         NormalDataGrid,
         Spreadsheet,
     },
+    mixins: [I18nMixins],
     data() {
         return {};
+    },
+    computed: {
+        // current local
+        currentLocal() {
+            return locale[this.currentDocLang]["completeDemo"];
+        },
     },
 };
 </script>

@@ -40,30 +40,36 @@ export default {
             openInCodeSandBox: "在 CodeSandBox 中编辑",
         },
         completeDemo: {
-            dataRowsOption: [
-                {
-                    value: 5000,
-                    label: "5000 行",
-                },
-                {
-                    value: 10000,
-                    label: "10,000 行",
-                },
-                {
-                    value: 100000,
-                    label: "100,000 行",
-                },
-                {
-                    value: 150000,
-                    label: "150,000 行",
-                },
-            ],
-            dataRows: "数据量：",
-            columnFixed: "列固定：",
-            loading: "Loading：",
-            expand: "行展开：",
-            radio: "行单选：",
-            checkbox: "行多选：",
+            demo1: {
+                selection: "这是数据表格的应用场景",
+                dataRowsOption: [
+                    {
+                        value: 5000,
+                        label: "5000 行",
+                    },
+                    {
+                        value: 10000,
+                        label: "10,000 行",
+                    },
+                    {
+                        value: 100000,
+                        label: "100,000 行",
+                    },
+                    {
+                        value: 150000,
+                        label: "150,000 行",
+                    },
+                ],
+                dataRows: "数据量：",
+                columnFixed: "列固定：",
+                loading: "Loading：",
+                expand: "行展开：",
+                radio: "行单选：",
+                checkbox: "行多选：",
+            },
+            demo2: {
+                selection: "当然，你也可以把它当做 Excel 来用",
+            },
         },
     },
     en: {
@@ -103,30 +109,37 @@ export default {
             openInCodeSandBox: "Edit in CodeSandBox",
         },
         completeDemo: {
-            dataRowsOption: [
-                {
-                    value: 5000,
-                    label: "5000 Rows",
-                },
-                {
-                    value: 10000,
-                    label: "10,000 Rows",
-                },
-                {
-                    value: 100000,
-                    label: "100,000 Rows",
-                },
-                {
-                    value: 150000,
-                    label: "150,000 Rows",
-                },
-            ],
-            dataRows: "Data Rows:",
-            columnFixed: "Fixed Columns:",
-            loading: "Loading:",
-            expand: "Row Expand:",
-            radio: "Row Radio:",
-            checkbox: "Row Checkbox:",
+            demo1: {
+                selection: "Here is a data grid .",
+                dataRowsOption: [
+                    {
+                        value: 5000,
+                        label: "5000 Rows",
+                    },
+                    {
+                        value: 10000,
+                        label: "10,000 Rows",
+                    },
+                    {
+                        value: 100000,
+                        label: "100,000 Rows",
+                    },
+                    {
+                        value: 150000,
+                        label: "150,000 Rows",
+                    },
+                ],
+                dataRows: "Data Rows:",
+                columnFixed: "Fixed Columns:",
+                loading: "Loading:",
+                expand: "Row Expand:",
+                radio: "Row Radio:",
+                checkbox: "Row Checkbox:",
+            },
+            demo2: {
+                selection:
+                    "Of course, you can use it like Excel or Google Sheets .",
+            },
         },
     },
 };
