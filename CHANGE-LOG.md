@@ -7,6 +7,14 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.19.0
+
+### Breaking Changes
+
+-   修改表格右键菜单的非中文文字，将开头小写字母转大写字母
+
+### Feature
+
 V2.18.0
 
 ### Breaking Changes
