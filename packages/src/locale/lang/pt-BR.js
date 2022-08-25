@@ -11,9 +11,9 @@ export default {
         confirmFilter: "Confirmar",
         resetFilter: "Limpar",
         // contextmenu event
-        insertRowAbove: "inserir linha acima",
-        insertRowBelow: "inserir linha abaixo",
-        removeRow: "remover linha",
-        hideColumn: "ocultar coluna",
+        insertRowAbove: "Inserir linha acima",
+        insertRowBelow: "Inserir linha abaixo",
+        removeRow: "Remover linha",
+        hideColumn: "Ocultar coluna",
     },
 };

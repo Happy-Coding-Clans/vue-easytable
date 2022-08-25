@@ -11,9 +11,9 @@ export default {
         confirmFilter: "Qiniseka",
         resetFilter: "Setha Kabusha",
         // contextmenu event
-        insertRowAbove: "insert row above",
-        insertRowBelow: "insert row below",
-        removeRow: "remove row",
-        hideColumn: "hide column",
+        insertRowAbove: "Insert row above",
+        insertRowBelow: "Insert row below",
+        removeRow: "Remove row",
+        hideColumn: "Hide column",
     },
 };
