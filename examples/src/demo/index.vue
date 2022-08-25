@@ -56,12 +56,12 @@ export default {
         font-size: 30px;
         padding: 0 100px;
         font-weight: bold;
-        color: #40a0ffc1;
+        color: #555;
 
         .demo-title-text {
-            border-bottom: double 2px;
             display: inline;
-            padding: 8px;
+            padding: 0 8px;
+            border-left: 4px solid #555;
         }
 
         &.last {
