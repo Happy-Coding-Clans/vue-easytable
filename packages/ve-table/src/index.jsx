@@ -1129,6 +1129,9 @@ export default {
                             colKey: rightColKey,
                         };
                     }
+                } else {
+                    // return if within the range
+                    return false;
                 }
             }
 

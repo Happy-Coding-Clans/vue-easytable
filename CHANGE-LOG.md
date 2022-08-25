@@ -7,13 +7,17 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
-V2.19.0
+V2.18.1
 
-### Breaking Changes
+### Bug Fixes
 
--   修改表格右键菜单的非中文文字，将开头小写字母转大写字母
+-   修复单元格自动填充，当停止在起始单元格后报错的问题
 
-### Feature
+---
+
+### Bug Fixes
+
+-   Fixed the bug that cell autofilling error when stoppped at the starting cell
 
 V2.18.0
 
