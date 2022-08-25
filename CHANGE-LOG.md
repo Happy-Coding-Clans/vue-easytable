@@ -7,6 +7,18 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.18.1
+
+### Bug Fixes
+
+-   修复单元格自动填充，当停止在起始单元格后报错的问题
+
+---
+
+### Bug Fixes
+
+-   Fixed the bug that cell autofilling error when stoppped at the starting cell
+
 V2.18.0
 
 ### Breaking Changes

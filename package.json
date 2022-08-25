@@ -1,10 +1,10 @@
 {
     "name": "vue-easytable",
-    "version": "2.18.0",
+    "version": "2.18.1",
     "docVersions": [
         {
             "value": "/vue-easytable/",
-            "label": "2.18.0"
+            "label": "2.18.1"
         },
         {
             "value": "/vue-easytable/2.17.3",
@@ -40,7 +40,7 @@
             "isVersion1": true
         }
     ],
-    "main": "libs/main.js",
+    "main": "packages/index.js",
     "description": "Vue table component",
     "keywords": [
         "vue",
