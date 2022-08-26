@@ -2965,6 +2965,7 @@ export default {
             editOption,
             contextmenus,
             allRowKeys,
+            enableCellSelection,
         } = this;
 
         // header props
@@ -3241,13 +3242,13 @@ export default {
                             <Footer {...footerProps} />
                         </table>
                         {/* cell selection */}
-                        {this.enableCellSelection && (
+                        {enableCellSelection && (
                             <Selection {...selectionProps} />
                         )}
                     </VueDomResizeObserver>
                 </div>
                 {/* edit input */}
-                {this.enableCellSelection && <EditInput {...editInputProps} />}
+                {enableCellSelection && <EditInput {...editInputProps} />}
                 {/* contextmenu */}
                 {this.enableContextmenu && (
                     <VeContextmenu {...contextmenuProps} />
