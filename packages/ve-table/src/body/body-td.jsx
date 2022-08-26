@@ -109,8 +109,8 @@ export default {
                 return null;
             },
         },
-        // cell selection key data
-        cellSelectionKeyData: {
+        // cell selection data
+        cellSelectionData: {
             type: Object,
             default: function () {
                 return null;
@@ -193,7 +193,7 @@ export default {
         bodyTdClass() {
             const { currentColumnCollectionItem } = this;
 
-            const { fixed } = this.column;
+            const { fixed, operationColumn } = this.column;
 
             let result = {
                 [clsName("body-td")]: true,
@@ -204,7 +204,7 @@ export default {
                 rowData,
                 column,
                 rowIndex,
-                cellSelectionKeyData,
+                cellSelectionData,
                 currentRowKey,
             } = this;
 
@@ -212,6 +212,11 @@ export default {
             if (fixed) {
                 result[clsName("fixed-left")] = fixed === "left";
                 result[clsName("fixed-right")] = fixed === "right";
+            }
+
+            // operation column
+            if (operationColumn) {
+                result[clsName("operation-col")] = true;
             }
 
             // cell style option
@@ -230,8 +235,8 @@ export default {
             }
 
             // cell selection option
-            if (cellSelectionKeyData) {
-                const { rowKey, colKey } = cellSelectionKeyData;
+            if (cellSelectionData) {
+                const { rowKey, colKey } = cellSelectionData.currentCell;
                 if (currentRowKey === rowKey && column["key"] === colKey) {
                     result[clsName("cell-selection")] = true;
                 }
@@ -376,6 +381,7 @@ export default {
             const { column, expandOption, rowData } = this;
 
             this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_TD_CLICK, {
+                event: e,
                 rowData,
                 column,
             });
@@ -413,6 +419,7 @@ export default {
                 COMPS_NAME.VE_TABLE,
                 EMIT_EVENTS.BODY_TD_DOUBLE_CLICK,
                 {
+                    event: e,
                     rowData,
                     column,
                 },
@@ -440,6 +447,46 @@ export default {
         // mouseleave
         cellMouseleave(e, fn) {
             fn && fn(e);
+        },
+        // mousemove
+        cellMousemove(e, fn) {
+            fn && fn(e);
+        },
+        // mouseover
+        cellMouseover(e, fn) {
+            fn && fn(e);
+
+            const { column, rowData } = this;
+
+            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_TD_MOUSEOVER, {
+                event: e,
+                rowData,
+                column,
+            });
+        },
+        // mousedown
+        cellMousedown(e, fn) {
+            fn && fn(e);
+
+            const { column, rowData } = this;
+
+            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_TD_MOUSEDOWN, {
+                event: e,
+                rowData,
+                column,
+            });
+        },
+        // mouseup
+        cellMouseup(e, fn) {
+            fn && fn(e);
+
+            const { column, rowData } = this;
+
+            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_TD_MOUSEUP, {
+                event: e,
+                rowData,
+                column,
+            });
         },
     },
     render(h) {
@@ -482,8 +529,17 @@ export default {
                 : {};
         }
 
-        const { click, dblclick, contextmenu, mouseenter, mouseleave } =
-            customEvents;
+        const {
+            click,
+            dblclick,
+            contextmenu,
+            mouseenter,
+            mouseleave,
+            mousemove,
+            mouseover,
+            mousedown,
+            mouseup,
+        } = customEvents;
 
         const events = {
             click: (e) => {
@@ -500,6 +556,18 @@ export default {
             },
             mouseleave: (e) => {
                 this.cellMouseleave(e, mouseleave);
+            },
+            mousemove: (e) => {
+                this.cellMousemove(e, mousemove);
+            },
+            mouseover: (e) => {
+                this.cellMouseover(e, mouseover);
+            },
+            mousedown: (e) => {
+                this.cellMousedown(e, mousedown);
+            },
+            mouseup: (e) => {
+                this.cellMouseup(e, mouseup);
             },
         };
 

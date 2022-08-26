@@ -32,17 +32,17 @@ export default {
             db: db,
             expandOption: {
                 expandable: ({ row, column, rowIndex }) => {
-                    if (![49, 50, 55].includes(row["rowKey"])) {
+                    if (![49, 50, 55].includes(row["expandId"])) {
                         return false;
                     }
                 },
                 defaultExpandedRowKeys: [],
                 render: ({ row, column, rowIndex }) => {
-                    if (row["rowKey"] === 49) {
+                    if (row["expandId"] === 49) {
                         return <EllipsisProps />;
-                    } else if (row["rowKey"] === 50) {
+                    } else if (row["expandId"] === 50) {
                         return <FilterProps />;
-                    } else if (row["rowKey"] === 55) {
+                    } else if (row["expandId"] === 55) {
                         return <FilterCustomProps />;
                     }
                 },

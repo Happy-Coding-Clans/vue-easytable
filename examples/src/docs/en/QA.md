@@ -38,3 +38,8 @@ A:Too much text in a cell destroys the layout,This can be controlled by style [w
     <ve-table style="word-break: break-all" :columns="columns" :table-data="tableData" />
 </template>
 ```
+
+:::anchor Customize scroll bar styles
+Q:How to customize scroll bar styles
+
+A:There is no customized scroll bar style inside the component, which can be customized according to your business.For the customization of scroll bar style, please refer to:https://developer.mozilla.org/zh-CN/docs/Web/CSS/::-webkit-scrollbar

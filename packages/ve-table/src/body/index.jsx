@@ -118,7 +118,7 @@ export default {
             },
         },
         // cell selection key data
-        cellSelectionKeyData: {
+        cellSelectionData: {
             type: Object,
             default: function () {
                 return null;
@@ -534,12 +534,9 @@ export default {
          * @param {number|string} width - column real width
          */
         tdSizeChange({ key, width }) {
-            // 只有固定列才需要计算列宽
-            if (this.hasFixedColumn) {
-                const { colsWidths } = this;
-                colsWidths.set(key, width);
-                this.$emit(EMIT_EVENTS.BODY_TD_WIDTH_CHANGE, colsWidths);
-            }
+            const { colsWidths } = this;
+            colsWidths.set(key, width);
+            this.$emit(EMIT_EVENTS.BODY_TD_WIDTH_CHANGE, colsWidths);
         },
 
         // init internal expand row keys
@@ -895,7 +892,7 @@ export default {
                             cellSpanOption: this.cellSpanOption,
                             highlightRowKey: this.highlightRowKey,
                             eventCustomOption: this.eventCustomOption,
-                            cellSelectionKeyData: this.cellSelectionKeyData,
+                            cellSelectionData: this.cellSelectionData,
                             editOption: this.editOption,
                             columnCollection: this.columnCollection,
                         },

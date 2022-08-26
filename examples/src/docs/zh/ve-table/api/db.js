@@ -124,6 +124,13 @@ export const db = {
                 default: "-",
             },
             {
+                param: "showHeader",
+                desc: `是否展示表头`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
                 param: "fixedHeader",
                 desc: "是否固定表头，默认启用。需要和 `maxHeight`结合使用",
                 type: "<code>Boolean</code>",
@@ -270,6 +277,20 @@ export const db = {
                 optionalVal: "-",
                 default: "-",
             },
+            {
+                param: "cellAutofillOption",
+                desc: `单元格自动填充配置，具体见下表 cellAutofillOption 配置`,
+                type: "<code>Object</code>",
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "clipboardOption",
+                desc: `单元格剪贴板配置，具体见下表 clipboardOption 配置`,
+                type: "<code>Object</code>",
+                optionalVal: "-",
+                default: "-",
+            },
         ],
         columns: columnsType1,
     },
@@ -279,11 +300,10 @@ export const db = {
         data: [
             {
                 param: "field",
-                desc: "	对应列的字段",
+                desc: "对应列的字段",
                 type: "<code>String</code>",
                 optionalVal: "-",
                 default: "-",
-                rowKey: 0,
             },
             {
                 param: "key",
@@ -291,7 +311,6 @@ export const db = {
                 type: "<code>String</code>",
                 optionalVal: "-",
                 default: "-",
-                rowKey: 5,
             },
             {
                 param: "type",
@@ -299,7 +318,6 @@ export const db = {
                 type: "<code>String</code>",
                 optionalVal: `"expand"、"checkbox"、"radio"`,
                 default: "-",
-                rowKey: 15,
             },
             {
                 param: "title",
@@ -307,7 +325,6 @@ export const db = {
                 type: "<code>String</code>",
                 optionalVal: "-",
                 default: "-",
-                rowKey: 20,
             },
             {
                 param: "width",
@@ -315,7 +332,6 @@ export const db = {
                 type: `<code>String</code>、<code>Number</code>`,
                 optionalVal: "-",
                 default: "-",
-                rowKey: 25,
             },
             {
                 param: "align",
@@ -323,15 +339,20 @@ export const db = {
                 type: "<code>String</code>",
                 optionalVal: `"left"、"center"、"right"`,
                 default: `"center"`,
-                rowKey: 30,
+            },
+            {
+                param: "operationColumn",
+                desc: "是否是操作列",
+                type: "<code>Boolean</code>",
+                optionalVal: `-`,
+                default: `false`,
             },
             {
                 param: "edit",
                 desc: "是否开启列编辑",
                 type: "<code>Boolean</code>",
                 optionalVal: `-`,
-                default: `"false"`,
-                rowKey: 32,
+                default: `false`,
             },
             {
                 param: "sortBy",
@@ -339,34 +360,27 @@ export const db = {
                 type: "<code>String</code>",
                 optionalVal: `""、"desc"、"asc"`,
                 default: `""`,
-                rowKey: 31,
             },
             {
                 param: "renderBodyCell",
-                desc: `1、表体自定义单元格渲染函数。jsx 语法,书写和模板语法接近。<br>
-                2、参数信息。<code>row</code>:当前行数据、<code>column</code>:当前列配置、<code>rowIndex</code>:行索引、<code>h</code>：createElement 函数的别名<br>3、更多 jsx 知识请参考<a href="https://vuejs.org/v2/guide/render-function.html#JSX">Vue.js 官方文档</a>`,
+                desc: `1、表体自定义单元格渲染函数。jsx 语法,书写和模板语法接近。\r2、参数信息。<code>row</code>:当前行数据、<code>column</code>:当前列配置、<code>rowIndex</code>:行索引、<code>h</code>：createElement 函数的别名<br>3、更多 jsx 知识请参考<a href="https://vuejs.org/v2/guide/render-function.html#JSX">Vue.js 官方文档</a>`,
                 type: `<code>Function({row,column,rowIndex},h):VNode</code>`,
                 optionalVal: "-",
                 default: "-",
-                rowKey: 35,
             },
             {
                 param: "renderHeaderCell",
-                desc: `1、表头自定义单元格渲染函数。用法同<code>renderBodyCell</code>。<br>
-                2、参数信息。<code>column</code>:当前列配置、<code>h</code>：createElement 函数的别名`,
+                desc: `1、表头自定义单元格渲染函数。用法同<code>renderBodyCell</code>。\r2、参数信息。<code>column</code>:当前列配置、<code>h</code>：createElement 函数的别名`,
                 type: "<code>Function({ column },h):VNode</code>",
                 optionalVal: "-",
                 default: "-",
-                rowKey: 40,
             },
             {
                 param: "renderFooterCell",
-                desc: `1、footer汇总 自定义单元格渲染函数。<br>
-                2、参数信息。<code>row</code>:当前行数据、<code>column</code>:当前列配置、<code>rowIndex</code>:行索引、<code>h</code>：createElement 函数的别名<br>3、更多 jsx 知识请参考<a href="https://vuejs.org/v2/guide/render-function.html#JSX">Vue.js 官方文档</a>`,
+                desc: `1、footer汇总 自定义单元格渲染函数。\r2、参数信息。<code>row</code>:当前行数据、<code>column</code>:当前列配置、<code>rowIndex</code>:行索引、<code>h</code>：createElement 函数的别名<br>3、更多 jsx 知识请参考<a href="https://vuejs.org/v2/guide/render-function.html#JSX">Vue.js 官方文档</a>`,
                 type: `<code>Function({row,column,rowIndex},h):VNode</code>`,
                 optionalVal: "-",
                 default: "-",
-                rowKey: 45,
             },
             {
                 param: "<span class='expand'>ellipsis</span>",
@@ -374,7 +388,7 @@ export const db = {
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
-                rowKey: 49,
+                expandId: 49,
             },
             {
                 param: "<span class='expand'>filter</span>",
@@ -382,7 +396,7 @@ export const db = {
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
-                rowKey: 50,
+                expandId: 50,
             },
             {
                 param: "<span class='expand'>filterCustom</span>",
@@ -390,7 +404,7 @@ export const db = {
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
-                rowKey: 55,
+                expandId: 55,
             },
         ],
         columns: columnsType1,
@@ -399,8 +413,7 @@ export const db = {
             data: [
                 {
                     param: "filterList",
-                    desc: `	1、筛选条件。<br>
-                    2、包含label、value、selected 3 个属性，形如：<code>[{ value: 0, label: "1900-05-20", selected: false }]</code>`,
+                    desc: `1、筛选条件。<br>2、包含label、value、selected 3 个属性，形如：<code>[{ value: 0, label: "1900-05-20", selected: false }]</code>`,
                     type: "<code>Array</code>",
                     optionalVal: "-",
                     default: "-",
@@ -448,8 +461,7 @@ export const db = {
             data: [
                 {
                     param: "render",
-                    desc: `1、渲染函数。<br>
-                    2、渲染函数接收的参数，showFn:显示filter 函数、closeFn:关闭filter的函数、<code>h</code>：createElement 函数的别名`,
+                    desc: `1、渲染函数。<br>2、渲染函数接收的参数，showFn:显示filter 函数、closeFn:关闭filter的函数、<code>h</code>：createElement 函数的别名`,
                     type: "<code>Function({showFn,closeFn},h):VNode</code>",
                     optionalVal: "-",
                     default: "-",
@@ -543,16 +555,14 @@ export const db = {
         data: [
             {
                 param: "expandable",
-                desc: `	1、是否允许展开行渲染函数。返回布尔值。<br>
-                2、渲染函数接收三个参数，<code>row</code>:当前行数据、<code>column</code>:可展开列配置、<code>rowIndex</code>:行索引。`,
+                desc: `1、是否允许展开行渲染函数。返回布尔值。\r2、渲染函数接收三个参数，<code>row</code>:当前行数据、<code>column</code>:可展开列配置、<code>rowIndex</code>:行索引。`,
                 type: "<code>Function({row,column,rowIndex})</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "render",
-                desc: `1、渲染函数。<br>
-                2、渲染函数接收的参数，row:当前行数据、column:可展开列配置、rowIndex:行索引、<code>h</code>：createElement 函数的别名`,
+                desc: `1、渲染函数。\r2、渲染函数接收的参数，row:当前行数据、column:可展开列配置、rowIndex:行索引、<code>h</code>：createElement 函数的别名`,
                 type: "<code>Function({row,column,rowIndex},h):VNode</code>",
                 optionalVal: "-",
                 default: "-",
@@ -580,24 +590,21 @@ export const db = {
             },
             {
                 param: "beforeExpandRowChange",
-                desc: `1、展开切换前的函数，如果返回false 则中断执行。<br>
-                2、函数接收三个参数，<code>beforeExpandedRowKeys</code>:改变前所有展开的key，<code>row</code>:当前的行数据，<code>rowIndex</code>行号`,
+                desc: `1、展开切换前的函数，如果返回false 则中断执行。\r2、函数接收三个参数，<code>beforeExpandedRowKeys</code>:改变前所有展开的key，<code>row</code>:当前的行数据，<code>rowIndex</code>行号`,
                 type: "<code>Function({beforeExpandedRowKeys,row,rowIndex})</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "afterExpandRowChange",
-                desc: `1、展开切换后的函数。<br>
-                2、函数接收三个参数，<code>afterExpandedRowKeys</code>:改变后所有展开的key，<code>row</code>:当前的行数据，<code>rowIndex</code>行号`,
+                desc: `1、展开切换后的函数。\r2、函数接收三个参数，<code>afterExpandedRowKeys</code>:改变后所有展开的key，<code>row</code>:当前的行数据，<code>rowIndex</code>行号`,
                 type: "<code>Function({afterExpandedRowKeys,row,rowIndex})</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "trigger",
-                desc: `展开行事件触发类型。
-                <code>icon</code>：点击展开小图标；<code>cell</code>：点击单元格;<code>row</code>:点击行`,
+                desc: `展开行事件触发类型。\r<code>icon</code>：点击展开小图标；<code>cell</code>：点击单元格;<code>row</code>:点击行`,
                 type: "<code>String</code>",
                 optionalVal: `"icon"、"cell"、"row"`,
                 default: `"icon"`,
@@ -611,7 +618,7 @@ export const db = {
         data: [
             {
                 param: "defaultSelectedAllRows",
-                desc: `	是否默认全部选中`,
+                desc: `是否默认全部选中`,
                 type: "<code>Boolean</code>",
                 optionalVal: "-",
                 default: "false",
@@ -722,8 +729,8 @@ export const db = {
                 default: "-",
             },
             {
-                param: "bufferCount",
-                desc: `缓冲渲染数量。默认只渲染当前容器高度内的行数据，缓冲数据可以额外渲染行数据，可以有效解决合并过多行数据的问题`,
+                param: "bufferScale",
+                desc: `缓冲倍数。1个缓冲倍数为当前表格高度内的行数量`,
                 type: "<code>Number</code>",
                 optionalVal: "-",
                 default: "1",
@@ -849,24 +856,21 @@ export const db = {
         data: [
             {
                 param: "bodyCellClass",
-                desc: `1、表体单元格样式<br>
-                2、接收3个参数，<code>row</code>:当前行数据、<code>column</code>:当前列配置、<code>rowIndex</code>:行索引`,
+                desc: `1、表体单元格样式\r2、接收3个参数，<code>row</code>:当前行数据、<code>column</code>:当前列配置、<code>rowIndex</code>:行索引`,
                 type: `<code>Function({row,column,rowIndex})</code>`,
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "headerCellClass",
-                desc: `1、表头单元格样式<br>
-                2、接收2个参数，<code>column</code>:当前列配置、<code>rowIndex</code>:行索引`,
+                desc: `1、表头单元格样式\r2、接收2个参数，<code>column</code>:当前列配置、<code>rowIndex</code>:行索引`,
                 type: `<code>Function({column,rowIndex})</code>`,
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "footerCellClass",
-                desc: `1、footer汇总 单元格样式<br>
-                2、接收3个参数，<code>row</code>:当前行数据、<code>column</code>:当前列配置、<code>rowIndex</code>:行索引`,
+                desc: `1、footer汇总 单元格样式\r2、接收3个参数，<code>row</code>:当前行数据、<code>column</code>:当前列配置、<code>rowIndex</code>:行索引`,
                 type: `<code>Function({row,column,rowIndex})</code>`,
                 optionalVal: "-",
                 default: "-",
@@ -907,8 +911,22 @@ export const db = {
     editOption: {
         data: [
             {
+                param: "beforeCellValueChange",
+                desc: `单元格内容改变前的回调方法。<code>row</code>当前行数据，<code>column</code>当前列信息，<code>changeValue</code>单元格改变的值。如果返回false，将会阻止编辑，单元格还原为编辑前状态`,
+                type: `<code>Function({ row, column,changeValue })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterCellValueChange",
+                desc: `单元格内容改变后的回调方法。<code>row</code>当前行数据，<code>column</code>当前列信息，<code>changeValue</code>单元格改变的值`,
+                type: `<code>Function({ row, column,changeValue })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
                 param: "cellValueChange",
-                desc: `单元格停止编辑回调方法。<code>row</code>当前行数据，<code>column</code>当前列信息`,
+                desc: `将被移除`,
                 type: `<code>Function({ row, column })</code>`,
                 optionalVal: "-",
                 default: "-",
@@ -947,6 +965,160 @@ export const db = {
                 type: `<code>Boolean</code>`,
                 optionalVal: "-",
                 default: "true",
+            },
+        ],
+        columns: columnsType1,
+    },
+
+    // 单元格自动填充配置
+    cellAutofillOption: {
+        data: [
+            {
+                param: "directionX",
+                desc: `是否开启横向填充`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "directionY",
+                desc: `是否开启纵向填充`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "beforeAutofill",
+                desc: `单元格自动填充前的回调方法,返回false 则取消自动填充。参数说明：\r1、<code>direction</code>自动填充的方向\r2、<code>sourceSelectionRangeIndexes</code>自动填充来源的行和列索引\r3、<code>targetSelectionRangeIndexes</code>自动填充目标的行和列索引\r4、<code>sourceSelectionData</code>自动填充来源的数据，超出会自动去除\r5、<code>targetSelectionData</code>自动填充目标的数据`,
+                type: `<code>Function({
+                        direction,
+                        sourceSelectionRangeIndexes,
+                        targetSelectionRangeIndexes,
+                        sourceSelectionData,
+                        targetSelectionData,
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterAutofill",
+                desc: `单元格自动填充后的回调方法。参数说明：\r1、<code>direction</code>自动填充的方向\r2、<code>sourceSelectionRangeIndexes</code>自动填充来源的行和列索引\r3、<code>targetSelectionRangeIndexes</code>自动填充目标的行和列索引\r4、<code>sourceSelectionData</code>自动填充来源的数据，超出会自动去除\r5、<code>targetSelectionData</code>自动填充目标的数据`,
+                type: `<code>Function({
+                        direction,
+                        sourceSelectionRangeIndexes,
+                        targetSelectionRangeIndexes,
+                        sourceSelectionData,
+                        targetSelectionData,
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+        ],
+        columns: columnsType1,
+    },
+
+    // 剪贴板配置
+    clipboardOption: {
+        data: [
+            {
+                param: "copy",
+                desc: `是否开启单元格复制`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "paste",
+                desc: `是否开启单元格粘贴`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "cut",
+                desc: `是否开启单元格剪切`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "cut",
+                desc: `是否开启单元格删除`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "beforeCopy",
+                desc: `单元格拷贝前的回调方法,返回false 则取消拷贝。参数说明：\r1、<code>data</code>拷贝的数据\r2、<code>selectionRangeIndexes</code>拷贝区域的索引信息\r3、<code>selectionRangeKeys</code>拷贝区域的key信息`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterCopy",
+                desc: `单元格拷贝后回调方法。参数说明：\r1、<code>data</code>拷贝的数据\r2、<code>selectionRangeIndexes</code>拷贝区域的索引信息\r3、<code>selectionRangeKeys</code>拷贝区域的key信息`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "beforePaste",
+                desc: `单元格粘贴前的回调方法,返回false 则取消粘贴。参数说明：\r1、<code>data</code>粘贴的数据\r2、<code>selectionRangeIndexes</code>粘贴区域的索引信息\r3、<code>selectionRangeKeys</code>粘贴区域的key信息`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterPaste",
+                desc: `单元格粘贴后回调方法。参数说明：\r1、<code>data</code>粘贴的数据\r2、<code>selectionRangeIndexes</code>粘贴区域的索引信息\r3、<code>selectionRangeKeys</code>粘贴区域的key信息`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "beforeCut",
+                desc: `单元格剪切前的回调方法,返回false 则取消剪切。参数说明：\r1、<code>data</code>粘贴的数据\r2、<code>selectionRangeIndexes</code>粘贴区域的索引信息\r3、<code>selectionRangeKeys</code>粘贴区域的key信息`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterCut",
+                desc: `单元格剪切后回调方法。参数说明：\r1、<code>data</code>剪切的数据\r2、<code>selectionRangeIndexes</code>剪切区域的索引信息\r3、<code>selectionRangeKeys</code>剪切区域的key信息`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "beforeDelete",
+                desc: `单元格删除前的回调方法,返回false 则取消删除。参数说明：\r1、<code>data</code>粘贴的数据\r2、<code>selectionRangeIndexes</code>粘贴区域的索引信息\r3、<code>selectionRangeKeys</code>粘贴区域的key信息`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterDelete",
+                desc: `单元格删除后回调方法。参数说明：\r1、<code>data</code>删除的数据\r2、<code>selectionRangeIndexes</code>删除区域的索引信息\r3、<code>selectionRangeKeys</code>删除区域的key信息`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
             },
         ],
         columns: columnsType1,

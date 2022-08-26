@@ -111,7 +111,7 @@ export default {
             },
         },
         // cell selection key data
-        cellSelectionKeyData: {
+        cellSelectionData: {
             type: Object,
             default: function () {
                 return null;
@@ -189,6 +189,22 @@ export default {
         rowMouseleave(e, fn) {
             fn && fn(e);
         },
+        // mousemove
+        rowMousemove(e, fn) {
+            fn && fn(e);
+        },
+        // mouseover
+        rowMouseover(e, fn) {
+            fn && fn(e);
+        },
+        // mousedown
+        rowMousedown(e, fn) {
+            fn && fn(e);
+        },
+        // mouseup
+        rowMouseup(e, fn) {
+            fn && fn(e);
+        },
     },
 
     render() {
@@ -231,7 +247,7 @@ export default {
                         cellStyleOption,
                         cellSpanOption: this.cellSpanOption,
                         eventCustomOption,
-                        cellSelectionKeyData: this.cellSelectionKeyData,
+                        cellSelectionData: this.cellSelectionData,
                         editOption: this.editOption,
                     },
                     on: {
@@ -254,8 +270,17 @@ export default {
                 : {};
         }
 
-        const { click, dblclick, contextmenu, mouseenter, mouseleave } =
-            customEvents;
+        const {
+            click,
+            dblclick,
+            contextmenu,
+            mouseenter,
+            mouseleave,
+            mousemove,
+            mouseover,
+            mousedown,
+            mouseup,
+        } = customEvents;
 
         const events = {
             click: (e) => {
@@ -272,6 +297,18 @@ export default {
             },
             mouseleave: (e) => {
                 this.rowMouseleave(e, mouseleave);
+            },
+            mousemove: (e) => {
+                this.rowMousemove(e, mousemove);
+            },
+            mouseover: (e) => {
+                this.rowMouseover(e, mouseover);
+            },
+            mousedown: (e) => {
+                this.rowMousedown(e, mousedown);
+            },
+            mouseup: (e) => {
+                this.rowMouseup(e, mouseup);
             },
         };
 

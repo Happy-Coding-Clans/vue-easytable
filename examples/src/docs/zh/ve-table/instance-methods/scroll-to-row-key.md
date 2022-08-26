@@ -12,7 +12,9 @@
             <button class="button-demo" @click="scrollToRowKey(9989)">
                 滚动到rowKey为9989的行
             </button>
-            <button class="button-demo" @click="scrollToRowKey(5000)">滚动到rowKey为50的行</button>
+            <button class="button-demo" @click="scrollToRowKey(5000)">
+                滚动到rowKey为5000的行
+            </button>
             <button class="button-demo" @click="scrollToRowKey(0)">滚动到rowKey为0的行</button>
         </div>
         <ve-table

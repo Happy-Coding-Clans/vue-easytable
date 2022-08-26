@@ -36,3 +36,8 @@ A:当单元格文本内容过多时会破坏布局，此时可以通过样式 [w
     <ve-table style="word-break: break-all" :columns="columns" :table-data="tableData" />
 </template>
 ```
+
+:::anchor 自定义滚动条样式
+Q:如何自定义滚动条样式
+
+A:组件内部没有定制滚动条样式，根据你的业务自定义即可。滚动条样式自定义可参考：https://developer.mozilla.org/zh-CN/docs/Web/CSS/::-webkit-scrollbar

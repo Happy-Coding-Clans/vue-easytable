@@ -172,7 +172,7 @@ describe("veTable contextmenu", () => {
             .findAll(".ve-table-body-td")
             .at(2);
 
-        firstTrTdEl.trigger("click");
+        firstTrTdEl.trigger("mousedown");
 
         await later();
 
@@ -205,7 +205,7 @@ describe("veTable contextmenu", () => {
 
         expect(mockFn).toHaveBeenCalled();
         expect(mockFn).toHaveBeenCalledWith({
-            selection: { colKey: "date", rowKey: 2 },
+            selection: { colKey: "date", rowKey: 2, rowIndex: 2 },
             type: "INSERT_ROW_ABOVE",
         });
     });
@@ -251,7 +251,7 @@ describe("veTable contextmenu", () => {
             .findAll(".ve-table-body-td")
             .at(2);
 
-        firstTrTdEl.trigger("click");
+        firstTrTdEl.trigger("mousedown");
 
         await later();
 
@@ -284,7 +284,7 @@ describe("veTable contextmenu", () => {
 
         expect(mockFn).toHaveBeenCalled();
         expect(mockFn).toHaveBeenCalledWith({
-            selection: { colKey: "date", rowKey: 2 },
+            selection: { colKey: "date", rowKey: 2, rowIndex: 2 },
             type: "INSERT_ROW_BELOW",
         });
     });
@@ -330,7 +330,7 @@ describe("veTable contextmenu", () => {
             .findAll(".ve-table-body-td")
             .at(2);
 
-        firstTrTdEl.trigger("click");
+        firstTrTdEl.trigger("mousedown");
 
         await later();
 
@@ -363,7 +363,7 @@ describe("veTable contextmenu", () => {
 
         expect(mockFn).toHaveBeenCalled();
         expect(mockFn).toHaveBeenCalledWith({
-            selection: { colKey: "date", rowKey: 2 },
+            selection: { colKey: "date", rowKey: 2, rowIndex: 2 },
             type: "REMOVE_ROW",
         });
     });
@@ -409,7 +409,7 @@ describe("veTable contextmenu", () => {
             .findAll(".ve-table-body-td")
             .at(2);
 
-        firstTrTdEl.trigger("click");
+        firstTrTdEl.trigger("mousedown");
 
         await later();
 
@@ -450,7 +450,7 @@ describe("veTable contextmenu", () => {
 
         expect(mockFn).toHaveBeenCalled();
         expect(mockFn).toHaveBeenCalledWith({
-            selection: { colKey: "date", rowKey: 2 },
+            selection: { colKey: "date", rowKey: 2, rowIndex: 2 },
             type: "HIDE_COLUMN",
         });
     });

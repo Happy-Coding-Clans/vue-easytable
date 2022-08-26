@@ -32,7 +32,7 @@
                 ],
                 cellSelectionOption: {
                     // default true
-                    enable: false,
+                    enable: true,
                 },
                 columns: [
                     {

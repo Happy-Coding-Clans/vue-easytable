@@ -18,6 +18,7 @@
             :columns="columns"
             :table-data="tableData"
             rowKeyFieldName="rowKey"
+            :virtual-scroll-option="{enable:true}"
         />
     </div>
 </template>
@@ -117,14 +118,14 @@
                 for (let i = 0; i < 50; i++) {
                     data.push({
                         rowKey: i,
-                        col1: i,
-                        col2: i,
-                        col3: i,
-                        col4: i,
-                        col5: i,
-                        col6: i,
-                        col7: i,
-                        col8: i,
+                        col1: `A${i + 1}`,
+                        col2: `B${i + 1}`,
+                        col3: `C${i + 1}`,
+                        col4: `D${i + 1}`,
+                        col5: `E${i + 1}`,
+                        col6: `F${i + 1}`,
+                        col7: `G${i + 1}`,
+                        col8: `H${i + 1}`,
                     });
                 }
                 this.tableData = data;

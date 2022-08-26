@@ -104,7 +104,7 @@ export const db = {
         data: [
             {
                 param: "tableData",
-                desc: "table data",
+                desc: "Table data",
                 type: "<code>Array</code>",
                 optionalVal: "-",
                 default: "-",
@@ -122,6 +122,13 @@ export const db = {
                 type: `<code>Array</code>`,
                 optionalVal: "-",
                 default: "-",
+            },
+            {
+                param: "showHeader",
+                desc: `Show header`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
             },
             {
                 param: "fixedHeader",
@@ -189,7 +196,7 @@ export const db = {
             },
             {
                 param: "cellStyleOption",
-                desc: "cell style option,Refer to cellStyleOption option for details",
+                desc: "Cell style option,Refer to cellStyleOption option for details",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
@@ -203,7 +210,7 @@ export const db = {
             },
             {
                 param: "expandOption",
-                desc: "row expand option,Refer to expandOption option for details",
+                desc: "Row expand option,Refer to expandOption option for details",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
@@ -264,6 +271,20 @@ export const db = {
                 optionalVal: "-",
                 default: "-",
             },
+            {
+                param: "cellAutofillOption",
+                desc: `Cell autofill option,Refer to cellAutofillOption option for details`,
+                type: "<code>Object</code>",
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "clipboardOption",
+                desc: `Clipboard Option,Refer to clipboardOption option for details`,
+                type: "<code>Object</code>",
+                optionalVal: "-",
+                default: "-",
+            },
         ],
         columns: columnsType1,
     },
@@ -320,11 +341,19 @@ export const db = {
                 rowKey: 30,
             },
             {
+                param: "operationColumn",
+                desc: "is operation column",
+                type: "<code>Boolean</code>",
+                optionalVal: `-`,
+                default: `false`,
+                rowKey: 31,
+            },
+            {
                 param: "edit",
                 desc: "Enable cell edit",
                 type: "<code>Boolean</code>",
                 optionalVal: `-`,
-                default: `"false"`,
+                default: `false`,
                 rowKey: 32,
             },
             {
@@ -333,12 +362,11 @@ export const db = {
                 type: "<code>String</code>",
                 optionalVal: `""、"desc"、"asc"`,
                 default: `""`,
-                rowKey: 31,
+                rowKey: 33,
             },
             {
                 param: "renderBodyCell",
-                desc: `1、Custom cell rendering function in the table body. jsx ,Writing is close to template syntax<br>
-                2、Parameter information.<code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index、<code>h</code>：createElement<br>3、For more JSX knowledge, please refer to<a href="https://vuejs.org/v2/guide/render-function.html#JSX"> Vue.js Official doc</a>`,
+                desc: `1、Custom cell rendering function in the table body. jsx ,Writing is close to template syntax\r2、Parameter information.<code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index、<code>h</code>：createElement<br>3、For more JSX knowledge, please refer to<a href="https://vuejs.org/v2/guide/render-function.html#JSX"> Vue.js Official doc</a>`,
                 type: `<code>Function({row,column,rowIndex},h):VNode</code>`,
                 optionalVal: "-",
                 default: "-",
@@ -346,8 +374,7 @@ export const db = {
             },
             {
                 param: "renderHeaderCell",
-                desc: `1、Header custom cell rendering function.The usage is the same as<code>renderBodyCell</code>。<br>
-                2、Parameter information.<code>column</code>:Current column option、<code>h</code>：createElement`,
+                desc: `1、Header custom cell rendering function.The usage is the same as<code>renderBodyCell</code>。\r2、Parameter information.<code>column</code>:Current column option、<code>h</code>：createElement`,
                 type: "<code>Function({ column },h):VNode</code>",
                 optionalVal: "-",
                 default: "-",
@@ -355,8 +382,7 @@ export const db = {
             },
             {
                 param: "renderFooterCell",
-                desc: `1、footer custom cell rendering function.<br>
-                2、Parameter information.<code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index、<code>h</code>：createElement<br>`,
+                desc: `1、footer custom cell rendering function.\r2、Parameter information.<code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index、<code>h</code>：createElement<br>`,
                 type: `<code>Function({row,column,rowIndex},h):VNode</code>`,
                 optionalVal: "-",
                 default: "-",
@@ -368,7 +394,7 @@ export const db = {
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
-                rowKey: 49,
+                expandId: 49,
             },
             {
                 param: "<span class='expand'>filter</span>",
@@ -376,7 +402,7 @@ export const db = {
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
-                rowKey: 50,
+                expandId: 50,
             },
             {
                 param: "<span class='expand'>filterCustom</span>",
@@ -384,7 +410,7 @@ export const db = {
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
-                rowKey: 55,
+                expandId: 55,
             },
         ],
         columns: columnsType1,
@@ -393,8 +419,7 @@ export const db = {
             data: [
                 {
                     param: "filterList",
-                    desc: `	1、filter conditions<br>
-                    2、It contains three attributes: label、 value and selected. like:<code>[{ value: 0, label: "1900-05-20", selected: false }]</code>`,
+                    desc: `1、filter conditions<br>2、It contains three attributes: label、 value and selected. like:<code>[{ value: 0, label: "1900-05-20", selected: false }]</code>`,
                     type: "<code>Array</code>",
                     optionalVal: "-",
                     default: "-",
@@ -442,8 +467,7 @@ export const db = {
             data: [
                 {
                     param: "render",
-                    desc: `1、Render function<br>
-                    2、Parameters received by render functions,showFn:show filter box function、closeFn:close filter box function、<code>h</code>：createElement`,
+                    desc: `1、Render function<br>2、Parameters received by render functions,showFn:show filter box function、closeFn:close filter box function、<code>h</code>：createElement`,
                     type: "<code>Function({showFn,closeFn},h):VNode</code>",
                     optionalVal: "-",
                     default: "-",
@@ -537,16 +561,14 @@ export const db = {
         data: [
             {
                 param: "expandable",
-                desc: `	1、Whether the row rendering function is allowed to expand. Returns a Boolean value<br>
-                2、Receive 3 parameter,<code>row</code>:Current row data、<code>column</code>:Column option、<code>rowIndex</code>:rowIndex`,
+                desc: `	1、Whether the row rendering function is allowed to expand. Returns a Boolean value\r2、Receive 3 parameter,<code>row</code>:Current row data、<code>column</code>:Column option、<code>rowIndex</code>:rowIndex`,
                 type: "<code>Function({row,column,rowIndex})</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "render",
-                desc: `1、Render functions<br>
-                2、The parameters received by the render function. row:Current row data、column:Column option、rowIndex:rowIndex、<code>h</code>：createElement`,
+                desc: `1、Render functions\r2、The parameters received by the render function. row:Current row data、column:Column option、rowIndex:rowIndex、<code>h</code>：createElement`,
                 type: "<code>Function({row,column,rowIndex},h):VNode</code>",
                 optionalVal: "-",
                 default: "-",
@@ -574,16 +596,14 @@ export const db = {
             },
             {
                 param: "beforeExpandRowChange",
-                desc: `1、Expand functions before switching,If false is returned, execution is interrupted.<br>
-                2、Receive 3 parameter,<code>beforeExpandedRowKeys</code>:All expanded keys before the change,<code>row</code>:The current row data,<code>rowIndex</code>row index`,
+                desc: `1、Expand functions before switching,If false is returned, execution is interrupted.\r2、Receive 3 parameter,<code>beforeExpandedRowKeys</code>:All expanded keys before the change,<code>row</code>:The current row data,<code>rowIndex</code>row index`,
                 type: "<code>Function({beforeExpandedRowKeys,row,rowIndex})</code>",
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "afterExpandRowChange",
-                desc: `1、Expand the function after switching.<br>
-                2、Receive 3 parameter,<code>afterExpandedRowKeys</code>:All expanded keys after change,<code>row</code>:Current row data,<code>rowIndex</code>row index`,
+                desc: `1、Expand the function after switching.\r2、Receive 3 parameter,<code>afterExpandedRowKeys</code>:All expanded keys after change,<code>row</code>:Current row data,<code>rowIndex</code>row index`,
                 type: "<code>Function({afterExpandedRowKeys,row,rowIndex})</code>",
                 optionalVal: "-",
                 default: "-",
@@ -716,8 +736,8 @@ export const db = {
                 default: "-",
             },
             {
-                param: "bufferCount",
-                desc: `Number of buffered renderings. By default, only the row data within the height of the current container is rendered. Buffered data can render additional row data, which can effectively solve the problem of merging too many rows of data`,
+                param: "bufferScale",
+                desc: `Buffer scale. 1 buffer scale is the number of rows within the current table height`,
                 type: "<code>Number</code>",
                 optionalVal: "-",
                 default: "1",
@@ -843,24 +863,21 @@ export const db = {
         data: [
             {
                 param: "bodyCellClass",
-                desc: `1、Table body cell style<br>
-                2、Received 3 parameters,<code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index`,
+                desc: `1、Table body cell style\r2、Received 3 parameters,<code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index`,
                 type: `<code>Function({row,column,rowIndex})</code>`,
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "headerCellClass",
-                desc: `1、Header cell style<br>
-                2、Received 2 parameters,<code>column</code>:Current column option、<code>rowIndex</code>:Row index`,
+                desc: `1、Header cell style\r2、Received 2 parameters,<code>column</code>:Current column option、<code>rowIndex</code>:Row index`,
                 type: `<code>Function({column,rowIndex})</code>`,
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "footerCellClass",
-                desc: `1、Footer cell style<br>
-                2、Received 3 parameters,<code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index`,
+                desc: `1、Footer cell style\r2、Received 3 parameters,<code>row</code>:Current row data、<code>column</code>:Current column option、<code>rowIndex</code>:Row index`,
                 type: `<code>Function({row,column,rowIndex})</code>`,
                 optionalVal: "-",
                 default: "-",
@@ -901,8 +918,22 @@ export const db = {
     editOption: {
         data: [
             {
+                param: "beforeCellValueChange",
+                desc: `before cell value change callback method. <code>row</code>Current row data,<code>column</code>Current column,<code>changeValue</code>change value. If false is returned, cell editing will be blocked, the cell will back to the state before editing`,
+                type: `<code>Function({ row, column,changeValue  })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterCellValueChange",
+                desc: `after cell value change callback method. <code>row</code>Current row data,<code>column</code>Current column,<code>changeValue</code>change value `,
+                type: `<code>Function({ row, column,changeValue  })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
                 param: "cellValueChange",
-                desc: `Cell stop edit callback method. <code>row</code>Current row data,<code>column</code>Current column `,
+                desc: `Will be removed`,
                 type: `<code>Function({ row, column })</code>`,
                 optionalVal: "-",
                 default: "-",
@@ -941,6 +972,160 @@ export const db = {
                 type: `<code>Boolean</code>`,
                 optionalVal: "-",
                 default: "true",
+            },
+        ],
+        columns: columnsType1,
+    },
+
+    // 单元格自动填充配置
+    cellAutofillOption: {
+        data: [
+            {
+                param: "directionX",
+                desc: `enable horizontal autofill`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "directionY",
+                desc: `enable vertical autofill`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "beforeAutofill",
+                desc: `The callback method before cell autofilling. If false is returned, the autofilling will be cancelled.Parameter Description:\r1、<code>direction</code>autofill direction\r2、<code>sourceSelectionRangeIndexes</code>Autofilling the row and column indexes of the source\r3、<code>targetSelectionRangeIndexes</code>Autofilling the row and column indexes of the target\r4、<code>sourceSelectionData</code>autofilling source data,Excess will be removed automatically\r5、<code>targetSelectionData</code>autofilling target data`,
+                type: `<code>Function({
+                        direction,
+                        sourceSelectionRangeIndexes,
+                        targetSelectionRangeIndexes,
+                        sourceSelectionData,
+                        targetSelectionData,
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterAutofill",
+                desc: `The callback method after cell autofilling.Parameter Description:\r1、<code>direction</code>autofill direction\r2、<code>sourceSelectionRangeIndexes</code>Autofilling the row and column indexes of the source\r3、<code>targetSelectionRangeIndexes</code>Autofilling the row and column indexes of the target\r4、<code>sourceSelectionData</code>autofilling source data,Excess will be removed automatically\r5、<code>targetSelectionData</code>autofilling target data`,
+                type: `<code>Function({
+                        direction,
+                        sourceSelectionRangeIndexes,
+                        targetSelectionRangeIndexes,
+                        sourceSelectionData,
+                        targetSelectionData,
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+        ],
+        columns: columnsType1,
+    },
+
+    // 剪贴板配置
+    clipboardOption: {
+        data: [
+            {
+                param: "copy",
+                desc: `enable cell copy`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "paste",
+                desc: `enable cell paste`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "cut",
+                desc: `enable cell cut`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "delete",
+                desc: `enable cell delete`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "true",
+            },
+            {
+                param: "beforeCopy",
+                desc: `The callback method before cell copy. If false is returned, the copy will be canceled. Parameter Description:\r1、<code>data</code>copy data\r2、<code>selectionRangeIndexes</code>The indexs information of copy area\r3、<code>selectionRangeKeys</code>The keys information of copy area`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterCopy",
+                desc: `The callback method after cell copy. Parameter Description:\r1、<code>data</code>copy data\r2、<code>selectionRangeIndexes</code>The indexs information of copy area\r3、<code>selectionRangeKeys</code>The keys information of copy area`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "beforePaste",
+                desc: `The callback method before cell paste. If false is returned, the copy will be canceled. Parameter Description:\r1、<code>data</code>paste data\r2、<code>selectionRangeIndexes</code>The indexs information of paste area\r3、<code>selectionRangeKeys</code>The keys information of copy paste`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterPaste",
+                desc: `The callback method after cell paste. Parameter Description:\r1、<code>data</code>paste data\r2、<code>selectionRangeIndexes</code>The indexs information of paste area\r3、<code>selectionRangeKeys</code>The keys information of copy paste`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "beforeCut",
+                desc: `The callback method before cell cut. If false is returned, the copy will be canceled. Parameter Description:\r1、<code>data</code>cut data\r2、<code>selectionRangeIndexes</code>The indexs information of cut area\r3、<code>selectionRangeKeys</code>The keys information of cut paste`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterCut",
+                desc: `The callback method after cell cut. Parameter Description:\r1、<code>data</code>cut data\r2、<code>selectionRangeIndexes</code>The indexs information of cut area\r3、<code>selectionRangeKeys</code>The keys information of cut paste`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "beforeCut",
+                desc: `The callback method before cell delete. If false is returned, the copy will be canceled. Parameter Description:\r1、<code>data</code>delete data\r2、<code>selectionRangeIndexes</code>The indexs information of delete area\r3、<code>selectionRangeKeys</code>The keys information of delete paste`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterCut",
+                desc: `The callback method after cell delete. Parameter Description:\r1、<code>data</code>delete data\r2、<code>selectionRangeIndexes</code>The indexs information of delete area\r3、<code>selectionRangeKeys</code>The keys information of delete paste`,
+                type: `<code>Function({
+                    data, selectionRangeIndexes, selectionRangeKeys
+})</code>`,
+                optionalVal: "-",
+                default: "-",
             },
         ],
         columns: columnsType1,

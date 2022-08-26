@@ -1,9 +1,17 @@
-@ve-fixed-header-index: 2;
-@ve-fixed-header-cell-index: 3;
-@ve-fixed-body-cell-index: 1;
-@ve-fixed-foot-index: 2;
-@ve-fixed-foot-cell-index: 3;
 @ve-virtual-phantom-index: -1;
+
+@ve-normal-cell-selection-border-index: 0;
+@ve-normal-cell-selection-corner-index: 1;
+
+@ve-fixed-body-cell-index: 10;
+@ve-fixed-cell-selection-border-index: 10;
+@ve-fixed-cell-selection-corner-index: 11;
+
+@ve-fixed-header-index: 20;
+@ve-fixed-foot-index: 20;
+
+@ve-fixed-header-cell-index: 30;
+@ve-fixed-foot-cell-index: 30;
 
 .ve-table *,
 .ve-table *:before,
@@ -23,244 +31,346 @@
         overflow-y: auto;
         height: 100%;
         width: 100%;
-        // table content
-        table.ve-table-content {
-            position: absolute;
+
+        // table content wrapper
+        .ve-table-content-wrapper {
+            position: relative;
             left: 0;
             right: 0;
             top: 0;
-            min-width: 100%;
-            table-layout: fixed;
-            border-collapse: separate;
-            border-spacing: 0;
 
-            // 表头（需要处理多表头情况）
-            thead.ve-table-header {
-                tr.ve-table-header-tr {
-                    height: @ve-table-head-row-height;
-                    th.ve-table-header-th {
-                        background-color: @ve-table-header-background-color;
-                        padding: @ve-table-head-row-td-padding;
-                        font-weight: 500;
-                        color: @ve-table-head-text-color;
-                        font-size: @ve-table-head-text-font-size;
+            // table content
+            table.ve-table-content {
+                min-width: 100%;
+                table-layout: fixed;
+                border-collapse: separate;
+                border-spacing: 0;
+
+                // 表头（需要处理多表头情况）
+                thead.ve-table-header {
+                    tr.ve-table-header-tr {
+                        height: @ve-table-head-row-height;
+                        th.ve-table-header-th {
+                            background-color: @ve-table-header-background-color;
+                            padding: @ve-table-head-row-td-padding;
+                            font-weight: 500;
+                            color: @ve-table-head-text-color;
+                            font-size: @ve-table-head-text-font-size;
+                        }
                     }
-                }
-                // 固定头
-                &.ve-table-fixed-header {
-                    tr th {
-                        position: sticky;
-                        z-index: @ve-fixed-header-index;
-                    }
-                }
-                .ve-table-header-tr {
-                    .ve-table-header-th {
-                        // 固定左列、右列
-                        &.ve-table-fixed-left,
-                        &.ve-table-fixed-right {
+                    // 固定头
+                    &.ve-table-fixed-header {
+                        tr th {
                             position: sticky;
-                            z-index: @ve-fixed-header-cell-index;
+                            z-index: @ve-fixed-header-index;
                         }
-                        // checkbox
-                        .ve-table-checkbox-wrapper {
-                            width: 25px;
-                        }
+                    }
+                    .ve-table-header-tr {
+                        .ve-table-header-th {
+                            // 固定左列、右列
+                            &.ve-table-fixed-left,
+                            &.ve-table-fixed-right {
+                                position: sticky;
+                                z-index: @ve-fixed-header-cell-index;
+                            }
+                            // checkbox
+                            .ve-table-checkbox-wrapper {
+                                width: 25px;
+                            }
 
-                        // sort
-                        .ve-table-sort {
-                            display: inline-block;
-                            position: relative;
-                            width: 16px;
-                            height: 16px;
-                            margin-left: 5px;
-                            color: @ve-table-sort-icon-default-color;
-                            cursor: pointer;
-                            .ve-table-sort-icon {
-                                position: absolute;
-                                display: block;
-                                font-size: 14px;
-                                &.ve-table-sort-icon-top {
-                                    top: 1px;
-                                }
+                            // sort
+                            .ve-table-sort {
+                                display: inline-block;
+                                position: relative;
+                                width: 16px;
+                                height: 16px;
+                                margin-left: 5px;
+                                color: @ve-table-sort-icon-default-color;
+                                cursor: pointer;
+                                .ve-table-sort-icon {
+                                    position: absolute;
+                                    display: block;
+                                    font-size: 14px;
+                                    &.ve-table-sort-icon-top {
+                                        top: 1px;
+                                    }
 
-                                &.ve-table-sort-icon-bottom {
-                                    top: 9px;
-                                }
+                                    &.ve-table-sort-icon-bottom {
+                                        top: 9px;
+                                    }
 
-                                &.active {
-                                    color: @ve-table-sort-icon-active-color;
+                                    &.active {
+                                        color: @ve-table-sort-icon-active-color;
+                                    }
                                 }
                             }
-                        }
 
-                        /* filter */
-                        .ve-table-filter {
-                            display: inline-block;
-                            position: relative;
-                            width: 0;
-                            height: 16px;
-                            cursor: pointer;
-                            .ve-table-filter-icon {
-                                color: @ve-table-header-filter-icon-color;
-                                position: absolute;
-                                top: 0;
-                                left: 5px;
-                            }
-                        }
-                    }
-                }
-            }
-
-            // tbody
-            tbody.ve-table-body {
-                tr.ve-table-body-tr,
-                tr.ve-table-expand-tr {
-                    height: @ve-table-body-row-height;
-                    td.ve-table-body-td,
-                    td.ve-table-expand-td {
-                        background-color: @ve-table-body-background-color;
-                        color: @ve-table-body-text-color;
-                        // hack content fill td height
-                        //height: 1px;
-                        height: inherit;
-                        font-size: @ve-table-body-text-font-size;
-                    }
-
-                    td.ve-table-body-td {
-                        padding: @ve-table-body-row-td-padding;
-                        white-space: pre-wrap;
-                        overflow: hidden;
-                    }
-                }
-
-                // 展开行
-                tr.ve-table-expand-tr {
-                    display: table-row;
-                }
-
-                // 滚动中效果
-                tr.ve-table-body-row-scrolling {
-                    & > td {
-                        background-color: @ve-table-body-row-row-scrolling-background-color;
-                    }
-                }
-
-                // 斑马纹
-                &.ve-table-stripe {
-                    tr.ve-table-body-tr:nth-child(2n + 1) td {
-                        background-color: @ve-table-body-row-stripe-background-color;
-                    }
-                }
-
-                // 行悬浮效果
-                &.ve-table-row-hover {
-                    tr.ve-table-body-tr:hover td {
-                        background-color: @ve-table-body-row-hover-background-color;
-                    }
-                }
-
-                // 行点击高亮
-                &.ve-table-row-highlight {
-                    tr.ve-table-body-tr {
-                        &.ve-table-tr-highlight {
-                            td {
-                                background-color: @ve-table-body-row-highlight-background-color;
+                            /* filter */
+                            .ve-table-filter {
+                                display: inline-block;
+                                position: relative;
+                                width: 0;
+                                height: 16px;
+                                cursor: pointer;
+                                .ve-table-filter-icon {
+                                    color: @ve-table-header-filter-icon-color;
+                                    position: absolute;
+                                    top: 0;
+                                    left: 5px;
+                                }
                             }
                         }
                     }
                 }
 
-                .ve-table-body-tr {
-                    .ve-table-body-td {
-                        // 固定左列、右列
-                        &.ve-table-fixed-left,
-                        &.ve-table-fixed-right {
+                // tbody
+                tbody.ve-table-body {
+                    tr.ve-table-body-tr,
+                    tr.ve-table-expand-tr {
+                        height: @ve-table-body-row-height;
+                        td.ve-table-body-td,
+                        td.ve-table-expand-td {
+                            background-color: @ve-table-body-background-color;
+                            color: @ve-table-body-text-color;
+                            // hack content fill td height
+                            //height: 1px;
+                            height: inherit;
+                            font-size: @ve-table-body-text-font-size;
+                        }
+
+                        td.ve-table-body-td {
+                            padding: @ve-table-body-row-td-padding;
+                            white-space: pre-wrap;
+                            overflow: hidden;
+                        }
+
+                        td.ve-table-operation-col {
+                            background-color: @ve-table-td-operation-column-background-color;
+                        }
+                    }
+
+                    // 展开行
+                    tr.ve-table-expand-tr {
+                        display: table-row;
+                    }
+
+                    // 滚动中效果
+                    tr.ve-table-body-row-scrolling {
+                        & > td {
+                            background-color: @ve-table-body-row-row-scrolling-background-color;
+                        }
+                    }
+
+                    // 斑马纹
+                    &.ve-table-stripe {
+                        tr.ve-table-body-tr:nth-child(2n + 1) td {
+                            background-color: @ve-table-body-row-stripe-background-color;
+                        }
+                    }
+
+                    // 行悬浮效果
+                    &.ve-table-row-hover {
+                        tr.ve-table-body-tr:hover td {
+                            background-color: @ve-table-body-row-hover-background-color;
+                        }
+                    }
+
+                    // 行点击高亮
+                    &.ve-table-row-highlight {
+                        tr.ve-table-body-tr {
+                            &.ve-table-tr-highlight {
+                                td {
+                                    background-color: @ve-table-body-row-highlight-background-color;
+                                }
+                            }
+                        }
+                    }
+
+                    .ve-table-body-tr {
+                        .ve-table-body-td {
+                            // 固定左列、右列
+                            &.ve-table-fixed-left,
+                            &.ve-table-fixed-right {
+                                position: sticky;
+                                z-index: @ve-fixed-body-cell-index;
+                            }
+
+                            // expand row icon
+                            .ve-table-row-expand-icon {
+                                cursor: pointer;
+                                display: inline-block;
+                                width: 20px;
+                                height: 20px;
+                                i {
+                                    display: inline-flex;
+                                    &::before {
+                                        transform: rotate(0deg);
+                                        transition: transform 0.3s;
+                                    }
+                                }
+                                &.ve-table-expand-icon-collapsed {
+                                    i::before {
+                                        transform: rotate(90deg);
+                                        transition: transform 0.3s;
+                                    }
+                                }
+                            }
+
+                            // checkbox
+                            .ve-table-checkbox-wrapper {
+                                width: 25px;
+                            }
+
+                            // ellipsis
+                            .ve-table-body-td-span-ellipsis {
+                                overflow: hidden;
+                                display: -webkit-box;
+                                text-overflow: ellipsis;
+                                /* -webkit-line-clamp: 1; */
+                                -webkit-box-orient: vertical;
+                            }
+                        }
+                    }
+
+                    // expand row
+                    .ve-table-expand-tr {
+                        .ve-table-expand-td-content {
                             position: sticky;
                             z-index: @ve-fixed-body-cell-index;
-                        }
-
-                        // cell selection
-                        &.ve-table-cell-selection {
-                            border: 1px solid
-                                @ve-table-td-selection-border-color;
-                        }
-
-                        // expand row icon
-                        .ve-table-row-expand-icon {
-                            cursor: pointer;
-                            display: inline-block;
-                            width: 20px;
-                            height: 20px;
-                            i {
-                                display: inline-flex;
-                                &::before {
-                                    transform: rotate(0deg);
-                                    transition: transform 0.3s;
-                                }
-                            }
-                            &.ve-table-expand-icon-collapsed {
-                                i::before {
-                                    transform: rotate(90deg);
-                                    transition: transform 0.3s;
-                                }
-                            }
-                        }
-
-                        // checkbox
-                        .ve-table-checkbox-wrapper {
-                            width: 25px;
-                        }
-
-                        // ellipsis
-                        .ve-table-body-td-span-ellipsis {
-                            overflow: hidden;
-                            display: -webkit-box;
-                            text-overflow: ellipsis;
-                            /* -webkit-line-clamp: 1; */
-                            -webkit-box-orient: vertical;
+                            left: 0px;
+                            padding: @ve-table-body-row-expand-content-padding;
                         }
                     }
                 }
 
-                // expand row
-                .ve-table-expand-tr {
-                    .ve-table-expand-td-content {
-                        position: sticky;
-                        z-index: @ve-fixed-body-cell-index;
-                        left: 0px;
-                        padding: @ve-table-body-row-expand-content-padding;
+                //  tfooter
+                tfoot.ve-table-footer {
+                    tr.ve-table-footer-tr {
+                        height: @ve-table-foot-row-height;
+                        td.ve-table-footer-td {
+                            background-color: @ve-table-foot-background-color;
+                            color: @ve-table-foot-text-color;
+                            padding: @ve-table-foot-row-td-padding;
+                            font-size: @ve-table-foot-text-font-size;
+                        }
+                    }
+                    // 固定footer
+                    &.ve-table-fixed-footer {
+                        tr td {
+                            position: sticky;
+                            z-index: @ve-fixed-foot-index;
+                        }
+                    }
+
+                    .ve-table-footer-tr {
+                        .ve-table-footer-td {
+                            // 固定左列、右列
+                            &.ve-table-fixed-left,
+                            &.ve-table-fixed-right {
+                                position: sticky;
+                                z-index: @ve-fixed-foot-cell-index;
+                            }
+                        }
                     }
                 }
             }
 
-            //  tfooter
-            tfoot.ve-table-footer {
-                tr.ve-table-footer-tr {
-                    height: @ve-table-foot-row-height;
-                    td.ve-table-footer-td {
-                        background-color: @ve-table-foot-background-color;
-                        color: @ve-table-foot-text-color;
-                        padding: @ve-table-foot-row-td-padding;
-                        font-size: @ve-table-foot-text-font-size;
+            // cell selection
+            .ve-table-selection-wrapper {
+                .ve-table-selection-fixed-left {
+                    .ve-table-selection-current,
+                    .ve-table-selection-normal-area,
+                    .ve-table-selection-autofill-area {
+                        .ve-table-selection-corner {
+                            position: absolute;
+                            z-index: @ve-fixed-cell-selection-corner-index;
+                        }
+                        .ve-table-selection-border {
+                            position: absolute;
+                            z-index: @ve-fixed-cell-selection-border-index;
+                        }
                     }
-                }
-                // 固定footer
-                &.ve-table-fixed-footer {
-                    tr td {
-                        position: sticky;
-                        z-index: @ve-fixed-foot-index;
+
+                    .ve-table-selection-normal-area-layer {
+                        position: absolute;
+                        z-index: @ve-fixed-cell-selection-border-index;
                     }
                 }
 
-                .ve-table-footer-tr {
-                    .ve-table-footer-td {
-                        // 固定左列、右列
-                        &.ve-table-fixed-left,
-                        &.ve-table-fixed-right {
-                            position: sticky;
-                            z-index: @ve-fixed-foot-cell-index;
+                .ve-table-selection-middle {
+                    .ve-table-selection-current,
+                    .ve-table-selection-normal-area,
+                    .ve-table-selection-autofill-area {
+                        .ve-table-selection-corner {
+                            position: absolute;
+                            z-index: @ve-normal-cell-selection-corner-index;
+                        }
+                        .ve-table-selection-border {
+                            position: absolute;
+                            z-index: @ve-normal-cell-selection-border-index;
                         }
                     }
+
+                    .ve-table-selection-normal-area-layer {
+                        position: absolute;
+                        z-index: @ve-normal-cell-selection-border-index;
+                    }
+                }
+
+                .ve-table-selection-fixed-right {
+                    .ve-table-selection-current,
+                    .ve-table-selection-normal-area,
+                    .ve-table-selection-autofill-area {
+                        .ve-table-selection-corner {
+                            position: absolute;
+                            z-index: @ve-fixed-cell-selection-corner-index;
+                        }
+                        .ve-table-selection-border {
+                            position: absolute;
+                            z-index: @ve-fixed-cell-selection-border-index;
+                        }
+                    }
+
+                    .ve-table-selection-normal-area-layer {
+                        position: absolute;
+                        z-index: @ve-fixed-cell-selection-border-index;
+                    }
+                }
+
+                // 浮层
+                .ve-table-selection-normal-area-layer {
+                    background-color: @ve-table-selection-area-layer-background-color;
+                    opacity: 0.1;
+                    pointer-events: none;
+                }
+
+                .ve-table-selection-current,
+                .ve-table-selection-normal-area {
+                    .ve-table-selection-corner {
+                        display: block;
+                        height: 8px;
+                        width: 8px;
+                        border-style: solid;
+                        border-color: @ve-table-selection-corner-border-color;
+                        background-color: @ve-table-selection-corner-background-color;
+                        cursor: crosshair;
+                    }
+
+                    .ve-table-selection-border {
+                        display: block;
+                        background-color: @ve-table-selection-border-color;
+                    }
+                }
+
+                .ve-table-selection-autofill-area {
+                    .ve-table-selection-border {
+                        display: block;
+                        background-color: @ve-table-selection-autofill-border-color;
+                    }
+                }
+
+                .ve-table-selection-border {
+                    pointer-events: none;
                 }
             }
         }
@@ -288,17 +398,14 @@
             }
         }
 
-        // is cell editing
-        &.ve-table-is-cell-editing {
-            .ve-table-content {
-                .ve-table-body {
-                    .ve-table-body-tr {
-                        .ve-table-body-td.ve-table-cell-selection {
-                            border-width: 0px;
-                        }
-                    }
-                }
-            }
+        // autofilling
+        &.ve-table-autofilling {
+            cursor: crosshair;
+        }
+
+        // enable cell selection
+        &.ve-table-enable-cell-selection {
+            user-select: none;
         }
 
         // border x
@@ -373,11 +480,11 @@
             line-height: @ve-table-td-editing-line-height;
             font-size: inherit;
             border: 2px solid @ve-table-td-editing-border-color;
-            box-shadow: 1px 2px 5px 0 #1f232966;
+            box-shadow: 1px 2px 5px 0 @ve-table-td-editing-box-shadow-color;
             display: block;
-            color: #000;
+            color: @ve-table-td-editing-font-color;
             border-radius: 0;
-            background-color: #fff;
+            background-color: @ve-table-td-editing-background-color;
         }
     }
 }

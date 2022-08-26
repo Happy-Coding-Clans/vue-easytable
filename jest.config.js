@@ -20,6 +20,7 @@ module.exports = {
         "packages/ve-*/**/*.{jsx,js,vue}",
         "!packages/ve-*/src/util/*",
         "!packages/ve-checkbox-group/**",
+        "!packages/ve-table/src/selection/*",
         "!**/node_modules/**",
     ],
 };

@@ -47,11 +47,12 @@ describe("veTable virtual scroll", () => {
     const MIN_ROW_HEIGHT = 40;
 
     // 表格渲染的数量
-    const TABLE_ROW_COUNT = Math.ceil(MAX_HEIGHT / MIN_ROW_HEIGHT) + 1;
+    //const TABLE_ROW_COUNT = Math.ceil(MAX_HEIGHT / MIN_ROW_HEIGHT) + 1;
+    const TABLE_ROW_COUNT = Math.ceil(MAX_HEIGHT / MIN_ROW_HEIGHT) * 2;
 
     // get table rendered row count by row height
-    function getTableRenderedRowCountByRowHeight(rowHeight) {
-        return Math.ceil(MAX_HEIGHT / rowHeight) + 1;
+    function getTableRenderedRowCountByRowHeight(rowHeight, bufferScale = 2) {
+        return Math.ceil(MAX_HEIGHT / rowHeight) * bufferScale;
     }
 
     it("render same row height", async () => {
@@ -251,7 +252,7 @@ describe("veTable virtual scroll", () => {
         );
     });
 
-    it("buffer count", async () => {
+    it("buffer scale", async () => {
         const bufferCount = 10;
 
         const wrapper = mount(veTable, {
@@ -283,7 +284,7 @@ describe("veTable virtual scroll", () => {
                 virtualScrollOption: {
                     // 是否开启
                     enable: true,
-                    bufferCount: bufferCount,
+                    bufferScale: bufferCount,
                 },
                 maxHeight: MAX_HEIGHT,
                 rowKeyFieldName: "rowKey",
@@ -295,7 +296,7 @@ describe("veTable virtual scroll", () => {
         await later();
 
         expect(wrapper.findAll(".ve-table-body-tr").length).toBe(
-            Math.ceil(MAX_HEIGHT / MIN_ROW_HEIGHT) + bufferCount,
+            Math.ceil(MAX_HEIGHT / MIN_ROW_HEIGHT) * (bufferCount + 1),
         );
     });
 
@@ -648,9 +649,9 @@ describe("veTable virtual scroll", () => {
         expect(mockFn).toHaveBeenCalledWith({
             startRowIndex: 0,
             visibleStartIndex: 0,
-            visibleEndIndex: TABLE_ROW_COUNT - 1, // ？
+            visibleEndIndex: Math.ceil(MAX_HEIGHT / MIN_ROW_HEIGHT),
             visibleAboveCount: 0,
-            visibleBelowCount: 1,
+            visibleBelowCount: Math.ceil(MAX_HEIGHT / MIN_ROW_HEIGHT),
         });
     });
 

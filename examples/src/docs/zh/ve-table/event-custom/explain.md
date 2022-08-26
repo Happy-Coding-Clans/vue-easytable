@@ -8,6 +8,10 @@
 -   contextmen
 -   mouseenter
 -   mouseleave
+-   mousemove
+-   mouseover
+-   mousedown
+-   mouseup
 
 :::
 
@@ -23,6 +27,10 @@ eventCustomOption: {
       contextmenu: (event) => {},
       mouseenter: (event) => {},
       mouseleave: (event) => {},
+      mousemove: (event) => {},
+      mouseover: (event) => {},
+      mousedown: (event) => {},
+      mouseup: (event) => {},
     };
   },
   // body 列事件自定义
@@ -33,6 +41,10 @@ eventCustomOption: {
       contextmenu: (event) => {},
       mouseenter: (event) => {},
       mouseleave: (event) => {},
+      mousemove: (event) => {},
+      mouseover: (event) => {},
+      mousedown: (event) => {},
+      mouseup: (event) => {},
     };
   },
   // header 行事件自定义
@@ -43,6 +55,10 @@ eventCustomOption: {
       contextmenu: (event) => {},
       mouseenter: (event) => {},
       mouseleave: (event) => {},
+       mousemove: (event) => {},
+      mouseover: (event) => {},
+      mousedown: (event) => {},
+      mouseup: (event) => {},
     };
   },
   // header 列事件自定义
@@ -53,6 +69,10 @@ eventCustomOption: {
       contextmenu: (event) => {},
       mouseenter: (event) => {},
       mouseleave: (event) => {},
+      mousemove: (event) => {},
+      mouseover: (event) => {},
+      mousedown: (event) => {},
+      mouseup: (event) => {},
     };
   },
   // footer 行事件自定义
@@ -63,6 +83,10 @@ eventCustomOption: {
       contextmenu: (event) => {},
       mouseenter: (event) => {},
       mouseleave: (event) => {},
+      mousemove: (event) => {},
+      mouseover: (event) => {},
+      mousedown: (event) => {},
+      mouseup: (event) => {},
     };
   },
   // footer 列事件自定义
@@ -73,6 +97,10 @@ eventCustomOption: {
       contextmenu: (event) => {},
       mouseenter: (event) => {},
       mouseleave: (event) => {},
+      mousemove: (event) => {},
+      mouseover: (event) => {},
+      mousedown: (event) => {},
+      mouseup: (event) => {},
     };
   },
 },

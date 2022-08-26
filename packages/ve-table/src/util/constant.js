@@ -14,6 +14,12 @@ export const COLUMN_TYPES = {
     RADIO: "radio",
 };
 
+// column fixed type
+export const COLUMN_FIXED_TYPE = {
+    LEFT: "left",
+    RIGHT: "right",
+};
+
 // expand row trigger types
 export const EXPAND_TRIGGER_TYPES = {
     // trigger by click icon
@@ -32,6 +38,20 @@ export const CELL_SELECTION_DIRECTION = {
     LEFT: "left",
 };
 
+// autofilling direction
+export const AUTOFILLING_DIRECTION = {
+    UP: "up",
+    RIGHT: "right",
+    DOWN: "down",
+    LEFT: "left",
+};
+
+// current cell selection types
+export const CURRENT_CELL_SELECTION_TYPES = {
+    SINGLE: "single",
+    RANGE: "range",
+};
+
 // emit events
 export const EMIT_EVENTS = {
     // body-td-width-change
@@ -46,6 +66,12 @@ export const EMIT_EVENTS = {
     BODY_TR_CLICK: "on-body-tr-click",
     // body td click
     BODY_TD_CLICK: "on-body-td-click",
+    // body td mouseover
+    BODY_TD_MOUSEOVER: "on-body-td-mouseover",
+    // body td mousedown
+    BODY_TD_MOUSEDOWN: "on-body-td-mousedown",
+    // body td mouseup
+    BODY_TD_MOUSEUP: "on-body-td-mouseup",
     // body td double click
     BODY_TD_DOUBLE_CLICK: "on-body-td-double-click",
     // body td contextmenu
@@ -64,6 +90,8 @@ export const EMIT_EVENTS = {
     SORT_CHANGE: "on-sort-change",
     // on-cell-selection-key-change
     CELL_SELECTION_KEY_CHANGE: "on-cell-selection-key-change",
+    // on-cell-selection-range-data-change
+    CELL_SELECTION_RANGE_DATA_CHANGE: "on-cell-selection-range-data-change",
     // header filter confirm
     HEADER_FILTER_CONFIRM: "on-filter-confirm",
     // header filter reset
@@ -77,6 +105,19 @@ export const EMIT_EVENTS = {
     EDIT_INPUT_BLUR: "on-edit-input-blur",
     // edit input value change
     EDIT_INPUT_VALUE_CHANGE: "on-edit-input-value-change",
+    // edit input copy
+    EDIT_INPUT_COPY: "on-edit-input-copy",
+    // edit input paste
+    EDIT_INPUT_PASTE: "on-edit-input-paste",
+    // edit input cut
+    EDIT_INPUT_CUT: "on-edit-input-cut",
+
+    // selection corner mousedown
+    SELECTION_CORNER_MOUSEDOWN: "selection-corner-mousedown",
+    // selection corner mouseup
+    SELECTION_CORNER_MOUSEUP: "selection-corner-mouseup",
+    // autofilling direction change
+    AUTOFILLING_DIRECTION_CHANGE: "autofilling-direction-change",
 };
 
 // hooks name
@@ -85,6 +126,13 @@ export const HOOKS_NAME = {
     TABLE_CONTAINER_SCROLL: "table-container-scroll",
     // table size change
     TABLE_SIZE_CHANGE: "table-size-change",
+    // table td width change
+    TABLE_TD_WIDTH_CHANGE: "table-td-width-change",
+    /*
+    clipboard cell value change
+    可能导致单元格高度变化，需要重新修改区域选择的定位信息
+    */
+    CLIPBOARD_CELL_VALUE_CHANGE: "clipboard-cell-value-change",
 };
 
 // comps name
@@ -111,7 +159,9 @@ export const COMPS_NAME = {
     VE_TABLE_EXPAND_TR: "VeTableExpandTr",
     VE_TABLE_EXPAND_TR_ICON: "VeTableExpandTrIcon",
 
-    VE_TABLE_EDIT_INPUT: "VeTableEditIput",
+    VE_TABLE_EDIT_INPUT: "VeTableEditInput",
+
+    VE_TABLE_SELECTION: "VeTableSelection",
 };
 
 // comps custom attrs

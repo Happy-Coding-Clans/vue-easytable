@@ -5,11 +5,11 @@
         <ve-table
             class="tpl-table"
             :columns="columns"
-            :table-data="tableData"
+            :table-data="cloneTable"
             :border-around="true"
             :border-x="true"
             :border-y="false"
-            row-key-field-name="rowKey"
+            row-key-field-name="__key__"
             :expand-option="expandOption"
             :cell-selection-option="cellSelectionOption"
         />
@@ -43,17 +43,33 @@ export default {
             },
         },
     },
+
     data() {
         return {
             cellSelectionOption: {
                 // default true
                 enable: false,
             },
+            cloneTable: [],
         };
     },
     computed: {
         getAnchor() {
             return this.anchor ? this.anchor : this.desc;
+        },
+    },
+    watch: {
+        // auto create row key
+        tableData: {
+            handler: function (val) {
+                if (val) {
+                    this.cloneTable = val.map((item, index) => {
+                        item.__key__ = index;
+                        return item;
+                    });
+                }
+            },
+            immediate: true,
         },
     },
 };

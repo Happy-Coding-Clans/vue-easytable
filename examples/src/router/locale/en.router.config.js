@@ -99,9 +99,10 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
-                path: "border",
-                component: () => import("@/docs/en/ve-table/border/main.vue"),
-                name: "Border",
+                path: "table-border",
+                component: () =>
+                    import("@/docs/en/ve-table/table-border/main.vue"),
+                name: "Table Border",
                 meta: { keepAlive: true },
             },
             {
@@ -137,6 +138,13 @@ const config = [
                 component: () =>
                     import("@/docs/en/ve-table/header-grouping/main.vue"),
                 name: "Header Grouping",
+                meta: { keepAlive: true },
+            },
+            {
+                path: "header-hidden",
+                component: () =>
+                    import("@/docs/en/ve-table/header-hidden/main.vue"),
+                name: "Header Hidden",
                 meta: { keepAlive: true },
             },
             {
@@ -189,10 +197,24 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
+                path: "operation-column",
+                component: () =>
+                    import("@/docs/en/ve-table/operation-column/main.vue"),
+                name: "Operation Column",
+                meta: { keepAlive: true },
+            },
+            {
                 path: "cell-selection",
                 component: () =>
                     import("@/docs/en/ve-table/cell-selection/main.vue"),
                 name: "Cell Selection",
+                meta: { keepAlive: true },
+            },
+            {
+                path: "cell-autofill",
+                component: () =>
+                    import("@/docs/en/ve-table/cell-autofill/main.vue"),
+                name: "Cell Autofill",
                 meta: { keepAlive: true },
             },
             {

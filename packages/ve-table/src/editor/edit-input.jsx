@@ -5,6 +5,7 @@ import focus from "../../../src/directives/focus.js";
 import { autoResize } from "../../../src/utils/auto-resize";
 import { isEmptyValue } from "../../../src/utils/index.js";
 import { getCaretPosition, setCaretPosition } from "../../../src/utils/dom";
+import { debounce } from "lodash";
 
 export default {
     name: COMPS_NAME.VE_TABLE_EDIT_INPUT,
@@ -21,7 +22,8 @@ export default {
             type: Object,
             required: true,
         },
-        value: {
+        // start input value every time
+        inputStartValue: {
             type: [String, Number],
             required: true,
         },
@@ -39,7 +41,7 @@ export default {
             required: true,
         },
         // cell selection option
-        cellSelectionKeyData: {
+        cellSelectionData: {
             type: Object,
             required: true,
         },
@@ -102,12 +104,15 @@ export default {
         currentColumn() {
             let result = null;
 
-            const { colgroups, cellSelectionKeyData } = this;
+            const { colgroups, cellSelectionData } = this;
 
-            if (cellSelectionKeyData) {
-                result = colgroups.find(
-                    (x) => x.key === cellSelectionKeyData.colKey,
-                );
+            const { currentCell } = cellSelectionData;
+
+            if (
+                !isEmptyValue(currentCell.rowKey) &&
+                !isEmptyValue(currentCell.colKey)
+            ) {
+                result = colgroups.find((x) => x.key === currentCell.colKey);
             }
 
             return result;
@@ -146,8 +151,8 @@ export default {
                     top: top + "px",
                     left: left + "px",
                     height: null,
-                    // because @ve-fixed-body-cell-index: 1;
-                    "z-index": column.fixed ? 1 : 0,
+                    // because @ve-fixed-body-cell-index: 10;
+                    "z-index": column.fixed ? 10 : 0,
                     opacity: 1,
                 };
             } else {
@@ -186,16 +191,14 @@ export default {
                     this.hooks.addHook(
                         HOOKS_NAME.TABLE_CONTAINER_SCROLL,
                         () => {
-                            /*
-                            Solve the problem that virtual scrolling editing cells cannot be located after scrolling
-                            解决虚拟滚动编辑单元格滚动后无法定位的问题
-                            */
                             if (this.displayTextarea) {
                                 if (!this.cellEl) {
                                     this.setCellEl();
                                 }
                             }
+                            this.debounceSetCellEl();
                             this.setTextareaPosition();
+                            this.debounceSetTextareaPosition();
                         },
                     );
                     // add table size change hook
@@ -207,18 +210,39 @@ export default {
             immediate: true,
         },
         // cell selection key data
-        cellSelectionKeyData: {
+        "cellSelectionData.currentCell": {
             handler: function (val) {
+                this.isEditCellFocus = false;
+
                 const { rowKey, colKey } = val;
                 if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                    this.isEditCellFocus = true;
                     this.setCellEl();
                     // wait for selection cell rendered
                     this.$nextTick(() => {
                         this.setTextareaPosition();
+                        setTimeout(() => {
+                            this.isEditCellFocus = true;
+                        });
                     });
-                } else {
-                    this.isEditCellFocus = false;
+                }
+            },
+            deep: true,
+            immediate: true,
+        },
+        // watch normal end cell
+        "cellSelectionData.normalEndCell": {
+            handler: function (val) {
+                /*
+                trigger editor(textarea) element select
+                解决通过点击的区域选择，无法复制的问题
+                */
+                if (!isEmptyValue(val.colKey)) {
+                    const textareaInputEl = this.$refs[this.textareaInputRef];
+                    if (textareaInputEl) {
+                        setTimeout(() => {
+                            textareaInputEl.select();
+                        });
+                    }
                 }
             },
             deep: true,
@@ -236,6 +260,12 @@ export default {
             deep: true,
             immediate: true,
         },
+        inputStartValue: {
+            handler: function () {
+                this.setRawCellValue();
+            },
+            immediate: true,
+        },
     },
 
     methods: {
@@ -249,9 +279,9 @@ export default {
 
         // set cell element
         setCellEl() {
-            const { cellSelectionKeyData, tableEl } = this;
+            const { cellSelectionData, tableEl } = this;
 
-            const { rowKey, colKey } = cellSelectionKeyData;
+            const { rowKey, colKey } = cellSelectionData.currentCell;
 
             if (tableEl) {
                 const cellEl = tableEl.querySelector(
@@ -381,20 +411,7 @@ export default {
 
         // set raw cell value
         setRawCellValue() {
-            const {
-                tableData,
-                rowKeyFieldName,
-                cellSelectionKeyData,
-                currentColumn: column,
-            } = this;
-
-            const { rowKey } = cellSelectionKeyData;
-
-            const rowData = tableData.find((x) => x[rowKeyFieldName] == rowKey);
-
-            if (rowData && column) {
-                this.rawCellValue = rowData[column.field];
-            }
+            this.rawCellValue = this.inputStartValue;
         },
 
         // textarea value change
@@ -430,15 +447,27 @@ export default {
             }
         },
     },
-
+    created() {
+        // debounce set textarea position
+        this.debounceSetTextareaPosition = debounce(
+            this.setTextareaPosition,
+            210,
+        );
+        // debounce set cell el
+        this.debounceSetCellEl = debounce(() => {
+            if (this.displayTextarea) {
+                if (!this.cellEl) {
+                    this.setCellEl();
+                }
+            }
+        }, 200);
+    },
     mounted() {
         this.autoResize = autoResize();
     },
-
     destroyed() {
         this.textareaUnObserve();
     },
-
     render() {
         const {
             containerClass,
@@ -478,6 +507,15 @@ export default {
                 },
                 click: () => {
                     this.$emit(EMIT_EVENTS.EDIT_INPUT_CLICK);
+                },
+                copy: (e) => {
+                    this.$emit(EMIT_EVENTS.EDIT_INPUT_COPY, e);
+                },
+                paste: (e) => {
+                    this.$emit(EMIT_EVENTS.EDIT_INPUT_PASTE, e);
+                },
+                cut: (e) => {
+                    this.$emit(EMIT_EVENTS.EDIT_INPUT_CUT, e);
                 },
             },
         };

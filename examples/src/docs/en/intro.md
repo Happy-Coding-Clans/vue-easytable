@@ -32,6 +32,9 @@ Based on vue2.x flexible table components.
 -   Cell Span
 -   Cell Custom
 -   Cell Selection(keyboard operation)
+-   Cell Autofill
+-   Cell Edit
+-   Clipboard
 -   Cell Ellipsis
 -   Row Radio
 -   Row Checkbox

@@ -9,7 +9,21 @@ import {
     isContextmenuPanelClicked,
     getRowKey,
     getColumnByColkey,
+    isCellInSelectionRange,
+    cellAutofill,
+    isOperationColumn,
+    getSelectionRangeData,
 } from "./util";
+import {
+    onBeforeCopy,
+    onAfterCopy,
+    onBeforePaste,
+    onAfterPaste,
+    onBeforeCut,
+    onAfterCut,
+    onBeforeDelete,
+    onAfterDelete,
+} from "./util/clipboard";
 import {
     getValByUnit,
     isFunction,
@@ -32,12 +46,16 @@ import {
     CELL_SELECTION_DIRECTION,
     LOCALE_COMP_NAME,
     CONTEXTMENU_TYPES,
+    AUTOFILLING_DIRECTION,
+    CURRENT_CELL_SELECTION_TYPES,
+    COLUMN_FIXED_TYPE,
 } from "./util/constant";
 import Colgroup from "./colgroup";
 import Header from "./header";
 import Body from "./body";
 import Footer from "./footer";
 import EditInput from "./editor/edit-input";
+import Selection from "./selection/index";
 import { KEY_CODES } from "../../src/utils/constant";
 import { getScrollbarWidth } from "../../src/utils/scroll-bar";
 import {
@@ -68,6 +86,10 @@ export default {
             default: function () {
                 return [];
             },
+        },
+        showHeader: {
+            type: Boolean,
+            default: true,
         },
         columns: {
             type: Array,
@@ -189,6 +211,13 @@ export default {
                 return null;
             },
         },
+        // cell autofill option
+        cellAutofillOption: {
+            type: [Object, Boolean],
+            default: function () {
+                return null;
+            },
+        },
         // edit option
         editOption: {
             type: Object,
@@ -210,6 +239,13 @@ export default {
                 return null;
             },
         },
+        // clipboard option
+        clipboardOption: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
     },
     data() {
         return {
@@ -226,7 +262,7 @@ export default {
             columnsOptionResetTime: 0,
             tableContainerRef: "tableContainerRef",
             tableBodyRef: "tableBodyRef",
-            tableContentRef: "tableContentRef",
+            tableContentWrapperRef: "tableContentWrapperRef",
             virtualPhantomRef: "virtualPhantomRef",
             editInputRef: "editInputRef",
             cloneColumns: [],
@@ -270,8 +306,13 @@ export default {
             */
             // virtual scroll visible data
             virtualScrollVisibleData: [],
-            // default virtual scroll buffer count
-            defaultVirtualScrollBufferCount: 1,
+            // virtual scroll visible indexs
+            virtualScrollVisibleIndexs: {
+                start: -1,
+                end: -1,
+            },
+            // default virtual scroll buffer scale
+            defaultVirtualScrollBufferScale: 1,
             // default virtual scroll min row height
             defaultVirtualScrollMinRowHeight: 40,
             // default placeholder per scrolling row count
@@ -298,11 +339,45 @@ export default {
             scrollBarWidth: 0,
             // preview table container scrollLeft （处理左列或右列固定效果）
             previewTableContainerScrollLeft: null,
-            // cell selection key
-            cellSelectionKeyData: {
-                rowKey: "",
-                colKey: "",
+            // cell selection data
+            cellSelectionData: {
+                currentCell: {
+                    rowKey: "",
+                    colKey: "",
+                    rowIndex: -1,
+                },
+                normalEndCell: {
+                    rowKey: "",
+                    colKey: "",
+                    rowIndex: -1,
+                },
+                autoFillEndCell: {
+                    rowKey: "",
+                    colKey: "",
+                },
             },
+            // cell selection range data
+            cellSelectionRangeData: {
+                leftColKey: "",
+                rightColKey: "",
+                topRowKey: "",
+                bottomRowKey: "",
+            },
+            /*
+            is body td mousedown
+            mousedown+mouseup 才允许 area 绘制
+            */
+            isBodyTdMousedown: false,
+            /* 
+            is cell selection corner mousedown
+            */
+            isAutofillStarting: false,
+            /* 
+            autofilling direction
+            */
+            autofillingDirection: null,
+            // current cell selection type
+            currentCellSelectionType: "",
             /*
             table offest height（开启虚拟滚动时使用）
             1、当 :max-height="500" 时使用 max-height 
@@ -322,6 +397,8 @@ export default {
                 row: null,
                 column: null,
             },
+            // 编辑单元格每次开始编辑前的初始值
+            editorInputStartValue: "",
             /* 
             是否允许按下方向键时，停止编辑并移动选中单元格。当双击可编辑单元格或者点击输入文本框时设置为false值
 
@@ -358,18 +435,23 @@ export default {
         },
         // virtual scroll buffer count
         virtualScrollBufferCount() {
-            const { virtualScrollOption, defaultVirtualScrollBufferCount } =
-                this;
+            let result = 0;
 
-            let result = defaultVirtualScrollBufferCount;
+            const {
+                virtualScrollOption,
+                defaultVirtualScrollBufferScale,
+                virtualScrollVisibleCount,
+            } = this;
+
             if (virtualScrollOption) {
-                const { bufferCount } = virtualScrollOption;
-                if (
-                    isNumber(bufferCount) &&
-                    bufferCount > defaultVirtualScrollBufferCount
-                ) {
-                    result = bufferCount;
-                }
+                const { bufferScale } = virtualScrollOption;
+
+                let realBufferScale =
+                    isNumber(bufferScale) && bufferScale > 0
+                        ? bufferScale
+                        : defaultVirtualScrollBufferScale;
+
+                result = realBufferScale * virtualScrollVisibleCount;
             }
 
             return result;
@@ -454,14 +536,24 @@ export default {
         },
         // table container class
         tableContainerClass() {
-            const { isVirtualScroll, isLeftScrolling, isRightScrolling } = this;
+            const {
+                isVirtualScroll,
+                isLeftScrolling,
+                isRightScrolling,
+                isCellEditing,
+                isAutofillStarting,
+                enableCellSelection,
+            } = this;
 
             return {
                 [clsName("container")]: true,
                 [clsName("virtual-scroll")]: isVirtualScroll,
                 [clsName("container-left-scrolling")]: isLeftScrolling,
                 [clsName("container-right-scrolling")]: isRightScrolling,
-                [clsName("is-cell-editing")]: this.isCellEditing,
+                [clsName("is-cell-editing")]: isCellEditing,
+                [clsName("autofilling")]: isAutofillStarting,
+                // 如果开启单元格选择，则关闭 user-select
+                [clsName("enable-cell-selection")]: enableCellSelection,
             };
         },
         // table body class
@@ -496,16 +588,22 @@ export default {
         // has fixed column
         hasFixedColumn() {
             return this.colgroups.some(
-                (x) => x.fixed === "left" || x.fixed === "right",
+                (x) =>
+                    x.fixed === COLUMN_FIXED_TYPE.LEFT ||
+                    x.fixed === COLUMN_FIXED_TYPE.RIGHT,
             );
         },
         // has left fixed column
         hasLeftFixedColumn() {
-            return this.colgroups.some((x) => x.fixed === "left");
+            return this.colgroups.some(
+                (x) => x.fixed === COLUMN_FIXED_TYPE.LEFT,
+            );
         },
         // has right fixed column
         hasRightFixedColumn() {
-            return this.colgroups.some((x) => x.fixed === "right");
+            return this.colgroups.some(
+                (x) => x.fixed === COLUMN_FIXED_TYPE.RIGHT,
+            );
         },
         // is editing cell
         isCellEditing() {
@@ -520,8 +618,8 @@ export default {
         hasEditColumn() {
             return this.colgroups.some((x) => x.edit);
         },
-        // has contextmenu
-        hasContextmenu() {
+        // enable contextmenu
+        enableContextmenu() {
             let result = false;
 
             const { contextmenuBodyOption } = this;
@@ -534,11 +632,35 @@ export default {
             }
             return result;
         },
+        /*
+        enable cell selection
+        单元格编辑、剪贴板都依赖单元格选择
+        */
+        enableCellSelection() {
+            let result = true;
+
+            const { cellSelectionOption, rowKeyFieldName } = this;
+
+            if (isEmptyValue(rowKeyFieldName)) {
+                result = false;
+            } else if (
+                cellSelectionOption &&
+                isBoolean(cellSelectionOption.enable) &&
+                cellSelectionOption.enable === false
+            ) {
+                result = false;
+            }
+            return result;
+        },
+        // enable clipboard
+        enableClipboard() {
+            return this.rowKeyFieldName;
+        },
         // contextmenus
         contextmenus() {
             let result = [];
-            const { hasContextmenu, contextmenuBodyOption } = this;
-            if (hasContextmenu) {
+            const { enableContextmenu, contextmenuBodyOption } = this;
+            if (enableContextmenu) {
                 const { contextmenus } = contextmenuBodyOption;
 
                 const contextmenuBodyOptionCollection =
@@ -559,6 +681,22 @@ export default {
 
             return result;
         },
+        // header total height
+        headerTotalHeight() {
+            let result = 0;
+            if (this.showHeader) {
+                result = this.headerRows.reduce((total, currentVal) => {
+                    return currentVal.rowHeight + total;
+                }, 0);
+            }
+            return result;
+        },
+        // footer total height
+        footerTotalHeight() {
+            return this.footerRows.reduce((total, currentVal) => {
+                return currentVal.rowHeight + total;
+            }, 0);
+        },
     },
     watch: {
         // watch clone table data
@@ -571,6 +709,20 @@ export default {
                 }
             },
             immediate: true,
+        },
+        allRowKeys: {
+            handler(newVal) {
+                if (Array.isArray(newVal)) {
+                    const { currentCell } = this.cellSelectionData;
+                    // 行被移除，清空单元格选中
+                    if (currentCell.rowIndex > -1) {
+                        if (newVal.indexOf(currentCell.rowKey) === -1) {
+                            this.clearCellSelectionCurrentCell();
+                        }
+                    }
+                }
+            },
+            immediate: false,
         },
         columns: {
             handler(newVal, oldVal) {
@@ -633,6 +785,31 @@ export default {
             },
             immediate: false,
         },
+        // is auto fill starting
+        isAutofillStarting: {
+            handler(val) {
+                if (!val) {
+                    this.setCellSelectionByAutofill();
+                    this.clearCellSelectionAutofillEndCell();
+                }
+            },
+        },
+        // watch current cell
+        "cellSelectionData.currentCell": {
+            handler: function () {
+                this.setCurrentCellSelectionType();
+            },
+            deep: true,
+            immediate: true,
+        },
+        // watch normal end cell
+        "cellSelectionData.normalEndCell": {
+            handler: function () {
+                this.setCurrentCellSelectionType();
+            },
+            deep: true,
+            immediate: true,
+        },
     },
 
     methods: {
@@ -675,6 +852,7 @@ export default {
                 item._realTimeWidth = colWidths.get(item.key);
                 return item;
             });
+            this.hooks.triggerHook(HOOKS_NAME.TABLE_TD_WIDTH_CHANGE);
         },
 
         // update colgroups by sort change
@@ -782,47 +960,290 @@ export default {
             );
         },
 
-        // cell selection key change
-        cellSelectionKeyChange({ rowKey, colKey }) {
-            this.cellSelectionKeyData.rowKey = rowKey;
-            this.cellSelectionKeyData.colKey = colKey;
+        // cell selection current cell change
+        cellSelectionCurrentCellChange({ rowKey, colKey }) {
+            this.cellSelectionData.currentCell.colKey = colKey;
+            this.cellSelectionData.currentCell.rowKey = rowKey;
+            this.cellSelectionData.currentCell.rowIndex =
+                this.allRowKeys.indexOf(rowKey);
         },
 
-        // clear cell selection
-        clearCellSelectionKey() {
-            this.cellSelectionKeyChange({ rowKey: "", colKey: "" });
+        // cell selection end cell change
+        cellSelectionNormalEndCellChange({ rowKey, colKey }) {
+            this.cellSelectionData.normalEndCell.colKey = colKey;
+            this.cellSelectionData.normalEndCell.rowKey = rowKey;
+            this.cellSelectionData.normalEndCell.rowIndex =
+                this.allRowKeys.indexOf(rowKey);
+        },
+
+        // cell selection auto fill cell change
+        cellSelectionAutofillCellChange({ rowKey, colKey }) {
+            this.cellSelectionData.autoFillEndCell.colKey = colKey;
+            this.cellSelectionData.autoFillEndCell.rowKey = rowKey;
+        },
+
+        // clear cell selection current cell
+        clearCellSelectionCurrentCell() {
+            this.cellSelectionCurrentCellChange({
+                rowKey: "",
+                colKey: "",
+                rowIndex: -1,
+            });
+        },
+
+        // clear cell selection normal end cell
+        clearCellSelectionNormalEndCell() {
+            this.cellSelectionNormalEndCellChange({
+                rowKey: "",
+                colKey: "",
+                rowIndex: -1,
+            });
+        },
+
+        // clear cell selection autofill end cell
+        clearCellSelectionAutofillEndCell() {
+            this.cellSelectionAutofillCellChange({ rowKey: "", colKey: "" });
+        },
+
+        // set cell selection by autofill
+        setCellSelectionByAutofill() {
+            const {
+                cellAutofillOption,
+                cellSelectionRangeData,
+                colgroups,
+                allRowKeys,
+                autofillingDirection,
+                currentCellSelectionType,
+            } = this;
+            const { autoFillEndCell, currentCell } = this.cellSelectionData;
+
+            const { rowKey, colKey } = autoFillEndCell;
+
+            if (isEmptyValue(rowKey) || isEmptyValue(colKey)) {
+                return false;
+            }
+
+            let currentCellData = {};
+            let normalEndCellData = {};
+
+            const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
+                cellSelectionRangeData;
+
+            // cell selection range auto fill
+            if (
+                currentCellSelectionType === CURRENT_CELL_SELECTION_TYPES.RANGE
+            ) {
+                if (
+                    !isCellInSelectionRange({
+                        cellData: autoFillEndCell,
+                        cellSelectionRangeData,
+                        colgroups,
+                        allRowKeys,
+                    })
+                ) {
+                    if (autofillingDirection === AUTOFILLING_DIRECTION.RIGHT) {
+                        currentCellData = {
+                            rowKey: topRowKey,
+                            colKey: leftColKey,
+                        };
+                        normalEndCellData = { rowKey: bottomRowKey, colKey };
+                    } else if (
+                        autofillingDirection === AUTOFILLING_DIRECTION.DOWN
+                    ) {
+                        currentCellData = {
+                            rowKey: topRowKey,
+                            colKey: leftColKey,
+                        };
+                        normalEndCellData = { rowKey, colKey: rightColKey };
+                    } else if (
+                        autofillingDirection === AUTOFILLING_DIRECTION.UP
+                    ) {
+                        currentCellData = {
+                            rowKey,
+                            colKey: leftColKey,
+                        };
+                        normalEndCellData = {
+                            rowKey: bottomRowKey,
+                            colKey: rightColKey,
+                        };
+                    } else if (
+                        autofillingDirection === AUTOFILLING_DIRECTION.LEFT
+                    ) {
+                        currentCellData = { rowKey: topRowKey, colKey };
+                        normalEndCellData = {
+                            rowKey: bottomRowKey,
+                            colKey: rightColKey,
+                        };
+                    }
+                } else {
+                    // return if within the range
+                    return false;
+                }
+            }
+            // cell selection single auto fill
+            else if (
+                currentCellSelectionType === CURRENT_CELL_SELECTION_TYPES.SINGLE
+            ) {
+                if (
+                    currentCell.rowKey !== rowKey ||
+                    currentCell.colKey !== colKey
+                ) {
+                    if (autofillingDirection === AUTOFILLING_DIRECTION.RIGHT) {
+                        currentCellData = {
+                            rowKey,
+                            colKey: leftColKey,
+                        };
+                        normalEndCellData = {
+                            rowKey,
+                            colKey,
+                        };
+                    } else if (
+                        autofillingDirection === AUTOFILLING_DIRECTION.DOWN
+                    ) {
+                        currentCellData = {
+                            rowKey: topRowKey,
+                            colKey: leftColKey,
+                        };
+                        normalEndCellData = {
+                            rowKey,
+                            colKey: leftColKey,
+                        };
+                    } else if (
+                        autofillingDirection === AUTOFILLING_DIRECTION.UP
+                    ) {
+                        currentCellData = {
+                            rowKey,
+                            colKey: leftColKey,
+                        };
+                        normalEndCellData = {
+                            rowKey: bottomRowKey,
+                            colKey: leftColKey,
+                        };
+                    } else if (
+                        autofillingDirection === AUTOFILLING_DIRECTION.LEFT
+                    ) {
+                        currentCellData = {
+                            rowKey,
+                            colKey,
+                        };
+                        normalEndCellData = {
+                            rowKey,
+                            colKey: rightColKey,
+                        };
+                    }
+                } else {
+                    // return if within the range
+                    return false;
+                }
+            }
+
+            const cellAutofillParams = {
+                tableData: this.tableData,
+                allRowKeys: this.allRowKeys,
+                colgroups: this.colgroups,
+                rowKeyFieldName: this.rowKeyFieldName,
+                direction: autofillingDirection,
+                currentCellSelectionType,
+                cellSelectionRangeData,
+                nextCurrentCell: currentCellData,
+                nextNormalEndCell: normalEndCellData,
+            };
+
+            if (cellAutofillOption) {
+                const { beforeAutofill, afterAutofill } = cellAutofillOption;
+
+                if (isFunction(beforeAutofill)) {
+                    // before autofill
+                    const autofillResponse = cellAutofill({
+                        isReplaceData: false,
+                        ...cellAutofillParams,
+                    });
+                    const callback = beforeAutofill(autofillResponse);
+                    if (isBoolean(callback) && !callback) {
+                        return false;
+                    }
+                }
+
+                // after autofill
+                const autofillResponse = cellAutofill({
+                    isReplaceData: true,
+                    ...cellAutofillParams,
+                });
+                if (isFunction(afterAutofill)) {
+                    afterAutofill(autofillResponse);
+                }
+            }
+
+            if (!isEmptyValue(currentCellData.rowKey)) {
+                this.cellSelectionCurrentCellChange({
+                    rowKey: currentCellData.rowKey,
+                    colKey: currentCellData.colKey,
+                });
+            }
+
+            if (!isEmptyValue(normalEndCellData.rowKey)) {
+                this.cellSelectionNormalEndCellChange({
+                    rowKey: normalEndCellData.rowKey,
+                    colKey: normalEndCellData.colKey,
+                });
+            }
+        },
+
+        // cell selection range data change
+        cellSelectionRangeDataChange(newData) {
+            this.cellSelectionRangeData = Object.assign(
+                this.cellSelectionRangeData,
+                newData,
+            );
+        },
+
+        // autofilling direction change
+        autofillingDirectionChange(direction) {
+            this.autofillingDirection = direction;
+        },
+
+        // set current cell selection type
+        setCurrentCellSelectionType() {
+            const { currentCell, normalEndCell } = this.cellSelectionData;
+
+            let result;
+
+            if (
+                isEmptyValue(currentCell.rowKey) ||
+                isEmptyValue(currentCell.colKey)
+            ) {
+                result = "";
+            } else {
+                if (
+                    !isEmptyValue(normalEndCell.rowKey) &&
+                    !isEmptyValue(normalEndCell.colKey)
+                ) {
+                    result = CURRENT_CELL_SELECTION_TYPES.RANGE;
+                } else {
+                    result = CURRENT_CELL_SELECTION_TYPES.SINGLE;
+                }
+            }
+
+            this.currentCellSelectionType = result;
         },
 
         // deal keydown event
         dealKeydownEvent(event) {
             const {
                 colgroups,
-                cellSelectionKeyData,
+                cellSelectionData,
                 enableStopEditing,
                 isCellEditing,
             } = this;
 
             const { keyCode, ctrlKey, shiftKey, altKey } = event;
 
-            const { rowKey, colKey } = cellSelectionKeyData;
+            const { rowKey, colKey } = cellSelectionData.currentCell;
 
             const currentColumn = colgroups.find((x) => x.key === colKey);
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
                 switch (keyCode) {
-                    case KEY_CODES.ARROW_LEFT: {
-                        const direction = CELL_SELECTION_DIRECTION.LEFT;
-                        if (enableStopEditing) {
-                            this.selectCellByDirection({
-                                direction,
-                            });
-
-                            this[INSTANCE_METHODS.STOP_EDITING_CELL]();
-                            event.preventDefault();
-                        }
-
-                        break;
-                    }
                     case KEY_CODES.TAB: {
                         let direction;
                         if (shiftKey) {
@@ -835,8 +1256,25 @@ export default {
                             direction,
                         });
 
+                        this.clearCellSelectionNormalEndCell();
+
                         this[INSTANCE_METHODS.STOP_EDITING_CELL]();
                         event.preventDefault();
+                        break;
+                    }
+                    case KEY_CODES.ARROW_LEFT: {
+                        const direction = CELL_SELECTION_DIRECTION.LEFT;
+                        if (enableStopEditing) {
+                            this.selectCellByDirection({
+                                direction,
+                            });
+
+                            this.clearCellSelectionNormalEndCell();
+
+                            this[INSTANCE_METHODS.STOP_EDITING_CELL]();
+                            event.preventDefault();
+                        }
+
                         break;
                     }
                     case KEY_CODES.ARROW_RIGHT: {
@@ -846,6 +1284,8 @@ export default {
                             this.selectCellByDirection({
                                 direction,
                             });
+
+                            this.clearCellSelectionNormalEndCell();
 
                             this[INSTANCE_METHODS.STOP_EDITING_CELL]();
                             event.preventDefault();
@@ -860,6 +1300,8 @@ export default {
                                 direction,
                             });
 
+                            this.clearCellSelectionNormalEndCell();
+
                             this[INSTANCE_METHODS.STOP_EDITING_CELL]();
                             event.preventDefault();
                         }
@@ -872,6 +1314,8 @@ export default {
                             this.selectCellByDirection({
                                 direction,
                             });
+
+                            this.clearCellSelectionNormalEndCell();
 
                             this[INSTANCE_METHODS.STOP_EDITING_CELL]();
                             event.preventDefault();
@@ -903,6 +1347,7 @@ export default {
                         }
 
                         if (direction) {
+                            this.clearCellSelectionNormalEndCell();
                             this.selectCellByDirection({
                                 direction,
                             });
@@ -938,8 +1383,8 @@ export default {
                     }
                     case KEY_CODES.DELETE: {
                         if (!isCellEditing) {
-                            // delete selection cell value
-                            this.deleteCellValue();
+                            // delete cell selection range value
+                            this.deleteCellSelectionRangeValue();
                             event.preventDefault();
                         }
 
@@ -977,9 +1422,9 @@ export default {
 
         // select cell by direction
         selectCellByDirection({ direction }) {
-            const { colgroups, allRowKeys, cellSelectionKeyData } = this;
+            const { colgroups, allRowKeys, cellSelectionData } = this;
 
-            const { rowKey, colKey } = cellSelectionKeyData;
+            const { rowKey, colKey } = cellSelectionData.currentCell;
 
             let columnIndex = colgroups.findIndex((x) => x.key === colKey);
             let rowIndex = allRowKeys.indexOf(rowKey);
@@ -987,13 +1432,13 @@ export default {
             if (direction === CELL_SELECTION_DIRECTION.LEFT) {
                 if (columnIndex > 0) {
                     let nextColumn = colgroups[columnIndex - 1];
-                    this.cellSelectionKeyData.colKey = nextColumn.key;
+                    this.cellSelectionData.currentCell.colKey = nextColumn.key;
                     this.columnToVisible(nextColumn);
                 }
             } else if (direction === CELL_SELECTION_DIRECTION.RIGHT) {
                 if (columnIndex < colgroups.length - 1) {
                     let nextColumn = colgroups[columnIndex + 1];
-                    this.cellSelectionKeyData.colKey = nextColumn.key;
+                    this.cellSelectionData.currentCell.colKey = nextColumn.key;
                     this.columnToVisible(nextColumn);
                 }
             } else if (direction === CELL_SELECTION_DIRECTION.UP) {
@@ -1029,13 +1474,13 @@ export default {
                 const leftTotalWidth = getNotFixedTotalWidthByColumnKey({
                     colgroups,
                     colKey: nextColumn.key,
-                    direction: "left",
+                    fixed: COLUMN_FIXED_TYPE.LEFT,
                 });
 
                 const rightTotalWidth = getNotFixedTotalWidthByColumnKey({
                     colgroups,
                     colKey: nextColumn.key,
-                    direction: "right",
+                    fixed: COLUMN_FIXED_TYPE.RIGHT,
                 });
 
                 if (scrollLeft) {
@@ -1063,8 +1508,11 @@ export default {
          */
         rowToVisible(keyCode, nextRowKey) {
             const tableContainerRef = this.$refs[this.tableContainerRef];
+            const tableContentWrapperRef =
+                this.$refs[this.tableContentWrapperRef].$el;
 
-            const { isVirtualScroll, headerRows, footerRows } = this;
+            const { isVirtualScroll, headerTotalHeight, footerTotalHeight } =
+                this;
 
             const {
                 clientHeight: containerClientHeight,
@@ -1079,28 +1527,20 @@ export default {
                 const { offsetTop: trOffsetTop, clientHeight: trClientHeight } =
                     nextRowEl;
 
+                const parentOffsetTop = tableContentWrapperRef.offsetTop;
+
                 // arrow up
                 if (keyCode === KEY_CODES.ARROW_UP) {
-                    const totalHeaderHeight = headerRows.reduce(
-                        (total, currentVal) => {
-                            return currentVal.rowHeight + total;
-                        },
-                        0,
-                    );
-
                     let diff = 0;
                     if (isVirtualScroll) {
-                        const parentOffsetTop =
-                            nextRowEl.offsetParent.offsetTop;
-
                         diff =
-                            totalHeaderHeight -
+                            headerTotalHeight -
                             (trOffsetTop -
                                 (containerScrollTop - parentOffsetTop));
                     } else {
                         diff =
                             containerScrollTop +
-                            totalHeaderHeight -
+                            headerTotalHeight -
                             trOffsetTop;
                     }
 
@@ -1110,29 +1550,19 @@ export default {
                 }
                 // arrow down
                 else if (keyCode === KEY_CODES.ARROW_DOWN) {
-                    const totalFooterHeight = footerRows.reduce(
-                        (total, currentVal) => {
-                            return currentVal.rowHeight + total;
-                        },
-                        0,
-                    );
-
                     let diff = 0;
                     if (isVirtualScroll) {
-                        const parentOffsetTop =
-                            nextRowEl.offsetParent.offsetTop;
-
                         diff =
                             trOffsetTop -
                             (containerScrollTop - parentOffsetTop) +
                             trClientHeight +
-                            totalFooterHeight -
+                            footerTotalHeight -
                             containerClientHeight;
                     } else {
                         diff =
                             trOffsetTop +
                             trClientHeight +
-                            totalFooterHeight -
+                            footerTotalHeight -
                             (containerClientHeight + containerScrollTop);
                     }
 
@@ -1140,8 +1570,11 @@ export default {
                         tableContainerRef.scrollTop = containerScrollTop + diff;
                     }
                 }
-                // 解决滚动过快导致选中框消失的问题
-                this.cellSelectionKeyData.rowKey = nextRowKey;
+                const { currentCell } = this.cellSelectionData;
+                this.cellSelectionCurrentCellChange({
+                    rowKey: nextRowKey,
+                    colKey: currentCell.colKey,
+                });
             }
         },
 
@@ -1344,9 +1777,9 @@ export default {
         },
         // set table content top value
         setTableContentTopValue({ top }) {
-            //this.$refs[this.tableContentRef].style.transform = `translate3d(0,${startOffset}px,0)`;
+            //this.$refs[this.tableContentWrapperRef].style.transform = `translate3d(0,${startOffset}px,0)`;
             window.requestAnimationFrame(() => {
-                const ele = this.$refs[this.tableContentRef];
+                const ele = this.$refs[this.tableContentWrapperRef];
                 if (ele) {
                     ele.$el.style.top = `${top}px`;
                 }
@@ -1533,60 +1966,15 @@ export default {
                 return false;
             }
 
-            const { cellSelectionKeyData } = this;
+            this.isBodyTdMousedown = false;
+            this.isAutofillStarting = false;
 
-            const { rowKey, colKey } = cellSelectionKeyData;
-
-            if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                /*
-                 clear cell selection
-                */
-                this.clearCellSelectionKey();
-            }
+            // clear cell selection
+            this.clearCellSelectionCurrentCell();
+            this.clearCellSelectionNormalEndCell();
 
             // stop editing cell
             this[INSTANCE_METHODS.STOP_EDITING_CELL]();
-        },
-
-        // delete selection cell value
-        deleteCellValue() {
-            const {
-                colgroups,
-                rowKeyFieldName,
-                editOption,
-                cellSelectionKeyData,
-            } = this;
-
-            const { rowKey, colKey } = cellSelectionKeyData;
-
-            if (isEmptyValue(rowKey) || isEmptyValue(colKey)) {
-                return false;
-            }
-
-            if (!editOption) {
-                return false;
-            }
-
-            const currentColumn = colgroups.find((x) => x.key === colKey);
-
-            if (!currentColumn.edit) {
-                return false;
-            }
-
-            const { cellValueChange } = editOption;
-
-            let currentRow = this.tableData.find(
-                (x) => x[rowKeyFieldName] === rowKey,
-            );
-
-            if (currentRow) {
-                currentRow[currentColumn.field] = "";
-                cellValueChange &&
-                    cellValueChange({
-                        row: currentRow,
-                        column: currentColumn,
-                    });
-            }
         },
 
         // save cell when stop editing
@@ -1599,7 +1987,11 @@ export default {
                 isCellEditing,
             } = this;
 
-            const { cellValueChange } = editOption;
+            const {
+                cellValueChange,
+                beforeCellValueChange,
+                afterCellValueChange,
+            } = editOption;
 
             if (isCellEditing) {
                 const { rowKey, colKey } = editingCell;
@@ -1613,12 +2005,36 @@ export default {
                         (x) => x.key === colKey,
                     );
 
-                    currentRow[currentColumn.field] =
-                        editingCell.row[currentColumn.field];
+                    const changeValue = editingCell.row[currentColumn.field];
+
+                    if (isFunction(beforeCellValueChange)) {
+                        const allowChange = beforeCellValueChange({
+                            row: cloneDeep(currentRow),
+                            column: currentColumn,
+                            changeValue,
+                        });
+                        if (isBoolean(allowChange) && !allowChange) {
+                            // celar editing cell
+                            this.clearEditingCell();
+                            return false;
+                        }
+                    }
+
+                    currentRow[currentColumn.field] = changeValue;
+
+                    // 同 afterCellValueChange，未来被移除
                     cellValueChange &&
                         cellValueChange({
                             row: currentRow,
                             column: currentColumn,
+                            changeValue,
+                        });
+
+                    afterCellValueChange &&
+                        afterCellValueChange({
+                            row: currentRow,
+                            column: currentColumn,
+                            changeValue,
                         });
 
                     // celar editing cell
@@ -1654,30 +2070,20 @@ export default {
          * @param {object} column - column data
          */
         tdContextmenu({ rowData, column }) {
-            const { editOption } = this;
+            const { editOption, rowKeyFieldName, colgroups } = this;
 
             // cell selection by click
-            this.cellSelectionByClick({ rowData, column });
-
-            if (editOption) {
-                this.editCellByClick({ isDblclick: false });
+            if (!isOperationColumn(column.key, colgroups)) {
+                this.cellSelectionByClick({ rowData, column });
             }
-        },
-
-        /*
-         * @tdClick
-         * @desc  recieve td click event
-         * @param {object} rowData - row data
-         * @param {object} column - column data
-         */
-        tdClick({ rowData, column }) {
-            const { editOption } = this;
-
-            // cell selection by click
-            this.cellSelectionByClick({ rowData, column });
 
             if (editOption) {
-                this.editCellByClick({ isDblclick: false });
+                const rowKey = getRowKey(rowData, rowKeyFieldName);
+                this.editCellByClick({
+                    isDblclick: false,
+                    rowKey,
+                    colKey: column.key,
+                });
             }
         },
 
@@ -1687,12 +2093,146 @@ export default {
          * @param {object} rowData - row data
          * @param {object} column - column data
          */
-        tdDoubleClick() {
-            const { editOption } = this;
+        tdDoubleClick({ event, rowData, column }) {
+            const { editOption, rowKeyFieldName, colgroups } = this;
+
+            if (isOperationColumn(column.key, colgroups)) {
+                // clear cell selection
+                this.clearCellSelectionCurrentCell();
+                this.clearCellSelectionNormalEndCell();
+
+                // stop editing cell
+                this[INSTANCE_METHODS.STOP_EDITING_CELL]();
+                return false;
+            }
 
             if (editOption) {
-                this.editCellByClick({ isDblclick: true });
+                const rowKey = getRowKey(rowData, rowKeyFieldName);
+                this.editCellByClick({
+                    isDblclick: true,
+                    rowKey,
+                    colKey: column.key,
+                });
             }
+        },
+
+        /*
+         * @tdClick
+         * @desc  recieve td click event
+         * @param {object} rowData - row data
+         * @param {object} column - column data
+         */
+        tdClick({ event, rowData, column }) {
+            // feature...
+        },
+
+        /*
+         * @tdMousedown
+         * @desc  recieve td mousedown event
+         * @param {object} rowData - row data
+         * @param {object} column - column data
+         */
+        tdMousedown({ event, rowData, column }) {
+            this.isBodyTdMousedown = true;
+
+            const { shiftKey } = event;
+
+            const { editOption, rowKeyFieldName, colgroups } = this;
+
+            const rowKey = getRowKey(rowData, rowKeyFieldName);
+            const colKey = column.key;
+
+            if (isOperationColumn(colKey, colgroups)) {
+                // clear cell selection
+                this.clearCellSelectionCurrentCell();
+                this.clearCellSelectionNormalEndCell();
+
+                // stop editing cell
+                this[INSTANCE_METHODS.STOP_EDITING_CELL]();
+                return false;
+            }
+
+            if (shiftKey) {
+                this.cellSelectionNormalEndCellChange({
+                    rowKey,
+                    colKey,
+                });
+            } else {
+                // cell selection by click
+                this.cellSelectionByClick({ rowData, column });
+                this.clearCellSelectionNormalEndCell();
+            }
+
+            if (editOption) {
+                this.editCellByClick({
+                    isDblclick: false,
+                    rowKey,
+                    colKey,
+                });
+            }
+        },
+
+        /*
+         * @tdMouseover
+         * @desc  recieve td mouseover event
+         * @param {object} rowData - row data
+         * @param {object} column - column data
+         */
+        tdMouseover({ event, rowData, column }) {
+            const { rowKeyFieldName, isBodyTdMousedown, isAutofillStarting } =
+                this;
+
+            const rowKey = getRowKey(rowData, rowKeyFieldName);
+            const colKey = column.key;
+            if (isOperationColumn(colKey, this.colgroups)) {
+                return false;
+            }
+
+            if (isBodyTdMousedown) {
+                this.cellSelectionNormalEndCellChange({
+                    rowKey,
+                    colKey: column.key,
+                });
+            }
+
+            if (isAutofillStarting) {
+                this.cellSelectionAutofillCellChange({
+                    rowKey,
+                    colKey: column.key,
+                });
+            }
+        },
+
+        /*
+         * @tdMouseup
+         * @desc  recieve td mouseup event
+         * @param {object} rowData - row data
+         * @param {object} column - column data
+         */
+        tdMouseup({ event, rowData, column }) {
+            // feature...
+        },
+
+        // table content wrapper mouseup
+        tableContainerMouseup() {
+            this.isBodyTdMousedown = false;
+            this.isAutofillStarting = false;
+        },
+
+        /*
+         * @cellSelectionCornerMousedown
+         * @desc  recieve cell selection corner mousedown
+         */
+        cellSelectionCornerMousedown({ event }) {
+            this.isAutofillStarting = true;
+        },
+
+        /*
+         * @cellSelectionCornerMouseup
+         * @desc  recieve cell selection corner mouseup
+         */
+        cellSelectionCornerMouseup({ event }) {
+            this.isAutofillStarting = false;
         },
 
         // is edit column
@@ -1705,13 +2245,12 @@ export default {
          * @desc  recieve td click event
          * @param {boolean} isDblclick - is dblclick
          */
-        editCellByClick({ isDblclick }) {
+        editCellByClick({ isDblclick, rowKey, colKey }) {
             const {
                 editOption,
                 isCellEditing,
                 hasEditColumn,
                 editingCell,
-                cellSelectionKeyData,
                 isEditColumn,
             } = this;
 
@@ -1724,12 +2263,9 @@ export default {
                 return false;
             }
 
-            const { rowKey, colKey } = cellSelectionKeyData;
-
             if (isEmptyValue(rowKey) || isEmptyValue(colKey)) {
                 return false;
             }
-
             if (
                 editingCell &&
                 editingCell.rowKey == rowKey &&
@@ -1737,7 +2273,6 @@ export default {
             ) {
                 return false;
             }
-
             if (isCellEditing) {
                 this[INSTANCE_METHODS.STOP_EDITING_CELL]();
             }
@@ -1796,14 +2331,14 @@ export default {
         contextmenuCallBack(type) {
             const {
                 contextmenuBodyOption,
-                cellSelectionKeyData,
+                cellSelectionData,
                 tableData,
                 allRowKeys,
                 colgroups,
                 rowKeyFieldName,
             } = this;
 
-            const { rowKey, colKey } = cellSelectionKeyData;
+            const { rowKey, colKey } = cellSelectionData.currentCell;
             const { callback } = contextmenuBodyOption;
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
@@ -1836,8 +2371,278 @@ export default {
 
                 // callback
                 if (isFunction(callback)) {
-                    callback({ type, selection: cellSelectionKeyData });
+                    callback({
+                        type,
+                        selection: cellSelectionData.currentCell,
+                    });
                 }
+            }
+        },
+
+        // editor copy
+        editorCopy(event) {
+            const {
+                isCellEditing,
+                enableClipboard,
+                clipboardOption,
+                cellSelectionRangeData,
+                tableData,
+                colgroups,
+                allRowKeys,
+            } = this;
+
+            if (!enableClipboard) {
+                return false;
+            }
+
+            // 正在编辑的单元格不进行自定义复制功能
+            if (isCellEditing) {
+                return false;
+            }
+
+            const {
+                copy,
+                beforeCopy: beforeCopyCallback,
+                afterCopy: afterCopyCallback,
+            } = clipboardOption || {};
+
+            if (isBoolean(copy) && !copy) {
+                return false;
+            }
+
+            event.preventDefault();
+
+            const selectionRangeData = getSelectionRangeData({
+                cellSelectionRangeData,
+                resultType: "flat",
+                tableData,
+                colgroups,
+                allRowKeys,
+            });
+
+            const response = onBeforeCopy({
+                cellSelectionRangeData,
+                selectionRangeData,
+                colgroups,
+                allRowKeys,
+            });
+
+            if (isFunction(beforeCopyCallback)) {
+                const allowCoping = beforeCopyCallback(response);
+                if (isBoolean(allowCoping) && !allowCoping) {
+                    return false;
+                }
+            }
+
+            onAfterCopy({ event, selectionRangeData });
+
+            if (isFunction(afterCopyCallback)) {
+                afterCopyCallback(response);
+            }
+        },
+
+        // editor paste
+        editorPaste(event) {
+            const { isCellEditing, enableClipboard, clipboardOption } = this;
+
+            if (!enableClipboard) {
+                return false;
+            }
+
+            // 正在编辑的单元格不进行自定义粘贴功能
+            if (isCellEditing) {
+                return false;
+            }
+
+            const {
+                paste,
+                beforePaste: beforePasteCallback,
+                afterPaste: afterPasteCallback,
+            } = clipboardOption || {};
+
+            if (isBoolean(paste) && !paste) {
+                return false;
+            }
+
+            event.preventDefault();
+
+            const response = onBeforePaste({
+                event,
+                cellSelectionRangeData: this.cellSelectionRangeData,
+                colgroups: this.colgroups,
+                allRowKeys: this.allRowKeys,
+                rowKeyFieldName: this.rowKeyFieldName,
+            });
+
+            if (
+                response &&
+                Array.isArray(response.data) &&
+                response.data.length
+            ) {
+                if (isFunction(beforePasteCallback)) {
+                    const allowPasting = beforePasteCallback(response);
+                    if (isBoolean(allowPasting) && !allowPasting) {
+                        return false;
+                    }
+                }
+                // change table cell data
+                onAfterPaste({
+                    tableData: this.tableData,
+                    beforePasteResponse: response,
+                });
+
+                if (isFunction(afterPasteCallback)) {
+                    afterPasteCallback(response);
+                }
+
+                const { startColKey, endColKey, startRowKey, endRowKey } =
+                    response.selectionRangeKeys;
+
+                this.cellSelectionCurrentCellChange({
+                    rowKey: startRowKey,
+                    colKey: startColKey,
+                });
+
+                this.cellSelectionNormalEndCellChange({
+                    rowKey: endRowKey,
+                    colKey: endColKey,
+                });
+
+                // clipboard cell value change
+                this.hooks.triggerHook(HOOKS_NAME.CLIPBOARD_CELL_VALUE_CHANGE);
+            }
+        },
+
+        // editor cut
+        editorCut(event) {
+            const {
+                isCellEditing,
+                enableClipboard,
+                clipboardOption,
+                cellSelectionRangeData,
+                tableData,
+                colgroups,
+                allRowKeys,
+            } = this;
+
+            if (!enableClipboard) {
+                return false;
+            }
+
+            // 正在编辑的单元格不进行自定义剪切功能
+            if (isCellEditing) {
+                return false;
+            }
+
+            const {
+                cut,
+                beforeCut: beforeCutCallback,
+                afterCut: afterCutCallback,
+            } = clipboardOption || {};
+
+            if (isBoolean(cut) && !cut) {
+                return false;
+            }
+
+            event.preventDefault();
+
+            const selectionRangeData = getSelectionRangeData({
+                cellSelectionRangeData,
+                resultType: "flat",
+                tableData,
+                colgroups,
+                allRowKeys,
+            });
+
+            const response = onBeforeCut({
+                cellSelectionRangeData,
+                selectionRangeData,
+                colgroups,
+                allRowKeys,
+            });
+
+            if (isFunction(beforeCutCallback)) {
+                const allowCuting = beforeCutCallback(response);
+                if (isBoolean(allowCuting) && !allowCuting) {
+                    return false;
+                }
+            }
+
+            onAfterCut({
+                event,
+                tableData,
+                colgroups,
+                selectionRangeData,
+                selectionRangeIndexes: response.selectionRangeIndexes,
+            });
+
+            if (isFunction(afterCutCallback)) {
+                afterCutCallback(response);
+            }
+        },
+
+        // delete selection cell value
+        deleteCellSelectionRangeValue() {
+            const {
+                isCellEditing,
+                enableClipboard,
+                clipboardOption,
+                cellSelectionRangeData,
+                tableData,
+                colgroups,
+                allRowKeys,
+            } = this;
+
+            if (!enableClipboard) {
+                return false;
+            }
+
+            // 正在编辑的单元格不进行删除区域单元格功能
+            if (isCellEditing) {
+                return false;
+            }
+
+            const {
+                // delete is key word
+                delete: delete2,
+                beforeDelete: beforeDeleteCallback,
+                afterDelete: afterDeleteCallback,
+            } = clipboardOption || {};
+
+            if (isBoolean(delete2) && !delete2) {
+                return false;
+            }
+
+            const selectionRangeData = getSelectionRangeData({
+                cellSelectionRangeData,
+                resultType: "flat",
+                tableData,
+                colgroups,
+                allRowKeys,
+            });
+
+            const response = onBeforeDelete({
+                cellSelectionRangeData,
+                selectionRangeData,
+                colgroups,
+                allRowKeys,
+            });
+
+            if (isFunction(beforeDeleteCallback)) {
+                const allowDeleting = beforeDeleteCallback(response);
+                if (isBoolean(allowDeleting) && !allowDeleting) {
+                    return false;
+                }
+            }
+
+            onAfterDelete({
+                tableData,
+                colgroups,
+                selectionRangeIndexes: response.selectionRangeIndexes,
+            });
+
+            if (isFunction(afterDeleteCallback)) {
+                afterDeleteCallback(response);
             }
         },
 
@@ -1849,18 +2654,14 @@ export default {
             colKey,
             isScrollToRow = true,
         }) {
-            const { cellSelectionOption } = this;
+            const { enableCellSelection } = this;
 
-            if (
-                cellSelectionOption &&
-                isBoolean(cellSelectionOption.enable) &&
-                cellSelectionOption.enable === false
-            ) {
+            if (!enableCellSelection) {
                 return false;
             }
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                this.cellSelectionKeyChange({
+                this.cellSelectionCurrentCellChange({
                     rowKey,
                     colKey,
                 });
@@ -1921,7 +2722,7 @@ export default {
 
             let scrollTop = 0;
 
-            const { isVirtualScroll, headerRows } = this;
+            const { isVirtualScroll, headerTotalHeight } = this;
 
             const tableContainerRef = this.$refs[this.tableContainerRef];
 
@@ -1946,14 +2747,7 @@ export default {
                     `tbody tr[${COMPS_CUSTOM_ATTRS.BODY_ROW_KEY}="${rowKey}"]`,
                 );
 
-                const totalHeaderHeight = headerRows.reduce(
-                    (total, currentVal) => {
-                        return currentVal.rowHeight + total;
-                    },
-                    0,
-                );
-
-                scrollTop = rowEl.offsetTop - totalHeaderHeight;
+                scrollTop = rowEl.offsetTop - headerTotalHeight;
             }
 
             scrollTo(tableContainerRef, {
@@ -1979,7 +2773,7 @@ export default {
                 colgroups,
                 rowKeyFieldName,
                 editingCell,
-                cellSelectionKeyData,
+                cellSelectionData,
             } = this;
 
             if (!editOption) {
@@ -1989,6 +2783,8 @@ export default {
             let currentRow = this.tableData.find(
                 (x) => x[rowKeyFieldName] === rowKey,
             );
+
+            currentRow = cloneDeep(currentRow);
 
             /* 
             调用API编辑的情况，需要关闭之前编辑的单元格
@@ -2008,14 +2804,18 @@ export default {
 
             // 给当前列赋默认值
             if (isDefined(defaultValue)) {
+                this.editorInputStartValue = defaultValue;
+                // doesn't change cell original value
                 currentRow[currentColumn.field] = defaultValue;
+            } else {
+                this.editorInputStartValue = currentRow[currentColumn.field];
             }
 
             if (
-                cellSelectionKeyData.colKey !== colKey ||
-                cellSelectionKeyData.rowKey !== rowKey
+                cellSelectionData.currentCell.colKey !== colKey ||
+                cellSelectionData.currentCell.rowKey !== rowKey
             ) {
-                this.cellSelectionKeyChange({
+                this.cellSelectionCurrentCellChange({
                     rowKey,
                     colKey,
                 });
@@ -2036,6 +2836,9 @@ export default {
             if (!editOption) {
                 return false;
             }
+
+            // clear editor input start value
+            this.editorInputStartValue = "";
 
             if (isCellEditing) {
                 this.saveCellWhenStopEditing();
@@ -2102,6 +2905,36 @@ export default {
             this.tdClick(params);
         });
 
+        // recieve td mouseover
+        this.$on(EMIT_EVENTS.BODY_TD_MOUSEOVER, (params) => {
+            this.tdMouseover(params);
+        });
+
+        // recieve td mousedown
+        this.$on(EMIT_EVENTS.BODY_TD_MOUSEDOWN, (params) => {
+            this.tdMousedown(params);
+        });
+
+        // recieve td mousedown
+        this.$on(EMIT_EVENTS.BODY_TD_MOUSEUP, (params) => {
+            this.tdMouseup(params);
+        });
+
+        // recieve selection corner mousedown
+        this.$on(EMIT_EVENTS.SELECTION_CORNER_MOUSEDOWN, (params) => {
+            this.cellSelectionCornerMousedown(params);
+        });
+
+        // recieve selection corner mousedown
+        this.$on(EMIT_EVENTS.SELECTION_CORNER_MOUSEUP, (params) => {
+            this.cellSelectionCornerMouseup(params);
+        });
+
+        // autofilling direction change
+        this.$on(EMIT_EVENTS.AUTOFILLING_DIRECTION_CHANGE, (params) => {
+            this.autofillingDirectionChange(params);
+        });
+
         // recieve td contextmenu(right click)
         this.$on(EMIT_EVENTS.BODY_TD_CONTEXTMENU, (params) => {
             this.tdContextmenu(params);
@@ -2124,6 +2957,7 @@ export default {
     },
     render() {
         const {
+            showHeader,
             tableViewportWidth,
             tableContainerStyle,
             tableStyle,
@@ -2143,9 +2977,10 @@ export default {
             sortOption,
             cellStyleOption,
             showVirtualScrollingPlaceholder,
-            cellSelectionKeyData,
+            cellSelectionData,
             editOption,
             contextmenus,
+            allRowKeys,
         } = this;
 
         // header props
@@ -2190,8 +3025,8 @@ export default {
                 eventCustomOption: this.eventCustomOption,
                 cellSelectionOption: this.cellSelectionOption,
                 hasFixedColumn: this.hasFixedColumn,
-                cellSelectionKeyData,
-                allRowKeys: this.allRowKeys,
+                cellSelectionData,
+                allRowKeys,
                 editOption,
                 highlightRowKey: this.highlightRowKey,
                 showVirtualScrollingPlaceholder,
@@ -2215,7 +3050,7 @@ export default {
                 cellSpanOption: this.cellSpanOption,
                 eventCustomOption: this.eventCustomOption,
                 hasFixedColumn: this.hasFixedColumn,
-                allRowKeys: this.allRowKeys,
+                allRowKeys,
                 footerRows: this.footerRows,
             },
             nativeOn: {
@@ -2225,8 +3060,8 @@ export default {
             },
         };
 
-        // wrapper container props
-        const wrapperContainerProps = {
+        // table root props
+        const tableRootProps = {
             class: {
                 "ve-table": true,
                 [clsName("border-around")]: this.borderAround,
@@ -2254,17 +3089,20 @@ export default {
             ],
         };
 
-        // container props
-        const containerProps = {
+        // table container props
+        const tableContainerProps = {
             ref: this.tableContainerRef,
             class: this.tableContainerClass,
             style: tableContainerStyle,
             on: {
                 scroll: () => {
-                    this.hooks.triggerHook(HOOKS_NAME.TABLE_CONTAINER_SCROLL);
-
                     const tableContainerRef =
                         this.$refs[this.tableContainerRef];
+
+                    this.hooks.triggerHook(
+                        HOOKS_NAME.TABLE_CONTAINER_SCROLL,
+                        tableContainerRef,
+                    );
                     this.setScrolling(tableContainerRef);
 
                     if (isVirtualScroll) {
@@ -2293,16 +3131,18 @@ export default {
                         this.debounceScrollEnded();
                     }
                 },
+                mouseup: () => {
+                    this.tableContainerMouseup();
+                },
             },
         };
 
-        // tale props
-        const tableProps = {
-            ref: this.tableContentRef,
-            class: [clsName("content"), tableClass],
-            style: tableStyle,
+        // table wrapper props
+        const tableWrapperProps = {
+            ref: this.tableContentWrapperRef,
+            class: [clsName("content-wrapper")],
             props: {
-                tagName: "table",
+                tagName: "div",
             },
             on: {
                 "on-dom-resize-change": ({ height }) => {
@@ -2311,19 +3151,52 @@ export default {
             },
         };
 
+        // tale props
+        const tableProps = {
+            class: [clsName("content"), tableClass],
+            style: tableStyle,
+        };
+
+        // selection props
+        const selectionProps = {
+            props: {
+                allRowKeys,
+                colgroups,
+                parentRendered: this.parentRendered,
+                hooks: this.hooks,
+                cellSelectionData,
+                isAutofillStarting: this.isAutofillStarting,
+                cellSelectionRangeData: this.cellSelectionRangeData,
+                currentCellSelectionType: this.currentCellSelectionType,
+                showVirtualScrollingPlaceholder,
+                isVirtualScroll,
+                virtualScrollVisibleIndexs: this.virtualScrollVisibleIndexs,
+                previewTableContainerScrollLeft:
+                    this.previewTableContainerScrollLeft,
+                isCellEditing: this.isCellEditing,
+                cellAutofillOption: this.cellAutofillOption,
+            },
+            on: {
+                [EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE]: (newData) => {
+                    this.cellSelectionRangeDataChange(newData);
+                },
+            },
+        };
+
+        // edit input props
         const editInputProps = {
             ref: this.editInputRef,
             props: {
                 hooks: this.hooks,
                 parentRendered: this.parentRendered,
-                value: "",
+                inputStartValue: this.editorInputStartValue,
                 rowKeyFieldName,
                 tableData: this.tableData,
-                cellSelectionKeyData,
+                cellSelectionData,
                 colgroups,
                 editingCell: this.editingCell,
                 isCellEditing: this.isCellEditing,
-                allRowKeys: this.allRowKeys,
+                allRowKeys,
                 hasXScrollBar: this.hasXScrollBar,
                 hasYScrollBar: this.hasYScrollBar,
                 hasRightFixedColumn: this.hasRightFixedColumn,
@@ -2337,6 +3210,18 @@ export default {
                 // edit input value change
                 [EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE]: (value) => {
                     this.updateEditingCellValue(value);
+                },
+                // copy
+                [EMIT_EVENTS.EDIT_INPUT_COPY]: (e) => {
+                    this.editorCopy(e);
+                },
+                // paste
+                [EMIT_EVENTS.EDIT_INPUT_PASTE]: (e) => {
+                    this.editorPaste(e);
+                },
+                // cut
+                [EMIT_EVENTS.EDIT_INPUT_CUT]: (e) => {
+                    this.editorCut(e);
                 },
             },
         };
@@ -2355,25 +3240,34 @@ export default {
         };
 
         return (
-            <VueDomResizeObserver {...wrapperContainerProps}>
-                <div {...containerProps}>
+            <VueDomResizeObserver {...tableRootProps}>
+                <div {...tableContainerProps}>
                     {/* virtual view phantom */}
                     {this.getVirtualViewPhantom()}
-                    <VueDomResizeObserver {...tableProps}>
-                        {/* colgroup */}
-                        <Colgroup colgroups={colgroups} />
-                        {/* table header */}
-                        <Header {...headerProps} />
-                        {/* table body */}
-                        <Body {...bodyProps} />
-                        {/* table footer */}
-                        <Footer {...footerProps} />
+                    {/* vue 实例类型，访问dom时需要通过$el属性访问 */}
+                    <VueDomResizeObserver {...tableWrapperProps}>
+                        <table {...tableProps}>
+                            {/* colgroup */}
+                            <Colgroup colgroups={colgroups} />
+                            {/* table header */}
+                            {showHeader && <Header {...headerProps} />}
+                            {/* table body */}
+                            <Body {...bodyProps} />
+                            {/* table footer */}
+                            <Footer {...footerProps} />
+                        </table>
+                        {/* cell selection */}
+                        {this.enableCellSelection && (
+                            <Selection {...selectionProps} />
+                        )}
                     </VueDomResizeObserver>
                 </div>
                 {/* edit input */}
-                {this.hasEditColumn && <EditInput {...editInputProps} />}
+                {this.enableCellSelection && <EditInput {...editInputProps} />}
                 {/* contextmenu */}
-                {this.hasContextmenu && <VeContextmenu {...contextmenuProps} />}
+                {this.enableContextmenu && (
+                    <VeContextmenu {...contextmenuProps} />
+                )}
             </VueDomResizeObserver>
         );
     },

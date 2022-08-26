@@ -99,9 +99,10 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
-                path: "border",
-                component: () => import("@/docs/zh/ve-table/border/main.vue"),
-                name: "边框",
+                path: "table-border",
+                component: () =>
+                    import("@/docs/zh/ve-table/table-border/main.vue"),
+                name: "表格边框",
                 meta: { keepAlive: true },
             },
             {
@@ -137,6 +138,13 @@ const config = [
                 component: () =>
                     import("@/docs/zh/ve-table/header-grouping/main.vue"),
                 name: "表头分组",
+                meta: { keepAlive: true },
+            },
+            {
+                path: "header-hidden",
+                component: () =>
+                    import("@/docs/zh/ve-table/header-hidden/main.vue"),
+                name: "表头隐藏",
                 meta: { keepAlive: true },
             },
             {
@@ -189,6 +197,13 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
+                path: "operation-column",
+                component: () =>
+                    import("@/docs/zh/ve-table/operation-column/main.vue"),
+                name: "操作列",
+                meta: { keepAlive: true },
+            },
+            {
                 path: "cell-selection",
                 component: () =>
                     import("@/docs/zh/ve-table/cell-selection/main.vue"),
@@ -196,10 +211,24 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
+                path: "cell-autofill",
+                component: () =>
+                    import("@/docs/zh/ve-table/cell-autofill/main.vue"),
+                name: "单元格自动填充",
+                meta: { keepAlive: true },
+            },
+            {
                 path: "cell-edit",
                 component: () =>
                     import("@/docs/zh/ve-table/cell-edit/main.vue"),
                 name: "单元格编辑",
+                meta: { keepAlive: true },
+            },
+            {
+                path: "clipboard",
+                component: () =>
+                    import("@/docs/zh/ve-table/clipboard/main.vue"),
+                name: "剪贴板",
                 meta: { keepAlive: true },
             },
             {

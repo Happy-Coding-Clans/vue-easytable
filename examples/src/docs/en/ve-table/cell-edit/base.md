@@ -1,6 +1,8 @@
 :::anchor Basic usage
 
-:::demo The `cellValueChange` method will be triggered after cell editing is stopped,The parameter `row` is the updated row data information, and the parameter `column` is the currently edited column information
+Trying to change the value of the 'Number' column to a non number
+
+:::demo 1.After the cell stops editing, the `beforeCellValueChange` callback is triggered first. If false is returned, the editing will be blocked and the cell will be restored to the state before editing. If the editing is successful, the `afterCellValueChange` method will be triggered<br>2.You can use beforecellvaluechange to verify the contents of cell editing
 
 ```html
 <template>
@@ -26,10 +28,25 @@
                 },
                 // edit option
                 editOption: {
-                    // cell value change
-                    cellValueChange: ({ row, column }) => {
-                        console.log("cellValueChange row::", row);
-                        console.log("cellValueChange column::", column);
+                    beforeCellValueChange: ({ row, column, changeValue }) => {
+                        console.log("beforeCellValueChange");
+                        console.log("row::", row);
+                        console.log("column::", column);
+                        console.log("changeValue::", changeValue);
+
+                        console.log("---");
+
+                        if (column.field === "number" && !/^\d+$/.test(changeValue)) {
+                            alert("please enter a number");
+                            return false;
+                        }
+                    },
+                    afterCellValueChange: ({ row, column, changeValue }) => {
+                        console.log("afterCellValueChange");
+                        console.log("row::", row);
+                        console.log("column::", column);
+                        console.log("changeValue::", changeValue);
+                        console.log("---");
                     },
                 },
                 columns: [

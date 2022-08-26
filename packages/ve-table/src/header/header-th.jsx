@@ -387,6 +387,22 @@ export default {
         cellMouseleave(e, fn) {
             fn && fn(e);
         },
+        // mousemove
+        cellMousemove(e, fn) {
+            fn && fn(e);
+        },
+        // mouseover
+        cellMouseover(e, fn) {
+            fn && fn(e);
+        },
+        // mousedown
+        cellMousedown(e, fn) {
+            fn && fn(e);
+        },
+        // mouseup
+        cellMouseup(e, fn) {
+            fn && fn(e);
+        },
     },
     render(h) {
         const {
@@ -422,8 +438,17 @@ export default {
                 : {};
         }
 
-        const { click, dblclick, contextmenu, mouseenter, mouseleave } =
-            customEvents;
+        const {
+            click,
+            dblclick,
+            contextmenu,
+            mouseenter,
+            mouseleave,
+            mousemove,
+            mouseover,
+            mousedown,
+            mouseup,
+        } = customEvents;
 
         const events = {
             click: (e) => {
@@ -440,6 +465,18 @@ export default {
             },
             mouseleave: (e) => {
                 this.cellMouseleave(e, mouseleave);
+            },
+            mousemove: (e) => {
+                this.cellMousemove(e, mousemove);
+            },
+            mouseover: (e) => {
+                this.cellMouseover(e, mouseover);
+            },
+            mousedown: (e) => {
+                this.cellMousedown(e, mousedown);
+            },
+            mouseup: (e) => {
+                this.cellMouseup(e, mouseup);
             },
         };
 
