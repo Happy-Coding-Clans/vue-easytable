@@ -13,6 +13,7 @@
             :cell-autofill-option="cellAutofillOption"
             :edit-option="editOption"
             :contextmenu-body-option="contextmenuBodyOption"
+            :row-style-option="rowStyleOption"
         />
     </div>
 </template>
@@ -104,6 +105,10 @@ export default {
                         type: "HIDE_COLUMN",
                     },
                 ],
+            },
+            rowStyleOption: {
+                clickHighlight: false,
+                hoverHighlight: false,
             },
             tableData: [],
         };
