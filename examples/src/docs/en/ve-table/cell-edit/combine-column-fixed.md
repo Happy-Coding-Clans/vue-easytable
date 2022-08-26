@@ -43,6 +43,7 @@
                         title: "",
                         width: 15,
                         align: "center",
+                        fixed: "left",
                         operationColumn: true,
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
                             return ++rowIndex;
