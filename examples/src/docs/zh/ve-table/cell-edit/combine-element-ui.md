@@ -41,6 +41,17 @@
                 },
                 columns: [
                     {
+                        field: "",
+                        key: "a",
+                        title: "",
+                        width: 50,
+                        align: "center",
+                        operationColumn: true,
+                        renderBodyCell: ({ row, column, rowIndex }, h) => {
+                            return ++rowIndex;
+                        },
+                    },
+                    {
                         field: "name",
                         key: "name",
                         title: "Name",

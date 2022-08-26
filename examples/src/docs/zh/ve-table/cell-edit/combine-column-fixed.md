@@ -38,6 +38,17 @@
                 },
                 columns: [
                     {
+                        field: "",
+                        key: "a",
+                        title: "",
+                        width: 15,
+                        align: "center",
+                        operationColumn: true,
+                        renderBodyCell: ({ row, column, rowIndex }, h) => {
+                            return ++rowIndex;
+                        },
+                    },
+                    {
                         field: "col1",
                         key: "col1",
                         title: "col1",
