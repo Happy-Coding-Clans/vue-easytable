@@ -3,7 +3,7 @@
         <h2>单元格自动填充</h2>
         <Base />
         <AutofillDirection />
-        <API />
+        <API title="API" anchor="API" />
     </div>
 </template>
 <script>

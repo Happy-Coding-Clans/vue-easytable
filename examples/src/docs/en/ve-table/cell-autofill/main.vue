@@ -3,7 +3,7 @@
         <h2>Cell Autofill</h2>
         <Base />
         <AutofillDirection />
-        <API />
+        <API title="API" anchor="API" />
     </div>
 </template>
 <script>
