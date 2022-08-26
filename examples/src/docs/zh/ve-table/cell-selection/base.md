@@ -12,6 +12,7 @@
         :columns="columns"
         :table-data="tableData"
         rowKeyFieldName="rowKey"
+        :rowStyleOption="rowStyleOption"
     />
 </template>
 
@@ -19,7 +20,23 @@
     export default {
         data() {
             return {
+                rowStyleOption: {
+                    clickHighlight: false,
+                    hoverHighlight: false,
+                },
                 columns: [
+                    {
+                        field: "",
+                        key: "a",
+                        title: "",
+                        width: 15,
+                        align: "center",
+                        fixed: "left",
+                        operationColumn: true,
+                        renderBodyCell: ({ row, column, rowIndex }, h) => {
+                            return ++rowIndex;
+                        },
+                    },
                     {
                         field: "col1",
                         key: "col1",

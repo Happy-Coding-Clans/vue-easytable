@@ -23,6 +23,7 @@
             :table-data="tableData"
             rowKeyFieldName="rowKey"
             :virtual-scroll-option="{enable:true}"
+            :rowStyleOption="rowStyleOption"
         />
     </div>
 </template>
@@ -31,14 +32,30 @@
     export default {
         data() {
             return {
+                rowStyleOption: {
+                    clickHighlight: false,
+                    hoverHighlight: false,
+                },
                 cellSelectionOption: {
                     // disble cell selection
                     enable: true,
                 },
                 columns: [
                     {
-                        field: "col1",
+                        field: "",
                         key: "a",
+                        title: "",
+                        width: 15,
+                        align: "center",
+                        fixed: "left",
+                        operationColumn: true,
+                        renderBodyCell: ({ row, column, rowIndex }, h) => {
+                            return ++rowIndex;
+                        },
+                    },
+                    {
+                        field: "col1",
+                        key: "col1",
                         title: "col1",
                         width: 50,
                         fixed: "left",
@@ -49,13 +66,13 @@
                         children: [
                             {
                                 field: "col2",
-                                key: "b",
+                                key: "col2",
                                 title: "col2",
                                 width: 50,
                             },
                             {
                                 field: "col3",
-                                key: "c",
+                                key: "col3",
                                 title: "col3",
                                 width: 50,
                             },
@@ -69,13 +86,13 @@
                                 children: [
                                     {
                                         field: "col4",
-                                        key: "d",
+                                        key: "col4",
                                         title: "col4",
                                         width: 130,
                                     },
                                     {
                                         field: "col5",
-                                        key: "e",
+                                        key: "col5",
                                         title: "col5",
                                         width: 140,
                                     },
@@ -84,7 +101,7 @@
                             {
                                 title: "col6",
                                 field: "col6",
-                                key: "f",
+                                key: "col6",
                                 width: 140,
                             },
                         ],
@@ -96,14 +113,14 @@
                             {
                                 title: "col7-1",
                                 field: "col7",
-                                key: "g",
+                                key: "col7",
                                 width: 50,
                             },
                         ],
                     },
                     {
                         field: "col8",
-                        key: "h",
+                        key: "col8",
                         title: "col8",
                         width: 50,
                         fixed: "right",
