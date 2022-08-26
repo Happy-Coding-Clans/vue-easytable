@@ -26,6 +26,7 @@
             return {
                 rowStyleOption: {
                     clickHighlight: false,
+                    hoverHighlight: false,
                 },
                 // edit option 可控单元格编辑
                 editOption: {

@@ -25,6 +25,7 @@ Trying to change the value of the 'Number' column to a non number
             return {
                 rowStyleOption: {
                     clickHighlight: false,
+                    hoverHighlight: false,
                 },
                 // edit option
                 editOption: {
