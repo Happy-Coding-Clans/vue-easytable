@@ -22,6 +22,12 @@ export default {
             type: Boolean,
             required: true,
         },
+        cellSelectionData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
         headerRows: {
             type: Array,
             default: function () {
@@ -138,6 +144,7 @@ export default {
             sortOption,
             sortColumns,
             cellStyleOption,
+            cellSelectionData,
         } = this;
 
         return (
@@ -157,6 +164,7 @@ export default {
                             sortColumns,
                             cellStyleOption,
                             eventCustomOption: this.eventCustomOption,
+                            cellSelectionData,
                         },
                     };
                     return <HeaderTr {...trProps} />;

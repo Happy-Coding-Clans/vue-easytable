@@ -34,6 +34,12 @@ export default {
             type: Number,
             required: true,
         },
+        cellSelectionData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
         // checkbox option
         checkboxOption: {
             type: Object,
@@ -132,6 +138,7 @@ export default {
             sortColumns,
             cellStyleOption,
             eventCustomOption,
+            cellSelectionData,
         } = this;
 
         // custom on cell event
@@ -216,6 +223,7 @@ export default {
                             sortColumns,
                             cellStyleOption,
                             eventCustomOption: this.eventCustomOption,
+                            cellSelectionData,
                         },
                     };
 

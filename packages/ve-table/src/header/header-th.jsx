@@ -2,7 +2,7 @@ import HeaderCheckboxContent from "./header-checkbox-content";
 import HeaderFilterContent from "./header-filter-content";
 import HeaderFilterCustomContent from "./header-filter-custom-content";
 import { getFixedTotalWidthByColumnKey, clsName } from "../util";
-import { getValByUnit } from "../../../src/utils/index.js";
+import { getValByUnit, isEmptyValue } from "../../../src/utils/index.js";
 import { COMPS_NAME, COLUMN_TYPES, EMIT_EVENTS } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 import VeIcon from "vue-easytable/packages/ve-icon";
@@ -38,6 +38,12 @@ export default {
         rowIndex: {
             type: Number,
             required: true,
+        },
+        cellSelectionData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
         },
         // checkbox option
         checkboxOption: {
@@ -157,7 +163,26 @@ export default {
                 [clsName("last-column")]: this.isLastCloumn,
             };
 
-            const { cellStyleOption, groupColumnItem, rowIndex } = this;
+            const {
+                cellStyleOption,
+                groupColumnItem,
+                rowIndex,
+                cellSelectionData,
+                groupColumnItem: column,
+            } = this;
+
+            if (cellSelectionData) {
+                const { colKey, rowKey } = cellSelectionData.currentCell;
+
+                //  first level header th indicator
+                if (
+                    !isEmptyValue(column["key"]) &&
+                    !isEmptyValue(rowKey) &&
+                    column["key"] === colKey
+                ) {
+                    result[clsName("cell-indicator")] = true;
+                }
+            }
 
             if (
                 cellStyleOption &&

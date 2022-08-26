@@ -2982,6 +2982,7 @@ export default {
                 cellStyleOption,
                 eventCustomOption: this.eventCustomOption,
                 headerRows: this.headerRows,
+                cellSelectionData,
             },
             nativeOn: {
                 click: () => {

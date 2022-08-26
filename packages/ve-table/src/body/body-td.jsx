@@ -2,7 +2,7 @@ import BodyCheckboxContent from "./body-checkbox-content";
 import BodyRadioContent from "./body-radio-content";
 import ExpandTrIcon from "./expand-tr-icon";
 import { clsName } from "../util";
-import { isNumber, isBoolean } from "../../../src/utils/index.js";
+import { isNumber, isBoolean, isEmptyValue } from "../../../src/utils/index.js";
 
 import {
     COMPS_NAME,
@@ -234,11 +234,21 @@ export default {
                 }
             }
 
-            // cell selection option
             if (cellSelectionData) {
                 const { rowKey, colKey } = cellSelectionData.currentCell;
-                if (currentRowKey === rowKey && column["key"] === colKey) {
-                    result[clsName("cell-selection")] = true;
+
+                if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+                    if (currentRowKey === rowKey) {
+                        // cell selection
+                        if (column["key"] === colKey) {
+                            result[clsName("cell-selection")] = true;
+                        }
+
+                        //  cell indicator (operation column)
+                        if (operationColumn) {
+                            result[clsName("cell-indicator")] = true;
+                        }
+                    }
                 }
             }
 
