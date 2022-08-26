@@ -14,6 +14,7 @@
         rowKeyFieldName="rowKey"
         :virtual-scroll-option="virtualScrollOption"
         :cell-autofill-option="cellAutofillOption"
+        :rowStyleOption="rowStyleOption"
     />
 </template>
 
@@ -21,6 +22,10 @@
     export default {
         data() {
             return {
+                rowStyleOption: {
+                    clickHighlight: false,
+                    hoverHighlight: false,
+                },
                 virtualScrollOption: {
                     // 是否开启
                     enable: true,

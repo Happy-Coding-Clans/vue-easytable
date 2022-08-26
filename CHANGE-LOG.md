@@ -1,11 +1,21 @@
 Vx.x.x(TPL)
 
--   Breaking Changes
 -   Feature
+-   Breaking Changes
 -   Bug Fixes
 -   Performance Improvements
 -   Style changes
 -   Dependencies Changes
+
+V2.19.0
+
+### Breaking Changes
+
+-   修改表格右键菜单的非中文文字，将开头小写字母转大写字母
+
+### Feature
+
+-   单元格选择功能，添加表头和列指示器效果
 
 V2.18.1
 
