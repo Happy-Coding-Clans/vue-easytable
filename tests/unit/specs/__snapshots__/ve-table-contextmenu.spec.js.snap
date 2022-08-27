@@ -78,11 +78,11 @@ exports[`veTable contextmenu render 1`] = `
   <div class="ve-contextmenu" style="display: none;">
     <div class="ve-contextmenu-panel">
       <ul class="ve-contextmenu-list">
-        <li class="ve-contextmenu-node"><span class="ve-contextmenu-node-label">insert row above</span></li>
-        <li class="ve-contextmenu-node"><span class="ve-contextmenu-node-label">insert row below</span></li>
+        <li class="ve-contextmenu-node"><span class="ve-contextmenu-node-label">Insert row above</span></li>
+        <li class="ve-contextmenu-node"><span class="ve-contextmenu-node-label">Insert row below</span></li>
         <li class="ve-contextmenu-node-separator"></li>
-        <li class="ve-contextmenu-node"><span class="ve-contextmenu-node-label">remove row</span></li>
-        <li class="ve-contextmenu-node"><span class="ve-contextmenu-node-label">hide column</span></li>
+        <li class="ve-contextmenu-node"><span class="ve-contextmenu-node-label">Remove row</span></li>
+        <li class="ve-contextmenu-node"><span class="ve-contextmenu-node-label">Hide column</span></li>
       </ul>
     </div>
   </div>
