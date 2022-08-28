@@ -5,8 +5,8 @@
 ```html
 <template>
     <div>
-        <button class="button-demo" @click="setCellSelection(29,'e')">选中第30行第5列</button>
-        <button class="button-demo" @click="setCellSelection(1,'a')">选中第2行第1列</button>
+        <button class="button-demo" @click="setCellSelection(29,'col5')">选中第30行第5列</button>
+        <button class="button-demo" @click="setCellSelection(1,'col1')">选中第2行第1列</button>
         <br />
         <br />
         <ve-table

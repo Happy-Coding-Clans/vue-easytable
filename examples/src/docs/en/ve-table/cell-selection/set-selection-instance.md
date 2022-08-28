@@ -5,10 +5,10 @@
 ```html
 <template>
     <div>
-        <button class="button-demo" @click="setCellSelection(29,'e')">
+        <button class="button-demo" @click="setCellSelection(29,'col5')">
             Select row 30 and column 5
         </button>
-        <button class="button-demo" @click="setCellSelection(1,'a')">
+        <button class="button-demo" @click="setCellSelection(1,'col1')">
             Select row 2 and column 1
         </button>
         <br />
