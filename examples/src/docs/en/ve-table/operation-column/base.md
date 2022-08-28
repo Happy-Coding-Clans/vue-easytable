@@ -12,6 +12,7 @@
             :cell-autofill-option="cellAutofillOption"
             :editOption="editOption"
             rowKeyFieldName="rowKey"
+            :rowStyleOption="rowStyleOption"
         />
     </div>
 </template>
@@ -20,6 +21,10 @@
     export default {
         data() {
             return {
+                rowStyleOption: {
+                    clickHighlight: false,
+                    hoverHighlight: false,
+                },
                 cellAutofillOption: true,
                 editOption: {
                     // cell value change
