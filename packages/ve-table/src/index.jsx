@@ -406,8 +406,10 @@ export default {
             like Excel:If you directly enter content in an editable cell, press the up, down, left and right buttons to directly select other cells and stop editing the current cell
             */
             enableStopEditing: true,
-            // contextmenu event target
-            contextmenuEventTarget: "",
+            // header contextmenu event target
+            headerContextmenuEventTarget: "",
+            // body contextmenu event target
+            bodyContextmenuEventTarget: "",
         };
     },
     computed: {
@@ -617,7 +619,7 @@ export default {
             return this.colgroups.some((x) => x.edit);
         },
         // enable contextmenu
-        enableContextmenu() {
+        enableBodyContextmenu() {
             let result = false;
 
             const { contextmenuBodyOption } = this;
@@ -654,11 +656,11 @@ export default {
         enableClipboard() {
             return this.rowKeyFieldName;
         },
-        // contextmenus
-        contextmenus() {
+        // bodyContextmenuOptions
+        bodyContextmenuOptions() {
             let result = [];
-            const { enableContextmenu, contextmenuBodyOption } = this;
-            if (enableContextmenu) {
+            const { enableBodyContextmenu, contextmenuBodyOption } = this;
+            if (enableBodyContextmenu) {
                 const { contextmenus } = contextmenuBodyOption;
 
                 const contextmenuBodyOptionCollection =
@@ -2311,8 +2313,8 @@ export default {
             };
         },
 
-        // contextmenu call back
-        contextmenuCallBack(type) {
+        // body contextmenu call back
+        bodyContextmenuCallBack(type) {
             const {
                 contextmenuBodyOption,
                 cellSelectionData,
@@ -2841,7 +2843,7 @@ export default {
         this.parentRendered = true;
 
         // set contextmenu event target
-        this.contextmenuEventTarget = this.$el.querySelector(
+        this.bodyContextmenuEventTarget = this.$el.querySelector(
             `.${clsName("body")}`,
         );
 
@@ -2963,7 +2965,7 @@ export default {
             showVirtualScrollingPlaceholder,
             cellSelectionData,
             editOption,
-            contextmenus,
+            bodyContextmenuOptions,
             allRowKeys,
             enableCellSelection,
         } = this;
@@ -3213,14 +3215,14 @@ export default {
         };
 
         // 直接在组件上写事件，单元测试无法通过。如 on={{"on-node-click":()=>{}}}
-        const contextmenuProps = {
+        const bodyContextmenuProps = {
             props: {
-                eventTarget: this.contextmenuEventTarget,
-                options: contextmenus,
+                eventTarget: this.bodyContextmenuEventTarget,
+                options: bodyContextmenuOptions,
             },
             on: {
                 "on-node-click": (type) => {
-                    this.contextmenuCallBack(type);
+                    this.bodyContextmenuCallBack(type);
                 },
             },
         };
@@ -3250,9 +3252,9 @@ export default {
                 </div>
                 {/* edit input */}
                 {enableCellSelection && <EditInput {...editInputProps} />}
-                {/* contextmenu */}
-                {this.enableContextmenu && (
-                    <VeContextmenu {...contextmenuProps} />
+                {/* body contextmenu */}
+                {this.enableBodyContextmenu && (
+                    <VeContextmenu {...bodyContextmenuProps} />
                 )}
             </VueDomResizeObserver>
         );
