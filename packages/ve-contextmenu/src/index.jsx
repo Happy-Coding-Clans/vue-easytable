@@ -3,7 +3,12 @@ import { clsName } from "./util/index";
 import VeIcon from "vue-easytable/packages/ve-icon";
 import { ICON_NAMES } from "../../src/utils/constant";
 import { getMousePosition, getViewportOffset } from "../../src/utils/dom";
-import { INIT_DATA, EMIT_EVENTS, CONTEXTMENU_TYPES } from "./util/constant";
+import {
+    INIT_DATA,
+    EMIT_EVENTS,
+    CONTEXTMENU_TYPES,
+    INSTANCE_METHODS,
+} from "./util/constant";
 import { getRandomId } from "../../src/utils/random";
 import { debounce, cloneDeep } from "lodash";
 import eventsOutside from "../../src/directives/events-outside";
@@ -552,6 +557,11 @@ export default {
                 );
             }
         },
+
+        // hide contextmenu
+        [INSTANCE_METHODS.HIDE_CONTEXTMENU]() {
+            this.emptyContextmenuPanels();
+        },
     },
 
     created() {
@@ -599,7 +609,7 @@ export default {
                             {
                                 name: "events-outside",
                                 value: {
-                                    events: ["mousedown"],
+                                    events: ["click"],
                                     callback: (e) => {
                                         // only for root panel
                                         if (panelIndex === 0) {

@@ -273,6 +273,8 @@ export default {
             tableContentWrapperRef: "tableContentWrapperRef",
             virtualPhantomRef: "virtualPhantomRef",
             editInputRef: "editInputRef",
+            headerContextmenuRef: "headerContextmenuRef",
+            bodyContextmenuRef: "bodyContextmenuRef",
             cloneColumns: [],
             // is group header
             isGroupHeader: false,
@@ -2118,6 +2120,12 @@ export default {
                     colKey: column.key,
                 });
             }
+
+            // close header contextmenu panel
+            const headerContextmenuRef = this.$refs[this.headerContextmenuRef];
+            if (headerContextmenuRef) {
+                headerContextmenuRef.hideContextmenu();
+            }
         },
 
         /*
@@ -3300,6 +3308,7 @@ export default {
 
         // 直接在组件上写事件，单元测试无法通过。如 on={{"on-node-click":()=>{}}}
         const bodyContextmenuProps = {
+            ref: this.bodyContextmenuRef,
             props: {
                 eventTarget: this.bodyContextmenuEventTarget,
                 options: bodyContextmenuOptions,
@@ -3312,6 +3321,7 @@ export default {
         };
 
         const headerContextmenuProps = {
+            ref: this.headerContextmenuRef,
             props: {
                 eventTarget: this.headerContextmenuEventTarget,
                 options: headerContextmenuOptions,

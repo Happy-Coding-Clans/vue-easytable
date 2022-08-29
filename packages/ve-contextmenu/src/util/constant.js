@@ -22,3 +22,8 @@ export const CONTEXTMENU_TYPES = {
     // Separator
     SEPARATOR: "SEPARATOR",
 };
+
+// instance methods
+export const INSTANCE_METHODS = {
+    HIDE_CONTEXTMENU: "hideContextmenu",
+};
