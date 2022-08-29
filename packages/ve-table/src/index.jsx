@@ -3212,7 +3212,7 @@ export default {
             },
         };
 
-        // 直接在组件上写单元测试无法通过。如 on={{"on-node-click":()=>{}}}
+        // 直接在组件上写事件，单元测试无法通过。如 on={{"on-node-click":()=>{}}}
         const contextmenuProps = {
             props: {
                 eventTarget: this.contextmenuEventTarget,
