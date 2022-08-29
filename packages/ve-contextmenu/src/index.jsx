@@ -543,7 +543,7 @@ export default {
             }
         },
 
-        // un register contextmen event
+        // unregister contextmen event
         removeContextmenuEvent() {
             if (this.eventTargetEl) {
                 this.eventTargetEl.removeEventListener(
