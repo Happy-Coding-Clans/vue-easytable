@@ -612,6 +612,9 @@ export default {
                                     this.isChildrenPanelsClicked = true;
                                 }
                             },
+                            contextmenu: (e) => {
+                                e.preventDefault();
+                            },
                         },
                     };
                     return (
