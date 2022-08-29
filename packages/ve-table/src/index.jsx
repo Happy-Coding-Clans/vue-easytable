@@ -678,31 +678,6 @@ export default {
         enableClipboard() {
             return this.rowKeyFieldName;
         },
-        // bodyContextmenuOptions
-        bodyContextmenuOptions() {
-            let result = [];
-            const { enableBodyContextmenu, contextmenuBodyOption } = this;
-            if (enableBodyContextmenu) {
-                const { contextmenus } = contextmenuBodyOption;
-
-                const bodyContextmenuOptionCollection =
-                    getBodyContextmenuOptionCollection(t);
-
-                contextmenus.forEach((contextmenu) => {
-                    const contentmenuCollectionItem =
-                        bodyContextmenuOptionCollection.find(
-                            (x) => x.type === contextmenu.type,
-                        );
-                    if (contentmenuCollectionItem) {
-                        result.push(contentmenuCollectionItem);
-                    } else {
-                        result.push(contextmenu);
-                    }
-                });
-            }
-
-            return result;
-        },
         // headerContextmenuOptions
         headerContextmenuOptions() {
             let result = [];
@@ -716,6 +691,31 @@ export default {
                 contextmenus.forEach((contextmenu) => {
                     const contentmenuCollectionItem =
                         headerContextmenuOptionCollection.find(
+                            (x) => x.type === contextmenu.type,
+                        );
+                    if (contentmenuCollectionItem) {
+                        result.push(contentmenuCollectionItem);
+                    } else {
+                        result.push(contextmenu);
+                    }
+                });
+            }
+
+            return result;
+        },
+        // bodyContextmenuOptions
+        bodyContextmenuOptions() {
+            let result = [];
+            const { enableBodyContextmenu, contextmenuBodyOption } = this;
+            if (enableBodyContextmenu) {
+                const { contextmenus } = contextmenuBodyOption;
+
+                const bodyContextmenuOptionCollection =
+                    getBodyContextmenuOptionCollection(t);
+
+                contextmenus.forEach((contextmenu) => {
+                    const contentmenuCollectionItem =
+                        bodyContextmenuOptionCollection.find(
                             (x) => x.type === contextmenu.type,
                         );
                     if (contentmenuCollectionItem) {
