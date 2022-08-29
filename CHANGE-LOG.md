@@ -7,7 +7,19 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
-V2.18.1
+V2.18.3
+
+### Bug Fixes
+
+-   修复非虚拟滚动表格，移除列时控制台报错的问题
+
+---
+
+### Bug Fixes
+
+-   Fixed the bug that the console of non virtual scrolling hidden columns report errors
+
+V2.18.2
 
 ### Bug Fixes
 
