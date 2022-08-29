@@ -1,7 +1,7 @@
 Vx.x.x(TPL)
 
--   Feature
 -   Breaking Changes
+-   Feature
 -   Bug Fixes
 -   Performance Improvements
 -   Style changes
@@ -17,7 +17,19 @@ V2.19.0
 
 -   单元格选择功能，添加表头和列指示器效果
 
-V2.18.1
+V2.18.3
+
+### Bug Fixes
+
+-   修复非虚拟滚动表格，移除列时控制台报错的问题
+
+---
+
+### Bug Fixes
+
+-   Fixed the bug that the console of non virtual scrolling hidden columns report errors
+
+V2.18.2
 
 ### Bug Fixes
 

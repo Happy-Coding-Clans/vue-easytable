@@ -540,8 +540,11 @@ export default {
                 }
             }
 
-            // current cell overflow or normal end cell overflow
-            if (isCurrentCellOverflow || isNormalEndCellOverflow) {
+            // current cell overflow or normal end cell overflow && is virtual scroll
+            if (
+                (isCurrentCellOverflow || isNormalEndCellOverflow) &&
+                this.isVirtualScroll
+            ) {
                 const { currentCell, normalEndCell } = cellSelectionData;
                 // 弥补的
                 let mackUpColKey;
