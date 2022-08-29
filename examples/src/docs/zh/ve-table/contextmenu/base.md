@@ -2,7 +2,7 @@
 
 右键表格区域查看效果
 
-:::demo
+:::demo 你可以根据需要进行组合使用
 
 ```html
 <template>
@@ -15,6 +15,7 @@
             :row-style-option="rowStyleOption"
             border-y
             :contextmenu-body-option="contextmenuBodyOption"
+            :contextmenu-header-option="contextmenuHeaderOption"
         />
     </div>
 </template>
@@ -23,6 +24,37 @@
     export default {
         data() {
             return {
+                // contextmenu header option
+                contextmenuHeaderOption: {
+                    // callback for all options
+                    callback: ({ type, selection }) => {
+                        console.log("type::", type);
+                        console.log("selection::", selection);
+                    },
+
+                    // contextmenus
+                    contextmenus: [
+                        {
+                            type: "INSERT_ROW_ABOVE",
+                        },
+                        {
+                            type: "INSERT_ROW_BELOW",
+                        },
+                        {
+                            type: "SEPARATOR",
+                        },
+                        {
+                            type: "REMOVE_ROW",
+                        },
+                        {
+                            type: "SEPARATOR",
+                        },
+                        {
+                            type: "HIDE_COLUMN",
+                        },
+                    ],
+                },
+
                 // contextmenu body option
                 contextmenuBodyOption: {
                     // callback for all options

@@ -59,6 +59,12 @@
                             type: "SEPARATOR",
                         },
                         {
+                            type: "HIDE_COLUMN",
+                        },
+                        {
+                            type: "SEPARATOR",
+                        },
+                        {
                             type: "custom-empty-row",
                             label: "empty row(custom)",
                         },
