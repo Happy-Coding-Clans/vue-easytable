@@ -6,12 +6,12 @@ import { getMousePosition, getViewportOffset } from "../../src/utils/dom";
 import { INIT_DATA, EMIT_EVENTS, CONTEXTMENU_TYPES } from "./util/constant";
 import { getRandomId } from "../../src/utils/random";
 import { debounce, cloneDeep } from "lodash";
-import clickoutside from "../../src/directives/clickoutside";
+import eventsOutside from "../../src/directives/events-outside";
 
 export default {
     name: COMPS_NAME.VE_CONTEXTMENU,
     directives: {
-        "click-outside": clickoutside,
+        "events-outside": eventsOutside,
     },
     props: {
         /*
@@ -597,12 +597,15 @@ export default {
                         },
                         directives: [
                             {
-                                name: "click-outside",
-                                value: () => {
-                                    // only for root panel
-                                    if (panelIndex === 0) {
-                                        emptyContextmenuPanels();
-                                    }
+                                name: "events-outside",
+                                value: {
+                                    events: ["mousedown"],
+                                    callback: (e) => {
+                                        // only for root panel
+                                        if (panelIndex === 0) {
+                                            emptyContextmenuPanels();
+                                        }
+                                    },
                                 },
                             },
                         ],
