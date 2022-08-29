@@ -4,7 +4,8 @@ import {
     clsName,
     getNotFixedTotalWidthByColumnKey,
     recursiveRemoveColumnByKey,
-    getContextmenuBodyOptionCollection,
+    getBodyContextmenuOptionCollection,
+    getHeaderContextmenuOptionCollection,
     createEmptyRowData,
     isContextmenuPanelClicked,
     getRowKey,
@@ -227,6 +228,13 @@ export default {
         },
         // column hidden option
         columnHiddenOption: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
+        // contextmenu header option
+        contextmenuHeaderOption: {
             type: Object,
             default: function () {
                 return null;
@@ -618,6 +626,20 @@ export default {
         hasEditColumn() {
             return this.colgroups.some((x) => x.edit);
         },
+        // enable header contextmenu
+        enableHeaderContextmenu() {
+            let result = false;
+
+            const { contextmenuHeaderOption } = this;
+            if (contextmenuHeaderOption) {
+                const { contextmenus } = contextmenuHeaderOption;
+
+                if (Array.isArray(contextmenus) && contextmenus.length) {
+                    result = true;
+                }
+            }
+            return result;
+        },
         // enable body contextmenu
         enableBodyContextmenu() {
             let result = false;
@@ -663,12 +685,37 @@ export default {
             if (enableBodyContextmenu) {
                 const { contextmenus } = contextmenuBodyOption;
 
-                const contextmenuBodyOptionCollection =
-                    getContextmenuBodyOptionCollection(t);
+                const bodyContextmenuOptionCollection =
+                    getBodyContextmenuOptionCollection(t);
 
                 contextmenus.forEach((contextmenu) => {
                     const contentmenuCollectionItem =
-                        contextmenuBodyOptionCollection.find(
+                        bodyContextmenuOptionCollection.find(
+                            (x) => x.type === contextmenu.type,
+                        );
+                    if (contentmenuCollectionItem) {
+                        result.push(contentmenuCollectionItem);
+                    } else {
+                        result.push(contextmenu);
+                    }
+                });
+            }
+
+            return result;
+        },
+        // headerContextmenuOptions
+        headerContextmenuOptions() {
+            let result = [];
+            const { enableHeaderContextmenu, contextmenuHeaderOption } = this;
+            if (enableHeaderContextmenu) {
+                const { contextmenus } = contextmenuHeaderOption;
+
+                const headerContextmenuOptionCollection =
+                    getHeaderContextmenuOptionCollection(t);
+
+                contextmenus.forEach((contextmenu) => {
+                    const contentmenuCollectionItem =
+                        headerContextmenuOptionCollection.find(
                             (x) => x.type === contextmenu.type,
                         );
                     if (contentmenuCollectionItem) {
@@ -2313,6 +2360,38 @@ export default {
             };
         },
 
+        // header contextmenu call back
+        headerContextmenuCallBack(type) {
+            const {
+                contextmenuBodyOption,
+                cellSelectionData,
+                tableData,
+                allRowKeys,
+                colgroups,
+                rowKeyFieldName,
+            } = this;
+
+            const { rowKey, colKey } = cellSelectionData.currentCell;
+            const { callback } = contextmenuBodyOption;
+
+            if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+                const rowIndex = allRowKeys.findIndex((x) => x === rowKey);
+
+                // hide column
+                if (CONTEXTMENU_TYPES.HIDE_COLUMN === type) {
+                    this[INSTANCE_METHODS.HIDE_COLUMNS_BY_KEYS]([colKey]);
+                }
+
+                // callback
+                if (isFunction(callback)) {
+                    callback({
+                        type,
+                        selection: cellSelectionData.currentCell,
+                    });
+                }
+            }
+        },
+
         // body contextmenu call back
         bodyContextmenuCallBack(type) {
             const {
@@ -2842,7 +2921,11 @@ export default {
     mounted() {
         this.parentRendered = true;
 
-        // set contextmenu event target
+        // set header contextmenu event target
+        this.headerContextmenuEventTarget = this.$el.querySelector(
+            `.${clsName("header")}`,
+        );
+        // set body contextmenu event target
         this.bodyContextmenuEventTarget = this.$el.querySelector(
             `.${clsName("body")}`,
         );
@@ -2966,6 +3049,7 @@ export default {
             cellSelectionData,
             editOption,
             bodyContextmenuOptions,
+            headerContextmenuOptions,
             allRowKeys,
             enableCellSelection,
         } = this;
@@ -3227,6 +3311,18 @@ export default {
             },
         };
 
+        const headerContextmenuProps = {
+            props: {
+                eventTarget: this.headerContextmenuEventTarget,
+                options: headerContextmenuOptions,
+            },
+            on: {
+                "on-node-click": (type) => {
+                    this.headerContextmenuCallBack(type);
+                },
+            },
+        };
+
         return (
             <VueDomResizeObserver {...tableRootProps}>
                 <div {...tableContainerProps}>
@@ -3252,6 +3348,10 @@ export default {
                 </div>
                 {/* edit input */}
                 {enableCellSelection && <EditInput {...editInputProps} />}
+                {/* header contextmenu */}
+                {this.enableHeaderContextmenu && (
+                    <VeContextmenu {...headerContextmenuProps} />
+                )}
                 {/* body contextmenu */}
                 {this.enableBodyContextmenu && (
                     <VeContextmenu {...bodyContextmenuProps} />

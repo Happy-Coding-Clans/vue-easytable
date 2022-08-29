@@ -299,8 +299,21 @@ export function initGroupColumns(cloneColumns) {
     };
 }
 
-// get contextmenu body option collection
-export function getContextmenuBodyOptionCollection(t) {
+// get header contextmenu option collection
+export function getHeaderContextmenuOptionCollection(t) {
+    return [
+        {
+            type: CONTEXTMENU_TYPES.SEPARATOR,
+        },
+        {
+            label: t("hideColumn"),
+            type: CONTEXTMENU_TYPES.HIDE_COLUMN,
+        },
+    ];
+}
+
+// get body contextmenu option collection
+export function getBodyContextmenuOptionCollection(t) {
     return [
         {
             type: CONTEXTMENU_TYPES.SEPARATOR,
