@@ -35,22 +35,10 @@
                     // contextmenus
                     contextmenus: [
                         {
-                            type: "INSERT_ROW_ABOVE",
-                        },
-                        {
-                            type: "INSERT_ROW_BELOW",
-                        },
-                        {
-                            type: "SEPARATOR",
-                        },
-                        {
-                            type: "REMOVE_ROW",
-                        },
-                        {
-                            type: "SEPARATOR",
-                        },
-                        {
                             type: "HIDE_COLUMN",
+                        },
+                        {
+                            type: "SEPARATOR",
                         },
                     ],
                 },
