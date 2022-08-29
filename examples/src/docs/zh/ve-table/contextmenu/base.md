@@ -56,6 +56,7 @@
 
                 rowStyleOption: {
                     clickHighlight: false,
+                    hoverHighlight: false,
                 },
                 columns: [
                     {

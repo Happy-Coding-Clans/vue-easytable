@@ -56,6 +56,7 @@ Right click the table area to view the effect
 
                 rowStyleOption: {
                     clickHighlight: false,
+                    hoverHighlight: false,
                 },
                 columns: [
                     {
