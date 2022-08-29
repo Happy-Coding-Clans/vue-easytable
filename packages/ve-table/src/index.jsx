@@ -618,7 +618,7 @@ export default {
         hasEditColumn() {
             return this.colgroups.some((x) => x.edit);
         },
-        // enable contextmenu
+        // enable body contextmenu
         enableBodyContextmenu() {
             let result = false;
 
