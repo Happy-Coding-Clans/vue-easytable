@@ -74,8 +74,8 @@ export const EMIT_EVENTS = {
     BODY_CELL_MOUSEUP: "on-body-cell-mouseup",
     // body cell double click
     BODY_CELL_DOUBLE_CLICK: "on-body-cell-double-click",
-    // body td contextmenu
-    BODY_TD_CONTEXTMENU: "on-body-td-contextmenu",
+    // body cell contextmenu
+    BODY_CELL_CONTEXTMENU: "on-body-cell-contextmenu",
     // expand row change
     EXPAND_ROW_CHANGE: "on-expand-row-change",
     // checkbox selected row change

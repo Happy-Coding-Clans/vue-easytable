@@ -3030,7 +3030,7 @@ export default {
         });
 
         // recieve body cell contextmenu(right click)
-        this.$on(EMIT_EVENTS.BODY_TD_CONTEXTMENU, (params) => {
+        this.$on(EMIT_EVENTS.BODY_CELL_CONTEXTMENU, (params) => {
             this.bodyCellContextmenu(params);
         });
 

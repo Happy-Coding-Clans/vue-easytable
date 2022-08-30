@@ -443,7 +443,7 @@ export default {
 
             this.dispatch(
                 COMPS_NAME.VE_TABLE,
-                EMIT_EVENTS.BODY_TD_CONTEXTMENU,
+                EMIT_EVENTS.BODY_CELL_CONTEXTMENU,
                 {
                     event: e,
                     rowData,
