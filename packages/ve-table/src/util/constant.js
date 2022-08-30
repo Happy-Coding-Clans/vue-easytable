@@ -64,8 +64,8 @@ export const EMIT_EVENTS = {
     BODY_ROW_HEIGHT_CHANGE: "on-body-row-height-change",
     // body row click
     BODY_ROW_CLICK: "on-body-row-click",
-    // body td click
-    BODY_TD_CLICK: "on-body-td-click",
+    // body cell click
+    BODY_CELL_CLICK: "on-body-cell-click",
     // body td mouseover
     BODY_TD_MOUSEOVER: "on-body-td-mouseover",
     // body td mousedown

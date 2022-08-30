@@ -390,7 +390,7 @@ export default {
 
             const { column, expandOption, rowData } = this;
 
-            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_TD_CLICK, {
+            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_CELL_CLICK, {
                 event: e,
                 rowData,
                 column,

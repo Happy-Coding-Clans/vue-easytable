@@ -2158,12 +2158,12 @@ export default {
         },
 
         /*
-         * @tdClick
+         * @bodyCellClick
          * @desc  recieve td click event
          * @param {object} rowData - row data
          * @param {object} column - column data
          */
-        tdClick({ event, rowData, column }) {
+        bodyCellClick({ event, rowData, column }) {
             // feature...
         },
 
@@ -2992,8 +2992,8 @@ export default {
         );
 
         // recieve td click
-        this.$on(EMIT_EVENTS.BODY_TD_CLICK, (params) => {
-            this.tdClick(params);
+        this.$on(EMIT_EVENTS.BODY_CELL_CLICK, (params) => {
+            this.bodyCellClick(params);
         });
 
         // recieve td mouseover
