@@ -749,4 +749,63 @@ describe("veContextmenu", () => {
 
         wrapper.destroy();
     });
+
+    it("hideContextmenu instance method", async () => {
+        const wrapper = mount(
+            {
+                render() {
+                    return (
+                        <div>
+                            <button id="outsideButton">outside table</button>
+                            <div
+                                id="contextmenu-target"
+                                style="width:300px;height:300px;"
+                            >
+                                Right click this area
+                            </div>
+                            <ve-contextmenu
+                                eventTarget="#contextmenu-target"
+                                options={this.options}
+                            />
+                        </div>
+                    );
+                },
+                data() {
+                    return {
+                        options: OPTIONS,
+                    };
+                },
+            },
+            // need attach to documnet
+            { attachTo: document.body },
+        );
+
+        const contextmenuTargetEl = document.querySelector(
+            "#contextmenu-target",
+        );
+
+        //trigger element hover
+        const event1 = new MouseEvent("contextmenu", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
+
+        contextmenuTargetEl.dispatchEvent(event1);
+
+        const veContextmenuComp = wrapper.findComponent(veContextmenu);
+
+        expect(veContextmenuComp.vm.isPanelsEmptyed).toBe(false);
+
+        veContextmenuComp.vm.hideContextmenu();
+
+        // click outside
+        //wrapper.find("#outsideButton").trigger("click");
+
+        await later();
+
+        expect(veContextmenuComp.vm.isPanelsEmptyed).toBe(true);
+
+        wrapper.destroy();
+    });
 });
