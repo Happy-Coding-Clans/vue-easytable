@@ -68,10 +68,10 @@ export const EMIT_EVENTS = {
     BODY_CELL_CLICK: "on-body-cell-click",
     // body cell mouseover
     BODY_CELL_MOUSEOVER: "on-body-cell-mouseover",
-    // body td mousedown
-    BODY_TD_MOUSEDOWN: "on-body-td-mousedown",
-    // body td mouseup
-    BODY_TD_MOUSEUP: "on-body-td-mouseup",
+    // body cell mousedown
+    BODY_CELL_MOUSEDOWN: "on-body-cell-mousedown",
+    // body cell mouseup
+    BODY_CELL_MOUSEUP: "on-body-cell-mouseup",
     // body td double click
     BODY_TD_DOUBLE_CLICK: "on-body-td-double-click",
     // body td contextmenu

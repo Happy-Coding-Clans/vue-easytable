@@ -485,11 +485,15 @@ export default {
 
             const { column, rowData } = this;
 
-            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_TD_MOUSEDOWN, {
-                event: e,
-                rowData,
-                column,
-            });
+            this.dispatch(
+                COMPS_NAME.VE_TABLE,
+                EMIT_EVENTS.BODY_CELL_MOUSEDOWN,
+                {
+                    event: e,
+                    rowData,
+                    column,
+                },
+            );
         },
         // mouseup
         cellMouseup(e, fn) {
@@ -497,7 +501,7 @@ export default {
 
             const { column, rowData } = this;
 
-            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_TD_MOUSEUP, {
+            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_CELL_MOUSEUP, {
                 event: e,
                 rowData,
                 column,

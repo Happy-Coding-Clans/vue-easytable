@@ -377,7 +377,7 @@ export default {
             is body td mousedown
             mousedown+mouseup 才允许 area 绘制
             */
-            isBodyTdMousedown: false,
+            isBodybodyCellMousedown: false,
             /* 
             is cell selection corner mousedown
             */
@@ -2001,7 +2001,7 @@ export default {
                 return false;
             }
 
-            this.isBodyTdMousedown = false;
+            this.isBodybodyCellMousedown = false;
             this.isAutofillStarting = false;
 
             // clear cell selection
@@ -2168,13 +2168,13 @@ export default {
         },
 
         /*
-         * @tdMousedown
+         * @bodyCellMousedown
          * @desc  recieve td mousedown event
          * @param {object} rowData - row data
          * @param {object} column - column data
          */
-        tdMousedown({ event, rowData, column }) {
-            this.isBodyTdMousedown = true;
+        bodyCellMousedown({ event, rowData, column }) {
+            this.isBodybodyCellMousedown = true;
 
             const { shiftKey } = event;
 
@@ -2220,8 +2220,11 @@ export default {
          * @param {object} column - column data
          */
         bodyCellMouseover({ event, rowData, column }) {
-            const { rowKeyFieldName, isBodyTdMousedown, isAutofillStarting } =
-                this;
+            const {
+                rowKeyFieldName,
+                isBodybodyCellMousedown,
+                isAutofillStarting,
+            } = this;
 
             const rowKey = getRowKey(rowData, rowKeyFieldName);
             const colKey = column.key;
@@ -2229,7 +2232,7 @@ export default {
                 return false;
             }
 
-            if (isBodyTdMousedown) {
+            if (isBodybodyCellMousedown) {
                 this.cellSelectionNormalEndCellChange({
                     rowKey,
                     colKey: column.key,
@@ -2245,12 +2248,12 @@ export default {
         },
 
         /*
-         * @tdMouseup
+         * @bodyCellMouseup
          * @desc  recieve td mouseup event
          * @param {object} rowData - row data
          * @param {object} column - column data
          */
-        tdMouseup({ event, rowData, column }) {
+        bodyCellMouseup({ event, rowData, column }) {
             // feature...
         },
 
@@ -2267,7 +2270,7 @@ export default {
 
         // table content wrapper mouseup
         tableContainerMouseup() {
-            this.isBodyTdMousedown = false;
+            this.isBodybodyCellMousedown = false;
             this.isAutofillStarting = false;
         },
 
@@ -2991,24 +2994,24 @@ export default {
             },
         );
 
-        // recieve td click
+        // recieve body cell click
         this.$on(EMIT_EVENTS.BODY_CELL_CLICK, (params) => {
             this.bodyCellClick(params);
         });
 
-        // recieve td mouseover
+        // recieve body cell mouseover
         this.$on(EMIT_EVENTS.BODY_CELL_MOUSEOVER, (params) => {
             this.bodyCellMouseover(params);
         });
 
-        // recieve td mousedown
-        this.$on(EMIT_EVENTS.BODY_TD_MOUSEDOWN, (params) => {
-            this.tdMousedown(params);
+        // recieve body cell mousedown
+        this.$on(EMIT_EVENTS.BODY_CELL_MOUSEDOWN, (params) => {
+            this.bodyCellMousedown(params);
         });
 
-        // recieve td mousedown
-        this.$on(EMIT_EVENTS.BODY_TD_MOUSEUP, (params) => {
-            this.tdMouseup(params);
+        // recieve body cell mousedown
+        this.$on(EMIT_EVENTS.BODY_CELL_MOUSEUP, (params) => {
+            this.bodyCellMouseup(params);
         });
 
         // recieve selection corner mousedown
