@@ -8,6 +8,7 @@ Right click the table area to view the effect
 <template>
     <div>
         <ve-table
+            :scroll-width="1600"
             row-key-field-name="rowKey"
             :fixed-header="true"
             :columns="columns"
@@ -15,6 +16,7 @@ Right click the table area to view the effect
             :row-style-option="rowStyleOption"
             border-y
             :contextmenu-body-option="contextmenuBodyOption"
+            :contextmenu-header-option="contextmenuHeaderOption"
         />
     </div>
 </template>
@@ -23,6 +25,31 @@ Right click the table area to view the effect
     export default {
         data() {
             return {
+                // contextmenu header option
+                contextmenuHeaderOption: {
+                    // callback for all options
+                    callback: ({ type, selection }) => {
+                        console.log("type::", type);
+                        console.log("selection::", selection);
+                    },
+
+                    // contextmenus
+                    contextmenus: [
+                        {
+                            type: "LEFT_FIXED_COLUMN_TO",
+                        },
+                        {
+                            type: "RIGHT_FIXED_COLUMN_TO",
+                        },
+                        {
+                            type: "SEPARATOR",
+                        },
+                        {
+                            type: "HIDE_COLUMN",
+                        },
+                    ],
+                },
+
                 // contextmenu body option
                 contextmenuBodyOption: {
                     // callback for all options
@@ -63,81 +90,89 @@ Right click the table area to view the effect
                         field: "",
                         key: "a",
                         title: "",
-                        width: 50,
+                        width: 15,
                         align: "center",
                         operationColumn: true,
+                        fixed: "left",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
                             return ++rowIndex;
                         },
                     },
                     {
-                        field: "name",
-                        key: "name",
-                        title: "Name",
-                        align: "left",
-                        width: "15%",
+                        field: "col1",
+                        key: "col1",
+                        title: "col1",
+                        width: 50,
                     },
                     {
-                        field: "date",
-                        key: "date",
-                        title: "Date",
-                        align: "left",
-                        width: "15%",
+                        field: "col2",
+                        key: "col2",
+                        title: "col2",
+                        width: 50,
                     },
                     {
-                        field: "number",
-                        key: "number",
-                        title: "Number",
-                        align: "right",
-                        width: "30%",
+                        field: "col3",
+                        key: "col3",
+                        title: "col3",
+                        width: 50,
                     },
                     {
-                        field: "address",
-                        key: "address",
-                        title: "Address",
-                        align: "left",
-                        width: "40%",
+                        field: "col4",
+                        key: "col4",
+                        title: "col4",
+                        width: 50,
+                    },
+                    {
+                        field: "col5",
+                        key: "col5",
+                        title: "col5",
+                        width: 50,
+                    },
+                    {
+                        title: "col6",
+                        field: "col6",
+                        key: "col6",
+                        width: 50,
+                    },
+
+                    {
+                        title: "col7-1",
+                        field: "col7",
+                        key: "col7",
+                        width: 50,
+                    },
+                    {
+                        field: "col8",
+                        key: "col8",
+                        title: "col8",
+                        width: 50,
                     },
                 ],
                 // table data
-                tableData: [
-                    {
-                        name: "John",
-                        date: "1900-05-20",
-                        number: "32",
-                        address: "No.1 Century Avenue, Shanghai",
-                        rowKey: 0,
-                    },
-                    {
-                        name: "Dickerson",
-                        date: "1910-06-20",
-                        number: "676",
-                        address: "No.1 Century Avenue, Beijing",
-                        rowKey: 1,
-                    },
-                    {
-                        name: "Larsen",
-                        date: "2000-07-20",
-                        number: "76",
-                        address: "No.1 Century Avenue, Chongqing",
-                        rowKey: 2,
-                    },
-                    {
-                        name: "Geneva",
-                        date: "2010-08-20",
-                        number: "7797",
-                        address: "No.1 Century Avenue, Xiamen",
-                        rowKey: 3,
-                    },
-                    {
-                        name: "Jami",
-                        date: "2020-09-20",
-                        number: "8978",
-                        address: "No.1 Century Avenue, Shenzhen",
-                        rowKey: 4,
-                    },
-                ],
+                tableData: [],
             };
+        },
+        methods: {
+            initTableData() {
+                let data = [];
+                for (let i = 0; i < 10; i++) {
+                    data.push({
+                        rowKey: i,
+                        col1: `A` + i,
+                        col2: `B` + i,
+                        col3: `C` + i,
+                        col4: `D` + i,
+                        col5: `E` + i,
+                        col6: `F` + i,
+                        col7: `G` + i,
+                        col8: `H` + i,
+                    });
+                }
+                this.tableData = data;
+            },
+        },
+        created() {
+            this.initTableData();
         },
     };
 </script>
