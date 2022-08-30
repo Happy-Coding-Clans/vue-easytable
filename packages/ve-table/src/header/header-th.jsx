@@ -395,6 +395,13 @@ export default {
         // cell click
         cellClick(e, fn) {
             fn && fn(e);
+
+            const { groupColumnItem } = this;
+
+            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.HEADER_CELL_CLICK, {
+                event: e,
+                column: groupColumnItem,
+            });
         },
         // dblclick
         cellDblclick(e, fn) {
