@@ -445,6 +445,7 @@ export default {
                 COMPS_NAME.VE_TABLE,
                 EMIT_EVENTS.BODY_TD_CONTEXTMENU,
                 {
+                    event: e,
                     rowData,
                     column,
                 },

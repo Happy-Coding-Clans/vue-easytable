@@ -96,6 +96,8 @@ export const EMIT_EVENTS = {
     HEADER_FILTER_CONFIRM: "on-filter-confirm",
     // header filter reset
     HEADER_FILTER_RESET: "on-filter-reset",
+    // header cell contextmenu
+    HEADER_CELL_CONTEXTMENU: "on-header-cell-contextmenu",
     // highlight row change
     HIGHLIGHT_ROW_CHANGE: "on-highlight-row-change",
 

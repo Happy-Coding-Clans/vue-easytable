@@ -2104,7 +2104,7 @@ export default {
          * @param {object} rowData - row data
          * @param {object} column - column data
          */
-        tdContextmenu({ rowData, column }) {
+        tdContextmenu({ event, rowData, column }) {
             const { editOption, rowKeyFieldName, colgroups } = this;
 
             // cell selection by click
@@ -2252,6 +2252,17 @@ export default {
          */
         tdMouseup({ event, rowData, column }) {
             // feature...
+        },
+
+        // header cell context menu
+        headerCellContextmenu({ event, column }) {
+            // todo
+
+            // close body contextmenu panel
+            const bodyContextmenuRef = this.$refs[this.bodyContextmenuRef];
+            if (bodyContextmenuRef) {
+                bodyContextmenuRef.hideContextmenu();
+            }
         },
 
         // table content wrapper mouseup
@@ -3020,6 +3031,11 @@ export default {
         // recieve td double click
         this.$on(EMIT_EVENTS.BODY_TD_DOUBLE_CLICK, (params) => {
             this.tdDoubleClick(params);
+        });
+
+        // recieve header cell contextmenu(right click)
+        this.$on(EMIT_EVENTS.HEADER_CELL_CONTEXTMENU, (params) => {
+            this.headerCellContextmenu(params);
         });
 
         // add key down event listener

@@ -403,6 +403,17 @@ export default {
         // contextmenu
         cellContextmenu(e, fn) {
             fn && fn(e);
+
+            const { groupColumnItem } = this;
+
+            this.dispatch(
+                COMPS_NAME.VE_TABLE,
+                EMIT_EVENTS.HEADER_CELL_CONTEXTMENU,
+                {
+                    event: e,
+                    column: groupColumnItem,
+                },
+            );
         },
         // mouseenter
         cellMouseenter(e, fn) {
