@@ -2099,12 +2099,12 @@ export default {
         },
 
         /*
-         * @tdContextmenu
+         * @bodyCellContextmenu
          * @desc  recieve td right click\contextmenu event
          * @param {object} rowData - row data
          * @param {object} column - column data
          */
-        tdContextmenu({ event, rowData, column }) {
+        bodyCellContextmenu({ event, rowData, column }) {
             const { editOption, rowKeyFieldName, colgroups } = this;
 
             // cell selection by click
@@ -2129,12 +2129,12 @@ export default {
         },
 
         /*
-         * @tdDoubleClick
+         * @bodyCellDoubleClick
          * @desc  recieve td double click event
          * @param {object} rowData - row data
          * @param {object} column - column data
          */
-        tdDoubleClick({ event, rowData, column }) {
+        bodyCellDoubleClick({ event, rowData, column }) {
             const { editOption, rowKeyFieldName, colgroups } = this;
 
             if (isOperationColumn(column.key, colgroups)) {
@@ -3029,14 +3029,14 @@ export default {
             this.autofillingDirectionChange(params);
         });
 
-        // recieve td contextmenu(right click)
+        // recieve body cell contextmenu(right click)
         this.$on(EMIT_EVENTS.BODY_TD_CONTEXTMENU, (params) => {
-            this.tdContextmenu(params);
+            this.bodyCellContextmenu(params);
         });
 
-        // recieve td double click
-        this.$on(EMIT_EVENTS.BODY_TD_DOUBLE_CLICK, (params) => {
-            this.tdDoubleClick(params);
+        // recieve body cell double click
+        this.$on(EMIT_EVENTS.BODY_CELL_DOUBLE_CLICK, (params) => {
+            this.bodyCellDoubleClick(params);
         });
 
         // recieve header cell contextmenu(right click)

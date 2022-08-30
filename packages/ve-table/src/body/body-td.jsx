@@ -427,7 +427,7 @@ export default {
 
             this.dispatch(
                 COMPS_NAME.VE_TABLE,
-                EMIT_EVENTS.BODY_TD_DOUBLE_CLICK,
+                EMIT_EVENTS.BODY_CELL_DOUBLE_CLICK,
                 {
                     event: e,
                     rowData,
