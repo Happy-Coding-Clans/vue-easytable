@@ -81,7 +81,7 @@ export default {
         trHeightChange({ height }) {
             this.dispatch(
                 COMPS_NAME.VE_TABLE,
-                EMIT_EVENTS.HEADER_TR_HEIGHT_CHANGE,
+                EMIT_EVENTS.HEADER_ROW_HEIGHT_CHANGE,
                 {
                     rowIndex: this.rowIndex,
                     height: height,

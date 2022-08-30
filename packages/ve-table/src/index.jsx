@@ -885,17 +885,17 @@ export default {
         },
 
         // header tr height resize
-        headerTrHeightChange({ rowIndex, height }) {
+        headerRowHeightChange({ rowIndex, height }) {
             this.headerRows.splice(rowIndex, 1, { rowHeight: height });
         },
 
-        // footer tr height resize
-        footTrHeightChange({ rowIndex, height }) {
+        // footer row height resize
+        footRowHeightChange({ rowIndex, height }) {
             this.footerRows.splice(rowIndex, 1, { rowHeight: height });
         },
 
-        // td width change
-        tdWidthChange(colWidths) {
+        // body cell width change
+        bodyCellWidthChange(colWidths) {
             this.colgroups = this.colgroups.map((item) => {
                 // map
                 item._realTimeWidth = colWidths.get(item.key);
@@ -2935,7 +2935,10 @@ export default {
     },
     created() {
         // bug fixed #467
-        this.debouncedTdWidthChange = debounce(this.tdWidthChange, 0);
+        this.debouncedBodyCellWidthChange = debounce(
+            this.bodyCellWidthChange,
+            0,
+        );
     },
     mounted() {
         this.parentRendered = true;
@@ -2969,9 +2972,9 @@ export default {
 
         // receive multiple header row height change
         this.$on(
-            EMIT_EVENTS.HEADER_TR_HEIGHT_CHANGE,
+            EMIT_EVENTS.HEADER_ROW_HEIGHT_CHANGE,
             ({ rowIndex, height }) => {
-                this.headerTrHeightChange({ rowIndex, height });
+                this.headerRowHeightChange({ rowIndex, height });
             },
         );
 
@@ -2982,9 +2985,9 @@ export default {
 
         // receive footer row height change
         this.$on(
-            EMIT_EVENTS.FOOTER_TR_HEIGHT_CHANGE,
+            EMIT_EVENTS.FOOTER_ROW_HEIGHT_CHANGE,
             ({ rowIndex, height }) => {
-                this.footTrHeightChange({ rowIndex, height });
+                this.footRowHeightChange({ rowIndex, height });
             },
         );
 
@@ -3060,7 +3063,7 @@ export default {
             fixedHeader,
             fixedFooter,
             actualRenderTableData,
-            debouncedTdWidthChange,
+            debouncedBodyCellWidthChange,
             expandOption,
             checkboxOption,
             radioOption,
@@ -3128,7 +3131,8 @@ export default {
                 showVirtualScrollingPlaceholder,
             },
             on: {
-                [EMIT_EVENTS.BODY_TD_WIDTH_CHANGE]: debouncedTdWidthChange,
+                [EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE]:
+                    debouncedBodyCellWidthChange,
                 [EMIT_EVENTS.HIGHLIGHT_ROW_CHANGE]:
                     this[INSTANCE_METHODS.SET_HIGHLIGHT_ROW],
             },

@@ -54,12 +54,12 @@ export const CURRENT_CELL_SELECTION_TYPES = {
 
 // emit events
 export const EMIT_EVENTS = {
-    // body-td-width-change
-    BODY_TD_WIDTH_CHANGE: "on-body-td-width-change",
-    // header-tr-height-change
-    HEADER_TR_HEIGHT_CHANGE: "on-header-tr-height-change",
-    // footer-tr-height-change
-    FOOTER_TR_HEIGHT_CHANGE: "on-footer-tr-height-change",
+    // body-cell-width-change
+    BODY_CELL_WIDTH_CHANGE: "on-body-cell-width-change",
+    // header-row-height-change
+    HEADER_ROW_HEIGHT_CHANGE: "on-header-row-height-change",
+    // footer-row-height-change
+    FOOTER_ROW_HEIGHT_CHANGE: "on-footer-row-height-change",
     // body-tr-height-change
     BODY_TR_HEIGHT_CHANGE: "on-body-tr-height-change",
     // body tr click

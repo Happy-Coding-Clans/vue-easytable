@@ -536,7 +536,7 @@ export default {
         tdSizeChange({ key, width }) {
             const { colsWidths } = this;
             colsWidths.set(key, width);
-            this.$emit(EMIT_EVENTS.BODY_TD_WIDTH_CHANGE, colsWidths);
+            this.$emit(EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE, colsWidths);
         },
 
         // init internal expand row keys
