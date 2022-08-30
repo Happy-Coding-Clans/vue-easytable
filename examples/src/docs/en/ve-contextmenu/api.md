@@ -20,3 +20,9 @@
 | Event Name    | Description         | Parameters                  |
 | ------------- | ------------------- | --------------------------- |
 | on-node-click | menu click callback | currently clicked menu type |
+
+### Instance Methods
+
+| Method Name     | Description | Parameters |
+| --------------- | ----------- | ---------- |
+| hideContextmenu | 该右键菜单  | -          |
