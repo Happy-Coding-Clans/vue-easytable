@@ -802,7 +802,7 @@ export default {
         });
 
         // recieve tr click
-        this.$on(EMIT_EVENTS.BODY_TR_CLICK, (params) => {
+        this.$on(EMIT_EVENTS.BODY_ROW_CLICK, (params) => {
             this.rowClick(params);
         });
 

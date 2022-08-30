@@ -168,10 +168,14 @@ export default {
 
             const { rowData, rowIndex } = this;
 
-            this.dispatch(COMPS_NAME.VE_TABLE_BODY, EMIT_EVENTS.BODY_TR_CLICK, {
-                rowData,
-                rowIndex,
-            });
+            this.dispatch(
+                COMPS_NAME.VE_TABLE_BODY,
+                EMIT_EVENTS.BODY_ROW_CLICK,
+                {
+                    rowData,
+                    rowIndex,
+                },
+            );
         },
         // dblclick
         rowDblclick(e, fn) {
