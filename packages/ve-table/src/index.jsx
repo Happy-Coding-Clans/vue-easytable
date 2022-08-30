@@ -9,6 +9,7 @@ import {
     createEmptyRowData,
     isContextmenuPanelClicked,
     getRowKey,
+    getColKeysByHeaderColumn,
     getColumnByColkey,
     isCellInSelectionRange,
     cellAutofill,
@@ -2257,7 +2258,36 @@ export default {
             // feature...
         },
 
-        // header cell context menu
+        // header cell click
+        headerCellClick({ event, column }) {
+            const { isGroupHeader, allRowKeys } = this;
+
+            let colKeys;
+            if (isGroupHeader) {
+                colKeys = getColKeysByHeaderColumn({
+                    headerColumnItem: column,
+                });
+            } else {
+                colKeys = [column.key];
+            }
+
+            let colKey = colKeys[0];
+
+            this.cellSelectionCurrentCellChange({
+                rowKey: allRowKeys[0],
+                colKey,
+            });
+
+            this.cellSelectionNormalEndCellChange({
+                rowKey: allRowKeys[allRowKeys.length - 1],
+                colKey,
+            });
+
+            //
+            //console.log("colKeys::", colKeys);
+        },
+
+        // header cell contextmenu
         headerCellContextmenu({ event, column }) {
             // close body contextmenu panel
             const bodyContextmenuRef = this.$refs[this.bodyContextmenuRef];
@@ -3033,6 +3063,11 @@ export default {
         // recieve body cell double click
         this.$on(EMIT_EVENTS.BODY_CELL_DOUBLE_CLICK, (params) => {
             this.bodyCellDoubleClick(params);
+        });
+
+        // recieve header cell contextmenu(right click)
+        this.$on(EMIT_EVENTS.HEADER_CELL_CLICK, (params) => {
+            this.headerCellClick(params);
         });
 
         // recieve header cell contextmenu(right click)
