@@ -1748,7 +1748,7 @@ export default {
         },
 
         // list item height change
-        bodyTrHeightChange({ rowKey, height }) {
+        bodyRowHeightChange({ rowKey, height }) {
             //获取真实元素大小，修改对应的尺寸缓存
             const index = this.virtualScrollPositions.findIndex(
                 (x) => x.rowKey === rowKey,
@@ -2979,8 +2979,8 @@ export default {
         );
 
         // receive virtual scroll row height change
-        this.$on(EMIT_EVENTS.BODY_TR_HEIGHT_CHANGE, ({ rowKey, height }) => {
-            this.bodyTrHeightChange({ rowKey, height });
+        this.$on(EMIT_EVENTS.BODY_ROW_HEIGHT_CHANGE, ({ rowKey, height }) => {
+            this.bodyRowHeightChange({ rowKey, height });
         });
 
         // receive footer row height change

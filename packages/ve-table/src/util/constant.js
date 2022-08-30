@@ -60,8 +60,8 @@ export const EMIT_EVENTS = {
     HEADER_ROW_HEIGHT_CHANGE: "on-header-row-height-change",
     // footer-row-height-change
     FOOTER_ROW_HEIGHT_CHANGE: "on-footer-row-height-change",
-    // body-tr-height-change
-    BODY_TR_HEIGHT_CHANGE: "on-body-tr-height-change",
+    // body-row-height-change
+    BODY_ROW_HEIGHT_CHANGE: "on-body-row-height-change",
     // body tr click
     BODY_TR_CLICK: "on-body-tr-click",
     // body td click

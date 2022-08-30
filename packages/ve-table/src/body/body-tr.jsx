@@ -326,7 +326,7 @@ export default {
                     "on-dom-resize-change": ({ key, height }) => {
                         this.dispatch(
                             COMPS_NAME.VE_TABLE,
-                            EMIT_EVENTS.BODY_TR_HEIGHT_CHANGE,
+                            EMIT_EVENTS.BODY_ROW_HEIGHT_CHANGE,
                             {
                                 rowKey: key,
                                 height,
