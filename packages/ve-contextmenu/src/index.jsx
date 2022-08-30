@@ -464,8 +464,6 @@ export default {
 
         // empty contextmenu panels
         emptyContextmenuPanels() {
-            this.isPanelsEmptyed = true;
-
             /*
             wait for children panel clicked by setTimeout
             如果点击的是非 root panel 不关闭
@@ -475,6 +473,7 @@ export default {
                     this.isChildrenPanelsClicked = false;
                 } else {
                     this.removeOrEmptyPanels();
+                    this.isPanelsEmptyed = true;
                 }
             });
         },
