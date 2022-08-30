@@ -66,8 +66,8 @@ export const EMIT_EVENTS = {
     BODY_ROW_CLICK: "on-body-row-click",
     // body cell click
     BODY_CELL_CLICK: "on-body-cell-click",
-    // body td mouseover
-    BODY_TD_MOUSEOVER: "on-body-td-mouseover",
+    // body cell mouseover
+    BODY_CELL_MOUSEOVER: "on-body-cell-mouseover",
     // body td mousedown
     BODY_TD_MOUSEDOWN: "on-body-td-mousedown",
     // body td mouseup

@@ -469,11 +469,15 @@ export default {
 
             const { column, rowData } = this;
 
-            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_TD_MOUSEOVER, {
-                event: e,
-                rowData,
-                column,
-            });
+            this.dispatch(
+                COMPS_NAME.VE_TABLE,
+                EMIT_EVENTS.BODY_CELL_MOUSEOVER,
+                {
+                    event: e,
+                    rowData,
+                    column,
+                },
+            );
         },
         // mousedown
         cellMousedown(e, fn) {

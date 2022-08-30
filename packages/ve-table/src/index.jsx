@@ -2214,12 +2214,12 @@ export default {
         },
 
         /*
-         * @tdMouseover
+         * @bodyCellMouseover
          * @desc  recieve td mouseover event
          * @param {object} rowData - row data
          * @param {object} column - column data
          */
-        tdMouseover({ event, rowData, column }) {
+        bodyCellMouseover({ event, rowData, column }) {
             const { rowKeyFieldName, isBodyTdMousedown, isAutofillStarting } =
                 this;
 
@@ -2997,8 +2997,8 @@ export default {
         });
 
         // recieve td mouseover
-        this.$on(EMIT_EVENTS.BODY_TD_MOUSEOVER, (params) => {
-            this.tdMouseover(params);
+        this.$on(EMIT_EVENTS.BODY_CELL_MOUSEOVER, (params) => {
+            this.bodyCellMouseover(params);
         });
 
         // recieve td mousedown
