@@ -376,6 +376,26 @@ export function isContextmenuPanelClicked(event) {
 }
 
 /**
+ * @getColKeysByHeaderColumn
+ * @desc
+ * @param {object} headerColumnItem
+ * @param {any} colKey2
+ * @return Array<colKeys>
+ */
+export function getColKeysByHeaderColumn({ headerColumnItem }) {
+    let result = null;
+
+    const { _keys } = headerColumnItem;
+
+    result = _keys.split("|");
+    if (result.length > 1) {
+        result = result.slice(0, result.length - 1);
+    }
+
+    return result;
+}
+
+/**
  * @getColKeysByRangeColKeys
  * @desc  get col keys by range col keys
  * @param {any} colKey1
