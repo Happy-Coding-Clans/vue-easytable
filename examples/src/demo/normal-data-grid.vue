@@ -150,6 +150,8 @@ export default {
             },
             rowStyleOption: {
                 stripe: true,
+                clickHighlight: false,
+                hoverHighlight: false,
             },
             sortOption: {
                 sortChange: (params) => {
@@ -210,7 +212,17 @@ export default {
 
         // columns
         columns() {
-            let columns = [];
+            let columns = [
+                {
+                    field: "rowIndex",
+                    key: "rowIndex",
+                    title: "#",
+                    width: 50,
+                    fixed: this.enableColumnFixed ? "left" : "",
+                    operationColumn: true,
+                    renderBodyCell: this.renderRowIndex,
+                },
+            ];
 
             if (this.enableRowRadio) {
                 columns.push({
@@ -245,14 +257,14 @@ export default {
                 });
             }
 
-            columns.push({
-                field: "rowIndex",
-                key: "rowIndex",
-                title: "#",
-                width: 100,
-                fixed: this.enableColumnFixed ? "left" : "",
-                renderBodyCell: this.renderRowIndex,
-            });
+            // columns.push({
+            //     field: "rowIndex",
+            //     key: "rowIndex",
+            //     title: "#",
+            //     width: 100,
+            //     fixed: this.enableColumnFixed ? "left" : "",
+            //     renderBodyCell: this.renderRowIndex,
+            // });
 
             columns = columns.concat([
                 {
