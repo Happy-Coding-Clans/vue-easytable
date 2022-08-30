@@ -2259,8 +2259,6 @@ export default {
 
         // header cell context menu
         headerCellContextmenu({ event, column }) {
-            // todo
-
             // close body contextmenu panel
             const bodyContextmenuRef = this.$refs[this.bodyContextmenuRef];
             if (bodyContextmenuRef) {
@@ -2386,36 +2384,29 @@ export default {
         headerContextmenuCallBack(type) {
             const {
                 contextmenuBodyOption,
-                cellSelectionData,
                 tableData,
                 allRowKeys,
                 colgroups,
                 rowKeyFieldName,
             } = this;
 
-            const { rowKey, colKey } = cellSelectionData.currentCell;
             const { callback } = contextmenuBodyOption;
 
-            if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                const rowIndex = allRowKeys.findIndex((x) => x === rowKey);
+            // hide column
+            if (CONTEXTMENU_TYPES.HIDE_COLUMN === type) {
+                //this[INSTANCE_METHODS.HIDE_COLUMNS_BY_KEYS]([colKey]);
+            }
+            // left fixed column to
+            else if (CONTEXTMENU_TYPES.LEFT_FIXED_COLUMN_TO === type) {
+                //
+            }
 
-                // hide column
-                if (CONTEXTMENU_TYPES.HIDE_COLUMN === type) {
-                    this[INSTANCE_METHODS.HIDE_COLUMNS_BY_KEYS]([colKey]);
-                }
-                // left fixed column to
-                else if (CONTEXTMENU_TYPES.LEFT_FIXED_COLUMN_TO === type) {
-                    //
-                    console.log("type::", type);
-                }
-
-                // callback
-                if (isFunction(callback)) {
-                    callback({
-                        type,
-                        selection: cellSelectionData.currentCell,
-                    });
-                }
+            // callback
+            if (isFunction(callback)) {
+                callback({
+                    type,
+                    //selection: cellSelectionData.currentCell,
+                });
             }
         },
 
