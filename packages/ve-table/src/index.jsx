@@ -2403,6 +2403,11 @@ export default {
                 if (CONTEXTMENU_TYPES.HIDE_COLUMN === type) {
                     this[INSTANCE_METHODS.HIDE_COLUMNS_BY_KEYS]([colKey]);
                 }
+                // left fixed column to
+                else if (CONTEXTMENU_TYPES.LEFT_FIXED_COLUMN_TO === type) {
+                    //
+                    console.log("type::", type);
+                }
 
                 // callback
                 if (isFunction(callback)) {
@@ -3330,19 +3335,6 @@ export default {
         };
 
         // 直接在组件上写事件，单元测试无法通过。如 on={{"on-node-click":()=>{}}}
-        const bodyContextmenuProps = {
-            ref: this.bodyContextmenuRef,
-            props: {
-                eventTarget: this.bodyContextmenuEventTarget,
-                options: bodyContextmenuOptions,
-            },
-            on: {
-                "on-node-click": (type) => {
-                    this.bodyContextmenuCallBack(type);
-                },
-            },
-        };
-
         const headerContextmenuProps = {
             ref: this.headerContextmenuRef,
             props: {
@@ -3352,6 +3344,18 @@ export default {
             on: {
                 "on-node-click": (type) => {
                     this.headerContextmenuCallBack(type);
+                },
+            },
+        };
+        const bodyContextmenuProps = {
+            ref: this.bodyContextmenuRef,
+            props: {
+                eventTarget: this.bodyContextmenuEventTarget,
+                options: bodyContextmenuOptions,
+            },
+            on: {
+                "on-node-click": (type) => {
+                    this.bodyContextmenuCallBack(type);
                 },
             },
         };

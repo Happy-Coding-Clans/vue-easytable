@@ -208,4 +208,8 @@ export const CONTEXTMENU_TYPES = {
     REMOVE_ROW: "REMOVE_ROW",
     // hide column
     HIDE_COLUMN: "HIDE_COLUMN",
+    // left fixed column to
+    LEFT_FIXED_COLUMN_TO: "LEFT_FIXED_COLUMN_TO",
+    // right fixed column to
+    RIGHT_FIXED_COLUMN_TO: "RIGHT_FIXED_COLUMN_TO",
 };

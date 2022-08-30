@@ -16,5 +16,7 @@ export default {
         insertRowBelow: "Insert row below",
         removeRow: "Remove row",
         hideColumn: "Hide column",
+        leftFixedColumnTo: "左列冻结至该列",
+        rightFixedColumnTo: "右列冻结至该列",
     },
 };

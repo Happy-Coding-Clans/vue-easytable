@@ -35,10 +35,16 @@
                     // contextmenus
                     contextmenus: [
                         {
-                            type: "HIDE_COLUMN",
+                            type: "LEFT_FIXED_COLUMN_TO",
+                        },
+                        {
+                            type: "RIGHT_FIXED_COLUMN_TO",
                         },
                         {
                             type: "SEPARATOR",
+                        },
+                        {
+                            type: "HIDE_COLUMN",
                         },
                     ],
                 },

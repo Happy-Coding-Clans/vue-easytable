@@ -309,6 +309,14 @@ export function getHeaderContextmenuOptionCollection(t) {
             label: t("hideColumn"),
             type: CONTEXTMENU_TYPES.HIDE_COLUMN,
         },
+        {
+            label: t("leftFixedColumnTo"),
+            type: CONTEXTMENU_TYPES.LEFT_FIXED_COLUMN_TO,
+        },
+        {
+            label: t("rightFixedColumnTo"),
+            type: CONTEXTMENU_TYPES.RIGHT_FIXED_COLUMN_TO,
+        },
     ];
 }
 
