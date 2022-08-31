@@ -1,7 +1,7 @@
 import BodyCheckboxContent from "./body-checkbox-content";
 import BodyRadioContent from "./body-radio-content";
 import ExpandTrIcon from "./expand-tr-icon";
-import { clsName } from "../util";
+import { clsName, getRowKeysByRangeRowKeys } from "../util";
 import { isNumber, isBoolean, isEmptyValue } from "../../../src/utils/index.js";
 
 import {
@@ -37,10 +37,13 @@ export default {
             type: Array,
             required: true,
         },
-
         rowKeyFieldName: {
             type: String,
             default: null,
+        },
+        allRowKeys: {
+            type: Array,
+            required: true,
         },
         /*
         expand
@@ -111,6 +114,13 @@ export default {
         },
         // cell selection data
         cellSelectionData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
+        // cell selection range data
+        cellSelectionRangeData: {
             type: Object,
             default: function () {
                 return null;
@@ -204,7 +214,9 @@ export default {
                 rowData,
                 column,
                 rowIndex,
+                allRowKeys,
                 cellSelectionData,
+                cellSelectionRangeData,
                 currentRowKey,
             } = this;
 
@@ -243,9 +255,24 @@ export default {
                         if (column["key"] === colKey) {
                             result[clsName("cell-selection")] = true;
                         }
+                    }
 
-                        //  cell indicator (operation column)
-                        if (operationColumn) {
+                    const { topRowKey, bottomRowKey } = cellSelectionRangeData;
+
+                    let indicatorRowKeys = [];
+                    if (topRowKey === bottomRowKey) {
+                        indicatorRowKeys = [topRowKey];
+                    } else {
+                        indicatorRowKeys = getRowKeysByRangeRowKeys({
+                            topRowKey,
+                            bottomRowKey,
+                            allRowKeys,
+                        });
+                    }
+
+                    //  cell indicator (operation column)
+                    if (operationColumn) {
+                        if (indicatorRowKeys.indexOf(currentRowKey) > -1) {
                             result[clsName("cell-indicator")] = true;
                         }
                     }

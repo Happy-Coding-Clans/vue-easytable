@@ -40,6 +40,13 @@ export default {
                 return null;
             },
         },
+        // cell selection range data
+        cellSelectionRangeData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
         // checkbox option
         checkboxOption: {
             type: Object,
@@ -224,6 +231,7 @@ export default {
                             cellStyleOption,
                             eventCustomOption: this.eventCustomOption,
                             cellSelectionData,
+                            cellSelectionRangeData: this.cellSelectionRangeData,
                         },
                     };
 

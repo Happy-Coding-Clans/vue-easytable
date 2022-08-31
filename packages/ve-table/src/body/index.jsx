@@ -117,8 +117,15 @@ export default {
                 return null;
             },
         },
-        // cell selection key data
+        // cell selection data
         cellSelectionData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
+        // cell selection range data
+        cellSelectionRangeData: {
             type: Object,
             default: function () {
                 return null;
@@ -880,6 +887,7 @@ export default {
                             checkboxOption,
                             radioOption,
                             rowKeyFieldName,
+                            allRowKeys: this.allRowKeys,
                             expandRowChange,
                             internalCheckboxSelectedRowKeys,
                             internalRadioSelectedRowKey,
@@ -895,6 +903,7 @@ export default {
                             cellSelectionData: this.cellSelectionData,
                             editOption: this.editOption,
                             columnCollection: this.columnCollection,
+                            cellSelectionRangeData: this.cellSelectionRangeData,
                         },
                     };
 

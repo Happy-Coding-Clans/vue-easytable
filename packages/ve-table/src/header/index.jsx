@@ -28,6 +28,13 @@ export default {
                 return null;
             },
         },
+        // cell selection range data
+        cellSelectionRangeData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
         headerRows: {
             type: Array,
             default: function () {
@@ -165,6 +172,7 @@ export default {
                             cellStyleOption,
                             eventCustomOption: this.eventCustomOption,
                             cellSelectionData,
+                            cellSelectionRangeData: this.cellSelectionRangeData,
                         },
                     };
                     return <HeaderTr {...trProps} />;

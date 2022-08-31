@@ -28,6 +28,10 @@ export default {
             type: String,
             default: null,
         },
+        allRowKeys: {
+            type: Array,
+            required: true,
+        },
         /*
         expand
         */
@@ -110,8 +114,15 @@ export default {
                 return null;
             },
         },
-        // cell selection key data
+        // cell selection data
         cellSelectionData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
+        // cell selection range data
+        cellSelectionRangeData: {
             type: Object,
             default: function () {
                 return null;
@@ -244,6 +255,7 @@ export default {
                         expandedRowkeys,
                         checkboxOption,
                         rowKeyFieldName,
+                        allRowKeys: this.allRowKeys,
                         isExpandRow,
                         internalCheckboxSelectedRowKeys,
                         internalRadioSelectedRowKey,
@@ -252,6 +264,7 @@ export default {
                         cellSpanOption: this.cellSpanOption,
                         eventCustomOption,
                         cellSelectionData: this.cellSelectionData,
+                        cellSelectionRangeData: this.cellSelectionRangeData,
                         editOption: this.editOption,
                     },
                     on: {

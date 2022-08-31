@@ -1,7 +1,12 @@
 import HeaderCheckboxContent from "./header-checkbox-content";
 import HeaderFilterContent from "./header-filter-content";
 import HeaderFilterCustomContent from "./header-filter-custom-content";
-import { getFixedTotalWidthByColumnKey, clsName } from "../util";
+import {
+    getFixedTotalWidthByColumnKey,
+    clsName,
+    getColKeysByRangeColKeys,
+    getColKeysByHeaderColumn,
+} from "../util";
 import { getValByUnit, isEmptyValue } from "../../../src/utils/index.js";
 import { COMPS_NAME, COLUMN_TYPES, EMIT_EVENTS } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
@@ -40,6 +45,13 @@ export default {
             required: true,
         },
         cellSelectionData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
+        // cell selection range data
+        cellSelectionRangeData: {
             type: Object,
             default: function () {
                 return null;
@@ -165,22 +177,45 @@ export default {
 
             const {
                 cellStyleOption,
-                groupColumnItem,
                 rowIndex,
-                cellSelectionData,
                 groupColumnItem: column,
+                cellSelectionRangeData,
+                colgroups,
+                fixedHeader,
             } = this;
 
-            if (cellSelectionData) {
-                const { colKey, rowKey } = cellSelectionData.currentCell;
+            if (cellSelectionRangeData) {
+                const { leftColKey, rightColKey } = cellSelectionRangeData;
 
                 //  first level header th indicator
-                if (
-                    !isEmptyValue(column["key"]) &&
-                    !isEmptyValue(rowKey) &&
-                    column["key"] === colKey
-                ) {
-                    result[clsName("cell-indicator")] = true;
+                if (!isEmptyValue(leftColKey)) {
+                    let indicatorColKeys = [];
+                    if (leftColKey === rightColKey) {
+                        indicatorColKeys = leftColKey;
+                    } else {
+                        indicatorColKeys = getColKeysByRangeColKeys({
+                            colKey1: leftColKey,
+                            colKey2: rightColKey,
+                            colgroups,
+                        });
+                    }
+
+                    let showIndicator = false;
+                    if (!fixedHeader) {
+                        if (indicatorColKeys.indexOf(column["key"]) > -1) {
+                            showIndicator = true;
+                        }
+                    } else {
+                        const colKeys = getColKeysByHeaderColumn({
+                            headerColumnItem: column,
+                        });
+                        showIndicator = colKeys.every((colKey) => {
+                            return indicatorColKeys.indexOf(colKey) > -1;
+                        });
+                    }
+                    if (showIndicator) {
+                        result[clsName("cell-indicator")] = true;
+                    }
                 }
             }
 
@@ -189,7 +224,7 @@ export default {
                 typeof cellStyleOption.headerCellClass === "function"
             ) {
                 const customClass = cellStyleOption.headerCellClass({
-                    column: groupColumnItem,
+                    column,
                     rowIndex,
                 });
                 if (customClass) {

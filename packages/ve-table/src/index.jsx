@@ -3113,6 +3113,7 @@ export default {
             headerContextmenuOptions,
             allRowKeys,
             enableCellSelection,
+            cellSelectionRangeData,
         } = this;
 
         // header props
@@ -3130,6 +3131,7 @@ export default {
                 eventCustomOption: this.eventCustomOption,
                 headerRows: this.headerRows,
                 cellSelectionData,
+                cellSelectionRangeData,
             },
             nativeOn: {
                 click: () => {
@@ -3159,6 +3161,7 @@ export default {
                 cellSelectionOption: this.cellSelectionOption,
                 hasFixedColumn: this.hasFixedColumn,
                 cellSelectionData,
+                cellSelectionRangeData,
                 allRowKeys,
                 editOption,
                 highlightRowKey: this.highlightRowKey,
@@ -3300,7 +3303,7 @@ export default {
                 hooks: this.hooks,
                 cellSelectionData,
                 isAutofillStarting: this.isAutofillStarting,
-                cellSelectionRangeData: this.cellSelectionRangeData,
+                cellSelectionRangeData,
                 currentCellSelectionType: this.currentCellSelectionType,
                 showVirtualScrollingPlaceholder,
                 isVirtualScroll,
