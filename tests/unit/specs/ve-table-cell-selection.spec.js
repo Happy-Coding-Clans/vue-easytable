@@ -595,6 +595,40 @@ describe("veTable cell selection", () => {
         expect(selectionTd.classes()).toContain("ve-table-cell-selection");
     });
 
+    it("table instance: setRangeCellSelection method", async () => {
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        wrapper.vm.setRangeCellSelection({
+            startRowKey: "2",
+            startColKey: "a",
+            endRowKey: "5",
+            endColKey: "c",
+            isScrollToStartCell: true,
+        });
+
+        await later();
+
+        const selectionTd = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(0);
+
+        expect(selectionTd.classes()).toContain("ve-table-cell-selection");
+        expect(wrapper.vm.cellSelectionRangeData).toEqual({
+            bottomRowKey: "5",
+            leftColKey: "a",
+            rightColKey: "c",
+            topRowKey: "2",
+        });
+    });
+
     /* it("virtual scroll keyboard events", async () => {
         const mockFn = jest.fn();
 
