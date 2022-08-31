@@ -1,4 +1,4 @@
-:::anchor 单元格选中实例方法
+:::anchor 单元格选中方法
 
 :::demo 你可以通过实例方法`setCellSelection`设置单元格选中
 
@@ -18,7 +18,7 @@
             :columns="columns"
             :table-data="tableData"
             rowKeyFieldName="rowKey"
-            :virtual-scroll-option="{enable:true}"
+            :virtual-scroll-option="virtualScrollOption"
             :rowStyleOption="rowStyleOption"
         />
     </div>
@@ -28,6 +28,13 @@
     export default {
         data() {
             return {
+                // start row index
+                startRowIndex: 0,
+                virtualScrollOption: {
+                    // 是否开启
+                    enable: true,
+                    scrolling: this.scrolling,
+                },
                 rowStyleOption: {
                     clickHighlight: false,
                     hoverHighlight: false,
@@ -46,7 +53,7 @@
                         fixed: "left",
                         operationColumn: true,
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            return ++rowIndex;
+                            return rowIndex + this.startRowIndex + 1;
                         },
                     },
                     {
@@ -146,6 +153,10 @@
                     });
                 }
                 this.tableData = data;
+            },
+            // virtual scrolling
+            scrolling({ startRowIndex }) {
+                this.startRowIndex = startRowIndex;
             },
         },
         created() {
