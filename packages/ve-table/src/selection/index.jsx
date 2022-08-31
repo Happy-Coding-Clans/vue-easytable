@@ -641,28 +641,6 @@ export default {
             };
         },
 
-        // clear normal end cell rect
-        clearNormalEndCellRect() {
-            this.normalEndCellEl = null;
-            this.cellSelectionRect.normalEndCellRect = {
-                left: 0,
-                top: 0,
-                width: 0,
-                height: 0,
-            };
-        },
-
-        // clear auto fill end cell rect
-        clearAutofillEndCellRect() {
-            this.autoFillEndCellEl = null;
-            this.cellSelectionRect.autoFillEndCellRect = {
-                left: 0,
-                top: 0,
-                width: 0,
-                height: 0,
-            };
-        },
-
         /*
         get selection current
         1、selection current
@@ -1499,7 +1477,6 @@ export default {
                     rowKey,
                     colKey,
                 });
-
                 if (cellEl) {
                     this.currentCellEl = cellEl;
                 }
@@ -1517,7 +1494,6 @@ export default {
                     rowKey,
                     colKey,
                 });
-
                 if (cellEl) {
                     this.normalEndCellEl = cellEl;
                 }
@@ -1547,6 +1523,37 @@ export default {
                 const tableEl = this.$el.previousElementSibling;
                 this.tableEl = tableEl;
             });
+        },
+
+        // clear normal end cell rect
+        clearNormalEndCellRect() {
+            this.normalEndCellEl = null;
+            this.cellSelectionRect.normalEndCellRect = {
+                left: 0,
+                top: 0,
+                width: 0,
+                height: 0,
+            };
+        },
+
+        // clear auto fill end cell rect
+        clearAutofillEndCellRect() {
+            this.autoFillEndCellEl = null;
+            this.cellSelectionRect.autoFillEndCellRect = {
+                left: 0,
+                top: 0,
+                width: 0,
+                height: 0,
+            };
+        },
+
+        /*
+        clear cell reacts
+        当手动设置选择区域时使用
+        */
+        clearCellRects() {
+            this.clearCurrentCellRect();
+            this.clearNormalEndCellRect();
         },
     },
 

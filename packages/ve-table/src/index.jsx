@@ -274,6 +274,7 @@ export default {
             tableContentWrapperRef: "tableContentWrapperRef",
             virtualPhantomRef: "virtualPhantomRef",
             editInputRef: "editInputRef",
+            cellSelectionRef: "cellSelectionRef",
             headerContextmenuRef: "headerContextmenuRef",
             bodyContextmenuRef: "bodyContextmenuRef",
             cloneColumns: [],
@@ -2271,6 +2272,9 @@ export default {
                 colKeys = [column.key];
             }
 
+            // 需要先将之前选中单元格元素清空
+            this.$refs[this.cellSelectionRef].clearCellRects();
+
             this.cellSelectionCurrentCellChange({
                 rowKey: allRowKeys[0],
                 colKey: colKeys[0],
@@ -3337,6 +3341,7 @@ export default {
 
         // selection props
         const selectionProps = {
+            ref: this.cellSelectionRef,
             props: {
                 allRowKeys,
                 colgroups,
