@@ -3,7 +3,7 @@ import veTable from "@/ve-table";
 import { later } from "../util";
 import { KEY_CODES } from "../constant";
 
-describe("veTable operation column", () => {
+describe("veTable cell selection", () => {
     const TABLE_DATA = [
         {
             name: "John",
@@ -79,22 +79,7 @@ describe("veTable operation column", () => {
         { field: "address", key: "d", title: "Address", width: "30%" },
     ];
 
-    it("render", () => {
-        const WRAPPER = mount(veTable, {
-            propsData: {
-                columns: COLUMNS,
-                tableData: TABLE_DATA,
-                cellSelectionOption: {
-                    // default true
-                    enable: true,
-                },
-                rowKeyFieldName: "rowKey",
-            },
-        });
-        expect(WRAPPER.html()).toMatchSnapshot();
-    });
-
-    it("operation column", async () => {
+    it("single cell selection indicator", async () => {
         const wrapper = mount(veTable, {
             propsData: {
                 columns: COLUMNS,
@@ -103,14 +88,54 @@ describe("veTable operation column", () => {
             },
         });
 
+        wrapper.vm.setCellSelection({ rowKey: "2", colKey: "a" });
+
         await later();
 
-        const selectionTd = wrapper
-            .findAll(".ve-table-body-tr")
+        const th = wrapper
+            .findAll(".ve-table-header-tr")
             .at(0)
+            .findAll(".ve-table-header-th")
+            .at(1);
+
+        expect(th.classes()).toContain("ve-table-cell-indicator");
+
+        const td = wrapper
+            .find("tr[row-key='2']")
             .findAll(".ve-table-body-td")
             .at(0);
+        expect(td.classes()).toContain("ve-table-cell-indicator");
+    });
 
-        expect(selectionTd.classes()).toContain("ve-table-operation-col");
+    it("range cell selection header indicator", async () => {
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        wrapper.vm.setRangeCellSelection({
+            startRowKey: "2",
+            startColKey: "a",
+            endRowKey: "5",
+            endColKey: "c",
+            isScrollToStartCell: true,
+        });
+
+        await later();
+
+        expect(
+            wrapper.findAll(
+                ".ve-table-header .ve-table-header-th.ve-table-cell-indicator",
+            ).length,
+        ).toEqual(3);
+
+        expect(
+            wrapper.findAll(
+                ".ve-table-body .ve-table-body-td.ve-table-cell-indicator",
+            ).length,
+        ).toEqual(4);
     });
 });
