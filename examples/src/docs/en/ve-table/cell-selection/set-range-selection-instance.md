@@ -1,16 +1,11 @@
-:::anchor Cell selection instance method
+:::anchor Range cell selection instance method
 
-:::demo You can set cell selection by instance method `setCellSelection({ rowKey, colKey })`
+:::demo You can set range cell selection by instance method `setRangeCellSelection({ startRowKey,startColKey,endRowKey,endColKey,isScrollToStartCell })`
 
 ```html
 <template>
     <div>
-        <button class="button-demo" @click="setCellSelection(29,'col5')">
-            Select row 30 and column 5
-        </button>
-        <button class="button-demo" @click="setCellSelection(1,'col1')">
-            Select row 2 and column 1
-        </button>
+        <button class="button-demo" @click="setRangeCellSelection()">Range cell selection</button>
         <br />
         <br />
         <ve-table
@@ -35,7 +30,6 @@
                 // start row index
                 startRowIndex: 0,
                 virtualScrollOption: {
-                    // 是否开启
                     enable: true,
                     scrolling: this.scrolling,
                 },
@@ -137,9 +131,15 @@
             };
         },
         methods: {
-            // set cell selection
-            setCellSelection(rowKey, colKey) {
-                this.$refs["tableRef"].setCellSelection({ rowKey, colKey });
+            // set range cell selection
+            setRangeCellSelection() {
+                this.$refs["tableRef"].setRangeCellSelection({
+                    startRowKey: 30,
+                    startColKey: "col2",
+                    endRowKey: 35,
+                    endColKey: "col4",
+                    isScrollToStartCell: true,
+                });
             },
             initTableData() {
                 let data = [];

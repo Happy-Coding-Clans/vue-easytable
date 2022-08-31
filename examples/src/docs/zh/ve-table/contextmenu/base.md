@@ -8,6 +8,7 @@
 <template>
     <div>
         <ve-table
+            :max-height="350"
             :scroll-width="1600"
             row-key-field-name="rowKey"
             :fixed-header="true"
@@ -15,6 +16,7 @@
             :table-data="tableData"
             :row-style-option="rowStyleOption"
             border-y
+            :virtual-scroll-option="virtualScrollOption"
             :contextmenu-body-option="contextmenuBodyOption"
             :contextmenu-header-option="contextmenuHeaderOption"
         />
@@ -25,6 +27,10 @@
     export default {
         data() {
             return {
+                virtualScrollOption: {
+                    // 是否开启
+                    enable: true,
+                },
                 // contextmenu header option
                 contextmenuHeaderOption: {
                     // callback for all options
@@ -155,7 +161,7 @@
         methods: {
             initTableData() {
                 let data = [];
-                for (let i = 0; i < 10; i++) {
+                for (let i = 0; i < 100; i++) {
                     data.push({
                         rowKey: i,
                         col1: `A` + i,

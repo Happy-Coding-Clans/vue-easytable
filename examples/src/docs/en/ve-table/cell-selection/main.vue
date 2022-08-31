@@ -6,7 +6,8 @@
         <Base />
         <DisableSelection />
         <SetSelectionInstance />
-        <API title="API" anchor="API" desc="cellSelection 单元格选择配置" />
+        <SetRangeSelectionInstance />
+        <API title="API" anchor="API" desc="cellSelection" />
     </div>
 </template>
 <script>
@@ -15,6 +16,7 @@ import ShortCuts from "./shortcuts.md";
 import Base from "./base.md";
 import DisableSelection from "./disable-selection.md";
 import SetSelectionInstance from "./set-selection-instance.md";
+import SetRangeSelectionInstance from "./set-range-selection-instance.md";
 import API from "../api/cell-selection-option-props";
 
 export default {
@@ -25,6 +27,7 @@ export default {
         Base,
         DisableSelection,
         SetSelectionInstance,
+        SetRangeSelectionInstance,
         API,
     },
 };

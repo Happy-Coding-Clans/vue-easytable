@@ -1,16 +1,11 @@
-:::anchor Cell selection instance method
+:::anchor 区域单元格选中方法
 
-:::demo You can set cell selection by instance method `setCellSelection({ rowKey, colKey })`
+:::demo 你可以通过实例方法`setRangeCellSelection({ startRowKey,startColKey,endRowKey,endColKey,isScrollToStartCell })`设置区域单元格选中
 
 ```html
 <template>
     <div>
-        <button class="button-demo" @click="setCellSelection(29,'col5')">
-            Select row 30 and column 5
-        </button>
-        <button class="button-demo" @click="setCellSelection(1,'col1')">
-            Select row 2 and column 1
-        </button>
+        <button class="button-demo" @click="setRangeCellSelection()">区域选择</button>
         <br />
         <br />
         <ve-table
@@ -137,9 +132,15 @@
             };
         },
         methods: {
-            // set cell selection
-            setCellSelection(rowKey, colKey) {
-                this.$refs["tableRef"].setCellSelection({ rowKey, colKey });
+            // set range cell selection
+            setRangeCellSelection() {
+                this.$refs["tableRef"].setRangeCellSelection({
+                    startRowKey: 30,
+                    startColKey: "col2",
+                    endRowKey: 35,
+                    endColKey: "col4",
+                    isScrollToStartCell: true,
+                });
             },
             initTableData() {
                 let data = [];

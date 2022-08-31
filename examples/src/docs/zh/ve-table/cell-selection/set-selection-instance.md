@@ -1,6 +1,6 @@
 :::anchor 单元格选中方法
 
-:::demo 你可以通过实例方法`setCellSelection`设置单元格选中
+:::demo 你可以通过实例方法`setCellSelection({ rowKey, colKey })`设置单元格选中
 
 ```html
 <template>
