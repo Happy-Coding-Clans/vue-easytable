@@ -552,6 +552,11 @@ export const db = {
                 desc: `Set cell selection  <a href='#/en/doc/table/cell-selection?anchor=cell-selection-instance-method'>Refer To Demo</a>`,
                 param: "{ rowKey, colKey }",
             },
+            {
+                name: "setRangeCellSelection",
+                desc: `Set range cell selection  <a href='#/en/doc/table/cell-selection?anchor=range-cell-selection-instance-method'>Refer To Demo</a>`,
+                param: "{ startRowKey,startColKey,endRowKey,endColKey,isScrollToStartCell }",
+            },
         ],
         columns: columnsType2,
     },

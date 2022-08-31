@@ -546,6 +546,11 @@ export const db = {
                 desc: `单元格选中  <a href='#/zh/doc/table/cell-selection?anchor=dan-yuan-ge-xuan-zhong-shi-li-fang-fa'>参考示例</a>`,
                 param: "{ rowKey, colKey }",
             },
+            {
+                name: "setRangeCellSelection",
+                desc: `区域单元格选中  <a href='#/zh/doc/table/cell-selection?anchor=range-cell-selection-instance-method'>参考示例</a>`,
+                param: "{ startRowKey,startColKey,endRowKey,endColKey,isScrollToStartCell }",
+            },
         ],
         columns: columnsType2,
     },
