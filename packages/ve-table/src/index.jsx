@@ -2784,6 +2784,52 @@ export default {
             }
         },
 
+        /*
+        set range cell selection and column to visible
+        */
+        [INSTANCE_METHODS.SET_RANGE_CELL_SELECTION]({
+            startRowKey,
+            startColKey,
+            endRowKey,
+            endColKey,
+            isScrollToStartCell = false,
+        }) {
+            const { enableCellSelection } = this;
+
+            if (!enableCellSelection) {
+                return false;
+            }
+
+            if (
+                isEmptyValue(startRowKey) ||
+                isEmptyValue(startColKey) ||
+                isEmptyValue(endRowKey) ||
+                isEmptyValue(endColKey)
+            ) {
+                return false;
+            }
+
+            this.cellSelectionCurrentCellChange({
+                rowKey: startRowKey,
+                colKey: startColKey,
+            });
+
+            this.cellSelectionNormalEndCellChange({
+                rowKey: endRowKey,
+                colKey: endColKey,
+            });
+
+            // row to visible
+            if (isScrollToStartCell) {
+                const column = getColumnByColkey(startColKey, this.colgroups);
+                // column to visible
+                this.columnToVisible(column);
+                this[INSTANCE_METHODS.SCROLL_TO_ROW_KEY]({
+                    rowKey: startRowKey,
+                });
+            }
+        },
+
         // hide columns by keys
         [INSTANCE_METHODS.HIDE_COLUMNS_BY_KEYS](keys) {
             if (!isEmptyArray(keys)) {

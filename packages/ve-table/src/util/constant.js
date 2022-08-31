@@ -192,6 +192,8 @@ export const INSTANCE_METHODS = {
     SET_HIGHLIGHT_ROW: "setHighlightRow",
     // set cell selection
     SET_CELL_SELECTION: "setCellSelection",
+    // set range cell selection
+    SET_RANGE_CELL_SELECTION: "setRangeCellSelection",
     // hide columns by keys
     HIDE_COLUMNS_BY_KEYS: "hideColumnsByKeys",
     // show columns by keys
