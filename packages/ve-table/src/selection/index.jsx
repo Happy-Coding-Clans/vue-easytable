@@ -354,16 +354,28 @@ export default {
     methods: {
         // reset cell position
         resetCellPositions({ scrollLeft, isTableSizeChange }) {
-            this.setSelectionPositions({
-                type: "currentCell",
-                scrollLeft,
-                isTableSizeChange,
-            });
-            this.setSelectionPositions({
-                type: "normalEndCell",
-                scrollLeft,
-                isTableSizeChange,
-            });
+            const { currentCell, normalEndCell } = this.cellSelectionData;
+            if (
+                !isEmptyValue(currentCell.rowKey) &&
+                !isEmptyValue(currentCell.colKey)
+            ) {
+                this.setSelectionPositions({
+                    type: "currentCell",
+                    scrollLeft,
+                    isTableSizeChange,
+                });
+            }
+
+            if (
+                !isEmptyValue(normalEndCell.rowKey) &&
+                !isEmptyValue(normalEndCell.colKey)
+            ) {
+                this.setSelectionPositions({
+                    type: "normalEndCell",
+                    scrollLeft,
+                    isTableSizeChange,
+                });
+            }
         },
 
         // set cell els
@@ -513,30 +525,34 @@ export default {
             let isCurrentCellOverflow = false;
             let isNormalEndCellOverflow = false;
             // set current cell position
-            if (currentCellEl && type === "currentCell") {
-                const rect = this.getCellPosition({
-                    cellEl: currentCellEl,
-                    tableLeft,
-                    tableTop,
-                });
-                if (rect) {
-                    this.cellSelectionRect.currentCellRect = rect;
-                } else {
-                    isCurrentCellOverflow = true;
+            if (type === "currentCell") {
+                isCurrentCellOverflow = true;
+                if (currentCellEl) {
+                    const rect = this.getCellPosition({
+                        cellEl: currentCellEl,
+                        tableLeft,
+                        tableTop,
+                    });
+                    if (rect) {
+                        isCurrentCellOverflow = false;
+                        this.cellSelectionRect.currentCellRect = rect;
+                    }
                 }
             }
 
             // set nromal end cell position`
-            if (normalEndCellEl && type === "normalEndCell") {
-                const rect = this.getCellPosition({
-                    cellEl: normalEndCellEl,
-                    tableLeft,
-                    tableTop,
-                });
-                if (rect) {
-                    this.cellSelectionRect.normalEndCellRect = rect;
-                } else {
-                    isNormalEndCellOverflow = true;
+            if (type === "normalEndCell") {
+                isNormalEndCellOverflow = true;
+                if (normalEndCellEl) {
+                    const rect = this.getCellPosition({
+                        cellEl: normalEndCellEl,
+                        tableLeft,
+                        tableTop,
+                    });
+                    if (rect) {
+                        isNormalEndCellOverflow = false;
+                        this.cellSelectionRect.normalEndCellRect = rect;
+                    }
                 }
             }
 
