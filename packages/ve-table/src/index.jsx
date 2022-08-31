@@ -1642,7 +1642,7 @@ export default {
             let end = endIndex + belowCount;
 
             this.virtualScrollVisibleIndexs.start = start;
-            this.virtualScrollVisibleIndexs.end = end;
+            this.virtualScrollVisibleIndexs.end = end - 1;
 
             this.virtualScrollVisibleData = tableData.slice(start, end);
         },
@@ -3305,8 +3305,6 @@ export default {
                 showVirtualScrollingPlaceholder,
                 isVirtualScroll,
                 virtualScrollVisibleIndexs: this.virtualScrollVisibleIndexs,
-                previewTableContainerScrollLeft:
-                    this.previewTableContainerScrollLeft,
                 isCellEditing: this.isCellEditing,
                 cellAutofillOption: this.cellAutofillOption,
             },

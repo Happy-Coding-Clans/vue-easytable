@@ -262,30 +262,24 @@ export default {
                     // add table container scroll hook
                     this.hooks.addHook(
                         HOOKS_NAME.TABLE_CONTAINER_SCROLL,
-                        (tableContainerRef) => {
-                            const { scrollLeft } = tableContainerRef;
-
+                        () => {
                             this.setCellEls();
                             this.debounceSetCellEls();
 
-                            this.resetCellPositions({ scrollLeft });
+                            this.resetCellPositions();
                             // debounce reset cell positions
-                            this.debounceResetCellPositions({ scrollLeft });
+                            this.debounceResetCellPositions();
                         },
                     );
                     // add table size change hook
                     this.hooks.addHook(HOOKS_NAME.TABLE_SIZE_CHANGE, () => {
                         // debounce reset cell positions
-                        this.debounceResetCellPositions({
-                            isTableSizeChange: true,
-                        });
+                        this.debounceResetCellPositions();
                     });
                     // add table td width change hook
                     this.hooks.addHook(HOOKS_NAME.TABLE_TD_WIDTH_CHANGE, () => {
                         this.$nextTick(() => {
-                            this.resetCellPositions({
-                                isTableSizeChange: true,
-                            });
+                            this.resetCellPositions();
                         });
                     });
 
@@ -294,9 +288,7 @@ export default {
                         HOOKS_NAME.CLIPBOARD_CELL_VALUE_CHANGE,
                         () => {
                             this.$nextTick(() => {
-                                this.resetCellPositions({
-                                    isTableSizeChange: true,
-                                });
+                                this.resetCellPositions();
                             });
                         },
                     );
@@ -353,7 +345,7 @@ export default {
 
     methods: {
         // reset cell position
-        resetCellPositions({ scrollLeft, isTableSizeChange }) {
+        resetCellPositions() {
             const { currentCell, normalEndCell } = this.cellSelectionData;
             if (
                 !isEmptyValue(currentCell.rowKey) &&
@@ -361,8 +353,6 @@ export default {
             ) {
                 this.setSelectionPositions({
                     type: "currentCell",
-                    scrollLeft,
-                    isTableSizeChange,
                 });
             }
 
@@ -372,8 +362,6 @@ export default {
             ) {
                 this.setSelectionPositions({
                     type: "normalEndCell",
-                    scrollLeft,
-                    isTableSizeChange,
                 });
             }
         },
@@ -501,11 +489,7 @@ export default {
         },
 
         // set selection positions
-        setSelectionPositions({
-            type,
-            scrollLeft = 0,
-            isTableSizeChange = false,
-        }) {
+        setSelectionPositions({ type }) {
             const {
                 tableEl,
                 currentCellEl,
@@ -575,11 +559,14 @@ export default {
                 }
 
                 let mackUpRect;
-                // 当存在表格宽度变化或者横向滚动条拖动时的区域选择纠正功能
+                /* 
+                当没有 currentCellRect 或 normalCellRect 时 进行纠正，否则只更新top值
+                */
                 if (
-                    isTableSizeChange ||
-                    (this.previewTableContainerScrollLeft != scrollLeft &&
-                        isNumber(this.previewTableContainerScrollLeft))
+                    (isCurrentCellOverflow &&
+                        !this.cellSelectionRect.currentCellRect.height) ||
+                    (isNormalEndCellOverflow &&
+                        !this.cellSelectionRect.normalEndCellRect.height)
                 ) {
                     let mackUpRectParams = {
                         tableLeft,
