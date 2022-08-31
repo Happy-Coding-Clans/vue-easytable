@@ -2271,20 +2271,15 @@ export default {
                 colKeys = [column.key];
             }
 
-            let colKey = colKeys[0];
-
             this.cellSelectionCurrentCellChange({
                 rowKey: allRowKeys[0],
-                colKey,
+                colKey: colKeys[0],
             });
 
             this.cellSelectionNormalEndCellChange({
                 rowKey: allRowKeys[allRowKeys.length - 1],
-                colKey,
+                colKey: colKeys[colKeys.length - 1],
             });
-
-            //
-            //console.log("colKeys::", colKeys);
         },
 
         // header cell contextmenu
