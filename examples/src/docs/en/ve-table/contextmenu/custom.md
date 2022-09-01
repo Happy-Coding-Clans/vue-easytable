@@ -13,7 +13,7 @@
             :columns="columns"
             :table-data="tableData"
             :row-style-option="rowStyleOption"
-            :virtual-scroll-option="{enable:true}"
+            :virtual-scroll-option="virtualScrollOption"
             border-y
             :contextmenu-body-option="contextmenuBodyOption"
         />
@@ -24,6 +24,11 @@
     export default {
         data() {
             return {
+                virtualScrollOption: {
+                    // 是否开启
+                    enable: true,
+                    scrolling: this.scrolling,
+                },
                 // contextmenu body option
                 contextmenuBodyOption: {
                     // callback for all options
@@ -79,16 +84,6 @@
                                         {
                                             label: "menu5-1-1",
                                             type: "menu5-1-1-type",
-                                            children: [
-                                                {
-                                                    label: "menu5-1-1-1",
-                                                    type: "menu5-1-1-1-type",
-                                                },
-                                                {
-                                                    label: "menu5-1-1-2",
-                                                    type: "menu5-1-1-2-type",
-                                                },
-                                            ],
                                         },
                                         {
                                             label: "menu5-2-2",
@@ -126,7 +121,7 @@
                         fixed: "left",
                         operationColumn: true,
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            return ++rowIndex;
+                            return rowIndex + this.startRowIndex + 1;
                         },
                     },
                     {
@@ -223,6 +218,10 @@
                     });
                 }
                 this.tableData = data;
+            },
+            // virtual scrolling
+            scrolling({ startRowIndex }) {
+                this.startRowIndex = startRowIndex;
             },
         },
         created() {

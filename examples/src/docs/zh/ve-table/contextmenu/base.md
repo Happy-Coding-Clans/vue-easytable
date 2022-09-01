@@ -27,9 +27,12 @@
     export default {
         data() {
             return {
+                // start row index
+                startRowIndex: 0,
                 virtualScrollOption: {
                     // 是否开启
                     enable: true,
+                    scrolling: this.scrolling,
                 },
                 // contextmenu header option
                 contextmenuHeaderOption: {
@@ -101,7 +104,7 @@
                         operationColumn: true,
                         fixed: "left",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            return ++rowIndex;
+                            return rowIndex + this.startRowIndex + 1;
                         },
                     },
                     {
@@ -175,6 +178,10 @@
                     });
                 }
                 this.tableData = data;
+            },
+            // virtual scrolling
+            scrolling({ startRowIndex }) {
+                this.startRowIndex = startRowIndex;
             },
         },
         created() {

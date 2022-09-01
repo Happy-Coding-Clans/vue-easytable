@@ -8,6 +8,7 @@ Right click the table area to view the effect
 <template>
     <div>
         <ve-table
+            :max-height="350"
             :scroll-width="1600"
             row-key-field-name="rowKey"
             :fixed-header="true"
@@ -15,6 +16,7 @@ Right click the table area to view the effect
             :table-data="tableData"
             :row-style-option="rowStyleOption"
             border-y
+            :virtual-scroll-option="virtualScrollOption"
             :contextmenu-body-option="contextmenuBodyOption"
             :contextmenu-header-option="contextmenuHeaderOption"
         />
@@ -25,6 +27,13 @@ Right click the table area to view the effect
     export default {
         data() {
             return {
+                // start row index
+                startRowIndex: 0,
+                virtualScrollOption: {
+                    // 是否开启
+                    enable: true,
+                    scrolling: this.scrolling,
+                },
                 // contextmenu header option
                 contextmenuHeaderOption: {
                     // callback for all options
@@ -95,7 +104,7 @@ Right click the table area to view the effect
                         operationColumn: true,
                         fixed: "left",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            return ++rowIndex;
+                            return rowIndex + this.startRowIndex + 1;
                         },
                     },
                     {
@@ -155,7 +164,7 @@ Right click the table area to view the effect
         methods: {
             initTableData() {
                 let data = [];
-                for (let i = 0; i < 10; i++) {
+                for (let i = 0; i < 100; i++) {
                     data.push({
                         rowKey: i,
                         col1: `A` + i,
@@ -169,6 +178,10 @@ Right click the table area to view the effect
                     });
                 }
                 this.tableData = data;
+            },
+            // virtual scrolling
+            scrolling({ startRowIndex }) {
+                this.startRowIndex = startRowIndex;
             },
         },
         created() {
