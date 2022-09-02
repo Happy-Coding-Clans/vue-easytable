@@ -390,21 +390,13 @@ export default {
                 topRowKey: "",
                 bottomRowKey: "",
             },
-            /*
-            is header cell mousedown
-            */
+            // is header cell mousedown
             isHeaderCellMousedown: false,
-            /*
-            is body cell mousedown
-            */
+            // is body cell mousedown
             isBodyCellMousedown: false,
-            /* 
-            is cell selection corner mousedown
-            */
+            // is cell selection corner mousedown
             isAutofillStarting: false,
-            /* 
-            autofilling direction
-            */
+            // autofilling direction
             autofillingDirection: null,
             // current cell selection type
             currentCellSelectionType: "",
