@@ -40,6 +40,10 @@ export default {
         fixedHeader: {
             type: Boolean,
         },
+        isGroupHeader: {
+            type: Boolean,
+            required: true,
+        },
         rowIndex: {
             type: Number,
             required: true,
@@ -187,7 +191,7 @@ export default {
                 groupColumnItem: column,
                 cellSelectionRangeData,
                 colgroups,
-                fixedHeader,
+                isGroupHeader,
                 headerIndicatorColKeys,
             } = this;
 
@@ -209,7 +213,7 @@ export default {
                     }
 
                     let showIndicator = false;
-                    if (!fixedHeader) {
+                    if (!isGroupHeader) {
                         if (indicatorColKeys.indexOf(column["key"]) > -1) {
                             showIndicator = true;
                         }

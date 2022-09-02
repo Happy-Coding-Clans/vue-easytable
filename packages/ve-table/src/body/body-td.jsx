@@ -126,6 +126,12 @@ export default {
                 return null;
             },
         },
+        bodyIndicatorRowKeys: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
         // cell span option
         cellSpanOption: {
             type: Object,
@@ -217,6 +223,7 @@ export default {
                 allRowKeys,
                 cellSelectionData,
                 cellSelectionRangeData,
+                bodyIndicatorRowKeys,
                 currentRowKey,
             } = this;
 
@@ -257,7 +264,12 @@ export default {
                         }
                     }
 
+                    if (!operationColumn) {
+                        return false;
+                    }
                     const { topRowKey, bottomRowKey } = cellSelectionRangeData;
+                    const { startRowKeyIndex } = bodyIndicatorRowKeys;
+                    const isIndicatorActive = startRowKeyIndex > -1;
 
                     let indicatorRowKeys = [];
                     if (topRowKey === bottomRowKey) {
@@ -271,8 +283,10 @@ export default {
                     }
 
                     //  cell indicator (operation column)
-                    if (operationColumn) {
-                        if (indicatorRowKeys.indexOf(currentRowKey) > -1) {
+                    if (indicatorRowKeys.indexOf(currentRowKey) > -1) {
+                        if (isIndicatorActive) {
+                            result[clsName("cell-indicator-active")] = true;
+                        } else {
                             result[clsName("cell-indicator")] = true;
                         }
                     }

@@ -131,6 +131,12 @@ export default {
                 return null;
             },
         },
+        bodyIndicatorRowKeys: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
         // edit option
         editOption: {
             type: Object,
@@ -904,6 +910,7 @@ export default {
                             editOption: this.editOption,
                             columnCollection: this.columnCollection,
                             cellSelectionRangeData: this.cellSelectionRangeData,
+                            bodyIndicatorRowKeys: this.bodyIndicatorRowKeys,
                         },
                     };
 

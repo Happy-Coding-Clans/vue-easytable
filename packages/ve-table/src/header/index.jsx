@@ -22,6 +22,10 @@ export default {
             type: Boolean,
             required: true,
         },
+        isGroupHeader: {
+            type: Boolean,
+            required: true,
+        },
         cellSelectionData: {
             type: Object,
             default: function () {
@@ -171,6 +175,7 @@ export default {
                             headerRows,
                             colgroups,
                             fixedHeader,
+                            isGroupHeader: this.isGroupHeader,
                             rowIndex,
                             checkboxOption,
                             sortOption,

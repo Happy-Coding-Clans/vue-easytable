@@ -30,6 +30,10 @@ export default {
             type: Boolean,
             required: true,
         },
+        isGroupHeader: {
+            type: Boolean,
+            required: true,
+        },
         rowIndex: {
             type: Number,
             required: true,
@@ -230,6 +234,7 @@ export default {
                             colgroups,
                             headerRows,
                             fixedHeader,
+                            isGroupHeader: this.isGroupHeader,
                             rowIndex,
                             checkboxOption,
                             sortOption,

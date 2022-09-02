@@ -128,6 +128,12 @@ export default {
                 return null;
             },
         },
+        bodyIndicatorRowKeys: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
         // cell span option
         cellSpanOption: {
             type: Object,
@@ -265,6 +271,7 @@ export default {
                         eventCustomOption,
                         cellSelectionData: this.cellSelectionData,
                         cellSelectionRangeData: this.cellSelectionRangeData,
+                        bodyIndicatorRowKeys: this.bodyIndicatorRowKeys,
                         editOption: this.editOption,
                     },
                     on: {

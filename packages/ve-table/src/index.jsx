@@ -394,6 +394,8 @@ export default {
             isHeaderCellMousedown: false,
             // is body cell mousedown
             isBodyCellMousedown: false,
+            // is body operation column mousedown
+            isBodyOperationColumnMousedown: false,
             // is cell selection corner mousedown
             isAutofillStarting: false,
             // autofilling direction
@@ -878,6 +880,13 @@ export default {
             },
             deep: true,
         },
+        // watch body indicator rowKeys
+        bodyIndicatorRowKeys: {
+            handler: function () {
+                this.setRangeCellSelectionByBodyIndicator();
+            },
+            deep: true,
+        },
     },
 
     methods: {
@@ -1092,6 +1101,25 @@ export default {
             this.headerIndicatorColKeys.startColKeyIndex = -1;
             this.headerIndicatorColKeys.startColKey = "";
             this.headerIndicatorColKeys.endColKeyIndex = -1;
+        },
+
+        // body indicator rowKeys change
+        bodyIndicatorRowKeysChange({ startRowKey, endRowKey }) {
+            const { allRowKeys } = this;
+            this.bodyIndicatorRowKeys.startRowKey = startRowKey;
+            this.bodyIndicatorRowKeys.startRowKeyIndex =
+                allRowKeys.indexOf(startRowKey);
+            this.bodyIndicatorRowKeys.endRowKey = endRowKey;
+            this.bodyIndicatorRowKeys.endRowKeyIndex =
+                allRowKeys.indexOf(endRowKey);
+        },
+
+        // clear body indicator RowKeys
+        clearBodyIndicatorRowKeys() {
+            this.bodyIndicatorRowKeys.startRowKey = "";
+            this.bodyIndicatorRowKeys.startRowKeyIndex = -1;
+            this.bodyIndicatorRowKeys.startRowKey = "";
+            this.bodyIndicatorRowKeys.endRowKeyIndex = -1;
         },
 
         // set cell selection by autofill
@@ -2043,6 +2071,7 @@ export default {
 
             this.isHeaderCellMousedown = false;
             this.isBodyCellMousedown = false;
+            this.isBodyOperationColumnMousedown = false;
             this.isAutofillStarting = false;
 
             // clear cell selection
@@ -2218,8 +2247,6 @@ export default {
          * @param {object} column - column data
          */
         bodyCellMousedown({ event, rowData, column }) {
-            this.isBodyCellMousedown = true;
-
             const { shiftKey } = event;
 
             const { editOption, rowKeyFieldName, colgroups } = this;
@@ -2231,24 +2258,41 @@ export default {
             this.clearHeaderIndicatorColKeys();
 
             if (isOperationColumn(colKey, colgroups)) {
-                // clear cell selection
-                this.clearCellSelectionCurrentCell();
-                this.clearCellSelectionNormalEndCell();
+                const { bodyIndicatorRowKeys } = this;
+                this.isBodyOperationColumnMousedown = true;
 
-                // stop editing cell
-                this[INSTANCE_METHODS.STOP_EDITING_CELL]();
-                return false;
-            }
+                let startRowKey;
+                let endRowKey;
 
-            if (shiftKey) {
-                this.cellSelectionNormalEndCellChange({
-                    rowKey,
-                    colKey,
+                if (shiftKey) {
+                    startRowKey = bodyIndicatorRowKeys.startRowKey;
+                    endRowKey = rowKey;
+                } else {
+                    startRowKey = rowKey;
+                    endRowKey = rowKey;
+                }
+
+                this.bodyIndicatorRowKeysChange({
+                    startRowKey,
+                    endRowKey,
                 });
             } else {
-                // cell selection by click
-                this.cellSelectionByClick({ rowData, column });
-                this.clearCellSelectionNormalEndCell();
+                // body cell mousedown
+                this.isBodyCellMousedown = true;
+
+                // clear body indicator colKeys
+                this.clearBodyIndicatorRowKeys();
+
+                if (shiftKey) {
+                    this.cellSelectionNormalEndCellChange({
+                        rowKey,
+                        colKey,
+                    });
+                } else {
+                    // cell selection by click
+                    this.cellSelectionByClick({ rowData, column });
+                    this.clearCellSelectionNormalEndCell();
+                }
             }
 
             if (editOption) {
@@ -2272,18 +2316,23 @@ export default {
                 isBodyCellMousedown,
                 isAutofillStarting,
                 isHeaderCellMousedown,
+                isBodyOperationColumnMousedown,
             } = this;
 
             const rowKey = getRowKey(rowData, rowKeyFieldName);
             const colKey = column.key;
-            if (isOperationColumn(colKey, this.colgroups)) {
-                return false;
-            }
 
             if (isBodyCellMousedown) {
                 this.cellSelectionNormalEndCellChange({
                     rowKey,
                     colKey,
+                });
+            }
+
+            if (isBodyOperationColumnMousedown) {
+                this.bodyIndicatorRowKeysChange({
+                    startRowKey: this.bodyIndicatorRowKeys.startRowKey,
+                    endRowKey: rowKey,
                 });
             }
 
@@ -2339,6 +2388,9 @@ export default {
                 headerIndicatorColKeys,
                 cellSelectionData,
             } = this;
+
+            // clear body indicator colKeys
+            this.clearBodyIndicatorRowKeys();
 
             let colKeys;
             if (isGroupHeader) {
@@ -2451,6 +2503,7 @@ export default {
         tableContainerMouseup() {
             this.isHeaderCellMousedown = false;
             this.isBodyCellMousedown = false;
+            this.isBodyOperationColumnMousedown = false;
             this.isAutofillStarting = false;
         },
 
@@ -2931,6 +2984,28 @@ export default {
             });
         },
 
+        // set range cell selection by body indicator
+        setRangeCellSelectionByBodyIndicator() {
+            const { bodyIndicatorRowKeys, colgroups } = this;
+            const { startRowKey, endRowKey } = bodyIndicatorRowKeys;
+
+            if (isEmptyValue(startRowKey) || isEmptyValue(endRowKey)) {
+                return false;
+            }
+
+            if (colgroups.length > 1) {
+                this.cellSelectionCurrentCellChange({
+                    rowKey: startRowKey,
+                    colKey: colgroups[1].key,
+                });
+
+                this.cellSelectionNormalEndCellChange({
+                    rowKey: endRowKey,
+                    colKey: colgroups[colgroups.length - 1].key,
+                });
+            }
+        },
+
         /*
         set cell selection and column to visible
         */
@@ -3343,6 +3418,7 @@ export default {
             enableCellSelection,
             cellSelectionRangeData,
             headerIndicatorColKeys,
+            bodyIndicatorRowKeys,
         } = this;
 
         // header props
@@ -3353,6 +3429,7 @@ export default {
                 tableViewportWidth,
                 groupColumns,
                 colgroups,
+                isGroupHeader: this.isGroupHeader,
                 fixedHeader,
                 checkboxOption,
                 sortOption,
@@ -3396,7 +3473,7 @@ export default {
                 editOption,
                 highlightRowKey: this.highlightRowKey,
                 showVirtualScrollingPlaceholder,
-                headerIndicatorColKeys,
+                bodyIndicatorRowKeys,
             },
             on: {
                 [EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE]:
