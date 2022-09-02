@@ -2316,12 +2316,7 @@ export default {
 
             const { shiftKey } = event;
 
-            const {
-                isGroupHeader,
-                allRowKeys,
-                colgroups,
-                headerIndicatorColKeys,
-            } = this;
+            const { isGroupHeader, colgroups, headerIndicatorColKeys } = this;
 
             let colKeys;
             if (isGroupHeader) {
@@ -2336,7 +2331,7 @@ export default {
             this.$refs[this.cellSelectionRef].clearCellRects();
 
             if (shiftKey) {
-                if (!isEmptyValue(headerIndicatorColKeys.startColKey)) {
+                if (isEmptyValue(headerIndicatorColKeys.startColKey)) {
                     this.headerIndicatorColKeys.startColKey = colKeys[0];
                     this.headerIndicatorColKeys.endColKey =
                         colKeys[colKeys.length - 1];
