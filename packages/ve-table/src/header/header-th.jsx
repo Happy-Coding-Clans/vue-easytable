@@ -57,6 +57,12 @@ export default {
                 return null;
             },
         },
+        headerIndicatorColKeys: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
         // checkbox option
         checkboxOption: {
             type: Object,
@@ -182,12 +188,14 @@ export default {
                 cellSelectionRangeData,
                 colgroups,
                 fixedHeader,
+                headerIndicatorColKeys,
             } = this;
 
             if (cellSelectionRangeData) {
                 const { leftColKey, rightColKey } = cellSelectionRangeData;
+                const { startColKeyIndex } = headerIndicatorColKeys;
+                const isIndicatorActive = startColKeyIndex > -1;
 
-                //  first level header th indicator
                 if (!isEmptyValue(leftColKey)) {
                     let indicatorColKeys = [];
                     if (leftColKey === rightColKey) {
@@ -214,7 +222,11 @@ export default {
                         });
                     }
                     if (showIndicator) {
-                        result[clsName("cell-indicator")] = true;
+                        if (isIndicatorActive) {
+                            result[clsName("cell-indicator-active")] = true;
+                        } else {
+                            result[clsName("cell-indicator")] = true;
+                        }
                     }
                 }
             }

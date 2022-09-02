@@ -47,6 +47,12 @@ export default {
                 return null;
             },
         },
+        headerIndicatorColKeys: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
         // checkbox option
         checkboxOption: {
             type: Object,
@@ -232,6 +238,7 @@ export default {
                             eventCustomOption: this.eventCustomOption,
                             cellSelectionData,
                             cellSelectionRangeData: this.cellSelectionRangeData,
+                            headerIndicatorColKeys: this.headerIndicatorColKeys,
                         },
                     };
 

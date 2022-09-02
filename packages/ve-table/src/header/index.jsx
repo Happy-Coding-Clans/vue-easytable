@@ -35,6 +35,12 @@ export default {
                 return null;
             },
         },
+        headerIndicatorColKeys: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
         headerRows: {
             type: Array,
             default: function () {
@@ -173,6 +179,7 @@ export default {
                             eventCustomOption: this.eventCustomOption,
                             cellSelectionData,
                             cellSelectionRangeData: this.cellSelectionRangeData,
+                            headerIndicatorColKeys: this.headerIndicatorColKeys,
                         },
                     };
                     return <HeaderTr {...trProps} />;

@@ -3350,6 +3350,7 @@ export default {
             allRowKeys,
             enableCellSelection,
             cellSelectionRangeData,
+            headerIndicatorColKeys,
         } = this;
 
         // header props
@@ -3368,6 +3369,7 @@ export default {
                 headerRows: this.headerRows,
                 cellSelectionData,
                 cellSelectionRangeData,
+                headerIndicatorColKeys,
             },
             nativeOn: {
                 click: () => {
@@ -3402,6 +3404,7 @@ export default {
                 editOption,
                 highlightRowKey: this.highlightRowKey,
                 showVirtualScrollingPlaceholder,
+                headerIndicatorColKeys,
             },
             on: {
                 [EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE]:
