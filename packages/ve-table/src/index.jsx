@@ -2323,6 +2323,10 @@ export default {
             const colKey = column.key;
 
             if (isBodyCellMousedown) {
+                // 操作列不能单元格选中
+                if (isOperationColumn(colKey, this.colgroups)) {
+                    return false;
+                }
                 this.cellSelectionNormalEndCellChange({
                     rowKey,
                     colKey,
