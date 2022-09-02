@@ -2261,6 +2261,20 @@ export default {
 
         // header cell click
         headerCellClick({ event, column }) {
+            // feature...
+        },
+
+        // header cell contextmenu
+        headerCellContextmenu({ event, column }) {
+            // close body contextmenu panel
+            const bodyContextmenuRef = this.$refs[this.bodyContextmenuRef];
+            if (bodyContextmenuRef) {
+                bodyContextmenuRef.hideContextmenu();
+            }
+        },
+
+        // header cell mousedown
+        headerCellMousedown({ event, column }) {
             const { isGroupHeader, allRowKeys } = this;
 
             let colKeys;
@@ -2284,15 +2298,6 @@ export default {
                 rowKey: allRowKeys[allRowKeys.length - 1],
                 colKey: colKeys[colKeys.length - 1],
             });
-        },
-
-        // header cell contextmenu
-        headerCellContextmenu({ event, column }) {
-            // close body contextmenu panel
-            const bodyContextmenuRef = this.$refs[this.bodyContextmenuRef];
-            if (bodyContextmenuRef) {
-                bodyContextmenuRef.hideContextmenu();
-            }
         },
 
         // table content wrapper mouseup
@@ -3118,6 +3123,11 @@ export default {
         // recieve header cell contextmenu(right click)
         this.$on(EMIT_EVENTS.HEADER_CELL_CONTEXTMENU, (params) => {
             this.headerCellContextmenu(params);
+        });
+
+        // recieve header cell mousedown
+        this.$on(EMIT_EVENTS.HEADER_CELL_MOUSEDOWN, (params) => {
+            this.headerCellMousedown(params);
         });
 
         // add key down event listener

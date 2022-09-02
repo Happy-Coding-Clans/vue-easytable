@@ -476,6 +476,17 @@ export default {
         // mousedown
         cellMousedown(e, fn) {
             fn && fn(e);
+
+            const { groupColumnItem } = this;
+
+            this.dispatch(
+                COMPS_NAME.VE_TABLE,
+                EMIT_EVENTS.HEADER_CELL_MOUSEDOWN,
+                {
+                    event: e,
+                    column: groupColumnItem,
+                },
+            );
         },
         // mouseup
         cellMouseup(e, fn) {
