@@ -102,6 +102,8 @@ export const EMIT_EVENTS = {
     HEADER_CELL_CONTEXTMENU: "on-header-cell-contextmenu",
     // header cell mousedown
     HEADER_CELL_MOUSEDOWN: "on-header-cell-mousedown",
+    // header cell mouseover
+    HEADER_CELL_MOUSEOVER: "on-header-cell-mouseover",
     // highlight row change
     HIGHLIGHT_ROW_CHANGE: "on-highlight-row-change",
 

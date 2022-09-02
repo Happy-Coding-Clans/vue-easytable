@@ -472,6 +472,17 @@ export default {
         // mouseover
         cellMouseover(e, fn) {
             fn && fn(e);
+
+            const { groupColumnItem } = this;
+
+            this.dispatch(
+                COMPS_NAME.VE_TABLE,
+                EMIT_EVENTS.HEADER_CELL_MOUSEOVER,
+                {
+                    event: e,
+                    column: groupColumnItem,
+                },
+            );
         },
         // mousedown
         cellMousedown(e, fn) {

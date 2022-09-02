@@ -11,6 +11,7 @@ import {
     getRowKey,
     getColKeysByHeaderColumn,
     getColumnByColkey,
+    getLeftmostColKey,
     isCellInSelectionRange,
     cellAutofill,
     isOperationColumn,
@@ -351,6 +352,16 @@ export default {
             scrollBarWidth: 0,
             // preview table container scrollLeft （处理左列或右列固定效果）
             previewTableContainerScrollLeft: null,
+            // header cell selection colKeys
+            headerIndicatorColKeys: {
+                startColKey: "",
+                endColKey: "",
+            },
+            // body indicator rowKeys
+            bodyIndicatorRowKeys: {
+                startColKey: "",
+                endColKey: "",
+            },
             // cell selection data
             cellSelectionData: {
                 currentCell: {
@@ -376,10 +387,13 @@ export default {
                 bottomRowKey: "",
             },
             /*
-            is body td mousedown
-            mousedown+mouseup 才允许 area 绘制
+            is header cell mousedown
             */
-            isBodybodyCellMousedown: false,
+            isHeaderCellMousedown: false,
+            /*
+            is body cell mousedown
+            */
+            isBodyCellMousedown: false,
             /* 
             is cell selection corner mousedown
             */
@@ -861,6 +875,13 @@ export default {
             deep: true,
             immediate: true,
         },
+        // watch header indicator colKeys
+        headerIndicatorColKeys: {
+            handler: function () {
+                this.setRangeCellSelectionByHeaderIndicator();
+            },
+            deep: true,
+        },
     },
 
     methods: {
@@ -1054,6 +1075,12 @@ export default {
         // clear cell selection autofill end cell
         clearCellSelectionAutofillEndCell() {
             this.cellSelectionAutofillCellChange({ rowKey: "", colKey: "" });
+        },
+
+        // clear header indicator colKeys
+        clearHeaderIndicatorColKeys() {
+            this.headerIndicatorColKeys.startColKey = "";
+            this.headerIndicatorColKeys.endColKey = "";
         },
 
         // set cell selection by autofill
@@ -2003,12 +2030,16 @@ export default {
                 return false;
             }
 
-            this.isBodybodyCellMousedown = false;
+            this.isHeaderCellMousedown = false;
+            this.isBodyCellMousedown = false;
             this.isAutofillStarting = false;
 
             // clear cell selection
             this.clearCellSelectionCurrentCell();
             this.clearCellSelectionNormalEndCell();
+
+            // clear indicators
+            this.clearHeaderIndicatorColKeys();
 
             // stop editing cell
             this[INSTANCE_METHODS.STOP_EDITING_CELL]();
@@ -2176,7 +2207,7 @@ export default {
          * @param {object} column - column data
          */
         bodyCellMousedown({ event, rowData, column }) {
-            this.isBodybodyCellMousedown = true;
+            this.isBodyCellMousedown = true;
 
             const { shiftKey } = event;
 
@@ -2224,8 +2255,9 @@ export default {
         bodyCellMouseover({ event, rowData, column }) {
             const {
                 rowKeyFieldName,
-                isBodybodyCellMousedown,
+                isBodyCellMousedown,
                 isAutofillStarting,
+                isHeaderCellMousedown,
             } = this;
 
             const rowKey = getRowKey(rowData, rowKeyFieldName);
@@ -2234,17 +2266,22 @@ export default {
                 return false;
             }
 
-            if (isBodybodyCellMousedown) {
+            if (isBodyCellMousedown) {
                 this.cellSelectionNormalEndCellChange({
                     rowKey,
-                    colKey: column.key,
+                    colKey,
                 });
+            }
+
+            // 允许在body cell mouseover 里补充
+            if (isHeaderCellMousedown) {
+                this.headerIndicatorColKeys.endColKey = colKey;
             }
 
             if (isAutofillStarting) {
                 this.cellSelectionAutofillCellChange({
                     rowKey,
-                    colKey: column.key,
+                    colKey,
                 });
             }
         },
@@ -2275,7 +2312,16 @@ export default {
 
         // header cell mousedown
         headerCellMousedown({ event, column }) {
-            const { isGroupHeader, allRowKeys } = this;
+            this.isHeaderCellMousedown = true;
+
+            const { shiftKey } = event;
+
+            const {
+                isGroupHeader,
+                allRowKeys,
+                colgroups,
+                headerIndicatorColKeys,
+            } = this;
 
             let colKeys;
             if (isGroupHeader) {
@@ -2289,20 +2335,71 @@ export default {
             // 需要先将之前选中单元格元素清空
             this.$refs[this.cellSelectionRef].clearCellRects();
 
-            this.cellSelectionCurrentCellChange({
-                rowKey: allRowKeys[0],
-                colKey: colKeys[0],
-            });
+            if (shiftKey) {
+                if (!isEmptyValue(headerIndicatorColKeys.startColKey)) {
+                    this.headerIndicatorColKeys.startColKey = colKeys[0];
+                    this.headerIndicatorColKeys.endColKey =
+                        colKeys[colKeys.length - 1];
+                } else {
+                    const leftColKey = getLeftmostColKey({
+                        colgroups,
+                        colKeys: colKeys.concat([
+                            headerIndicatorColKeys.startColKey,
+                        ]),
+                    });
 
-            this.cellSelectionNormalEndCellChange({
-                rowKey: allRowKeys[allRowKeys.length - 1],
-                colKey: colKeys[colKeys.length - 1],
-            });
+                    if (leftColKey === headerIndicatorColKeys.startColKey) {
+                        this.headerIndicatorColKeys.endColKey =
+                            colKeys[colKeys.length - 1];
+                    } else {
+                        this.headerIndicatorColKeys.endColKey = colKeys[0];
+                    }
+                }
+            } else {
+                this.headerIndicatorColKeys.startColKey = colKeys[0];
+                this.headerIndicatorColKeys.endColKey =
+                    colKeys[colKeys.length - 1];
+            }
+        },
+
+        // header cell mouseover
+        headerCellMouseover({ event, column }) {
+            const {
+                colgroups,
+                isGroupHeader,
+                isHeaderCellMousedown,
+                headerIndicatorColKeys,
+            } = this;
+            if (isHeaderCellMousedown) {
+                let colKeys;
+                if (isGroupHeader) {
+                    colKeys = getColKeysByHeaderColumn({
+                        headerColumnItem: column,
+                    });
+                } else {
+                    colKeys = [column.key];
+                }
+
+                const leftColKey = getLeftmostColKey({
+                    colgroups,
+                    colKeys: colKeys.concat([
+                        headerIndicatorColKeys.startColKey,
+                    ]),
+                });
+
+                if (leftColKey === headerIndicatorColKeys.startColKey) {
+                    this.headerIndicatorColKeys.endColKey =
+                        colKeys[colKeys.length - 1];
+                } else {
+                    this.headerIndicatorColKeys.endColKey = colKeys[0];
+                }
+            }
         },
 
         // table content wrapper mouseup
         tableContainerMouseup() {
-            this.isBodybodyCellMousedown = false;
+            this.isHeaderCellMousedown = false;
+            this.isBodyCellMousedown = false;
             this.isAutofillStarting = false;
         },
 
@@ -2763,6 +2860,27 @@ export default {
             }
         },
 
+        // set range cell selection by header indicator
+        setRangeCellSelectionByHeaderIndicator() {
+            const { headerIndicatorColKeys, allRowKeys } = this;
+            const { startColKey, endColKey } = headerIndicatorColKeys;
+
+            if (isEmptyValue(startColKey)) {
+                this.clearCellSelectionCurrentCell();
+                this.clearCellSelectionNormalEndCell();
+            } else {
+                this.cellSelectionCurrentCellChange({
+                    rowKey: allRowKeys[0],
+                    colKey: startColKey,
+                });
+
+                this.cellSelectionNormalEndCellChange({
+                    rowKey: allRowKeys[allRowKeys.length - 1],
+                    colKey: endColKey,
+                });
+            }
+        },
+
         /*
         set cell selection and column to visible
         */
@@ -3128,6 +3246,11 @@ export default {
         // recieve header cell mousedown
         this.$on(EMIT_EVENTS.HEADER_CELL_MOUSEDOWN, (params) => {
             this.headerCellMousedown(params);
+        });
+
+        // recieve header cell mousedown
+        this.$on(EMIT_EVENTS.HEADER_CELL_MOUSEOVER, (params) => {
+            this.headerCellMouseover(params);
         });
 
         // add key down event listener
