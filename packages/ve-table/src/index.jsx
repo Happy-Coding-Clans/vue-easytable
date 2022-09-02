@@ -2328,7 +2328,9 @@ export default {
             }
 
             // 需要先将之前选中单元格元素清空
-            this.$refs[this.cellSelectionRef].clearCellRects();
+            if (isEmptyValue(headerIndicatorColKeys.startColKey)) {
+                this.$refs[this.cellSelectionRef].clearCellRects();
+            }
 
             if (shiftKey) {
                 if (isEmptyValue(headerIndicatorColKeys.startColKey)) {
