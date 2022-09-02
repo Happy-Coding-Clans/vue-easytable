@@ -355,12 +355,16 @@ export default {
             // header cell selection colKeys
             headerIndicatorColKeys: {
                 startColKey: "",
+                startColKeyIndex: -1,
                 endColKey: "",
+                endColKeyIndex: -1,
             },
             // body indicator rowKeys
             bodyIndicatorRowKeys: {
-                startColKey: "",
-                endColKey: "",
+                startRowKey: "",
+                startRowKeyIndex: -1,
+                endRowKey: "",
+                endRowKeyIndex: -1,
             },
             // cell selection data
             cellSelectionData: {
@@ -1077,10 +1081,25 @@ export default {
             this.cellSelectionAutofillCellChange({ rowKey: "", colKey: "" });
         },
 
+        // header indicator colKeys change
+        headerIndicatorColKeysChange({ startColKey, endColKey }) {
+            const { colgroups } = this;
+            this.headerIndicatorColKeys.startColKey = startColKey;
+            this.headerIndicatorColKeys.startColKeyIndex = colgroups.findIndex(
+                (x) => x.key === startColKey,
+            );
+            this.headerIndicatorColKeys.endColKey = endColKey;
+            this.headerIndicatorColKeys.endColKeyIndex = colgroups.findIndex(
+                (x) => x.key === endColKey,
+            );
+        },
+
         // clear header indicator colKeys
         clearHeaderIndicatorColKeys() {
             this.headerIndicatorColKeys.startColKey = "";
-            this.headerIndicatorColKeys.endColKey = "";
+            this.headerIndicatorColKeys.startColKeyIndex = -1;
+            this.headerIndicatorColKeys.startColKey = "";
+            this.headerIndicatorColKeys.endColKeyIndex = -1;
         },
 
         // set cell selection by autofill
@@ -2276,9 +2295,12 @@ export default {
                 });
             }
 
-            // 允许在body cell mouseover 里补充
+            // 允许在body cell mouseover 里补充 header indicator 信息
             if (isHeaderCellMousedown) {
-                this.headerIndicatorColKeys.endColKey = colKey;
+                this.headerIndicatorColKeysChange({
+                    startColKey: this.headerIndicatorColKeys.startColKey,
+                    endColKey: colKey,
+                });
             }
 
             if (isAutofillStarting) {
@@ -2385,8 +2407,10 @@ export default {
                 endColKey = colKeys[colKeys.length - 1];
             }
 
-            this.headerIndicatorColKeys.startColKey = startColKey;
-            this.headerIndicatorColKeys.endColKey = endColKey;
+            this.headerIndicatorColKeysChange({
+                startColKey,
+                endColKey,
+            });
         },
 
         // header cell mouseover
@@ -2418,12 +2442,16 @@ export default {
                     ]),
                 });
 
+                let endColKey;
                 if (leftColKey === headerIndicatorColKeys.startColKey) {
-                    this.headerIndicatorColKeys.endColKey =
-                        colKeys[colKeys.length - 1];
+                    endColKey = colKeys[colKeys.length - 1];
                 } else {
-                    this.headerIndicatorColKeys.endColKey = colKeys[0];
+                    endColKey = colKeys[0];
                 }
+                this.headerIndicatorColKeysChange({
+                    startColKey: this.headerIndicatorColKeys.startColKey,
+                    endColKey,
+                });
             }
         },
 
