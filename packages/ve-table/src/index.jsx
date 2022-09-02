@@ -2319,7 +2319,12 @@ export default {
 
             const { shiftKey } = event;
 
-            const { isGroupHeader, colgroups, headerIndicatorColKeys } = this;
+            const {
+                isGroupHeader,
+                colgroups,
+                headerIndicatorColKeys,
+                cellSelectionData,
+            } = this;
 
             let colKeys;
             if (isGroupHeader) {
@@ -2339,12 +2344,29 @@ export default {
                 this.$refs[this.cellSelectionRef].clearCellRects();
             }
 
+            let startColKey;
+            let endColKey;
             if (shiftKey) {
                 if (isEmptyValue(headerIndicatorColKeys.startColKey)) {
-                    this.headerIndicatorColKeys.startColKey = colKeys[0];
-                    this.headerIndicatorColKeys.endColKey =
-                        colKeys[colKeys.length - 1];
+                    const { currentCell } = cellSelectionData;
+                    if (!isEmptyValue(currentCell.colKey)) {
+                        const leftColKey = getLeftmostColKey({
+                            colgroups,
+                            colKeys: colKeys.concat([currentCell.colKey]),
+                        });
+
+                        startColKey = currentCell.colKey;
+                        if (leftColKey === currentCell.colKey) {
+                            endColKey = colKeys[colKeys.length - 1];
+                        } else {
+                            endColKey = colKeys[0];
+                        }
+                    } else {
+                        startColKey = colKeys[0];
+                        endColKey = colKeys[colKeys.length - 1];
+                    }
                 } else {
+                    startColKey = headerIndicatorColKeys.startColKey;
                     const leftColKey = getLeftmostColKey({
                         colgroups,
                         colKeys: colKeys.concat([
@@ -2353,17 +2375,18 @@ export default {
                     });
 
                     if (leftColKey === headerIndicatorColKeys.startColKey) {
-                        this.headerIndicatorColKeys.endColKey =
-                            colKeys[colKeys.length - 1];
+                        endColKey = colKeys[colKeys.length - 1];
                     } else {
-                        this.headerIndicatorColKeys.endColKey = colKeys[0];
+                        endColKey = colKeys[0];
                     }
                 }
             } else {
-                this.headerIndicatorColKeys.startColKey = colKeys[0];
-                this.headerIndicatorColKeys.endColKey =
-                    colKeys[colKeys.length - 1];
+                startColKey = colKeys[0];
+                endColKey = colKeys[colKeys.length - 1];
             }
+
+            this.headerIndicatorColKeys.startColKey = startColKey;
+            this.headerIndicatorColKeys.endColKey = endColKey;
         },
 
         // header cell mouseover
