@@ -94,6 +94,7 @@
                 :radio-option="radioOption"
                 :checkbox-option="checkboxOption"
                 :row-style-option="rowStyleOption"
+                :cell-selection-option="cellSelectionOption"
             />
         </div>
     </div>
@@ -112,6 +113,10 @@ export default {
     mixins: [I18nMixins],
     data() {
         return {
+            cellSelectionOption: {
+                // disble cell selection
+                enable: false,
+            },
             // edit option 可控单元格编辑
             editOption: {
                 // cell value change
@@ -150,8 +155,8 @@ export default {
             },
             rowStyleOption: {
                 stripe: true,
-                clickHighlight: false,
-                hoverHighlight: false,
+                clickHighlight: true,
+                hoverHighlight: true,
             },
             sortOption: {
                 sortChange: (params) => {
