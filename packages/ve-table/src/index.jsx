@@ -2216,6 +2216,9 @@ export default {
             const rowKey = getRowKey(rowData, rowKeyFieldName);
             const colKey = column.key;
 
+            // clear header indicator colKeys
+            this.clearHeaderIndicatorColKeys();
+
             if (isOperationColumn(colKey, colgroups)) {
                 // clear cell selection
                 this.clearCellSelectionCurrentCell();
@@ -2327,6 +2330,10 @@ export default {
                 colKeys = [column.key];
             }
 
+            if (isOperationColumn(column.key, colgroups)) {
+                return false;
+            }
+
             // 需要先将之前选中单元格元素清空
             if (isEmptyValue(headerIndicatorColKeys.startColKey)) {
                 this.$refs[this.cellSelectionRef].clearCellRects();
@@ -2367,7 +2374,11 @@ export default {
                 isHeaderCellMousedown,
                 headerIndicatorColKeys,
             } = this;
-            if (isHeaderCellMousedown) {
+
+            if (
+                isHeaderCellMousedown &&
+                !isOperationColumn(column.key, colgroups)
+            ) {
                 let colKeys;
                 if (isGroupHeader) {
                     colKeys = getColKeysByHeaderColumn({
@@ -2862,20 +2873,19 @@ export default {
             const { headerIndicatorColKeys, allRowKeys } = this;
             const { startColKey, endColKey } = headerIndicatorColKeys;
 
-            if (isEmptyValue(startColKey)) {
-                this.clearCellSelectionCurrentCell();
-                this.clearCellSelectionNormalEndCell();
-            } else {
-                this.cellSelectionCurrentCellChange({
-                    rowKey: allRowKeys[0],
-                    colKey: startColKey,
-                });
-
-                this.cellSelectionNormalEndCellChange({
-                    rowKey: allRowKeys[allRowKeys.length - 1],
-                    colKey: endColKey,
-                });
+            if (isEmptyValue(startColKey) || isEmptyValue(endColKey)) {
+                return false;
             }
+
+            this.cellSelectionCurrentCellChange({
+                rowKey: allRowKeys[0],
+                colKey: startColKey,
+            });
+
+            this.cellSelectionNormalEndCellChange({
+                rowKey: allRowKeys[allRowKeys.length - 1],
+                colKey: endColKey,
+            });
         },
 
         /*
