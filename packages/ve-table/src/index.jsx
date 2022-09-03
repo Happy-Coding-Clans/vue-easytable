@@ -2413,13 +2413,15 @@ export default {
                 colKeys = [column.key];
             }
 
-            if (isOperationColumn(column.key, colgroups)) {
-                return false;
-            }
-
             // 需要先将之前选中单元格元素清空
             if (isEmptyValue(headerIndicatorColKeys.startColKey)) {
                 this.$refs[this.cellSelectionRef].clearCellRects();
+            }
+
+            if (isOperationColumn(column.key, colgroups)) {
+                // select all cell
+                this[INSTANCE_METHODS.SET_ALL_CELL_SELECTION]();
+                return false;
             }
 
             let startColKey;
@@ -3090,6 +3092,39 @@ export default {
                 this.columnToVisible(column);
                 this[INSTANCE_METHODS.SCROLL_TO_ROW_KEY]({
                     rowKey: startRowKey,
+                });
+            }
+        },
+
+        /*
+        set all cell selection and column to visible
+        */
+        [INSTANCE_METHODS.SET_ALL_CELL_SELECTION]() {
+            const { enableCellSelection } = this;
+
+            if (!enableCellSelection) {
+                return false;
+            }
+
+            const { colgroups, allRowKeys } = this;
+
+            if (colgroups.length) {
+                const colKeys = colgroups
+                    .filter((x) => !x.operationColumn)
+                    .map((x) => x.key);
+
+                if (colKeys.length) {
+                    this.headerIndicatorColKeysChange({
+                        startColKey: colKeys[0],
+                        endColKey: colKeys[colKeys.length - 1],
+                    });
+                }
+            }
+
+            if (allRowKeys.length) {
+                this.bodyIndicatorRowKeysChange({
+                    startRowKey: allRowKeys[0],
+                    endRowKey: allRowKeys[allRowKeys.length - 1],
                 });
             }
         },
