@@ -2247,6 +2247,10 @@ export default {
          * @param {object} column - column data
          */
         bodyCellMousedown({ event, rowData, column }) {
+            if (!this.enableCellSelection) {
+                return false;
+            }
+
             const { shiftKey } = event;
 
             const { editOption, rowKeyFieldName, colgroups } = this;
@@ -2382,6 +2386,10 @@ export default {
 
         // header cell mousedown
         headerCellMousedown({ event, column }) {
+            if (!this.enableCellSelection) {
+                return false;
+            }
+
             this.isHeaderCellMousedown = true;
 
             const { shiftKey } = event;
