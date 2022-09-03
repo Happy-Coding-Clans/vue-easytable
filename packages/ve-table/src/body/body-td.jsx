@@ -264,30 +264,30 @@ export default {
                         }
                     }
 
-                    if (!operationColumn) {
-                        return false;
-                    }
-                    const { topRowKey, bottomRowKey } = cellSelectionRangeData;
-                    const { startRowKeyIndex } = bodyIndicatorRowKeys;
-                    const isIndicatorActive = startRowKeyIndex > -1;
+                    if (operationColumn) {
+                        const { topRowKey, bottomRowKey } =
+                            cellSelectionRangeData;
+                        const { startRowKeyIndex } = bodyIndicatorRowKeys;
+                        const isIndicatorActive = startRowKeyIndex > -1;
 
-                    let indicatorRowKeys = [];
-                    if (topRowKey === bottomRowKey) {
-                        indicatorRowKeys = [topRowKey];
-                    } else {
-                        indicatorRowKeys = getRowKeysByRangeRowKeys({
-                            topRowKey,
-                            bottomRowKey,
-                            allRowKeys,
-                        });
-                    }
-
-                    //  cell indicator (operation column)
-                    if (indicatorRowKeys.indexOf(currentRowKey) > -1) {
-                        if (isIndicatorActive) {
-                            result[clsName("cell-indicator-active")] = true;
+                        let indicatorRowKeys = [];
+                        if (topRowKey === bottomRowKey) {
+                            indicatorRowKeys = [topRowKey];
                         } else {
-                            result[clsName("cell-indicator")] = true;
+                            indicatorRowKeys = getRowKeysByRangeRowKeys({
+                                topRowKey,
+                                bottomRowKey,
+                                allRowKeys,
+                            });
+                        }
+
+                        //  cell indicator (operation column)
+                        if (indicatorRowKeys.indexOf(currentRowKey) > -1) {
+                            if (isIndicatorActive) {
+                                result[clsName("cell-indicator-active")] = true;
+                            } else {
+                                result[clsName("cell-indicator")] = true;
+                            }
                         }
                     }
                 }
