@@ -35,7 +35,7 @@
                         field: "index",
                         key: "index",
                         operationColumn: true,
-                        title: "#",
+                        title: "",
                         width: 50,
                         align: "center",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
