@@ -549,8 +549,13 @@ export const db = {
             },
             {
                 name: "setCellSelection",
-                desc: `Set cell selection  <a href='#/en/doc/table/cell-selection?anchor=cell-selection-instance-method'>Refer To Demo</a>`,
+                desc: `Set single cell selection  <a href='#/en/doc/table/cell-selection?anchor=single-cell-selection-instance-method'>Refer To Demo</a>`,
                 param: "{ rowKey, colKey }",
+            },
+            {
+                name: "setAllCellSelection",
+                desc: `Set all cell selection  <a href='#/en/doc/table/cell-selection?anchor=range-cell-selection-instance-method'>Refer To Demo</a>`,
+                param: "-",
             },
             {
                 name: "setRangeCellSelection",

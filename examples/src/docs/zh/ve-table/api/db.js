@@ -543,12 +543,17 @@ export const db = {
             },
             {
                 name: "setCellSelection",
-                desc: `单元格选中  <a href='#/zh/doc/table/cell-selection?anchor=dan-yuan-ge-xuan-zhong-shi-li-fang-fa'>参考示例</a>`,
+                desc: `单元格选中  <a href='#/zh/doc/table/cell-selection?anchor=dan-xuan-shi-li-fang-fa'>参考示例</a>`,
                 param: "{ rowKey, colKey }",
             },
             {
+                name: "setAllCellSelection",
+                desc: `单元格全选  <a href='#/en/doc/table/cell-selection?anchor=qu-yu-xuan-ze-shi-li-fang-fa'>参考示例</a>`,
+                param: "-",
+            },
+            {
                 name: "setRangeCellSelection",
-                desc: `区域单元格选中  <a href='#/zh/doc/table/cell-selection?anchor=range-cell-selection-instance-method'>参考示例</a>`,
+                desc: `区域单元格选中  <a href='#/zh/doc/table/cell-selection?anchor=qu-yu-xuan-ze-shi-li-fang-fa'>参考示例</a>`,
                 param: "{ startRowKey,startColKey,endRowKey,endColKey,isScrollToStartCell }",
             },
         ],

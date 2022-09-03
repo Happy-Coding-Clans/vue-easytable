@@ -5,7 +5,7 @@
 ```html
 <template>
     <div>
-        <button class="button-demo" @click="setAllCellSelection()">区域全选</button>
+        <button class="button-demo" @click="setAllCellSelection()">单元格全选</button>
         <button class="button-demo" @click="setRangeCellSelection()">区域选择</button>
         <br />
         <br />
