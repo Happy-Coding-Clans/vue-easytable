@@ -1,11 +1,12 @@
 :::anchor Range cell selection instance method
 
-:::demo You can set range cell selection by instance method `setRangeCellSelection({ startRowKey,startColKey,endRowKey,endColKey,isScrollToStartCell })`
+:::demo 1、You can set all cell selection by instance method `setAllCellSelection()`<br>2、You can set range cell selection by instance method `setRangeCellSelection({ startRowKey,startColKey,endRowKey,endColKey,isScrollToStartCell })`
 
 ```html
 <template>
     <div>
-        <button class="button-demo" @click="setRangeCellSelection()">Range cell selection</button>
+        <button class="button-demo" @click="setAllCellSelection()">Set All Selection</button>
+        <button class="button-demo" @click="setRangeCellSelection()">Set Range Selection</button>
         <br />
         <br />
         <ve-table
@@ -30,6 +31,7 @@
                 // start row index
                 startRowIndex: 0,
                 virtualScrollOption: {
+                    // 是否开启
                     enable: true,
                     scrolling: this.scrolling,
                 },
@@ -131,12 +133,16 @@
             };
         },
         methods: {
+            // set all selection
+            setAllCellSelection() {
+                this.$refs["tableRef"].setAllCellSelection();
+            },
             // set range cell selection
             setRangeCellSelection() {
                 this.$refs["tableRef"].setRangeCellSelection({
                     startRowKey: 30,
                     startColKey: "col2",
-                    endRowKey: 35,
+                    endRowKey: 32,
                     endColKey: "col4",
                     isScrollToStartCell: true,
                 });

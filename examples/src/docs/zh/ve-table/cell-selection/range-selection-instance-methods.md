@@ -1,12 +1,12 @@
-:::anchor 单元格选中方法
+:::anchor 区域选择实例方法
 
-:::demo 你可以通过实例方法`setCellSelection({ rowKey, colKey })`设置单元格选中
+:::demo 1、通过实例方法`setAllCellSelection()`设置单元格全选<br>2、通过实例方法`setRangeCellSelection({ startRowKey,startColKey,endRowKey,endColKey,isScrollToStartCell })`设置区域单元格选中<br>
 
 ```html
 <template>
     <div>
-        <button class="button-demo" @click="setCellSelection(29,'col5')">选中第30行第5列</button>
-        <button class="button-demo" @click="setCellSelection(1,'col1')">选中第2行第1列</button>
+        <button class="button-demo" @click="setAllCellSelection()">区域全选</button>
+        <button class="button-demo" @click="setRangeCellSelection()">区域选择</button>
         <br />
         <br />
         <ve-table
@@ -133,9 +133,19 @@
             };
         },
         methods: {
-            // set cell selection
-            setCellSelection(rowKey, colKey) {
-                this.$refs["tableRef"].setCellSelection({ rowKey, colKey });
+            // set all selection
+            setAllCellSelection() {
+                this.$refs["tableRef"].setAllCellSelection();
+            },
+            // set range cell selection
+            setRangeCellSelection() {
+                this.$refs["tableRef"].setRangeCellSelection({
+                    startRowKey: 30,
+                    startColKey: "col2",
+                    endRowKey: 32,
+                    endColKey: "col4",
+                    isScrollToStartCell: true,
+                });
             },
             initTableData() {
                 let data = [];

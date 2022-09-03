@@ -121,7 +121,7 @@ export default {
                     key: "index",
                     // is operation column
                     operationColumn: true,
-                    title: "#",
+                    title: "",
                     width: 35,
                     fixed: "left",
                     renderBodyCell: this.renderRowIndex,
