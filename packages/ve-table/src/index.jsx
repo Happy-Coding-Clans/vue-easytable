@@ -3624,7 +3624,10 @@ export default {
                     }
                 },
                 mouseup: () => {
-                    this.tableContainerMouseup();
+                    // 事件的先后顺序 containerMouseup > bodyCellMousedown > bodyCellMouseup > bodyCellClick
+                    setTimeout(() => {
+                        this.tableContainerMouseup();
+                    });
                 },
             },
         };
