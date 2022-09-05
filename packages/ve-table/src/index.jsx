@@ -2696,14 +2696,14 @@ export default {
         // header contextmenu call back
         headerContextmenuCallBack(type) {
             const {
-                contextmenuBodyOption,
+                contextmenuHeaderOption,
                 tableData,
                 allRowKeys,
                 colgroups,
                 rowKeyFieldName,
             } = this;
 
-            const { callback } = contextmenuBodyOption;
+            const { callback } = contextmenuHeaderOption;
 
             // hide column
             if (CONTEXTMENU_TYPES.HIDE_COLUMN === type) {
@@ -2740,8 +2740,12 @@ export default {
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
                 const rowIndex = allRowKeys.findIndex((x) => x === rowKey);
 
+                // cut
+                if (CONTEXTMENU_TYPES.CUT === type) {
+                    //
+                }
                 // insert row above
-                if (CONTEXTMENU_TYPES.INSERT_ROW_ABOVE === type) {
+                else if (CONTEXTMENU_TYPES.INSERT_ROW_ABOVE === type) {
                     tableData.splice(
                         rowIndex,
                         0,
