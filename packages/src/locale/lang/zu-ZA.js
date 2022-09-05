@@ -11,9 +11,18 @@ export default {
         confirmFilter: "Qiniseka",
         resetFilter: "Setha Kabusha",
         // contextmenu event
+        cut: "Cut",
+        copy: "Copy",
+        paste: "Paste",
         insertRowAbove: "Insert row above",
         insertRowBelow: "Insert row below",
         removeRow: "Remove row",
+        emptyRow: "Empty row",
+        removeColumn: "Remove column",
+        emptyColumn: "Empty column",
         hideColumn: "Hide column",
+        emptyCell: "Empty cell",
+        leftFixedColumnTo: "Left fixed column to",
+        rightFixedColumnTo: "Right fixed column to",
     },
 };

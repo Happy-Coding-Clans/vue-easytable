@@ -210,14 +210,28 @@ export const INSTANCE_METHODS = {
 export const CONTEXTMENU_TYPES = {
     // separator
     SEPARATOR: "SEPARATOR",
+    // cut
+    CUT: "CUT",
+    // copy
+    COPY: "COPY",
+    // paste
+    PASTE: "PASTE",
     // insert row above
     INSERT_ROW_ABOVE: "INSERT_ROW_ABOVE",
     // insert row below
     INSERT_ROW_BELOW: "INSERT_ROW_BELOW",
     // remove row
     REMOVE_ROW: "REMOVE_ROW",
+    // empty row
+    EMPTY_ROW: "EMPTY_ROW",
+    // remove column
+    REMOVE_COLUMN: "REMOVE_COLUMN",
+    // empty column
+    EMPTY_COLUMN: "EMPTY_COLUMN",
     // hide column
     HIDE_COLUMN: "HIDE_COLUMN",
+    // empty cell
+    EMPTY_CELL: "EMPTY_CELL",
     // left fixed column to
     LEFT_FIXED_COLUMN_TO: "LEFT_FIXED_COLUMN_TO",
     // right fixed column to
