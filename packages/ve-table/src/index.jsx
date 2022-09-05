@@ -13,6 +13,7 @@ import {
     getColumnByColkey,
     getLeftmostColKey,
     isCellInSelectionRange,
+    isClearSelectionByBodyCellRightClick,
     cellAutofill,
     isOperationColumn,
     getSelectionRangeData,
@@ -38,7 +39,7 @@ import {
     isDefined,
     createLocale,
 } from "../../src/utils/index.js";
-import { KEY_CODES } from "../../src/utils/constant";
+import { KEY_CODES, MOUSE_EVENT_CLICK_TYPE } from "../../src/utils/constant";
 import { getScrollbarWidth } from "../../src/utils/scroll-bar";
 import {
     requestAnimationTimeout,
@@ -46,7 +47,7 @@ import {
 } from "../../src/utils/request-animation-timeout";
 import { isInputKeyCode } from "../../src/utils/event-key-codes";
 import Hooks from "../../src/utils/hooks-manager";
-import { getWhichMouseEvent } from "../../src/utils/mouse-event";
+import { getMouseEventClickType } from "../../src/utils/mouse-event";
 import emitter from "../../src/mixins/emitter";
 import {
     COMPS_NAME,
@@ -2179,12 +2180,7 @@ export default {
          * @param {object} column - column data
          */
         bodyCellContextmenu({ event, rowData, column }) {
-            const { editOption, rowKeyFieldName, colgroups } = this;
-
-            // cell selection by click
-            if (!isOperationColumn(column.key, colgroups)) {
-                this.cellSelectionByClick({ rowData, column });
-            }
+            const { editOption, rowKeyFieldName } = this;
 
             if (editOption) {
                 const rowKey = getRowKey(rowData, rowKeyFieldName);
@@ -2259,6 +2255,8 @@ export default {
                 rowKeyFieldName,
                 colgroups,
                 cellSelectionData,
+                cellSelectionRangeData,
+                allRowKeys,
             } = this;
 
             const rowKey = getRowKey(rowData, rowKeyFieldName);
@@ -2269,47 +2267,80 @@ export default {
 
             const { currentCell } = cellSelectionData;
 
+            const mouseEventClickType = getMouseEventClickType(event);
+            console.log("mouseEventClickType::", mouseEventClickType);
+
             if (isOperationColumn(colKey, colgroups)) {
                 const { bodyIndicatorRowKeys } = this;
                 this.isBodyOperationColumnMousedown = true;
 
-                let startRowKey;
-                let endRowKey;
+                const {
+                    startRowKey,
+                    endRowKey,
+                    startRowKeyIndex,
+                    endRowKeyIndex,
+                } = bodyIndicatorRowKeys;
+                let newStartRowKey = startRowKey;
+                let newEndRowKey = endRowKey;
 
                 if (
                     shiftKey &&
-                    (bodyIndicatorRowKeys.startRowKeyIndex > -1 ||
-                        currentCell.rowIndex > -1)
+                    (startRowKeyIndex > -1 || currentCell.rowIndex > -1)
                 ) {
-                    startRowKey = isEmptyValue(currentCell.rowKey)
-                        ? bodyIndicatorRowKeys.startRowKey
+                    newStartRowKey = isEmptyValue(currentCell.rowKey)
+                        ? startRowKey
                         : currentCell.rowKey;
-                    endRowKey = rowKey;
+                    newEndRowKey = rowKey;
                 } else {
-                    startRowKey = rowKey;
-                    endRowKey = rowKey;
+                    const currentRowIndex = allRowKeys.indexOf(rowKey);
+
+                    // 左键点击 || 不在当前选择行内
+                    if (
+                        mouseEventClickType ===
+                            MOUSE_EVENT_CLICK_TYPE.LEFT_MOUSE ||
+                        currentRowIndex < startRowKeyIndex ||
+                        currentRowIndex > endRowKeyIndex
+                    ) {
+                        newStartRowKey = rowKey;
+                        newEndRowKey = rowKey;
+                    }
                 }
 
                 this.bodyIndicatorRowKeysChange({
-                    startRowKey,
-                    endRowKey,
+                    startRowKey: newStartRowKey,
+                    endRowKey: newEndRowKey,
                 });
             } else {
                 // body cell mousedown
                 this.isBodyCellMousedown = true;
 
-                // clear body indicator colKeys
-                this.clearBodyIndicatorRowKeys();
-
-                if (shiftKey && currentCell.rowIndex > -1) {
-                    this.cellSelectionNormalEndCellChange({
-                        rowKey,
-                        colKey,
+                const isClearByRightClick =
+                    isClearSelectionByBodyCellRightClick({
+                        mouseEventClickType,
+                        cellData: {
+                            rowKey,
+                            colKey,
+                        },
+                        cellSelectionData,
+                        cellSelectionRangeData,
+                        colgroups,
+                        allRowKeys,
                     });
-                } else {
-                    // cell selection by click
-                    this.cellSelectionByClick({ rowData, column });
-                    this.clearCellSelectionNormalEndCell();
+
+                if (isClearByRightClick) {
+                    // clear body indicator colKeys
+                    this.clearBodyIndicatorRowKeys();
+
+                    if (shiftKey && currentCell.rowIndex > -1) {
+                        this.cellSelectionNormalEndCellChange({
+                            rowKey,
+                            colKey,
+                        });
+                    } else {
+                        // cell selection by click
+                        this.cellSelectionByClick({ rowData, column });
+                        this.clearCellSelectionNormalEndCell();
+                    }
                 }
             }
 

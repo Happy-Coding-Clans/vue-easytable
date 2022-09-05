@@ -4,6 +4,7 @@ import {
     COLUMN_FIXED_TYPE,
     AUTOFILLING_DIRECTION,
 } from "./constant";
+import { MOUSE_EVENT_CLICK_TYPE } from "../../../src/utils/constant";
 import { isEmptyValue, isEmptyArray } from "../../../src/utils/index";
 import { getRandomId } from "../../../src/utils/random";
 
@@ -468,7 +469,7 @@ export function getRowKeysByRangeRowKeys({
  * @param {object} cellSelectionRangeData
  * @param {array<object>} colgroups
  * @param {array<object>} allRowKeys
- * @return Array<colKeys>
+ * @return {Array<colKeys>}
  */
 export function isCellInSelectionRange({
     cellData,
@@ -497,6 +498,39 @@ export function isCellInSelectionRange({
         return true;
     }
     return false;
+}
+
+/**
+ * @isClearSelectionByBodyCellRightClick
+ * @desc is clear selection by body cell click
+ * @param {number} mouseEventClickType
+ * @param {object} cellData - cell data
+ * @param {object} cellSelectionRangeData
+ * @param {array<object>} colgroups
+ * @param {array<object>} allRowKeys
+ * @return {bool}
+ */
+export function isClearSelectionByBodyCellRightClick({
+    mouseEventClickType,
+    cellData,
+    cellSelectionData,
+    cellSelectionRangeData,
+    colgroups,
+    allRowKeys,
+}) {
+    let result = true;
+    if (mouseEventClickType === MOUSE_EVENT_CLICK_TYPE.RIGHT_MOUSE) {
+        const { normalEndCell } = cellSelectionData;
+        if (normalEndCell.rowIndex > -1) {
+            result = !isCellInSelectionRange({
+                cellData,
+                cellSelectionRangeData,
+                colgroups,
+                allRowKeys,
+            });
+        }
+    }
+    return result;
 }
 
 /**
