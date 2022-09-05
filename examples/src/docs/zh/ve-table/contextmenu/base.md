@@ -45,16 +45,35 @@
                     // contextmenus
                     contextmenus: [
                         {
-                            type: "LEFT_FIXED_COLUMN_TO",
+                            type: "CUT",
                         },
                         {
-                            type: "RIGHT_FIXED_COLUMN_TO",
+                            type: "CUT",
+                        },
+                        {
+                            type: "PASTE",
                         },
                         {
                             type: "SEPARATOR",
                         },
                         {
+                            type: "REMOVE_COLUMN",
+                        },
+                        {
+                            type: "EMPTY_COLUMN",
+                        },
+                        {
                             type: "HIDE_COLUMN",
+                        },
+                        {
+                            type: "SEPARATOR",
+                        },
+
+                        {
+                            type: "LEFT_FIXED_COLUMN_TO",
+                        },
+                        {
+                            type: "RIGHT_FIXED_COLUMN_TO",
                         },
                     ],
                 },
@@ -70,6 +89,18 @@
                     // contextmenus
                     contextmenus: [
                         {
+                            type: "CUT",
+                        },
+                        {
+                            type: "CUT",
+                        },
+                        {
+                            type: "PASTE",
+                        },
+                        {
+                            type: "SEPARATOR",
+                        },
+                        {
                             type: "INSERT_ROW_ABOVE",
                         },
                         {
@@ -82,10 +113,13 @@
                             type: "REMOVE_ROW",
                         },
                         {
-                            type: "SEPARATOR",
+                            type: "EMPTY_ROW",
                         },
                         {
-                            type: "HIDE_COLUMN",
+                            type: "REMOVE_COLUMN",
+                        },
+                        {
+                            type: "EMPTY_CELL",
                         },
                     ],
                 },

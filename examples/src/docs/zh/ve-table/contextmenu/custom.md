@@ -16,6 +16,7 @@
             :virtual-scroll-option="virtualScrollOption"
             border-y
             :contextmenu-body-option="contextmenuBodyOption"
+            :contextmenu-header-option="contextmenuHeaderOption"
         />
     </div>
 </template>
@@ -28,6 +29,30 @@
                     // 是否开启
                     enable: true,
                     scrolling: this.scrolling,
+                },
+                // contextmenu header option
+                contextmenuHeaderOption: {
+                    // callback for all options
+                    callback: ({ type, selection }) => {
+                        console.log("type::", type);
+                        console.log("selection::", selection);
+                    },
+
+                    // contextmenus
+                    contextmenus: [
+                        {
+                            type: "LEFT_FIXED_COLUMN_TO",
+                        },
+                        {
+                            type: "RIGHT_FIXED_COLUMN_TO",
+                        },
+                        {
+                            type: "SEPARATOR",
+                        },
+                        {
+                            type: "HIDE_COLUMN",
+                        },
+                    ],
                 },
                 // contextmenu body option
                 contextmenuBodyOption: {
