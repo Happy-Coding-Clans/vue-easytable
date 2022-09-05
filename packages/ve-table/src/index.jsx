@@ -38,7 +38,15 @@ import {
     isDefined,
     createLocale,
 } from "../../src/utils/index.js";
-
+import { KEY_CODES } from "../../src/utils/constant";
+import { getScrollbarWidth } from "../../src/utils/scroll-bar";
+import {
+    requestAnimationTimeout,
+    cancelAnimationTimeout,
+} from "../../src/utils/request-animation-timeout";
+import { isInputKeyCode } from "../../src/utils/event-key-codes";
+import Hooks from "../../src/utils/hooks-manager";
+import { getWhichMouseEvent } from "../../src/utils/mouse-event";
 import emitter from "../../src/mixins/emitter";
 import {
     COMPS_NAME,
@@ -59,16 +67,8 @@ import Body from "./body";
 import Footer from "./footer";
 import EditInput from "./editor/edit-input";
 import Selection from "./selection/index";
-import { KEY_CODES } from "../../src/utils/constant";
-import { getScrollbarWidth } from "../../src/utils/scroll-bar";
-import {
-    requestAnimationTimeout,
-    cancelAnimationTimeout,
-} from "../../src/utils/request-animation-timeout";
-import { isInputKeyCode } from "../../src/utils/event-key-codes";
 import clickoutside from "../../src/directives/clickoutside";
 import VueDomResizeObserver from "../../src/comps/resize-observer";
-import Hooks from "../../src/utils/hooks-manager";
 import VeContextmenu from "vue-easytable/packages/ve-contextmenu";
 
 const t = createLocale(LOCALE_COMP_NAME);
@@ -2080,6 +2080,7 @@ export default {
 
             // clear indicators
             this.clearHeaderIndicatorColKeys();
+            this.clearBodyIndicatorRowKeys();
 
             // stop editing cell
             this[INSTANCE_METHODS.STOP_EDITING_CELL]();
@@ -2253,13 +2254,20 @@ export default {
 
             const { shiftKey } = event;
 
-            const { editOption, rowKeyFieldName, colgroups } = this;
+            const {
+                editOption,
+                rowKeyFieldName,
+                colgroups,
+                cellSelectionData,
+            } = this;
 
             const rowKey = getRowKey(rowData, rowKeyFieldName);
             const colKey = column.key;
 
             // clear header indicator colKeys
             this.clearHeaderIndicatorColKeys();
+
+            const { currentCell } = cellSelectionData;
 
             if (isOperationColumn(colKey, colgroups)) {
                 const { bodyIndicatorRowKeys } = this;
@@ -2268,8 +2276,14 @@ export default {
                 let startRowKey;
                 let endRowKey;
 
-                if (shiftKey) {
-                    startRowKey = bodyIndicatorRowKeys.startRowKey;
+                if (
+                    shiftKey &&
+                    (bodyIndicatorRowKeys.startRowKeyIndex > -1 ||
+                        currentCell.rowIndex > -1)
+                ) {
+                    startRowKey = isEmptyValue(currentCell.rowKey)
+                        ? bodyIndicatorRowKeys.startRowKey
+                        : currentCell.rowKey;
                     endRowKey = rowKey;
                 } else {
                     startRowKey = rowKey;
@@ -2287,7 +2301,7 @@ export default {
                 // clear body indicator colKeys
                 this.clearBodyIndicatorRowKeys();
 
-                if (shiftKey) {
+                if (shiftKey && currentCell.rowIndex > -1) {
                     this.cellSelectionNormalEndCellChange({
                         rowKey,
                         colKey,
@@ -3625,9 +3639,7 @@ export default {
                 },
                 mouseup: () => {
                     // 事件的先后顺序 containerMouseup > bodyCellMousedown > bodyCellMouseup > bodyCellClick
-                    setTimeout(() => {
-                        this.tableContainerMouseup();
-                    });
+                    this.tableContainerMouseup();
                 },
             },
         };
