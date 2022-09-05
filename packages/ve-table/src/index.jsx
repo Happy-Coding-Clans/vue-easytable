@@ -2268,7 +2268,6 @@ export default {
             const { currentCell } = cellSelectionData;
 
             const mouseEventClickType = getMouseEventClickType(event);
-            console.log("mouseEventClickType::", mouseEventClickType);
 
             if (isOperationColumn(colKey, colgroups)) {
                 const { bodyIndicatorRowKeys } = this;
@@ -2458,6 +2457,9 @@ export default {
                 colKeys = [column.key];
             }
 
+            const currentCellStartColKey = colKeys[0];
+            const currentCellEndColKey = colKeys[colKeys.length - 1];
+
             // 需要先将之前选中单元格元素清空
             if (isEmptyValue(headerIndicatorColKeys.startColKey)) {
                 this.$refs[this.cellSelectionRef].clearCellRects();
@@ -2469,10 +2471,13 @@ export default {
                 return false;
             }
 
-            let startColKey;
-            let endColKey;
+            const { startColKey, endColKey, startColKeyIndex, endColKeyIndex } =
+                headerIndicatorColKeys;
+
+            let newStartColKey = startColKey;
+            let newEndColKey = endColKey;
             if (shiftKey) {
-                if (isEmptyValue(headerIndicatorColKeys.startColKey)) {
+                if (isEmptyValue(startColKey)) {
                     const { currentCell } = cellSelectionData;
                     if (!isEmptyValue(currentCell.colKey)) {
                         const leftColKey = getLeftmostColKey({
@@ -2480,39 +2485,53 @@ export default {
                             colKeys: colKeys.concat([currentCell.colKey]),
                         });
 
-                        startColKey = currentCell.colKey;
+                        newStartColKey = currentCell.colKey;
                         if (leftColKey === currentCell.colKey) {
-                            endColKey = colKeys[colKeys.length - 1];
+                            newEndColKey = currentCellEndColKey;
                         } else {
-                            endColKey = colKeys[0];
+                            newEndColKey = currentCellStartColKey;
                         }
                     } else {
-                        startColKey = colKeys[0];
-                        endColKey = colKeys[colKeys.length - 1];
+                        newStartColKey = currentCellStartColKey;
+                        newEndColKey = currentCellEndColKey;
                     }
                 } else {
-                    startColKey = headerIndicatorColKeys.startColKey;
+                    newStartColKey = startColKey;
                     const leftColKey = getLeftmostColKey({
                         colgroups,
-                        colKeys: colKeys.concat([
-                            headerIndicatorColKeys.startColKey,
-                        ]),
+                        colKeys: colKeys.concat([startColKey]),
                     });
 
-                    if (leftColKey === headerIndicatorColKeys.startColKey) {
-                        endColKey = colKeys[colKeys.length - 1];
+                    if (leftColKey === startColKey) {
+                        newEndColKey = currentCellEndColKey;
                     } else {
-                        endColKey = colKeys[0];
+                        newEndColKey = currentCellStartColKey;
                     }
                 }
             } else {
-                startColKey = colKeys[0];
-                endColKey = colKeys[colKeys.length - 1];
+                const mouseEventClickType = getMouseEventClickType(event);
+                const currentCellStartColIndex = colgroups.findIndex(
+                    (x) => x.key === currentCellEndColKey,
+                );
+                const currentCellEndColIndex = colgroups.findIndex(
+                    (x) => x.key === currentCellStartColKey,
+                );
+                // 左键点击 || 不在当前选择列内
+                if (
+                    mouseEventClickType === MOUSE_EVENT_CLICK_TYPE.LEFT_MOUSE ||
+                    currentCellStartColIndex < startColKeyIndex ||
+                    currentCellEndColIndex < startColKeyIndex ||
+                    currentCellStartColIndex > endColKeyIndex ||
+                    currentCellEndColIndex > endColKeyIndex
+                ) {
+                    newStartColKey = currentCellStartColKey;
+                    newEndColKey = currentCellEndColKey;
+                }
             }
 
             this.headerIndicatorColKeysChange({
-                startColKey,
-                endColKey,
+                startColKey: newStartColKey,
+                endColKey: newEndColKey,
             });
         },
 
