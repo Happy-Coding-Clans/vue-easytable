@@ -314,10 +314,10 @@ export function getHeaderContextmenuOptionCollection(t) {
             label: t("copy"),
             type: CONTEXTMENU_TYPES.COPY,
         },
-        {
-            label: t("paste"),
-            type: CONTEXTMENU_TYPES.PASTE,
-        },
+        // {
+        //     label: t("paste"),
+        //     type: CONTEXTMENU_TYPES.PASTE,
+        // },
         {
             label: t("removeColumn"),
             type: CONTEXTMENU_TYPES.REMOVE_COLUMN,
@@ -355,10 +355,10 @@ export function getBodyContextmenuOptionCollection(t) {
             label: t("copy"),
             type: CONTEXTMENU_TYPES.COPY,
         },
-        {
-            label: t("paste"),
-            type: CONTEXTMENU_TYPES.PASTE,
-        },
+        // {
+        //     label: t("paste"),
+        //     type: CONTEXTMENU_TYPES.PASTE,
+        // },
         {
             label: t("insertRowAbove"),
             type: CONTEXTMENU_TYPES.INSERT_ROW_ABOVE,

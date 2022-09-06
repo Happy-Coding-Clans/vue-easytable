@@ -214,8 +214,8 @@ export const CONTEXTMENU_TYPES = {
     CUT: "CUT",
     // copy
     COPY: "COPY",
-    // paste
-    PASTE: "PASTE",
+    // paste todo
+    //PASTE: "PASTE",
     // insert row above
     INSERT_ROW_ABOVE: "INSERT_ROW_ABOVE",
     // insert row below
