@@ -401,6 +401,17 @@ export function createEmptyRowData({ colgroups, rowKeyFieldName }) {
     return rowData;
 }
 
+//  empty row data
+export function emptyRowData({ rowData, rowKeyFieldName }) {
+    Object.keys(rowData).forEach((key) => {
+        if (key !== rowKeyFieldName) {
+            rowData[key] = "";
+        }
+    });
+
+    return rowData;
+}
+
 // is contextmenu panel clicked
 export function isContextmenuPanelClicked(event) {
     let result = false;
