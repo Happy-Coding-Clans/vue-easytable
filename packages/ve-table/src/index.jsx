@@ -6,6 +6,7 @@ import {
     recursiveRemoveColumnByKey,
     getBodyContextmenuOptionCollection,
     getHeaderContextmenuOptionCollection,
+    emptyRowData,
     createEmptyRowData,
     isContextmenuPanelClicked,
     getRowKey,
@@ -17,6 +18,8 @@ import {
     cellAutofill,
     isOperationColumn,
     getSelectionRangeData,
+    getSelectionRangeKeys,
+    getSelectionRangeIndexes,
 } from "./util";
 import {
     onBeforeCopy,
@@ -435,6 +438,10 @@ export default {
             headerContextmenuEventTarget: "",
             // body contextmenu event target
             bodyContextmenuEventTarget: "",
+            // body contextmenu options
+            bodyContextmenuOptions: [],
+            // header contextmenu options
+            headerContextmenuOptions: [],
         };
     },
     computed: {
@@ -694,56 +701,6 @@ export default {
         // enable clipboard
         enableClipboard() {
             return this.rowKeyFieldName;
-        },
-        // headerContextmenuOptions
-        headerContextmenuOptions() {
-            let result = [];
-            const { enableHeaderContextmenu, contextmenuHeaderOption } = this;
-            if (enableHeaderContextmenu) {
-                const { contextmenus } = contextmenuHeaderOption;
-
-                const headerContextmenuOptionCollection =
-                    getHeaderContextmenuOptionCollection(t);
-
-                contextmenus.forEach((contextmenu) => {
-                    const contentmenuCollectionItem =
-                        headerContextmenuOptionCollection.find(
-                            (x) => x.type === contextmenu.type,
-                        );
-                    if (contentmenuCollectionItem) {
-                        result.push(contentmenuCollectionItem);
-                    } else {
-                        result.push(contextmenu);
-                    }
-                });
-            }
-
-            return result;
-        },
-        // bodyContextmenuOptions
-        bodyContextmenuOptions() {
-            let result = [];
-            const { enableBodyContextmenu, contextmenuBodyOption } = this;
-            if (enableBodyContextmenu) {
-                const { contextmenus } = contextmenuBodyOption;
-
-                const bodyContextmenuOptionCollection =
-                    getBodyContextmenuOptionCollection(t);
-
-                contextmenus.forEach((contextmenu) => {
-                    const contentmenuCollectionItem =
-                        bodyContextmenuOptionCollection.find(
-                            (x) => x.type === contextmenu.type,
-                        );
-                    if (contentmenuCollectionItem) {
-                        result.push(contentmenuCollectionItem);
-                    } else {
-                        result.push(contextmenu);
-                    }
-                });
-            }
-
-            return result;
         },
         // header total height
         headerTotalHeight() {
@@ -2173,6 +2130,32 @@ export default {
             this.rowToVisible(KEY_CODES.ARROW_DOWN, rowKey);
         },
 
+        // set body contextmenu options
+        setBodyContextmenuOptions() {
+            let result = [];
+            const { enableBodyContextmenu, contextmenuBodyOption } = this;
+            if (enableBodyContextmenu) {
+                const { contextmenus } = contextmenuBodyOption;
+
+                const bodyContextmenuOptionCollection =
+                    getBodyContextmenuOptionCollection(t);
+
+                contextmenus.forEach((contextmenu) => {
+                    const contentmenuCollectionItem =
+                        bodyContextmenuOptionCollection.find(
+                            (x) => x.type === contextmenu.type,
+                        );
+                    if (contentmenuCollectionItem) {
+                        result.push(contentmenuCollectionItem);
+                    } else {
+                        result.push(contextmenu);
+                    }
+                });
+            }
+
+            this.bodyContextmenuOptions = result;
+        },
+
         /*
          * @bodyCellContextmenu
          * @desc  recieve td right click\contextmenu event
@@ -2190,6 +2173,8 @@ export default {
                     colKey: column.key,
                 });
             }
+
+            this.setBodyContextmenuOptions();
 
             // close header contextmenu panel
             const headerContextmenuRef = this.$refs[this.headerContextmenuRef];
@@ -2419,8 +2404,36 @@ export default {
             // feature...
         },
 
+        // set header contextmenu options
+        setHeaderContextmenuOptions() {
+            let result = [];
+            const { enableHeaderContextmenu, contextmenuHeaderOption } = this;
+            if (enableHeaderContextmenu) {
+                const { contextmenus } = contextmenuHeaderOption;
+
+                const headerContextmenuOptionCollection =
+                    getHeaderContextmenuOptionCollection(t);
+
+                contextmenus.forEach((contextmenu) => {
+                    const contentmenuCollectionItem =
+                        headerContextmenuOptionCollection.find(
+                            (x) => x.type === contextmenu.type,
+                        );
+                    if (contentmenuCollectionItem) {
+                        result.push(contentmenuCollectionItem);
+                    } else {
+                        result.push(contextmenu);
+                    }
+                });
+            }
+
+            this.headerContextmenuOptions = result;
+        },
+
         // header cell contextmenu
         headerCellContextmenu({ event, column }) {
+            this.setHeaderContextmenuOptions();
+
             // close body contextmenu panel
             const bodyContextmenuRef = this.$refs[this.bodyContextmenuRef];
             if (bodyContextmenuRef) {
@@ -2728,26 +2741,76 @@ export default {
             const {
                 contextmenuBodyOption,
                 cellSelectionData,
+                cellSelectionRangeData,
                 tableData,
                 allRowKeys,
                 colgroups,
                 rowKeyFieldName,
             } = this;
 
+            // const { bottomRowKey,
+            //     leftColKey,
+            //     rightColKey,
+            //     topRowKey } = cellSelectionRangeData;
             const { rowKey, colKey } = cellSelectionData.currentCell;
             const { callback } = contextmenuBodyOption;
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                const rowIndex = allRowKeys.findIndex((x) => x === rowKey);
+                let selectionRangeKeys = getSelectionRangeKeys({
+                    cellSelectionRangeData,
+                });
+
+                let selectionRangeIndexes = getSelectionRangeIndexes({
+                    cellSelectionRangeData,
+                    colgroups,
+                    allRowKeys,
+                });
+
+                const { startRowIndex, endRowIndex } = selectionRangeIndexes;
+
+                const currentRowIndex = allRowKeys.findIndex(
+                    (x) => x === rowKey,
+                );
+
+                const editInputEditor = this.$refs[this.editInputRef];
 
                 // cut
                 if (CONTEXTMENU_TYPES.CUT === type) {
-                    //
+                    editInputEditor.textareaSelect();
+                    document.execCommand("cut");
+                }
+                // copy
+                else if (CONTEXTMENU_TYPES.COPY === type) {
+                    editInputEditor.textareaSelect();
+                    document.execCommand("copy");
+                }
+                // paste todo
+                // else if (CONTEXTMENU_TYPES.PASTE === type) {
+                //     editInputEditor.textareaSelect();
+                //     document.execCommand("paste", null, null);
+                // }
+                // remove rows
+                else if (CONTEXTMENU_TYPES.REMOVE_ROW === type) {
+                    tableData.splice(
+                        startRowIndex,
+                        endRowIndex - startRowIndex + 1,
+                    );
+                }
+                // empty rows
+                else if (CONTEXTMENU_TYPES.EMPTY_ROW === type) {
+                    tableData.forEach((rowData, index) => {
+                        if (index >= startRowIndex && index <= endRowIndex) {
+                            emptyRowData({
+                                rowData,
+                                rowKeyFieldName,
+                            });
+                        }
+                    });
                 }
                 // insert row above
                 else if (CONTEXTMENU_TYPES.INSERT_ROW_ABOVE === type) {
                     tableData.splice(
-                        rowIndex,
+                        currentRowIndex,
                         0,
                         createEmptyRowData({ colgroups, rowKeyFieldName }),
                     );
@@ -2755,25 +2818,18 @@ export default {
                 // insert row below
                 else if (CONTEXTMENU_TYPES.INSERT_ROW_BELOW === type) {
                     tableData.splice(
-                        rowIndex + 1,
+                        currentRowIndex + 1,
                         0,
                         createEmptyRowData({ colgroups, rowKeyFieldName }),
                     );
-                }
-                // remove row
-                else if (CONTEXTMENU_TYPES.REMOVE_ROW === type) {
-                    tableData.splice(rowIndex, 1);
-                }
-                // hide column
-                else if (CONTEXTMENU_TYPES.HIDE_COLUMN === type) {
-                    this[INSTANCE_METHODS.HIDE_COLUMNS_BY_KEYS]([colKey]);
                 }
 
                 // callback
                 if (isFunction(callback)) {
                     callback({
                         type,
-                        selection: cellSelectionData.currentCell,
+                        selectionRangeKeys,
+                        selectionRangeIndexes,
                     });
                 }
             }
