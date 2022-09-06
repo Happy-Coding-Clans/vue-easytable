@@ -48,7 +48,7 @@
                             type: "CUT",
                         },
                         {
-                            type: "CUT",
+                            type: "COPY",
                         },
                         {
                             type: "PASTE",
