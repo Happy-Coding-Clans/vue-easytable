@@ -372,12 +372,12 @@ export function getBodyContextmenuOptionCollection(t) {
             type: CONTEXTMENU_TYPES.REMOVE_ROW,
         },
         {
-            label: t("removeColumn"),
-            type: CONTEXTMENU_TYPES.REMOVE_COLUMN,
-        },
-        {
             label: t("emptyRow"),
             type: CONTEXTMENU_TYPES.EMPTY_ROW,
+        },
+        {
+            label: t("removeColumn"),
+            type: CONTEXTMENU_TYPES.REMOVE_COLUMN,
         },
         {
             label: t("emptyCell"),
