@@ -67,7 +67,6 @@
                         {
                             type: "SEPARATOR",
                         },
-
                         {
                             type: "LEFT_FIXED_COLUMN_TO",
                         },
