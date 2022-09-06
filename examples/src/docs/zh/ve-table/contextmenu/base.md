@@ -37,9 +37,11 @@
                 // contextmenu header option
                 contextmenuHeaderOption: {
                     // callback for all options
-                    callback: ({ type, selection }) => {
+                    callback: ({ type, selectionRangeKeys, selectionRangeIndexes }) => {
+                        console.log("---contextmenuHeaderOption--");
                         console.log("type::", type);
-                        console.log("selection::", selection);
+                        console.log("selectionRangeKeys::", selectionRangeKeys);
+                        console.log("selectionRangeIndexes::", selectionRangeIndexes);
                     },
 
                     // contextmenus
@@ -49,9 +51,6 @@
                         },
                         {
                             type: "COPY",
-                        },
-                        {
-                            type: "PASTE",
                         },
                         {
                             type: "SEPARATOR",
@@ -81,9 +80,11 @@
                 // contextmenu body option
                 contextmenuBodyOption: {
                     // callback for all options
-                    callback: ({ type, selection }) => {
+                    callback: ({ type, selectionRangeKeys, selectionRangeIndexes }) => {
+                        console.log("---contextmenuBodyOption--");
                         console.log("type::", type);
-                        console.log("selection::", selection);
+                        console.log("selectionRangeKeys::", selectionRangeKeys);
+                        console.log("selectionRangeIndexes::", selectionRangeIndexes);
                     },
 
                     // contextmenus
@@ -92,10 +93,7 @@
                             type: "CUT",
                         },
                         {
-                            type: "CUT",
-                        },
-                        {
-                            type: "PASTE",
+                            type: "COPY",
                         },
                         {
                             type: "SEPARATOR",
