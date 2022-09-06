@@ -20,7 +20,7 @@ export default {
         emptyRow: "清空行",
         removeColumn: "删除列",
         emptyColumn: "清空列",
-        hideColumn: "隐藏该列",
+        hideColumn: "隐藏列",
         emptyCell: "清空单元格",
         leftFixedColumnTo: "左列冻结至该列",
         rightFixedColumnTo: "右列冻结至该列",
