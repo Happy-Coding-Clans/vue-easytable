@@ -13,7 +13,6 @@ export default {
         // contextmenu event
         cut: "Cut",
         copy: "Copy",
-        paste: "Paste",
         insertRowAbove: "Insert row above",
         insertRowBelow: "Insert row below",
         removeRow: "Remove row",

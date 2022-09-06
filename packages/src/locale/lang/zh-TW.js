@@ -13,7 +13,6 @@ export default {
         // contextmenu
         cut: "剪切",
         copy: "複製",
-        paste: "粘貼",
         insertRowAbove: "上方插入行",
         insertRowBelow: "下方插入行",
         removeRow: "删除行",
