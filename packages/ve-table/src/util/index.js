@@ -574,6 +574,46 @@ export function isClearSelectionByBodyCellRightClick({
 }
 
 /**
+ * @getSelectionRangeKeys
+ * @desc get selection range keys
+ * @param {object} cellSelectionRangeData
+ * @return Array<colKeys>
+ */
+export function getSelectionRangeKeys({ cellSelectionRangeData }) {
+    const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
+        cellSelectionRangeData;
+    return {
+        startColKey: leftColKey,
+        endColKey: rightColKey,
+        startRowKey: topRowKey,
+        endRowKey: bottomRowKey,
+    };
+}
+
+/**
+ * @getSelectionRangeIndexes
+ * @desc get selection range indexes
+ * @param {object} cellSelectionRangeData
+ * @param {array<object>} colgroups
+ * @param {array<object>} allRowKeys
+ * @return Array<colKeys>
+ */
+export function getSelectionRangeIndexes({
+    cellSelectionRangeData,
+    colgroups,
+    allRowKeys,
+}) {
+    const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
+        cellSelectionRangeData;
+    return {
+        startColIndex: colgroups.findIndex((x) => x.key === leftColKey),
+        endColIndex: colgroups.findIndex((x) => x.key === rightColKey),
+        startRowIndex: allRowKeys.indexOf(topRowKey),
+        endRowIndex: allRowKeys.indexOf(bottomRowKey),
+    };
+}
+
+/**
  * @getSelectionRangeData
  * @desc get selection range data
  * @param {object} cellSelectionRangeData
