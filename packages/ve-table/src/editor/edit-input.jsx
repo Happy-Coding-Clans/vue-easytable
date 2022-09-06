@@ -1,4 +1,5 @@
 import { clsName, getFixedTotalWidthByColumnKey } from "../util";
+import { INSTANCE_METHODS } from "./constant";
 import { COMPS_NAME, EMIT_EVENTS, HOOKS_NAME } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 import focus from "../../../src/directives/focus.js";
@@ -237,12 +238,7 @@ export default {
                 解决通过点击的区域选择，无法复制的问题
                 */
                 if (!isEmptyValue(val.colKey)) {
-                    const textareaInputEl = this.$refs[this.textareaInputRef];
-                    if (textareaInputEl) {
-                        setTimeout(() => {
-                            textareaInputEl.select();
-                        });
-                    }
+                    this[INSTANCE_METHODS.TEXTAREA_SELECT]();
                 }
             },
             deep: true,
@@ -419,8 +415,16 @@ export default {
             this.$emit(EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE, val);
         },
 
+        // textarea select
+        [INSTANCE_METHODS.TEXTAREA_SELECT]() {
+            const textareaInputEl = this.$refs[this.textareaInputRef];
+            if (textareaInputEl) {
+                textareaInputEl.select();
+            }
+        },
+
         // textarea add new line
-        textareaAddNewLine() {
+        [INSTANCE_METHODS.TEXTAREA_ADD_NEW_LINE]() {
             const { isCellEditing, editingCell } = this;
 
             if (isCellEditing) {
