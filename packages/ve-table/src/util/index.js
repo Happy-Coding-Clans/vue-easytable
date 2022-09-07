@@ -309,10 +309,12 @@ export function getHeaderContextmenuOptionCollection(t) {
         {
             label: t("cut"),
             type: CONTEXTMENU_TYPES.CUT,
+            disable: false,
         },
         {
             label: t("copy"),
             type: CONTEXTMENU_TYPES.COPY,
+            disable: false,
         },
         // {
         //     label: t("paste"),
@@ -321,22 +323,27 @@ export function getHeaderContextmenuOptionCollection(t) {
         {
             label: t("removeColumn"),
             type: CONTEXTMENU_TYPES.REMOVE_COLUMN,
+            disable: false,
         },
         {
             label: t("emptyColumn"),
             type: CONTEXTMENU_TYPES.EMPTY_COLUMN,
+            disable: false,
         },
         {
             label: t("hideColumn"),
             type: CONTEXTMENU_TYPES.HIDE_COLUMN,
+            disable: false,
         },
         {
             label: t("leftFixedColumnTo"),
             type: CONTEXTMENU_TYPES.LEFT_FIXED_COLUMN_TO,
+            disable: false,
         },
         {
             label: t("rightFixedColumnTo"),
             type: CONTEXTMENU_TYPES.RIGHT_FIXED_COLUMN_TO,
+            disable: false,
         },
     ];
 }
@@ -350,10 +357,12 @@ export function getBodyContextmenuOptionCollection(t) {
         {
             label: t("cut"),
             type: CONTEXTMENU_TYPES.CUT,
+            disable: false,
         },
         {
             label: t("copy"),
             type: CONTEXTMENU_TYPES.COPY,
+            disable: false,
         },
         // {
         //     label: t("paste"),
@@ -362,26 +371,32 @@ export function getBodyContextmenuOptionCollection(t) {
         {
             label: t("insertRowAbove"),
             type: CONTEXTMENU_TYPES.INSERT_ROW_ABOVE,
+            disable: false,
         },
         {
             label: t("insertRowBelow"),
             type: CONTEXTMENU_TYPES.INSERT_ROW_BELOW,
+            disable: false,
         },
         {
             label: t("removeRow"),
             type: CONTEXTMENU_TYPES.REMOVE_ROW,
+            disable: false,
         },
         {
             label: t("emptyRow"),
             type: CONTEXTMENU_TYPES.EMPTY_ROW,
+            disable: false,
         },
         {
             label: t("removeColumn"),
             type: CONTEXTMENU_TYPES.REMOVE_COLUMN,
+            disable: false,
         },
         {
             label: t("emptyCell"),
             type: CONTEXTMENU_TYPES.EMPTY_CELL,
+            disable: false,
         },
     ];
 }
@@ -402,15 +417,15 @@ export function createEmptyRowData({ colgroups, rowKeyFieldName }) {
 }
 
 //  empty row data
-export function emptyRowData({ rowData, rowKeyFieldName }) {
-    Object.keys(rowData).forEach((key) => {
-        if (key !== rowKeyFieldName) {
-            rowData[key] = "";
-        }
-    });
+// export function emptyRowData({ rowData, rowKeyFieldName }) {
+//     Object.keys(rowData).forEach((key) => {
+//         if (key !== rowKeyFieldName) {
+//             rowData[key] = "";
+//         }
+//     });
 
-    return rowData;
-}
+//     return rowData;
+// }
 
 // is contextmenu panel clicked
 export function isContextmenuPanelClicked(event) {
