@@ -225,11 +225,11 @@ export const CONTEXTMENU_TYPES = {
     // empty row
     EMPTY_ROW: "EMPTY_ROW",
     // remove column
-    REMOVE_COLUMN: "REMOVE_COLUMN",
+    //REMOVE_COLUMN: "REMOVE_COLUMN",
     // empty column
     EMPTY_COLUMN: "EMPTY_COLUMN",
     // hide column
-    HIDE_COLUMN: "HIDE_COLUMN",
+    //HIDE_COLUMN: "HIDE_COLUMN",
     // empty cell
     EMPTY_CELL: "EMPTY_CELL",
     // left fixed column to

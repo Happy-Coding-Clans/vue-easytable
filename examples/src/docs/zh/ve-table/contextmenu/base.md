@@ -56,13 +56,7 @@
                             type: "SEPARATOR",
                         },
                         {
-                            type: "REMOVE_COLUMN",
-                        },
-                        {
                             type: "EMPTY_COLUMN",
-                        },
-                        {
-                            type: "HIDE_COLUMN",
                         },
                         {
                             type: "SEPARATOR",
@@ -111,9 +105,6 @@
                         },
                         {
                             type: "EMPTY_ROW",
-                        },
-                        {
-                            type: "REMOVE_COLUMN",
                         },
                         {
                             type: "EMPTY_CELL",
