@@ -12,7 +12,7 @@ V2.19.0
 ### Breaking Changes
 
 -   修改表格右键菜单的非中文文字，将开头小写字母转大写字母
--   右键菜单回调函数参数移除`selection`,新增`selectionRangeKeys`以及`selectionRangeIndexes` [详情]
+-   表格右键菜单功能，移除回调函数`callback({type, selection})` 使用`afterMenuClick({ type, selectionRangeKeys, selectionRangeIndexes })`替代 [详情]
 
 ### Feature
 
