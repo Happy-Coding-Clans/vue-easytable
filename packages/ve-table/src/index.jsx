@@ -6,7 +6,6 @@ import {
     recursiveRemoveColumnByKey,
     getBodyContextmenuOptionCollection,
     getHeaderContextmenuOptionCollection,
-    emptyRowData,
     createEmptyRowData,
     isContextmenuPanelClicked,
     getRowKey,
@@ -1076,7 +1075,7 @@ export default {
         clearBodyIndicatorRowKeys() {
             this.bodyIndicatorRowKeys.startRowKey = "";
             this.bodyIndicatorRowKeys.startRowKeyIndex = -1;
-            this.bodyIndicatorRowKeys.startRowKey = "";
+            this.bodyIndicatorRowKeys.endRowKey = "";
             this.bodyIndicatorRowKeys.endRowKeyIndex = -1;
         },
 
@@ -2133,9 +2132,47 @@ export default {
         // set body contextmenu options
         setBodyContextmenuOptions() {
             let result = [];
-            const { enableBodyContextmenu, contextmenuBodyOption } = this;
+            const { enableBodyContextmenu } = this;
             if (enableBodyContextmenu) {
-                const { contextmenus } = contextmenuBodyOption;
+                const {
+                    contextmenuBodyOption,
+                    cellSelectionRangeData,
+                    colgroups,
+                    allRowKeys,
+                    bodyIndicatorRowKeys,
+                } = this;
+
+                let selectionRangeKeys = getSelectionRangeKeys({
+                    cellSelectionRangeData,
+                });
+
+                let selectionRangeIndexes = getSelectionRangeIndexes({
+                    cellSelectionRangeData,
+                    colgroups,
+                    allRowKeys,
+                });
+
+                const rowCount =
+                    selectionRangeIndexes.endRowIndex -
+                    selectionRangeIndexes.startRowIndex +
+                    1;
+                const colCount =
+                    selectionRangeIndexes.endColIndex -
+                    selectionRangeIndexes.startColIndex +
+                    1;
+
+                const { contextmenus, beforeShow } = contextmenuBodyOption;
+
+                const isWholeRowSelection = !isEmptyValue(
+                    bodyIndicatorRowKeys.startRowKey,
+                );
+                if (isFunction(beforeShow)) {
+                    beforeShow({
+                        isWholeRowSelection,
+                        selectionRangeKeys,
+                        selectionRangeIndexes,
+                    });
+                }
 
                 const bodyContextmenuOptionCollection =
                     getBodyContextmenuOptionCollection(t);
@@ -2146,7 +2183,60 @@ export default {
                             (x) => x.type === contextmenu.type,
                         );
                     if (contentmenuCollectionItem) {
-                        result.push(contentmenuCollectionItem);
+                        let isContinue = true;
+
+                        // remove row
+                        if (
+                            contentmenuCollectionItem.type ===
+                            CONTEXTMENU_TYPES.REMOVE_ROW
+                        ) {
+                            contentmenuCollectionItem.label =
+                                contentmenuCollectionItem.label.replace(
+                                    "$1",
+                                    rowCount,
+                                );
+                        }
+                        // empty row. 选中整行时支持
+                        else if (
+                            contentmenuCollectionItem.type ===
+                            CONTEXTMENU_TYPES.EMPTY_ROW
+                        ) {
+                            if (isWholeRowSelection) {
+                                contentmenuCollectionItem.label =
+                                    contentmenuCollectionItem.label.replace(
+                                        "$1",
+                                        rowCount,
+                                    );
+                            } else {
+                                isContinue = false;
+                            }
+                        }
+                        // empty cell.没选中整行时支持
+                        else if (
+                            contentmenuCollectionItem.type ===
+                            CONTEXTMENU_TYPES.EMPTY_CELL
+                        ) {
+                            isContinue = !isWholeRowSelection;
+                        }
+                        // remove column.没选中整行时支持
+                        else if (
+                            contentmenuCollectionItem.type ===
+                            CONTEXTMENU_TYPES.REMOVE_COLUMN
+                        ) {
+                            if (isWholeRowSelection) {
+                                isContinue = false;
+                            } else {
+                                contentmenuCollectionItem.label =
+                                    contentmenuCollectionItem.label.replace(
+                                        "$1",
+                                        colCount,
+                                    );
+                            }
+                        }
+
+                        if (isContinue) {
+                            result.push(contentmenuCollectionItem);
+                        }
                     } else {
                         result.push(contextmenu);
                     }
@@ -2173,7 +2263,6 @@ export default {
                     colKey: column.key,
                 });
             }
-
             this.setBodyContextmenuOptions();
 
             // close header contextmenu panel
@@ -2748,12 +2837,8 @@ export default {
                 rowKeyFieldName,
             } = this;
 
-            // const { bottomRowKey,
-            //     leftColKey,
-            //     rightColKey,
-            //     topRowKey } = cellSelectionRangeData;
             const { rowKey, colKey } = cellSelectionData.currentCell;
-            const { callback } = contextmenuBodyOption;
+            const { afterMenuClick } = contextmenuBodyOption;
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
                 let selectionRangeKeys = getSelectionRangeKeys({
@@ -2765,6 +2850,17 @@ export default {
                     colgroups,
                     allRowKeys,
                 });
+
+                if (isFunction(afterMenuClick)) {
+                    const callback = afterMenuClick({
+                        type,
+                        selectionRangeKeys,
+                        selectionRangeIndexes,
+                    });
+                    if (isBoolean(callback) && !callback) {
+                        return false;
+                    }
+                }
 
                 const { startRowIndex, endRowIndex } = selectionRangeIndexes;
 
@@ -2798,14 +2894,11 @@ export default {
                 }
                 // empty rows
                 else if (CONTEXTMENU_TYPES.EMPTY_ROW === type) {
-                    tableData.forEach((rowData, index) => {
-                        if (index >= startRowIndex && index <= endRowIndex) {
-                            emptyRowData({
-                                rowData,
-                                rowKeyFieldName,
-                            });
-                        }
-                    });
+                    this.deleteCellSelectionRangeValue();
+                }
+                // empty rows
+                else if (CONTEXTMENU_TYPES.EMPTY_CELL === type) {
+                    this.deleteCellSelectionRangeValue();
                 }
                 // insert row above
                 else if (CONTEXTMENU_TYPES.INSERT_ROW_ABOVE === type) {
@@ -2822,15 +2915,6 @@ export default {
                         0,
                         createEmptyRowData({ colgroups, rowKeyFieldName }),
                     );
-                }
-
-                // callback
-                if (isFunction(callback)) {
-                    callback({
-                        type,
-                        selectionRangeKeys,
-                        selectionRangeIndexes,
-                    });
                 }
             }
         },
