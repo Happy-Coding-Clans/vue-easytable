@@ -341,8 +341,18 @@ export function getHeaderContextmenuOptionCollection(t) {
             disable: false,
         },
         {
+            label: t("cancelLeftFixedColumnTo"),
+            type: CONTEXTMENU_TYPES.CANCEL_LEFT_FIXED_COLUMN_TO,
+            disable: false,
+        },
+        {
             label: t("rightFixedColumnTo"),
             type: CONTEXTMENU_TYPES.RIGHT_FIXED_COLUMN_TO,
+            disable: false,
+        },
+        {
+            label: t("cancelRightFixedColumnTo"),
+            type: CONTEXTMENU_TYPES.CANCEL_RIGHT_FIXED_COLUMN_TO,
             disable: false,
         },
     ];
