@@ -2496,7 +2496,7 @@ export default {
         },
 
         // set header contextmenu options
-        setHeaderContextmenuOptions() {
+        setHeaderContextmenuOptions(column) {
             let result = [];
             const { enableHeaderContextmenu } = this;
             if (enableHeaderContextmenu) {
@@ -2517,6 +2517,8 @@ export default {
                     colgroups,
                     allRowKeys,
                 });
+
+                const isOperationCol = isOperationColumn(column.key, colgroups);
 
                 const colCount =
                     selectionRangeIndexes.endColIndex -
@@ -2561,6 +2563,40 @@ export default {
                                 isContinue = false;
                             }
                         }
+                        // left fixed column to
+                        else if (
+                            contentmenuCollectionItem.type ===
+                            CONTEXTMENU_TYPES.LEFT_FIXED_COLUMN_TO
+                        ) {
+                            //
+                            if (isOperationCol) {
+                                contentmenuCollectionItem.disabled = true;
+                            }
+                        }
+                        // calcel left fixed column to
+                        else if (
+                            contentmenuCollectionItem.type ===
+                            CONTEXTMENU_TYPES.CANCEL_LEFT_FIXED_COLUMN_TO
+                        ) {
+                            //
+                        }
+                        // right fixed column to
+                        else if (
+                            contentmenuCollectionItem.type ===
+                            CONTEXTMENU_TYPES.RIGHT_FIXED_COLUMN_TO
+                        ) {
+                            //
+                            if (isOperationCol) {
+                                contentmenuCollectionItem.disabled = true;
+                            }
+                        }
+                        // calcel right fixed column to
+                        else if (
+                            contentmenuCollectionItem.type ===
+                            CONTEXTMENU_TYPES.CANCEL_RIGHT_FIXED_COLUMN_TO
+                        ) {
+                            //
+                        }
 
                         if (isContinue) {
                             result.push(contentmenuCollectionItem);
@@ -2577,7 +2613,7 @@ export default {
         // header cell contextmenu
         headerCellContextmenu({ event, column }) {
             // set header contextmenu options before contextmen show
-            this.setHeaderContextmenuOptions();
+            this.setHeaderContextmenuOptions(column);
 
             // close body contextmenu panel
             const bodyContextmenuRef = this.$refs[this.bodyContextmenuRef];
