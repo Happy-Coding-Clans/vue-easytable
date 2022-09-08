@@ -478,14 +478,18 @@ export function getColKeysByRangeColKeys({ colKey1, colKey2, colgroups }) {
 }
 
 /**
- * @getColKeysByFixedType
+ * @getColKeysByFixedTypeWithinColKeys
  * @desc  get col keys by fixed type
  * @param {array<T>} colKeys
  * @param {string} fixedType - fixed type
  * @param {array<object>} colgroups
  * @return {array} colKeys
  */
-export function getColKeysByFixedType({ colKeys, fixedType, colgroups }) {
+export function getColKeysByFixedTypeWithinColKeys({
+    colKeys,
+    fixedType,
+    colgroups,
+}) {
     let result = null;
 
     if (Array.isArray(colKeys)) {
@@ -494,6 +498,36 @@ export function getColKeysByFixedType({ colKeys, fixedType, colgroups }) {
             .map((x) => x.key);
     }
 
+    return result;
+}
+
+/**
+ * @getColKeysByFixedType
+ * @desc get col keys by fixed type
+ * @param {string} fixedType - fixed type
+ * @param {array<object>} colgroups
+ * * @param {boolean} isExcludeOperationColumn
+ * @return colKey
+ */
+export function getColKeysByFixedType({
+    fixedType,
+    colgroups,
+    isExcludeOperationColumn,
+}) {
+    let result = null;
+
+    result = colgroups
+        .filter((x) => {
+            const condition = x.fixed === fixedType;
+
+            // 排除操作列
+            if (isExcludeOperationColumn) {
+                return condition && !x.operationColumn;
+            }
+
+            return condition;
+        })
+        .map((x) => x.key);
     return result;
 }
 

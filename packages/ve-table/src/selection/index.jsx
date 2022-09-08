@@ -7,7 +7,7 @@ import {
     isExistNotFixedColKey,
     getLeftmostColKey,
     getRightmostColKey,
-    getColKeysByFixedType,
+    getColKeysByFixedTypeWithinColKeys,
     getTotalWidthByColKeys,
     getPreviewColKey,
     getNextColKey,
@@ -21,7 +21,7 @@ import {
     COLUMN_FIXED_TYPE,
 } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
-import { isEmptyValue, isNumber, isBoolean } from "../../../src/utils/index.js";
+import { isEmptyValue, isBoolean } from "../../../src/utils/index.js";
 import { debounce } from "lodash";
 
 export default {
@@ -712,7 +712,7 @@ export default {
 
             const totalColKeys = [cellSelectionData.currentCell.colKey];
 
-            const fixedColKeys = getColKeysByFixedType({
+            const fixedColKeys = getColKeysByFixedTypeWithinColKeys({
                 colKeys: totalColKeys,
                 fixedType,
                 colgroups,
@@ -869,7 +869,7 @@ export default {
                 colgroups,
             });
 
-            const fixedColKeys = getColKeysByFixedType({
+            const fixedColKeys = getColKeysByFixedTypeWithinColKeys({
                 colKeys: totalColKeys,
                 fixedType,
                 colgroups,
@@ -1142,7 +1142,7 @@ export default {
                 colgroups,
             });
 
-            let fixedColKeys = getColKeysByFixedType({
+            let fixedColKeys = getColKeysByFixedTypeWithinColKeys({
                 colKeys: totalColKeys,
                 fixedType,
                 colgroups,

@@ -19,6 +19,7 @@ import {
     getSelectionRangeData,
     getSelectionRangeKeys,
     getSelectionRangeIndexes,
+    getColKeysByFixedType,
 } from "./util";
 import {
     onBeforeCopy,
@@ -2530,6 +2531,19 @@ export default {
                 const isWholeColSelection = !isEmptyValue(
                     headerIndicatorColKeys.startColKey,
                 );
+
+                const leftFixedColKeys = getColKeysByFixedType({
+                    fixedType: "left",
+                    colgroups,
+                    isExcludeOperationColumn: true,
+                });
+
+                const rightFixedColKeys = getColKeysByFixedType({
+                    fixedType: "right",
+                    colgroups,
+                    isExcludeOperationColumn: true,
+                });
+
                 if (isFunction(beforeShow)) {
                     beforeShow({
                         isWholeColSelection,
@@ -2578,7 +2592,9 @@ export default {
                             contentmenuCollectionItem.type ===
                             CONTEXTMENU_TYPES.CANCEL_LEFT_FIXED_COLUMN_TO
                         ) {
-                            //
+                            if (leftFixedColKeys.length < 1) {
+                                contentmenuCollectionItem.disabled = true;
+                            }
                         }
                         // right fixed column to
                         else if (
@@ -2595,7 +2611,9 @@ export default {
                             contentmenuCollectionItem.type ===
                             CONTEXTMENU_TYPES.CANCEL_RIGHT_FIXED_COLUMN_TO
                         ) {
-                            //
+                            if (rightFixedColKeys.length < 1) {
+                                contentmenuCollectionItem.disabled = true;
+                            }
                         }
 
                         if (isContinue) {
