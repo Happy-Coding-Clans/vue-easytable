@@ -358,12 +358,10 @@ export function getBodyContextmenuOptionCollection(t) {
         {
             label: t("cut"),
             type: CONTEXTMENU_TYPES.CUT,
-            disable: false,
         },
         {
             label: t("copy"),
             type: CONTEXTMENU_TYPES.COPY,
-            disable: false,
         },
         // {
         //     label: t("paste"),
@@ -372,32 +370,26 @@ export function getBodyContextmenuOptionCollection(t) {
         {
             label: t("insertRowAbove"),
             type: CONTEXTMENU_TYPES.INSERT_ROW_ABOVE,
-            disable: false,
         },
         {
             label: t("insertRowBelow"),
             type: CONTEXTMENU_TYPES.INSERT_ROW_BELOW,
-            disable: false,
         },
         {
             label: t("removeRow"),
             type: CONTEXTMENU_TYPES.REMOVE_ROW,
-            disable: false,
         },
         {
             label: t("emptyRow"),
             type: CONTEXTMENU_TYPES.EMPTY_ROW,
-            disable: false,
         },
         {
             label: t("removeColumn"),
             type: CONTEXTMENU_TYPES.REMOVE_COLUMN,
-            disable: false,
         },
         {
             label: t("emptyCell"),
             type: CONTEXTMENU_TYPES.EMPTY_CELL,
-            disable: false,
         },
     ];
 }
