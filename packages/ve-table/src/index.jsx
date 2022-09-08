@@ -2263,6 +2263,8 @@ export default {
                     colKey: column.key,
                 });
             }
+
+            // set body contextmenu options before contextmen show
             this.setBodyContextmenuOptions();
 
             // close header contextmenu panel
@@ -2521,6 +2523,7 @@ export default {
 
         // header cell contextmenu
         headerCellContextmenu({ event, column }) {
+            // set header contextmenu options before contextmen show
             this.setHeaderContextmenuOptions();
 
             // close body contextmenu panel
