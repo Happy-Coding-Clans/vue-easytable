@@ -1056,7 +1056,7 @@ export default {
         clearHeaderIndicatorColKeys() {
             this.headerIndicatorColKeys.startColKey = "";
             this.headerIndicatorColKeys.startColKeyIndex = -1;
-            this.headerIndicatorColKeys.startColKey = "";
+            this.headerIndicatorColKeys.endColKey = "";
             this.headerIndicatorColKeys.endColKeyIndex = -1;
         },
 
@@ -2498,9 +2498,43 @@ export default {
         // set header contextmenu options
         setHeaderContextmenuOptions() {
             let result = [];
-            const { enableHeaderContextmenu, contextmenuHeaderOption } = this;
+            const { enableHeaderContextmenu } = this;
             if (enableHeaderContextmenu) {
-                const { contextmenus } = contextmenuHeaderOption;
+                const {
+                    contextmenuHeaderOption,
+                    cellSelectionRangeData,
+                    colgroups,
+                    allRowKeys,
+                    headerIndicatorColKeys,
+                } = this;
+
+                let selectionRangeKeys = getSelectionRangeKeys({
+                    cellSelectionRangeData,
+                });
+
+                let selectionRangeIndexes = getSelectionRangeIndexes({
+                    cellSelectionRangeData,
+                    colgroups,
+                    allRowKeys,
+                });
+
+                const colCount =
+                    selectionRangeIndexes.endColIndex -
+                    selectionRangeIndexes.startColIndex +
+                    1;
+
+                const { contextmenus, beforeShow } = contextmenuHeaderOption;
+
+                const isWholeColSelection = !isEmptyValue(
+                    headerIndicatorColKeys.startColKey,
+                );
+                if (isFunction(beforeShow)) {
+                    beforeShow({
+                        isWholeColSelection,
+                        selectionRangeKeys,
+                        selectionRangeIndexes,
+                    });
+                }
 
                 const headerContextmenuOptionCollection =
                     getHeaderContextmenuOptionCollection(t);
@@ -2511,7 +2545,26 @@ export default {
                             (x) => x.type === contextmenu.type,
                         );
                     if (contentmenuCollectionItem) {
-                        result.push(contentmenuCollectionItem);
+                        let isContinue = true;
+                        // empty column. 选中整列时支持
+                        if (
+                            contentmenuCollectionItem.type ===
+                            CONTEXTMENU_TYPES.EMPTY_COLUMN
+                        ) {
+                            if (isWholeColSelection) {
+                                contentmenuCollectionItem.label =
+                                    contentmenuCollectionItem.label.replace(
+                                        "$1",
+                                        colCount,
+                                    );
+                            } else {
+                                isContinue = false;
+                            }
+                        }
+
+                        if (isContinue) {
+                            result.push(contentmenuCollectionItem);
+                        }
                     } else {
                         result.push(contextmenu);
                     }
@@ -2802,29 +2855,69 @@ export default {
         headerContextmenuCallBack(type) {
             const {
                 contextmenuHeaderOption,
+                cellSelectionData,
+                cellSelectionRangeData,
                 tableData,
                 allRowKeys,
                 colgroups,
                 rowKeyFieldName,
             } = this;
 
-            const { callback } = contextmenuHeaderOption;
+            const { rowKey, colKey } = cellSelectionData.currentCell;
+            const { afterMenuClick } = contextmenuHeaderOption;
 
-            // hide column
-            if (CONTEXTMENU_TYPES.HIDE_COLUMN === type) {
-                //this[INSTANCE_METHODS.HIDE_COLUMNS_BY_KEYS]([colKey]);
-            }
-            // left fixed column to
-            else if (CONTEXTMENU_TYPES.LEFT_FIXED_COLUMN_TO === type) {
-                //
-            }
-
-            // callback
-            if (isFunction(callback)) {
-                callback({
-                    type,
-                    //selection: cellSelectionData.currentCell,
+            if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+                let selectionRangeKeys = getSelectionRangeKeys({
+                    cellSelectionRangeData,
                 });
+
+                let selectionRangeIndexes = getSelectionRangeIndexes({
+                    cellSelectionRangeData,
+                    colgroups,
+                    allRowKeys,
+                });
+
+                if (isFunction(afterMenuClick)) {
+                    const callback = afterMenuClick({
+                        type,
+                        selectionRangeKeys,
+                        selectionRangeIndexes,
+                    });
+                    if (isBoolean(callback) && !callback) {
+                        return false;
+                    }
+                }
+
+                const currentColIndex = colgroups.findIndex(
+                    (x) => x.key === colKey,
+                );
+
+                const editInputEditor = this.$refs[this.editInputRef];
+
+                // cut
+                if (CONTEXTMENU_TYPES.CUT === type) {
+                    editInputEditor.textareaSelect();
+                    document.execCommand("cut");
+                }
+                // copy
+                else if (CONTEXTMENU_TYPES.COPY === type) {
+                    editInputEditor.textareaSelect();
+                    document.execCommand("copy");
+                }
+                // empty column
+                else if (CONTEXTMENU_TYPES.EMPTY_COLUMN === type) {
+                    this.deleteCellSelectionRangeValue();
+                }
+                // left fixed column to
+                else if (CONTEXTMENU_TYPES.LEFT_FIXED_COLUMN_TO === type) {
+                    //
+                }
+                // cancel left fixed column to
+                else if (
+                    CONTEXTMENU_TYPES.CANCEL_LEFT_FIXED_COLUMN_TO === type
+                ) {
+                    //
+                }
             }
         },
 
