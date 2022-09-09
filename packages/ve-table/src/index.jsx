@@ -20,6 +20,8 @@ import {
     getSelectionRangeKeys,
     getSelectionRangeIndexes,
     getColKeysByFixedType,
+    setColumnFixed,
+    cancelColumnFixed,
 } from "./util";
 import {
     onBeforeCopy,
@@ -933,81 +935,6 @@ export default {
             }
 
             this.cloneColumns = cloneColumns;
-        },
-
-        // set column fixed
-        setColumnFixed({ cellSelectionRangeData, fixedType }) {
-            const { cloneColumns } = this;
-
-            const { leftColKey, rightColKey } = cellSelectionRangeData;
-
-            let colKey;
-
-            if (COLUMN_FIXED_TYPE.LEFT === fixedType) {
-                colKey = rightColKey;
-            } else if (COLUMN_FIXED_TYPE.RIGHT === fixedType) {
-                colKey = leftColKey;
-            }
-
-            // find col index from cloneColumns
-            const fixedColIndex = cloneColumns.findIndex((colItem) => {
-                if (colItem._level === 1 && colItem.key === colKey) {
-                    return true;
-                } else {
-                    const colKeys = getColKeysByHeaderColumn({
-                        headerColumnItem: colItem,
-                    });
-                    if (colKeys.indexOf(colKey) > -1) {
-                        return true;
-                    }
-                }
-            });
-
-            if (fixedColIndex > -1) {
-                // 不允许改变原有固定列方向
-                const oldFixedType = this.cloneColumns[fixedColIndex].fixed;
-                if (!isEmptyValue(oldFixedType) && oldFixedType !== fixedType) {
-                    return false;
-                }
-
-                this.cloneColumns = cloneColumns.map((colItem, index) => {
-                    // 清除所有固定
-                    if (colItem.fixed === fixedType) {
-                        colItem.fixed = "";
-                    }
-                    if (COLUMN_FIXED_TYPE.LEFT === fixedType) {
-                        if (index <= fixedColIndex) {
-                            colItem.fixed = fixedType;
-                        }
-                    } else {
-                        if (index >= fixedColIndex) {
-                            colItem.fixed = fixedType;
-                        }
-                    }
-                    return colItem;
-                });
-            }
-        },
-
-        // cancel column fixed
-        cancelColumnFixed({ fixedType }) {
-            const { cloneColumns, colgroups } = this;
-
-            this.cloneColumns = cloneColumns.map((colItem) => {
-                if (COLUMN_FIXED_TYPE.LEFT === fixedType) {
-                    if (
-                        colItem.fixed === fixedType &&
-                        !isOperationColumn(colItem.key, colgroups)
-                    ) {
-                        colItem.fixed = "";
-                    }
-                } else {
-                    if (colItem.fixed === fixedType) {
-                        colItem.fixed = "";
-                    }
-                }
-                return colItem;
-            });
         },
 
         // 初始化分组表头
@@ -3039,7 +2966,8 @@ export default {
                 }
                 // left fixed column to
                 else if (CONTEXTMENU_TYPES.LEFT_FIXED_COLUMN_TO === type) {
-                    this.setColumnFixed({
+                    this.cloneColumns = setColumnFixed({
+                        cloneColumns: this.cloneColumns,
                         cellSelectionRangeData,
                         fixedType: COLUMN_FIXED_TYPE.LEFT,
                     });
@@ -3048,14 +2976,16 @@ export default {
                 else if (
                     CONTEXTMENU_TYPES.CANCEL_LEFT_FIXED_COLUMN_TO === type
                 ) {
-                    this.cancelColumnFixed({
-                        cellSelectionRangeData,
+                    this.cloneColumns = cancelColumnFixed({
+                        cloneColumns: this.cloneColumns,
+                        colgroups,
                         fixedType: COLUMN_FIXED_TYPE.LEFT,
                     });
                 }
                 // right fixed column to
                 else if (CONTEXTMENU_TYPES.RIGHT_FIXED_COLUMN_TO === type) {
-                    this.setColumnFixed({
+                    this.cloneColumns = setColumnFixed({
+                        cloneColumns: this.cloneColumns,
                         cellSelectionRangeData,
                         fixedType: COLUMN_FIXED_TYPE.RIGHT,
                     });
@@ -3064,8 +2994,9 @@ export default {
                 else if (
                     CONTEXTMENU_TYPES.CANCEL_RIGHT_FIXED_COLUMN_TO === type
                 ) {
-                    this.cancelColumnFixed({
-                        cellSelectionRangeData,
+                    this.cloneColumns = cancelColumnFixed({
+                        cloneColumns: this.cloneColumns,
+                        colgroups,
                         fixedType: COLUMN_FIXED_TYPE.RIGHT,
                     });
                 }
