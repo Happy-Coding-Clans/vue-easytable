@@ -173,7 +173,7 @@
                     },
 
                     {
-                        title: "col7-1",
+                        title: "col7",
                         field: "col7",
                         key: "col7",
                         width: 50,
