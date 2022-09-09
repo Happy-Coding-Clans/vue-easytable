@@ -1180,3 +1180,98 @@ export function cellAutofill({
 
     return response;
 }
+
+/***
+ * @setColumnFixed
+ * @desc set column fixed
+ * @param {array<object>} cloneColumns
+ * @param {object} cellSelectionRangeData
+ * @param {string} fixedType COLUMN_FIXED_TYPE
+ * @return cloneColumns
+ */
+export function setColumnFixed({
+    cloneColumns,
+    cellSelectionRangeData,
+    fixedType,
+}) {
+    let result = cloneColumns;
+
+    const { leftColKey, rightColKey } = cellSelectionRangeData;
+
+    let colKey;
+
+    if (COLUMN_FIXED_TYPE.LEFT === fixedType) {
+        colKey = rightColKey;
+    } else if (COLUMN_FIXED_TYPE.RIGHT === fixedType) {
+        colKey = leftColKey;
+    }
+
+    // find col index from cloneColumns
+    const fixedColIndex = cloneColumns.findIndex((colItem) => {
+        if (colItem._level === 1 && colItem.key === colKey) {
+            return true;
+        } else {
+            const colKeys = getColKeysByHeaderColumn({
+                headerColumnItem: colItem,
+            });
+            if (colKeys.indexOf(colKey) > -1) {
+                return true;
+            }
+        }
+    });
+
+    if (fixedColIndex > -1) {
+        // 不允许改变原有固定列方向
+        const oldFixedType = cloneColumns[fixedColIndex].fixed;
+        if (!isEmptyValue(oldFixedType) && oldFixedType !== fixedType) {
+            return false;
+        }
+
+        result = cloneColumns.map((colItem, index) => {
+            // 清除所有固定
+            if (colItem.fixed === fixedType) {
+                colItem.fixed = "";
+            }
+            if (COLUMN_FIXED_TYPE.LEFT === fixedType) {
+                // 不允许左冻结最后一列
+                if (index <= fixedColIndex && index < cloneColumns.length) {
+                    colItem.fixed = fixedType;
+                }
+            } else {
+                // 不允许右冻结第一列
+                if (index >= fixedColIndex && index > 0) {
+                    colItem.fixed = fixedType;
+                }
+            }
+            return colItem;
+        });
+    }
+
+    return result;
+}
+
+/***
+ * @cancelColumnFixed
+ * @desc cancel column fixed
+ * @param {array<object>} cloneColumns
+ * @param {array<object>} colgroups
+ * @param {string} fixedType COLUMN_FIXED_TYPE
+ * @return cloneColumns
+ */
+export function cancelColumnFixed({ cloneColumns, colgroups, fixedType }) {
+    return cloneColumns.map((colItem) => {
+        if (COLUMN_FIXED_TYPE.LEFT === fixedType) {
+            if (
+                colItem.fixed === fixedType &&
+                !isOperationColumn(colItem.key, colgroups)
+            ) {
+                colItem.fixed = "";
+            }
+        } else {
+            if (colItem.fixed === fixedType) {
+                colItem.fixed = "";
+            }
+        }
+        return colItem;
+    });
+}
