@@ -5,7 +5,11 @@ import {
     AUTOFILLING_DIRECTION,
 } from "./constant";
 import { MOUSE_EVENT_CLICK_TYPE } from "../../../src/utils/constant";
-import { isEmptyValue, isEmptyArray } from "../../../src/utils/index";
+import {
+    isEmptyValue,
+    isEmptyArray,
+    isFunction,
+} from "../../../src/utils/index";
 import { getRandomId } from "../../../src/utils/random";
 
 /**
@@ -392,6 +396,273 @@ export function getBodyContextmenuOptionCollection(t) {
             type: CONTEXTMENU_TYPES.EMPTY_CELL,
         },
     ];
+}
+
+/***
+ * @setHeaderContextmenuOptions
+ * @desc set header contextmenu options
+ * @param {array<object>} column
+ * @param {array<object>} contextmenuHeaderOption
+ * @param {object} cellSelectionRangeData
+ * @param {array<object>} colgroups
+ * @param {object} headerIndicatorColKeys
+ * @param {boolean} enableHeaderContextmenu
+ * @param {boolean} t locale
+ * @return headerContextmenuOptions
+ */
+export function setHeaderContextmenuOptions({
+    column,
+    contextmenuHeaderOption,
+    cellSelectionRangeData,
+    colgroups,
+    allRowKeys,
+    headerIndicatorColKeys,
+    enableHeaderContextmenu,
+    t,
+}) {
+    let result = [];
+
+    if (enableHeaderContextmenu) {
+        let selectionRangeKeys = getSelectionRangeKeys({
+            cellSelectionRangeData,
+        });
+
+        let selectionRangeIndexes = getSelectionRangeIndexes({
+            cellSelectionRangeData,
+            colgroups,
+            allRowKeys,
+        });
+
+        const isOperationCol = isOperationColumn(column.key, colgroups);
+
+        const colCount =
+            selectionRangeIndexes.endColIndex -
+            selectionRangeIndexes.startColIndex +
+            1;
+
+        const { contextmenus, beforeShow } = contextmenuHeaderOption;
+
+        const isWholeColSelection = !isEmptyValue(
+            headerIndicatorColKeys.startColKey,
+        );
+
+        const leftFixedColKeys = getColKeysByFixedType({
+            fixedType: COLUMN_FIXED_TYPE.LEFT,
+            colgroups,
+            isExcludeOperationColumn: true,
+        });
+
+        const rightFixedColKeys = getColKeysByFixedType({
+            fixedType: COLUMN_FIXED_TYPE.RIGHT,
+            colgroups,
+            isExcludeOperationColumn: true,
+        });
+
+        if (isFunction(beforeShow)) {
+            beforeShow({
+                isWholeColSelection,
+                selectionRangeKeys,
+                selectionRangeIndexes,
+            });
+        }
+
+        const headerContextmenuOptionCollection =
+            getHeaderContextmenuOptionCollection(t);
+
+        contextmenus.forEach((contextmenu) => {
+            const contentmenuCollectionItem =
+                headerContextmenuOptionCollection.find(
+                    (x) => x.type === contextmenu.type,
+                );
+            if (contentmenuCollectionItem) {
+                let isContinue = true;
+                // empty column. 选中整列时支持
+                if (
+                    contentmenuCollectionItem.type ===
+                    CONTEXTMENU_TYPES.EMPTY_COLUMN
+                ) {
+                    if (isWholeColSelection) {
+                        contentmenuCollectionItem.label =
+                            contentmenuCollectionItem.label.replace(
+                                "$1",
+                                colCount,
+                            );
+                    } else {
+                        isContinue = false;
+                    }
+                }
+                // left fixed column to
+                else if (
+                    contentmenuCollectionItem.type ===
+                    CONTEXTMENU_TYPES.LEFT_FIXED_COLUMN_TO
+                ) {
+                    //
+                    if (isOperationCol) {
+                        contentmenuCollectionItem.disabled = true;
+                    }
+                }
+                // calcel left fixed column to
+                else if (
+                    contentmenuCollectionItem.type ===
+                    CONTEXTMENU_TYPES.CANCEL_LEFT_FIXED_COLUMN_TO
+                ) {
+                    if (leftFixedColKeys.length < 1) {
+                        contentmenuCollectionItem.disabled = true;
+                    }
+                }
+                // right fixed column to
+                else if (
+                    contentmenuCollectionItem.type ===
+                    CONTEXTMENU_TYPES.RIGHT_FIXED_COLUMN_TO
+                ) {
+                    //
+                    if (isOperationCol) {
+                        contentmenuCollectionItem.disabled = true;
+                    }
+                }
+                // calcel right fixed column to
+                else if (
+                    contentmenuCollectionItem.type ===
+                    CONTEXTMENU_TYPES.CANCEL_RIGHT_FIXED_COLUMN_TO
+                ) {
+                    if (rightFixedColKeys.length < 1) {
+                        contentmenuCollectionItem.disabled = true;
+                    }
+                }
+
+                if (isContinue) {
+                    result.push(contentmenuCollectionItem);
+                }
+            } else {
+                result.push(contextmenu);
+            }
+        });
+    }
+
+    return result;
+}
+
+/***
+ * @setHeaderContextmenuOptions
+ * @desc set header contextmenu options
+ * @param {array<object>} column
+ * @param {array<object>} contextmenuBodyOption
+ * @param {object} cellSelectionRangeData
+ * @param {array<object>} colgroups
+ * @param {object} bodyIndicatorRowKeys
+ * @param {boolean} enableHeaderContextmenu
+ * @param {boolean} t locale
+ * @return headerContextmenuOptions
+ */
+export function setBodyContextmenuOptions({
+    enableBodyContextmenu,
+    contextmenuBodyOption,
+    cellSelectionRangeData,
+    colgroups,
+    allRowKeys,
+    bodyIndicatorRowKeys,
+    t,
+}) {
+    let result = [];
+    if (enableBodyContextmenu) {
+        let selectionRangeKeys = getSelectionRangeKeys({
+            cellSelectionRangeData,
+        });
+
+        let selectionRangeIndexes = getSelectionRangeIndexes({
+            cellSelectionRangeData,
+            colgroups,
+            allRowKeys,
+        });
+
+        const rowCount =
+            selectionRangeIndexes.endRowIndex -
+            selectionRangeIndexes.startRowIndex +
+            1;
+        const colCount =
+            selectionRangeIndexes.endColIndex -
+            selectionRangeIndexes.startColIndex +
+            1;
+
+        const { contextmenus, beforeShow } = contextmenuBodyOption;
+
+        const isWholeRowSelection = !isEmptyValue(
+            bodyIndicatorRowKeys.startRowKey,
+        );
+        if (isFunction(beforeShow)) {
+            beforeShow({
+                isWholeRowSelection,
+                selectionRangeKeys,
+                selectionRangeIndexes,
+            });
+        }
+
+        const bodyContextmenuOptionCollection =
+            getBodyContextmenuOptionCollection(t);
+
+        contextmenus.forEach((contextmenu) => {
+            const contentmenuCollectionItem =
+                bodyContextmenuOptionCollection.find(
+                    (x) => x.type === contextmenu.type,
+                );
+            if (contentmenuCollectionItem) {
+                let isContinue = true;
+
+                // remove row
+                if (
+                    contentmenuCollectionItem.type ===
+                    CONTEXTMENU_TYPES.REMOVE_ROW
+                ) {
+                    contentmenuCollectionItem.label =
+                        contentmenuCollectionItem.label.replace("$1", rowCount);
+                }
+                // empty row. 选中整行时支持
+                else if (
+                    contentmenuCollectionItem.type ===
+                    CONTEXTMENU_TYPES.EMPTY_ROW
+                ) {
+                    if (isWholeRowSelection) {
+                        contentmenuCollectionItem.label =
+                            contentmenuCollectionItem.label.replace(
+                                "$1",
+                                rowCount,
+                            );
+                    } else {
+                        isContinue = false;
+                    }
+                }
+                // empty cell.没选中整行时支持
+                else if (
+                    contentmenuCollectionItem.type ===
+                    CONTEXTMENU_TYPES.EMPTY_CELL
+                ) {
+                    isContinue = !isWholeRowSelection;
+                }
+                // remove column.没选中整行时支持
+                else if (
+                    contentmenuCollectionItem.type ===
+                    CONTEXTMENU_TYPES.REMOVE_COLUMN
+                ) {
+                    if (isWholeRowSelection) {
+                        isContinue = false;
+                    } else {
+                        contentmenuCollectionItem.label =
+                            contentmenuCollectionItem.label.replace(
+                                "$1",
+                                colCount,
+                            );
+                    }
+                }
+
+                if (isContinue) {
+                    result.push(contentmenuCollectionItem);
+                }
+            } else {
+                result.push(contextmenu);
+            }
+        });
+    }
+    return result;
 }
 
 // create empty row data
