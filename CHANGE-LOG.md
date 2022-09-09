@@ -24,7 +24,7 @@ V2.19.0
 -   表格 header 添加右键菜单功能 [详情]
 -   表格 body 右键菜单功能添加回调方法 `beforeShow({ isWholeRowSelection, selectionRangeKeys, selectionRangeIndexes, })` [详情]
 -   右键菜单组件添加`hideContextmenu()`实例方法
--   添加主体变量
+-   添加主题变量
     -   @ve-table-head-indicator-active-text-color
     -   @ve-table-body-indicator-active-text-color
     -   @ve-table-header-cell-indicator-active-background-color
