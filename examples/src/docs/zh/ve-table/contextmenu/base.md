@@ -171,7 +171,6 @@
                         key: "col6",
                         width: 50,
                     },
-
                     {
                         title: "col7",
                         field: "col7",
