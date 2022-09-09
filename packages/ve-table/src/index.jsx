@@ -2374,6 +2374,10 @@ export default {
             }
 
             if (isAutofillStarting) {
+                // 操作列不能autofilling 效果
+                if (isOperationColumn(colKey, this.colgroups)) {
+                    return false;
+                }
                 this.cellSelectionAutofillCellChange({
                     rowKey,
                     colKey,
