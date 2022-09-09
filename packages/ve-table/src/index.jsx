@@ -4,8 +4,8 @@ import {
     clsName,
     getNotFixedTotalWidthByColumnKey,
     recursiveRemoveColumnByKey,
-    getBodyContextmenuOptionCollection,
-    getHeaderContextmenuOptionCollection,
+    setHeaderContextmenuOptions,
+    setBodyContextmenuOptions,
     createEmptyRowData,
     isContextmenuPanelClicked,
     getRowKey,
@@ -19,7 +19,6 @@ import {
     getSelectionRangeData,
     getSelectionRangeKeys,
     getSelectionRangeIndexes,
-    getColKeysByFixedType,
     setColumnFixed,
     cancelColumnFixed,
 } from "./util";
@@ -2132,123 +2131,6 @@ export default {
             this.rowToVisible(KEY_CODES.ARROW_DOWN, rowKey);
         },
 
-        // set body contextmenu options
-        setBodyContextmenuOptions() {
-            let result = [];
-            const { enableBodyContextmenu } = this;
-            if (enableBodyContextmenu) {
-                const {
-                    contextmenuBodyOption,
-                    cellSelectionRangeData,
-                    colgroups,
-                    allRowKeys,
-                    bodyIndicatorRowKeys,
-                } = this;
-
-                let selectionRangeKeys = getSelectionRangeKeys({
-                    cellSelectionRangeData,
-                });
-
-                let selectionRangeIndexes = getSelectionRangeIndexes({
-                    cellSelectionRangeData,
-                    colgroups,
-                    allRowKeys,
-                });
-
-                const rowCount =
-                    selectionRangeIndexes.endRowIndex -
-                    selectionRangeIndexes.startRowIndex +
-                    1;
-                const colCount =
-                    selectionRangeIndexes.endColIndex -
-                    selectionRangeIndexes.startColIndex +
-                    1;
-
-                const { contextmenus, beforeShow } = contextmenuBodyOption;
-
-                const isWholeRowSelection = !isEmptyValue(
-                    bodyIndicatorRowKeys.startRowKey,
-                );
-                if (isFunction(beforeShow)) {
-                    beforeShow({
-                        isWholeRowSelection,
-                        selectionRangeKeys,
-                        selectionRangeIndexes,
-                    });
-                }
-
-                const bodyContextmenuOptionCollection =
-                    getBodyContextmenuOptionCollection(t);
-
-                contextmenus.forEach((contextmenu) => {
-                    const contentmenuCollectionItem =
-                        bodyContextmenuOptionCollection.find(
-                            (x) => x.type === contextmenu.type,
-                        );
-                    if (contentmenuCollectionItem) {
-                        let isContinue = true;
-
-                        // remove row
-                        if (
-                            contentmenuCollectionItem.type ===
-                            CONTEXTMENU_TYPES.REMOVE_ROW
-                        ) {
-                            contentmenuCollectionItem.label =
-                                contentmenuCollectionItem.label.replace(
-                                    "$1",
-                                    rowCount,
-                                );
-                        }
-                        // empty row. 选中整行时支持
-                        else if (
-                            contentmenuCollectionItem.type ===
-                            CONTEXTMENU_TYPES.EMPTY_ROW
-                        ) {
-                            if (isWholeRowSelection) {
-                                contentmenuCollectionItem.label =
-                                    contentmenuCollectionItem.label.replace(
-                                        "$1",
-                                        rowCount,
-                                    );
-                            } else {
-                                isContinue = false;
-                            }
-                        }
-                        // empty cell.没选中整行时支持
-                        else if (
-                            contentmenuCollectionItem.type ===
-                            CONTEXTMENU_TYPES.EMPTY_CELL
-                        ) {
-                            isContinue = !isWholeRowSelection;
-                        }
-                        // remove column.没选中整行时支持
-                        else if (
-                            contentmenuCollectionItem.type ===
-                            CONTEXTMENU_TYPES.REMOVE_COLUMN
-                        ) {
-                            if (isWholeRowSelection) {
-                                isContinue = false;
-                            } else {
-                                contentmenuCollectionItem.label =
-                                    contentmenuCollectionItem.label.replace(
-                                        "$1",
-                                        colCount,
-                                    );
-                            }
-                        }
-
-                        if (isContinue) {
-                            result.push(contentmenuCollectionItem);
-                        }
-                    } else {
-                        result.push(contextmenu);
-                    }
-                });
-            }
-
-            this.bodyContextmenuOptions = result;
-        },
-
         /*
          * @bodyCellContextmenu
          * @desc  recieve td right click\contextmenu event
@@ -2268,7 +2150,15 @@ export default {
             }
 
             // set body contextmenu options before contextmen show
-            this.setBodyContextmenuOptions();
+            this.bodyContextmenuOptions = setBodyContextmenuOptions({
+                enableBodyContextmenu: this.enableBodyContextmenu,
+                contextmenuBodyOption: this.contextmenuBodyOption,
+                cellSelectionRangeData: this.cellSelectionRangeData,
+                colgroups: this.colgroups,
+                allRowKeys: this.allRowKeys,
+                bodyIndicatorRowKeys: this.bodyIndicatorRowKeys,
+                t,
+            });
 
             // close header contextmenu panel
             const headerContextmenuRef = this.$refs[this.headerContextmenuRef];
@@ -2498,142 +2388,19 @@ export default {
             // feature...
         },
 
-        // set header contextmenu options
-        setHeaderContextmenuOptions(column) {
-            let result = [];
-            const { enableHeaderContextmenu } = this;
-            if (enableHeaderContextmenu) {
-                const {
-                    contextmenuHeaderOption,
-                    cellSelectionRangeData,
-                    colgroups,
-                    allRowKeys,
-                    headerIndicatorColKeys,
-                } = this;
-
-                let selectionRangeKeys = getSelectionRangeKeys({
-                    cellSelectionRangeData,
-                });
-
-                let selectionRangeIndexes = getSelectionRangeIndexes({
-                    cellSelectionRangeData,
-                    colgroups,
-                    allRowKeys,
-                });
-
-                const isOperationCol = isOperationColumn(column.key, colgroups);
-
-                const colCount =
-                    selectionRangeIndexes.endColIndex -
-                    selectionRangeIndexes.startColIndex +
-                    1;
-
-                const { contextmenus, beforeShow } = contextmenuHeaderOption;
-
-                const isWholeColSelection = !isEmptyValue(
-                    headerIndicatorColKeys.startColKey,
-                );
-
-                const leftFixedColKeys = getColKeysByFixedType({
-                    fixedType: COLUMN_FIXED_TYPE.LEFT,
-                    colgroups,
-                    isExcludeOperationColumn: true,
-                });
-
-                const rightFixedColKeys = getColKeysByFixedType({
-                    fixedType: COLUMN_FIXED_TYPE.RIGHT,
-                    colgroups,
-                    isExcludeOperationColumn: true,
-                });
-
-                if (isFunction(beforeShow)) {
-                    beforeShow({
-                        isWholeColSelection,
-                        selectionRangeKeys,
-                        selectionRangeIndexes,
-                    });
-                }
-
-                const headerContextmenuOptionCollection =
-                    getHeaderContextmenuOptionCollection(t);
-
-                contextmenus.forEach((contextmenu) => {
-                    const contentmenuCollectionItem =
-                        headerContextmenuOptionCollection.find(
-                            (x) => x.type === contextmenu.type,
-                        );
-                    if (contentmenuCollectionItem) {
-                        let isContinue = true;
-                        // empty column. 选中整列时支持
-                        if (
-                            contentmenuCollectionItem.type ===
-                            CONTEXTMENU_TYPES.EMPTY_COLUMN
-                        ) {
-                            if (isWholeColSelection) {
-                                contentmenuCollectionItem.label =
-                                    contentmenuCollectionItem.label.replace(
-                                        "$1",
-                                        colCount,
-                                    );
-                            } else {
-                                isContinue = false;
-                            }
-                        }
-                        // left fixed column to
-                        else if (
-                            contentmenuCollectionItem.type ===
-                            CONTEXTMENU_TYPES.LEFT_FIXED_COLUMN_TO
-                        ) {
-                            //
-                            if (isOperationCol) {
-                                contentmenuCollectionItem.disabled = true;
-                            }
-                        }
-                        // calcel left fixed column to
-                        else if (
-                            contentmenuCollectionItem.type ===
-                            CONTEXTMENU_TYPES.CANCEL_LEFT_FIXED_COLUMN_TO
-                        ) {
-                            if (leftFixedColKeys.length < 1) {
-                                contentmenuCollectionItem.disabled = true;
-                            }
-                        }
-                        // right fixed column to
-                        else if (
-                            contentmenuCollectionItem.type ===
-                            CONTEXTMENU_TYPES.RIGHT_FIXED_COLUMN_TO
-                        ) {
-                            //
-                            if (isOperationCol) {
-                                contentmenuCollectionItem.disabled = true;
-                            }
-                        }
-                        // calcel right fixed column to
-                        else if (
-                            contentmenuCollectionItem.type ===
-                            CONTEXTMENU_TYPES.CANCEL_RIGHT_FIXED_COLUMN_TO
-                        ) {
-                            if (rightFixedColKeys.length < 1) {
-                                contentmenuCollectionItem.disabled = true;
-                            }
-                        }
-
-                        if (isContinue) {
-                            result.push(contentmenuCollectionItem);
-                        }
-                    } else {
-                        result.push(contextmenu);
-                    }
-                });
-            }
-
-            this.headerContextmenuOptions = result;
-        },
-
         // header cell contextmenu
         headerCellContextmenu({ event, column }) {
             // set header contextmenu options before contextmen show
-            this.setHeaderContextmenuOptions(column);
+            this.headerContextmenuOptions = setHeaderContextmenuOptions({
+                column,
+                contextmenuHeaderOption: this.contextmenuHeaderOption,
+                cellSelectionRangeData: this.cellSelectionRangeData,
+                colgroups: this.colgroups,
+                allRowKeys: this.allRowKeys,
+                headerIndicatorColKeys: this.headerIndicatorColKeys,
+                enableHeaderContextmenu: this.enableHeaderContextmenu,
+                t,
+            });
 
             // close body contextmenu panel
             const bodyContextmenuRef = this.$refs[this.bodyContextmenuRef];
