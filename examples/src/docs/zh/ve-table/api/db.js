@@ -264,8 +264,15 @@ export const db = {
                 default: "-",
             },
             {
+                param: "contextmenuHeaderOption",
+                desc: "表格 header 右键菜单配置，具体见下表 contextmenuHeaderOption 配置",
+                type: "<code>Object</code>",
+                optionalVal: "-",
+                default: "-",
+            },
+            {
                 param: "contextmenuBodyOption",
-                desc: "右键菜单配置，具体见下表 contextmenuBodyOption 配置",
+                desc: "表格 body 右键菜单配置，具体见下表 contextmenuBodyOption 配置",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
@@ -945,13 +952,48 @@ export const db = {
         columns: columnsType1,
     },
 
-    // 右键菜单配置
+    // 表格 header 右键菜单配置
+    contextmenuHeaderOption: {
+        data: [
+            {
+                param: "beforeShow",
+                desc: `菜单显示之前的回调事件，你可以再这个阶段改变菜单项信息。<code>isWholeColSelection</code>是否整列选中，<code>selectionRangeKeys </code>当前选中的单元格key信息，<code>selectionRangeIndexes </code>当前选中的单元格索引信息`,
+                type: `<code>Function({ isWholeColSelection, selectionRangeKeys, selectionRangeIndexes })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterMenuClick",
+                desc: `菜单项被点击的回调。<code>type</code>菜单类型，<code>selectionRangeKeys </code>当前选中的单元格key信息，<code>selectionRangeIndexes </code>当前选中的单元格索引信息`,
+                type: `<code>Function({ type, selectionRangeKeys, selectionRangeIndexes  })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "contextmenus",
+                desc: `右键菜单配置项。 <a href='#/zh/doc/base/contextmenu'>右键菜单组件</a>`,
+                type: `<code>Array</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+        ],
+        columns: columnsType1,
+    },
+
+    // 表格 body 右键菜单配置
     contextmenuBodyOption: {
         data: [
             {
-                param: "callback",
-                desc: `右键菜单项被点击的回调。<code>type</code>菜单类型，<code>selection </code>当前选中单元格`,
-                type: `<code>Function({ type, selection  })</code>`,
+                param: "beforeShow",
+                desc: `菜单显示之前的回调事件，你可以再这个阶段改变菜单项信息。<code>isWholeRowSelection</code>是否整行选中，<code>selectionRangeKeys </code>当前选中的单元格key信息，<code>selectionRangeIndexes </code>当前选中的单元格索引信息`,
+                type: `<code>Function({ isWholeRowSelection, selectionRangeKeys, selectionRangeIndexes })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterMenuClick",
+                desc: `菜单项被点击的回调。<code>type</code>菜单类型，<code>selectionRangeKeys </code>当前选中的单元格key信息，<code>selectionRangeIndexes </code>当前选中的单元格索引信息`,
+                type: `<code>Function({ type, selectionRangeKeys, selectionRangeIndexes  })</code>`,
                 optionalVal: "-",
                 default: "-",
             },

@@ -258,8 +258,15 @@ export const db = {
                 default: "-",
             },
             {
+                param: "contextmenuHeaderOption",
+                desc: "table header contextmenu option,Refer to contextmenuHeaderOption",
+                type: "<code>Object</code>",
+                optionalVal: "-",
+                default: "-",
+            },
+            {
                 param: "contextmenuBodyOption",
-                desc: "contextmenu option,Refer to contextmenuBodyOption",
+                desc: "table body contextmenu option,Refer to contextmenuBodyOption",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
@@ -952,7 +959,35 @@ export const db = {
         columns: columnsType1,
     },
 
-    // 右键菜单配置
+    // table header contextmenu
+    contextmenuHeaderOption: {
+        data: [
+            {
+                param: "beforeShow",
+                desc: `For the callback event before the menu is displayed, you can change the menu item information at this stage.<code>isWholeColSelection</code>is whole column selection,<code>selectionRangeKeys </code>当前选中的单元格key信息，<code>selectionRangeIndexes </code>当前选中的单元格索引信息`,
+                type: `<code>Function({ isWholeColSelection, selectionRangeKeys, selectionRangeIndexes })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterMenuClick",
+                desc: `菜单项被点击的回调。<code>type</code>菜单类型，<code>selectionRangeKeys </code>当前选中的单元格key信息，<code>selectionRangeIndexes </code>当前选中的单元格索引信息`,
+                type: `<code>Function({ type, selectionRangeKeys, selectionRangeIndexes  })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "contextmenus",
+                desc: `contextmenu option. <a href='#/en/doc/base/contextmenu'>contextmenu component</a>`,
+                type: `<code>Array</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+        ],
+        columns: columnsType1,
+    },
+
+    // table body contextmenu
     contextmenuBodyOption: {
         data: [
             {
