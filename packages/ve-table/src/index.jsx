@@ -2692,10 +2692,8 @@ export default {
                 contextmenuHeaderOption,
                 cellSelectionData,
                 cellSelectionRangeData,
-                tableData,
                 allRowKeys,
                 colgroups,
-                rowKeyFieldName,
             } = this;
 
             const { rowKey, colKey } = cellSelectionData.currentCell;
@@ -2722,11 +2720,6 @@ export default {
                         return false;
                     }
                 }
-
-                const currentColIndex = colgroups.findIndex(
-                    (x) => x.key === colKey,
-                );
-
                 const editInputEditor = this.$refs[this.editInputRef];
 
                 // cut
