@@ -21,6 +21,8 @@ V2.19.0
 -   单元格选择功能，添加表头和列指示器效果 [详情]
 -   单元格选择功能，添加区域选择实例方法`setRangeCellSelection({ startRowKey,startColKey,endRowKey,endColKey,isScrollToStartCell })` [详情]
 -   单元格选择功能，添加单元格全选实例方法`setAllCellSelection()` [详情]
+-   表格 header 添加右键菜单功能 [详情]
+-   表格 body 右键菜单功能添加回调方法 `beforeShow({ isWholeRowSelection, selectionRangeKeys, selectionRangeIndexes, })` [详情]
 -   右键菜单组件添加`hideContextmenu()`实例方法
 -   添加主体变量
     -   @ve-table-head-indicator-active-text-color

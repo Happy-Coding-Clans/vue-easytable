@@ -36,39 +36,95 @@ Right click the table area to view the effect
                 },
                 // contextmenu header option
                 contextmenuHeaderOption: {
-                    // callback for all options
-                    callback: ({ type, selection }) => {
+                    /*
+                    before contextmenu show.
+                    In this function,You can change the `contextmenu` options
+                    */
+                    beforeShow: ({
+                        isWholeColSelection,
+                        selectionRangeKeys,
+                        selectionRangeIndexes,
+                    }) => {
+                        console.log("---contextmenu header beforeShow--");
+                        console.log("isWholeColSelection::", isWholeColSelection);
+                        console.log("selectionRangeKeys::", selectionRangeKeys);
+                        console.log("selectionRangeIndexes::", selectionRangeIndexes);
+                    },
+                    // after menu click
+                    afterMenuClick: ({ type, selectionRangeKeys, selectionRangeIndexes }) => {
+                        console.log("---contextmenu header afterMenuClick--");
                         console.log("type::", type);
-                        console.log("selection::", selection);
+                        console.log("selectionRangeKeys::", selectionRangeKeys);
+                        console.log("selectionRangeIndexes::", selectionRangeIndexes);
                     },
 
                     // contextmenus
                     contextmenus: [
                         {
-                            type: "LEFT_FIXED_COLUMN_TO",
+                            type: "CUT",
                         },
                         {
-                            type: "RIGHT_FIXED_COLUMN_TO",
+                            type: "COPY",
                         },
                         {
                             type: "SEPARATOR",
                         },
                         {
-                            type: "HIDE_COLUMN",
+                            type: "EMPTY_COLUMN",
+                        },
+                        {
+                            type: "SEPARATOR",
+                        },
+                        {
+                            type: "LEFT_FIXED_COLUMN_TO",
+                        },
+                        {
+                            type: "CANCLE_LEFT_FIXED_COLUMN_TO",
+                        },
+                        {
+                            type: "RIGHT_FIXED_COLUMN_TO",
+                        },
+                        {
+                            type: "CANCEL_RIGHT_FIXED_COLUMN_TO",
                         },
                     ],
                 },
 
                 // contextmenu body option
                 contextmenuBodyOption: {
-                    // callback for all options
-                    callback: ({ type, selection }) => {
+                    /*
+                    before contextmenu show.
+                    In this function,You can change the `contextmenu` options
+                    */
+                    beforeShow: ({
+                        isWholeRowSelection,
+                        selectionRangeKeys,
+                        selectionRangeIndexes,
+                    }) => {
+                        console.log("---contextmenu body beforeShow--");
+                        console.log("isWholeRowSelection::", isWholeRowSelection);
+                        console.log("selectionRangeKeys::", selectionRangeKeys);
+                        console.log("selectionRangeIndexes::", selectionRangeIndexes);
+                    },
+                    // after menu click
+                    afterMenuClick: ({ type, selectionRangeKeys, selectionRangeIndexes }) => {
+                        console.log("---contextmenu body afterMenuClick--");
                         console.log("type::", type);
-                        console.log("selection::", selection);
+                        console.log("selectionRangeKeys::", selectionRangeKeys);
+                        console.log("selectionRangeIndexes::", selectionRangeIndexes);
                     },
 
                     // contextmenus
                     contextmenus: [
+                        {
+                            type: "CUT",
+                        },
+                        {
+                            type: "COPY",
+                        },
+                        {
+                            type: "SEPARATOR",
+                        },
                         {
                             type: "INSERT_ROW_ABOVE",
                         },
@@ -82,10 +138,10 @@ Right click the table area to view the effect
                             type: "REMOVE_ROW",
                         },
                         {
-                            type: "SEPARATOR",
+                            type: "EMPTY_ROW",
                         },
                         {
-                            type: "HIDE_COLUMN",
+                            type: "EMPTY_CELL",
                         },
                     ],
                 },
@@ -102,7 +158,6 @@ Right click the table area to view the effect
                         width: 15,
                         align: "center",
                         operationColumn: true,
-                        fixed: "left",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
                             return rowIndex + this.startRowIndex + 1;
                         },
@@ -111,6 +166,7 @@ Right click the table area to view the effect
                         field: "col1",
                         key: "col1",
                         title: "col1",
+                        fixed: "left",
                         width: 50,
                     },
                     {
@@ -143,9 +199,8 @@ Right click the table area to view the effect
                         key: "col6",
                         width: 50,
                     },
-
                     {
-                        title: "col7-1",
+                        title: "col7",
                         field: "col7",
                         key: "col7",
                         width: 50,

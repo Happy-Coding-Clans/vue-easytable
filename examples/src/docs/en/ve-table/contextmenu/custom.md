@@ -7,7 +7,7 @@
     <div>
         <ve-table
             :scroll-width="1600"
-            :max-height="500"
+            :max-height="350"
             row-key-field-name="rowKey"
             :fixed-header="true"
             :columns="columns"
@@ -16,6 +16,7 @@
             :virtual-scroll-option="virtualScrollOption"
             border-y
             :contextmenu-body-option="contextmenuBodyOption"
+            :contextmenu-header-option="contextmenuHeaderOption"
         />
     </div>
 </template>
@@ -29,42 +30,92 @@
                     enable: true,
                     scrolling: this.scrolling,
                 },
-                // contextmenu body option
-                contextmenuBodyOption: {
-                    // callback for all options
-                    callback: ({ type, selection }) => {
-                        const { rowKey, colKey } = selection;
-
-                        // custom empty row
-                        if (type === "custom-empty-row") {
-                            this.tableData = this.tableData.map((rowData) => {
-                                // empty current row
-                                if (rowData.rowKey === rowKey) {
-                                    Object.keys(rowData).forEach((field) => {
-                                        rowData[field] = "";
-                                    });
-                                }
-                                return rowData;
-                            });
-                        }
-
+                // contextmenu header option
+                contextmenuHeaderOption: {
+                    /*
+                    before contextmenu show.
+                    In this function,You can change the `contextmenu` options
+                    */
+                    beforeShow: ({
+                        isWholeColSelection,
+                        selectionRangeKeys,
+                        selectionRangeIndexes,
+                    }) => {
+                        console.log("---contextmenu header beforeShow--");
+                        console.log("isWholeColSelection::", isWholeColSelection);
+                        console.log("selectionRangeKeys::", selectionRangeKeys);
+                        console.log("selectionRangeIndexes::", selectionRangeIndexes);
+                    },
+                    // after menu click
+                    afterMenuClick: ({ type, selectionRangeKeys, selectionRangeIndexes }) => {
+                        console.log("---contextmenu header afterMenuClick--");
                         console.log("type::", type);
-                        console.log("selection::", selection);
+                        console.log("selectionRangeKeys::", selectionRangeKeys);
+                        console.log("selectionRangeIndexes::", selectionRangeIndexes);
                     },
 
                     // contextmenus
                     contextmenus: [
                         {
-                            type: "INSERT_ROW_ABOVE",
+                            type: "CUT",
                         },
                         {
-                            type: "INSERT_ROW_BELOW",
+                            type: "COPY",
                         },
                         {
                             type: "SEPARATOR",
                         },
                         {
-                            type: "HIDE_COLUMN",
+                            type: "EMPTY_COLUMN",
+                        },
+                        {
+                            type: "SEPARATOR",
+                        },
+                        {
+                            type: "LEFT_FIXED_COLUMN_TO",
+                        },
+                        {
+                            type: "CANCLE_LEFT_FIXED_COLUMN_TO",
+                        },
+                        {
+                            type: "RIGHT_FIXED_COLUMN_TO",
+                        },
+                        {
+                            type: "CANCEL_RIGHT_FIXED_COLUMN_TO",
+                        },
+                    ],
+                },
+                // contextmenu body option
+                contextmenuBodyOption: {
+                    /*
+                    before contextmenu show.
+                    In this function,You can change the `contextmenu` options
+                    */
+                    beforeShow: ({
+                        isWholeRowSelection,
+                        selectionRangeKeys,
+                        selectionRangeIndexes,
+                    }) => {
+                        console.log("---contextmenu body beforeShow--");
+                        console.log("isWholeRowSelection::", isWholeRowSelection);
+                        console.log("selectionRangeKeys::", selectionRangeKeys);
+                        console.log("selectionRangeIndexes::", selectionRangeIndexes);
+                    },
+                    // after menu click
+                    afterMenuClick: ({ type, selectionRangeKeys, selectionRangeIndexes }) => {
+                        console.log("---contextmenu body afterMenuClick--");
+                        console.log("type::", type);
+                        console.log("selectionRangeKeys::", selectionRangeKeys);
+                        console.log("selectionRangeIndexes::", selectionRangeIndexes);
+                    },
+
+                    // contextmenus
+                    contextmenus: [
+                        {
+                            type: "CUT",
+                        },
+                        {
+                            type: "COPY",
                         },
                         {
                             type: "SEPARATOR",
@@ -116,7 +167,7 @@
                         field: "",
                         key: "a",
                         title: "",
-                        width: 15,
+                        width: 20,
                         align: "center",
                         fixed: "left",
                         operationColumn: true,
@@ -150,32 +201,22 @@
                         ],
                     },
                     {
-                        title: "col4-col5-col6",
-                        children: [
-                            {
-                                title: "col4-col5",
-                                children: [
-                                    {
-                                        field: "col4",
-                                        key: "col4",
-                                        title: "col4",
-                                        width: 130,
-                                    },
-                                    {
-                                        field: "col5",
-                                        key: "col5",
-                                        title: "col5",
-                                        width: 140,
-                                    },
-                                ],
-                            },
-                            {
-                                title: "col6",
-                                field: "col6",
-                                key: "col6",
-                                width: 140,
-                            },
-                        ],
+                        field: "col4",
+                        key: "col4",
+                        title: "col4",
+                        width: 130,
+                    },
+                    {
+                        field: "col5",
+                        key: "col5",
+                        title: "col5",
+                        width: 140,
+                    },
+                    {
+                        title: "col6",
+                        field: "col6",
+                        key: "col6",
+                        width: 140,
                     },
                     {
                         title: "col7",

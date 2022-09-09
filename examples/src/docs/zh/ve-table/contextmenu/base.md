@@ -36,9 +36,23 @@
                 },
                 // contextmenu header option
                 contextmenuHeaderOption: {
-                    // callback for all options
-                    callback: ({ type, selectionRangeKeys, selectionRangeIndexes }) => {
-                        console.log("---contextmenuHeaderOption--");
+                    /*
+                    before contextmenu show.
+                    In this function,You can change the `contextmenu` options
+                    */
+                    beforeShow: ({
+                        isWholeColSelection,
+                        selectionRangeKeys,
+                        selectionRangeIndexes,
+                    }) => {
+                        console.log("---contextmenu header beforeShow--");
+                        console.log("isWholeColSelection::", isWholeColSelection);
+                        console.log("selectionRangeKeys::", selectionRangeKeys);
+                        console.log("selectionRangeIndexes::", selectionRangeIndexes);
+                    },
+                    // after menu click
+                    afterMenuClick: ({ type, selectionRangeKeys, selectionRangeIndexes }) => {
+                        console.log("---contextmenu header afterMenuClick--");
                         console.log("type::", type);
                         console.log("selectionRangeKeys::", selectionRangeKeys);
                         console.log("selectionRangeIndexes::", selectionRangeIndexes);
@@ -78,9 +92,23 @@
 
                 // contextmenu body option
                 contextmenuBodyOption: {
-                    // callback for all options
-                    callback: ({ type, selectionRangeKeys, selectionRangeIndexes }) => {
-                        console.log("---contextmenuBodyOption--");
+                    /*
+                    before contextmenu show.
+                    In this function,You can change the `contextmenu` options
+                    */
+                    beforeShow: ({
+                        isWholeRowSelection,
+                        selectionRangeKeys,
+                        selectionRangeIndexes,
+                    }) => {
+                        console.log("---contextmenu body beforeShow--");
+                        console.log("isWholeRowSelection::", isWholeRowSelection);
+                        console.log("selectionRangeKeys::", selectionRangeKeys);
+                        console.log("selectionRangeIndexes::", selectionRangeIndexes);
+                    },
+                    // after menu click
+                    afterMenuClick: ({ type, selectionRangeKeys, selectionRangeIndexes }) => {
+                        console.log("---contextmenu body afterMenuClick--");
                         console.log("type::", type);
                         console.log("selectionRangeKeys::", selectionRangeKeys);
                         console.log("selectionRangeIndexes::", selectionRangeIndexes);
@@ -130,7 +158,6 @@
                         width: 15,
                         align: "center",
                         operationColumn: true,
-                        fixed: "left",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
                             return rowIndex + this.startRowIndex + 1;
                         },
@@ -139,6 +166,7 @@
                         field: "col1",
                         key: "col1",
                         title: "col1",
+                        fixed: "left",
                         width: 50,
                     },
                     {
