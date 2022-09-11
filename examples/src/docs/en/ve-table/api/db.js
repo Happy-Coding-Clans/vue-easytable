@@ -964,14 +964,14 @@ export const db = {
         data: [
             {
                 param: "beforeShow",
-                desc: `For the callback event before the menu is displayed, you can change the menu item information at this stage.<code>isWholeColSelection</code>is whole column selection,<code>selectionRangeKeys </code>当前选中的单元格key信息，<code>selectionRangeIndexes </code>当前选中的单元格索引信息`,
+                desc: `For the callback event before the menu is displayed, you can change the menu item information at this stage.<code>isWholeColSelection</code>is whole column selection,<code>selectionRangeKeys </code>The currently cellSelection key information,<code>selectionRangeIndexes </code>The currently cellSelection index information,`,
                 type: `<code>Function({ isWholeColSelection, selectionRangeKeys, selectionRangeIndexes })</code>`,
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "afterMenuClick",
-                desc: `菜单项被点击的回调。<code>type</code>菜单类型，<code>selectionRangeKeys </code>当前选中的单元格key信息，<code>selectionRangeIndexes </code>当前选中的单元格索引信息`,
+                desc: `Callback when a menu item is clicked, returning false will prevent the current right-click operation.<code>type</code>menu item,<code>selectionRangeKeys </code>The currently cellSelection key information,<code>selectionRangeIndexes </code>The currently cellSelection index information,`,
                 type: `<code>Function({ type, selectionRangeKeys, selectionRangeIndexes  })</code>`,
                 optionalVal: "-",
                 default: "-",
@@ -991,9 +991,16 @@ export const db = {
     contextmenuBodyOption: {
         data: [
             {
-                param: "callback",
-                desc: `The callback of the right-click menu item.<code>type</code>menu type,<code>selection </code>Currently selected cell`,
-                type: `<code>Function({ type, selection  })</code>`,
+                param: "beforeShow",
+                desc: `For the callback event before the menu is displayed, you can change the menu item information at this stage.<code>isWholeRowSelection</code>is whole row selection,<code>selectionRangeKeys </code>The currently cellSelection key information,<code>selectionRangeIndexes </code>The currently cellSelection index information,`,
+                type: `<code>Function({ isWholeRowSelection, selectionRangeKeys, selectionRangeIndexes })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterMenuClick",
+                desc: `Callback when a menu item is clicked, returning false will prevent the current right-click operation.<code>type</code>menu item,<code>selectionRangeKeys </code>The currently cellSelection key information,<code>selectionRangeIndexes </code>The currently cellSelection index information,`,
+                type: `<code>Function({ type, selectionRangeKeys, selectionRangeIndexes  })</code>`,
                 optionalVal: "-",
                 default: "-",
             },

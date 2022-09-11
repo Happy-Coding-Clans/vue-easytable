@@ -3,8 +3,8 @@
         <tpl
             :desc="desc"
             :anchor="anchor"
-            :table-data="db.contextmenuBodyOption.data"
-            :columns="db.contextmenuBodyOption.columns"
+            :table-data="db.contextmenuHeaderOption.data"
+            :columns="db.contextmenuHeaderOption.columns"
         />
     </div>
 </template>
@@ -16,11 +16,11 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "Body contextmenu option",
+            default: "header 右键菜单配置",
         },
         desc: {
             type: String,
-            default: "contextmenuBodyOption",
+            default: "contextmenuHeaderOption",
         },
     },
     data() {

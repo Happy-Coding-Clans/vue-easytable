@@ -957,14 +957,14 @@ export const db = {
         data: [
             {
                 param: "beforeShow",
-                desc: `菜单显示之前的回调事件，你可以再这个阶段改变菜单项信息。<code>isWholeColSelection</code>是否整列选中，<code>selectionRangeKeys </code>当前选中的单元格key信息，<code>selectionRangeIndexes </code>当前选中的单元格索引信息`,
+                desc: `菜单显示之前的回调事件，你可以在这个阶段改变菜单项信息。<code>isWholeColSelection</code>是否整列选中，<code>selectionRangeKeys </code>当前选中的单元格key信息，<code>selectionRangeIndexes </code>当前选中的单元格索引信息`,
                 type: `<code>Function({ isWholeColSelection, selectionRangeKeys, selectionRangeIndexes })</code>`,
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "afterMenuClick",
-                desc: `菜单项被点击的回调。<code>type</code>菜单类型，<code>selectionRangeKeys </code>当前选中的单元格key信息，<code>selectionRangeIndexes </code>当前选中的单元格索引信息`,
+                desc: `菜单项被点击的回调，返回 <code>false</code> 将阻止当前右键操作。<code>type</code>菜单类型，<code>selectionRangeKeys </code>当前选中的单元格key信息，<code>selectionRangeIndexes </code>当前选中的单元格索引信息`,
                 type: `<code>Function({ type, selectionRangeKeys, selectionRangeIndexes  })</code>`,
                 optionalVal: "-",
                 default: "-",
@@ -985,14 +985,14 @@ export const db = {
         data: [
             {
                 param: "beforeShow",
-                desc: `菜单显示之前的回调事件，你可以再这个阶段改变菜单项信息。<code>isWholeRowSelection</code>是否整行选中，<code>selectionRangeKeys </code>当前选中的单元格key信息，<code>selectionRangeIndexes </code>当前选中的单元格索引信息`,
+                desc: `菜单显示之前的回调事件，你可以在这个阶段改变菜单项信息。<code>isWholeRowSelection</code>是否整行选中，<code>selectionRangeKeys </code>当前选中的单元格key信息，<code>selectionRangeIndexes </code>当前选中的单元格索引信息`,
                 type: `<code>Function({ isWholeRowSelection, selectionRangeKeys, selectionRangeIndexes })</code>`,
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "afterMenuClick",
-                desc: `菜单项被点击的回调。<code>type</code>菜单类型，<code>selectionRangeKeys </code>当前选中的单元格key信息，<code>selectionRangeIndexes </code>当前选中的单元格索引信息`,
+                desc: `菜单项被点击的回调，返回 <code>false</code> 将阻止当前右键操作。<code>type</code>菜单类型，<code>selectionRangeKeys </code>当前选中的单元格key信息，<code>selectionRangeIndexes </code>当前选中的单元格索引信息`,
                 type: `<code>Function({ type, selectionRangeKeys, selectionRangeIndexes  })</code>`,
                 optionalVal: "-",
                 default: "-",
