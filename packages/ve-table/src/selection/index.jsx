@@ -20,6 +20,7 @@ import {
     CURRENT_CELL_SELECTION_TYPES,
     COLUMN_FIXED_TYPE,
 } from "../util/constant";
+import { INSTANCE_METHODS } from "./constant";
 import emitter from "../../../src/mixins/emitter";
 import { isEmptyValue, isBoolean } from "../../../src/utils/index.js";
 import { debounce } from "lodash";
@@ -1551,7 +1552,7 @@ export default {
         clear cell reacts
         当手动设置选择区域时使用
         */
-        clearCellRects() {
+        [INSTANCE_METHODS.CLEAR_CELL_RECTS]() {
             this.clearCurrentCellRect();
             this.clearNormalEndCellRect();
         },
