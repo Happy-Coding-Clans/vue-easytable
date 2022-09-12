@@ -2,79 +2,62 @@
     <div class="normal-data-grid">
         <div class="operation">
             <div class="operation-item">
-                <el-row :gutter="20">
-                    <el-col :span="4">
-                        {{ currentLocal["dataRows"] }}
-                        <el-select
-                            v-model="dataRow"
-                            style="width: 60%"
-                            size="small"
-                            @change="dataRowChange"
-                        >
-                            <el-option
-                                v-for="item in currentLocal['dataRowsOption']"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value"
-                            ></el-option>
-                        </el-select>
-                    </el-col>
-                    <el-col :span="3">
-                        {{ currentLocal["columnFixed"] }}
-                        <el-switch
-                            v-model="enableColumnFixed"
-                            :active-color="switchActiveColor"
-                            :inactive-color="switchInactiveColor"
-                        ></el-switch>
-                    </el-col>
-                    <el-col :span="3">
-                        {{ currentLocal["expand"] }}
-                        <el-switch
-                            v-model="enableExpand"
-                            :active-color="switchActiveColor"
-                            :inactive-color="switchInactiveColor"
-                        ></el-switch>
-                    </el-col>
-                    <el-col :span="3">
-                        {{ currentLocal["loading"] }}
-                        <el-switch
-                            v-model="enableLoading"
-                            :active-color="switchActiveColor"
-                            :inactive-color="switchInactiveColor"
-                            @change="switchLoading"
-                        ></el-switch>
-                    </el-col>
-                    <el-col :span="3">
-                        {{ currentLocal["radio"] }}
-                        <el-switch
-                            v-model="enableRowRadio"
-                            :active-color="switchActiveColor"
-                            :inactive-color="switchInactiveColor"
-                        ></el-switch>
-                    </el-col>
-                    <el-col :span="3">
-                        {{ currentLocal["checkbox"] }}
-                        <el-switch
-                            v-model="enableRowCheckbox"
-                            :active-color="switchActiveColor"
-                            :inactive-color="switchInactiveColor"
-                        ></el-switch>
-                    </el-col>
-                    <el-col :span="2"></el-col>
-                </el-row>
+                {{ currentLocal["dataRows"] }}
+                <el-select
+                    v-model="dataRow"
+                    style="width: 60%"
+                    size="small"
+                    @change="dataRowChange"
+                >
+                    <el-option
+                        v-for="item in currentLocal['dataRowsOption']"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                    ></el-option>
+                </el-select>
             </div>
-            <!--   <div class="operation-item">
-                    <el-row :gutter="20">
-                        <el-col :span="3"></el-col>
-                        <el-col :span="3"></el-col>
-                        <el-col :span="3"></el-col>
-                        <el-col :span="3"></el-col>
-                        <el-col :span="3"></el-col>
-                        <el-col :span="3"></el-col>
-                        <el-col :span="3"></el-col>
-                        <el-col :span="3"></el-col>
-                    </el-row>
-                </div> -->
+            <div class="operation-item">
+                {{ currentLocal["columnFixed"] }}
+                <el-switch
+                    v-model="enableColumnFixed"
+                    :active-color="switchActiveColor"
+                    :inactive-color="switchInactiveColor"
+                ></el-switch>
+            </div>
+            <div class="operation-item">
+                {{ currentLocal["expand"] }}
+                <el-switch
+                    v-model="enableExpand"
+                    :active-color="switchActiveColor"
+                    :inactive-color="switchInactiveColor"
+                ></el-switch>
+            </div>
+            <div class="operation-item">
+                {{ currentLocal["loading"] }}
+                <el-switch
+                    v-model="enableLoading"
+                    :active-color="switchActiveColor"
+                    :inactive-color="switchInactiveColor"
+                    @change="switchLoading"
+                ></el-switch>
+            </div>
+            <div class="operation-item">
+                {{ currentLocal["radio"] }}
+                <el-switch
+                    v-model="enableRowRadio"
+                    :active-color="switchActiveColor"
+                    :inactive-color="switchInactiveColor"
+                ></el-switch>
+            </div>
+            <div class="operation-item">
+                {{ currentLocal["checkbox"] }}
+                <el-switch
+                    v-model="enableRowCheckbox"
+                    :active-color="switchActiveColor"
+                    :inactive-color="switchInactiveColor"
+                ></el-switch>
+            </div>
         </div>
         <div class="table-list">
             <ve-table
@@ -94,6 +77,7 @@
                 :radio-option="radioOption"
                 :checkbox-option="checkboxOption"
                 :row-style-option="rowStyleOption"
+                :cell-selection-option="cellSelectionOption"
             />
         </div>
     </div>
@@ -112,6 +96,10 @@ export default {
     mixins: [I18nMixins],
     data() {
         return {
+            cellSelectionOption: {
+                // disble cell selection
+                enable: false,
+            },
             // edit option 可控单元格编辑
             editOption: {
                 // cell value change
@@ -150,6 +138,8 @@ export default {
             },
             rowStyleOption: {
                 stripe: true,
+                clickHighlight: true,
+                hoverHighlight: true,
             },
             sortOption: {
                 sortChange: (params) => {
@@ -210,7 +200,17 @@ export default {
 
         // columns
         columns() {
-            let columns = [];
+            let columns = [
+                {
+                    field: "rowIndex",
+                    key: "rowIndex",
+                    title: "#",
+                    width: 50,
+                    fixed: this.enableColumnFixed ? "left" : "",
+                    operationColumn: true,
+                    renderBodyCell: this.renderRowIndex,
+                },
+            ];
 
             if (this.enableRowRadio) {
                 columns.push({
@@ -245,14 +245,14 @@ export default {
                 });
             }
 
-            columns.push({
-                field: "rowIndex",
-                key: "rowIndex",
-                title: "#",
-                width: 100,
-                fixed: this.enableColumnFixed ? "left" : "",
-                renderBodyCell: this.renderRowIndex,
-            });
+            // columns.push({
+            //     field: "rowIndex",
+            //     key: "rowIndex",
+            //     title: "#",
+            //     width: 100,
+            //     fixed: this.enableColumnFixed ? "left" : "",
+            //     renderBodyCell: this.renderRowIndex,
+            // });
 
             columns = columns.concat([
                 {
@@ -600,11 +600,15 @@ export default {
     margin: 10px 0;
     padding: 0 100px;
     .operation {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
         margin: 10px 0;
-
         .operation-item {
+            display: flex;
+            flex-direction: row;
             height: 50px;
-            line-height: 50px;
+            align-items: center;
         }
     }
 
