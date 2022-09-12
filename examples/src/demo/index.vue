@@ -50,7 +50,7 @@ export default {
 
     .demo-title {
         display: flex;
-        height: 80px;
+        height: 60px;
         align-items: center;
         // background: #1890ffb3;
         font-size: 30px;
@@ -65,7 +65,7 @@ export default {
         }
 
         &.last {
-            margin-top: 50px;
+            margin-top: 40px;
         }
     }
 }
