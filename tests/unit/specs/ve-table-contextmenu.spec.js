@@ -119,10 +119,11 @@ describe("veTable contextmenu", () => {
                 tableData: TABLE_DATA,
                 rowKeyFieldName: "rowKey",
                 contextmenuBodyOption: {
-                    callback: ({ type, selection }) => {
-                        console.log("type::", type);
-                        console.log("selection::", selection);
-                    },
+                    afterMenuClick: ({
+                        type,
+                        selectionRangeKeys,
+                        selectionRangeIndexes,
+                    }) => {},
                     contextmenus: CONTEXTMENUS,
                 },
             },
@@ -155,8 +156,23 @@ describe("veTable contextmenu", () => {
                 data() {
                     return {
                         contextmenuBodyOption: {
-                            callback: ({ type, selection }) => {
-                                mockFn({ type, selection });
+                            beforeShow: ({
+                                isWholeRowSelection,
+                                selectionRangeKeys,
+                                selectionRangeIndexes,
+                            }) => {
+                                console.log("before show");
+                            },
+                            afterMenuClick: ({
+                                type,
+                                selectionRangeKeys,
+                                selectionRangeIndexes,
+                            }) => {
+                                mockFn({
+                                    type,
+                                    selectionRangeKeys,
+                                    selectionRangeIndexes,
+                                });
                             },
                             contextmenus: CONTEXTMENUS,
                         },
@@ -187,6 +203,8 @@ describe("veTable contextmenu", () => {
             ".ve-contextmenu-popper",
         );
 
+        console.log(contextmenuPopper);
+
         const contextmenuNodes = contextmenuPopper.querySelectorAll(
             ".ve-contextmenu-node",
         );
@@ -205,7 +223,9 @@ describe("veTable contextmenu", () => {
 
         expect(mockFn).toHaveBeenCalled();
         expect(mockFn).toHaveBeenCalledWith({
-            selection: { colKey: "date", rowKey: 2, rowIndex: 2 },
+            selectionRangeKeys,
+            selectionRangeIndexes,
+            //selection: { colKey: "date", rowKey: 2, rowIndex: 2 },
             type: "INSERT_ROW_ABOVE",
         });
     });
@@ -234,8 +254,16 @@ describe("veTable contextmenu", () => {
                 data() {
                     return {
                         contextmenuBodyOption: {
-                            callback: ({ type, selection }) => {
-                                mockFn({ type, selection });
+                            afterMenuClick: ({
+                                type,
+                                selectionRangeKeys,
+                                selectionRangeIndexes,
+                            }) => {
+                                mockFn({
+                                    type,
+                                    selectionRangeKeys,
+                                    selectionRangeIndexes,
+                                });
                             },
                             contextmenus: CONTEXTMENUS,
                         },
@@ -313,8 +341,16 @@ describe("veTable contextmenu", () => {
                 data() {
                     return {
                         contextmenuBodyOption: {
-                            callback: ({ type, selection }) => {
-                                mockFn({ type, selection });
+                            afterMenuClick: ({
+                                type,
+                                selectionRangeKeys,
+                                selectionRangeIndexes,
+                            }) => {
+                                mockFn({
+                                    type,
+                                    selectionRangeKeys,
+                                    selectionRangeIndexes,
+                                });
                             },
                             contextmenus: CONTEXTMENUS,
                         },
@@ -363,7 +399,9 @@ describe("veTable contextmenu", () => {
 
         expect(mockFn).toHaveBeenCalled();
         expect(mockFn).toHaveBeenCalledWith({
-            selection: { colKey: "date", rowKey: 2, rowIndex: 2 },
+            selectionRangeKeys,
+            selectionRangeIndexes,
+            //selection: { colKey: "date", rowKey: 2, rowIndex: 2 },
             type: "REMOVE_ROW",
         });
     });
@@ -392,8 +430,16 @@ describe("veTable contextmenu", () => {
                 data() {
                     return {
                         contextmenuBodyOption: {
-                            callback: ({ type, selection }) => {
-                                mockFn({ type, selection });
+                            afterMenuClick: ({
+                                type,
+                                selectionRangeKeys,
+                                selectionRangeIndexes,
+                            }) => {
+                                mockFn({
+                                    type,
+                                    selectionRangeKeys,
+                                    selectionRangeIndexes,
+                                });
                             },
                             contextmenus: CONTEXTMENUS,
                         },
@@ -450,7 +496,8 @@ describe("veTable contextmenu", () => {
 
         expect(mockFn).toHaveBeenCalled();
         expect(mockFn).toHaveBeenCalledWith({
-            selection: { colKey: "date", rowKey: 2, rowIndex: 2 },
+            selectionRangeKeys,
+            selectionRangeIndexes,
             type: "HIDE_COLUMN",
         });
     });
