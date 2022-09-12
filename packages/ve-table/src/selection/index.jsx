@@ -305,7 +305,7 @@ export default {
                     this.setCurrentCellEl();
                     this.setSelectionPositions({ type: "currentCell" });
                 } else {
-                    this.clearCurrentCellRect();
+                    this[INSTANCE_METHODS.CLEAR_CURRENT_CELL_RECT]();
                 }
                 this.setCellSelectionRangeData();
             },
@@ -321,7 +321,7 @@ export default {
                     this.setNormalEndCellEl();
                     this.setSelectionPositions({ type: "normalEndCell" });
                 } else {
-                    this.clearNormalEndCellRect();
+                    this[INSTANCE_METHODS.CLEAR_NORMAL_END_CELL_RECT]();
                 }
                 this.setCellSelectionRangeData();
             },
@@ -629,17 +629,6 @@ export default {
                     this.cellSelectionRect.autoFillEndCellRect = rect;
                 }
             }
-        },
-
-        // clear current cell rect
-        clearCurrentCellRect() {
-            this.currentCellEl = null;
-            this.cellSelectionRect.currentCellRect = {
-                left: 0,
-                top: 0,
-                width: 0,
-                height: 0,
-            };
         },
 
         /*
@@ -1526,17 +1515,6 @@ export default {
             });
         },
 
-        // clear normal end cell rect
-        clearNormalEndCellRect() {
-            this.normalEndCellEl = null;
-            this.cellSelectionRect.normalEndCellRect = {
-                left: 0,
-                top: 0,
-                width: 0,
-                height: 0,
-            };
-        },
-
         // clear auto fill end cell rect
         clearAutofillEndCellRect() {
             this.autoFillEndCellEl = null;
@@ -1548,13 +1526,26 @@ export default {
             };
         },
 
-        /*
-        clear cell reacts
-        当手动设置选择区域时使用
-        */
-        [INSTANCE_METHODS.CLEAR_CELL_RECTS]() {
-            this.clearCurrentCellRect();
-            this.clearNormalEndCellRect();
+        // clear current cell rect
+        [INSTANCE_METHODS.CLEAR_CURRENT_CELL_RECT]() {
+            this.currentCellEl = null;
+            this.cellSelectionRect.currentCellRect = {
+                left: 0,
+                top: 0,
+                width: 0,
+                height: 0,
+            };
+        },
+
+        // clear normal end cell rect
+        [INSTANCE_METHODS.CLEAR_NORMAL_END_CELL_RECT]() {
+            this.normalEndCellEl = null;
+            this.cellSelectionRect.normalEndCellRect = {
+                left: 0,
+                top: 0,
+                width: 0,
+                height: 0,
+            };
         },
     },
 

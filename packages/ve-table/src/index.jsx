@@ -2453,9 +2453,18 @@ export default {
             const currentCellStartColKey = colKeys[0];
             const currentCellEndColKey = colKeys[colKeys.length - 1];
 
+            const { currentCell } = cellSelectionData;
+
             // 需要先将之前选中单元格元素清空
             if (isEmptyValue(headerIndicatorColKeys.startColKey)) {
-                this.$refs[this.cellSelectionRef].clearCellRects();
+                // 值的比较（currentCell.colKey 会变化）
+                if (
+                    JSON.stringify(colKeys) !=
+                    JSON.stringify([currentCell.colKey])
+                ) {
+                    this.$refs[this.cellSelectionRef].clearCurrentCellRect();
+                }
+                this.$refs[this.cellSelectionRef].clearNormalEndCellRect();
             }
 
             if (isOperationColumn(column.key, colgroups)) {
@@ -2471,7 +2480,6 @@ export default {
             let newEndColKey = endColKey;
             if (shiftKey) {
                 if (isEmptyValue(startColKey)) {
-                    const { currentCell } = cellSelectionData;
                     if (!isEmptyValue(currentCell.colKey)) {
                         const leftColKey = getLeftmostColKey({
                             colgroups,
