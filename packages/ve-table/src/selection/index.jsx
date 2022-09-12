@@ -81,10 +81,6 @@ export default {
             type: Object,
             required: true,
         },
-        previewTableContainerScrollLeft: {
-            type: Number,
-            default: 0,
-        },
         isCellEditing: {
             type: Boolean,
             default: false,
@@ -492,6 +488,7 @@ export default {
         // set selection positions
         setSelectionPositions({ type }) {
             const {
+                allRowKeys,
                 tableEl,
                 currentCellEl,
                 normalEndCellEl,
@@ -499,6 +496,11 @@ export default {
                 cellSelectionData,
                 virtualScrollVisibleIndexs,
             } = this;
+
+            // table empty
+            if (allRowKeys.length === 0) {
+                return false;
+            }
 
             if (!tableEl) {
                 return false;
