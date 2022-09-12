@@ -964,14 +964,14 @@ export const db = {
         data: [
             {
                 param: "beforeShow",
-                desc: `For the callback event before the menu is displayed, you can change the menu item information at this stage.<code>isWholeColSelection</code>is whole column selection,<code>selectionRangeKeys </code>The currently cellSelection key information,<code>selectionRangeIndexes </code>The currently cellSelection index information,`,
+                desc: `For the callback event before the menu is displayed, you can change the menu item information at this stage.<br/><code>isWholeColSelection</code>It's whole column selection,<br/><code>selectionRangeKeys </code>The currently cellSelection key information,<br/><code>selectionRangeIndexes </code>The currently cellSelection index information`,
                 type: `<code>Function({ isWholeColSelection, selectionRangeKeys, selectionRangeIndexes })</code>`,
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "afterMenuClick",
-                desc: `Callback when a menu item is clicked, returning false will prevent the current right-click operation.<code>type</code>menu item,<code>selectionRangeKeys </code>The currently cellSelection key information,<code>selectionRangeIndexes </code>The currently cellSelection index information,`,
+                desc: `Callback when a menu item is clicked, returning false will prevent the current right-click operation.<br/><code>type</code>menu item,<br/><code>selectionRangeKeys </code>The currently cellSelection key information,<br/><code>selectionRangeIndexes </code>The currently cellSelection index information`,
                 type: `<code>Function({ type, selectionRangeKeys, selectionRangeIndexes  })</code>`,
                 optionalVal: "-",
                 default: "-",
@@ -992,14 +992,14 @@ export const db = {
         data: [
             {
                 param: "beforeShow",
-                desc: `For the callback event before the menu is displayed, you can change the menu item information at this stage.<code>isWholeRowSelection</code>is whole row selection,<code>selectionRangeKeys </code>The currently cellSelection key information,<code>selectionRangeIndexes </code>The currently cellSelection index information,`,
+                desc: `For the callback event before the menu is displayed, you can change the menu item information at this stage.<br/><code>isWholeRowSelection</code>It's whole row selection,<br/><code>selectionRangeKeys </code>The currently cellSelection key information,<br/><code>selectionRangeIndexes </code>The currently cellSelection index information`,
                 type: `<code>Function({ isWholeRowSelection, selectionRangeKeys, selectionRangeIndexes })</code>`,
                 optionalVal: "-",
                 default: "-",
             },
             {
                 param: "afterMenuClick",
-                desc: `Callback when a menu item is clicked, returning false will prevent the current right-click operation.<code>type</code>menu item,<code>selectionRangeKeys </code>The currently cellSelection key information,<code>selectionRangeIndexes </code>The currently cellSelection index information,`,
+                desc: `Callback when a menu item is clicked, returning false will prevent the current right-click operation.<br/><code>type</code>menu item,<br/><code>selectionRangeKeys </code>The currently cellSelection key information,<br/><code>selectionRangeIndexes </code>The currently cellSelection index information`,
                 type: `<code>Function({ type, selectionRangeKeys, selectionRangeIndexes  })</code>`,
                 optionalVal: "-",
                 default: "-",

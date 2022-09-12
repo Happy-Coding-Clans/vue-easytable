@@ -5,10 +5,13 @@
         <ContextmenuTypes />
         <Base />
         <Custom />
-        <API
-            title="API"
-            anchor="API"
-            desc="contextmenuBodyOption 右键菜单配置"
+        <API1
+            anchor="API contextmenuHeaderOption"
+            desc="contextmenuHeaderOption header 右键菜单配置"
+        />
+        <API2
+            anchor="API contextmenuBodyOption"
+            desc="contextmenuBodyOption body 右键菜单配置"
         />
     </div>
 </template>
@@ -17,7 +20,8 @@ import Explain from "./explain.md";
 import ContextmenuTypes from "./contextmenu-types.md";
 import Base from "./base.md";
 import Custom from "./custom.md";
-import API from "../api/contextmenu-body-option-props";
+import API1 from "../api/contextmenu-header-option-props";
+import API2 from "../api/contextmenu-body-option-props";
 
 export default {
     name: "basic-main",
@@ -26,7 +30,8 @@ export default {
         ContextmenuTypes,
         Base,
         Custom,
-        API,
+        API1,
+        API2,
     },
 };
 </script>
