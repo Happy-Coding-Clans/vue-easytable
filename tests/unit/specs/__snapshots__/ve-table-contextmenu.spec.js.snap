@@ -75,16 +75,6 @@ exports[`veTable contextmenu render 1`] = `
     </div>
   </div>
   <div class="ve-table-edit-input-container" style="top: 0px; left: 0px; height: 1px; z-index: -1; opacity: 0;"><textarea tabindex="-1" class="ve-table-edit-input"></textarea></div>
-  <div class="ve-contextmenu" style="display: none;">
-    <div class="ve-contextmenu-panel">
-      <ul class="ve-contextmenu-list">
-        <li class="ve-contextmenu-node"><span class="ve-contextmenu-node-label">Insert row above</span></li>
-        <li class="ve-contextmenu-node"><span class="ve-contextmenu-node-label">Insert row below</span></li>
-        <li class="ve-contextmenu-node-separator"></li>
-        <li class="ve-contextmenu-node"><span class="ve-contextmenu-node-label">Remove row</span></li>
-        <li class="ve-contextmenu-node"><span class="ve-contextmenu-node-label">Hide column</span></li>
-      </ul>
-    </div>
-  </div>
+  <div class="ve-contextmenu" style="display: none;"></div>
 </div>
 `;
