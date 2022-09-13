@@ -203,7 +203,7 @@ export default {
                 if (!isEmptyValue(leftColKey)) {
                     let indicatorColKeys = [];
                     if (leftColKey === rightColKey) {
-                        indicatorColKeys = leftColKey;
+                        indicatorColKeys = [leftColKey];
                     } else {
                         indicatorColKeys = getColKeysByRangeColKeys({
                             colKey1: leftColKey,
