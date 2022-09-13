@@ -2455,6 +2455,12 @@ export default {
 
             const { currentCell } = cellSelectionData;
 
+            if (isOperationColumn(column.key, colgroups)) {
+                // select all cell
+                this[INSTANCE_METHODS.SET_ALL_CELL_SELECTION]();
+                return false;
+            }
+
             // 需要先将之前选中单元格元素清空
             if (isEmptyValue(headerIndicatorColKeys.startColKey)) {
                 // 值的比较（currentCell.colKey 会变化）
@@ -2465,12 +2471,6 @@ export default {
                     this.$refs[this.cellSelectionRef].clearCurrentCellRect();
                 }
                 this.$refs[this.cellSelectionRef].clearNormalEndCellRect();
-            }
-
-            if (isOperationColumn(column.key, colgroups)) {
-                // select all cell
-                this[INSTANCE_METHODS.SET_ALL_CELL_SELECTION]();
-                return false;
             }
 
             const { startColKey, endColKey, startColKeyIndex, endColKeyIndex } =
