@@ -12,16 +12,17 @@ V2.19.0
 ### Breaking Changes
 
 -   修改表格右键菜单的非中文文字，将开头小写字母转大写字母
--   表格右键菜单功能，移除回调函数`callback({type, selection})` 使用`afterMenuClick({ type, selectionRangeKeys, selectionRangeIndexes })`替代 [详情]
+-   表格右键菜单功能，移除回调函数`callback({type, selection})` 使用`afterMenuClick({ type, selectionRangeKeys, selectionRangeIndexes })`替代 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/contextmenu)
 
 ### Feature
 
--   添加多列选择功能 [详情]
--   添加多行选择功能 [详情]
+-   添加多列选择功能 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection)
+-   添加多行选择功能 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection)
 -   单元格选择功能，添加表头和列指示器效果 [详情]
 -   单元格选择功能，添加区域选择实例方法`setRangeCellSelection({ startRowKey,startColKey,endRowKey,endColKey,isScrollToStartCell })` [详情]
 -   单元格选择功能，添加单元格全选实例方法`setAllCellSelection()` [详情]
 -   表格 header 添加右键菜单功能 [详情]
+-   表格 body 右键菜单功能增强 [详情]
 -   表格 body 右键菜单功能添加回调方法 `beforeShow({ isWholeRowSelection, selectionRangeKeys, selectionRangeIndexes, })` [详情]
 -   右键菜单组件添加`hideContextmenu()`实例方法
 -   添加主题变量
