@@ -1,5 +1,10 @@
 <template>
     <div class="spreadsheet">
+        <div>
+            {{ currentLocal["description"] }}
+            <br />
+            <br />
+        </div>
         <ve-table
             style="word-break: break-word"
             fixed-header
@@ -13,12 +18,16 @@
             :cell-autofill-option="cellAutofillOption"
             :edit-option="editOption"
             :contextmenu-body-option="contextmenuBodyOption"
+            :contextmenu-header-option="contextmenuHeaderOption"
             :row-style-option="rowStyleOption"
         />
     </div>
 </template>
 
 <script>
+import locale from "../comp/locale";
+import I18nMixins from "../comp/mixins/i18n-mixins";
+
 const COLUMN_KEYS = [
     "A",
     "B",
@@ -48,6 +57,8 @@ const COLUMN_KEYS = [
     "Z",
 ];
 export default {
+    mixins: [I18nMixins],
+
     data() {
         return {
             // start row index
@@ -80,12 +91,105 @@ export default {
                 beforeCellValueChange: ({ row, column, changeValue }) => {},
                 afterCellValueChange: ({ row, column, changeValue }) => {},
             },
-            contextmenuBodyOption: {
-                // callback for all options
-                callback: ({ type, selection }) => {},
+            // contextmenu header option
+            contextmenuHeaderOption: {
+                /*
+                    before contextmenu show.
+                    In this function,You can change the `contextmenu` options
+                    */
+                beforeShow: ({
+                    isWholeColSelection,
+                    selectionRangeKeys,
+                    selectionRangeIndexes,
+                }) => {
+                    //
+                },
+                // after menu click
+                afterMenuClick: ({
+                    type,
+                    selectionRangeKeys,
+                    selectionRangeIndexes,
+                }) => {
+                    //
+                },
 
                 // contextmenus
                 contextmenus: [
+                    {
+                        type: "CUT",
+                    },
+                    {
+                        type: "COPY",
+                    },
+                    {
+                        type: "SEPARATOR",
+                    },
+                    {
+                        type: "EMPTY_COLUMN",
+                    },
+                    {
+                        type: "SEPARATOR",
+                    },
+                    {
+                        type: "LEFT_FIXED_COLUMN_TO",
+                    },
+                    {
+                        type: "CANCLE_LEFT_FIXED_COLUMN_TO",
+                    },
+                    {
+                        type: "RIGHT_FIXED_COLUMN_TO",
+                    },
+                    {
+                        type: "CANCEL_RIGHT_FIXED_COLUMN_TO",
+                    },
+                ],
+            },
+
+            // contextmenu body option
+            contextmenuBodyOption: {
+                /*
+                    before contextmenu show.
+                    In this function,You can change the `contextmenu` options
+                    */
+                beforeShow: ({
+                    isWholeRowSelection,
+                    selectionRangeKeys,
+                    selectionRangeIndexes,
+                }) => {
+                    console.log("---contextmenu body beforeShow--");
+                    console.log("isWholeRowSelection::", isWholeRowSelection);
+                    console.log("selectionRangeKeys::", selectionRangeKeys);
+                    console.log(
+                        "selectionRangeIndexes::",
+                        selectionRangeIndexes,
+                    );
+                },
+                // after menu click
+                afterMenuClick: ({
+                    type,
+                    selectionRangeKeys,
+                    selectionRangeIndexes,
+                }) => {
+                    console.log("---contextmenu body afterMenuClick--");
+                    console.log("type::", type);
+                    console.log("selectionRangeKeys::", selectionRangeKeys);
+                    console.log(
+                        "selectionRangeIndexes::",
+                        selectionRangeIndexes,
+                    );
+                },
+
+                // contextmenus
+                contextmenus: [
+                    {
+                        type: "CUT",
+                    },
+                    {
+                        type: "COPY",
+                    },
+                    {
+                        type: "SEPARATOR",
+                    },
                     {
                         type: "INSERT_ROW_ABOVE",
                     },
@@ -99,10 +203,10 @@ export default {
                         type: "REMOVE_ROW",
                     },
                     {
-                        type: "SEPARATOR",
+                        type: "EMPTY_ROW",
                     },
                     {
-                        type: "HIDE_COLUMN",
+                        type: "EMPTY_CELL",
                     },
                 ],
             },
@@ -114,6 +218,10 @@ export default {
         };
     },
     computed: {
+        // current local
+        currentLocal() {
+            return locale[this.currentDocLang]["completeDemo"]["demo2"];
+        },
         columns() {
             let columns = [
                 {

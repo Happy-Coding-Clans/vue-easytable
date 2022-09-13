@@ -69,6 +69,8 @@ export default {
             },
             demo2: {
                 selection: "当然，你也可以把它当做 Excel 来用",
+                description:
+                    "在这个案例中，你可以尝试右键菜单、行和列多选、即时输入、单元格自动填充等功能...",
             },
         },
     },
@@ -139,6 +141,8 @@ export default {
             demo2: {
                 selection:
                     "Of course, you can use it like Excel or Google Sheets .",
+                description:
+                    "In this case, you can try features such as right-click menu, multiple selection of rows and columns, real-time input, and cell autofilling, etc.",
             },
         },
     },
