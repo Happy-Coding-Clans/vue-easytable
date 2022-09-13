@@ -11,25 +11,63 @@ V2.19.0
 
 ### Breaking Changes
 
+-   Modify the non Chinese text in the right-click menu of the table, and convert the first lower case letter to upper case letter
+-   Contextmenu of table, remove callback function `callback({type, selection})` replace with `afterMenuClick({ type, selectionRangeKeys, selectionRangeIndexes })` [detail](https://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/contextmenu)
+
+### Feature
+
+-   Cell selection [detail](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection)
+
+    -   Add multi column selection feature
+    -   Add multi row selection feature
+    -   Cell selection feature, adding header and column indicator effects
+    -   Cell selection feature, add range selection instance method `setRangeCellSelection({ startRowKey,startColKey,endRowKey,endColKey,isScrollToStartCell })`
+    -   Cell selection feature, add cell select all instance method`setAllCellSelection()` [detail](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection)
+
+-   Table contextmenu [detail](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/contextmenu)
+
+    -   Add table header contextmenu
+    -   Add table body contextmenu
+    -   Add table body contextmenu callback `beforeShow({ isWholeRowSelection, selectionRangeKeys, selectionRangeIndexes, })`
+    -   Add theme vars
+        -   @ve-table-head-indicator-active-text-color
+        -   @ve-table-body-indicator-active-text-color
+        -   @ve-table-header-cell-indicator-active-background-color
+        -   @ve-table-body-cell-indicator-active-background-color
+
+-   Contextmenu comp adds instance method `hideContextmenu()`
+
+### Bug Fixes
+
+-   Fixed the problem that the menu could not be expanded and collapsed after the right menu expansion node was clicked
+
+---
+
+### Breaking Changes
+
 -   修改表格右键菜单的非中文文字，将开头小写字母转大写字母
 -   表格右键菜单功能，移除回调函数`callback({type, selection})` 使用`afterMenuClick({ type, selectionRangeKeys, selectionRangeIndexes })`替代 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/contextmenu)
 
 ### Feature
 
--   添加多列选择功能 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection)
--   添加多行选择功能 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection)
--   单元格选择功能，添加表头和列指示器效果 [详情]
--   单元格选择功能，添加区域选择实例方法`setRangeCellSelection({ startRowKey,startColKey,endRowKey,endColKey,isScrollToStartCell })` [详情]
--   单元格选择功能，添加单元格全选实例方法`setAllCellSelection()` [详情]
--   表格 header 添加右键菜单功能 [详情]
--   表格 body 右键菜单功能增强 [详情]
--   表格 body 右键菜单功能添加回调方法 `beforeShow({ isWholeRowSelection, selectionRangeKeys, selectionRangeIndexes, })` [详情]
--   右键菜单组件添加`hideContextmenu()`实例方法
--   添加主题变量
-    -   @ve-table-head-indicator-active-text-color
-    -   @ve-table-body-indicator-active-text-color
-    -   @ve-table-header-cell-indicator-active-background-color
-    -   @ve-table-body-cell-indicator-active-background-color
+-   单元格选择功能 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection)
+
+    -   添加多列选择功能
+    -   添加多行选择功能
+    -   单元格选择功能，添加表头和列指示器效果
+    -   单元格选择功能，添加区域选择实例方法 `setRangeCellSelection({ startRowKey,startColKey,endRowKey,endColKey,isScrollToStartCell })`
+    -   单元格选择功能，添加单元格全选实例方法`setAllCellSelection()` [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection)
+
+-   表格右键菜单功能 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/contextmenu)
+    -   表格 header 添加右键菜单功能
+    -   表格 body 右键菜单功能增强
+    -   表格 body 右键菜单功能添加回调方法 `beforeShow({ isWholeRowSelection, selectionRangeKeys, selectionRangeIndexes, })`
+    -   右键菜单组件添加`hideContextmenu()`实例方法
+    -   添加主题变量
+        -   @ve-table-head-indicator-active-text-color
+        -   @ve-table-body-indicator-active-text-color
+        -   @ve-table-header-cell-indicator-active-background-color
+        -   @ve-table-body-cell-indicator-active-background-color
 
 ### Bug Fixes
 
