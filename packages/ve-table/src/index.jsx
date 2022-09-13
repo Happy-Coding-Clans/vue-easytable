@@ -2694,8 +2694,8 @@ export default {
             };
         },
 
-        // header contextmenu call back
-        headerContextmenuCallBack(type) {
+        // header contextmenu item click
+        headerContextmenuItemClick(type) {
             const {
                 contextmenuHeaderOption,
                 cellSelectionData,
@@ -2783,8 +2783,8 @@ export default {
             }
         },
 
-        // body contextmenu call back
-        bodyContextmenuCallBack(type) {
+        // body contextmenu item click
+        bodyContextmenuItemClick(type) {
             const {
                 contextmenuBodyOption,
                 cellSelectionData,
@@ -3893,7 +3893,7 @@ export default {
             },
             on: {
                 "on-node-click": (type) => {
-                    this.headerContextmenuCallBack(type);
+                    this.headerContextmenuItemClick(type);
                 },
             },
         };
@@ -3905,7 +3905,7 @@ export default {
             },
             on: {
                 "on-node-click": (type) => {
-                    this.bodyContextmenuCallBack(type);
+                    this.bodyContextmenuItemClick(type);
                 },
             },
         };
