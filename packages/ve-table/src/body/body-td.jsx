@@ -1,8 +1,8 @@
 import BodyCheckboxContent from "./body-checkbox-content";
 import BodyRadioContent from "./body-radio-content";
 import ExpandTrIcon from "./expand-tr-icon";
-import { clsName } from "../util";
-import { isNumber, isBoolean } from "../../../src/utils/index.js";
+import { clsName, getRowKeysByRangeRowKeys } from "../util";
+import { isNumber, isBoolean, isEmptyValue } from "../../../src/utils/index.js";
 
 import {
     COMPS_NAME,
@@ -37,10 +37,13 @@ export default {
             type: Array,
             required: true,
         },
-
         rowKeyFieldName: {
             type: String,
             default: null,
+        },
+        allRowKeys: {
+            type: Array,
+            required: true,
         },
         /*
         expand
@@ -111,6 +114,19 @@ export default {
         },
         // cell selection data
         cellSelectionData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
+        // cell selection range data
+        cellSelectionRangeData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
+        bodyIndicatorRowKeys: {
             type: Object,
             default: function () {
                 return null;
@@ -204,7 +220,10 @@ export default {
                 rowData,
                 column,
                 rowIndex,
+                allRowKeys,
                 cellSelectionData,
+                cellSelectionRangeData,
+                bodyIndicatorRowKeys,
                 currentRowKey,
             } = this;
 
@@ -234,11 +253,43 @@ export default {
                 }
             }
 
-            // cell selection option
             if (cellSelectionData) {
                 const { rowKey, colKey } = cellSelectionData.currentCell;
-                if (currentRowKey === rowKey && column["key"] === colKey) {
-                    result[clsName("cell-selection")] = true;
+
+                if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+                    if (currentRowKey === rowKey) {
+                        // cell selection
+                        if (column["key"] === colKey) {
+                            result[clsName("cell-selection")] = true;
+                        }
+                    }
+
+                    if (operationColumn) {
+                        const { topRowKey, bottomRowKey } =
+                            cellSelectionRangeData;
+                        const { startRowKeyIndex } = bodyIndicatorRowKeys;
+                        const isIndicatorActive = startRowKeyIndex > -1;
+
+                        let indicatorRowKeys = [];
+                        if (topRowKey === bottomRowKey) {
+                            indicatorRowKeys = [topRowKey];
+                        } else {
+                            indicatorRowKeys = getRowKeysByRangeRowKeys({
+                                topRowKey,
+                                bottomRowKey,
+                                allRowKeys,
+                            });
+                        }
+
+                        //  cell indicator (operation column)
+                        if (indicatorRowKeys.indexOf(currentRowKey) > -1) {
+                            if (isIndicatorActive) {
+                                result[clsName("cell-indicator-active")] = true;
+                            } else {
+                                result[clsName("cell-indicator")] = true;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -380,7 +431,7 @@ export default {
 
             const { column, expandOption, rowData } = this;
 
-            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_TD_CLICK, {
+            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_CELL_CLICK, {
                 event: e,
                 rowData,
                 column,
@@ -417,7 +468,7 @@ export default {
 
             this.dispatch(
                 COMPS_NAME.VE_TABLE,
-                EMIT_EVENTS.BODY_TD_DOUBLE_CLICK,
+                EMIT_EVENTS.BODY_CELL_DOUBLE_CLICK,
                 {
                     event: e,
                     rowData,
@@ -433,8 +484,9 @@ export default {
 
             this.dispatch(
                 COMPS_NAME.VE_TABLE,
-                EMIT_EVENTS.BODY_TD_CONTEXTMENU,
+                EMIT_EVENTS.BODY_CELL_CONTEXTMENU,
                 {
+                    event: e,
                     rowData,
                     column,
                 },
@@ -458,11 +510,15 @@ export default {
 
             const { column, rowData } = this;
 
-            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_TD_MOUSEOVER, {
-                event: e,
-                rowData,
-                column,
-            });
+            this.dispatch(
+                COMPS_NAME.VE_TABLE,
+                EMIT_EVENTS.BODY_CELL_MOUSEOVER,
+                {
+                    event: e,
+                    rowData,
+                    column,
+                },
+            );
         },
         // mousedown
         cellMousedown(e, fn) {
@@ -470,11 +526,15 @@ export default {
 
             const { column, rowData } = this;
 
-            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_TD_MOUSEDOWN, {
-                event: e,
-                rowData,
-                column,
-            });
+            this.dispatch(
+                COMPS_NAME.VE_TABLE,
+                EMIT_EVENTS.BODY_CELL_MOUSEDOWN,
+                {
+                    event: e,
+                    rowData,
+                    column,
+                },
+            );
         },
         // mouseup
         cellMouseup(e, fn) {
@@ -482,7 +542,7 @@ export default {
 
             const { column, rowData } = this;
 
-            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_TD_MOUSEUP, {
+            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_CELL_MOUSEUP, {
                 event: e,
                 rowData,
                 column,

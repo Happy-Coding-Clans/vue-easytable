@@ -14,6 +14,7 @@
             :columns="columns"
             :table-data="tableData"
             :cell-selection-option="cellSelectionOption"
+            :row-style-option="rowStyleOption"
         />
     </div>
 </template>
@@ -22,6 +23,10 @@
     export default {
         data() {
             return {
+                rowStyleOption: {
+                    clickHighlight: false,
+                    hoverHighlight: false,
+                },
                 // submit data
                 submitData: [
                     // {
@@ -35,6 +40,17 @@
                     enable: true,
                 },
                 columns: [
+                    {
+                        field: "",
+                        key: "a",
+                        title: "",
+                        width: 50,
+                        align: "center",
+                        operationColumn: true,
+                        renderBodyCell: ({ row, column, rowIndex }, h) => {
+                            return ++rowIndex;
+                        },
+                    },
                     {
                         field: "name",
                         key: "name",

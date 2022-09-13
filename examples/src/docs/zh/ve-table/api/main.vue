@@ -29,6 +29,8 @@
         <CellSelectionOption />
         <!-- edit Option -->
         <EditOption />
+        <!-- contextmenu header option -->
+        <contextmenuHeaderOption />
         <!-- contextmenu body option -->
         <contextmenuBodyOption />
         <!-- Event Custom Option -->
@@ -56,6 +58,7 @@ import CellStyleOption from "./cell-style-option-props";
 import RowStyleOption from "./row-style-option-props";
 import CellSelectionOption from "./cell-selection-option-props";
 import EditOption from "./edit-option-props";
+import contextmenuHeaderOption from "./contextmenu-header-option-props";
 import contextmenuBodyOption from "./contextmenu-body-option-props";
 import cellAutofillOption from "./cell-autofill-option-props";
 import clipboardOption from "./clipboard-option-props";
@@ -76,6 +79,7 @@ export default {
         SortOption,
         CellSelectionOption,
         EditOption,
+        contextmenuHeaderOption,
         contextmenuBodyOption,
         cellAutofillOption,
         clipboardOption,

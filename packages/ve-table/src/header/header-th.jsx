@@ -1,8 +1,13 @@
 import HeaderCheckboxContent from "./header-checkbox-content";
 import HeaderFilterContent from "./header-filter-content";
 import HeaderFilterCustomContent from "./header-filter-custom-content";
-import { getFixedTotalWidthByColumnKey, clsName } from "../util";
-import { getValByUnit } from "../../../src/utils/index.js";
+import {
+    getFixedTotalWidthByColumnKey,
+    clsName,
+    getColKeysByRangeColKeys,
+    getColKeysByHeaderColumn,
+} from "../util";
+import { getValByUnit, isEmptyValue } from "../../../src/utils/index.js";
 import { COMPS_NAME, COLUMN_TYPES, EMIT_EVENTS } from "../util/constant";
 import emitter from "../../../src/mixins/emitter";
 import VeIcon from "vue-easytable/packages/ve-icon";
@@ -35,9 +40,32 @@ export default {
         fixedHeader: {
             type: Boolean,
         },
+        isGroupHeader: {
+            type: Boolean,
+            required: true,
+        },
         rowIndex: {
             type: Number,
             required: true,
+        },
+        cellSelectionData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
+        // cell selection range data
+        cellSelectionRangeData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
+        headerIndicatorColKeys: {
+            type: Object,
+            default: function () {
+                return null;
+            },
         },
         // checkbox option
         checkboxOption: {
@@ -157,14 +185,62 @@ export default {
                 [clsName("last-column")]: this.isLastCloumn,
             };
 
-            const { cellStyleOption, groupColumnItem, rowIndex } = this;
+            const {
+                cellStyleOption,
+                rowIndex,
+                groupColumnItem: column,
+                cellSelectionRangeData,
+                colgroups,
+                isGroupHeader,
+                headerIndicatorColKeys,
+            } = this;
+
+            if (cellSelectionRangeData) {
+                const { leftColKey, rightColKey } = cellSelectionRangeData;
+                const { startColKeyIndex } = headerIndicatorColKeys;
+                const isIndicatorActive = startColKeyIndex > -1;
+
+                if (!isEmptyValue(leftColKey)) {
+                    let indicatorColKeys = [];
+                    if (leftColKey === rightColKey) {
+                        indicatorColKeys = [leftColKey];
+                    } else {
+                        indicatorColKeys = getColKeysByRangeColKeys({
+                            colKey1: leftColKey,
+                            colKey2: rightColKey,
+                            colgroups,
+                        });
+                    }
+
+                    let showIndicator = false;
+                    if (!isGroupHeader) {
+                        if (indicatorColKeys.indexOf(column["key"]) > -1) {
+                            showIndicator = true;
+                        }
+                    } else {
+                        const colKeys = getColKeysByHeaderColumn({
+                            headerColumnItem: column,
+                        });
+                        showIndicator = colKeys.every((colKey) => {
+                            return indicatorColKeys.indexOf(colKey) > -1;
+                        });
+                    }
+                    if (showIndicator) {
+                        if (isIndicatorActive) {
+                            result[clsName("cell-indicator-active")] = true;
+                        } else {
+                            result[clsName("cell-indicator")] = true;
+                        }
+                    }
+                }
+            }
 
             if (
                 cellStyleOption &&
                 typeof cellStyleOption.headerCellClass === "function"
             ) {
                 const customClass = cellStyleOption.headerCellClass({
-                    column: groupColumnItem,
+                    column,
                     rowIndex,
                 });
                 if (customClass) {
@@ -370,6 +446,13 @@ export default {
         // cell click
         cellClick(e, fn) {
             fn && fn(e);
+
+            const { groupColumnItem } = this;
+
+            this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.HEADER_CELL_CLICK, {
+                event: e,
+                column: groupColumnItem,
+            });
         },
         // dblclick
         cellDblclick(e, fn) {
@@ -378,6 +461,17 @@ export default {
         // contextmenu
         cellContextmenu(e, fn) {
             fn && fn(e);
+
+            const { groupColumnItem } = this;
+
+            this.dispatch(
+                COMPS_NAME.VE_TABLE,
+                EMIT_EVENTS.HEADER_CELL_CONTEXTMENU,
+                {
+                    event: e,
+                    column: groupColumnItem,
+                },
+            );
         },
         // mouseenter
         cellMouseenter(e, fn) {
@@ -394,10 +488,32 @@ export default {
         // mouseover
         cellMouseover(e, fn) {
             fn && fn(e);
+
+            const { groupColumnItem } = this;
+
+            this.dispatch(
+                COMPS_NAME.VE_TABLE,
+                EMIT_EVENTS.HEADER_CELL_MOUSEOVER,
+                {
+                    event: e,
+                    column: groupColumnItem,
+                },
+            );
         },
         // mousedown
         cellMousedown(e, fn) {
             fn && fn(e);
+
+            const { groupColumnItem } = this;
+
+            this.dispatch(
+                COMPS_NAME.VE_TABLE,
+                EMIT_EVENTS.HEADER_CELL_MOUSEDOWN,
+                {
+                    event: e,
+                    column: groupColumnItem,
+                },
+            );
         },
         // mouseup
         cellMouseup(e, fn) {

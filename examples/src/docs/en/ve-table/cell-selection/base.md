@@ -1,5 +1,7 @@
 :::anchor Basic usage
 
+You can try clicking on the header, line number column, etc. to see the effect.
+
 :::demo
 
 ```html
@@ -11,6 +13,7 @@
         border-y
         :columns="columns"
         :table-data="tableData"
+        :rowStyleOption="rowStyleOption"
         rowKeyFieldName="rowKey"
     />
 </template>
@@ -19,10 +22,26 @@
     export default {
         data() {
             return {
+                rowStyleOption: {
+                    clickHighlight: false,
+                    hoverHighlight: false,
+                },
                 columns: [
                     {
-                        field: "col1",
+                        field: "",
                         key: "a",
+                        title: "",
+                        width: 15,
+                        align: "center",
+                        fixed: "left",
+                        operationColumn: true,
+                        renderBodyCell: ({ row, column, rowIndex }, h) => {
+                            return ++rowIndex;
+                        },
+                    },
+                    {
+                        field: "col1",
+                        key: "col1",
                         title: "col1",
                         width: 50,
                         fixed: "left",

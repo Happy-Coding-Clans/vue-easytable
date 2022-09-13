@@ -3,15 +3,20 @@ import { clsName } from "./util/index";
 import VeIcon from "vue-easytable/packages/ve-icon";
 import { ICON_NAMES } from "../../src/utils/constant";
 import { getMousePosition, getViewportOffset } from "../../src/utils/dom";
-import { INIT_DATA, EMIT_EVENTS, CONTEXTMENU_TYPES } from "./util/constant";
+import {
+    INIT_DATA,
+    EMIT_EVENTS,
+    CONTEXTMENU_TYPES,
+    INSTANCE_METHODS,
+} from "./util/constant";
 import { getRandomId } from "../../src/utils/random";
 import { debounce, cloneDeep } from "lodash";
-import clickoutside from "../../src/directives/clickoutside";
+import eventsOutside from "../../src/directives/events-outside";
 
 export default {
     name: COMPS_NAME.VE_CONTEXTMENU,
     directives: {
-        "click-outside": clickoutside,
+        "events-outside": eventsOutside,
     },
     props: {
         /*
@@ -459,8 +464,6 @@ export default {
 
         // empty contextmenu panels
         emptyContextmenuPanels() {
-            this.isPanelsEmptyed = true;
-
             /*
             wait for children panel clicked by setTimeout
             如果点击的是非 root panel 不关闭
@@ -470,6 +473,7 @@ export default {
                     this.isChildrenPanelsClicked = false;
                 } else {
                     this.removeOrEmptyPanels();
+                    this.isPanelsEmptyed = true;
                 }
             });
         },
@@ -543,7 +547,7 @@ export default {
             }
         },
 
-        // un register contextmen event
+        // unregister contextmen event
         removeContextmenuEvent() {
             if (this.eventTargetEl) {
                 this.eventTargetEl.removeEventListener(
@@ -551,6 +555,11 @@ export default {
                     this.showRootContextmenuPanel,
                 );
             }
+        },
+
+        // hide contextmenu
+        [INSTANCE_METHODS.HIDE_CONTEXTMENU]() {
+            this.emptyContextmenuPanels();
         },
     },
 
@@ -597,12 +606,15 @@ export default {
                         },
                         directives: [
                             {
-                                name: "click-outside",
-                                value: () => {
-                                    // only for root panel
-                                    if (panelIndex === 0) {
-                                        emptyContextmenuPanels();
-                                    }
+                                name: "events-outside",
+                                value: {
+                                    events: ["click"],
+                                    callback: (e) => {
+                                        // only for root panel
+                                        if (panelIndex === 0) {
+                                            emptyContextmenuPanels();
+                                        }
+                                    },
                                 },
                             },
                         ],
@@ -611,6 +623,9 @@ export default {
                                 if (panelIndex !== 0) {
                                     this.isChildrenPanelsClicked = true;
                                 }
+                            },
+                            contextmenu: (e) => {
+                                e.preventDefault();
                             },
                         },
                     };

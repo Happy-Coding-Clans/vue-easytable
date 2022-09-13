@@ -1,30 +1,47 @@
-:::anchor 基本用法
+:::anchor 单选实例方法
 
-你可以尝试点击表头、行号列等查看效果。
-
-:::demo
+:::demo 你可以通过实例方法`setCellSelection({ rowKey, colKey })`设置单元格选中
 
 ```html
 <template>
-    <ve-table
-        fixed-header
-        :scroll-width="1600"
-        :max-height="380"
-        border-y
-        :columns="columns"
-        :table-data="tableData"
-        rowKeyFieldName="rowKey"
-        :rowStyleOption="rowStyleOption"
-    />
+    <div>
+        <button class="button-demo" @click="setCellSelection(29,'col5')">选中第30行第5列</button>
+        <button class="button-demo" @click="setCellSelection(1,'col1')">选中第2行第1列</button>
+        <br />
+        <br />
+        <ve-table
+            ref="tableRef"
+            fixed-header
+            :scroll-width="1600"
+            :max-height="380"
+            border-y
+            :columns="columns"
+            :table-data="tableData"
+            rowKeyFieldName="rowKey"
+            :virtual-scroll-option="virtualScrollOption"
+            :rowStyleOption="rowStyleOption"
+        />
+    </div>
 </template>
 
 <script>
     export default {
         data() {
             return {
+                // start row index
+                startRowIndex: 0,
+                virtualScrollOption: {
+                    // 是否开启
+                    enable: true,
+                    scrolling: this.scrolling,
+                },
                 rowStyleOption: {
                     clickHighlight: false,
                     hoverHighlight: false,
+                },
+                cellSelectionOption: {
+                    // disble cell selection
+                    enable: true,
                 },
                 columns: [
                     {
@@ -36,7 +53,7 @@
                         fixed: "left",
                         operationColumn: true,
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            return ++rowIndex;
+                            return rowIndex + this.startRowIndex + 1;
                         },
                     },
                     {
@@ -116,9 +133,13 @@
             };
         },
         methods: {
+            // set cell selection
+            setCellSelection(rowKey, colKey) {
+                this.$refs["tableRef"].setCellSelection({ rowKey, colKey });
+            },
             initTableData() {
                 let data = [];
-                for (let i = 0; i < 10; i++) {
+                for (let i = 0; i < 50; i++) {
                     data.push({
                         rowKey: i,
                         col1: `A${i + 1}`,
@@ -132,6 +153,10 @@
                     });
                 }
                 this.tableData = data;
+            },
+            // virtual scrolling
+            scrolling({ startRowIndex }) {
+                this.startRowIndex = startRowIndex;
             },
         },
         created() {

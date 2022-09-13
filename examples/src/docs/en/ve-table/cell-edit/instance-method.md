@@ -19,6 +19,7 @@
             :columns="columns"
             :table-data="tableData"
             :editOption="editOption"
+            :row-style-option="rowStyleOption"
             border-y
         />
     </div>
@@ -28,6 +29,10 @@
     export default {
         data() {
             return {
+                rowStyleOption: {
+                    clickHighlight: false,
+                    hoverHighlight: false,
+                },
                 // edit option
                 editOption: {
                     // cell value change

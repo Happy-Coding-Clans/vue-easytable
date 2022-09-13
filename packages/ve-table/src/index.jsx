@@ -4,15 +4,23 @@ import {
     clsName,
     getNotFixedTotalWidthByColumnKey,
     recursiveRemoveColumnByKey,
-    getContextmenuBodyOptionCollection,
+    setHeaderContextmenuOptions,
+    setBodyContextmenuOptions,
     createEmptyRowData,
     isContextmenuPanelClicked,
     getRowKey,
+    getColKeysByHeaderColumn,
     getColumnByColkey,
+    getLeftmostColKey,
     isCellInSelectionRange,
+    isClearSelectionByBodyCellRightClick,
     cellAutofill,
     isOperationColumn,
     getSelectionRangeData,
+    getSelectionRangeKeys,
+    getSelectionRangeIndexes,
+    setColumnFixed,
+    cancelColumnFixed,
 } from "./util";
 import {
     onBeforeCopy,
@@ -35,7 +43,15 @@ import {
     isDefined,
     createLocale,
 } from "../../src/utils/index.js";
-
+import { KEY_CODES, MOUSE_EVENT_CLICK_TYPE } from "../../src/utils/constant";
+import { getScrollbarWidth } from "../../src/utils/scroll-bar";
+import {
+    requestAnimationTimeout,
+    cancelAnimationTimeout,
+} from "../../src/utils/request-animation-timeout";
+import { isInputKeyCode } from "../../src/utils/event-key-codes";
+import Hooks from "../../src/utils/hooks-manager";
+import { getMouseEventClickType } from "../../src/utils/mouse-event";
 import emitter from "../../src/mixins/emitter";
 import {
     COMPS_NAME,
@@ -56,16 +72,8 @@ import Body from "./body";
 import Footer from "./footer";
 import EditInput from "./editor/edit-input";
 import Selection from "./selection/index";
-import { KEY_CODES } from "../../src/utils/constant";
-import { getScrollbarWidth } from "../../src/utils/scroll-bar";
-import {
-    requestAnimationTimeout,
-    cancelAnimationTimeout,
-} from "../../src/utils/request-animation-timeout";
-import { isInputKeyCode } from "../../src/utils/event-key-codes";
 import clickoutside from "../../src/directives/clickoutside";
 import VueDomResizeObserver from "../../src/comps/resize-observer";
-import Hooks from "../../src/utils/hooks-manager";
 import VeContextmenu from "vue-easytable/packages/ve-contextmenu";
 
 const t = createLocale(LOCALE_COMP_NAME);
@@ -232,6 +240,13 @@ export default {
                 return null;
             },
         },
+        // contextmenu header option
+        contextmenuHeaderOption: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
         // contextmenu body option
         contextmenuBodyOption: {
             type: Object,
@@ -265,6 +280,9 @@ export default {
             tableContentWrapperRef: "tableContentWrapperRef",
             virtualPhantomRef: "virtualPhantomRef",
             editInputRef: "editInputRef",
+            cellSelectionRef: "cellSelectionRef",
+            headerContextmenuRef: "headerContextmenuRef",
+            bodyContextmenuRef: "bodyContextmenuRef",
             cloneColumns: [],
             // is group header
             isGroupHeader: false,
@@ -339,6 +357,20 @@ export default {
             scrollBarWidth: 0,
             // preview table container scrollLeft （处理左列或右列固定效果）
             previewTableContainerScrollLeft: null,
+            // header cell selection colKeys
+            headerIndicatorColKeys: {
+                startColKey: "",
+                startColKeyIndex: -1,
+                endColKey: "",
+                endColKeyIndex: -1,
+            },
+            // body indicator rowKeys
+            bodyIndicatorRowKeys: {
+                startRowKey: "",
+                startRowKeyIndex: -1,
+                endRowKey: "",
+                endRowKeyIndex: -1,
+            },
             // cell selection data
             cellSelectionData: {
                 currentCell: {
@@ -363,18 +395,15 @@ export default {
                 topRowKey: "",
                 bottomRowKey: "",
             },
-            /*
-            is body td mousedown
-            mousedown+mouseup 才允许 area 绘制
-            */
-            isBodyTdMousedown: false,
-            /* 
-            is cell selection corner mousedown
-            */
+            // is header cell mousedown
+            isHeaderCellMousedown: false,
+            // is body cell mousedown
+            isBodyCellMousedown: false,
+            // is body operation column mousedown
+            isBodyOperationColumnMousedown: false,
+            // is cell selection corner mousedown
             isAutofillStarting: false,
-            /* 
-            autofilling direction
-            */
+            // autofilling direction
             autofillingDirection: null,
             // current cell selection type
             currentCellSelectionType: "",
@@ -406,8 +435,14 @@ export default {
             like Excel:If you directly enter content in an editable cell, press the up, down, left and right buttons to directly select other cells and stop editing the current cell
             */
             enableStopEditing: true,
-            // contextmenu event target
-            contextmenuEventTarget: "",
+            // header contextmenu event target
+            headerContextmenuEventTarget: "",
+            // body contextmenu event target
+            bodyContextmenuEventTarget: "",
+            // body contextmenu options
+            bodyContextmenuOptions: [],
+            // header contextmenu options
+            headerContextmenuOptions: [],
         };
     },
     computed: {
@@ -616,8 +651,22 @@ export default {
         hasEditColumn() {
             return this.colgroups.some((x) => x.edit);
         },
-        // enable contextmenu
-        enableContextmenu() {
+        // enable header contextmenu
+        enableHeaderContextmenu() {
+            let result = false;
+
+            const { contextmenuHeaderOption } = this;
+            if (contextmenuHeaderOption) {
+                const { contextmenus } = contextmenuHeaderOption;
+
+                if (Array.isArray(contextmenus) && contextmenus.length) {
+                    result = true;
+                }
+            }
+            return result;
+        },
+        // enable body contextmenu
+        enableBodyContextmenu() {
             let result = false;
 
             const { contextmenuBodyOption } = this;
@@ -653,31 +702,6 @@ export default {
         // enable clipboard
         enableClipboard() {
             return this.rowKeyFieldName;
-        },
-        // contextmenus
-        contextmenus() {
-            let result = [];
-            const { enableContextmenu, contextmenuBodyOption } = this;
-            if (enableContextmenu) {
-                const { contextmenus } = contextmenuBodyOption;
-
-                const contextmenuBodyOptionCollection =
-                    getContextmenuBodyOptionCollection(t);
-
-                contextmenus.forEach((contextmenu) => {
-                    const contentmenuCollectionItem =
-                        contextmenuBodyOptionCollection.find(
-                            (x) => x.type === contextmenu.type,
-                        );
-                    if (contentmenuCollectionItem) {
-                        result.push(contentmenuCollectionItem);
-                    } else {
-                        result.push(contextmenu);
-                    }
-                });
-            }
-
-            return result;
         },
         // header total height
         headerTotalHeight() {
@@ -808,6 +832,20 @@ export default {
             deep: true,
             immediate: true,
         },
+        // watch header indicator colKeys
+        headerIndicatorColKeys: {
+            handler: function () {
+                this.setRangeCellSelectionByHeaderIndicator();
+            },
+            deep: true,
+        },
+        // watch body indicator rowKeys
+        bodyIndicatorRowKeys: {
+            handler: function () {
+                this.setRangeCellSelectionByBodyIndicator();
+            },
+            deep: true,
+        },
     },
 
     methods: {
@@ -834,17 +872,17 @@ export default {
         },
 
         // header tr height resize
-        headerTrHeightChange({ rowIndex, height }) {
+        headerRowHeightChange({ rowIndex, height }) {
             this.headerRows.splice(rowIndex, 1, { rowHeight: height });
         },
 
-        // footer tr height resize
-        footTrHeightChange({ rowIndex, height }) {
+        // footer row height resize
+        footRowHeightChange({ rowIndex, height }) {
             this.footerRows.splice(rowIndex, 1, { rowHeight: height });
         },
 
-        // td width change
-        tdWidthChange(colWidths) {
+        // body cell width change
+        bodyCellWidthChange(colWidths) {
             this.colgroups = this.colgroups.map((item) => {
                 // map
                 item._realTimeWidth = colWidths.get(item.key);
@@ -882,6 +920,14 @@ export default {
         // show or hide columns
         showOrHideColumns() {
             let cloneColumns = cloneDeep(this.columns);
+
+            cloneColumns = cloneColumns.map((col) => {
+                // 操作列默认左固定
+                if (col.operationColumn) {
+                    col.fixed = COLUMN_FIXED_TYPE.LEFT;
+                }
+                return col;
+            });
 
             const { hiddenColumns } = this;
 
@@ -1001,6 +1047,46 @@ export default {
         // clear cell selection autofill end cell
         clearCellSelectionAutofillEndCell() {
             this.cellSelectionAutofillCellChange({ rowKey: "", colKey: "" });
+        },
+
+        // header indicator colKeys change
+        headerIndicatorColKeysChange({ startColKey, endColKey }) {
+            const { colgroups } = this;
+            this.headerIndicatorColKeys.startColKey = startColKey;
+            this.headerIndicatorColKeys.startColKeyIndex = colgroups.findIndex(
+                (x) => x.key === startColKey,
+            );
+            this.headerIndicatorColKeys.endColKey = endColKey;
+            this.headerIndicatorColKeys.endColKeyIndex = colgroups.findIndex(
+                (x) => x.key === endColKey,
+            );
+        },
+
+        // clear header indicator colKeys
+        clearHeaderIndicatorColKeys() {
+            this.headerIndicatorColKeys.startColKey = "";
+            this.headerIndicatorColKeys.startColKeyIndex = -1;
+            this.headerIndicatorColKeys.endColKey = "";
+            this.headerIndicatorColKeys.endColKeyIndex = -1;
+        },
+
+        // body indicator rowKeys change
+        bodyIndicatorRowKeysChange({ startRowKey, endRowKey }) {
+            const { allRowKeys } = this;
+            this.bodyIndicatorRowKeys.startRowKey = startRowKey;
+            this.bodyIndicatorRowKeys.startRowKeyIndex =
+                allRowKeys.indexOf(startRowKey);
+            this.bodyIndicatorRowKeys.endRowKey = endRowKey;
+            this.bodyIndicatorRowKeys.endRowKeyIndex =
+                allRowKeys.indexOf(endRowKey);
+        },
+
+        // clear body indicator RowKeys
+        clearBodyIndicatorRowKeys() {
+            this.bodyIndicatorRowKeys.startRowKey = "";
+            this.bodyIndicatorRowKeys.startRowKeyIndex = -1;
+            this.bodyIndicatorRowKeys.endRowKey = "";
+            this.bodyIndicatorRowKeys.endRowKeyIndex = -1;
         },
 
         // set cell selection by autofill
@@ -1590,7 +1676,7 @@ export default {
             let end = endIndex + belowCount;
 
             this.virtualScrollVisibleIndexs.start = start;
-            this.virtualScrollVisibleIndexs.end = end;
+            this.virtualScrollVisibleIndexs.end = end - 1;
 
             this.virtualScrollVisibleData = tableData.slice(start, end);
         },
@@ -1697,7 +1783,7 @@ export default {
         },
 
         // list item height change
-        bodyTrHeightChange({ rowKey, height }) {
+        bodyRowHeightChange({ rowKey, height }) {
             //获取真实元素大小，修改对应的尺寸缓存
             const index = this.virtualScrollPositions.findIndex(
                 (x) => x.rowKey === rowKey,
@@ -1950,12 +2036,18 @@ export default {
                 return false;
             }
 
-            this.isBodyTdMousedown = false;
+            this.isHeaderCellMousedown = false;
+            this.isBodyCellMousedown = false;
+            this.isBodyOperationColumnMousedown = false;
             this.isAutofillStarting = false;
 
             // clear cell selection
             this.clearCellSelectionCurrentCell();
             this.clearCellSelectionNormalEndCell();
+
+            // clear indicators
+            this.clearHeaderIndicatorColKeys();
+            this.clearBodyIndicatorRowKeys();
 
             // stop editing cell
             this[INSTANCE_METHODS.STOP_EDITING_CELL]();
@@ -2048,18 +2140,13 @@ export default {
         },
 
         /*
-         * @tdContextmenu
+         * @bodyCellContextmenu
          * @desc  recieve td right click\contextmenu event
          * @param {object} rowData - row data
          * @param {object} column - column data
          */
-        tdContextmenu({ rowData, column }) {
-            const { editOption, rowKeyFieldName, colgroups } = this;
-
-            // cell selection by click
-            if (!isOperationColumn(column.key, colgroups)) {
-                this.cellSelectionByClick({ rowData, column });
-            }
+        bodyCellContextmenu({ event, rowData, column }) {
+            const { editOption, rowKeyFieldName } = this;
 
             if (editOption) {
                 const rowKey = getRowKey(rowData, rowKeyFieldName);
@@ -2069,15 +2156,32 @@ export default {
                     colKey: column.key,
                 });
             }
+
+            // set body contextmenu options before contextmen show
+            this.bodyContextmenuOptions = setBodyContextmenuOptions({
+                enableBodyContextmenu: this.enableBodyContextmenu,
+                contextmenuBodyOption: this.contextmenuBodyOption,
+                cellSelectionRangeData: this.cellSelectionRangeData,
+                colgroups: this.colgroups,
+                allRowKeys: this.allRowKeys,
+                bodyIndicatorRowKeys: this.bodyIndicatorRowKeys,
+                t,
+            });
+
+            // close header contextmenu panel
+            const headerContextmenuRef = this.$refs[this.headerContextmenuRef];
+            if (headerContextmenuRef) {
+                headerContextmenuRef.hideContextmenu();
+            }
         },
 
         /*
-         * @tdDoubleClick
+         * @bodyCellDoubleClick
          * @desc  recieve td double click event
          * @param {object} rowData - row data
          * @param {object} column - column data
          */
-        tdDoubleClick({ event, rowData, column }) {
+        bodyCellDoubleClick({ event, rowData, column }) {
             const { editOption, rowKeyFieldName, colgroups } = this;
 
             if (isOperationColumn(column.key, colgroups)) {
@@ -2101,50 +2205,119 @@ export default {
         },
 
         /*
-         * @tdClick
+         * @bodyCellClick
          * @desc  recieve td click event
          * @param {object} rowData - row data
          * @param {object} column - column data
          */
-        tdClick({ event, rowData, column }) {
+        bodyCellClick({ event, rowData, column }) {
             // feature...
         },
 
         /*
-         * @tdMousedown
+         * @bodyCellMousedown
          * @desc  recieve td mousedown event
          * @param {object} rowData - row data
          * @param {object} column - column data
          */
-        tdMousedown({ event, rowData, column }) {
-            this.isBodyTdMousedown = true;
+        bodyCellMousedown({ event, rowData, column }) {
+            if (!this.enableCellSelection) {
+                return false;
+            }
 
             const { shiftKey } = event;
 
-            const { editOption, rowKeyFieldName, colgroups } = this;
+            const {
+                editOption,
+                rowKeyFieldName,
+                colgroups,
+                cellSelectionData,
+                cellSelectionRangeData,
+                allRowKeys,
+            } = this;
 
             const rowKey = getRowKey(rowData, rowKeyFieldName);
             const colKey = column.key;
 
+            // clear header indicator colKeys
+            this.clearHeaderIndicatorColKeys();
+
+            const { currentCell } = cellSelectionData;
+
+            const mouseEventClickType = getMouseEventClickType(event);
+
             if (isOperationColumn(colKey, colgroups)) {
-                // clear cell selection
-                this.clearCellSelectionCurrentCell();
-                this.clearCellSelectionNormalEndCell();
+                const { bodyIndicatorRowKeys } = this;
+                this.isBodyOperationColumnMousedown = true;
 
-                // stop editing cell
-                this[INSTANCE_METHODS.STOP_EDITING_CELL]();
-                return false;
-            }
+                const {
+                    startRowKey,
+                    endRowKey,
+                    startRowKeyIndex,
+                    endRowKeyIndex,
+                } = bodyIndicatorRowKeys;
+                let newStartRowKey = startRowKey;
+                let newEndRowKey = endRowKey;
 
-            if (shiftKey) {
-                this.cellSelectionNormalEndCellChange({
-                    rowKey,
-                    colKey,
+                if (
+                    shiftKey &&
+                    (startRowKeyIndex > -1 || currentCell.rowIndex > -1)
+                ) {
+                    newStartRowKey = isEmptyValue(currentCell.rowKey)
+                        ? startRowKey
+                        : currentCell.rowKey;
+                    newEndRowKey = rowKey;
+                } else {
+                    const currentRowIndex = allRowKeys.indexOf(rowKey);
+
+                    // 左键点击 || 不在当前选择行内
+                    if (
+                        mouseEventClickType ===
+                            MOUSE_EVENT_CLICK_TYPE.LEFT_MOUSE ||
+                        currentRowIndex < startRowKeyIndex ||
+                        currentRowIndex > endRowKeyIndex
+                    ) {
+                        newStartRowKey = rowKey;
+                        newEndRowKey = rowKey;
+                    }
+                }
+
+                this.bodyIndicatorRowKeysChange({
+                    startRowKey: newStartRowKey,
+                    endRowKey: newEndRowKey,
                 });
             } else {
-                // cell selection by click
-                this.cellSelectionByClick({ rowData, column });
-                this.clearCellSelectionNormalEndCell();
+                // body cell mousedown
+                this.isBodyCellMousedown = true;
+
+                const isClearByRightClick =
+                    isClearSelectionByBodyCellRightClick({
+                        mouseEventClickType,
+                        cellData: {
+                            rowKey,
+                            colKey,
+                        },
+                        cellSelectionData,
+                        cellSelectionRangeData,
+                        colgroups,
+                        allRowKeys,
+                    });
+
+                if (isClearByRightClick) {
+                    // clear body indicator colKeys
+                    this.clearBodyIndicatorRowKeys();
+
+                    if (shiftKey && currentCell.rowIndex > -1) {
+                        this.cellSelectionNormalEndCellChange({
+                            rowKey,
+                            colKey,
+                        });
+                    } else {
+                        // cell selection by click
+                        this.cellSelectionByClick({ rowData, column });
+                        this.clearCellSelectionNormalEndCell();
+                    }
+                }
             }
 
             if (editOption) {
@@ -2157,49 +2330,259 @@ export default {
         },
 
         /*
-         * @tdMouseover
+         * @bodyCellMouseover
          * @desc  recieve td mouseover event
          * @param {object} rowData - row data
          * @param {object} column - column data
          */
-        tdMouseover({ event, rowData, column }) {
-            const { rowKeyFieldName, isBodyTdMousedown, isAutofillStarting } =
-                this;
+        bodyCellMouseover({ event, rowData, column }) {
+            const {
+                rowKeyFieldName,
+                isBodyCellMousedown,
+                isAutofillStarting,
+                isHeaderCellMousedown,
+                isBodyOperationColumnMousedown,
+            } = this;
 
             const rowKey = getRowKey(rowData, rowKeyFieldName);
             const colKey = column.key;
-            if (isOperationColumn(colKey, this.colgroups)) {
-                return false;
-            }
 
-            if (isBodyTdMousedown) {
+            if (isBodyCellMousedown) {
+                // 操作列不能单元格选中
+                if (isOperationColumn(colKey, this.colgroups)) {
+                    return false;
+                }
                 this.cellSelectionNormalEndCellChange({
                     rowKey,
-                    colKey: column.key,
+                    colKey,
+                });
+            }
+
+            if (isBodyOperationColumnMousedown) {
+                this.bodyIndicatorRowKeysChange({
+                    startRowKey: this.bodyIndicatorRowKeys.startRowKey,
+                    endRowKey: rowKey,
+                });
+            }
+
+            // 允许在body cell mouseover 里补充 header indicator 信息
+            if (isHeaderCellMousedown) {
+                this.headerIndicatorColKeysChange({
+                    startColKey: this.headerIndicatorColKeys.startColKey,
+                    endColKey: colKey,
                 });
             }
 
             if (isAutofillStarting) {
+                // 操作列不能autofilling 效果
+                if (isOperationColumn(colKey, this.colgroups)) {
+                    return false;
+                }
                 this.cellSelectionAutofillCellChange({
                     rowKey,
-                    colKey: column.key,
+                    colKey,
                 });
             }
         },
 
         /*
-         * @tdMouseup
+         * @bodyCellMouseup
          * @desc  recieve td mouseup event
          * @param {object} rowData - row data
          * @param {object} column - column data
          */
-        tdMouseup({ event, rowData, column }) {
+        bodyCellMouseup({ event, rowData, column }) {
             // feature...
+        },
+
+        // header cell click
+        headerCellClick({ event, column }) {
+            // feature...
+        },
+
+        // header cell contextmenu
+        headerCellContextmenu({ event, column }) {
+            // set header contextmenu options before contextmen show
+            this.headerContextmenuOptions = setHeaderContextmenuOptions({
+                column,
+                contextmenuHeaderOption: this.contextmenuHeaderOption,
+                cellSelectionRangeData: this.cellSelectionRangeData,
+                colgroups: this.colgroups,
+                allRowKeys: this.allRowKeys,
+                headerIndicatorColKeys: this.headerIndicatorColKeys,
+                enableHeaderContextmenu: this.enableHeaderContextmenu,
+                t,
+            });
+
+            // close body contextmenu panel
+            const bodyContextmenuRef = this.$refs[this.bodyContextmenuRef];
+            if (bodyContextmenuRef) {
+                bodyContextmenuRef.hideContextmenu();
+            }
+        },
+
+        // header cell mousedown
+        headerCellMousedown({ event, column }) {
+            if (!this.enableCellSelection) {
+                return false;
+            }
+
+            this.isHeaderCellMousedown = true;
+
+            const { shiftKey } = event;
+
+            const {
+                isGroupHeader,
+                colgroups,
+                headerIndicatorColKeys,
+                cellSelectionData,
+            } = this;
+
+            // clear body indicator colKeys
+            this.clearBodyIndicatorRowKeys();
+
+            let colKeys;
+            if (isGroupHeader) {
+                colKeys = getColKeysByHeaderColumn({
+                    headerColumnItem: column,
+                });
+            } else {
+                colKeys = [column.key];
+            }
+
+            const currentCellStartColKey = colKeys[0];
+            const currentCellEndColKey = colKeys[colKeys.length - 1];
+
+            const { currentCell } = cellSelectionData;
+
+            if (isOperationColumn(column.key, colgroups)) {
+                // select all cell
+                this[INSTANCE_METHODS.SET_ALL_CELL_SELECTION]();
+                return false;
+            }
+
+            // 需要先将之前选中单元格元素清空
+            if (isEmptyValue(headerIndicatorColKeys.startColKey)) {
+                // 值的比较（currentCell.colKey 会变化）
+                if (
+                    JSON.stringify(colKeys) !=
+                    JSON.stringify([currentCell.colKey])
+                ) {
+                    this.$refs[this.cellSelectionRef].clearCurrentCellRect();
+                }
+                this.$refs[this.cellSelectionRef].clearNormalEndCellRect();
+            }
+
+            const { startColKey, endColKey, startColKeyIndex, endColKeyIndex } =
+                headerIndicatorColKeys;
+
+            let newStartColKey = startColKey;
+            let newEndColKey = endColKey;
+            if (shiftKey) {
+                if (isEmptyValue(startColKey)) {
+                    if (!isEmptyValue(currentCell.colKey)) {
+                        const leftColKey = getLeftmostColKey({
+                            colgroups,
+                            colKeys: colKeys.concat([currentCell.colKey]),
+                        });
+
+                        newStartColKey = currentCell.colKey;
+                        if (leftColKey === currentCell.colKey) {
+                            newEndColKey = currentCellEndColKey;
+                        } else {
+                            newEndColKey = currentCellStartColKey;
+                        }
+                    } else {
+                        newStartColKey = currentCellStartColKey;
+                        newEndColKey = currentCellEndColKey;
+                    }
+                } else {
+                    newStartColKey = startColKey;
+                    const leftColKey = getLeftmostColKey({
+                        colgroups,
+                        colKeys: colKeys.concat([startColKey]),
+                    });
+
+                    if (leftColKey === startColKey) {
+                        newEndColKey = currentCellEndColKey;
+                    } else {
+                        newEndColKey = currentCellStartColKey;
+                    }
+                }
+            } else {
+                const mouseEventClickType = getMouseEventClickType(event);
+                const currentCellStartColIndex = colgroups.findIndex(
+                    (x) => x.key === currentCellEndColKey,
+                );
+                const currentCellEndColIndex = colgroups.findIndex(
+                    (x) => x.key === currentCellStartColKey,
+                );
+                // 左键点击 || 不在当前选择列内
+                if (
+                    mouseEventClickType === MOUSE_EVENT_CLICK_TYPE.LEFT_MOUSE ||
+                    currentCellStartColIndex < startColKeyIndex ||
+                    currentCellEndColIndex < startColKeyIndex ||
+                    currentCellStartColIndex > endColKeyIndex ||
+                    currentCellEndColIndex > endColKeyIndex
+                ) {
+                    newStartColKey = currentCellStartColKey;
+                    newEndColKey = currentCellEndColKey;
+                }
+            }
+
+            this.headerIndicatorColKeysChange({
+                startColKey: newStartColKey,
+                endColKey: newEndColKey,
+            });
+        },
+
+        // header cell mouseover
+        headerCellMouseover({ event, column }) {
+            const {
+                colgroups,
+                isGroupHeader,
+                isHeaderCellMousedown,
+                headerIndicatorColKeys,
+            } = this;
+
+            if (
+                isHeaderCellMousedown &&
+                !isOperationColumn(column.key, colgroups)
+            ) {
+                let colKeys;
+                if (isGroupHeader) {
+                    colKeys = getColKeysByHeaderColumn({
+                        headerColumnItem: column,
+                    });
+                } else {
+                    colKeys = [column.key];
+                }
+
+                const leftColKey = getLeftmostColKey({
+                    colgroups,
+                    colKeys: colKeys.concat([
+                        headerIndicatorColKeys.startColKey,
+                    ]),
+                });
+
+                let endColKey;
+                if (leftColKey === headerIndicatorColKeys.startColKey) {
+                    endColKey = colKeys[colKeys.length - 1];
+                } else {
+                    endColKey = colKeys[0];
+                }
+                this.headerIndicatorColKeysChange({
+                    startColKey: this.headerIndicatorColKeys.startColKey,
+                    endColKey,
+                });
+            }
         },
 
         // table content wrapper mouseup
         tableContainerMouseup() {
-            this.isBodyTdMousedown = false;
+            this.isHeaderCellMousedown = false;
+            this.isBodyCellMousedown = false;
+            this.isBodyOperationColumnMousedown = false;
             this.isAutofillStarting = false;
         },
 
@@ -2311,11 +2694,101 @@ export default {
             };
         },
 
-        // contextmenu call back
-        contextmenuCallBack(type) {
+        // header contextmenu item click
+        headerContextmenuItemClick(type) {
+            const {
+                contextmenuHeaderOption,
+                cellSelectionData,
+                cellSelectionRangeData,
+                allRowKeys,
+                colgroups,
+            } = this;
+
+            const { rowKey, colKey } = cellSelectionData.currentCell;
+            const { afterMenuClick } = contextmenuHeaderOption;
+
+            if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+                let selectionRangeKeys = getSelectionRangeKeys({
+                    cellSelectionRangeData,
+                });
+
+                let selectionRangeIndexes = getSelectionRangeIndexes({
+                    cellSelectionRangeData,
+                    colgroups,
+                    allRowKeys,
+                });
+
+                if (isFunction(afterMenuClick)) {
+                    const callback = afterMenuClick({
+                        type,
+                        selectionRangeKeys,
+                        selectionRangeIndexes,
+                    });
+                    if (isBoolean(callback) && !callback) {
+                        return false;
+                    }
+                }
+                const editInputEditor = this.$refs[this.editInputRef];
+
+                // cut
+                if (CONTEXTMENU_TYPES.CUT === type) {
+                    editInputEditor.textareaSelect();
+                    document.execCommand("cut");
+                }
+                // copy
+                else if (CONTEXTMENU_TYPES.COPY === type) {
+                    editInputEditor.textareaSelect();
+                    document.execCommand("copy");
+                }
+                // empty column
+                else if (CONTEXTMENU_TYPES.EMPTY_COLUMN === type) {
+                    this.deleteCellSelectionRangeValue();
+                }
+                // left fixed column to
+                else if (CONTEXTMENU_TYPES.LEFT_FIXED_COLUMN_TO === type) {
+                    this.cloneColumns = setColumnFixed({
+                        cloneColumns: this.cloneColumns,
+                        cellSelectionRangeData,
+                        fixedType: COLUMN_FIXED_TYPE.LEFT,
+                    });
+                }
+                // cancel left fixed column to
+                else if (
+                    CONTEXTMENU_TYPES.CANCEL_LEFT_FIXED_COLUMN_TO === type
+                ) {
+                    this.cloneColumns = cancelColumnFixed({
+                        cloneColumns: this.cloneColumns,
+                        colgroups,
+                        fixedType: COLUMN_FIXED_TYPE.LEFT,
+                    });
+                }
+                // right fixed column to
+                else if (CONTEXTMENU_TYPES.RIGHT_FIXED_COLUMN_TO === type) {
+                    this.cloneColumns = setColumnFixed({
+                        cloneColumns: this.cloneColumns,
+                        cellSelectionRangeData,
+                        fixedType: COLUMN_FIXED_TYPE.RIGHT,
+                    });
+                }
+                // cancel right fixed column to
+                else if (
+                    CONTEXTMENU_TYPES.CANCEL_RIGHT_FIXED_COLUMN_TO === type
+                ) {
+                    this.cloneColumns = cancelColumnFixed({
+                        cloneColumns: this.cloneColumns,
+                        colgroups,
+                        fixedType: COLUMN_FIXED_TYPE.RIGHT,
+                    });
+                }
+            }
+        },
+
+        // body contextmenu item click
+        bodyContextmenuItemClick(type) {
             const {
                 contextmenuBodyOption,
                 cellSelectionData,
+                cellSelectionRangeData,
                 tableData,
                 allRowKeys,
                 colgroups,
@@ -2323,15 +2796,72 @@ export default {
             } = this;
 
             const { rowKey, colKey } = cellSelectionData.currentCell;
-            const { callback } = contextmenuBodyOption;
+            const { afterMenuClick } = contextmenuBodyOption;
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-                const rowIndex = allRowKeys.findIndex((x) => x === rowKey);
+                let selectionRangeKeys = getSelectionRangeKeys({
+                    cellSelectionRangeData,
+                });
 
-                // insert row above
-                if (CONTEXTMENU_TYPES.INSERT_ROW_ABOVE === type) {
+                let selectionRangeIndexes = getSelectionRangeIndexes({
+                    cellSelectionRangeData,
+                    colgroups,
+                    allRowKeys,
+                });
+
+                if (isFunction(afterMenuClick)) {
+                    const callback = afterMenuClick({
+                        type,
+                        selectionRangeKeys,
+                        selectionRangeIndexes,
+                    });
+                    if (isBoolean(callback) && !callback) {
+                        return false;
+                    }
+                }
+
+                const { startRowIndex, endRowIndex } = selectionRangeIndexes;
+
+                const currentRowIndex = allRowKeys.findIndex(
+                    (x) => x === rowKey,
+                );
+
+                const editInputEditor = this.$refs[this.editInputRef];
+
+                // cut
+                if (CONTEXTMENU_TYPES.CUT === type) {
+                    editInputEditor.textareaSelect();
+                    document.execCommand("cut");
+                }
+                // copy
+                else if (CONTEXTMENU_TYPES.COPY === type) {
+                    editInputEditor.textareaSelect();
+                    document.execCommand("copy");
+                }
+                // paste todo
+                // else if (CONTEXTMENU_TYPES.PASTE === type) {
+                //     editInputEditor.textareaSelect();
+                //     document.execCommand("paste", null, null);
+                // }
+                // remove rows
+                else if (CONTEXTMENU_TYPES.REMOVE_ROW === type) {
                     tableData.splice(
-                        rowIndex,
+                        startRowIndex,
+                        endRowIndex - startRowIndex + 1,
+                    );
+                }
+                // empty rows
+                else if (CONTEXTMENU_TYPES.EMPTY_ROW === type) {
+                    this.deleteCellSelectionRangeValue();
+                }
+                // empty rows
+                else if (CONTEXTMENU_TYPES.EMPTY_CELL === type) {
+                    this.deleteCellSelectionRangeValue();
+                }
+                // insert row above
+                else if (CONTEXTMENU_TYPES.INSERT_ROW_ABOVE === type) {
+                    tableData.splice(
+                        currentRowIndex,
                         0,
                         createEmptyRowData({ colgroups, rowKeyFieldName }),
                     );
@@ -2339,26 +2869,10 @@ export default {
                 // insert row below
                 else if (CONTEXTMENU_TYPES.INSERT_ROW_BELOW === type) {
                     tableData.splice(
-                        rowIndex + 1,
+                        currentRowIndex + 1,
                         0,
                         createEmptyRowData({ colgroups, rowKeyFieldName }),
                     );
-                }
-                // remove row
-                else if (CONTEXTMENU_TYPES.REMOVE_ROW === type) {
-                    tableData.splice(rowIndex, 1);
-                }
-                // hide column
-                else if (CONTEXTMENU_TYPES.HIDE_COLUMN === type) {
-                    this[INSTANCE_METHODS.HIDE_COLUMNS_BY_KEYS]([colKey]);
-                }
-
-                // callback
-                if (isFunction(callback)) {
-                    callback({
-                        type,
-                        selection: cellSelectionData.currentCell,
-                    });
                 }
             }
         },
@@ -2630,6 +3144,48 @@ export default {
             }
         },
 
+        // set range cell selection by header indicator
+        setRangeCellSelectionByHeaderIndicator() {
+            const { headerIndicatorColKeys, allRowKeys } = this;
+            const { startColKey, endColKey } = headerIndicatorColKeys;
+
+            if (isEmptyValue(startColKey) || isEmptyValue(endColKey)) {
+                return false;
+            }
+
+            this.cellSelectionCurrentCellChange({
+                rowKey: allRowKeys[0],
+                colKey: startColKey,
+            });
+
+            this.cellSelectionNormalEndCellChange({
+                rowKey: allRowKeys[allRowKeys.length - 1],
+                colKey: endColKey,
+            });
+        },
+
+        // set range cell selection by body indicator
+        setRangeCellSelectionByBodyIndicator() {
+            const { bodyIndicatorRowKeys, colgroups } = this;
+            const { startRowKey, endRowKey } = bodyIndicatorRowKeys;
+
+            if (isEmptyValue(startRowKey) || isEmptyValue(endRowKey)) {
+                return false;
+            }
+
+            if (colgroups.length > 1) {
+                this.cellSelectionCurrentCellChange({
+                    rowKey: startRowKey,
+                    colKey: colgroups[1].key,
+                });
+
+                this.cellSelectionNormalEndCellChange({
+                    rowKey: endRowKey,
+                    colKey: colgroups[colgroups.length - 1].key,
+                });
+            }
+        },
+
         /*
         set cell selection and column to visible
         */
@@ -2657,6 +3213,85 @@ export default {
                 if (isScrollToRow) {
                     this[INSTANCE_METHODS.SCROLL_TO_ROW_KEY]({ rowKey });
                 }
+            }
+        },
+
+        /*
+        set range cell selection and column to visible
+        */
+        [INSTANCE_METHODS.SET_RANGE_CELL_SELECTION]({
+            startRowKey,
+            startColKey,
+            endRowKey,
+            endColKey,
+            isScrollToStartCell = false,
+        }) {
+            const { enableCellSelection } = this;
+
+            if (!enableCellSelection) {
+                return false;
+            }
+
+            if (
+                isEmptyValue(startRowKey) ||
+                isEmptyValue(startColKey) ||
+                isEmptyValue(endRowKey) ||
+                isEmptyValue(endColKey)
+            ) {
+                return false;
+            }
+
+            this.cellSelectionCurrentCellChange({
+                rowKey: startRowKey,
+                colKey: startColKey,
+            });
+
+            this.cellSelectionNormalEndCellChange({
+                rowKey: endRowKey,
+                colKey: endColKey,
+            });
+
+            // row to visible
+            if (isScrollToStartCell) {
+                const column = getColumnByColkey(startColKey, this.colgroups);
+                // column to visible
+                this.columnToVisible(column);
+                this[INSTANCE_METHODS.SCROLL_TO_ROW_KEY]({
+                    rowKey: startRowKey,
+                });
+            }
+        },
+
+        /*
+        set all cell selection and column to visible
+        */
+        [INSTANCE_METHODS.SET_ALL_CELL_SELECTION]() {
+            const { enableCellSelection } = this;
+
+            if (!enableCellSelection) {
+                return false;
+            }
+
+            const { colgroups, allRowKeys } = this;
+
+            if (colgroups.length) {
+                const colKeys = colgroups
+                    .filter((x) => !x.operationColumn)
+                    .map((x) => x.key);
+
+                if (colKeys.length) {
+                    this.headerIndicatorColKeysChange({
+                        startColKey: colKeys[0],
+                        endColKey: colKeys[colKeys.length - 1],
+                    });
+                }
+            }
+
+            if (allRowKeys.length) {
+                this.bodyIndicatorRowKeysChange({
+                    startRowKey: allRowKeys[0],
+                    endRowKey: allRowKeys[allRowKeys.length - 1],
+                });
             }
         },
 
@@ -2835,13 +3470,20 @@ export default {
     },
     created() {
         // bug fixed #467
-        this.debouncedTdWidthChange = debounce(this.tdWidthChange, 0);
+        this.debouncedBodyCellWidthChange = debounce(
+            this.bodyCellWidthChange,
+            0,
+        );
     },
     mounted() {
         this.parentRendered = true;
 
-        // set contextmenu event target
-        this.contextmenuEventTarget = this.$el.querySelector(
+        // set header contextmenu event target
+        this.headerContextmenuEventTarget = this.$el.querySelector(
+            `.${clsName("header")}`,
+        );
+        // set body contextmenu event target
+        this.bodyContextmenuEventTarget = this.$el.querySelector(
             `.${clsName("body")}`,
         );
 
@@ -2865,43 +3507,43 @@ export default {
 
         // receive multiple header row height change
         this.$on(
-            EMIT_EVENTS.HEADER_TR_HEIGHT_CHANGE,
+            EMIT_EVENTS.HEADER_ROW_HEIGHT_CHANGE,
             ({ rowIndex, height }) => {
-                this.headerTrHeightChange({ rowIndex, height });
+                this.headerRowHeightChange({ rowIndex, height });
             },
         );
 
         // receive virtual scroll row height change
-        this.$on(EMIT_EVENTS.BODY_TR_HEIGHT_CHANGE, ({ rowKey, height }) => {
-            this.bodyTrHeightChange({ rowKey, height });
+        this.$on(EMIT_EVENTS.BODY_ROW_HEIGHT_CHANGE, ({ rowKey, height }) => {
+            this.bodyRowHeightChange({ rowKey, height });
         });
 
         // receive footer row height change
         this.$on(
-            EMIT_EVENTS.FOOTER_TR_HEIGHT_CHANGE,
+            EMIT_EVENTS.FOOTER_ROW_HEIGHT_CHANGE,
             ({ rowIndex, height }) => {
-                this.footTrHeightChange({ rowIndex, height });
+                this.footRowHeightChange({ rowIndex, height });
             },
         );
 
-        // recieve td click
-        this.$on(EMIT_EVENTS.BODY_TD_CLICK, (params) => {
-            this.tdClick(params);
+        // recieve body cell click
+        this.$on(EMIT_EVENTS.BODY_CELL_CLICK, (params) => {
+            this.bodyCellClick(params);
         });
 
-        // recieve td mouseover
-        this.$on(EMIT_EVENTS.BODY_TD_MOUSEOVER, (params) => {
-            this.tdMouseover(params);
+        // recieve body cell mouseover
+        this.$on(EMIT_EVENTS.BODY_CELL_MOUSEOVER, (params) => {
+            this.bodyCellMouseover(params);
         });
 
-        // recieve td mousedown
-        this.$on(EMIT_EVENTS.BODY_TD_MOUSEDOWN, (params) => {
-            this.tdMousedown(params);
+        // recieve body cell mousedown
+        this.$on(EMIT_EVENTS.BODY_CELL_MOUSEDOWN, (params) => {
+            this.bodyCellMousedown(params);
         });
 
-        // recieve td mousedown
-        this.$on(EMIT_EVENTS.BODY_TD_MOUSEUP, (params) => {
-            this.tdMouseup(params);
+        // recieve body cell mousedown
+        this.$on(EMIT_EVENTS.BODY_CELL_MOUSEUP, (params) => {
+            this.bodyCellMouseup(params);
         });
 
         // recieve selection corner mousedown
@@ -2919,14 +3561,34 @@ export default {
             this.autofillingDirectionChange(params);
         });
 
-        // recieve td contextmenu(right click)
-        this.$on(EMIT_EVENTS.BODY_TD_CONTEXTMENU, (params) => {
-            this.tdContextmenu(params);
+        // recieve body cell contextmenu(right click)
+        this.$on(EMIT_EVENTS.BODY_CELL_CONTEXTMENU, (params) => {
+            this.bodyCellContextmenu(params);
         });
 
-        // recieve td double click
-        this.$on(EMIT_EVENTS.BODY_TD_DOUBLE_CLICK, (params) => {
-            this.tdDoubleClick(params);
+        // recieve body cell double click
+        this.$on(EMIT_EVENTS.BODY_CELL_DOUBLE_CLICK, (params) => {
+            this.bodyCellDoubleClick(params);
+        });
+
+        // recieve header cell contextmenu(right click)
+        this.$on(EMIT_EVENTS.HEADER_CELL_CLICK, (params) => {
+            this.headerCellClick(params);
+        });
+
+        // recieve header cell contextmenu(right click)
+        this.$on(EMIT_EVENTS.HEADER_CELL_CONTEXTMENU, (params) => {
+            this.headerCellContextmenu(params);
+        });
+
+        // recieve header cell mousedown
+        this.$on(EMIT_EVENTS.HEADER_CELL_MOUSEDOWN, (params) => {
+            this.headerCellMousedown(params);
+        });
+
+        // recieve header cell mousedown
+        this.$on(EMIT_EVENTS.HEADER_CELL_MOUSEOVER, (params) => {
+            this.headerCellMouseover(params);
         });
 
         // add key down event listener
@@ -2951,7 +3613,7 @@ export default {
             fixedHeader,
             fixedFooter,
             actualRenderTableData,
-            debouncedTdWidthChange,
+            debouncedBodyCellWidthChange,
             expandOption,
             checkboxOption,
             radioOption,
@@ -2963,8 +3625,13 @@ export default {
             showVirtualScrollingPlaceholder,
             cellSelectionData,
             editOption,
-            contextmenus,
+            bodyContextmenuOptions,
+            headerContextmenuOptions,
             allRowKeys,
+            enableCellSelection,
+            cellSelectionRangeData,
+            headerIndicatorColKeys,
+            bodyIndicatorRowKeys,
         } = this;
 
         // header props
@@ -2975,12 +3642,16 @@ export default {
                 tableViewportWidth,
                 groupColumns,
                 colgroups,
+                isGroupHeader: this.isGroupHeader,
                 fixedHeader,
                 checkboxOption,
                 sortOption,
                 cellStyleOption,
                 eventCustomOption: this.eventCustomOption,
                 headerRows: this.headerRows,
+                cellSelectionData,
+                cellSelectionRangeData,
+                headerIndicatorColKeys,
             },
             nativeOn: {
                 click: () => {
@@ -3010,13 +3681,16 @@ export default {
                 cellSelectionOption: this.cellSelectionOption,
                 hasFixedColumn: this.hasFixedColumn,
                 cellSelectionData,
+                cellSelectionRangeData,
                 allRowKeys,
                 editOption,
                 highlightRowKey: this.highlightRowKey,
                 showVirtualScrollingPlaceholder,
+                bodyIndicatorRowKeys,
             },
             on: {
-                [EMIT_EVENTS.BODY_TD_WIDTH_CHANGE]: debouncedTdWidthChange,
+                [EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE]:
+                    debouncedBodyCellWidthChange,
                 [EMIT_EVENTS.HIGHLIGHT_ROW_CHANGE]:
                     this[INSTANCE_METHODS.SET_HIGHLIGHT_ROW],
             },
@@ -3116,6 +3790,7 @@ export default {
                     }
                 },
                 mouseup: () => {
+                    // 事件的先后顺序 containerMouseup > bodyCellMousedown > bodyCellMouseup > bodyCellClick
                     this.tableContainerMouseup();
                 },
             },
@@ -3143,6 +3818,7 @@ export default {
 
         // selection props
         const selectionProps = {
+            ref: this.cellSelectionRef,
             props: {
                 allRowKeys,
                 colgroups,
@@ -3150,13 +3826,11 @@ export default {
                 hooks: this.hooks,
                 cellSelectionData,
                 isAutofillStarting: this.isAutofillStarting,
-                cellSelectionRangeData: this.cellSelectionRangeData,
+                cellSelectionRangeData,
                 currentCellSelectionType: this.currentCellSelectionType,
                 showVirtualScrollingPlaceholder,
                 isVirtualScroll,
                 virtualScrollVisibleIndexs: this.virtualScrollVisibleIndexs,
-                previewTableContainerScrollLeft:
-                    this.previewTableContainerScrollLeft,
                 isCellEditing: this.isCellEditing,
                 cellAutofillOption: this.cellAutofillOption,
             },
@@ -3210,15 +3884,28 @@ export default {
             },
         };
 
-        // 直接在组件上写单元测试无法通过。如 on={{"on-node-click":()=>{}}}
-        const contextmenuProps = {
+        // 直接在组件上写事件，单元测试无法通过。如 on={{"on-node-click":()=>{}}}
+        const headerContextmenuProps = {
+            ref: this.headerContextmenuRef,
             props: {
-                eventTarget: this.contextmenuEventTarget,
-                options: contextmenus,
+                eventTarget: this.headerContextmenuEventTarget,
+                options: headerContextmenuOptions,
             },
             on: {
                 "on-node-click": (type) => {
-                    this.contextmenuCallBack(type);
+                    this.headerContextmenuItemClick(type);
+                },
+            },
+        };
+        const bodyContextmenuProps = {
+            ref: this.bodyContextmenuRef,
+            props: {
+                eventTarget: this.bodyContextmenuEventTarget,
+                options: bodyContextmenuOptions,
+            },
+            on: {
+                "on-node-click": (type) => {
+                    this.bodyContextmenuItemClick(type);
                 },
             },
         };
@@ -3241,16 +3928,20 @@ export default {
                             <Footer {...footerProps} />
                         </table>
                         {/* cell selection */}
-                        {this.enableCellSelection && (
+                        {enableCellSelection && (
                             <Selection {...selectionProps} />
                         )}
                     </VueDomResizeObserver>
                 </div>
                 {/* edit input */}
-                {this.enableCellSelection && <EditInput {...editInputProps} />}
-                {/* contextmenu */}
-                {this.enableContextmenu && (
-                    <VeContextmenu {...contextmenuProps} />
+                {enableCellSelection && <EditInput {...editInputProps} />}
+                {/* header contextmenu */}
+                {this.enableHeaderContextmenu && (
+                    <VeContextmenu {...headerContextmenuProps} />
+                )}
+                {/* body contextmenu */}
+                {this.enableBodyContextmenu && (
+                    <VeContextmenu {...bodyContextmenuProps} />
                 )}
             </VueDomResizeObserver>
         );

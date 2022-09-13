@@ -7,15 +7,16 @@
     <div>
         <ve-table
             :scroll-width="1600"
-            :max-height="500"
+            :max-height="350"
             row-key-field-name="rowKey"
             :fixed-header="true"
             :columns="columns"
             :table-data="tableData"
             :row-style-option="rowStyleOption"
-            :virtual-scroll-option="{enable:true}"
+            :virtual-scroll-option="virtualScrollOption"
             border-y
             :contextmenu-body-option="contextmenuBodyOption"
+            :contextmenu-header-option="contextmenuHeaderOption"
         />
     </div>
 </template>
@@ -24,36 +25,97 @@
     export default {
         data() {
             return {
-                // contextmenu body option
-                contextmenuBodyOption: {
-                    // callback for all options
-                    callback: ({ type, selection }) => {
-                        const { rowKey, colKey } = selection;
-
-                        // custom empty row
-                        if (type === "custom-empty-row") {
-                            this.tableData = this.tableData.map((rowData) => {
-                                // empty current row
-                                if (rowData.rowKey === rowKey) {
-                                    Object.keys(rowData).forEach((field) => {
-                                        rowData[field] = "";
-                                    });
-                                }
-                                return rowData;
-                            });
-                        }
-
+                virtualScrollOption: {
+                    // 是否开启
+                    enable: true,
+                    scrolling: this.scrolling,
+                },
+                // contextmenu header option
+                contextmenuHeaderOption: {
+                    /*
+                    before contextmenu show.
+                    In this function,You can change the `contextmenu` options
+                    */
+                    beforeShow: ({
+                        isWholeColSelection,
+                        selectionRangeKeys,
+                        selectionRangeIndexes,
+                    }) => {
+                        console.log("---contextmenu header beforeShow--");
+                        console.log("isWholeColSelection::", isWholeColSelection);
+                        console.log("selectionRangeKeys::", selectionRangeKeys);
+                        console.log("selectionRangeIndexes::", selectionRangeIndexes);
+                    },
+                    // after menu click
+                    afterMenuClick: ({ type, selectionRangeKeys, selectionRangeIndexes }) => {
+                        console.log("---contextmenu header afterMenuClick--");
                         console.log("type::", type);
-                        console.log("selection::", selection);
+                        console.log("selectionRangeKeys::", selectionRangeKeys);
+                        console.log("selectionRangeIndexes::", selectionRangeIndexes);
                     },
 
                     // contextmenus
                     contextmenus: [
                         {
-                            type: "INSERT_ROW_ABOVE",
+                            type: "CUT",
                         },
                         {
-                            type: "INSERT_ROW_BELOW",
+                            type: "COPY",
+                        },
+                        {
+                            type: "SEPARATOR",
+                        },
+                        {
+                            type: "EMPTY_COLUMN",
+                        },
+                        {
+                            type: "SEPARATOR",
+                        },
+                        {
+                            type: "LEFT_FIXED_COLUMN_TO",
+                        },
+                        {
+                            type: "CANCLE_LEFT_FIXED_COLUMN_TO",
+                        },
+                        {
+                            type: "RIGHT_FIXED_COLUMN_TO",
+                        },
+                        {
+                            type: "CANCEL_RIGHT_FIXED_COLUMN_TO",
+                        },
+                    ],
+                },
+                // contextmenu body option
+                contextmenuBodyOption: {
+                    /*
+                    before contextmenu show.
+                    In this function,You can change the `contextmenu` options
+                    */
+                    beforeShow: ({
+                        isWholeRowSelection,
+                        selectionRangeKeys,
+                        selectionRangeIndexes,
+                    }) => {
+                        console.log("---contextmenu body beforeShow--");
+                        console.log("isWholeRowSelection::", isWholeRowSelection);
+                        console.log("selectionRangeKeys::", selectionRangeKeys);
+                        console.log("selectionRangeIndexes::", selectionRangeIndexes);
+                    },
+                    // after menu click
+                    afterMenuClick: ({ type, selectionRangeKeys, selectionRangeIndexes }) => {
+                        console.log("---contextmenu body afterMenuClick--");
+                        console.log("type::", type);
+                        console.log("selectionRangeKeys::", selectionRangeKeys);
+                        console.log("selectionRangeIndexes::", selectionRangeIndexes);
+                    },
+
+                    // contextmenus
+                    contextmenus: [
+                        {
+                            type: "CUT",
+                        },
+                        {
+                            type: "COPY",
                         },
                         {
                             type: "SEPARATOR",
@@ -98,15 +160,27 @@
 
                 rowStyleOption: {
                     clickHighlight: false,
+                    hoverHighlight: false,
                 },
                 columns: [
+                    {
+                        field: "",
+                        key: "a",
+                        title: "",
+                        width: 20,
+                        align: "center",
+                        fixed: "left",
+                        operationColumn: true,
+                        renderBodyCell: ({ row, column, rowIndex }, h) => {
+                            return rowIndex + this.startRowIndex + 1;
+                        },
+                    },
                     {
                         field: "col1",
                         key: "col1",
                         title: "col1",
                         width: 50,
                         fixed: "left",
-                        edit: true,
                     },
                     {
                         title: "col2-col3",
@@ -117,47 +191,32 @@
                                 key: "col2",
                                 title: "col2",
                                 width: 50,
-                                edit: true,
                             },
                             {
                                 field: "col3",
                                 key: "col3",
                                 title: "col3",
                                 width: 50,
-                                edit: true,
                             },
                         ],
                     },
                     {
-                        title: "col4-col5-col6",
-                        children: [
-                            {
-                                title: "col4-col5",
-                                children: [
-                                    {
-                                        field: "col4",
-                                        key: "col4",
-                                        title: "col4",
-                                        width: 130,
-                                        edit: true,
-                                    },
-                                    {
-                                        field: "col5",
-                                        key: "col5",
-                                        title: "col5",
-                                        width: 140,
-                                        edit: true,
-                                    },
-                                ],
-                            },
-                            {
-                                title: "col6",
-                                field: "col6",
-                                key: "col6",
-                                width: 140,
-                                edit: true,
-                            },
-                        ],
+                        field: "col4",
+                        key: "col4",
+                        title: "col4",
+                        width: 130,
+                    },
+                    {
+                        field: "col5",
+                        key: "col5",
+                        title: "col5",
+                        width: 140,
+                    },
+                    {
+                        title: "col6",
+                        field: "col6",
+                        key: "col6",
+                        width: 140,
                     },
                     {
                         title: "col7",
@@ -168,7 +227,6 @@
                                 field: "col7",
                                 key: "col7",
                                 width: 50,
-                                edit: true,
                             },
                         ],
                     },
@@ -178,7 +236,6 @@
                         title: "col8",
                         width: 50,
                         fixed: "right",
-                        edit: true,
                     },
                 ],
                 // table data
@@ -202,6 +259,10 @@
                     });
                 }
                 this.tableData = data;
+            },
+            // virtual scrolling
+            scrolling({ startRowIndex }) {
+                this.startRowIndex = startRowIndex;
             },
         },
         created() {

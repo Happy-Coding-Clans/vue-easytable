@@ -19,6 +19,7 @@
             :columns="columns"
             :table-data="tableData"
             :editOption="editOption"
+            :row-style-option="rowStyleOption"
             border-y
         />
     </div>
@@ -28,6 +29,10 @@
     export default {
         data() {
             return {
+                rowStyleOption: {
+                    clickHighlight: false,
+                    hoverHighlight: false,
+                },
                 // edit option 可控单元格编辑
                 editOption: {
                     // cell value change
@@ -43,6 +48,7 @@
                         title: "",
                         width: 50,
                         align: "center",
+                        operationColumn: true,
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
                             return ++rowIndex;
                         },

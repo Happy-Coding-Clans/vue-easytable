@@ -22,6 +22,29 @@ export default {
             type: Boolean,
             required: true,
         },
+        isGroupHeader: {
+            type: Boolean,
+            required: true,
+        },
+        cellSelectionData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
+        // cell selection range data
+        cellSelectionRangeData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
+        headerIndicatorColKeys: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
         headerRows: {
             type: Array,
             default: function () {
@@ -138,6 +161,7 @@ export default {
             sortOption,
             sortColumns,
             cellStyleOption,
+            cellSelectionData,
         } = this;
 
         return (
@@ -151,12 +175,16 @@ export default {
                             headerRows,
                             colgroups,
                             fixedHeader,
+                            isGroupHeader: this.isGroupHeader,
                             rowIndex,
                             checkboxOption,
                             sortOption,
                             sortColumns,
                             cellStyleOption,
                             eventCustomOption: this.eventCustomOption,
+                            cellSelectionData,
+                            cellSelectionRangeData: this.cellSelectionRangeData,
+                            headerIndicatorColKeys: this.headerIndicatorColKeys,
                         },
                     };
                     return <HeaderTr {...trProps} />;

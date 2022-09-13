@@ -54,28 +54,28 @@ export const CURRENT_CELL_SELECTION_TYPES = {
 
 // emit events
 export const EMIT_EVENTS = {
-    // body-td-width-change
-    BODY_TD_WIDTH_CHANGE: "on-body-td-width-change",
-    // header-tr-height-change
-    HEADER_TR_HEIGHT_CHANGE: "on-header-tr-height-change",
-    // footer-tr-height-change
-    FOOTER_TR_HEIGHT_CHANGE: "on-footer-tr-height-change",
-    // body-tr-height-change
-    BODY_TR_HEIGHT_CHANGE: "on-body-tr-height-change",
-    // body tr click
-    BODY_TR_CLICK: "on-body-tr-click",
-    // body td click
-    BODY_TD_CLICK: "on-body-td-click",
-    // body td mouseover
-    BODY_TD_MOUSEOVER: "on-body-td-mouseover",
-    // body td mousedown
-    BODY_TD_MOUSEDOWN: "on-body-td-mousedown",
-    // body td mouseup
-    BODY_TD_MOUSEUP: "on-body-td-mouseup",
-    // body td double click
-    BODY_TD_DOUBLE_CLICK: "on-body-td-double-click",
-    // body td contextmenu
-    BODY_TD_CONTEXTMENU: "on-body-td-contextmenu",
+    // body-cell-width-change
+    BODY_CELL_WIDTH_CHANGE: "on-body-cell-width-change",
+    // header-row-height-change
+    HEADER_ROW_HEIGHT_CHANGE: "on-header-row-height-change",
+    // footer-row-height-change
+    FOOTER_ROW_HEIGHT_CHANGE: "on-footer-row-height-change",
+    // body-row-height-change
+    BODY_ROW_HEIGHT_CHANGE: "on-body-row-height-change",
+    // body row click
+    BODY_ROW_CLICK: "on-body-row-click",
+    // body cell click
+    BODY_CELL_CLICK: "on-body-cell-click",
+    // body cell mouseover
+    BODY_CELL_MOUSEOVER: "on-body-cell-mouseover",
+    // body cell mousedown
+    BODY_CELL_MOUSEDOWN: "on-body-cell-mousedown",
+    // body cell mouseup
+    BODY_CELL_MOUSEUP: "on-body-cell-mouseup",
+    // body cell double click
+    BODY_CELL_DOUBLE_CLICK: "on-body-cell-double-click",
+    // body cell contextmenu
+    BODY_CELL_CONTEXTMENU: "on-body-cell-contextmenu",
     // expand row change
     EXPAND_ROW_CHANGE: "on-expand-row-change",
     // checkbox selected row change
@@ -96,6 +96,14 @@ export const EMIT_EVENTS = {
     HEADER_FILTER_CONFIRM: "on-filter-confirm",
     // header filter reset
     HEADER_FILTER_RESET: "on-filter-reset",
+    // header cell click
+    HEADER_CELL_CLICK: "on-header-cell-click",
+    // header cell contextmenu
+    HEADER_CELL_CONTEXTMENU: "on-header-cell-contextmenu",
+    // header cell mousedown
+    HEADER_CELL_MOUSEDOWN: "on-header-cell-mousedown",
+    // header cell mouseover
+    HEADER_CELL_MOUSEOVER: "on-header-cell-mouseover",
     // highlight row change
     HIGHLIGHT_ROW_CHANGE: "on-highlight-row-change",
 
@@ -188,6 +196,10 @@ export const INSTANCE_METHODS = {
     SET_HIGHLIGHT_ROW: "setHighlightRow",
     // set cell selection
     SET_CELL_SELECTION: "setCellSelection",
+    // set range cell selection
+    SET_RANGE_CELL_SELECTION: "setRangeCellSelection",
+    // set all cell selection
+    SET_ALL_CELL_SELECTION: "setAllCellSelection",
     // hide columns by keys
     HIDE_COLUMNS_BY_KEYS: "hideColumnsByKeys",
     // show columns by keys
@@ -198,12 +210,34 @@ export const INSTANCE_METHODS = {
 export const CONTEXTMENU_TYPES = {
     // separator
     SEPARATOR: "SEPARATOR",
+    // cut
+    CUT: "CUT",
+    // copy
+    COPY: "COPY",
+    // paste todo
+    //PASTE: "PASTE",
     // insert row above
     INSERT_ROW_ABOVE: "INSERT_ROW_ABOVE",
     // insert row below
     INSERT_ROW_BELOW: "INSERT_ROW_BELOW",
     // remove row
     REMOVE_ROW: "REMOVE_ROW",
+    // empty row
+    EMPTY_ROW: "EMPTY_ROW",
+    // remove column
+    //REMOVE_COLUMN: "REMOVE_COLUMN",
+    // empty column
+    EMPTY_COLUMN: "EMPTY_COLUMN",
     // hide column
-    HIDE_COLUMN: "HIDE_COLUMN",
+    //HIDE_COLUMN: "HIDE_COLUMN",
+    // empty cell
+    EMPTY_CELL: "EMPTY_CELL",
+    // left fixed column to
+    LEFT_FIXED_COLUMN_TO: "LEFT_FIXED_COLUMN_TO",
+    // cancel left fixed column to
+    CANCEL_LEFT_FIXED_COLUMN_TO: "CANCLE_LEFT_FIXED_COLUMN_TO",
+    // right fixed column to
+    RIGHT_FIXED_COLUMN_TO: "RIGHT_FIXED_COLUMN_TO",
+    // cancel right fixed column to
+    CANCEL_RIGHT_FIXED_COLUMN_TO: "CANCEL_RIGHT_FIXED_COLUMN_TO",
 };

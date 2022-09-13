@@ -258,8 +258,15 @@ export const db = {
                 default: "-",
             },
             {
+                param: "contextmenuHeaderOption",
+                desc: "table header contextmenu option,Refer to contextmenuHeaderOption",
+                type: "<code>Object</code>",
+                optionalVal: "-",
+                default: "-",
+            },
+            {
                 param: "contextmenuBodyOption",
-                desc: "contextmenu option,Refer to contextmenuBodyOption",
+                desc: "table body contextmenu option,Refer to contextmenuBodyOption",
                 type: "<code>Object</code>",
                 optionalVal: "-",
                 default: "-",
@@ -549,8 +556,18 @@ export const db = {
             },
             {
                 name: "setCellSelection",
-                desc: `Set cell selection  <a href='#/en/doc/table/cell-selection?anchor=cell-selection-instance-method'>Refer To Demo</a>`,
+                desc: `Set single cell selection  <a href='#/en/doc/table/cell-selection?anchor=single-cell-selection-instance-method'>Refer To Demo</a>`,
                 param: "{ rowKey, colKey }",
+            },
+            {
+                name: "setAllCellSelection",
+                desc: `Set all cell selection  <a href='#/en/doc/table/cell-selection?anchor=range-cell-selection-instance-method'>Refer To Demo</a>`,
+                param: "-",
+            },
+            {
+                name: "setRangeCellSelection",
+                desc: `Set range cell selection  <a href='#/en/doc/table/cell-selection?anchor=range-cell-selection-instance-method'>Refer To Demo</a>`,
+                param: "{ startRowKey,startColKey,endRowKey,endColKey,isScrollToStartCell }",
             },
         ],
         columns: columnsType2,
@@ -942,13 +959,48 @@ export const db = {
         columns: columnsType1,
     },
 
-    // 右键菜单配置
+    // table header contextmenu
+    contextmenuHeaderOption: {
+        data: [
+            {
+                param: "beforeShow",
+                desc: `For the callback event before the menu is displayed, you can change the menu item information at this stage.<br/><code>isWholeColSelection</code>It's whole column selection,<br/><code>selectionRangeKeys </code>The currently cellSelection key information,<br/><code>selectionRangeIndexes </code>The currently cellSelection index information`,
+                type: `<code>Function({ isWholeColSelection, selectionRangeKeys, selectionRangeIndexes })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterMenuClick",
+                desc: `Callback when a menu item is clicked, returning false will prevent the current right-click operation.<br/><code>type</code>menu item,<br/><code>selectionRangeKeys </code>The currently cellSelection key information,<br/><code>selectionRangeIndexes </code>The currently cellSelection index information`,
+                type: `<code>Function({ type, selectionRangeKeys, selectionRangeIndexes  })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "contextmenus",
+                desc: `contextmenu option. <a href='#/en/doc/base/contextmenu'>contextmenu component</a>`,
+                type: `<code>Array</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+        ],
+        columns: columnsType1,
+    },
+
+    // table body contextmenu
     contextmenuBodyOption: {
         data: [
             {
-                param: "callback",
-                desc: `The callback of the right-click menu item.<code>type</code>menu type,<code>selection </code>Currently selected cell`,
-                type: `<code>Function({ type, selection  })</code>`,
+                param: "beforeShow",
+                desc: `For the callback event before the menu is displayed, you can change the menu item information at this stage.<br/><code>isWholeRowSelection</code>It's whole row selection,<br/><code>selectionRangeKeys </code>The currently cellSelection key information,<br/><code>selectionRangeIndexes </code>The currently cellSelection index information`,
+                type: `<code>Function({ isWholeRowSelection, selectionRangeKeys, selectionRangeIndexes })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "afterMenuClick",
+                desc: `Callback when a menu item is clicked, returning false will prevent the current right-click operation.<br/><code>type</code>menu item,<br/><code>selectionRangeKeys </code>The currently cellSelection key information,<br/><code>selectionRangeIndexes </code>The currently cellSelection index information`,
+                type: `<code>Function({ type, selectionRangeKeys, selectionRangeIndexes  })</code>`,
                 optionalVal: "-",
                 default: "-",
             },

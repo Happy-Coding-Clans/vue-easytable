@@ -10,6 +10,7 @@
         :columns="columns"
         :table-data="tableData"
         :cellSelectionOption="cellSelectionOption"
+        :rowStyleOption="rowStyleOption"
         rowKeyFieldName="rowKey"
     />
 </template>
@@ -18,12 +19,28 @@
     export default {
         data() {
             return {
+                rowStyleOption: {
+                    clickHighlight: false,
+                    hoverHighlight: false,
+                },
                 cellSelectionOption: {
                     // disble cell selection
                     enable: false,
                 },
                 columns: [
-                    { field: "name", key: "a", title: "Name", align: "left" },
+                    {
+                        field: "",
+                        key: "a",
+                        title: "",
+                        width: 15,
+                        align: "center",
+                        fixed: "left",
+                        operationColumn: true,
+                        renderBodyCell: ({ row, column, rowIndex }, h) => {
+                            return ++rowIndex;
+                        },
+                    },
+                    { field: "name", key: "col1", title: "Name", align: "left" },
                     { field: "date", key: "b", title: "Date", align: "left" },
                     {
                         field: "hobby",

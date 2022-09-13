@@ -4,7 +4,12 @@ import {
     COLUMN_FIXED_TYPE,
     AUTOFILLING_DIRECTION,
 } from "./constant";
-import { isEmptyValue, isEmptyArray } from "../../../src/utils/index";
+import { MOUSE_EVENT_CLICK_TYPE } from "../../../src/utils/constant";
+import {
+    isEmptyValue,
+    isEmptyArray,
+    isFunction,
+} from "../../../src/utils/index";
 import { getRandomId } from "../../../src/utils/random";
 
 /**
@@ -299,12 +304,73 @@ export function initGroupColumns(cloneColumns) {
     };
 }
 
-// get contextmenu body option collection
-export function getContextmenuBodyOptionCollection(t) {
+// get header contextmenu option collection
+export function getHeaderContextmenuOptionCollection(t) {
     return [
         {
             type: CONTEXTMENU_TYPES.SEPARATOR,
         },
+        {
+            label: t("cut"),
+            type: CONTEXTMENU_TYPES.CUT,
+        },
+        {
+            label: t("copy"),
+            type: CONTEXTMENU_TYPES.COPY,
+        },
+        // {
+        //     label: t("paste"),
+        //     type: CONTEXTMENU_TYPES.PASTE,
+        // },
+        {
+            label: t("removeColumn"),
+            type: CONTEXTMENU_TYPES.REMOVE_COLUMN,
+        },
+        {
+            label: t("emptyColumn"),
+            type: CONTEXTMENU_TYPES.EMPTY_COLUMN,
+        },
+        {
+            label: t("hideColumn"),
+            type: CONTEXTMENU_TYPES.HIDE_COLUMN,
+        },
+        {
+            label: t("leftFixedColumnTo"),
+            type: CONTEXTMENU_TYPES.LEFT_FIXED_COLUMN_TO,
+        },
+        {
+            label: t("cancelLeftFixedColumnTo"),
+            type: CONTEXTMENU_TYPES.CANCEL_LEFT_FIXED_COLUMN_TO,
+        },
+        {
+            label: t("rightFixedColumnTo"),
+            type: CONTEXTMENU_TYPES.RIGHT_FIXED_COLUMN_TO,
+        },
+        {
+            label: t("cancelRightFixedColumnTo"),
+            type: CONTEXTMENU_TYPES.CANCEL_RIGHT_FIXED_COLUMN_TO,
+        },
+    ];
+}
+
+// get body contextmenu option collection
+export function getBodyContextmenuOptionCollection(t) {
+    return [
+        {
+            type: CONTEXTMENU_TYPES.SEPARATOR,
+        },
+        {
+            label: t("cut"),
+            type: CONTEXTMENU_TYPES.CUT,
+        },
+        {
+            label: t("copy"),
+            type: CONTEXTMENU_TYPES.COPY,
+        },
+        // {
+        //     label: t("paste"),
+        //     type: CONTEXTMENU_TYPES.PASTE,
+        // },
         {
             label: t("insertRowAbove"),
             type: CONTEXTMENU_TYPES.INSERT_ROW_ABOVE,
@@ -318,10 +384,285 @@ export function getContextmenuBodyOptionCollection(t) {
             type: CONTEXTMENU_TYPES.REMOVE_ROW,
         },
         {
-            label: t("hideColumn"),
-            type: CONTEXTMENU_TYPES.HIDE_COLUMN,
+            label: t("emptyRow"),
+            type: CONTEXTMENU_TYPES.EMPTY_ROW,
+        },
+        {
+            label: t("removeColumn"),
+            type: CONTEXTMENU_TYPES.REMOVE_COLUMN,
+        },
+        {
+            label: t("emptyCell"),
+            type: CONTEXTMENU_TYPES.EMPTY_CELL,
         },
     ];
+}
+
+/***
+ * @setHeaderContextmenuOptions
+ * @desc set header contextmenu options
+ * @param {array<object>} column
+ * @param {array<object>} contextmenuHeaderOption
+ * @param {object} cellSelectionRangeData
+ * @param {array<object>} colgroups
+ * @param {object} headerIndicatorColKeys
+ * @param {boolean} enableHeaderContextmenu
+ * @param {boolean} t locale
+ * @return headerContextmenuOptions
+ */
+export function setHeaderContextmenuOptions({
+    column,
+    contextmenuHeaderOption,
+    cellSelectionRangeData,
+    colgroups,
+    allRowKeys,
+    headerIndicatorColKeys,
+    enableHeaderContextmenu,
+    t,
+}) {
+    let result = [];
+
+    if (enableHeaderContextmenu) {
+        let selectionRangeKeys = getSelectionRangeKeys({
+            cellSelectionRangeData,
+        });
+
+        let selectionRangeIndexes = getSelectionRangeIndexes({
+            cellSelectionRangeData,
+            colgroups,
+            allRowKeys,
+        });
+
+        const isOperationCol = isOperationColumn(column.key, colgroups);
+
+        const colCount =
+            selectionRangeIndexes.endColIndex -
+            selectionRangeIndexes.startColIndex +
+            1;
+
+        const { contextmenus, beforeShow } = contextmenuHeaderOption;
+
+        const isWholeColSelection = !isEmptyValue(
+            headerIndicatorColKeys.startColKey,
+        );
+
+        const leftFixedColKeys = getColKeysByFixedType({
+            fixedType: COLUMN_FIXED_TYPE.LEFT,
+            colgroups,
+            isExcludeOperationColumn: true,
+        });
+
+        const rightFixedColKeys = getColKeysByFixedType({
+            fixedType: COLUMN_FIXED_TYPE.RIGHT,
+            colgroups,
+            isExcludeOperationColumn: true,
+        });
+
+        if (isFunction(beforeShow)) {
+            beforeShow({
+                isWholeColSelection,
+                selectionRangeKeys,
+                selectionRangeIndexes,
+            });
+        }
+
+        const headerContextmenuOptionCollection =
+            getHeaderContextmenuOptionCollection(t);
+
+        contextmenus.forEach((contextmenu) => {
+            const contentmenuCollectionItem =
+                headerContextmenuOptionCollection.find(
+                    (x) => x.type === contextmenu.type,
+                );
+            if (contentmenuCollectionItem) {
+                let isContinue = true;
+                // empty column. 选中整列时支持
+                if (
+                    contentmenuCollectionItem.type ===
+                    CONTEXTMENU_TYPES.EMPTY_COLUMN
+                ) {
+                    if (isWholeColSelection) {
+                        contentmenuCollectionItem.label =
+                            contentmenuCollectionItem.label.replace(
+                                "$1",
+                                colCount,
+                            );
+                    } else {
+                        isContinue = false;
+                    }
+                }
+                // left fixed column to
+                else if (
+                    contentmenuCollectionItem.type ===
+                    CONTEXTMENU_TYPES.LEFT_FIXED_COLUMN_TO
+                ) {
+                    //
+                    if (isOperationCol) {
+                        contentmenuCollectionItem.disabled = true;
+                    }
+                }
+                // calcel left fixed column to
+                else if (
+                    contentmenuCollectionItem.type ===
+                    CONTEXTMENU_TYPES.CANCEL_LEFT_FIXED_COLUMN_TO
+                ) {
+                    if (leftFixedColKeys.length < 1) {
+                        contentmenuCollectionItem.disabled = true;
+                    }
+                }
+                // right fixed column to
+                else if (
+                    contentmenuCollectionItem.type ===
+                    CONTEXTMENU_TYPES.RIGHT_FIXED_COLUMN_TO
+                ) {
+                    //
+                    if (isOperationCol) {
+                        contentmenuCollectionItem.disabled = true;
+                    }
+                }
+                // calcel right fixed column to
+                else if (
+                    contentmenuCollectionItem.type ===
+                    CONTEXTMENU_TYPES.CANCEL_RIGHT_FIXED_COLUMN_TO
+                ) {
+                    if (rightFixedColKeys.length < 1) {
+                        contentmenuCollectionItem.disabled = true;
+                    }
+                }
+
+                if (isContinue) {
+                    result.push(contentmenuCollectionItem);
+                }
+            } else {
+                result.push(contextmenu);
+            }
+        });
+    }
+
+    return result;
+}
+
+/***
+ * @setHeaderContextmenuOptions
+ * @desc set header contextmenu options
+ * @param {array<object>} column
+ * @param {array<object>} contextmenuBodyOption
+ * @param {object} cellSelectionRangeData
+ * @param {array<object>} colgroups
+ * @param {object} bodyIndicatorRowKeys
+ * @param {boolean} enableHeaderContextmenu
+ * @param {boolean} t locale
+ * @return headerContextmenuOptions
+ */
+export function setBodyContextmenuOptions({
+    enableBodyContextmenu,
+    contextmenuBodyOption,
+    cellSelectionRangeData,
+    colgroups,
+    allRowKeys,
+    bodyIndicatorRowKeys,
+    t,
+}) {
+    let result = [];
+    if (enableBodyContextmenu) {
+        let selectionRangeKeys = getSelectionRangeKeys({
+            cellSelectionRangeData,
+        });
+
+        let selectionRangeIndexes = getSelectionRangeIndexes({
+            cellSelectionRangeData,
+            colgroups,
+            allRowKeys,
+        });
+
+        const rowCount =
+            selectionRangeIndexes.endRowIndex -
+            selectionRangeIndexes.startRowIndex +
+            1;
+        const colCount =
+            selectionRangeIndexes.endColIndex -
+            selectionRangeIndexes.startColIndex +
+            1;
+
+        const { contextmenus, beforeShow } = contextmenuBodyOption;
+
+        const isWholeRowSelection = !isEmptyValue(
+            bodyIndicatorRowKeys.startRowKey,
+        );
+        if (isFunction(beforeShow)) {
+            beforeShow({
+                isWholeRowSelection,
+                selectionRangeKeys,
+                selectionRangeIndexes,
+            });
+        }
+
+        const bodyContextmenuOptionCollection =
+            getBodyContextmenuOptionCollection(t);
+
+        contextmenus.forEach((contextmenu) => {
+            const contentmenuCollectionItem =
+                bodyContextmenuOptionCollection.find(
+                    (x) => x.type === contextmenu.type,
+                );
+            if (contentmenuCollectionItem) {
+                let isContinue = true;
+
+                // remove row
+                if (
+                    contentmenuCollectionItem.type ===
+                    CONTEXTMENU_TYPES.REMOVE_ROW
+                ) {
+                    contentmenuCollectionItem.label =
+                        contentmenuCollectionItem.label.replace("$1", rowCount);
+                }
+                // empty row. 选中整行时支持
+                else if (
+                    contentmenuCollectionItem.type ===
+                    CONTEXTMENU_TYPES.EMPTY_ROW
+                ) {
+                    if (isWholeRowSelection) {
+                        contentmenuCollectionItem.label =
+                            contentmenuCollectionItem.label.replace(
+                                "$1",
+                                rowCount,
+                            );
+                    } else {
+                        isContinue = false;
+                    }
+                }
+                // empty cell.没选中整行时支持
+                else if (
+                    contentmenuCollectionItem.type ===
+                    CONTEXTMENU_TYPES.EMPTY_CELL
+                ) {
+                    isContinue = !isWholeRowSelection;
+                }
+                // remove column.没选中整行时支持
+                else if (
+                    contentmenuCollectionItem.type ===
+                    CONTEXTMENU_TYPES.REMOVE_COLUMN
+                ) {
+                    if (isWholeRowSelection) {
+                        isContinue = false;
+                    } else {
+                        contentmenuCollectionItem.label =
+                            contentmenuCollectionItem.label.replace(
+                                "$1",
+                                colCount,
+                            );
+                    }
+                }
+
+                if (isContinue) {
+                    result.push(contentmenuCollectionItem);
+                }
+            } else {
+                result.push(contextmenu);
+            }
+        });
+    }
+    return result;
 }
 
 // create empty row data
@@ -339,6 +680,17 @@ export function createEmptyRowData({ colgroups, rowKeyFieldName }) {
     return rowData;
 }
 
+//  empty row data
+// export function emptyRowData({ rowData, rowKeyFieldName }) {
+//     Object.keys(rowData).forEach((key) => {
+//         if (key !== rowKeyFieldName) {
+//             rowData[key] = "";
+//         }
+//     });
+
+//     return rowData;
+// }
+
 // is contextmenu panel clicked
 export function isContextmenuPanelClicked(event) {
     let result = false;
@@ -350,6 +702,26 @@ export function isContextmenuPanelClicked(event) {
             result = true;
         }
     });
+
+    return result;
+}
+
+/**
+ * @getColKeysByHeaderColumn
+ * @desc
+ * @param {object} headerColumnItem
+ * @param {any} colKey2
+ * @return Array<colKeys>
+ */
+export function getColKeysByHeaderColumn({ headerColumnItem }) {
+    let result = null;
+
+    const { _keys } = headerColumnItem;
+
+    result = _keys.split("|");
+    if (result.length > 1) {
+        result = result.slice(0, result.length - 1);
+    }
 
     return result;
 }
@@ -377,14 +749,18 @@ export function getColKeysByRangeColKeys({ colKey1, colKey2, colgroups }) {
 }
 
 /**
- * @getColKeysByFixedType
+ * @getColKeysByFixedTypeWithinColKeys
  * @desc  get col keys by fixed type
  * @param {array<T>} colKeys
  * @param {string} fixedType - fixed type
  * @param {array<object>} colgroups
  * @return {array} colKeys
  */
-export function getColKeysByFixedType({ colKeys, fixedType, colgroups }) {
+export function getColKeysByFixedTypeWithinColKeys({
+    colKeys,
+    fixedType,
+    colgroups,
+}) {
     let result = null;
 
     if (Array.isArray(colKeys)) {
@@ -393,6 +769,36 @@ export function getColKeysByFixedType({ colKeys, fixedType, colgroups }) {
             .map((x) => x.key);
     }
 
+    return result;
+}
+
+/**
+ * @getColKeysByFixedType
+ * @desc get col keys by fixed type
+ * @param {string} fixedType - fixed type
+ * @param {array<object>} colgroups
+ * * @param {boolean} isExcludeOperationColumn
+ * @return colKey
+ */
+export function getColKeysByFixedType({
+    fixedType,
+    colgroups,
+    isExcludeOperationColumn,
+}) {
+    let result = null;
+
+    result = colgroups
+        .filter((x) => {
+            const condition = x.fixed === fixedType;
+
+            // 排除操作列
+            if (isExcludeOperationColumn) {
+                return condition && !x.operationColumn;
+            }
+
+            return condition;
+        })
+        .map((x) => x.key);
     return result;
 }
 
@@ -427,7 +833,7 @@ export function getRowKeysByRangeRowKeys({
  * @param {object} cellSelectionRangeData
  * @param {array<object>} colgroups
  * @param {array<object>} allRowKeys
- * @return Array<colKeys>
+ * @return {Array<colKeys>}
  */
 export function isCellInSelectionRange({
     cellData,
@@ -456,6 +862,79 @@ export function isCellInSelectionRange({
         return true;
     }
     return false;
+}
+
+/**
+ * @isClearSelectionByBodyCellRightClick
+ * @desc is clear selection by body cell click
+ * @param {number} mouseEventClickType
+ * @param {object} cellData - cell data
+ * @param {object} cellSelectionRangeData
+ * @param {array<object>} colgroups
+ * @param {array<object>} allRowKeys
+ * @return {bool}
+ */
+export function isClearSelectionByBodyCellRightClick({
+    mouseEventClickType,
+    cellData,
+    cellSelectionData,
+    cellSelectionRangeData,
+    colgroups,
+    allRowKeys,
+}) {
+    let result = true;
+    if (mouseEventClickType === MOUSE_EVENT_CLICK_TYPE.RIGHT_MOUSE) {
+        const { normalEndCell } = cellSelectionData;
+        if (normalEndCell.rowIndex > -1) {
+            result = !isCellInSelectionRange({
+                cellData,
+                cellSelectionRangeData,
+                colgroups,
+                allRowKeys,
+            });
+        }
+    }
+    return result;
+}
+
+/**
+ * @getSelectionRangeKeys
+ * @desc get selection range keys
+ * @param {object} cellSelectionRangeData
+ * @return Array<colKeys>
+ */
+export function getSelectionRangeKeys({ cellSelectionRangeData }) {
+    const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
+        cellSelectionRangeData;
+    return {
+        startColKey: leftColKey,
+        endColKey: rightColKey,
+        startRowKey: topRowKey,
+        endRowKey: bottomRowKey,
+    };
+}
+
+/**
+ * @getSelectionRangeIndexes
+ * @desc get selection range indexes
+ * @param {object} cellSelectionRangeData
+ * @param {array<object>} colgroups
+ * @param {array<object>} allRowKeys
+ * @return Array<colKeys>
+ */
+export function getSelectionRangeIndexes({
+    cellSelectionRangeData,
+    colgroups,
+    allRowKeys,
+}) {
+    const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
+        cellSelectionRangeData;
+    return {
+        startColIndex: colgroups.findIndex((x) => x.key === leftColKey),
+        endColIndex: colgroups.findIndex((x) => x.key === rightColKey),
+        startRowIndex: allRowKeys.indexOf(topRowKey),
+        endRowIndex: allRowKeys.indexOf(bottomRowKey),
+    };
 }
 
 /**
@@ -971,4 +1450,99 @@ export function cellAutofill({
         });
 
     return response;
+}
+
+/***
+ * @setColumnFixed
+ * @desc set column fixed
+ * @param {array<object>} cloneColumns
+ * @param {object} cellSelectionRangeData
+ * @param {string} fixedType COLUMN_FIXED_TYPE
+ * @return cloneColumns
+ */
+export function setColumnFixed({
+    cloneColumns,
+    cellSelectionRangeData,
+    fixedType,
+}) {
+    let result = cloneColumns;
+
+    const { leftColKey, rightColKey } = cellSelectionRangeData;
+
+    let colKey;
+
+    if (COLUMN_FIXED_TYPE.LEFT === fixedType) {
+        colKey = rightColKey;
+    } else if (COLUMN_FIXED_TYPE.RIGHT === fixedType) {
+        colKey = leftColKey;
+    }
+
+    // find col index from cloneColumns
+    const fixedColIndex = cloneColumns.findIndex((colItem) => {
+        if (colItem._level === 1 && colItem.key === colKey) {
+            return true;
+        } else {
+            const colKeys = getColKeysByHeaderColumn({
+                headerColumnItem: colItem,
+            });
+            if (colKeys.indexOf(colKey) > -1) {
+                return true;
+            }
+        }
+    });
+
+    if (fixedColIndex > -1) {
+        // 不允许改变原有固定列方向
+        const oldFixedType = cloneColumns[fixedColIndex].fixed;
+        if (!isEmptyValue(oldFixedType) && oldFixedType !== fixedType) {
+            return false;
+        }
+
+        result = cloneColumns.map((colItem, index) => {
+            // 清除所有固定
+            if (colItem.fixed === fixedType) {
+                colItem.fixed = "";
+            }
+            if (COLUMN_FIXED_TYPE.LEFT === fixedType) {
+                // 不允许左冻结最后一列
+                if (index <= fixedColIndex && index < cloneColumns.length) {
+                    colItem.fixed = fixedType;
+                }
+            } else {
+                // 不允许右冻结第一列
+                if (index >= fixedColIndex && index > 0) {
+                    colItem.fixed = fixedType;
+                }
+            }
+            return colItem;
+        });
+    }
+
+    return result;
+}
+
+/***
+ * @cancelColumnFixed
+ * @desc cancel column fixed
+ * @param {array<object>} cloneColumns
+ * @param {array<object>} colgroups
+ * @param {string} fixedType COLUMN_FIXED_TYPE
+ * @return cloneColumns
+ */
+export function cancelColumnFixed({ cloneColumns, colgroups, fixedType }) {
+    return cloneColumns.map((colItem) => {
+        if (COLUMN_FIXED_TYPE.LEFT === fixedType) {
+            if (
+                colItem.fixed === fixedType &&
+                !isOperationColumn(colItem.key, colgroups)
+            ) {
+                colItem.fixed = "";
+            }
+        } else {
+            if (colItem.fixed === fixedType) {
+                colItem.fixed = "";
+            }
+        }
+        return colItem;
+    });
 }

@@ -28,6 +28,10 @@ export default {
             type: String,
             default: null,
         },
+        allRowKeys: {
+            type: Array,
+            required: true,
+        },
         /*
         expand
         */
@@ -110,8 +114,21 @@ export default {
                 return null;
             },
         },
-        // cell selection key data
+        // cell selection data
         cellSelectionData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
+        // cell selection range data
+        cellSelectionRangeData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
+        bodyIndicatorRowKeys: {
             type: Object,
             default: function () {
                 return null;
@@ -168,10 +185,14 @@ export default {
 
             const { rowData, rowIndex } = this;
 
-            this.dispatch(COMPS_NAME.VE_TABLE_BODY, EMIT_EVENTS.BODY_TR_CLICK, {
-                rowData,
-                rowIndex,
-            });
+            this.dispatch(
+                COMPS_NAME.VE_TABLE_BODY,
+                EMIT_EVENTS.BODY_ROW_CLICK,
+                {
+                    rowData,
+                    rowIndex,
+                },
+            );
         },
         // dblclick
         rowDblclick(e, fn) {
@@ -240,6 +261,7 @@ export default {
                         expandedRowkeys,
                         checkboxOption,
                         rowKeyFieldName,
+                        allRowKeys: this.allRowKeys,
                         isExpandRow,
                         internalCheckboxSelectedRowKeys,
                         internalRadioSelectedRowKey,
@@ -248,6 +270,8 @@ export default {
                         cellSpanOption: this.cellSpanOption,
                         eventCustomOption,
                         cellSelectionData: this.cellSelectionData,
+                        cellSelectionRangeData: this.cellSelectionRangeData,
+                        bodyIndicatorRowKeys: this.bodyIndicatorRowKeys,
                         editOption: this.editOption,
                     },
                     on: {
@@ -326,7 +350,7 @@ export default {
                     "on-dom-resize-change": ({ key, height }) => {
                         this.dispatch(
                             COMPS_NAME.VE_TABLE,
-                            EMIT_EVENTS.BODY_TR_HEIGHT_CHANGE,
+                            EMIT_EVENTS.BODY_ROW_HEIGHT_CHANGE,
                             {
                                 rowKey: key,
                                 height,

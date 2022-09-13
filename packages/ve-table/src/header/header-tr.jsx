@@ -30,9 +30,32 @@ export default {
             type: Boolean,
             required: true,
         },
+        isGroupHeader: {
+            type: Boolean,
+            required: true,
+        },
         rowIndex: {
             type: Number,
             required: true,
+        },
+        cellSelectionData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
+        // cell selection range data
+        cellSelectionRangeData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
+        headerIndicatorColKeys: {
+            type: Object,
+            default: function () {
+                return null;
+            },
         },
         // checkbox option
         checkboxOption: {
@@ -75,7 +98,7 @@ export default {
         trHeightChange({ height }) {
             this.dispatch(
                 COMPS_NAME.VE_TABLE,
-                EMIT_EVENTS.HEADER_TR_HEIGHT_CHANGE,
+                EMIT_EVENTS.HEADER_ROW_HEIGHT_CHANGE,
                 {
                     rowIndex: this.rowIndex,
                     height: height,
@@ -132,6 +155,7 @@ export default {
             sortColumns,
             cellStyleOption,
             eventCustomOption,
+            cellSelectionData,
         } = this;
 
         // custom on cell event
@@ -210,12 +234,16 @@ export default {
                             colgroups,
                             headerRows,
                             fixedHeader,
+                            isGroupHeader: this.isGroupHeader,
                             rowIndex,
                             checkboxOption,
                             sortOption,
                             sortColumns,
                             cellStyleOption,
                             eventCustomOption: this.eventCustomOption,
+                            cellSelectionData,
+                            cellSelectionRangeData: this.cellSelectionRangeData,
+                            headerIndicatorColKeys: this.headerIndicatorColKeys,
                         },
                     };
 

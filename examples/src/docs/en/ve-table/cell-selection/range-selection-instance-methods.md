@@ -1,16 +1,12 @@
-:::anchor Cell selection instance method
+:::anchor Range cell selection instance method
 
-:::demo You can set cell selection by instance method `setCellSelection`
+:::demo 1、You can set all cell selection by instance method `setAllCellSelection()`<br>2、You can set range cell selection by instance method `setRangeCellSelection({ startRowKey,startColKey,endRowKey,endColKey,isScrollToStartCell })`
 
 ```html
 <template>
     <div>
-        <button class="button-demo" @click="setCellSelection(29,'e')">
-            Select row 30 and column 5
-        </button>
-        <button class="button-demo" @click="setCellSelection(1,'a')">
-            Select row 2 and column 1
-        </button>
+        <button class="button-demo" @click="setAllCellSelection()">Set All Selection</button>
+        <button class="button-demo" @click="setRangeCellSelection()">Set Range Selection</button>
         <br />
         <br />
         <ve-table
@@ -22,7 +18,8 @@
             :columns="columns"
             :table-data="tableData"
             rowKeyFieldName="rowKey"
-            :virtual-scroll-option="{enable:true}"
+            :virtual-scroll-option="virtualScrollOption"
+            :rowStyleOption="rowStyleOption"
         />
     </div>
 </template>
@@ -31,14 +28,37 @@
     export default {
         data() {
             return {
+                // start row index
+                startRowIndex: 0,
+                virtualScrollOption: {
+                    // 是否开启
+                    enable: true,
+                    scrolling: this.scrolling,
+                },
+                rowStyleOption: {
+                    clickHighlight: false,
+                    hoverHighlight: false,
+                },
                 cellSelectionOption: {
                     // disble cell selection
                     enable: true,
                 },
                 columns: [
                     {
-                        field: "col1",
+                        field: "",
                         key: "a",
+                        title: "",
+                        width: 15,
+                        align: "center",
+                        fixed: "left",
+                        operationColumn: true,
+                        renderBodyCell: ({ row, column, rowIndex }, h) => {
+                            return rowIndex + this.startRowIndex + 1;
+                        },
+                    },
+                    {
+                        field: "col1",
+                        key: "col1",
                         title: "col1",
                         width: 50,
                         fixed: "left",
@@ -49,13 +69,13 @@
                         children: [
                             {
                                 field: "col2",
-                                key: "b",
+                                key: "col2",
                                 title: "col2",
                                 width: 50,
                             },
                             {
                                 field: "col3",
-                                key: "c",
+                                key: "col3",
                                 title: "col3",
                                 width: 50,
                             },
@@ -69,13 +89,13 @@
                                 children: [
                                     {
                                         field: "col4",
-                                        key: "d",
+                                        key: "col4",
                                         title: "col4",
                                         width: 130,
                                     },
                                     {
                                         field: "col5",
-                                        key: "e",
+                                        key: "col5",
                                         title: "col5",
                                         width: 140,
                                     },
@@ -84,7 +104,7 @@
                             {
                                 title: "col6",
                                 field: "col6",
-                                key: "f",
+                                key: "col6",
                                 width: 140,
                             },
                         ],
@@ -96,14 +116,14 @@
                             {
                                 title: "col7-1",
                                 field: "col7",
-                                key: "g",
+                                key: "col7",
                                 width: 50,
                             },
                         ],
                     },
                     {
                         field: "col8",
-                        key: "h",
+                        key: "col8",
                         title: "col8",
                         width: 50,
                         fixed: "right",
@@ -113,9 +133,19 @@
             };
         },
         methods: {
-            // set cell selection
-            setCellSelection(rowKey, colKey) {
-                this.$refs["tableRef"].setCellSelection({ rowKey, colKey });
+            // set all selection
+            setAllCellSelection() {
+                this.$refs["tableRef"].setAllCellSelection();
+            },
+            // set range cell selection
+            setRangeCellSelection() {
+                this.$refs["tableRef"].setRangeCellSelection({
+                    startRowKey: 30,
+                    startColKey: "col2",
+                    endRowKey: 32,
+                    endColKey: "col4",
+                    isScrollToStartCell: true,
+                });
             },
             initTableData() {
                 let data = [];
@@ -133,6 +163,10 @@
                     });
                 }
                 this.tableData = data;
+            },
+            // virtual scrolling
+            scrolling({ startRowIndex }) {
+                this.startRowIndex = startRowIndex;
             },
         },
         created() {

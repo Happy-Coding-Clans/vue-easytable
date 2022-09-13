@@ -33,3 +33,10 @@ export const ICON_NAMES = {
 
     SEARCH: "search",
 };
+
+// mouse event key type
+export const MOUSE_EVENT_CLICK_TYPE = {
+    LEFT_MOUSE: 1,
+    MIDDLE_MOUSE: 2,
+    RIGHT_MOUSE: 2,
+};

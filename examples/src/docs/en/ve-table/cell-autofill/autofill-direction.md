@@ -19,6 +19,7 @@
             :table-data="tableData"
             :cell-autofill-option="cellAutofillOption"
             rowKeyFieldName="rowKey"
+            :rowStyleOption="rowStyleOption"
         />
     </div>
 </template>
@@ -31,6 +32,10 @@
                 cellAutofillOption: {
                     directionX: true,
                     directionY: true,
+                },
+                rowStyleOption: {
+                    clickHighlight: false,
+                    hoverHighlight: false,
                 },
                 columns: [
                     { field: "col1", key: "col1", title: "Col1" },

@@ -5,7 +5,7 @@
 ```html
 <template>
     <div>
-        <el-radio-group @change="autofillTypeChang" v-model="showHeaderRadio">
+        <el-radio-group v-model="showHeaderRadio">
             <el-radio label="Show">Show</el-radio>
             <el-radio label="Hidden">Hidden</el-radio>
         </el-radio-group>

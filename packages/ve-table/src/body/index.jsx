@@ -117,8 +117,21 @@ export default {
                 return null;
             },
         },
-        // cell selection key data
+        // cell selection data
         cellSelectionData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
+        // cell selection range data
+        cellSelectionRangeData: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
+        bodyIndicatorRowKeys: {
             type: Object,
             default: function () {
                 return null;
@@ -536,7 +549,7 @@ export default {
         tdSizeChange({ key, width }) {
             const { colsWidths } = this;
             colsWidths.set(key, width);
-            this.$emit(EMIT_EVENTS.BODY_TD_WIDTH_CHANGE, colsWidths);
+            this.$emit(EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE, colsWidths);
         },
 
         // init internal expand row keys
@@ -802,7 +815,7 @@ export default {
         });
 
         // recieve tr click
-        this.$on(EMIT_EVENTS.BODY_TR_CLICK, (params) => {
+        this.$on(EMIT_EVENTS.BODY_ROW_CLICK, (params) => {
             this.rowClick(params);
         });
 
@@ -880,6 +893,7 @@ export default {
                             checkboxOption,
                             radioOption,
                             rowKeyFieldName,
+                            allRowKeys: this.allRowKeys,
                             expandRowChange,
                             internalCheckboxSelectedRowKeys,
                             internalRadioSelectedRowKey,
@@ -895,6 +909,8 @@ export default {
                             cellSelectionData: this.cellSelectionData,
                             editOption: this.editOption,
                             columnCollection: this.columnCollection,
+                            cellSelectionRangeData: this.cellSelectionRangeData,
+                            bodyIndicatorRowKeys: this.bodyIndicatorRowKeys,
                         },
                     };
 

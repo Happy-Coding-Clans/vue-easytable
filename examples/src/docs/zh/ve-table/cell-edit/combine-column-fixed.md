@@ -26,6 +26,7 @@
             return {
                 rowStyleOption: {
                     clickHighlight: false,
+                    hoverHighlight: false,
                 },
                 // edit option 可控单元格编辑
                 editOption: {
@@ -36,6 +37,18 @@
                     },
                 },
                 columns: [
+                    {
+                        field: "",
+                        key: "a",
+                        title: "",
+                        width: 15,
+                        align: "center",
+                        fixed: "left",
+                        operationColumn: true,
+                        renderBodyCell: ({ row, column, rowIndex }, h) => {
+                            return ++rowIndex;
+                        },
+                    },
                     {
                         field: "col1",
                         key: "col1",

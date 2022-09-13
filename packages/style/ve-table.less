@@ -56,6 +56,15 @@
                             font-weight: 500;
                             color: @ve-table-head-text-color;
                             font-size: @ve-table-head-text-font-size;
+                            // cell indicator
+                            &.ve-table-cell-indicator {
+                                background-color: @ve-table-header-cell-indicator-background-color;
+                            }
+                            // cell indicator active
+                            &.ve-table-cell-indicator-active {
+                                background-color: @ve-table-header-cell-indicator-active-background-color;
+                                color: @ve-table-head-indicator-active-text-color;
+                            }
                         }
                     }
                     // 固定头
@@ -146,6 +155,15 @@
 
                         td.ve-table-operation-col {
                             background-color: @ve-table-td-operation-column-background-color;
+                            // cell indicator
+                            &.ve-table-cell-indicator {
+                                background-color: @ve-table-body-cell-indicator-background-color;
+                            }
+                            // cell indicator active
+                            &.ve-table-cell-indicator-active {
+                                background-color: @ve-table-body-cell-indicator-active-background-color;
+                                color: @ve-table-body-indicator-active-text-color;
+                            }
                         }
                     }
 

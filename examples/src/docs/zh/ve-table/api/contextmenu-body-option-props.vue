@@ -16,7 +16,7 @@ export default {
     props: {
         anchor: {
             type: String,
-            default: "右键菜单配置",
+            default: "body 右键菜单配置",
         },
         desc: {
             type: String,

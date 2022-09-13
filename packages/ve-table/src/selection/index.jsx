@@ -7,7 +7,7 @@ import {
     isExistNotFixedColKey,
     getLeftmostColKey,
     getRightmostColKey,
-    getColKeysByFixedType,
+    getColKeysByFixedTypeWithinColKeys,
     getTotalWidthByColKeys,
     getPreviewColKey,
     getNextColKey,
@@ -20,8 +20,9 @@ import {
     CURRENT_CELL_SELECTION_TYPES,
     COLUMN_FIXED_TYPE,
 } from "../util/constant";
+import { INSTANCE_METHODS } from "./constant";
 import emitter from "../../../src/mixins/emitter";
-import { isEmptyValue, isNumber, isBoolean } from "../../../src/utils/index.js";
+import { isEmptyValue, isBoolean } from "../../../src/utils/index.js";
 import { debounce } from "lodash";
 
 export default {
@@ -79,10 +80,6 @@ export default {
         virtualScrollVisibleIndexs: {
             type: Object,
             required: true,
-        },
-        previewTableContainerScrollLeft: {
-            type: Number,
-            default: 0,
         },
         isCellEditing: {
             type: Boolean,
@@ -262,30 +259,24 @@ export default {
                     // add table container scroll hook
                     this.hooks.addHook(
                         HOOKS_NAME.TABLE_CONTAINER_SCROLL,
-                        (tableContainerRef) => {
-                            const { scrollLeft } = tableContainerRef;
-
+                        () => {
                             this.setCellEls();
                             this.debounceSetCellEls();
 
-                            this.resetCellPositions({ scrollLeft });
+                            this.resetCellPositions();
                             // debounce reset cell positions
-                            this.debounceResetCellPositions({ scrollLeft });
+                            this.debounceResetCellPositions();
                         },
                     );
                     // add table size change hook
                     this.hooks.addHook(HOOKS_NAME.TABLE_SIZE_CHANGE, () => {
                         // debounce reset cell positions
-                        this.debounceResetCellPositions({
-                            isTableSizeChange: true,
-                        });
+                        this.debounceResetCellPositions();
                     });
                     // add table td width change hook
                     this.hooks.addHook(HOOKS_NAME.TABLE_TD_WIDTH_CHANGE, () => {
                         this.$nextTick(() => {
-                            this.resetCellPositions({
-                                isTableSizeChange: true,
-                            });
+                            this.resetCellPositions();
                         });
                     });
 
@@ -294,9 +285,7 @@ export default {
                         HOOKS_NAME.CLIPBOARD_CELL_VALUE_CHANGE,
                         () => {
                             this.$nextTick(() => {
-                                this.resetCellPositions({
-                                    isTableSizeChange: true,
-                                });
+                                this.resetCellPositions();
                             });
                         },
                     );
@@ -312,7 +301,7 @@ export default {
                     this.setCurrentCellEl();
                     this.setSelectionPositions({ type: "currentCell" });
                 } else {
-                    this.clearCurrentCellRect();
+                    this[INSTANCE_METHODS.CLEAR_CURRENT_CELL_RECT]();
                 }
                 this.setCellSelectionRangeData();
             },
@@ -328,7 +317,7 @@ export default {
                     this.setNormalEndCellEl();
                     this.setSelectionPositions({ type: "normalEndCell" });
                 } else {
-                    this.clearNormalEndCellRect();
+                    this[INSTANCE_METHODS.CLEAR_NORMAL_END_CELL_RECT]();
                 }
                 this.setCellSelectionRangeData();
             },
@@ -353,17 +342,25 @@ export default {
 
     methods: {
         // reset cell position
-        resetCellPositions({ scrollLeft, isTableSizeChange }) {
-            this.setSelectionPositions({
-                type: "currentCell",
-                scrollLeft,
-                isTableSizeChange,
-            });
-            this.setSelectionPositions({
-                type: "normalEndCell",
-                scrollLeft,
-                isTableSizeChange,
-            });
+        resetCellPositions() {
+            const { currentCell, normalEndCell } = this.cellSelectionData;
+            if (
+                !isEmptyValue(currentCell.rowKey) &&
+                !isEmptyValue(currentCell.colKey)
+            ) {
+                this.setSelectionPositions({
+                    type: "currentCell",
+                });
+            }
+
+            if (
+                !isEmptyValue(normalEndCell.rowKey) &&
+                !isEmptyValue(normalEndCell.colKey)
+            ) {
+                this.setSelectionPositions({
+                    type: "normalEndCell",
+                });
+            }
         },
 
         // set cell els
@@ -489,12 +486,9 @@ export default {
         },
 
         // set selection positions
-        setSelectionPositions({
-            type,
-            scrollLeft = 0,
-            isTableSizeChange = false,
-        }) {
+        setSelectionPositions({ type }) {
             const {
+                allRowKeys,
                 tableEl,
                 currentCellEl,
                 normalEndCellEl,
@@ -502,6 +496,11 @@ export default {
                 cellSelectionData,
                 virtualScrollVisibleIndexs,
             } = this;
+
+            // table empty
+            if (allRowKeys.length === 0) {
+                return false;
+            }
 
             if (!tableEl) {
                 return false;
@@ -513,30 +512,34 @@ export default {
             let isCurrentCellOverflow = false;
             let isNormalEndCellOverflow = false;
             // set current cell position
-            if (currentCellEl && type === "currentCell") {
-                const rect = this.getCellPosition({
-                    cellEl: currentCellEl,
-                    tableLeft,
-                    tableTop,
-                });
-                if (rect) {
-                    this.cellSelectionRect.currentCellRect = rect;
-                } else {
-                    isCurrentCellOverflow = true;
+            if (type === "currentCell") {
+                isCurrentCellOverflow = true;
+                if (currentCellEl) {
+                    const rect = this.getCellPosition({
+                        cellEl: currentCellEl,
+                        tableLeft,
+                        tableTop,
+                    });
+                    if (rect) {
+                        isCurrentCellOverflow = false;
+                        this.cellSelectionRect.currentCellRect = rect;
+                    }
                 }
             }
 
             // set nromal end cell position`
-            if (normalEndCellEl && type === "normalEndCell") {
-                const rect = this.getCellPosition({
-                    cellEl: normalEndCellEl,
-                    tableLeft,
-                    tableTop,
-                });
-                if (rect) {
-                    this.cellSelectionRect.normalEndCellRect = rect;
-                } else {
-                    isNormalEndCellOverflow = true;
+            if (type === "normalEndCell") {
+                isNormalEndCellOverflow = true;
+                if (normalEndCellEl) {
+                    const rect = this.getCellPosition({
+                        cellEl: normalEndCellEl,
+                        tableLeft,
+                        tableTop,
+                    });
+                    if (rect) {
+                        isNormalEndCellOverflow = false;
+                        this.cellSelectionRect.normalEndCellRect = rect;
+                    }
                 }
             }
 
@@ -559,11 +562,14 @@ export default {
                 }
 
                 let mackUpRect;
-                // 当存在表格宽度变化或者横向滚动条拖动时的区域选择纠正功能
+                /* 
+                当没有 currentCellRect 或 normalCellRect 时 进行纠正，否则只更新top值
+                */
                 if (
-                    isTableSizeChange ||
-                    (this.previewTableContainerScrollLeft != scrollLeft &&
-                        isNumber(this.previewTableContainerScrollLeft))
+                    (isCurrentCellOverflow &&
+                        !this.cellSelectionRect.currentCellRect.height) ||
+                    (isNormalEndCellOverflow &&
+                        !this.cellSelectionRect.normalEndCellRect.height)
                 ) {
                     let mackUpRectParams = {
                         tableLeft,
@@ -625,39 +631,6 @@ export default {
                     this.cellSelectionRect.autoFillEndCellRect = rect;
                 }
             }
-        },
-
-        // clear current cell rect
-        clearCurrentCellRect() {
-            this.currentCellEl = null;
-            this.cellSelectionRect.currentCellRect = {
-                left: 0,
-                top: 0,
-                width: 0,
-                height: 0,
-            };
-        },
-
-        // clear normal end cell rect
-        clearNormalEndCellRect() {
-            this.normalEndCellEl = null;
-            this.cellSelectionRect.normalEndCellRect = {
-                left: 0,
-                top: 0,
-                width: 0,
-                height: 0,
-            };
-        },
-
-        // clear auto fill end cell rect
-        clearAutofillEndCellRect() {
-            this.autoFillEndCellEl = null;
-            this.cellSelectionRect.autoFillEndCellRect = {
-                left: 0,
-                top: 0,
-                width: 0,
-                height: 0,
-            };
         },
 
         /*
@@ -731,7 +704,7 @@ export default {
 
             const totalColKeys = [cellSelectionData.currentCell.colKey];
 
-            const fixedColKeys = getColKeysByFixedType({
+            const fixedColKeys = getColKeysByFixedTypeWithinColKeys({
                 colKeys: totalColKeys,
                 fixedType,
                 colgroups,
@@ -888,7 +861,7 @@ export default {
                 colgroups,
             });
 
-            const fixedColKeys = getColKeysByFixedType({
+            const fixedColKeys = getColKeysByFixedTypeWithinColKeys({
                 colKeys: totalColKeys,
                 fixedType,
                 colgroups,
@@ -1161,7 +1134,7 @@ export default {
                 colgroups,
             });
 
-            let fixedColKeys = getColKeysByFixedType({
+            let fixedColKeys = getColKeysByFixedTypeWithinColKeys({
                 colKeys: totalColKeys,
                 fixedType,
                 colgroups,
@@ -1496,7 +1469,6 @@ export default {
                     rowKey,
                     colKey,
                 });
-
                 if (cellEl) {
                     this.currentCellEl = cellEl;
                 }
@@ -1514,7 +1486,6 @@ export default {
                     rowKey,
                     colKey,
                 });
-
                 if (cellEl) {
                     this.normalEndCellEl = cellEl;
                 }
@@ -1544,6 +1515,39 @@ export default {
                 const tableEl = this.$el.previousElementSibling;
                 this.tableEl = tableEl;
             });
+        },
+
+        // clear auto fill end cell rect
+        clearAutofillEndCellRect() {
+            this.autoFillEndCellEl = null;
+            this.cellSelectionRect.autoFillEndCellRect = {
+                left: 0,
+                top: 0,
+                width: 0,
+                height: 0,
+            };
+        },
+
+        // clear current cell rect
+        [INSTANCE_METHODS.CLEAR_CURRENT_CELL_RECT]() {
+            this.currentCellEl = null;
+            this.cellSelectionRect.currentCellRect = {
+                left: 0,
+                top: 0,
+                width: 0,
+                height: 0,
+            };
+        },
+
+        // clear normal end cell rect
+        [INSTANCE_METHODS.CLEAR_NORMAL_END_CELL_RECT]() {
+            this.normalEndCellEl = null;
+            this.cellSelectionRect.normalEndCellRect = {
+                left: 0,
+                top: 0,
+                width: 0,
+                height: 0,
+            };
         },
     },
 

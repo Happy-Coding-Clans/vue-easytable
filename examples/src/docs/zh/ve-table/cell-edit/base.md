@@ -25,6 +25,7 @@
             return {
                 rowStyleOption: {
                     clickHighlight: false,
+                    hoverHighlight: false,
                 },
                 // edit option 可控单元格编辑
                 editOption: {
@@ -56,6 +57,7 @@
                         title: "",
                         width: 50,
                         align: "center",
+                        operationColumn: true,
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
                             return ++rowIndex;
                         },

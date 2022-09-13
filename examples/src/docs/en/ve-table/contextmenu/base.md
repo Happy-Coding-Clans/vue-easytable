@@ -8,13 +8,17 @@ Right click the table area to view the effect
 <template>
     <div>
         <ve-table
+            :max-height="350"
+            :scroll-width="1600"
             row-key-field-name="rowKey"
             :fixed-header="true"
             :columns="columns"
             :table-data="tableData"
             :row-style-option="rowStyleOption"
             border-y
+            :virtual-scroll-option="virtualScrollOption"
             :contextmenu-body-option="contextmenuBodyOption"
+            :contextmenu-header-option="contextmenuHeaderOption"
         />
     </div>
 </template>
@@ -23,16 +27,104 @@ Right click the table area to view the effect
     export default {
         data() {
             return {
-                // contextmenu body option
-                contextmenuBodyOption: {
-                    // callback for all options
-                    callback: ({ type, selection }) => {
+                // start row index
+                startRowIndex: 0,
+                virtualScrollOption: {
+                    // 是否开启
+                    enable: true,
+                    scrolling: this.scrolling,
+                },
+                // contextmenu header option
+                contextmenuHeaderOption: {
+                    /*
+                    before contextmenu show.
+                    In this function,You can change the `contextmenu` options
+                    */
+                    beforeShow: ({
+                        isWholeColSelection,
+                        selectionRangeKeys,
+                        selectionRangeIndexes,
+                    }) => {
+                        console.log("---contextmenu header beforeShow--");
+                        console.log("isWholeColSelection::", isWholeColSelection);
+                        console.log("selectionRangeKeys::", selectionRangeKeys);
+                        console.log("selectionRangeIndexes::", selectionRangeIndexes);
+                    },
+                    // after menu click
+                    afterMenuClick: ({ type, selectionRangeKeys, selectionRangeIndexes }) => {
+                        console.log("---contextmenu header afterMenuClick--");
                         console.log("type::", type);
-                        console.log("selection::", selection);
+                        console.log("selectionRangeKeys::", selectionRangeKeys);
+                        console.log("selectionRangeIndexes::", selectionRangeIndexes);
                     },
 
                     // contextmenus
                     contextmenus: [
+                        {
+                            type: "CUT",
+                        },
+                        {
+                            type: "COPY",
+                        },
+                        {
+                            type: "SEPARATOR",
+                        },
+                        {
+                            type: "EMPTY_COLUMN",
+                        },
+                        {
+                            type: "SEPARATOR",
+                        },
+                        {
+                            type: "LEFT_FIXED_COLUMN_TO",
+                        },
+                        {
+                            type: "CANCLE_LEFT_FIXED_COLUMN_TO",
+                        },
+                        {
+                            type: "RIGHT_FIXED_COLUMN_TO",
+                        },
+                        {
+                            type: "CANCEL_RIGHT_FIXED_COLUMN_TO",
+                        },
+                    ],
+                },
+
+                // contextmenu body option
+                contextmenuBodyOption: {
+                    /*
+                    before contextmenu show.
+                    In this function,You can change the `contextmenu` options
+                    */
+                    beforeShow: ({
+                        isWholeRowSelection,
+                        selectionRangeKeys,
+                        selectionRangeIndexes,
+                    }) => {
+                        console.log("---contextmenu body beforeShow--");
+                        console.log("isWholeRowSelection::", isWholeRowSelection);
+                        console.log("selectionRangeKeys::", selectionRangeKeys);
+                        console.log("selectionRangeIndexes::", selectionRangeIndexes);
+                    },
+                    // after menu click
+                    afterMenuClick: ({ type, selectionRangeKeys, selectionRangeIndexes }) => {
+                        console.log("---contextmenu body afterMenuClick--");
+                        console.log("type::", type);
+                        console.log("selectionRangeKeys::", selectionRangeKeys);
+                        console.log("selectionRangeIndexes::", selectionRangeIndexes);
+                    },
+
+                    // contextmenus
+                    contextmenus: [
+                        {
+                            type: "CUT",
+                        },
+                        {
+                            type: "COPY",
+                        },
+                        {
+                            type: "SEPARATOR",
+                        },
                         {
                             type: "INSERT_ROW_ABOVE",
                         },
@@ -46,97 +138,109 @@ Right click the table area to view the effect
                             type: "REMOVE_ROW",
                         },
                         {
-                            type: "SEPARATOR",
+                            type: "EMPTY_ROW",
                         },
                         {
-                            type: "HIDE_COLUMN",
+                            type: "EMPTY_CELL",
                         },
                     ],
                 },
 
                 rowStyleOption: {
                     clickHighlight: false,
+                    hoverHighlight: false,
                 },
                 columns: [
                     {
                         field: "",
                         key: "a",
                         title: "",
-                        width: 50,
+                        width: 15,
                         align: "center",
                         operationColumn: true,
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            return ++rowIndex;
+                            return rowIndex + this.startRowIndex + 1;
                         },
                     },
                     {
-                        field: "name",
-                        key: "name",
-                        title: "Name",
-                        align: "left",
-                        width: "15%",
+                        field: "col1",
+                        key: "col1",
+                        title: "col1",
+                        fixed: "left",
+                        width: 50,
                     },
                     {
-                        field: "date",
-                        key: "date",
-                        title: "Date",
-                        align: "left",
-                        width: "15%",
+                        field: "col2",
+                        key: "col2",
+                        title: "col2",
+                        width: 50,
                     },
                     {
-                        field: "number",
-                        key: "number",
-                        title: "Number",
-                        align: "right",
-                        width: "30%",
+                        field: "col3",
+                        key: "col3",
+                        title: "col3",
+                        width: 50,
                     },
                     {
-                        field: "address",
-                        key: "address",
-                        title: "Address",
-                        align: "left",
-                        width: "40%",
+                        field: "col4",
+                        key: "col4",
+                        title: "col4",
+                        width: 50,
+                    },
+                    {
+                        field: "col5",
+                        key: "col5",
+                        title: "col5",
+                        width: 50,
+                    },
+                    {
+                        title: "col6",
+                        field: "col6",
+                        key: "col6",
+                        width: 50,
+                    },
+                    {
+                        title: "col7",
+                        field: "col7",
+                        key: "col7",
+                        width: 50,
+                    },
+                    {
+                        field: "col8",
+                        key: "col8",
+                        title: "col8",
+                        width: 50,
                     },
                 ],
                 // table data
-                tableData: [
-                    {
-                        name: "John",
-                        date: "1900-05-20",
-                        number: "32",
-                        address: "No.1 Century Avenue, Shanghai",
-                        rowKey: 0,
-                    },
-                    {
-                        name: "Dickerson",
-                        date: "1910-06-20",
-                        number: "676",
-                        address: "No.1 Century Avenue, Beijing",
-                        rowKey: 1,
-                    },
-                    {
-                        name: "Larsen",
-                        date: "2000-07-20",
-                        number: "76",
-                        address: "No.1 Century Avenue, Chongqing",
-                        rowKey: 2,
-                    },
-                    {
-                        name: "Geneva",
-                        date: "2010-08-20",
-                        number: "7797",
-                        address: "No.1 Century Avenue, Xiamen",
-                        rowKey: 3,
-                    },
-                    {
-                        name: "Jami",
-                        date: "2020-09-20",
-                        number: "8978",
-                        address: "No.1 Century Avenue, Shenzhen",
-                        rowKey: 4,
-                    },
-                ],
+                tableData: [],
             };
+        },
+        methods: {
+            initTableData() {
+                let data = [];
+                for (let i = 0; i < 100; i++) {
+                    data.push({
+                        rowKey: i,
+                        col1: `A` + i,
+                        col2: `B` + i,
+                        col3: `C` + i,
+                        col4: `D` + i,
+                        col5: `E` + i,
+                        col6: `F` + i,
+                        col7: `G` + i,
+                        col8: `H` + i,
+                    });
+                }
+                this.tableData = data;
+            },
+            // virtual scrolling
+            scrolling({ startRowIndex }) {
+                this.startRowIndex = startRowIndex;
+            },
+        },
+        created() {
+            this.initTableData();
         },
     };
 </script>
