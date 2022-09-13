@@ -14,7 +14,7 @@ exports[`veTable operation column render 1`] = `
         </colgroup>
         <thead class="ve-table-fixed-header ve-table-header">
           <tr class="ve-table-header-tr">
-            <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;">#</th>
+            <th rowspan="1" colspan="1" class="ve-table-header-th ve-table-fixed-left ve-table-last-left-fixed-column" style="text-align: center; left: 0px; top: 0px;">#</th>
             <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Name</th>
             <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Date</th>
             <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;">Hobby</th>
@@ -30,35 +30,35 @@ exports[`veTable operation column render 1`] = `
             <td style="padding: 0px; border: 0px; height: 0px;"></td>
           </tr>
           <tr row-key="1" class="ve-table-body-tr">
-            <td rowspan="1" colspan="1" col-key="index" class="ve-table-body-td ve-table-operation-col" style="text-align: center;">1</td>
+            <td rowspan="1" colspan="1" col-key="index" class="ve-table-body-td ve-table-fixed-left ve-table-operation-col ve-table-last-left-fixed-column" style="text-align: center; left: 0px;">1</td>
             <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: left;">John</td>
             <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">1900-05-20</td>
             <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: center;">coding</td>
             <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: center;">No.1 Century Avenue, Shanghai</td>
           </tr>
           <tr row-key="2" class="ve-table-body-tr">
-            <td rowspan="1" colspan="1" col-key="index" class="ve-table-body-td ve-table-operation-col" style="text-align: center;">2</td>
+            <td rowspan="1" colspan="1" col-key="index" class="ve-table-body-td ve-table-fixed-left ve-table-operation-col ve-table-last-left-fixed-column" style="text-align: center; left: 0px;">2</td>
             <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: left;">Dickerson</td>
             <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">1910-06-20</td>
             <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: center;">coding</td>
             <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: center;">No.1 Century Avenue, Beijing</td>
           </tr>
           <tr row-key="3" class="ve-table-body-tr">
-            <td rowspan="1" colspan="1" col-key="index" class="ve-table-body-td ve-table-operation-col" style="text-align: center;">3</td>
+            <td rowspan="1" colspan="1" col-key="index" class="ve-table-body-td ve-table-fixed-left ve-table-operation-col ve-table-last-left-fixed-column" style="text-align: center; left: 0px;">3</td>
             <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: left;">Larsen</td>
             <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">2000-07-20</td>
             <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
             <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: center;">No.1 Century Avenue, Chongqing</td>
           </tr>
           <tr row-key="4" class="ve-table-body-tr">
-            <td rowspan="1" colspan="1" col-key="index" class="ve-table-body-td ve-table-operation-col" style="text-align: center;">4</td>
+            <td rowspan="1" colspan="1" col-key="index" class="ve-table-body-td ve-table-fixed-left ve-table-operation-col ve-table-last-left-fixed-column" style="text-align: center; left: 0px;">4</td>
             <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: left;">Geneva</td>
             <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">2010-08-20</td>
             <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
             <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: center;">No.1 Century Avenue, Xiamen</td>
           </tr>
           <tr row-key="5" class="ve-table-body-tr">
-            <td rowspan="1" colspan="1" col-key="index" class="ve-table-body-td ve-table-operation-col" style="text-align: center;">5</td>
+            <td rowspan="1" colspan="1" col-key="index" class="ve-table-body-td ve-table-fixed-left ve-table-operation-col ve-table-last-left-fixed-column" style="text-align: center; left: 0px;">5</td>
             <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: left;">Jami</td>
             <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">2020-09-20</td>
             <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: center;">coding and coding repeat</td>
