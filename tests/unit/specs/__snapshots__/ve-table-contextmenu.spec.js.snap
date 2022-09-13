@@ -14,7 +14,7 @@ exports[`veTable contextmenu render 1`] = `
         </colgroup>
         <thead class="ve-table-fixed-header ve-table-header">
           <tr class="ve-table-header-tr">
-            <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;"></th>
+            <th rowspan="1" colspan="1" class="ve-table-header-th ve-table-fixed-left ve-table-last-left-fixed-column" style="text-align: center; left: 0px; top: 0px;"></th>
             <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Name</th>
             <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Date</th>
             <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: right; top: 0px;">Number</th>
@@ -30,35 +30,35 @@ exports[`veTable contextmenu render 1`] = `
             <td style="padding: 0px; border: 0px; height: 0px;"></td>
           </tr>
           <tr row-key="0" class="ve-table-body-tr">
-            <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: center;">1</td>
+            <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td ve-table-fixed-left ve-table-operation-col ve-table-last-left-fixed-column" style="text-align: center; left: 0px;">1</td>
             <td rowspan="1" colspan="1" col-key="name" class="ve-table-body-td" style="text-align: left;">John</td>
             <td rowspan="1" colspan="1" col-key="date" class="ve-table-body-td" style="text-align: left;">1900-05-20</td>
             <td rowspan="1" colspan="1" col-key="number" class="ve-table-body-td" style="text-align: right;">32</td>
             <td rowspan="1" colspan="1" col-key="address" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Shanghai</td>
           </tr>
           <tr row-key="1" class="ve-table-body-tr">
-            <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: center;">2</td>
+            <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td ve-table-fixed-left ve-table-operation-col ve-table-last-left-fixed-column" style="text-align: center; left: 0px;">2</td>
             <td rowspan="1" colspan="1" col-key="name" class="ve-table-body-td" style="text-align: left;">Dickerson</td>
             <td rowspan="1" colspan="1" col-key="date" class="ve-table-body-td" style="text-align: left;">1910-06-20</td>
             <td rowspan="1" colspan="1" col-key="number" class="ve-table-body-td" style="text-align: right;">676</td>
             <td rowspan="1" colspan="1" col-key="address" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Beijing</td>
           </tr>
           <tr row-key="2" class="ve-table-body-tr">
-            <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: center;">3</td>
+            <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td ve-table-fixed-left ve-table-operation-col ve-table-last-left-fixed-column" style="text-align: center; left: 0px;">3</td>
             <td rowspan="1" colspan="1" col-key="name" class="ve-table-body-td" style="text-align: left;">Larsen</td>
             <td rowspan="1" colspan="1" col-key="date" class="ve-table-body-td" style="text-align: left;">2000-07-20</td>
             <td rowspan="1" colspan="1" col-key="number" class="ve-table-body-td" style="text-align: right;">76</td>
             <td rowspan="1" colspan="1" col-key="address" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Chongqing</td>
           </tr>
           <tr row-key="3" class="ve-table-body-tr">
-            <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: center;">4</td>
+            <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td ve-table-fixed-left ve-table-operation-col ve-table-last-left-fixed-column" style="text-align: center; left: 0px;">4</td>
             <td rowspan="1" colspan="1" col-key="name" class="ve-table-body-td" style="text-align: left;">Geneva</td>
             <td rowspan="1" colspan="1" col-key="date" class="ve-table-body-td" style="text-align: left;">2010-08-20</td>
             <td rowspan="1" colspan="1" col-key="number" class="ve-table-body-td" style="text-align: right;">7797</td>
             <td rowspan="1" colspan="1" col-key="address" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Xiamen</td>
           </tr>
           <tr row-key="4" class="ve-table-body-tr">
-            <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: center;">5</td>
+            <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td ve-table-fixed-left ve-table-operation-col ve-table-last-left-fixed-column" style="text-align: center; left: 0px;">5</td>
             <td rowspan="1" colspan="1" col-key="name" class="ve-table-body-td" style="text-align: left;">Jami</td>
             <td rowspan="1" colspan="1" col-key="date" class="ve-table-body-td" style="text-align: left;">2020-09-20</td>
             <td rowspan="1" colspan="1" col-key="number" class="ve-table-body-td" style="text-align: right;">8978</td>
@@ -75,6 +75,7 @@ exports[`veTable contextmenu render 1`] = `
     </div>
   </div>
   <div class="ve-table-edit-input-container" style="top: 0px; left: 0px; height: 1px; z-index: -1; opacity: 0;"><textarea tabindex="-1" class="ve-table-edit-input"></textarea></div>
+  <div class="ve-contextmenu" style="display: none;"></div>
   <div class="ve-contextmenu" style="display: none;"></div>
 </div>
 `;
