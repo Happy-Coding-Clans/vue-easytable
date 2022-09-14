@@ -207,7 +207,6 @@ export default {
                     title: "#",
                     width: 50,
                     fixed: this.enableColumnFixed ? "left" : "",
-                    operationColumn: true,
                     renderBodyCell: this.renderRowIndex,
                 },
             ];
