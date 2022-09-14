@@ -2,13 +2,12 @@
 
 Based on vue2.x flexible table components.
 
+## Characteristics
+
+-   Support 300000 rows of data display through virtual scroll
+-   Free forever. Of course, you can also choose to donate
+
 ### Features
-
--   Easy to use
--   Powerful
--   Unit test coverage greater than 85%
-
-### Supports
 
 **Base components**
 
