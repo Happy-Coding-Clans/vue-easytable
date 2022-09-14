@@ -22,7 +22,12 @@ Support this project by becoming a sponsor. Your logo or name will show up here 
 
 ## Introduction
 
-Based on vue2.x flexible table components.
+Based on vue2.x flexible table components. You can display the data in a colorful way, or record it as Microsoft Excel or Google sheets.
+
+## Characteristics
+
+-   Support 300000 rows of data display through virtual scroll
+-   Free forever. Of course, you can also choose to donate
 
 ## API & Examples
 
