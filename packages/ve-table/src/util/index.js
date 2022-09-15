@@ -1,6 +1,6 @@
 import {
     PREFIX_CLS,
-    CONTEXTMENU_TYPES,
+    CONTEXTMENU_NODE_TYPES,
     COLUMN_FIXED_TYPE,
     AUTOFILLING_DIRECTION,
 } from "./constant";
@@ -308,47 +308,47 @@ export function initGroupColumns(cloneColumns) {
 export function getHeaderContextmenuOptionCollection(t) {
     return [
         {
-            type: CONTEXTMENU_TYPES.SEPARATOR,
+            type: CONTEXTMENU_NODE_TYPES.SEPARATOR,
         },
         {
             label: t("cut"),
-            type: CONTEXTMENU_TYPES.CUT,
+            type: CONTEXTMENU_NODE_TYPES.CUT,
         },
         {
             label: t("copy"),
-            type: CONTEXTMENU_TYPES.COPY,
+            type: CONTEXTMENU_NODE_TYPES.COPY,
         },
         // {
         //     label: t("paste"),
-        //     type: CONTEXTMENU_TYPES.PASTE,
+        //     type: CONTEXTMENU_NODE_TYPES.PASTE,
         // },
         {
             label: t("removeColumn"),
-            type: CONTEXTMENU_TYPES.REMOVE_COLUMN,
+            type: CONTEXTMENU_NODE_TYPES.REMOVE_COLUMN,
         },
         {
             label: t("emptyColumn"),
-            type: CONTEXTMENU_TYPES.EMPTY_COLUMN,
+            type: CONTEXTMENU_NODE_TYPES.EMPTY_COLUMN,
         },
         {
             label: t("hideColumn"),
-            type: CONTEXTMENU_TYPES.HIDE_COLUMN,
+            type: CONTEXTMENU_NODE_TYPES.HIDE_COLUMN,
         },
         {
             label: t("leftFixedColumnTo"),
-            type: CONTEXTMENU_TYPES.LEFT_FIXED_COLUMN_TO,
+            type: CONTEXTMENU_NODE_TYPES.LEFT_FIXED_COLUMN_TO,
         },
         {
             label: t("cancelLeftFixedColumnTo"),
-            type: CONTEXTMENU_TYPES.CANCEL_LEFT_FIXED_COLUMN_TO,
+            type: CONTEXTMENU_NODE_TYPES.CANCEL_LEFT_FIXED_COLUMN_TO,
         },
         {
             label: t("rightFixedColumnTo"),
-            type: CONTEXTMENU_TYPES.RIGHT_FIXED_COLUMN_TO,
+            type: CONTEXTMENU_NODE_TYPES.RIGHT_FIXED_COLUMN_TO,
         },
         {
             label: t("cancelRightFixedColumnTo"),
-            type: CONTEXTMENU_TYPES.CANCEL_RIGHT_FIXED_COLUMN_TO,
+            type: CONTEXTMENU_NODE_TYPES.CANCEL_RIGHT_FIXED_COLUMN_TO,
         },
     ];
 }
@@ -357,43 +357,43 @@ export function getHeaderContextmenuOptionCollection(t) {
 export function getBodyContextmenuOptionCollection(t) {
     return [
         {
-            type: CONTEXTMENU_TYPES.SEPARATOR,
+            type: CONTEXTMENU_NODE_TYPES.SEPARATOR,
         },
         {
             label: t("cut"),
-            type: CONTEXTMENU_TYPES.CUT,
+            type: CONTEXTMENU_NODE_TYPES.CUT,
         },
         {
             label: t("copy"),
-            type: CONTEXTMENU_TYPES.COPY,
+            type: CONTEXTMENU_NODE_TYPES.COPY,
         },
         // {
         //     label: t("paste"),
-        //     type: CONTEXTMENU_TYPES.PASTE,
+        //     type: CONTEXTMENU_NODE_TYPES.PASTE,
         // },
         {
             label: t("insertRowAbove"),
-            type: CONTEXTMENU_TYPES.INSERT_ROW_ABOVE,
+            type: CONTEXTMENU_NODE_TYPES.INSERT_ROW_ABOVE,
         },
         {
             label: t("insertRowBelow"),
-            type: CONTEXTMENU_TYPES.INSERT_ROW_BELOW,
+            type: CONTEXTMENU_NODE_TYPES.INSERT_ROW_BELOW,
         },
         {
             label: t("removeRow"),
-            type: CONTEXTMENU_TYPES.REMOVE_ROW,
+            type: CONTEXTMENU_NODE_TYPES.REMOVE_ROW,
         },
         {
             label: t("emptyRow"),
-            type: CONTEXTMENU_TYPES.EMPTY_ROW,
+            type: CONTEXTMENU_NODE_TYPES.EMPTY_ROW,
         },
         {
             label: t("removeColumn"),
-            type: CONTEXTMENU_TYPES.REMOVE_COLUMN,
+            type: CONTEXTMENU_NODE_TYPES.REMOVE_COLUMN,
         },
         {
             label: t("emptyCell"),
-            type: CONTEXTMENU_TYPES.EMPTY_CELL,
+            type: CONTEXTMENU_NODE_TYPES.EMPTY_CELL,
         },
     ];
 }
@@ -479,7 +479,7 @@ export function setHeaderContextmenuOptions({
                 // empty column. 选中整列时支持
                 if (
                     contentmenuCollectionItem.type ===
-                    CONTEXTMENU_TYPES.EMPTY_COLUMN
+                    CONTEXTMENU_NODE_TYPES.EMPTY_COLUMN
                 ) {
                     if (isWholeColSelection) {
                         contentmenuCollectionItem.label =
@@ -494,7 +494,7 @@ export function setHeaderContextmenuOptions({
                 // left fixed column to
                 else if (
                     contentmenuCollectionItem.type ===
-                    CONTEXTMENU_TYPES.LEFT_FIXED_COLUMN_TO
+                    CONTEXTMENU_NODE_TYPES.LEFT_FIXED_COLUMN_TO
                 ) {
                     //
                     if (isOperationCol) {
@@ -504,7 +504,7 @@ export function setHeaderContextmenuOptions({
                 // calcel left fixed column to
                 else if (
                     contentmenuCollectionItem.type ===
-                    CONTEXTMENU_TYPES.CANCEL_LEFT_FIXED_COLUMN_TO
+                    CONTEXTMENU_NODE_TYPES.CANCEL_LEFT_FIXED_COLUMN_TO
                 ) {
                     if (leftFixedColKeys.length < 1) {
                         contentmenuCollectionItem.disabled = true;
@@ -513,7 +513,7 @@ export function setHeaderContextmenuOptions({
                 // right fixed column to
                 else if (
                     contentmenuCollectionItem.type ===
-                    CONTEXTMENU_TYPES.RIGHT_FIXED_COLUMN_TO
+                    CONTEXTMENU_NODE_TYPES.RIGHT_FIXED_COLUMN_TO
                 ) {
                     //
                     if (isOperationCol) {
@@ -523,7 +523,7 @@ export function setHeaderContextmenuOptions({
                 // calcel right fixed column to
                 else if (
                     contentmenuCollectionItem.type ===
-                    CONTEXTMENU_TYPES.CANCEL_RIGHT_FIXED_COLUMN_TO
+                    CONTEXTMENU_NODE_TYPES.CANCEL_RIGHT_FIXED_COLUMN_TO
                 ) {
                     if (rightFixedColKeys.length < 1) {
                         contentmenuCollectionItem.disabled = true;
@@ -611,7 +611,7 @@ export function setBodyContextmenuOptions({
                 // remove row
                 if (
                     contentmenuCollectionItem.type ===
-                    CONTEXTMENU_TYPES.REMOVE_ROW
+                    CONTEXTMENU_NODE_TYPES.REMOVE_ROW
                 ) {
                     contentmenuCollectionItem.label =
                         contentmenuCollectionItem.label.replace("$1", rowCount);
@@ -619,7 +619,7 @@ export function setBodyContextmenuOptions({
                 // empty row. 选中整行时支持
                 else if (
                     contentmenuCollectionItem.type ===
-                    CONTEXTMENU_TYPES.EMPTY_ROW
+                    CONTEXTMENU_NODE_TYPES.EMPTY_ROW
                 ) {
                     if (isWholeRowSelection) {
                         contentmenuCollectionItem.label =
@@ -634,14 +634,14 @@ export function setBodyContextmenuOptions({
                 // empty cell.没选中整行时支持
                 else if (
                     contentmenuCollectionItem.type ===
-                    CONTEXTMENU_TYPES.EMPTY_CELL
+                    CONTEXTMENU_NODE_TYPES.EMPTY_CELL
                 ) {
                     isContinue = !isWholeRowSelection;
                 }
                 // remove column.没选中整行时支持
                 else if (
                     contentmenuCollectionItem.type ===
-                    CONTEXTMENU_TYPES.REMOVE_COLUMN
+                    CONTEXTMENU_NODE_TYPES.REMOVE_COLUMN
                 ) {
                     if (isWholeRowSelection) {
                         isContinue = false;
