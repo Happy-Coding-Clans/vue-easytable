@@ -6,7 +6,7 @@ import { getMousePosition, getViewportOffset } from "../../src/utils/dom";
 import {
     INIT_DATA,
     EMIT_EVENTS,
-    CONTEXTMENU_TYPES,
+    CONTEXTMENU_NODE_TYPES,
     INSTANCE_METHODS,
 } from "./util/constant";
 import { getRandomId } from "../../src/utils/random";
@@ -637,7 +637,7 @@ export default {
 
                                     if (
                                         menu.type !==
-                                        CONTEXTMENU_TYPES.SEPARATOR
+                                        CONTEXTMENU_NODE_TYPES.SEPARATOR
                                     ) {
                                         contextmenuNodeProps = {
                                             class: {
@@ -692,7 +692,7 @@ export default {
 
                                     if (
                                         menu.type !==
-                                        CONTEXTMENU_TYPES.SEPARATOR
+                                        CONTEXTMENU_NODE_TYPES.SEPARATOR
                                     ) {
                                         return (
                                             <li {...contextmenuNodeProps}>

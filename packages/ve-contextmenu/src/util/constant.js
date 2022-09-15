@@ -18,7 +18,7 @@ export const INIT_DATA = {
 };
 
 // contextmenu types
-export const CONTEXTMENU_TYPES = {
+export const CONTEXTMENU_NODE_TYPES = {
     // Separator
     SEPARATOR: "SEPARATOR",
 };
