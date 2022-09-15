@@ -208,6 +208,12 @@ export const INSTANCE_METHODS = {
 
 // contextmenu types
 export const CONTEXTMENU_TYPES = {
+    HEADER_CONTEXTMENU: "headerContextmenu",
+    BODY_CONTEXTMENU: "bodyContextmenu",
+};
+
+// contextmenu node types
+export const CONTEXTMENU_NODE_TYPES = {
     // separator
     SEPARATOR: "SEPARATOR",
     // cut
