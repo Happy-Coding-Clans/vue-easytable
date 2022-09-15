@@ -7,6 +7,16 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.19.1
+
+### Bug Fixes
+
+-   Fix the bug that after the header column is selected, the right click item in the non header selected area of the right-click menu is incorrect
+
+---
+
+-   修复表头列选中后，右键菜单非头部的选中区域右键项不正确的问题
+
 V2.19.0
 
 ### Breaking Changes
