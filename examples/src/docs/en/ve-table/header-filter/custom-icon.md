@@ -5,13 +5,7 @@ filterIcon Supports custom icon. The built-in `<ve-icon name="search" />` icon i
 
 ```html
 <template>
-    <ve-table
-        rowKeyFieldName="rowKey"
-        :max-height="300"
-        :fixed-header="true"
-        :columns="columns"
-        :table-data="tableData"
-    />
+    <ve-table :max-height="300" :fixed-header="true" :columns="columns" :table-data="tableData" />
 </template>
 
 <script>
