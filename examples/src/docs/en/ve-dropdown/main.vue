@@ -17,6 +17,10 @@
             <anchor label="自定义下拉内容" />
             <CustomContent />
         </div>
+        <div>
+            <anchor label="回调函数" />
+            <callbackMethods />
+        </div>
         <API />
     </div>
 </template>
@@ -26,6 +30,7 @@ import SingleSelect from "./single-select.md";
 import MultipleSelect from "./multiple-select.md";
 import Operation from "./operation.md";
 import CustomContent from "./custom-content.md";
+import callbackMethods from "./callback-methods.md";
 import API from "./api.md";
 
 export default {
@@ -34,6 +39,7 @@ export default {
         MultipleSelect,
         Operation,
         CustomContent,
+        callbackMethods,
         API,
     },
 };
