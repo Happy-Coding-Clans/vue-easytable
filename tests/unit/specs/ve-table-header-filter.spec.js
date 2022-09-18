@@ -43,6 +43,7 @@ describe("veTable header filter", () => {
     ];
 
     const mockFilterFn = jest.fn();
+    const mockBeforeVisibleChangeFn = jest.fn();
 
     // filter single
     const TABLE_COLUMNS_FILTER_SINGLE = [
@@ -61,6 +62,9 @@ describe("veTable header filter", () => {
             width: "15%",
             // filter
             filter: {
+                beforeVisibleChange: ({ nextVisible }) => {
+                    mockBeforeVisibleChangeFn({ nextVisible });
+                },
                 filterList: [
                     { value: 0, label: "1900-05-20", selected: false },
                     { value: 1, label: "1910-06-20", selected: false },
@@ -332,5 +336,48 @@ describe("veTable header filter", () => {
 
         expect(mockFilterFn).toBeCalled();
         expect(mockFilterFn).toHaveBeenCalledWith(callBackResetData);
+    });
+
+    it("beforeVisibleChange callback method", async () => {
+        const wrapper = mount({
+            render() {
+                return (
+                    <ve-table
+                        columns={this.columns}
+                        tableData={this.tableData}
+                    />
+                );
+            },
+            data() {
+                return {
+                    columns: TABLE_COLUMNS_FILTER_SINGLE,
+                    tableData: TABLE_DATA,
+                };
+            },
+        });
+
+        // icon-vet-filter
+        wrapper.find(".icon-vet-filter").trigger("click");
+        await later();
+
+        expect(mockBeforeVisibleChangeFn).toBeCalled();
+        expect(mockBeforeVisibleChangeFn).toHaveBeenCalledWith({
+            nextVisible: true,
+        });
+
+        // 改变选项
+        wrapper.findAll(".ve-dropdown-items-li").at(0).trigger("click");
+
+        await later();
+
+        // confirm btn click
+        wrapper.findAll(".ve-dropdown-operation-item").at(1).trigger("click");
+
+        await later();
+
+        expect(mockBeforeVisibleChangeFn).toBeCalled();
+        expect(mockBeforeVisibleChangeFn).toHaveBeenCalledWith({
+            nextVisible: false,
+        });
     });
 });
