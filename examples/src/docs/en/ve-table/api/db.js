@@ -583,6 +583,11 @@ export const db = {
                 desc: `Set range cell selection  <a href='#/en/doc/table/cell-selection?anchor=range-cell-selection-instance-method'>Refer To Demo</a>`,
                 param: "{ startRowKey,startColKey,endRowKey,endColKey,isScrollToStartCell }",
             },
+            {
+                name: "getRangeCellSelection",
+                desc: `Get the information of the range selection. Returns the indexes and key information of the selected region`,
+                param: "-",
+            },
         ],
         columns: columnsType2,
     },

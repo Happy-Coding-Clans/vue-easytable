@@ -577,6 +577,11 @@ export const db = {
                 desc: `区域单元格选中  <a href='#/zh/doc/table/cell-selection?anchor=qu-yu-xuan-ze-shi-li-fang-fa'>参考示例</a>`,
                 param: "{ startRowKey,startColKey,endRowKey,endColKey,isScrollToStartCell }",
             },
+            {
+                name: "getRangeCellSelection",
+                desc: `获取当前选择区域的信息。返回所选区域索引和key信息`,
+                param: "-",
+            },
         ],
         columns: columnsType2,
     },
