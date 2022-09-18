@@ -5,6 +5,7 @@ import { later } from "../util";
 
 describe("veTable header filter custom", () => {
     const mockFilterFn = jest.fn((closeFn) => closeFn());
+    const mockBeforeVisibleChangeFn = jest.fn();
 
     const TABLE_DATA = [
         {
@@ -262,5 +263,135 @@ describe("veTable header filter custom", () => {
 
         expect(mockFilterFn).toBeCalled();
         expect(mockFilterFn).toHaveBeenCalledWith(expect.any(Function));
+    });
+
+    it("beforeVisibleChange callback method", async () => {
+        const wrapper = mount(
+            {
+                render() {
+                    return (
+                        <veTable
+                            columns={this.columns}
+                            tableData={this.tableData}
+                        />
+                    );
+                },
+                data() {
+                    return {
+                        searchValue: "",
+                        columns: [
+                            {
+                                field: "name",
+                                key: "a",
+                                title: "Name",
+                                align: "left",
+                                width: "15%",
+                                // filter custom
+                                filterCustom: {
+                                    defaultVisible: false,
+                                    beforeVisibleChange: ({ nextVisible }) => {
+                                        mockBeforeVisibleChangeFn({
+                                            nextVisible,
+                                        });
+                                    },
+                                    render: ({ showFn, closeFn }, h) => {
+                                        return (
+                                            <div class="custom-name-filter">
+                                                <input
+                                                    value={this.searchValue}
+                                                    on-input={(e) =>
+                                                        (this.searchValue =
+                                                            e.target.value)
+                                                    }
+                                                    placeholder="Search name"
+                                                />
+                                                <div class="custom-name-filter-operation">
+                                                    <span
+                                                        class="name-filter-cancel"
+                                                        on-click={() =>
+                                                            mockFilterFn(
+                                                                closeFn,
+                                                            )
+                                                        }
+                                                    >
+                                                        取消
+                                                    </span>
+                                                    <span
+                                                        class="name-filter-confirm"
+                                                        on-click={() =>
+                                                            mockFilterFn(
+                                                                closeFn,
+                                                            )
+                                                        }
+                                                    >
+                                                        查询
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        );
+                                    },
+                                },
+                            },
+                            {
+                                field: "date",
+                                key: "b",
+                                title: "Date",
+                                align: "left",
+                                width: "15%",
+                            },
+                            {
+                                field: "hobby",
+                                key: "c",
+                                title: "Hobby",
+                                align: "center",
+                                width: "30%",
+                            },
+                            {
+                                field: "address",
+                                key: "d",
+                                title: "Address",
+                                align: "left",
+                                width: "40%",
+                            },
+                        ],
+                        tableData: TABLE_DATA,
+                    };
+                },
+            },
+            {
+                attachTo: document.body,
+            },
+        );
+
+        // default icon
+        expect(wrapper.find(".icon-vet-filter").exists()).toBe(true);
+
+        wrapper.find(".ve-table-filter-icon").trigger("click");
+        // 延迟展示
+        await later(100);
+
+        expect(mockBeforeVisibleChangeFn).toBeCalled();
+        expect(mockBeforeVisibleChangeFn).toHaveBeenCalledWith({
+            nextVisible: true,
+        });
+
+        const showDropdownPopper = document.querySelector(
+            ".ve-dropdown-popper > .ve-dropdown-dd",
+        );
+
+        expect(showDropdownPopper.textContent.length).toBeGreaterThan(1);
+
+        const cancelClickEvent = new MouseEvent("click", {
+            view: window, // window
+            bubbles: true,
+            cancelable: true,
+        });
+
+        await later();
+
+        expect(mockBeforeVisibleChangeFn).toBeCalled();
+        expect(mockBeforeVisibleChangeFn).toHaveBeenCalledWith({
+            nextVisible: false,
+        });
     });
 });
