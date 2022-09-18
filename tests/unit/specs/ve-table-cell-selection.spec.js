@@ -629,6 +629,77 @@ describe("veTable cell selection", () => {
         });
     });
 
+    it("table instance: setAllCellSelection method", async () => {
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        wrapper.vm.setAllCellSelection();
+
+        await later();
+
+        expect(wrapper.vm.cellSelectionRangeData).toEqual({
+            bottomRowKey: "5",
+            leftColKey: "b",
+            rightColKey: "d",
+            topRowKey: "1",
+        });
+    });
+
+    it("table instance: getRangeCellSelection method", async () => {
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: TABLE_DATA,
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        wrapper.vm.setRangeCellSelection({
+            startRowKey: "2",
+            startColKey: "a",
+            endRowKey: "5",
+            endColKey: "c",
+            isScrollToStartCell: true,
+        });
+
+        await later();
+
+        const selectionTd = wrapper
+            .findAll(".ve-table-body-tr")
+            .at(1)
+            .findAll(".ve-table-body-td")
+            .at(0);
+
+        expect(selectionTd.classes()).toContain("ve-table-cell-selection");
+        expect(wrapper.vm.cellSelectionRangeData).toEqual({
+            bottomRowKey: "5",
+            leftColKey: "a",
+            rightColKey: "c",
+            topRowKey: "2",
+        });
+
+        const rangeCellSelection = wrapper.vm.getRangeCellSelection();
+        expect(rangeCellSelection).toEqual({
+            selectionRangeIndexes: {
+                endColIndex: 2,
+                endRowIndex: 4,
+                startColIndex: 0,
+                startRowIndex: 1,
+            },
+            selectionRangeKeys: {
+                endColKey: "c",
+                endRowKey: "5",
+                startColKey: "a",
+                startRowKey: "2",
+            },
+        });
+    });
+
     /* it("virtual scroll keyboard events", async () => {
         const mockFn = jest.fn();
 
