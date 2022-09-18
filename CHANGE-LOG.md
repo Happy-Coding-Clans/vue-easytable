@@ -11,15 +11,17 @@ V2.19.0
 
 ### Feature
 
--   表格筛选功能-新增 `beforeVisibleChange({nextVisible})` 回调函数
--   表格自定义筛选功能-新增 `beforeVisibleChange({nextVisible})` 回调函数
--   单元格选择功能-新增获取当前选择区域的实例方法 `getRangeCellSelection()`
+-   Table filter - Add callback method `beforeVisibleChange({nextVisible})` #504 [detail](https://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/header-filter?anchor=api)
+-   Table custom filter - Add callback method `beforeVisibleChange({nextVisible})` #504 [detail](https://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/header-filter-custom?anchor=api)
+-   Cell Selection - Add instance method `getRangeCellSelection()` #502 [detail](https://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/instance-methods?anchor=api)
 
 ---
 
--   Table filter - Add callback method `beforeVisibleChange({nextVisible})`
--   Table custom filter - Add callback method `beforeVisibleChange({nextVisible})`
--   Cell Selection - Add instance method `getRangeCellSelection()`
+### Feature
+
+-   表格筛选功能-新增 `beforeVisibleChange({nextVisible})` 回调函数 #504 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-filter?anchor=api)
+-   表格自定义筛选功能-新增 `beforeVisibleChange({nextVisible})` 回调函数 #504 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-filter-custom?anchor=api)
+-   单元格选择功能-新增获取当前选择区域的实例方法 `getRangeCellSelection()` #502 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/instance-methods?anchor=api)
 
 ### Feature
 
