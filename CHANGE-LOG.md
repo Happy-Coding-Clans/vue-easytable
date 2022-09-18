@@ -7,6 +7,22 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.19.0
+
+### Feature
+
+-   表格筛选功能-新增 `beforeVisibleChange({nextVisible})` 回调函数
+-   表格自定义筛选功能-新增 `beforeVisibleChange({nextVisible})` 回调函数
+-   单元格选择功能-新增获取当前选择区域的实例方法 `getRangeCellSelection()`
+
+---
+
+-   Table filter - Add callback method `beforeVisibleChange({nextVisible})`
+-   Table custom filter - Add callback method `beforeVisibleChange({nextVisible})`
+-   Cell Selection - Add instance method `getRangeCellSelection()`
+
+### Feature
+
 V2.19.1
 
 ### Bug Fixes
