@@ -3,6 +3,7 @@ import VeCheckbox from "vue-easytable/packages/ve-checkbox";
 import VeRadio from "vue-easytable/packages/ve-radio";
 import { COMPS_NAME, EMIT_EVENTS } from "./util/constant";
 import { clsName } from "./util/index";
+import { isFunction, isBoolean } from "../../src/utils";
 import { getRandomId } from "../../src/utils/random";
 import {
     getViewportOffset,
@@ -110,6 +111,14 @@ export default {
             default: function () {
                 return document.body;
             },
+        },
+        /*
+        before visible change
+        如果返回false 则阻止显示或者关闭
+        */
+        beforeVisibleChange: {
+            type: Function,
+            default: null,
         },
     },
     data() {
@@ -232,29 +241,16 @@ export default {
             this.hideDropDown();
         },
 
-        // hide dropdown
-        hideDropDown() {
-            this.$emit(EMIT_EVENTS.VISIBLE_CHANGE, false);
-
-            setTimeout(() => {
-                this.internalVisible = false;
-                this.removeOrEmptyRootPanel();
-            }, 150);
-        },
-
-        // remove or emoty root panel
-        removeOrEmptyRootPanel() {
-            const { rootId } = this;
-
-            let rootEl = document.querySelector(`#${rootId}`);
-            if (rootEl) {
-                rootEl.innerHTML = "";
-            }
-        },
-
         // show dropdown
         showDropDown() {
             const { rootId, dropdownItemsPanelId } = this;
+
+            const nextVisible = true;
+
+            const allowChange = this.beforeVisibleChangeCallback(nextVisible);
+            if (isBoolean(allowChange) && !allowChange) {
+                return false;
+            }
 
             let rootEl = document.querySelector(`#${rootId}`);
 
@@ -271,7 +267,51 @@ export default {
 
             this.internalVisible = true;
 
-            this.$emit(EMIT_EVENTS.VISIBLE_CHANGE, true);
+            this.$emit(EMIT_EVENTS.VISIBLE_CHANGE, nextVisible);
+        },
+
+        // hide dropdown
+        hideDropDown() {
+            const nextVisible = false;
+
+            const allowChange = this.beforeVisibleChangeCallback(nextVisible);
+            if (isBoolean(allowChange) && !allowChange) {
+                return false;
+            }
+
+            this.$emit(EMIT_EVENTS.VISIBLE_CHANGE, nextVisible);
+
+            setTimeout(() => {
+                this.internalVisible = false;
+                this.removeOrEmptyRootPanel();
+            }, 150);
+        },
+
+        // before visible change callback
+        beforeVisibleChangeCallback(nextVisible) {
+            // console.log("nextVisible22::", nextVisible);
+            const { beforeVisibleChange, isDropdownVisible } = this;
+
+            if (nextVisible === isDropdownVisible) {
+                return false;
+            }
+
+            if (isFunction(beforeVisibleChange)) {
+                // next visible
+                return beforeVisibleChange({
+                    nextVisible,
+                });
+            }
+        },
+
+        // remove or emoty root panel
+        removeOrEmptyRootPanel() {
+            const { rootId } = this;
+
+            let rootEl = document.querySelector(`#${rootId}`);
+            if (rootEl) {
+                rootEl.innerHTML = "";
+            }
         },
 
         // change dropdown panel position
@@ -366,10 +406,14 @@ export default {
             this.inputValue = result;
         },
 
+        // dropdown panel click
+        dropdownPanelClick() {
+            this.isDropdownShowTriggerClicked = true;
+            this.dropdownShowToggle();
+        },
+
         // dropdown show toggle
         dropdownShowToggle() {
-            this.isDropdownShowTriggerClicked = true;
-
             if (this.isDropdownVisible) {
                 this.hideDropDown();
             } else {
@@ -520,7 +564,7 @@ export default {
             isSelect,
             width,
             maxHeight,
-            dropdownShowToggle,
+            dropdownPanelClick,
             getMaxWidth,
             reset,
             singleSelectOptionClick,
@@ -614,7 +658,7 @@ export default {
 
         return (
             <dl {...dropdownProps}>
-                <dt class="ve-dropdown-dt" on-click={dropdownShowToggle}>
+                <dt class="ve-dropdown-dt" on-click={dropdownPanelClick}>
                     <a
                         class={[isSelect ? clsName("dt-selected") : ""]}
                         style={{ width: width + "px" }}
