@@ -7,6 +7,18 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.19.1
+
+### Bug Fixes
+
+-   修复表格自定义筛选面板无法关闭的问题 #505
+
+---
+
+-   Fix the bug that the table custom filter panel could not be closed #505
+
+### Bug Fixes
+
 V2.19.0
 
 ### Feature
