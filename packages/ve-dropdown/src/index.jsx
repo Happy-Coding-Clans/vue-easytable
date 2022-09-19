@@ -289,14 +289,12 @@ export default {
 
         // before visible change callback
         beforeVisibleChangeCallback(nextVisible) {
-            // console.log("nextVisible22::", nextVisible);
             const { beforeVisibleChange, isDropdownVisible } = this;
 
-            if (nextVisible === isDropdownVisible) {
-                return false;
-            }
-
-            if (isFunction(beforeVisibleChange)) {
+            if (
+                nextVisible !== isDropdownVisible &&
+                isFunction(beforeVisibleChange)
+            ) {
                 // next visible
                 return beforeVisibleChange({
                     nextVisible,
