@@ -5,13 +5,7 @@ According to different business scenarios, it can be used arbitrarily
 
 ```html
 <template>
-    <ve-table
-        rowKeyFieldName="rowKey"
-        :max-height="300"
-        :fixed-header="true"
-        :columns="columns"
-        :table-data="tableData"
-    />
+    <ve-table :max-height="300" :fixed-header="true" :columns="columns" :table-data="tableData" />
 </template>
 
 <script>

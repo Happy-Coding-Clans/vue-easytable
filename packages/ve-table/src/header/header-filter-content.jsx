@@ -59,7 +59,8 @@ export default {
         },
     },
     render(h) {
-        const { filterList, isMultiple, maxHeight } = this.column.filter;
+        const { filterList, isMultiple, maxHeight, beforeVisibleChange } =
+            this.column.filter;
 
         const compProps = {
             props: {
@@ -69,6 +70,7 @@ export default {
                 showRadio: true, // when single selection
                 confirmFilterText: t("confirmFilter"),
                 resetFilterText: t("resetFilter"),
+                beforeVisibleChange: beforeVisibleChange,
             },
             on: {
                 [EMIT_EVENTS.HEADER_FILTER_CONFIRM]: this.filterConfirm,

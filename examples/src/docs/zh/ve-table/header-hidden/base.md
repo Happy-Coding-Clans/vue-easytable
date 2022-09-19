@@ -11,12 +11,7 @@
         </el-radio-group>
         <br />
         <br />
-        <ve-table
-            :show-header="showHeader"
-            :columns="columns"
-            :table-data="tableData"
-            rowKeyFieldName="rowKey"
-        />
+        <ve-table :show-header="showHeader" :columns="columns" :table-data="tableData" />
     </div>
 </template>
 

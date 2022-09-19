@@ -11,7 +11,6 @@
         border-y
         :columns="columns"
         :table-data="tableData"
-        rowKeyFieldName="rowKey"
     />
 </template>
 

@@ -426,4 +426,44 @@ describe("veDropdown", () => {
                 .length,
         ).toEqual(0);
     });
+
+    it("beforeVisibleChange callback method", async () => {
+        const mockBeforeVisibleChangeFn = jest.fn();
+        const wrapper = mount({
+            render() {
+                return (
+                    <ve-dropdown
+                        hide-by-item-click={true}
+                        before-visible-change={(args) =>
+                            mockBeforeVisibleChangeFn(args)
+                        }
+                        value={DROPDOWN_ITEMS}
+                        // slots= {
+                        //             default: `<div class="btn">click me</div>`,
+                        //         }
+                    >
+                        <div class="btn" style="color:blue;cursor: pointer;">
+                            点击这里
+                        </div>
+                    </ve-dropdown>
+                );
+            },
+        });
+
+        wrapper.find(".btn").trigger("click");
+        await later(100);
+        expect(wrapper.find(".ve-dropdown-dd-show").exists()).toBe(true);
+
+        expect(mockBeforeVisibleChangeFn).toHaveBeenCalledWith({
+            nextVisible: true,
+        });
+
+        wrapper.find(".ve-dropdown-items-li").trigger("click");
+        await later(150);
+
+        expect(wrapper.find(".ve-dropdown-dd-show").exists()).toBe(false);
+        expect(mockBeforeVisibleChangeFn).toHaveBeenCalledWith({
+            nextVisible: false,
+        });
+    });
 });

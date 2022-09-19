@@ -86,6 +86,8 @@ export default {
                 isCustomContent: true,
                 isControlled: true,
                 visible: this.internalVisible,
+                beforeVisibleChange:
+                    this.column.filterCustom.beforeVisibleChange,
             },
             on: {
                 "on-dropdown-visible-change": this.visibleChange,

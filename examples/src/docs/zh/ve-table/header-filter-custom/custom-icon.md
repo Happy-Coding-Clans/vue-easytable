@@ -5,13 +5,7 @@ filterIcon 回调函数，支持返回自定义的 icon。此处使用了内置�
 
 ```html
 <template>
-    <ve-table
-        rowKeyFieldName="rowKey"
-        :max-height="300"
-        :fixed-header="true"
-        :columns="columns"
-        :table-data="tableData"
-    />
+    <ve-table :max-height="300" :fixed-header="true" :columns="columns" :table-data="tableData" />
 </template>
 
 <script>

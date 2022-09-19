@@ -3285,6 +3285,37 @@ export default {
         },
 
         /*
+        get range cell selection
+        */
+        [INSTANCE_METHODS.GET_RANGE_CELL_SELECTION]() {
+            const {
+                cellSelectionData,
+                cellSelectionRangeData,
+                allRowKeys,
+                colgroups,
+            } = this;
+
+            const { rowKey, colKey } = cellSelectionData.currentCell;
+
+            if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+                let selectionRangeKeys = getSelectionRangeKeys({
+                    cellSelectionRangeData,
+                });
+
+                let selectionRangeIndexes = getSelectionRangeIndexes({
+                    cellSelectionRangeData,
+                    colgroups,
+                    allRowKeys,
+                });
+
+                return {
+                    selectionRangeKeys,
+                    selectionRangeIndexes,
+                };
+            }
+        },
+
+        /*
         set all cell selection and column to visible
         */
         [INSTANCE_METHODS.SET_ALL_CELL_SELECTION]() {
