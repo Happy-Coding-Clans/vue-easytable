@@ -22,7 +22,7 @@ Support this project by becoming a sponsor. Your logo or name will show up here 
 
 ## Introduction
 
-Based on vue2.x flexible table components. You can display the data in a colorful way, or record it as Microsoft Excel or Google sheets.
+A powerful data table based on vue2.x You can use it as data grid、Microsoft Excel or Google sheets. It supports virtual scroll、cell edit etc.
 
 ## Characteristics
 
