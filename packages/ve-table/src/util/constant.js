@@ -104,6 +104,10 @@ export const EMIT_EVENTS = {
     HEADER_CELL_MOUSEDOWN: "on-header-cell-mousedown",
     // header cell mouseover
     HEADER_CELL_MOUSEOVER: "on-header-cell-mouseover",
+    // header cell mousemove
+    HEADER_CELL_MOUSEMOVE: "on-header-cell-mousemove",
+    // header cell mouseleave
+    HEADER_CELL_MOUSELEAVE: "on-header-cell-mouseleave",
     // highlight row change
     HIGHLIGHT_ROW_CHANGE: "on-highlight-row-change",
 

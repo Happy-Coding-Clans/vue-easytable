@@ -480,10 +480,32 @@ export default {
         // mouseleave
         cellMouseleave(e, fn) {
             fn && fn(e);
+
+            const { groupColumnItem } = this;
+
+            this.dispatch(
+                COMPS_NAME.VE_TABLE,
+                EMIT_EVENTS.HEADER_CELL_MOUSELEAVE,
+                {
+                    event: e,
+                    column: groupColumnItem,
+                },
+            );
         },
         // mousemove
         cellMousemove(e, fn) {
             fn && fn(e);
+
+            const { groupColumnItem } = this;
+
+            this.dispatch(
+                COMPS_NAME.VE_TABLE,
+                EMIT_EVENTS.HEADER_CELL_MOUSEMOVE,
+                {
+                    event: e,
+                    column: groupColumnItem,
+                },
+            );
         },
         // mouseover
         cellMouseover(e, fn) {
