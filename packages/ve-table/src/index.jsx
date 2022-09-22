@@ -439,6 +439,10 @@ export default {
             contextmenuEventTarget: "",
             // contextmenu options
             contextmenuOptions: [],
+            // column resize cursor
+            columnResizeCursor: "",
+            // is column resizing
+            isColumnResizing: false,
         };
     },
     computed: {
@@ -706,6 +710,10 @@ export default {
         // enable clipboard
         enableClipboard() {
             return this.rowKeyFieldName;
+        },
+        // eanble width drag
+        enableWidthDrag() {
+            return true;
         },
         // header total height
         headerTotalHeight() {
@@ -2431,6 +2439,18 @@ export default {
 
         // header cell mousedown
         headerCellMousedown({ event, column }) {
+            if (this.columnResizeCursor) {
+                this.isColumnResizing = true;
+
+                // stop text select when reszing
+                document.onselectstart = function () {
+                    return false;
+                };
+                document.ondragstart = function () {
+                    return false;
+                };
+            }
+
             if (!this.enableCellSelection) {
                 return false;
             }
@@ -2586,12 +2606,50 @@ export default {
             }
         },
 
+        // header cell mousemove
+        headerCellMousemove({ event, column }) {
+            //
+
+            const { isColumnResizing } = this;
+            if (isColumnResizing) {
+                //
+                console.log("resizing");
+                return false;
+            }
+
+            const target = event.target;
+
+            const rect = target.getBoundingClientRect();
+
+            if (rect && rect.right - event.pageX < 10) {
+                this.columnResizeCursor = "col-resize";
+            } else {
+                this.columnResizeCursor = "";
+            }
+
+            //console.log("headerCellMousemove");
+        },
+
+        // header cell mouseleave
+        headerCellMouseleave({ event, column }) {
+            this.columnResizeCursor = "";
+        },
+
         // table content wrapper mouseup
         tableContainerMouseup() {
             this.isHeaderCellMousedown = false;
             this.isBodyCellMousedown = false;
             this.isBodyOperationColumnMousedown = false;
             this.isAutofillStarting = false;
+            this.isColumnResizing = false;
+
+            // enable text select when reszing
+            document.onselectstart = function () {
+                return true;
+            };
+            document.ondragstart = function () {
+                return true;
+            };
         },
 
         /*
@@ -3635,9 +3693,19 @@ export default {
             this.headerCellMousedown(params);
         });
 
-        // recieve header cell mousedown
+        // recieve header cell mouseover
         this.$on(EMIT_EVENTS.HEADER_CELL_MOUSEOVER, (params) => {
             this.headerCellMouseover(params);
+        });
+
+        // recieve header cell mousemove
+        this.$on(EMIT_EVENTS.HEADER_CELL_MOUSEMOVE, (params) => {
+            this.headerCellMousemove(params);
+        });
+
+        // recieve header cell mouseleave
+        this.$on(EMIT_EVENTS.HEADER_CELL_MOUSELEAVE, (params) => {
+            this.headerCellMouseleave(params);
         });
 
         // add key down event listener
@@ -3685,6 +3753,9 @@ export default {
         // header props
         const headerProps = {
             class: clsName("header"),
+            style: {
+                cursor: this.columnResizeCursor,
+            },
             props: {
                 columnsOptionResetTime: this.columnsOptionResetTime,
                 tableViewportWidth,
@@ -3976,6 +4047,8 @@ export default {
                     this.enableBodyContextmenu) && (
                     <VeContextmenu {...contextmenuProps} />
                 )}
+                {/* column resize line */}
+                <div class={clsName("column-resizer-line")}></div>
             </VueDomResizeObserver>
         );
     },
