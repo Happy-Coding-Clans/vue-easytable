@@ -2052,6 +2052,7 @@ export default {
             this.isBodyCellMousedown = false;
             this.isBodyOperationColumnMousedown = false;
             this.isAutofillStarting = false;
+            this.isColumnResizing = false;
 
             // clear cell selection
             this.clearCellSelectionCurrentCell();
