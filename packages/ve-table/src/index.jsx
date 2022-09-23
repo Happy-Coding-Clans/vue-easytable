@@ -71,11 +71,12 @@ import Colgroup from "./colgroup";
 import Header from "./header";
 import Body from "./body";
 import Footer from "./footer";
-import EditInput from "./editor/edit-input";
+import EditInput from "./editor/index";
 import Selection from "./selection/index";
 import clickoutside from "../../src/directives/clickoutside";
 import VueDomResizeObserver from "../../src/comps/resize-observer";
 import VeContextmenu from "vue-easytable/packages/ve-contextmenu";
+import ColumnResizer from "./column-resizer";
 
 const t = createLocale(LOCALE_COMP_NAME);
 
@@ -900,7 +901,7 @@ export default {
                 item._realTimeWidth = colWidths.get(item.key);
                 return item;
             });
-            this.hooks.triggerHook(HOOKS_NAME.TABLE_TD_WIDTH_CHANGE);
+            this.hooks.triggerHook(HOOKS_NAME.TABLE_CELL_WIDTH_CHANGE);
         },
 
         // update colgroups by sort change
@@ -2052,7 +2053,7 @@ export default {
             this.isBodyCellMousedown = false;
             this.isBodyOperationColumnMousedown = false;
             this.isAutofillStarting = false;
-            this.isColumnResizing = false;
+            this.setIsColumnResizing(false);
 
             // clear cell selection
             this.clearCellSelectionCurrentCell();
@@ -2440,17 +2441,11 @@ export default {
 
         // header cell mousedown
         headerCellMousedown({ event, column }) {
-            if (this.isColumnResizerHover) {
-                this.isColumnResizing = true;
-
-                // stop text select when reszing
-                document.onselectstart = function () {
-                    return false;
-                };
-                document.ondragstart = function () {
-                    return false;
-                };
-            }
+            // header cell mousedown
+            this.hooks.triggerHook(HOOKS_NAME.HEADER_CELL_MOUSEDOWN, {
+                event,
+                column,
+            });
 
             if (!this.enableCellSelection) {
                 return false;
@@ -2609,31 +2604,16 @@ export default {
 
         // header cell mousemove
         headerCellMousemove({ event, column }) {
-            //
-
-            const { isColumnResizing } = this;
-            if (isColumnResizing) {
-                //
-                console.log("resizing");
-                return false;
-            }
-
-            const target = event.target;
-
-            const rect = target.getBoundingClientRect();
-
-            if (rect && rect.right - event.pageX < 10) {
-                this.isColumnResizerHover = true;
-            } else {
-                this.isColumnResizerHover = false;
-            }
-
-            //console.log("headerCellMousemove");
+            // header cell mousemove
+            this.hooks.triggerHook(HOOKS_NAME.HEADER_CELL_MOUSEMOVE, {
+                event,
+                column,
+            });
         },
 
         // header cell mouseleave
         headerCellMouseleave({ event, column }) {
-            this.isColumnResizerHover = false;
+            this.setIsColumnResizerHover(false);
         },
 
         // table content wrapper mouseup
@@ -2642,7 +2622,7 @@ export default {
             this.isBodyCellMousedown = false;
             this.isBodyOperationColumnMousedown = false;
             this.isAutofillStarting = false;
-            this.isColumnResizing = false;
+            this.setIsColumnResizing(false);
 
             // enable text select when reszing
             document.onselectstart = function () {
@@ -3265,6 +3245,16 @@ export default {
                     colKey: colgroups[colgroups.length - 1].key,
                 });
             }
+        },
+
+        // set isColumnResizerHover
+        setIsColumnResizerHover(val) {
+            this.isColumnResizerHover = val;
+        },
+
+        // set isColumnResizing
+        setIsColumnResizing(val) {
+            this.isColumnResizing = val;
         },
 
         /*
@@ -4018,17 +4008,15 @@ export default {
             },
         };
 
-        const columnResizeHandler = {
-            class: [clsName("column-resizer-handler")],
-            style: {
-                display: this.isColumnResizerHover ? "block" : "none",
-            },
-        };
-
-        const columnResizeLine = {
-            class: [clsName("column-resizer-line")],
-            style: {
-                display: this.isColumnResizing ? "block" : "none",
+        // column resizer props
+        const columnResizerProps = {
+            props: {
+                parentRendered: this.parentRendered,
+                hooks: this.hooks,
+                isColumnResizerHover: this.isColumnResizerHover,
+                isColumnResizing: this.isColumnResizing,
+                setIsColumnResizerHover: this.setIsColumnResizerHover,
+                setIsColumnResizing: this.setIsColumnResizing,
             },
         };
 
@@ -4062,11 +4050,8 @@ export default {
                     this.enableBodyContextmenu) && (
                     <VeContextmenu {...contextmenuProps} />
                 )}
-                {/* column resize line */}
-                <div class={clsName("column-resizer")}>
-                    <div {...columnResizeHandler} />
-                    <div {...columnResizeLine} />
-                </div>
+                {/* column resizer */}
+                <ColumnResizer {...columnResizerProps} />
             </VueDomResizeObserver>
         );
     },
