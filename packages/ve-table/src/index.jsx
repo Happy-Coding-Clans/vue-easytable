@@ -440,7 +440,7 @@ export default {
             // contextmenu options
             contextmenuOptions: [],
             // column resize cursor
-            columnResizeCursor: "",
+            isColumnResizerHover: false,
             // is column resizing
             isColumnResizing: false,
         };
@@ -2440,7 +2440,7 @@ export default {
 
         // header cell mousedown
         headerCellMousedown({ event, column }) {
-            if (this.columnResizeCursor) {
+            if (this.isColumnResizerHover) {
                 this.isColumnResizing = true;
 
                 // stop text select when reszing
@@ -2623,9 +2623,9 @@ export default {
             const rect = target.getBoundingClientRect();
 
             if (rect && rect.right - event.pageX < 10) {
-                this.columnResizeCursor = "col-resize";
+                this.isColumnResizerHover = true;
             } else {
-                this.columnResizeCursor = "";
+                this.isColumnResizerHover = false;
             }
 
             //console.log("headerCellMousemove");
@@ -2633,7 +2633,7 @@ export default {
 
         // header cell mouseleave
         headerCellMouseleave({ event, column }) {
-            this.columnResizeCursor = "";
+            this.isColumnResizerHover = false;
         },
 
         // table content wrapper mouseup
@@ -3755,7 +3755,7 @@ export default {
         const headerProps = {
             class: clsName("header"),
             style: {
-                cursor: this.columnResizeCursor,
+                cursor: this.isColumnResizerHover ? "col-resize" : "",
             },
             props: {
                 columnsOptionResetTime: this.columnsOptionResetTime,
@@ -4018,6 +4018,20 @@ export default {
             },
         };
 
+        const columnResizeHandler = {
+            class: [clsName("column-resizer-handler")],
+            style: {
+                display: this.isColumnResizerHover ? "block" : "none",
+            },
+        };
+
+        const columnResizeLine = {
+            class: [clsName("column-resizer-line")],
+            style: {
+                display: this.isColumnResizing ? "block" : "none",
+            },
+        };
+
         return (
             <VueDomResizeObserver {...tableRootProps}>
                 <div {...tableContainerProps}>
@@ -4049,7 +4063,10 @@ export default {
                     <VeContextmenu {...contextmenuProps} />
                 )}
                 {/* column resize line */}
-                <div class={clsName("column-resizer-line")}></div>
+                <div class={clsName("column-resizer")}>
+                    <div {...columnResizeHandler} />
+                    <div {...columnResizeLine} />
+                </div>
             </VueDomResizeObserver>
         );
     },
