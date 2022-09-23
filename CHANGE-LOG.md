@@ -7,6 +7,16 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.20.2
+
+### Bug Fixes
+
+-   Fix the bug that cell selection can't selected all by click header cell
+
+---
+
+-   修复了单元格选择无法通过单击标题全部选中的问题
+
 V2.19.1
 
 ### Bug Fixes

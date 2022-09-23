@@ -2464,8 +2464,14 @@ export default {
             const { currentCell } = cellSelectionData;
 
             if (isOperationColumn(column.key, colgroups)) {
-                // select all cell
-                this[INSTANCE_METHODS.SET_ALL_CELL_SELECTION]();
+                // clear cell selection
+                this.clearCellSelectionCurrentCell();
+                this.clearCellSelectionNormalEndCell();
+
+                this.$nextTick(() => {
+                    // select all cell
+                    this[INSTANCE_METHODS.SET_ALL_CELL_SELECTION]();
+                });
                 return false;
             }
 
