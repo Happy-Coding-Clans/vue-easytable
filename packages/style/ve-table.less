@@ -507,19 +507,33 @@
     }
 
     // column resizer
-    .ve-table-column-resizer-line {
+    .ve-table-column-resizer {
         // height: 100%;
         // width: 1px;
         // background-color: #000;
         // position: absolute;
 
-        position: absolute;
-        // left: 0;
-        left: 261.703px;
-        top: 0;
-        bottom: 0;
-        width: 0;
-        border-left: 2px dashed #ddd;
-        z-index: 50;
+        &-handler {
+            position: absolute;
+            // left: 0;
+            left: 256.703px;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            height: 40px;
+            z-index: 50;
+            background-color: lightblue;
+        }
+
+        &-line {
+            position: absolute;
+            // left: 0;
+            left: 261.703px;
+            top: 0;
+            bottom: 0;
+            width: 0;
+            border-left: 1px solid lightblue;
+            z-index: 50;
+        }
     }
 }
