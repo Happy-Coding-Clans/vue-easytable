@@ -2613,6 +2613,11 @@ export default {
 
         // header cell mouseleave
         headerCellMouseleave({ event, column }) {
+            // todo
+        },
+
+        // header mouseleave
+        headerMouseleave(event) {
             this.setIsColumnResizerHover(false);
         },
 
@@ -3745,7 +3750,10 @@ export default {
         const headerProps = {
             class: clsName("header"),
             style: {
-                cursor: this.isColumnResizerHover ? "col-resize" : "",
+                cursor:
+                    this.isColumnResizerHover || this.isColumnResizing
+                        ? "col-resize"
+                        : "",
             },
             props: {
                 columnsOptionResetTime: this.columnsOptionResetTime,
@@ -3766,6 +3774,9 @@ export default {
             nativeOn: {
                 click: () => {
                     this[INSTANCE_METHODS.STOP_EDITING_CELL]();
+                },
+                mouseleave: (event) => {
+                    this.headerMouseleave(event);
                 },
             },
         };

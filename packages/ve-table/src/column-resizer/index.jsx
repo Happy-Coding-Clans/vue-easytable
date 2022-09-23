@@ -109,7 +109,8 @@ export default {
         const columnResizeHandlerProps = {
             class: [clsName("column-resizer-handler")],
             style: {
-                display: isColumnResizerHover ? "block" : "none",
+                display:
+                    isColumnResizerHover || isColumnResizing ? "block" : "none",
             },
         };
 
