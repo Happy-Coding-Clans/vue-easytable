@@ -274,11 +274,14 @@ export default {
                         this.debounceResetCellPositions();
                     });
                     // add table td width change hook
-                    this.hooks.addHook(HOOKS_NAME.TABLE_TD_WIDTH_CHANGE, () => {
-                        this.$nextTick(() => {
-                            this.resetCellPositions();
-                        });
-                    });
+                    this.hooks.addHook(
+                        HOOKS_NAME.TABLE_CELL_WIDTH_CHANGE,
+                        () => {
+                            this.$nextTick(() => {
+                                this.resetCellPositions();
+                            });
+                        },
+                    );
 
                     // add clipboard cell value change hook
                     this.hooks.addHook(
