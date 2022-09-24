@@ -512,23 +512,24 @@
         // width: 1px;
         // background-color: #000;
         // position: absolute;
-
         &-handler {
             position: absolute;
+            cursor: col-resize;
             // left: 0;
-            left: 256.703px;
             top: 0;
             bottom: 0;
             width: 5px;
             height: 40px;
             z-index: 50;
-            background-color: lightblue;
+            &.active {
+                background-color: lightblue;
+            }
         }
 
         &-line {
             position: absolute;
+            pointer-events: none;
             // left: 0;
-            left: 261.703px;
             top: 0;
             bottom: 0;
             width: 0;
