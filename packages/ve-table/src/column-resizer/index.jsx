@@ -27,20 +27,12 @@ export default {
             type: Array,
             required: true,
         },
-        columnResizerStartX: {
-            type: Number,
-            default: 0,
-        },
         isColumnResizerHover: {
             type: Boolean,
             required: true,
         },
         isColumnResizing: {
             type: Boolean,
-            required: true,
-        },
-        setColumnResizerStartX: {
-            type: Function,
             required: true,
         },
         setIsColumnResizerHover: {
@@ -54,10 +46,14 @@ export default {
     },
     data() {
         return {
-            // current resizing column key
-            currentResizingColKey: null,
+            // column resizer start x
+            columnResizerStartX: 0,
+            // current resizing column
+            currentResizingColumn: null,
             // column resizer handler width
             columnResizerHandlerWidth: 5,
+            // column min width
+            columnMinWidth: 30,
             // column resizer rect
             columnResizerRect: {
                 top: 0,
@@ -107,10 +103,11 @@ export default {
                 const { left: tableContainerLeft, top: tableContainerTop } =
                     tableContainerEl.getBoundingClientRect();
 
-                if (!isColumnResizing) {
-                    const col = this.colgroups.find(
-                        (x) => x.key === column.key,
-                    );
+                const col = this.colgroups.find((x) => x.key === column.key);
+
+                if (col._realTimeWidth) {
+                    this.currentResizingColumn = col;
+                    this.columnResizerStartX = event.clientX;
 
                     const target = event.target;
                     const cellRect = target.getBoundingClientRect();
@@ -119,6 +116,8 @@ export default {
                         left + col._realTimeWidth - tableContainerLeft;
                     this.columnResizerRect.top = top - tableContainerTop;
                     this.columnResizerRect.height = height;
+                } else {
+                    console.warn("Resizer column needs set column width");
                 }
             }
         },
@@ -132,8 +131,21 @@ export default {
                     tableContainerEl.getBoundingClientRect();
 
                 if (isColumnResizing) {
-                    this.columnResizerRect.left =
-                        event.clientX - tableContainerLeft;
+                    const {
+                        currentResizingColumn,
+                        columnResizerStartX,
+                        columnMinWidth,
+                    } = this;
+
+                    // 不允许拖动小于列最小宽度
+                    if (
+                        currentResizingColumn._realTimeWidth +
+                            (event.clientX - columnResizerStartX) >
+                        columnMinWidth
+                    ) {
+                        this.columnResizerRect.left =
+                            event.clientX - tableContainerLeft;
+                    }
                 }
             }
         },
@@ -141,10 +153,7 @@ export default {
         // column resizer handler mousedown
         columnResizerHandlerMousedown({ event }) {
             if (this.isColumnResizerHover) {
-                // todo
-                //this.currentResizingColKey = column;
                 this.setIsColumnResizing(true);
-                this.setColumnResizerStartX(event.clientX);
 
                 // add document mousemove listener
                 document.addEventListener(
@@ -178,6 +187,8 @@ export default {
 
         // clear column resizer status
         clearColumnResizerStatus() {
+            this.currentResizingColumn = null;
+            this.columnResizerStartX = 0;
             this.setIsColumnResizerHover(false);
             this.setIsColumnResizing(false);
 

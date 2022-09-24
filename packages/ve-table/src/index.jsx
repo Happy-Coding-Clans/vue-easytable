@@ -441,8 +441,6 @@ export default {
             contextmenuEventTarget: "",
             // contextmenu options
             contextmenuOptions: [],
-            // column resize start x
-            columnResizerStartX: 0,
             // column resize cursor
             isColumnResizerHover: false,
             // is column resizing
@@ -3257,11 +3255,6 @@ export default {
             }
         },
 
-        // set columnResizerStartX
-        setColumnResizerStartX(val) {
-            this.columnResizerStartX = val;
-        },
-
         // set isColumnResizerHover
         setIsColumnResizerHover(val) {
             this.isColumnResizerHover = val;
@@ -4047,10 +4040,8 @@ export default {
                 tableContainerEl: this.$refs[this.tableContainerRef],
                 hooks: this.hooks,
                 colgroups,
-                columnResizerStartX: this.columnResizerStartX,
                 isColumnResizerHover: this.isColumnResizerHover,
                 isColumnResizing: this.isColumnResizing,
-                setColumnResizerStartX: this.setColumnResizerStartX,
                 setIsColumnResizerHover: this.setIsColumnResizerHover,
                 setIsColumnResizing: this.setIsColumnResizing,
             },
