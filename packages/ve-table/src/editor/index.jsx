@@ -19,6 +19,10 @@ export default {
             type: Boolean,
             required: true,
         },
+        tableContainerEl: {
+            type: HTMLDivElement,
+            default: null,
+        },
         hooks: {
             type: Object,
             required: true,
@@ -90,8 +94,6 @@ export default {
                 left: 0,
                 top: 0,
             },
-            // table element
-            tableEl: null,
             // cell element
             cellEl: null,
             // auto resize
@@ -185,9 +187,6 @@ export default {
         parentRendered: {
             handler: function (val) {
                 if (val) {
-                    // fixed #471
-                    this.setTableEl();
-
                     // add table container scroll hook
                     this.hooks.addHook(
                         HOOKS_NAME.TABLE_CONTAINER_SCROLL,
@@ -265,22 +264,14 @@ export default {
     },
 
     methods: {
-        // set table element
-        setTableEl() {
-            this.$nextTick(() => {
-                const tableEl = this.$el.previousElementSibling;
-                this.tableEl = tableEl;
-            });
-        },
-
         // set cell element
         setCellEl() {
-            const { cellSelectionData, tableEl } = this;
+            const { cellSelectionData, tableContainerEl } = this;
 
             const { rowKey, colKey } = cellSelectionData.currentCell;
 
-            if (tableEl) {
-                const cellEl = tableEl.querySelector(
+            if (tableContainerEl) {
+                const cellEl = tableContainerEl.querySelector(
                     `tbody.ve-table-body tr[row-key="${rowKey}"] td[col-key="${colKey}"]`,
                 );
 
@@ -301,16 +292,16 @@ export default {
                 hasRightFixedColumn,
                 currentColumn: column,
                 cellEl,
-                tableEl,
+                tableContainerEl,
             } = this;
 
-            if (cellEl && tableEl) {
+            if (cellEl && tableContainerEl) {
                 const {
                     left: tableLeft,
                     top: tableTop,
                     right: tableRight,
                     bottom: tableBottom,
-                } = tableEl.getBoundingClientRect();
+                } = tableContainerEl.getBoundingClientRect();
 
                 const {
                     left: cellLeft,
