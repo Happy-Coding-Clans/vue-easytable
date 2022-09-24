@@ -278,6 +278,7 @@ export default {
             */
             columnsOptionResetTime: 0,
             tableContainerRef: "tableContainerRef",
+            tableRef: "tableRef",
             tableBodyRef: "tableBodyRef",
             tableContentWrapperRef: "tableContentWrapperRef",
             virtualPhantomRef: "virtualPhantomRef",
@@ -440,6 +441,8 @@ export default {
             contextmenuEventTarget: "",
             // contextmenu options
             contextmenuOptions: [],
+            // column resize start x
+            columnResizerStartX: 0,
             // column resize cursor
             isColumnResizerHover: false,
             // is column resizing
@@ -2387,6 +2390,19 @@ export default {
         },
 
         /*
+         * @bodyCellMousemove
+         * @desc  recieve td mousemove event
+         * @param {object} rowData - row data
+         * @param {object} column - column data
+         */
+        bodyCellMousemove({ event, rowData, column }) {
+            this.hooks.triggerHook(HOOKS_NAME.BODY_CELL_MOUSEMOVE, {
+                event,
+                column,
+            });
+        },
+
+        /*
          * @bodyCellMouseup
          * @desc  recieve td mouseup event
          * @param {object} rowData - row data
@@ -2441,12 +2457,6 @@ export default {
 
         // header cell mousedown
         headerCellMousedown({ event, column }) {
-            // header cell mousedown
-            this.hooks.triggerHook(HOOKS_NAME.HEADER_CELL_MOUSEDOWN, {
-                event,
-                column,
-            });
-
             if (!this.enableCellSelection) {
                 return false;
             }
@@ -2480,8 +2490,13 @@ export default {
             const { currentCell } = cellSelectionData;
 
             if (isOperationColumn(column.key, colgroups)) {
-                // select all cell
-                this[INSTANCE_METHODS.SET_ALL_CELL_SELECTION]();
+                // clear cell selection
+                this.clearCellSelectionCurrentCell();
+                this.clearCellSelectionNormalEndCell();
+                this.$nextTick(() => {
+                    // select all cell
+                    this[INSTANCE_METHODS.SET_ALL_CELL_SELECTION]();
+                });
                 return false;
             }
 
@@ -2604,7 +2619,6 @@ export default {
 
         // header cell mousemove
         headerCellMousemove({ event, column }) {
-            // header cell mousemove
             this.hooks.triggerHook(HOOKS_NAME.HEADER_CELL_MOUSEMOVE, {
                 event,
                 column,
@@ -2621,21 +2635,12 @@ export default {
             this.setIsColumnResizerHover(false);
         },
 
-        // table content wrapper mouseup
+        // table container mouseup
         tableContainerMouseup() {
             this.isHeaderCellMousedown = false;
             this.isBodyCellMousedown = false;
             this.isBodyOperationColumnMousedown = false;
             this.isAutofillStarting = false;
-            this.setIsColumnResizing(false);
-
-            // enable text select when reszing
-            document.onselectstart = function () {
-                return true;
-            };
-            document.ondragstart = function () {
-                return true;
-            };
         },
 
         /*
@@ -3252,6 +3257,11 @@ export default {
             }
         },
 
+        // set columnResizerStartX
+        setColumnResizerStartX(val) {
+            this.columnResizerStartX = val;
+        },
+
         // set isColumnResizerHover
         setIsColumnResizerHover(val) {
             this.isColumnResizerHover = val;
@@ -3644,7 +3654,12 @@ export default {
             this.bodyCellMousedown(params);
         });
 
-        // recieve body cell mousedown
+        // recieve body cell mousemove
+        this.$on(EMIT_EVENTS.BODY_CELL_MOUSEMOVE, (params) => {
+            this.bodyCellMousemove(params);
+        });
+
+        // recieve body cell mouseup
         this.$on(EMIT_EVENTS.BODY_CELL_MOUSEUP, (params) => {
             this.bodyCellMouseup(params);
         });
@@ -3654,7 +3669,7 @@ export default {
             this.cellSelectionCornerMousedown(params);
         });
 
-        // recieve selection corner mousedown
+        // recieve selection corner mouseup
         this.$on(EMIT_EVENTS.SELECTION_CORNER_MOUSEUP, (params) => {
             this.cellSelectionCornerMouseup(params);
         });
@@ -3914,6 +3929,9 @@ export default {
                     // 事件的先后顺序 containerMouseup > bodyCellMousedown > bodyCellMouseup > bodyCellClick
                     this.tableContainerMouseup();
                 },
+                mousemove: (event) => {
+                    // todo
+                },
             },
         };
 
@@ -3933,6 +3951,7 @@ export default {
 
         // tale props
         const tableProps = {
+            ref: this.tableRef,
             class: [clsName("content"), tableClass],
             style: tableStyle,
         };
@@ -3941,6 +3960,7 @@ export default {
         const selectionProps = {
             ref: this.cellSelectionRef,
             props: {
+                tableEl: this.$refs[this.tableRef],
                 allRowKeys,
                 colgroups,
                 parentRendered: this.parentRendered,
@@ -3966,6 +3986,7 @@ export default {
         const editInputProps = {
             ref: this.editInputRef,
             props: {
+                tableContainerEl: this.$refs[this.tableContainerRef],
                 hooks: this.hooks,
                 parentRendered: this.parentRendered,
                 inputStartValue: this.editorInputStartValue,
@@ -4023,9 +4044,13 @@ export default {
         const columnResizerProps = {
             props: {
                 parentRendered: this.parentRendered,
+                tableContainerEl: this.$refs[this.tableContainerRef],
                 hooks: this.hooks,
+                colgroups,
+                columnResizerStartX: this.columnResizerStartX,
                 isColumnResizerHover: this.isColumnResizerHover,
                 isColumnResizing: this.isColumnResizing,
+                setColumnResizerStartX: this.setColumnResizerStartX,
                 setIsColumnResizerHover: this.setIsColumnResizerHover,
                 setIsColumnResizing: this.setIsColumnResizing,
             },
