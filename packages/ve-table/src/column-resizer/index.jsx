@@ -9,14 +9,27 @@ import {
 } from "../util/constant";
 
 export default {
+    name: COMPS_NAME.VE_TABLE_COLUMN_RESISZER,
     props: {
         parentRendered: {
             type: Boolean,
             required: true,
         },
+        tableContainerEl: {
+            type: HTMLDivElement,
+            default: null,
+        },
         hooks: {
             type: Object,
             required: true,
+        },
+        colgroups: {
+            type: Array,
+            required: true,
+        },
+        columnResizerStartX: {
+            type: Number,
+            default: 0,
         },
         isColumnResizerHover: {
             type: Boolean,
@@ -24,6 +37,10 @@ export default {
         },
         isColumnResizing: {
             type: Boolean,
+            required: true,
+        },
+        setColumnResizerStartX: {
+            type: Function,
             required: true,
         },
         setIsColumnResizerHover: {
@@ -35,24 +52,45 @@ export default {
             required: true,
         },
     },
+    data() {
+        return {
+            // current resizing column key
+            currentResizingColKey: null,
+            // column resizer handler width
+            columnResizerHandlerWidth: 5,
+            // column resizer rect
+            columnResizerRect: {
+                top: 0,
+                left: 0,
+                height: 0,
+            },
+        };
+    },
     watch: {
         parentRendered: {
             handler: function (val) {
                 if (val) {
-                    console.log(1);
-                    // header cell mousedown
-                    this.hooks.addHook(
-                        HOOKS_NAME.HEADER_CELL_MOUSEDOWN,
-                        ({ event, column }) => {
-                            this.headerCellMousedown({ event, column });
-                        },
-                    );
-
                     // header cell mousemove
                     this.hooks.addHook(
                         HOOKS_NAME.HEADER_CELL_MOUSEMOVE,
                         ({ event, column }) => {
-                            this.headerCellMousemove({ event, column });
+                            this.initColumnResizerPosition({ event, column });
+                        },
+                    );
+
+                    // body cell mousemove
+                    this.hooks.addHook(
+                        HOOKS_NAME.BODY_CELL_MOUSEMOVE,
+                        ({ event, column }) => {
+                            //this.columnResizerMousemove({ event, column, type: "bodyCell" });
+                        },
+                    );
+
+                    // table container mouseup
+                    this.hooks.addHook(
+                        HOOKS_NAME.TABLE_CONTAINER_MOUSEUP,
+                        () => {
+                            this.columnResizerMouseup();
                         },
                     );
                 }
@@ -61,10 +99,60 @@ export default {
         },
     },
     methods: {
-        // header cell mousedown
-        headerCellMousedown({ event, column }) {
+        // init column resizer position
+        initColumnResizerPosition({ event, column }) {
+            const { tableContainerEl, isColumnResizing } = this;
+
+            if (tableContainerEl && !isColumnResizing) {
+                const { left: tableContainerLeft, top: tableContainerTop } =
+                    tableContainerEl.getBoundingClientRect();
+
+                if (!isColumnResizing) {
+                    const col = this.colgroups.find(
+                        (x) => x.key === column.key,
+                    );
+
+                    const target = event.target;
+                    const cellRect = target.getBoundingClientRect();
+                    const { height, left, top } = cellRect;
+                    this.columnResizerRect.left =
+                        left + col._realTimeWidth - tableContainerLeft;
+                    this.columnResizerRect.top = top - tableContainerTop;
+                    this.columnResizerRect.height = height;
+                }
+            }
+        },
+
+        // set column resizer position byu drag
+        setColumnResizerPositionByDrag(event) {
+            const { tableContainerEl, isColumnResizing } = this;
+
+            if (tableContainerEl && isColumnResizing) {
+                const { left: tableContainerLeft } =
+                    tableContainerEl.getBoundingClientRect();
+
+                if (isColumnResizing) {
+                    this.columnResizerRect.left =
+                        event.clientX - tableContainerLeft;
+                }
+            }
+        },
+
+        // column resizer handler mousedown
+        columnResizerHandlerMousedown({ event }) {
             if (this.isColumnResizerHover) {
+                // todo
+                //this.currentResizingColKey = column;
                 this.setIsColumnResizing(true);
+                this.setColumnResizerStartX(event.clientX);
+
+                // add document mousemove listener
+                document.addEventListener(
+                    "mousemove",
+                    this.setColumnResizerPositionByDrag,
+                );
+                // add document mouseup listener
+                document.addEventListener("mouseup", this.columnResizerMouseup);
 
                 // stop text select when reszing
                 document.onselectstart = function () {
@@ -76,55 +164,84 @@ export default {
             }
         },
 
-        // header cell mousemove
-        headerCellMousemove({ event, column }) {
-            const { isColumnResizing, setIsColumnResizerHover } = this;
-            if (isColumnResizing) {
-                //
-                console.log("resizing");
-
-                return false;
-            }
-
-            const target = event.target;
-
-            const rect = target.getBoundingClientRect();
-
-            if (rect && rect.right - event.pageX < 10) {
-                setIsColumnResizerHover(true);
-            } else {
-                setIsColumnResizerHover(false);
-            }
+        // column resizer mouseup
+        columnResizerMouseup() {
+            this.clearColumnResizerStatus();
+            // add document mousemove listener
+            document.removeEventListener(
+                "mousemove",
+                this.setColumnResizerPositionByDrag,
+            );
+            // add document mouseup listener
+            document.removeEventListener("mouseup", this.columnResizerMouseup);
         },
 
-        // set column resizer position
-        setColumnResizerPosition(event) {
-            //
+        // clear column resizer status
+        clearColumnResizerStatus() {
+            this.setIsColumnResizerHover(false);
+            this.setIsColumnResizing(false);
+
+            // enable text select when reszing
+            document.onselectstart = function () {
+                return true;
+            };
+            document.ondragstart = function () {
+                return true;
+            };
         },
     },
 
     render() {
-        const { isColumnResizerHover, isColumnResizing } = this;
+        const {
+            isColumnResizerHover,
+            isColumnResizing,
+            columnResizerRect,
+            columnResizerHandlerWidth,
+        } = this;
 
-        const columnResizeHandlerProps = {
-            class: [clsName("column-resizer-handler")],
+        const { left, top, height } = columnResizerRect;
+
+        const columnResizerHandlerProps = {
+            class: {
+                [clsName("column-resizer-handler")]: true,
+                ["active"]: isColumnResizerHover || isColumnResizing,
+            },
             style: {
-                display:
-                    isColumnResizerHover || isColumnResizing ? "block" : "none",
+                left: left - columnResizerHandlerWidth + "px",
+                top: top + "px",
+                height: height + "px",
+            },
+            on: {
+                click: () => {
+                    //
+                },
+                mousedown: (event) => {
+                    this.columnResizerHandlerMousedown({ event });
+                },
+                mouseenter: () => {
+                    this.setIsColumnResizerHover(true);
+                },
+                mouseleave: () => {
+                    this.setIsColumnResizerHover(false);
+                },
+                mouseup: () => {
+                    this.columnResizerMouseup();
+                },
             },
         };
 
-        const columnResizeLineProps = {
+        const columnResizerLineProps = {
             class: [clsName("column-resizer-line")],
             style: {
                 display: isColumnResizing ? "block" : "none",
+                left: left + "px",
             },
         };
 
         return (
             <div class={clsName("column-resizer")}>
-                <div {...columnResizeHandlerProps} />
-                <div {...columnResizeLineProps} />
+                <div {...columnResizerHandlerProps} />
+                <div {...columnResizerLineProps} />
             </div>
         );
     },
