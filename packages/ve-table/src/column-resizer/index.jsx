@@ -43,6 +43,10 @@ export default {
             type: Function,
             required: true,
         },
+        setColumnWidth: {
+            type: Function,
+            required: true,
+        },
     },
     data() {
         return {
@@ -86,7 +90,7 @@ export default {
                     this.hooks.addHook(
                         HOOKS_NAME.TABLE_CONTAINER_MOUSEUP,
                         () => {
-                            this.columnResizerMouseup();
+                            //this.columnResizerMouseup(event);
                         },
                     );
                 }
@@ -106,16 +110,17 @@ export default {
                 const col = this.colgroups.find((x) => x.key === column.key);
 
                 if (col._realTimeWidth) {
-                    this.currentResizingColumn = col;
-                    this.columnResizerStartX = event.clientX;
-
                     const target = event.target;
                     const cellRect = target.getBoundingClientRect();
                     const { height, left, top } = cellRect;
+
                     this.columnResizerRect.left =
                         left + col._realTimeWidth - tableContainerLeft;
                     this.columnResizerRect.top = top - tableContainerTop;
                     this.columnResizerRect.height = height;
+
+                    this.currentResizingColumn = col;
+                    this.columnResizerStartX = left + col._realTimeWidth;
                 } else {
                     console.warn("Resizer column needs set column width");
                 }
@@ -174,7 +179,26 @@ export default {
         },
 
         // column resizer mouseup
-        columnResizerMouseup() {
+        columnResizerMouseup(event) {
+            const {
+                isColumnResizing,
+                currentResizingColumn,
+                columnResizerStartX,
+                setColumnWidth,
+            } = this;
+
+            if (!isColumnResizing) {
+                return false;
+            }
+
+            const differWidth = event.clientX - columnResizerStartX;
+            let newWidth = currentResizingColumn._realTimeWidth;
+            newWidth += differWidth;
+            setColumnWidth({
+                colKey: currentResizingColumn.key,
+                width: newWidth,
+            });
+
             this.clearColumnResizerStatus();
             // add document mousemove listener
             document.removeEventListener(
@@ -235,8 +259,8 @@ export default {
                 mouseleave: () => {
                     this.setIsColumnResizerHover(false);
                 },
-                mouseup: () => {
-                    this.columnResizerMouseup();
+                mouseup: (event) => {
+                    this.columnResizerMouseup(event);
                 },
             },
         };

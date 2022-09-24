@@ -905,6 +905,17 @@ export default {
             this.hooks.triggerHook(HOOKS_NAME.TABLE_CELL_WIDTH_CHANGE);
         },
 
+        // set column width
+        setColumnWidth({ colKey, width }) {
+            this.colgroups = this.colgroups.map((item) => {
+                if (item.key === colKey) {
+                    item._realTimeWidth = width;
+                }
+                return item;
+            });
+            this.hooks.triggerHook(HOOKS_NAME.TABLE_CELL_WIDTH_CHANGE);
+        },
+
         // update colgroups by sort change
         updateColgroupsBySortChange(sortColumns) {
             this.colgroups = this.colgroups.map((item) => {
@@ -4044,6 +4055,7 @@ export default {
                 isColumnResizing: this.isColumnResizing,
                 setIsColumnResizerHover: this.setIsColumnResizerHover,
                 setIsColumnResizing: this.setIsColumnResizing,
+                setColumnWidth: this.setColumnWidth,
             },
         };
 
