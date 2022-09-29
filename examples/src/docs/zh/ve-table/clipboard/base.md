@@ -10,6 +10,7 @@
             :columns="columns"
             :table-data="tableData"
             borderY
+            :rowStyleOption="rowStyleOption"
             :cell-autofill-option="cellAutofillOption"
             :edit-option="editOption"
             row-key-field-name="rowKey"
@@ -23,6 +24,10 @@
     export default {
         data() {
             return {
+                rowStyleOption: {
+                    clickHighlight: false,
+                    hoverHighlight: false,
+                },
                 // clipboard option
                 clipboardOption: {
                     copy: true,
