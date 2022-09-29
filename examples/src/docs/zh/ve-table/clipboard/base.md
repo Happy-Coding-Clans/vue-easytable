@@ -54,8 +54,6 @@
                         this.log({ data, selectionRangeIndexes, selectionRangeKeys });
                     },
                     beforeDelete: ({ data, selectionRangeIndexes, selectionRangeKeys }) => {
-                        return false;
-
                         console.log("beforeDelete");
                         this.log({ data, selectionRangeIndexes, selectionRangeKeys });
                     },
