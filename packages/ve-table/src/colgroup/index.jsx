@@ -13,7 +13,6 @@ export default {
             if (isNumber(width)) {
                 width = Math.floor(width);
             }
-            console.log(width);
             return getValByUnit(width);
         },
     },
