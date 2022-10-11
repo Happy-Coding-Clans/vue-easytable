@@ -7,6 +7,7 @@ import {
     CURRENT_CELL_SELECTION_TYPES,
     COLUMN_FIXED_TYPE,
 } from "../util/constant";
+import { isNumber } from "../../../src/utils/index.js";
 
 export default {
     name: COMPS_NAME.VE_TABLE_COLUMN_RESISZER,
@@ -47,6 +48,13 @@ export default {
             type: Function,
             required: true,
         },
+        // column width resize option
+        columnWidthResizeOption: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
     },
     data() {
         return {
@@ -56,8 +64,6 @@ export default {
             currentResizingColumn: null,
             // column resizer handler width
             columnResizerHandlerWidth: 5,
-            // column min width
-            columnMinWidth: 30,
             // column resizer rect
             columnResizerRect: {
                 top: 0,
@@ -65,6 +71,22 @@ export default {
                 height: 0,
             },
         };
+    },
+    computed: {
+        // column min width
+        columnMinWidth() {
+            let result = 30;
+
+            const { columnWidthResizeOption } = this;
+
+            if (columnWidthResizeOption) {
+                const { minWidth } = columnWidthResizeOption;
+                if (isNumber(minWidth) && minWidth > 0) {
+                    result = minWidth;
+                }
+            }
+            return result;
+        },
     },
     watch: {
         parentRendered: {
@@ -185,6 +207,7 @@ export default {
                 currentResizingColumn,
                 columnResizerStartX,
                 setColumnWidth,
+                columnWidthResizeOption,
             } = this;
 
             if (!isColumnResizing) {
@@ -198,6 +221,16 @@ export default {
                 colKey: currentResizingColumn.key,
                 width: newWidth,
             });
+
+            if (columnWidthResizeOption) {
+                const { sizeChange } = columnWidthResizeOption;
+                sizeChange &&
+                    sizeChange({
+                        column: currentResizingColumn,
+                        newWidth,
+                        differWidth,
+                    });
+            }
 
             this.clearColumnResizerStatus();
             // add document mousemove listener
