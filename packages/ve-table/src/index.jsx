@@ -263,6 +263,13 @@ export default {
                 return null;
             },
         },
+        // column width resize option
+        columnWidthResizeOption: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
     },
     data() {
         return {
@@ -4056,6 +4063,7 @@ export default {
                 setIsColumnResizerHover: this.setIsColumnResizerHover,
                 setIsColumnResizing: this.setIsColumnResizing,
                 setColumnWidth: this.setColumnWidth,
+                columnWidthResizeOption: this.columnWidthResizeOption,
             },
         };
 
