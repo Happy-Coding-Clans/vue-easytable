@@ -5,14 +5,14 @@
 ```html
 <template>
     <ve-table
-        style="width:802px"
-        :scroll-width="910"
+        :style="{'min-width':'502px','max-width':'800px','width':tableWidth+'px'}"
+        :scroll-width="0"
         :columns="columns"
         :table-data="tableData"
         :border-around="true"
         :border-x="true"
         :border-y="true"
-        column-width-resize-option="columnWidthResizeOption"
+        :column-width-resize-option="columnWidthResizeOption"
     />
 </template>
 
@@ -20,10 +20,13 @@
     export default {
         data() {
             return {
+                tableWidth: 500,
                 columnWidthResizeOption: {
-                    minWidth: 50, //
-                    sizeChange: ({ column, width }) => {
+                    minWidth: 150, //
+                    sizeChange: ({ column, newWidth, differWidth }) => {
                         //
+                        console.log("column::", column);
+                        this.tableWidth += differWidth;
                     },
                 },
                 columns: [
@@ -31,29 +34,31 @@
                         field: "name",
                         key: "a",
                         title: "Name 400px",
-                        // width: 400,
-                        width: "30%",
+                        width: 400,
+                        // width: "30%",
+                        fixed: "left",
                     },
                     {
                         field: "date",
                         key: "date",
                         title: "Date 200px",
-                        // width: 200,
-                        width: "20%",
+                        width: 200,
+
+                        // width: "20%",
                     },
-                    {
-                        field: "hobby",
-                        key: "c",
-                        title: "Hobby 200px",
-                        // width: 200,
-                        width: "20%",
-                    },
-                    {
-                        field: "address",
-                        key: "d",
-                        title: "Address 200px",
-                        // width: 200,
-                    },
+                    // {
+                    //     field: "hobby",
+                    //     key: "c",
+                    //     title: "Hobby 200px",
+                    //     // width: 200,
+                    //     width: "20%",
+                    // },
+                    // {
+                    //     field: "address",
+                    //     key: "d",
+                    //     title: "Address 200px",
+                    //     // width: 200,
+                    // },
                 ],
                 tableData: [
                     {
