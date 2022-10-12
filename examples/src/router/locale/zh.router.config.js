@@ -113,6 +113,13 @@ const config = [
                 meta: { keepAlive: true },
             },
             {
+                path: "column-resize",
+                component: () =>
+                    import("@/docs/zh/ve-table/column-resize/main.vue"),
+                name: "列宽拖动",
+                meta: { keepAlive: true },
+            },
+            {
                 path: "column-fixed",
                 component: () =>
                     import("@/docs/zh/ve-table/column-fixed/main.vue"),
