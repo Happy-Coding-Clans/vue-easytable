@@ -16,6 +16,14 @@ export default {
             type: Boolean,
             required: true,
         },
+        tableRootEl: {
+            type: HTMLDivElement,
+            default: null,
+        },
+        tableContainerWrapperInstance: {
+            type: Object,
+            default: null,
+        },
         tableContainerEl: {
             type: HTMLDivElement,
             default: null,
@@ -45,6 +53,10 @@ export default {
             required: true,
         },
         setColumnWidth: {
+            type: Function,
+            required: true,
+        },
+        setTableWidth: {
             type: Function,
             required: true,
         },
@@ -131,7 +143,7 @@ export default {
 
                 const col = this.colgroups.find((x) => x.key === column.key);
 
-                if (col._realTimeWidth) {
+                if (col && col._realTimeWidth) {
                     const target = event.target;
                     const cellRect = target.getBoundingClientRect();
                     const { height, left, top } = cellRect;
@@ -151,18 +163,18 @@ export default {
 
         // set column resizer position byu drag
         setColumnResizerPositionByDrag(event) {
-            const { tableContainerEl, isColumnResizing } = this;
+            const {
+                tableContainerEl,
+                isColumnResizing,
+                currentResizingColumn,
+            } = this;
 
             if (tableContainerEl && isColumnResizing) {
                 const { left: tableContainerLeft } =
                     tableContainerEl.getBoundingClientRect();
 
-                if (isColumnResizing) {
-                    const {
-                        currentResizingColumn,
-                        columnResizerStartX,
-                        columnMinWidth,
-                    } = this;
+                if (isColumnResizing && currentResizingColumn) {
+                    const { columnResizerStartX, columnMinWidth } = this;
 
                     // 不允许拖动小于列最小宽度
                     if (
@@ -203,33 +215,72 @@ export default {
         // column resizer mouseup
         columnResizerMouseup(event) {
             const {
+                tableRootEl,
+                tableContainerWrapperInstance,
                 isColumnResizing,
                 currentResizingColumn,
                 columnResizerStartX,
                 setColumnWidth,
+                setTableWidth,
                 columnWidthResizeOption,
             } = this;
 
-            if (!isColumnResizing) {
+            if (!isColumnResizing || !currentResizingColumn) {
                 return false;
             }
 
-            const differWidth = event.clientX - columnResizerStartX;
-            let newWidth = currentResizingColumn._realTimeWidth;
-            newWidth += differWidth;
-            setColumnWidth({
-                colKey: currentResizingColumn.key,
-                width: newWidth,
-            });
+            let differWidth = Math.floor(event.clientX - columnResizerStartX);
 
-            if (columnWidthResizeOption) {
-                const { sizeChange } = columnWidthResizeOption;
-                sizeChange &&
-                    sizeChange({
-                        column: currentResizingColumn,
-                        newWidth,
-                        differWidth,
-                    });
+            // 偏差阈值，低于则不处理
+            if (Math.abs(differWidth) > 1) {
+                let nextColumnWidth = currentResizingColumn._realTimeWidth;
+                nextColumnWidth += differWidth;
+
+                const { width: preTableWidth } =
+                    tableContainerWrapperInstance.$el.getBoundingClientRect();
+                let nextTableWidth;
+
+                const nextTotalColumnsWidth =
+                    this.getTotalColumnsWidth() + differWidth;
+
+                if (differWidth > 0) {
+                    const { width: tableRootWidth } =
+                        tableRootEl.getBoundingClientRect();
+
+                    if (preTableWidth + differWidth > tableRootWidth) {
+                        nextTableWidth = tableRootWidth;
+                    } else {
+                        nextTableWidth = preTableWidth + differWidth;
+                    }
+                } else {
+                    if (preTableWidth + differWidth < nextTotalColumnsWidth) {
+                        nextTableWidth = preTableWidth;
+                    } else {
+                        nextTableWidth = preTableWidth + differWidth;
+                    }
+                }
+
+                nextTableWidth = Math.floor(nextTableWidth);
+
+                // set column width
+                setColumnWidth({
+                    colKey: currentResizingColumn.key,
+                    width: nextColumnWidth,
+                });
+
+                // set table width
+                setTableWidth(nextTableWidth);
+
+                if (columnWidthResizeOption) {
+                    const { sizeChange } = columnWidthResizeOption;
+                    sizeChange &&
+                        sizeChange({
+                            column: currentResizingColumn,
+                            differWidth,
+                            columnWidth: nextColumnWidth,
+                            tableWidth: nextTableWidth,
+                        });
+                }
             }
 
             this.clearColumnResizerStatus();
@@ -256,6 +307,13 @@ export default {
             document.ondragstart = function () {
                 return true;
             };
+        },
+
+        // get total columns width
+        getTotalColumnsWidth() {
+            return this.colgroups.reduce((total, currentVal, index) => {
+                return currentVal._realTimeWidth + total;
+            }, 0);
         },
     },
 
