@@ -1,4 +1,4 @@
-import { getValByUnit, isNumber } from "../../../src/utils/index.js";
+import { getValByUnit } from "../../../src/utils/index.js";
 import { COMPS_NAME } from "../util/constant";
 export default {
     name: COMPS_NAME.VE_TABLE_COLGROUP,
@@ -6,14 +6,6 @@ export default {
         colgroups: {
             type: Array,
             required: true,
-        },
-    },
-    methods: {
-        getValByUnit(width) {
-            if (isNumber(width)) {
-                width = Math.floor(width);
-            }
-            return getValByUnit(width);
         },
     },
     render() {
@@ -24,7 +16,7 @@ export default {
                         <col
                             key={item.key}
                             style={{
-                                width: this.getValByUnit(item._realTimeWidth),
+                                width: getValByUnit(item._realTimeWidth),
                             }}
                         />
                     );
