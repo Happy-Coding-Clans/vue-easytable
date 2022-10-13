@@ -547,9 +547,7 @@ export default {
                 fixed:When there is a fixed header in the ve-table expanded by the row of the virtual rolling table(header sticky conflict),Incorrect table presentation
                 */
                 const { tableHeight, hasXScrollBar } = this;
-
                 tableContainerHeight = tableHeight;
-
                 /*
                     有横向滚动条时，表格高度需要加上滚动条的宽度
                     When there is a horizontal scroll bar, the table height needs to be added with the width of the scroll bar
@@ -933,6 +931,10 @@ export default {
                 this.$refs[this.tableContainerWrapperRef];
             if (tableContainerWrapperEl) {
                 this.tableContainerWrapperWidth = nextTableWidth;
+                // 解决列宽拖动有滚动条->无滚动条 表格高度不更新问题
+                this.$nextTick(() => {
+                    this.setScrollBarStatus();
+                });
             }
         },
 
