@@ -277,6 +277,8 @@ export default {
             hooks: {},
             // is parent rendered
             parentRendered: false,
+            // table container wrapper width
+            tableContainerWrapperWidth: 0,
             // table viewport width except scroll bar width
             tableViewportWidth: 0,
             /*
@@ -284,6 +286,8 @@ export default {
             依赖columns 配置渲染，都需要重新计算：粘性布局时，重新触发 on-dom-resize-change 事件
             */
             columnsOptionResetTime: 0,
+            tableRootRef: "tableRootRef",
+            tableContainerWrapperRef: "tableContainerWrapperRef",
             tableContainerRef: "tableContainerRef",
             tableRef: "tableRef",
             tableBodyRef: "tableBodyRef",
@@ -921,6 +925,15 @@ export default {
                 return item;
             });
             this.hooks.triggerHook(HOOKS_NAME.TABLE_CELL_WIDTH_CHANGE);
+        },
+
+        // set table width
+        setTableWidth(nextTableWidth) {
+            let tableContainerWrapperEl =
+                this.$refs[this.tableContainerWrapperRef];
+            if (tableContainerWrapperEl) {
+                this.tableContainerWrapperWidth = nextTableWidth;
+            }
         },
 
         // update colgroups by sort change
@@ -3742,6 +3755,7 @@ export default {
     },
     render() {
         const {
+            tableContainerWrapperWidth,
             showHeader,
             tableViewportWidth,
             tableContainerStyle,
@@ -3867,6 +3881,21 @@ export default {
 
         // table root props
         const tableRootProps = {
+            ref: this.tableRootRef,
+            class: {
+                "vue-table-root": true,
+            },
+        };
+
+        // table container wrapper props
+        const tableContainerWrapperProps = {
+            ref: this.tableContainerWrapperRef,
+            style: {
+                width: tableContainerWrapperWidth
+                    ? tableContainerWrapperWidth + "px"
+                    : "100%",
+                "max-width": "100%",
+            },
             class: {
                 "ve-table": true,
                 [clsName("border-around")]: this.borderAround,
@@ -4055,6 +4084,9 @@ export default {
         const columnResizerProps = {
             props: {
                 parentRendered: this.parentRendered,
+                tableRootEl: this.$refs[this.tableRootRef],
+                tableContainerWrapperInstance:
+                    this.$refs[this.tableContainerWrapperRef],
                 tableContainerEl: this.$refs[this.tableContainerRef],
                 hooks: this.hooks,
                 colgroups,
@@ -4063,43 +4095,46 @@ export default {
                 setIsColumnResizerHover: this.setIsColumnResizerHover,
                 setIsColumnResizing: this.setIsColumnResizing,
                 setColumnWidth: this.setColumnWidth,
+                setTableWidth: this.setTableWidth,
                 columnWidthResizeOption: this.columnWidthResizeOption,
             },
         };
 
         return (
-            <VueDomResizeObserver {...tableRootProps}>
-                <div {...tableContainerProps}>
-                    {/* virtual view phantom */}
-                    {this.getVirtualViewPhantom()}
-                    {/* vue 实例类型，访问dom时需要通过$el属性访问 */}
-                    <VueDomResizeObserver {...tableWrapperProps}>
-                        <table {...tableProps}>
-                            {/* colgroup */}
-                            <Colgroup colgroups={colgroups} />
-                            {/* table header */}
-                            {showHeader && <Header {...headerProps} />}
-                            {/* table body */}
-                            <Body {...bodyProps} />
-                            {/* table footer */}
-                            <Footer {...footerProps} />
-                        </table>
-                        {/* cell selection */}
-                        {enableCellSelection && (
-                            <Selection {...selectionProps} />
-                        )}
-                    </VueDomResizeObserver>
-                </div>
-                {/* edit input */}
-                {enableCellSelection && <EditInput {...editInputProps} />}
-                {/* contextmenu */}
-                {(this.enableHeaderContextmenu ||
-                    this.enableBodyContextmenu) && (
-                    <VeContextmenu {...contextmenuProps} />
-                )}
-                {/* column resizer */}
-                <ColumnResizer {...columnResizerProps} />
-            </VueDomResizeObserver>
+            <div {...tableRootProps}>
+                <VueDomResizeObserver {...tableContainerWrapperProps}>
+                    <div {...tableContainerProps}>
+                        {/* virtual view phantom */}
+                        {this.getVirtualViewPhantom()}
+                        {/* vue 实例类型，访问dom时需要通过$el属性访问 */}
+                        <VueDomResizeObserver {...tableWrapperProps}>
+                            <table {...tableProps}>
+                                {/* colgroup */}
+                                <Colgroup colgroups={colgroups} />
+                                {/* table header */}
+                                {showHeader && <Header {...headerProps} />}
+                                {/* table body */}
+                                <Body {...bodyProps} />
+                                {/* table footer */}
+                                <Footer {...footerProps} />
+                            </table>
+                            {/* cell selection */}
+                            {enableCellSelection && (
+                                <Selection {...selectionProps} />
+                            )}
+                        </VueDomResizeObserver>
+                    </div>
+                    {/* edit input */}
+                    {enableCellSelection && <EditInput {...editInputProps} />}
+                    {/* contextmenu */}
+                    {(this.enableHeaderContextmenu ||
+                        this.enableBodyContextmenu) && (
+                        <VeContextmenu {...contextmenuProps} />
+                    )}
+                    {/* column resizer */}
+                    <ColumnResizer {...columnResizerProps} />
+                </VueDomResizeObserver>
+            </div>
         );
     },
 };
