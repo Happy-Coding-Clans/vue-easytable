@@ -1,12 +1,5 @@
 import { clsName } from "../util";
-import {
-    COMPS_NAME,
-    EMIT_EVENTS,
-    HOOKS_NAME,
-    AUTOFILLING_DIRECTION,
-    CURRENT_CELL_SELECTION_TYPES,
-    COLUMN_FIXED_TYPE,
-} from "../util/constant";
+import { COMPS_NAME, HOOKS_NAME } from "../util/constant";
 import { isNumber } from "../../../src/utils/index.js";
 
 export default {
@@ -223,13 +216,26 @@ export default {
                 setColumnWidth,
                 setTableWidth,
                 columnWidthResizeOption,
+                columnMinWidth,
             } = this;
 
             if (!isColumnResizing || !currentResizingColumn) {
                 return false;
             }
 
-            let differWidth = Math.floor(event.clientX - columnResizerStartX);
+            let differWidth;
+            // 拖动小于列最小宽度
+            if (
+                currentResizingColumn._realTimeWidth +
+                    (event.clientX - columnResizerStartX) <
+                columnMinWidth
+            ) {
+                differWidth =
+                    columnMinWidth - currentResizingColumn._realTimeWidth;
+            } else {
+                differWidth = event.clientX - columnResizerStartX;
+            }
+            differWidth = Math.floor(differWidth);
 
             // 偏差阈值，低于则不处理
             if (Math.abs(differWidth) > 1) {
