@@ -1,4 +1,5 @@
 :::tip
 1、当存在大文本时，列宽调整将会很方便<br>
-2、建议设置`scroll-width=0`，列宽拖动将会改变表格宽度
+2、通过`columnWidthResizeOption`设置列宽拖动行为<br>
+3、建议设置`scroll-width=0`，列宽拖动将会改变表格宽度
 :::

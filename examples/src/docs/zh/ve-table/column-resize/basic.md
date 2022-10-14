@@ -21,6 +21,8 @@
         data() {
             return {
                 columnWidthResizeOption: {
+                    // default false
+                    enable: true,
                     // column resize min width
                     minWidth: 30,
                     // column size change
