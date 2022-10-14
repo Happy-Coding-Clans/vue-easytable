@@ -1,6 +1,6 @@
 :::anchor 列宽拖动
 
-:::demo 1、
+:::demo 1、通过 `minWidth`设置列拖动的最小宽度<br>2、通过`sizeChange({ column, differWidth, columnWidth, tableWidth })`列拖动变化的回调信息
 
 ```html
 <template>
@@ -21,7 +21,8 @@
         data() {
             return {
                 columnWidthResizeOption: {
-                    minWidth: 30, // column resize min width
+                    // column resize min width
+                    minWidth: 30,
                     // column size change
                     sizeChange: ({ column, differWidth, columnWidth, tableWidth }) => {
                         console.log("----------sizeChange----------");
