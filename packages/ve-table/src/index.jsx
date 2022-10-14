@@ -722,9 +722,17 @@ export default {
         enableClipboard() {
             return this.rowKeyFieldName;
         },
-        // eanble width drag
-        enableWidthDrag() {
-            return true;
+        // eanble width resize
+        enableWidthResize() {
+            let result = false;
+            const { columnWidthResizeOption } = this;
+            if (columnWidthResizeOption) {
+                const { enable } = columnWidthResizeOption;
+                if (isBoolean(enable)) {
+                    result = enable;
+                }
+            }
+            return result;
         },
         // header total height
         headerTotalHeight() {
@@ -3783,6 +3791,7 @@ export default {
             contextmenuOptions,
             allRowKeys,
             enableCellSelection,
+            enableWidthResize,
             cellSelectionRangeData,
             headerIndicatorColKeys,
             bodyIndicatorRowKeys,
@@ -4134,7 +4143,9 @@ export default {
                         <VeContextmenu {...contextmenuProps} />
                     )}
                     {/* column resizer */}
-                    <ColumnResizer {...columnResizerProps} />
+                    {enableWidthResize && (
+                        <ColumnResizer {...columnResizerProps} />
+                    )}
                 </VueDomResizeObserver>
             </div>
         );
