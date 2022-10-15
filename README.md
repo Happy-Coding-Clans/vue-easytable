@@ -55,6 +55,7 @@ A powerful data table based on vue2.x You can use it as data grid、Microsoft Ex
 -   [x] [Header Grouping](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/header-grouping)
 -   [x] [Filter](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/header-filter)
 -   [x] [Sort](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/header-sort)
+-   [x] [Column Resize](https://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/column-resize)
 -   [x] [Cell Style](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-style)
 -   [x] [Cell Custom](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-custom)
 -   [x] [Cell Span](http://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/cell-span)
