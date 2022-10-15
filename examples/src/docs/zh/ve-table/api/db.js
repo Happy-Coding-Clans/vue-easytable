@@ -1194,4 +1194,37 @@ export const db = {
         ],
         columns: columnsType1,
     },
+
+    // 列宽改变配置
+    columnWidthResizeOption: {
+        data: [
+            {
+                param: "enable",
+                desc: `是否开启列宽可变`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "false",
+            },
+            {
+                param: "minWidth",
+                desc: `可改变列的最小宽度`,
+                type: `<code>Number</code>`,
+                optionalVal: "-",
+                default: "30px",
+            },
+            {
+                param: "sizeChange",
+                desc: `列宽改变后的回调函数。参数说明：\r1、<code>column</code>宽度改变的列信息\r2、<code>differWidth</code>列宽改变后差异的宽度\r3、<code>columnWidth</code>列宽改变后的宽度\r4、<code>tableWidth</code>列宽改变后的表格宽度`,
+                type: `<code>Function({
+                    column,
+                    differWidth,
+                    columnWidth,
+                    tableWidth
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+        ],
+        columns: columnsType1,
+    },
 };

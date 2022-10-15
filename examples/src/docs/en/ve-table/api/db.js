@@ -1201,4 +1201,36 @@ export const db = {
         ],
         columns: columnsType1,
     },
+    // 列宽改变配置
+    columnWidthResizeOption: {
+        data: [
+            {
+                param: "enable",
+                desc: `enable column resize`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "false",
+            },
+            {
+                param: "minWidth",
+                desc: `min width of resize column`,
+                type: `<code>Number</code>`,
+                optionalVal: "-",
+                default: "30px",
+            },
+            {
+                param: "sizeChange",
+                desc: `The callback method after column resize. Parameter Description:\r1、<code>column</code>resize column\r2、<code>differWidth</code>Width of the difference after column resize\r3、<code>columnWidth</code>column width after column resize\r4、<code>tableWidth</code>table width after column resize`,
+                type: `<code>Function({
+                column,
+                differWidth,
+                columnWidth,
+                tableWidth
+})</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+        ],
+        columns: columnsType1,
+    },
 };

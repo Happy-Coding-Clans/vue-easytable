@@ -1,6 +1,8 @@
-:::anchor 列宽拖动
+:::anchor Column Drag
 
-:::demo 1、通过 `minWidth`设置列拖动的最小宽度<br>2、通过`sizeChange({ column, differWidth, columnWidth, tableWidth })`列拖动变化的回调信息
+You can hover the mouse between two columns and drag
+
+:::demo 1、Set the min width of resize column through `minWidth`<br>2、Get the callback method of resize column changes through `sizeChange({ column, differWidth, columnWidth, tableWidth })`
 
 ```html
 <template>
