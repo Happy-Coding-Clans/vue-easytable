@@ -3905,7 +3905,6 @@ export default {
                 width: tableContainerWrapperWidth
                     ? tableContainerWrapperWidth + "px"
                     : "100%",
-                "max-width": "100%",
             },
             class: {
                 "ve-table": true,
