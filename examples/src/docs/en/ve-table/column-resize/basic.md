@@ -6,16 +6,24 @@ You can hover the mouse between two columns and drag
 
 ```html
 <template>
-    <ve-table
-        style="width:100%"
-        :scroll-width="0"
-        :columns="columns"
-        :table-data="tableData"
-        :border-around="true"
-        :border-x="true"
-        :border-y="true"
-        :column-width-resize-option="columnWidthResizeOption"
-    />
+    <div>
+        <div v-show="columnResizeInfo.column" style="margin:10px 0;line-height:2">
+            <div>column:{{columnResizeInfo.column}}</div>
+            <div>differWidth:{{columnResizeInfo.differWidth}}</div>
+            <div>columnWidth:{{columnResizeInfo.columnWidth}}</div>
+            <div>tableWidth:{{columnResizeInfo.tableWidth}}</div>
+        </div>
+        <ve-table
+            style="width:100%"
+            :scroll-width="0"
+            :columns="columns"
+            :table-data="tableData"
+            :border-around="true"
+            :border-x="true"
+            :border-y="true"
+            :column-width-resize-option="columnWidthResizeOption"
+        />
+    </div>
 </template>
 
 <script>
@@ -29,11 +37,10 @@ You can hover the mouse between two columns and drag
                     minWidth: 30,
                     // column size change
                     sizeChange: ({ column, differWidth, columnWidth, tableWidth }) => {
-                        console.log("----------sizeChange----------");
-                        console.log("column::", column);
-                        console.log("differWidth::", differWidth);
-                        console.log("columnWidth::", columnWidth);
-                        console.log("tableWidth::", tableWidth);
+                        this.columnResizeInfo.column = column;
+                        this.columnResizeInfo.differWidth = differWidth;
+                        this.columnResizeInfo.columnWidth = columnWidth;
+                        this.columnResizeInfo.tableWidth = tableWidth;
                     },
                 },
                 columns: [
@@ -55,6 +62,12 @@ You can hover the mouse between two columns and drag
                     { field: "col5", key: "col5", title: "Col5" },
                     { field: "col6", key: "col6", title: "Col6" },
                 ],
+                columnResizeInfo: {
+                    column: "",
+                    differWidth: "",
+                    columnWidth: "",
+                    tableWidth: "",
+                },
                 tableData: [],
             };
         },
