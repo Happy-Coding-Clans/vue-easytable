@@ -8,6 +8,14 @@ export default {
             required: true,
         },
     },
+    methods: {
+        getValByUnit(item) {
+            // 解决使用 _realTimeWidth 在多表头下宽度计算异常的问题
+            return getValByUnit(
+                item._realTimeWidth ? item._realTimeWidth : item.width,
+            );
+        },
+    },
     render() {
         return (
             <colgroup>
@@ -16,7 +24,7 @@ export default {
                         <col
                             key={item.key}
                             style={{
-                                width: getValByUnit(item._realTimeWidth),
+                                width: this.getValByUnit(item),
                             }}
                         />
                     );
