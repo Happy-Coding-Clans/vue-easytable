@@ -7,6 +7,18 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.21.0
+
+### Feature
+
+-   Add column resize feature [detail](https://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/column-resize)
+
+---
+
+### Feature
+
+-   支持列宽拖动功能 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/column-resize)
+
 V2.20.2
 
 ### Bug Fixes
