@@ -548,8 +548,7 @@ export default {
          */
         tdSizeChange({ key, width }) {
             const { colsWidths } = this;
-            // math floor
-            colsWidths.set(key, Math.floor(width));
+            colsWidths.set(key, width);
             this.$emit(EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE, colsWidths);
         },
 
