@@ -55,6 +55,7 @@
 -   [x] [表头分组](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-grouping)
 -   [x] [筛选](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-filter)
 -   [x] [排序](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-sort)
+-   [x] [列宽拖动](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/column-resize)
 -   [x] [单元格样式](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-style)
 -   [x] [单元格自定义](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-custom)
 -   [x] [单元格合并](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-span)
