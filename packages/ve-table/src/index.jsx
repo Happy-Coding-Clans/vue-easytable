@@ -4036,7 +4036,6 @@ export default {
         const editInputProps = {
             ref: this.editInputRef,
             props: {
-                tableContainerEl: this.$refs[this.tableContainerRef],
                 hooks: this.hooks,
                 parentRendered: this.parentRendered,
                 inputStartValue: this.editorInputStartValue,
