@@ -8,7 +8,7 @@
         <ve-table
             style="word-break: break-word"
             fixed-header
-            :scroll-width="2000"
+            :scroll-width="0"
             :max-height="500"
             border-y
             :columns="columns"
@@ -20,6 +20,7 @@
             :contextmenu-body-option="contextmenuBodyOption"
             :contextmenu-header-option="contextmenuHeaderOption"
             :row-style-option="rowStyleOption"
+            :column-width-resize-option="columnWidthResizeOption"
         />
     </div>
 </template>
@@ -63,6 +64,9 @@ export default {
         return {
             // start row index
             startRowIndex: 0,
+            columnWidthResizeOption: {
+                enable: true,
+            },
             virtualScrollOption: {
                 // 是否开启
                 enable: true,
@@ -241,7 +245,7 @@ export default {
                         title: keyValue,
                         field: keyValue,
                         key: keyValue,
-                        width: 50,
+                        width: 90,
                         edit: true,
                     };
                 }),

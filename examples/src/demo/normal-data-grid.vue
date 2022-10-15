@@ -66,7 +66,7 @@
                 fixed-header
                 border-y
                 :max-height="500"
-                :scroll-width="tableScrollWdith"
+                :scroll-width="0"
                 :sort-option="sortOption"
                 :virtual-scroll-option="virtualScrollOption"
                 :columns="columns"
@@ -78,6 +78,7 @@
                 :checkbox-option="checkboxOption"
                 :row-style-option="rowStyleOption"
                 :cell-selection-option="cellSelectionOption"
+                :column-width-resize-option="columnWidthResizeOption"
             />
         </div>
     </div>
@@ -96,6 +97,9 @@ export default {
     mixins: [I18nMixins],
     data() {
         return {
+            columnWidthResizeOption: {
+                enable: true,
+            },
             cellSelectionOption: {
                 // disble cell selection
                 enable: false,
