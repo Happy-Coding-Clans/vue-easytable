@@ -27,6 +27,7 @@ Based on vue2.x flexible table components.
 -   Header Grouping
 -   Filter
 -   Sort
+-   Column resize
 -   Cell Style
 -   Cell Span
 -   Cell Custom
