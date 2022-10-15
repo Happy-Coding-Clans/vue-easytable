@@ -7,6 +7,18 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.21.1
+
+### Bug Fixes
+
+-   Fix the bug that table is repeatedly rendered due to the column resize
+
+---
+
+### Bug Fixes
+
+-   修复因列宽拖动功能导致表格一直重复渲染的问题
+
 V2.21.0
 
 ### Feature
