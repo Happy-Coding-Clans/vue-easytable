@@ -1,4 +1,4 @@
 :::tip
-1、像 excel 那样进行单元格内容的自动填充
+When there is data that needs to be copied repeatedly, you can automatically fill in the cell content like excel
 
 :::

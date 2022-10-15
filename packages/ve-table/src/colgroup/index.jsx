@@ -9,8 +9,11 @@ export default {
         },
     },
     methods: {
-        getValByUnit(width) {
-            return getValByUnit(width);
+        getValByUnit(item) {
+            // 解决使用 _realTimeWidth 在多表头下宽度计算异常的问题
+            return getValByUnit(
+                item._realTimeWidth ? item._realTimeWidth : item.width,
+            );
         },
     },
     render() {
@@ -20,7 +23,9 @@ export default {
                     return (
                         <col
                             key={item.key}
-                            style={{ width: this.getValByUnit(item.width) }}
+                            style={{
+                                width: this.getValByUnit(item),
+                            }}
                         />
                     );
                 })}

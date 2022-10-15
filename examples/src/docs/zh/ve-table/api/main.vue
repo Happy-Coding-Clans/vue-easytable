@@ -39,6 +39,8 @@
         <cellAutofillOption />
         <!-- Clipboard Option -->
         <clipboardOption />
+        <!-- Clipboard Option -->
+        <columnWidthResizeOption />
     </div>
 </template>
 <script>
@@ -62,6 +64,7 @@ import contextmenuHeaderOption from "./contextmenu-header-option-props";
 import contextmenuBodyOption from "./contextmenu-body-option-props";
 import cellAutofillOption from "./cell-autofill-option-props";
 import clipboardOption from "./clipboard-option-props";
+import columnWidthResizeOption from "./column-width-resize-option-props";
 export default {
     components: {
         TableProps,
@@ -83,6 +86,7 @@ export default {
         contextmenuBodyOption,
         cellAutofillOption,
         clipboardOption,
+        columnWidthResizeOption,
     },
     data() {
         return {

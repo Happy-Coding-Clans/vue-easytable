@@ -505,4 +505,36 @@
             background-color: @ve-table-td-editing-background-color;
         }
     }
+
+    // column resizer
+    .ve-table-column-resizer {
+        // height: 100%;
+        // width: 1px;
+        // background-color: #000;
+        // position: absolute;
+        &-handler {
+            position: absolute;
+            cursor: col-resize;
+            // left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            height: 40px;
+            z-index: 50;
+            &.active {
+                background-color: lightblue;
+            }
+        }
+
+        &-line {
+            position: absolute;
+            pointer-events: none;
+            // left: 0;
+            top: 0;
+            bottom: 0;
+            width: 0;
+            border-left: 1px solid lightblue;
+            z-index: 50;
+        }
+    }
 }

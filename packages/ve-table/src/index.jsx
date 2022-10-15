@@ -71,11 +71,12 @@ import Colgroup from "./colgroup";
 import Header from "./header";
 import Body from "./body";
 import Footer from "./footer";
-import EditInput from "./editor/edit-input";
+import EditInput from "./editor/index";
 import Selection from "./selection/index";
 import clickoutside from "../../src/directives/clickoutside";
 import VueDomResizeObserver from "../../src/comps/resize-observer";
 import VeContextmenu from "vue-easytable/packages/ve-contextmenu";
+import ColumnResizer from "./column-resizer";
 
 const t = createLocale(LOCALE_COMP_NAME);
 
@@ -262,6 +263,13 @@ export default {
                 return null;
             },
         },
+        // column width resize option
+        columnWidthResizeOption: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
     },
     data() {
         return {
@@ -269,6 +277,8 @@ export default {
             hooks: {},
             // is parent rendered
             parentRendered: false,
+            // table container wrapper width
+            tableContainerWrapperWidth: 0,
             // table viewport width except scroll bar width
             tableViewportWidth: 0,
             /*
@@ -276,7 +286,10 @@ export default {
             依赖columns 配置渲染，都需要重新计算：粘性布局时，重新触发 on-dom-resize-change 事件
             */
             columnsOptionResetTime: 0,
+            tableRootRef: "tableRootRef",
+            tableContainerWrapperRef: "tableContainerWrapperRef",
             tableContainerRef: "tableContainerRef",
+            tableRef: "tableRef",
             tableBodyRef: "tableBodyRef",
             tableContentWrapperRef: "tableContentWrapperRef",
             virtualPhantomRef: "virtualPhantomRef",
@@ -439,6 +452,10 @@ export default {
             contextmenuEventTarget: "",
             // contextmenu options
             contextmenuOptions: [],
+            // column resize cursor
+            isColumnResizerHover: false,
+            // is column resizing
+            isColumnResizing: false,
         };
     },
     computed: {
@@ -530,9 +547,7 @@ export default {
                 fixed:When there is a fixed header in the ve-table expanded by the row of the virtual rolling table(header sticky conflict),Incorrect table presentation
                 */
                 const { tableHeight, hasXScrollBar } = this;
-
                 tableContainerHeight = tableHeight;
-
                 /*
                     有横向滚动条时，表格高度需要加上滚动条的宽度
                     When there is a horizontal scroll bar, the table height needs to be added with the width of the scroll bar
@@ -706,6 +721,18 @@ export default {
         // enable clipboard
         enableClipboard() {
             return this.rowKeyFieldName;
+        },
+        // eanble width resize
+        enableWidthResize() {
+            let result = false;
+            const { columnWidthResizeOption } = this;
+            if (columnWidthResizeOption) {
+                const { enable } = columnWidthResizeOption;
+                if (isBoolean(enable)) {
+                    result = enable;
+                }
+            }
+            return result;
         },
         // header total height
         headerTotalHeight() {
@@ -892,7 +919,31 @@ export default {
                 item._realTimeWidth = colWidths.get(item.key);
                 return item;
             });
-            this.hooks.triggerHook(HOOKS_NAME.TABLE_TD_WIDTH_CHANGE);
+            this.hooks.triggerHook(HOOKS_NAME.TABLE_CELL_WIDTH_CHANGE);
+        },
+
+        // set column width
+        setColumnWidth({ colKey, width }) {
+            this.colgroups = this.colgroups.map((item) => {
+                if (item.key === colKey) {
+                    item._realTimeWidth = width;
+                }
+                return item;
+            });
+            this.hooks.triggerHook(HOOKS_NAME.TABLE_CELL_WIDTH_CHANGE);
+        },
+
+        // set table width
+        setTableWidth(nextTableWidth) {
+            let tableContainerWrapperEl =
+                this.$refs[this.tableContainerWrapperRef];
+            if (tableContainerWrapperEl) {
+                this.tableContainerWrapperWidth = nextTableWidth;
+                // 解决列宽拖动有滚动条->无滚动条 表格高度不更新问题
+                this.$nextTick(() => {
+                    this.setScrollBarStatus();
+                });
+            }
         },
 
         // update colgroups by sort change
@@ -2044,6 +2095,7 @@ export default {
             this.isBodyCellMousedown = false;
             this.isBodyOperationColumnMousedown = false;
             this.isAutofillStarting = false;
+            this.setIsColumnResizing(false);
 
             // clear cell selection
             this.clearCellSelectionCurrentCell();
@@ -2377,6 +2429,19 @@ export default {
         },
 
         /*
+         * @bodyCellMousemove
+         * @desc  recieve td mousemove event
+         * @param {object} rowData - row data
+         * @param {object} column - column data
+         */
+        bodyCellMousemove({ event, rowData, column }) {
+            this.hooks.triggerHook(HOOKS_NAME.BODY_CELL_MOUSEMOVE, {
+                event,
+                column,
+            });
+        },
+
+        /*
          * @bodyCellMouseup
          * @desc  recieve td mouseup event
          * @param {object} rowData - row data
@@ -2467,7 +2532,6 @@ export default {
                 // clear cell selection
                 this.clearCellSelectionCurrentCell();
                 this.clearCellSelectionNormalEndCell();
-
                 this.$nextTick(() => {
                     // select all cell
                     this[INSTANCE_METHODS.SET_ALL_CELL_SELECTION]();
@@ -2592,7 +2656,25 @@ export default {
             }
         },
 
-        // table content wrapper mouseup
+        // header cell mousemove
+        headerCellMousemove({ event, column }) {
+            this.hooks.triggerHook(HOOKS_NAME.HEADER_CELL_MOUSEMOVE, {
+                event,
+                column,
+            });
+        },
+
+        // header cell mouseleave
+        headerCellMouseleave({ event, column }) {
+            // todo
+        },
+
+        // header mouseleave
+        headerMouseleave(event) {
+            this.setIsColumnResizerHover(false);
+        },
+
+        // table container mouseup
         tableContainerMouseup() {
             this.isHeaderCellMousedown = false;
             this.isBodyCellMousedown = false;
@@ -3214,6 +3296,16 @@ export default {
             }
         },
 
+        // set isColumnResizerHover
+        setIsColumnResizerHover(val) {
+            this.isColumnResizerHover = val;
+        },
+
+        // set isColumnResizing
+        setIsColumnResizing(val) {
+            this.isColumnResizing = val;
+        },
+
         /*
         set cell selection and column to visible
         */
@@ -3596,7 +3688,12 @@ export default {
             this.bodyCellMousedown(params);
         });
 
-        // recieve body cell mousedown
+        // recieve body cell mousemove
+        this.$on(EMIT_EVENTS.BODY_CELL_MOUSEMOVE, (params) => {
+            this.bodyCellMousemove(params);
+        });
+
+        // recieve body cell mouseup
         this.$on(EMIT_EVENTS.BODY_CELL_MOUSEUP, (params) => {
             this.bodyCellMouseup(params);
         });
@@ -3606,7 +3703,7 @@ export default {
             this.cellSelectionCornerMousedown(params);
         });
 
-        // recieve selection corner mousedown
+        // recieve selection corner mouseup
         this.$on(EMIT_EVENTS.SELECTION_CORNER_MOUSEUP, (params) => {
             this.cellSelectionCornerMouseup(params);
         });
@@ -3641,9 +3738,19 @@ export default {
             this.headerCellMousedown(params);
         });
 
-        // recieve header cell mousedown
+        // recieve header cell mouseover
         this.$on(EMIT_EVENTS.HEADER_CELL_MOUSEOVER, (params) => {
             this.headerCellMouseover(params);
+        });
+
+        // recieve header cell mousemove
+        this.$on(EMIT_EVENTS.HEADER_CELL_MOUSEMOVE, (params) => {
+            this.headerCellMousemove(params);
+        });
+
+        // recieve header cell mouseleave
+        this.$on(EMIT_EVENTS.HEADER_CELL_MOUSELEAVE, (params) => {
+            this.headerCellMouseleave(params);
         });
 
         // add key down event listener
@@ -3658,6 +3765,7 @@ export default {
     },
     render() {
         const {
+            tableContainerWrapperWidth,
             showHeader,
             tableViewportWidth,
             tableContainerStyle,
@@ -3683,6 +3791,7 @@ export default {
             contextmenuOptions,
             allRowKeys,
             enableCellSelection,
+            enableWidthResize,
             cellSelectionRangeData,
             headerIndicatorColKeys,
             bodyIndicatorRowKeys,
@@ -3691,6 +3800,12 @@ export default {
         // header props
         const headerProps = {
             class: clsName("header"),
+            style: {
+                cursor:
+                    this.isColumnResizerHover || this.isColumnResizing
+                        ? "col-resize"
+                        : "",
+            },
             props: {
                 columnsOptionResetTime: this.columnsOptionResetTime,
                 tableViewportWidth,
@@ -3710,6 +3825,9 @@ export default {
             nativeOn: {
                 click: () => {
                     this[INSTANCE_METHODS.STOP_EDITING_CELL]();
+                },
+                mouseleave: (event) => {
+                    this.headerMouseleave(event);
                 },
             },
         };
@@ -3774,6 +3892,20 @@ export default {
 
         // table root props
         const tableRootProps = {
+            ref: this.tableRootRef,
+            class: {
+                "vue-table-root": true,
+            },
+        };
+
+        // table container wrapper props
+        const tableContainerWrapperProps = {
+            ref: this.tableContainerWrapperRef,
+            style: {
+                width: tableContainerWrapperWidth
+                    ? tableContainerWrapperWidth + "px"
+                    : "100%",
+            },
             class: {
                 "ve-table": true,
                 [clsName("border-around")]: this.borderAround,
@@ -3847,6 +3979,9 @@ export default {
                     // 事件的先后顺序 containerMouseup > bodyCellMousedown > bodyCellMouseup > bodyCellClick
                     this.tableContainerMouseup();
                 },
+                mousemove: (event) => {
+                    // todo
+                },
             },
         };
 
@@ -3866,6 +4001,7 @@ export default {
 
         // tale props
         const tableProps = {
+            ref: this.tableRef,
             class: [clsName("content"), tableClass],
             style: tableStyle,
         };
@@ -3874,6 +4010,7 @@ export default {
         const selectionProps = {
             ref: this.cellSelectionRef,
             props: {
+                tableEl: this.$refs[this.tableRef],
                 allRowKeys,
                 colgroups,
                 parentRendered: this.parentRendered,
@@ -3952,37 +4089,63 @@ export default {
             },
         };
 
+        // column resizer props
+        const columnResizerProps = {
+            props: {
+                parentRendered: this.parentRendered,
+                tableRootEl: this.$refs[this.tableRootRef],
+                tableContainerWrapperInstance:
+                    this.$refs[this.tableContainerWrapperRef],
+                tableContainerEl: this.$refs[this.tableContainerRef],
+                hooks: this.hooks,
+                colgroups,
+                isColumnResizerHover: this.isColumnResizerHover,
+                isColumnResizing: this.isColumnResizing,
+                setIsColumnResizerHover: this.setIsColumnResizerHover,
+                setIsColumnResizing: this.setIsColumnResizing,
+                setColumnWidth: this.setColumnWidth,
+                setTableWidth: this.setTableWidth,
+                columnWidthResizeOption: this.columnWidthResizeOption,
+            },
+        };
+
         return (
-            <VueDomResizeObserver {...tableRootProps}>
-                <div {...tableContainerProps}>
-                    {/* virtual view phantom */}
-                    {this.getVirtualViewPhantom()}
-                    {/* vue 实例类型，访问dom时需要通过$el属性访问 */}
-                    <VueDomResizeObserver {...tableWrapperProps}>
-                        <table {...tableProps}>
-                            {/* colgroup */}
-                            <Colgroup colgroups={colgroups} />
-                            {/* table header */}
-                            {showHeader && <Header {...headerProps} />}
-                            {/* table body */}
-                            <Body {...bodyProps} />
-                            {/* table footer */}
-                            <Footer {...footerProps} />
-                        </table>
-                        {/* cell selection */}
-                        {enableCellSelection && (
-                            <Selection {...selectionProps} />
-                        )}
-                    </VueDomResizeObserver>
-                </div>
-                {/* edit input */}
-                {enableCellSelection && <EditInput {...editInputProps} />}
-                {/* contextmenu */}
-                {(this.enableHeaderContextmenu ||
-                    this.enableBodyContextmenu) && (
-                    <VeContextmenu {...contextmenuProps} />
-                )}
-            </VueDomResizeObserver>
+            <div {...tableRootProps}>
+                <VueDomResizeObserver {...tableContainerWrapperProps}>
+                    <div {...tableContainerProps}>
+                        {/* virtual view phantom */}
+                        {this.getVirtualViewPhantom()}
+                        {/* vue 实例类型，访问dom时需要通过$el属性访问 */}
+                        <VueDomResizeObserver {...tableWrapperProps}>
+                            <table {...tableProps}>
+                                {/* colgroup */}
+                                <Colgroup colgroups={colgroups} />
+                                {/* table header */}
+                                {showHeader && <Header {...headerProps} />}
+                                {/* table body */}
+                                <Body {...bodyProps} />
+                                {/* table footer */}
+                                <Footer {...footerProps} />
+                            </table>
+                            {/* cell selection */}
+                            {enableCellSelection && (
+                                <Selection {...selectionProps} />
+                            )}
+                        </VueDomResizeObserver>
+                    </div>
+                    {/* edit input */}
+                    {enableCellSelection && <EditInput {...editInputProps} />}
+                    {/* contextmenu */}
+                    {(this.enableHeaderContextmenu ||
+                        this.enableBodyContextmenu) && (
+                        <VeContextmenu {...contextmenuProps} />
+                    )}
+                    {/* column resizer */}
+                    {enableWidthResize && (
+                        <ColumnResizer {...columnResizerProps} />
+                    )}
+                </VueDomResizeObserver>
+            </div>
         );
     },
 };

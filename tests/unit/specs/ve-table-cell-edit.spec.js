@@ -1,7 +1,7 @@
 import { mount } from "@vue/test-utils";
 import { cloneDeep } from "lodash";
 import veTable from "@/ve-table";
-import CellEditor from "@/ve-table/src/editor/edit-input.jsx";
+import CellEditor from "@/ve-table/src/editor/index.jsx";
 import { later } from "../util";
 import { KEY_CODES } from "../constant";
 import { HOOKS_NAME } from "@/ve-table/src/util/constant";

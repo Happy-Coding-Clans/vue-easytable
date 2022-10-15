@@ -29,6 +29,10 @@ export default {
     name: COMPS_NAME.VE_TABLE_SELECTION,
     mixins: [emitter],
     props: {
+        tableEl: {
+            type: HTMLTableElement,
+            default: null,
+        },
         allRowKeys: {
             type: Array,
             required: true,
@@ -89,7 +93,6 @@ export default {
 
     data() {
         return {
-            tableEl: null,
             // current cell
             currentCellEl: null,
             normalEndCellEl: null,
@@ -254,8 +257,6 @@ export default {
         parentRendered: {
             handler: function (val) {
                 if (val) {
-                    this.setTableEl();
-
                     // add table container scroll hook
                     this.hooks.addHook(
                         HOOKS_NAME.TABLE_CONTAINER_SCROLL,
@@ -274,11 +275,14 @@ export default {
                         this.debounceResetCellPositions();
                     });
                     // add table td width change hook
-                    this.hooks.addHook(HOOKS_NAME.TABLE_TD_WIDTH_CHANGE, () => {
-                        this.$nextTick(() => {
-                            this.resetCellPositions();
-                        });
-                    });
+                    this.hooks.addHook(
+                        HOOKS_NAME.TABLE_CELL_WIDTH_CHANGE,
+                        () => {
+                            this.$nextTick(() => {
+                                this.resetCellPositions();
+                            });
+                        },
+                    );
 
                     // add clipboard cell value change hook
                     this.hooks.addHook(
@@ -1507,14 +1511,6 @@ export default {
                     this.autoFillEndCellEl = autoFillEndCellEl;
                 }
             }
-        },
-
-        // set table element
-        setTableEl() {
-            this.$nextTick(() => {
-                const tableEl = this.$el.previousElementSibling;
-                this.tableEl = tableEl;
-            });
         },
 
         // clear auto fill end cell rect
