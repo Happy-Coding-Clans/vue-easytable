@@ -11,6 +11,30 @@ V2.21.2
 
 ### Style changes
 
+-   Add theme vars [default theme file](https://github.com/Happy-Coding-Clans/vue-easytable/blob/master/packages/theme-default/var.less#L6) 、 [theme dark file](https://github.com/Happy-Coding-Clans/vue-easytable/blob/master/packages/theme-dark/var.less#L7) #463
+    -   @ve-fixed-body-cell-index
+    -   @ve-fixed-cell-selection-border-index
+    -   @ve-fixed-cell-selection-corner-index
+    -   @ve-fixed-header-index
+    -   @ve-fixed-foot-index
+    -   @ve-fixed-header-cell-index
+    -   @ve-fixed-foot-cell-index
+
+---
+
+-   添加主题变量 [default theme 文件](https://github.com/Happy-Coding-Clans/vue-easytable/blob/master/packages/theme-default/var.less#L6) 、 [theme dark 文件](https://github.com/Happy-Coding-Clans/vue-easytable/blob/master/packages/theme-dark/var.less#L7) #463
+    -   @ve-fixed-body-cell-index
+    -   @ve-fixed-cell-selection-border-index
+    -   @ve-fixed-cell-selection-corner-index
+    -   @ve-fixed-header-index
+    -   @ve-fixed-foot-index
+    -   @ve-fixed-header-cell-index
+    -   @ve-fixed-foot-cell-index
+
+V2.21.2
+
+### Style changes
+
 -   Add theme vars
     -   @ve-table-column-resizer-handler-background-color
     -   @ve-table-column-resizer-line-background-color
