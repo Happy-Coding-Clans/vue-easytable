@@ -13,6 +13,9 @@
 @ve-fixed-header-cell-index: 30;
 @ve-fixed-foot-cell-index: 30;
 
+@ve-column-resizer-handler-index: 50;
+@ve-column-resizer-line-index: 50;
+
 .ve-table *,
 .ve-table *:before,
 .ve-table *:after {
@@ -508,10 +511,6 @@
 
     // column resizer
     .ve-table-column-resizer {
-        // height: 100%;
-        // width: 1px;
-        // background-color: #000;
-        // position: absolute;
         &-handler {
             position: absolute;
             cursor: col-resize;
@@ -520,9 +519,9 @@
             bottom: 0;
             width: 5px;
             height: 40px;
-            z-index: 50;
+            z-index: @ve-column-resizer-handler-index;
             &.active {
-                background-color: lightblue;
+                background-color: @ve-table-column-resizer-handler-background-color;
             }
         }
 
@@ -533,8 +532,9 @@
             top: 0;
             bottom: 0;
             width: 0;
-            border-left: 1px solid lightblue;
-            z-index: 50;
+            border-left: 1px solid
+                @ve-table-column-resizer-line-background-color;
+            z-index: @ve-column-resizer-line-index;
         }
     }
 }

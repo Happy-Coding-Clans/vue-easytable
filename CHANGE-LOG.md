@@ -7,6 +7,22 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.21.2
+
+### Style changes
+
+-   Add theme vars
+    -   @ve-table-column-resizer-handler-background-color
+    -   @ve-table-column-resizer-line-background-color
+
+---
+
+-   添加主题变量
+    -   @ve-table-column-resizer-handler-background-color
+    -   @ve-table-column-resizer-line-background-color
+
+### Style changes
+
 V2.21.1
 
 ### Bug Fixes
