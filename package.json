@@ -1,10 +1,10 @@
 {
     "name": "vue-easytable",
-    "version": "2.21.1",
+    "version": "2.21.2",
     "docVersions": [
         {
             "value": "/vue-easytable",
-            "label": "2.21.1"
+            "label": "2.21.2"
         },
         {
             "value": "/vue-easytable/2.20.2",
