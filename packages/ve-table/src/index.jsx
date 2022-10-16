@@ -723,7 +723,7 @@ export default {
             return this.rowKeyFieldName;
         },
         // eanble width resize
-        enableWidthResize() {
+        enableColumnResize() {
             let result = false;
             const { columnWidthResizeOption } = this;
             if (columnWidthResizeOption) {
@@ -3791,7 +3791,7 @@ export default {
             contextmenuOptions,
             allRowKeys,
             enableCellSelection,
-            enableWidthResize,
+            enableColumnResize,
             cellSelectionRangeData,
             headerIndicatorColKeys,
             bodyIndicatorRowKeys,
@@ -4119,7 +4119,10 @@ export default {
                         <VueDomResizeObserver {...tableWrapperProps}>
                             <table {...tableProps}>
                                 {/* colgroup */}
-                                <Colgroup colgroups={colgroups} />
+                                <Colgroup
+                                    colgroups={colgroups}
+                                    enableColumnResize={enableColumnResize}
+                                />
                                 {/* table header */}
                                 {showHeader && <Header {...headerProps} />}
                                 {/* table body */}
@@ -4141,7 +4144,7 @@ export default {
                         <VeContextmenu {...contextmenuProps} />
                     )}
                     {/* column resizer */}
-                    {enableWidthResize && (
+                    {enableColumnResize && (
                         <ColumnResizer {...columnResizerProps} />
                     )}
                 </VueDomResizeObserver>
