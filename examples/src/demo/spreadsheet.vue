@@ -234,7 +234,7 @@ export default {
                     // is operation column
                     operationColumn: true,
                     title: "",
-                    width: 35,
+                    width: 55,
                     fixed: "left",
                     renderBodyCell: this.renderRowIndex,
                 },
