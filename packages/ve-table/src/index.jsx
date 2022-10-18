@@ -785,7 +785,6 @@ export default {
             handler(newVal, oldVal) {
                 this.initColumns();
                 this.initGroupColumns();
-                console.log("???");
                 this.initColumnWidthByColumnResize();
 
                 // 排除首次
