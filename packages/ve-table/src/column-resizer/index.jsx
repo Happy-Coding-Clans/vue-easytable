@@ -9,14 +9,6 @@ export default {
             type: Boolean,
             required: true,
         },
-        tableRootEl: {
-            type: HTMLDivElement,
-            default: null,
-        },
-        tableContainerWrapperInstance: {
-            type: Object,
-            default: null,
-        },
         tableContainerEl: {
             type: HTMLDivElement,
             default: null,
@@ -46,10 +38,6 @@ export default {
             required: true,
         },
         setColumnWidth: {
-            type: Function,
-            required: true,
-        },
-        setTableWidth: {
             type: Function,
             required: true,
         },
@@ -192,13 +180,10 @@ export default {
         // column resizer mouseup
         columnResizerMouseup(event) {
             const {
-                tableRootEl,
-                tableContainerWrapperInstance,
                 isColumnResizing,
                 currentResizingColumn,
                 columnResizerStartX,
                 setColumnWidth,
-                setTableWidth,
                 columnWidthResizeOption,
                 columnMinWidth,
             } = this;
@@ -226,40 +211,11 @@ export default {
                 let nextColumnWidth = currentResizingColumn._realTimeWidth;
                 nextColumnWidth += differWidth;
 
-                const { width: preTableWidth } =
-                    tableContainerWrapperInstance.$el.getBoundingClientRect();
-                let nextTableWidth;
-
-                const nextTotalColumnsWidth =
-                    this.getTotalColumnsWidth() + differWidth;
-
-                if (differWidth > 0) {
-                    const { width: tableRootWidth } =
-                        tableRootEl.getBoundingClientRect();
-
-                    if (preTableWidth + differWidth > tableRootWidth) {
-                        nextTableWidth = tableRootWidth;
-                    } else {
-                        nextTableWidth = preTableWidth + differWidth;
-                    }
-                } else {
-                    if (preTableWidth + differWidth < nextTotalColumnsWidth) {
-                        nextTableWidth = preTableWidth;
-                    } else {
-                        nextTableWidth = preTableWidth + differWidth;
-                    }
-                }
-
-                nextTableWidth = Math.floor(nextTableWidth);
-
                 // set column width
                 setColumnWidth({
                     colKey: currentResizingColumn.key,
                     width: nextColumnWidth,
                 });
-
-                // set table width
-                setTableWidth(nextTableWidth);
 
                 if (columnWidthResizeOption) {
                     const { sizeChange } = columnWidthResizeOption;
@@ -268,7 +224,6 @@ export default {
                             column: currentResizingColumn,
                             differWidth,
                             columnWidth: nextColumnWidth,
-                            tableWidth: nextTableWidth,
                         });
                 }
             }
@@ -297,13 +252,6 @@ export default {
             document.ondragstart = function () {
                 return true;
             };
-        },
-
-        // get total columns width
-        getTotalColumnsWidth() {
-            return this.colgroups.reduce((total, currentVal, index) => {
-                return currentVal._realTimeWidth + total;
-            }, 0);
         },
     },
 
