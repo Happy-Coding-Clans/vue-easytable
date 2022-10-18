@@ -1220,12 +1220,11 @@ export const db = {
             },
             {
                 param: "sizeChange",
-                desc: `The callback method after column resize. Parameter Description:\r1、<code>column</code>resize column\r2、<code>differWidth</code>Width of the difference after column resize\r3、<code>columnWidth</code>column width after column resize\r4、<code>tableWidth</code>table width after column resize`,
+                desc: `The callback method after column resize. Parameter Description:\r1、<code>column</code>resize column\r2、<code>differWidth</code>Width of the difference after column resize\r3、<code>columnWidth</code>column width after column resize`,
                 type: `<code>Function({
                 column,
                 differWidth,
                 columnWidth,
-                tableWidth
 })</code>`,
                 optionalVal: "-",
                 default: "-",

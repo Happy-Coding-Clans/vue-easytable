@@ -1214,12 +1214,11 @@ export const db = {
             },
             {
                 param: "sizeChange",
-                desc: `列宽改变后的回调函数。参数说明：\r1、<code>column</code>宽度改变的列信息\r2、<code>differWidth</code>列宽改变后差异的宽度\r3、<code>columnWidth</code>列宽改变后的宽度\r4、<code>tableWidth</code>列宽改变后的表格宽度`,
+                desc: `列宽改变后的回调函数。参数说明：\r1、<code>column</code>宽度改变的列信息\r2、<code>differWidth</code>列宽改变后差异的宽度\r3、<code>columnWidth</code>列宽改变后的宽度`,
                 type: `<code>Function({
                     column,
                     differWidth,
                     columnWidth,
-                    tableWidth
 })</code>`,
                 optionalVal: "-",
                 default: "-",
