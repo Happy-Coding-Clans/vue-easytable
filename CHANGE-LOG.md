@@ -7,7 +7,27 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
-V2.21.2
+V2.21.4
+
+### Performance Improvements
+
+-   Reconstruct the column resize feature, and automatically adapt when the column width is insufficient
+
+### Breaking Changes
+
+-   Remove the `tableWidth` parameter of the `columnWidthResizeOption` callback function `sizeChange`
+
+---
+
+### Performance Improvements
+
+-   重构列宽拖动功能，当列宽不够时自动自适应
+
+### Breaking Changes
+
+-   移除 `columnWidthResizeOption` 回调函数 `sizeChange`的 `tableWidth` 参数
+
+V2.21.3
 
 ### Style changes
 
