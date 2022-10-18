@@ -7,11 +7,11 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
-V2.21.4
+V2.21.5
 
 ### Performance Improvements
 
--   Reconstruct the column resize feature, and automatically adapt when the column width is insufficient
+-   Reconstruct the column resize feature, and automatically adapt when the column width is insufficient [detail](https://happy-coding-clans.github.io/vue-easytable/#/en/doc/table/column-resize?anchor=column-drag)
 
 ### Breaking Changes
 
@@ -21,7 +21,7 @@ V2.21.4
 
 ### Performance Improvements
 
--   重构列宽拖动功能，当列宽不够时自动自适应
+-   重构列宽拖动功能，当列宽不够时自动自适应 [详情](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/column-resize)
 
 ### Breaking Changes
 
