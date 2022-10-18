@@ -2,7 +2,7 @@
 
 You can hover the mouse between two columns and drag
 
-:::demo 1、Set the min width of resize column through `minWidth`<br>2、Get the callback method of resize column changes through `sizeChange({ column, differWidth, columnWidth, tableWidth })`
+:::demo 1、Set the min width of resize column through `columnMinWidth`<br>2、Get the callback method of resize column changes through `sizeChange({ column, differWidth, columnWidth, tableWidth })`
 
 ```html
 <template>
@@ -34,7 +34,7 @@ You can hover the mouse between two columns and drag
                     // default false
                     enable: true,
                     // column resize min width
-                    minWidth: 30,
+                    columnMinWidth: 30,
                     // column size change
                     sizeChange: ({ column, differWidth, columnWidth, tableWidth }) => {
                         this.columnResizeInfo.column = column;
