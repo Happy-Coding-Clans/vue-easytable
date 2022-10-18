@@ -19,8 +19,10 @@ export default {
             let width;
             // 开启 column resize
             if (enableColumnResize) {
-                // 解决使用 _realTimeWidth 在多表头下宽度计算异常的问题
-                width = item._realTimeWidth ? item._realTimeWidth : item.width;
+                // 解决使用 _columnResizeWidth 在多表头下宽度计算异常的问题
+                width = item._columnResizeWidth
+                    ? item._columnResizeWidth
+                    : item.width;
             } else {
                 width = item.width;
             }
