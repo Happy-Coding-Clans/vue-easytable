@@ -277,8 +277,6 @@ export default {
             hooks: {},
             // is parent rendered
             parentRendered: false,
-            // table container wrapper width
-            tableContainerWrapperWidth: 0,
             // table viewport width except scroll bar width
             tableViewportWidth: 0,
             /*
@@ -527,6 +525,12 @@ export default {
                 }
             }
             return result;
+        },
+        // table container wrapper style
+        tableContainerWrapperStyle() {
+            return {
+                width: "100%",
+            };
         },
         // table container style
         tableContainerStyle() {
@@ -781,6 +785,8 @@ export default {
             handler(newVal, oldVal) {
                 this.initColumns();
                 this.initGroupColumns();
+                console.log("???");
+                this.initColumnWidthByColumnResize();
 
                 // 排除首次
                 if (newVal != oldVal && oldVal) {
@@ -915,35 +921,25 @@ export default {
         // body cell width change
         bodyCellWidthChange(colWidths) {
             this.colgroups = this.colgroups.map((item) => {
-                // map
                 item._realTimeWidth = colWidths.get(item.key);
                 return item;
             });
+
             this.hooks.triggerHook(HOOKS_NAME.TABLE_CELL_WIDTH_CHANGE);
         },
 
-        // set column width
+        // set column width for column resize
         setColumnWidth({ colKey, width }) {
             this.colgroups = this.colgroups.map((item) => {
                 if (item.key === colKey) {
-                    item._realTimeWidth = width;
+                    item._columnResizeWidth = width;
                 }
                 return item;
             });
+            this.$nextTick(() => {
+                this.setScrollBarStatus();
+            });
             this.hooks.triggerHook(HOOKS_NAME.TABLE_CELL_WIDTH_CHANGE);
-        },
-
-        // set table width
-        setTableWidth(nextTableWidth) {
-            let tableContainerWrapperEl =
-                this.$refs[this.tableContainerWrapperRef];
-            if (tableContainerWrapperEl) {
-                this.tableContainerWrapperWidth = nextTableWidth;
-                // 解决列宽拖动有滚动条->无滚动条 表格高度不更新问题
-                this.$nextTick(() => {
-                    this.setScrollBarStatus();
-                });
-            }
         },
 
         // update colgroups by sort change
@@ -953,9 +949,25 @@ export default {
                 if (Object.keys(sortColumns).indexOf(item.field) > -1) {
                     item.sortBy = sortColumns[item.field];
                 }
-
                 return item;
             });
+        },
+
+        // init column width by column resize
+        initColumnWidthByColumnResize() {
+            const { enableColumnResize } = this;
+
+            const columnDefaultWidth = 50;
+            if (enableColumnResize) {
+                this.colgroups = this.colgroups.map((item) => {
+                    let columnWidth = columnDefaultWidth;
+                    if (isNumber(item.width)) {
+                        columnWidth = item.width;
+                    }
+                    item._columnResizeWidth = columnWidth;
+                    return item;
+                });
+            }
         },
 
         // init columns
@@ -3765,7 +3777,6 @@ export default {
     },
     render() {
         const {
-            tableContainerWrapperWidth,
             showHeader,
             tableViewportWidth,
             tableContainerStyle,
@@ -3901,11 +3912,7 @@ export default {
         // table container wrapper props
         const tableContainerWrapperProps = {
             ref: this.tableContainerWrapperRef,
-            style: {
-                width: tableContainerWrapperWidth
-                    ? tableContainerWrapperWidth + "px"
-                    : "100%",
-            },
+            style: this.tableContainerWrapperStyle,
             class: {
                 "ve-table": true,
                 [clsName("border-around")]: this.borderAround,
@@ -4093,9 +4100,6 @@ export default {
         const columnResizerProps = {
             props: {
                 parentRendered: this.parentRendered,
-                tableRootEl: this.$refs[this.tableRootRef],
-                tableContainerWrapperInstance:
-                    this.$refs[this.tableContainerWrapperRef],
                 tableContainerEl: this.$refs[this.tableContainerRef],
                 hooks: this.hooks,
                 colgroups,
@@ -4104,7 +4108,6 @@ export default {
                 setIsColumnResizerHover: this.setIsColumnResizerHover,
                 setIsColumnResizing: this.setIsColumnResizing,
                 setColumnWidth: this.setColumnWidth,
-                setTableWidth: this.setTableWidth,
                 columnWidthResizeOption: this.columnWidthResizeOption,
             },
         };
