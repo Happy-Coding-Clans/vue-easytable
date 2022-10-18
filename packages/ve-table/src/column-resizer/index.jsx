@@ -104,22 +104,6 @@ export default {
                             this.initColumnResizerPosition({ event, column });
                         },
                     );
-
-                    // body cell mousemove
-                    this.hooks.addHook(
-                        HOOKS_NAME.BODY_CELL_MOUSEMOVE,
-                        ({ event, column }) => {
-                            //this.columnResizerMousemove({ event, column, type: "bodyCell" });
-                        },
-                    );
-
-                    // table container mouseup
-                    this.hooks.addHook(
-                        HOOKS_NAME.TABLE_CONTAINER_MOUSEUP,
-                        () => {
-                            //this.columnResizerMouseup(event);
-                        },
-                    );
                 }
             },
             immediate: true,
