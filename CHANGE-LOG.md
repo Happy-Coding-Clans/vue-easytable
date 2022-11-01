@@ -7,6 +7,18 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.21.6
+
+### Bug Fixes
+
+-   Fix the bug that the border of the table column is occasionally disappeared
+
+---
+
+### Bug Fixes
+
+-   修复表列的边框偶尔消失的问题
+
 V2.21.5
 
 ### Performance Improvements
