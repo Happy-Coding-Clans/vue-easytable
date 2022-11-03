@@ -20,6 +20,15 @@
 
 Support this project by becoming a sponsor. Your logo or name will show up here with a link you provided. [Become a sponsor](https://www.patreon.com/huangshuwei)
 
+<h3 align="center">Gold Sponsor</h3>
+<h3 align="center">Silver Sponsor</h3>
+<p align="center">
+  <a href="https://costcertified.com/" target="_blank">
+    <img width="150px" src="https://huangshuwei.gitee.io/site/sponsors/silver-sponsor/Mamadou-Wann.svg" alt="Become a Patreon">
+  </a>
+</p>
+<h3 align="center">Generous Sponsor</h3>
+
 ## Introduction
 
 A powerful data table based on vue2.x You can use it as data grid、Microsoft Excel or Google sheets. It supports virtual scroll、cell edit etc.
