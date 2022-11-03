@@ -20,6 +20,15 @@
 
 通过成为赞助商来支持这个项目。您的商标或名称将与您提供的链接一起显示在此处。[成为赞助商](https://www.patreon.com/huangshuwei)
 
+<h3 align="center">Gold Sponsor</h3>
+<h3 align="center">Silver Sponsor</h3>
+<p align="center">
+  <a href="https://costcertified.com/" target="_blank">
+    <img width="150px" src="https://huangshuwei.gitee.io/site/sponsors/silver-sponsor/Mamadou-Wann.svg" alt="Become a Patreon">
+  </a>
+</p>
+<h3 align="center">Generous Sponsor</h3>
+
 ## 介绍
 
 一个强大的 vue2.x 表格组件。你可以将它用做数据表、微软 excel 或者 goole sheet. 支持虚拟滚动、单元格编辑等功能。
