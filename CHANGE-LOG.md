@@ -12,14 +12,14 @@ V2.21.7
 ### Bug Fixes
 
 -   Fix the bug that cell selection is enabled in the parent table and cell text cannot be selected in the child table by default when nested child tables
--   Fix the bug that the parent table height jitter after expanding when nested sub tables
+-   Fix the bug that the parent table height jitter after expanding when nested sub tables #453
 
 ---
 
 ### Bug Fixes
 
 -   修复嵌套子表格时，父表格开启了单元格选择，子表格默认无法选中单元格文字的问题
--   修复嵌套子表格时，展开后父级表格高度抖动的问题
+-   修复嵌套子表格时，展开后父级表格高度抖动的问题 #453
 
 V2.21.6
 
