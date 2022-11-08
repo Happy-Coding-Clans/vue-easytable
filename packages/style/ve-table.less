@@ -23,6 +23,8 @@
         overflow-y: auto;
         height: 100%;
         width: 100%;
+        // 修复嵌套表格外层开启单元格选择，子表格未开启单元格选择，导致默认文字无法选中的问题
+        user-select: text;
 
         // table content wrapper
         .ve-table-content-wrapper {
