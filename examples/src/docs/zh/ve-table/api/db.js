@@ -580,7 +580,7 @@ export const db = {
             {
                 name: "getRangeCellSelection",
                 desc: `获取当前选择区域的信息。返回所选区域索引和key信息`,
-                param: "-",
+                param: "{selectionRangeKeys,selectionRangeIndexes}",
             },
         ],
         columns: columnsType2,

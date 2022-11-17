@@ -586,7 +586,7 @@ export const db = {
             {
                 name: "getRangeCellSelection",
                 desc: `Get the information of the range selection. Returns the indexes and key information of the selected region`,
-                param: "-",
+                param: "{selectionRangeKeys,selectionRangeIndexes}",
             },
         ],
         columns: columnsType2,
