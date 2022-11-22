@@ -17,6 +17,8 @@ V2.21.8
 
 -   Fix the bug that the column width restoring when cancel or fix the column through the right-click menu after dragging the column width
 
+---
+
 ### Breaking Changes
 
 -   修改表头右键菜单类型名称： CANCLE_LEFT_FIXED_COLUMN_TO -> CANCEL_LEFT_FIXED_COLUMN_TO
