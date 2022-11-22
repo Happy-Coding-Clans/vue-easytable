@@ -1458,12 +1458,16 @@ export function cellAutofill({
  * @param {array<object>} cloneColumns
  * @param {object} cellSelectionRangeData
  * @param {string} fixedType COLUMN_FIXED_TYPE
+ * @param {array<object>} colgroups
+ * @param {bool} enableColumnResize
  * @return cloneColumns
  */
 export function setColumnFixed({
     cloneColumns,
     cellSelectionRangeData,
     fixedType,
+    colgroups,
+    enableColumnResize,
 }) {
     let result = cloneColumns;
 
@@ -1503,6 +1507,20 @@ export function setColumnFixed({
             if (colItem.fixed === fixedType) {
                 colItem.fixed = "";
             }
+
+            // 允许列自适应 && 不是多列表头
+            if (
+                enableColumnResize &&
+                !(Array.isArray(colItem.children) && colItem.children.length)
+            ) {
+                const _colItem = colgroups.find(
+                    (x) => x.key === colItem.key && !isEmptyValue(x.key),
+                );
+                if (_colItem) {
+                    colItem.width = _colItem._columnResizeWidth;
+                }
+            }
+
             if (COLUMN_FIXED_TYPE.LEFT === fixedType) {
                 // 不允许左冻结最后一列
                 if (index <= fixedColIndex && index < cloneColumns.length) {
@@ -1527,10 +1545,29 @@ export function setColumnFixed({
  * @param {array<object>} cloneColumns
  * @param {array<object>} colgroups
  * @param {string} fixedType COLUMN_FIXED_TYPE
+ * @param {bool} enableColumnResize
  * @return cloneColumns
  */
-export function cancelColumnFixed({ cloneColumns, colgroups, fixedType }) {
+export function cancelColumnFixed({
+    cloneColumns,
+    colgroups,
+    fixedType,
+    enableColumnResize,
+}) {
     return cloneColumns.map((colItem) => {
+        // 允许列自适应 && 不是多列表头
+        if (
+            enableColumnResize &&
+            !(Array.isArray(colItem.children) && colItem.children.length)
+        ) {
+            const _colItem = colgroups.find(
+                (x) => x.key === colItem.key && !isEmptyValue(x.key),
+            );
+            if (_colItem) {
+                colItem.width = _colItem._columnResizeWidth;
+            }
+        }
+
         if (COLUMN_FIXED_TYPE.LEFT === fixedType) {
             if (
                 colItem.fixed === fixedType &&

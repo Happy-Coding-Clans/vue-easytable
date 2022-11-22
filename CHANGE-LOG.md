@@ -7,6 +7,24 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.21.8
+
+### Breaking Changes
+
+-   Change contextmenu type name of the header: CANCLE_LEFT_FIXED_COLUMN_TO -> CANCEL_LEFT_FIXED_COLUMN_TO
+
+### Bug Fixes
+
+-   Fix the bug that the column width restoring when cancel or fix the column through the right-click menu after dragging the column width
+
+### Breaking Changes
+
+-   修改表头右键菜单类型名称： CANCLE_LEFT_FIXED_COLUMN_TO -> CANCEL_LEFT_FIXED_COLUMN_TO
+
+### Bug Fixes
+
+-   修复列宽拖动后，通过右键菜单取消或者固定列时，列宽还原的问题
+
 V2.21.7
 
 ### Bug Fixes

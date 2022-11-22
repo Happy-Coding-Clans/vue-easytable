@@ -799,6 +799,8 @@ export default {
         cloneColumns: {
             handler() {
                 this.initGroupColumns();
+                // 右键（取消）固定列会操作 cloneColumns
+                this.initColumnWidthByColumnResize();
 
                 this.columnsOptionResetTime++;
                 // 需要等待 initColumns 和 initGroupColumns 先执行
@@ -2821,6 +2823,7 @@ export default {
                 cellSelectionRangeData,
                 allRowKeys,
                 colgroups,
+                enableColumnResize,
             } = this;
 
             const { rowKey, colKey } = cellSelectionData.currentCell;
@@ -2869,6 +2872,8 @@ export default {
                         cloneColumns: this.cloneColumns,
                         cellSelectionRangeData,
                         fixedType: COLUMN_FIXED_TYPE.LEFT,
+                        colgroups,
+                        enableColumnResize,
                     });
                 }
                 // cancel left fixed column to
@@ -2879,6 +2884,7 @@ export default {
                         cloneColumns: this.cloneColumns,
                         colgroups,
                         fixedType: COLUMN_FIXED_TYPE.LEFT,
+                        enableColumnResize,
                     });
                 }
                 // right fixed column to
@@ -2889,6 +2895,8 @@ export default {
                         cloneColumns: this.cloneColumns,
                         cellSelectionRangeData,
                         fixedType: COLUMN_FIXED_TYPE.RIGHT,
+                        colgroups,
+                        enableColumnResize,
                     });
                 }
                 // cancel right fixed column to
@@ -2899,6 +2907,7 @@ export default {
                         cloneColumns: this.cloneColumns,
                         colgroups,
                         fixedType: COLUMN_FIXED_TYPE.RIGHT,
+                        enableColumnResize,
                     });
                 }
             }
