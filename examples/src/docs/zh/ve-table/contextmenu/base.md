@@ -79,7 +79,7 @@
                             type: "LEFT_FIXED_COLUMN_TO",
                         },
                         {
-                            type: "CANCLE_LEFT_FIXED_COLUMN_TO",
+                            type: "CANCEL_LEFT_FIXED_COLUMN_TO",
                         },
                         {
                             type: "RIGHT_FIXED_COLUMN_TO",

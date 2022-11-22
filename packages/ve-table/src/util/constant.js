@@ -261,7 +261,7 @@ export const CONTEXTMENU_NODE_TYPES = {
     // left fixed column to
     LEFT_FIXED_COLUMN_TO: "LEFT_FIXED_COLUMN_TO",
     // cancel left fixed column to
-    CANCEL_LEFT_FIXED_COLUMN_TO: "CANCLE_LEFT_FIXED_COLUMN_TO",
+    CANCEL_LEFT_FIXED_COLUMN_TO: "CANCEL_LEFT_FIXED_COLUMN_TO",
     // right fixed column to
     RIGHT_FIXED_COLUMN_TO: "RIGHT_FIXED_COLUMN_TO",
     // cancel right fixed column to
