@@ -2,14 +2,16 @@
 
 header 右键菜单清单
 
-| 功能           | 类型                 |
-| :------------- | :------------------- |
-| 分割线         | `SEPARATOR`          |
-| 剪切           | `CUT`                |
-| 拷贝           | `COPY`               |
-| 清空列         | `EMPTY_COLUMN`       |
-| 左列冻结至该列 | `leftFixedColumnTo`  |
-| 右列冻结至该列 | `rightFixedColumnTo` |
+| 功能               | 类型                           |
+| :----------------- | :----------------------------- |
+| 分割线             | `SEPARATOR`                    |
+| 剪切               | `CUT`                          |
+| 拷贝               | `COPY`                         |
+| 清空列             | `EMPTY_COLUMN`                 |
+| 左列冻结至该列     | `LEFT_FIXED_COLUMN_TO`         |
+| 右列冻结至该列     | `RIGHT_FIXED_COLUMN_TO`        |
+| 取消左列冻结至该列 | `CANCEL_LEFT_FIXED_COLUMN_TO`  |
+| 取消右列冻结至该列 | `CANCEL_RIGHT_FIXED_COLUMN_TO` |
 
 body 右键菜单清单
 
