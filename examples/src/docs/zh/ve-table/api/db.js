@@ -1113,7 +1113,7 @@ export const db = {
                 default: "true",
             },
             {
-                param: "cut",
+                param: "delete",
                 desc: `是否开启单元格删除`,
                 type: `<code>Boolean</code>`,
                 optionalVal: "-",
