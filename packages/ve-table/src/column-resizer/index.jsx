@@ -108,7 +108,12 @@ export default {
 
                 const col = this.colgroups.find((x) => x.key === column.key);
 
-                if (col && col._realTimeWidth) {
+                // 表头分组，不支持分组表头列宽拖动
+                if (!col) {
+                    return false;
+                }
+
+                if (col._realTimeWidth) {
                     const target = event.target;
                     const cellRect = target.getBoundingClientRect();
                     const { height, left, top } = cellRect;
@@ -123,6 +128,22 @@ export default {
                 } else {
                     console.warn("Resizer column needs set column width");
                 }
+
+                // if (col && col._realTimeWidth) {
+                //     const target = event.target;
+                //     const cellRect = target.getBoundingClientRect();
+                //     const { height, left, top } = cellRect;
+
+                //     this.columnResizerRect.left =
+                //         left + col._realTimeWidth - tableContainerLeft;
+                //     this.columnResizerRect.top = top - tableContainerTop;
+                //     this.columnResizerRect.height = height;
+
+                //     this.currentResizingColumn = col;
+                //     this.columnResizerStartX = left + col._realTimeWidth;
+                // } else {
+                //     console.warn("Resizer column needs set column width");
+                // }
             }
         },
 

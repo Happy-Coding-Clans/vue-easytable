@@ -7,6 +7,18 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.21.9
+
+### Bug Fixes
+
+-   Fix the bug that the console warns "Resizer column needs set column width" when the column width dragging function is grouped in the header
+
+---
+
+### Bug Fixes
+
+-   修复列宽拖动功能在表头分组时，控制台警告提示“Resizer column needs set column width”的问题
+
 V2.21.8
 
 ### Breaking Changes
