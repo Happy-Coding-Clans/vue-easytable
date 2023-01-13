@@ -215,10 +215,7 @@ export default {
 
                     let showIndicator = false;
                     if (!isGroupHeader) {
-                        if (
-                            column["key"] &&
-                            indicatorColKeys.indexOf(column["key"]) > -1
-                        ) {
+                        if (indicatorColKeys.indexOf(column["key"]) > -1) {
                             showIndicator = true;
                         }
                     } else {
