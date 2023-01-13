@@ -205,16 +205,20 @@ export default {
                     if (leftColKey === rightColKey) {
                         indicatorColKeys = [leftColKey];
                     } else {
-                        indicatorColKeys = getColKeysByRangeColKeys({
-                            colKey1: leftColKey,
-                            colKey2: rightColKey,
-                            colgroups,
-                        });
+                        indicatorColKeys =
+                            getColKeysByRangeColKeys({
+                                colKey1: leftColKey,
+                                colKey2: rightColKey,
+                                colgroups,
+                            }) ?? [];
                     }
 
                     let showIndicator = false;
                     if (!isGroupHeader) {
-                        if (indicatorColKeys.indexOf(column["key"]) > -1) {
+                        if (
+                            column["key"] &&
+                            indicatorColKeys.indexOf(column["key"]) > -1
+                        ) {
                             showIndicator = true;
                         }
                     } else {

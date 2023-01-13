@@ -473,6 +473,10 @@ export default {
                 cellEl = this.getTableLastRowCellByColKey(colKey);
             }
 
+            if (!cellEl) {
+                return;
+            }
+
             const {
                 left: cellLeft,
                 top: cellTop,

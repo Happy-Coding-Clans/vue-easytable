@@ -1052,7 +1052,7 @@ function getLeftmostOrRightmostColKey({ type, colgroups, colKeys }) {
             const colIndex = colgroups.findIndex((x) => x.key === colKey);
 
             if (colIndex === -1) {
-                console.error(
+                console.warn(
                     `getLeftmostOrRightmostColKey error:: can't find colKey:${colKey}`,
                 );
                 return false;
