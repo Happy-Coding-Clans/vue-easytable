@@ -7,6 +7,18 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.21.10
+
+### Bug Fixes
+
+-   Fix the bug that the header is hidden due to batch hidden columns in the header right-click menu #538
+
+---
+
+### Bug Fixes
+
+-   修复表头右键菜单批量隐藏列，导致表头隐藏的问题 #538
+
 V2.21.9
 
 ### Bug Fixes
