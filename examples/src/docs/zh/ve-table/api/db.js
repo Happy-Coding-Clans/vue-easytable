@@ -390,6 +390,14 @@ export const db = {
                 default: "-",
             },
             {
+                param: "disableResizing",
+                desc: `Disable resizing for this column. Only effective if <code>columnWidthResizeOption</code> is enabled`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "false",
+                rowKey: 46,
+            },
+            {
                 param: "<span class='expand'>ellipsis</span>",
                 desc: `单元格省略配置。`,
                 type: "<code>Object</code>",

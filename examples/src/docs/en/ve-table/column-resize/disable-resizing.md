@@ -1,28 +1,21 @@
-:::anchor Column Resizing
+:::anchor Disable Column Resizing
 
-You can hover the mouse between two columns and Resizing.If the column width is not set, the default is 50px
+Col1, Col2, and Col3 resizing is disabled through `disableResizing`
 
-:::demo 1、Set the min width of resize column through `columnMinWidth`<br>2、Get the callback method of resize column changes through `sizeChange({ column, differWidth, columnWidth })`
+:::demo
 
 ```html
 <template>
-    <div>
-        <div v-show="columnResizeInfo.column" style="margin:10px 0;line-height:2">
-            <div>column:{{columnResizeInfo.column}}</div>
-            <div>differWidth:{{columnResizeInfo.differWidth}}</div>
-            <div>columnWidth:{{columnResizeInfo.columnWidth}}</div>
-        </div>
-        <ve-table
-            style="width:100%"
-            :scroll-width="0"
-            :columns="columns"
-            :table-data="tableData"
-            :border-around="true"
-            :border-x="true"
-            :border-y="true"
-            :column-width-resize-option="columnWidthResizeOption"
-        />
-    </div>
+    <ve-table
+        style="width:100%"
+        :scroll-width="0"
+        :columns="columns"
+        :table-data="tableData"
+        :border-around="true"
+        :border-x="true"
+        :border-y="true"
+        :column-width-resize-option="columnWidthResizeOption"
+    />
 </template>
 
 <script>
@@ -37,9 +30,7 @@ You can hover the mouse between two columns and Resizing.If the column width is 
                     minWidth: 30,
                     // column size change
                     sizeChange: ({ column, differWidth, columnWidth }) => {
-                        this.columnResizeInfo.column = column;
-                        this.columnResizeInfo.differWidth = differWidth;
-                        this.columnResizeInfo.columnWidth = columnWidth;
+                        //
                     },
                 },
                 columns: [
@@ -53,9 +44,22 @@ You can hover the mouse between two columns and Resizing.If the column width is 
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
                             return ++rowIndex;
                         },
+                        disableResizing: true,
                     },
-                    { field: "col1", key: "col1", title: "Col1", width: 220 },
-                    { field: "col2", key: "col2", title: "Col2", width: 220 },
+                    {
+                        field: "col1",
+                        key: "col1",
+                        title: "Col1",
+                        width: 220,
+                        disableResizing: true,
+                    },
+                    {
+                        field: "col2",
+                        key: "col2",
+                        title: "Col2",
+                        width: 220,
+                        disableResizing: true,
+                    },
                     { field: "col3", key: "col3", title: "Col3", width: 220 },
                     { field: "col4", key: "col4", title: "Col4", width: 220 },
                     { field: "col5", key: "col5", title: "Col5", width: 220 },
