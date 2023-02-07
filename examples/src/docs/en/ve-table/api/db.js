@@ -396,6 +396,14 @@ export const db = {
                 rowKey: 45,
             },
             {
+                param: "disableResizing",
+                desc: `Disable resizing for this column. Only effective if <code>columnWidthResizeOption</code> is enabled`,
+                type: `<code>Boolean</code>`,
+                optionalVal: "-",
+                default: "false",
+                rowKey: 46,
+            },
+            {
                 param: "<span class='expand'>ellipsis</span>",
                 desc: `Cell ellipsis option`,
                 type: "<code>Object</code>",
