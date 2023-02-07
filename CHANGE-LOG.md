@@ -7,6 +7,18 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.22.0
+
+### Feature
+
+-   Support disabling column resizing optional [#539](https://github.com/Happy-Coding-Clans/vue-easytable/issues/539) @micheldpcarlos
+
+---
+
+### Feature
+
+支持禁用列宽拖动配置化 [#539](https://github.com/Happy-Coding-Clans/vue-easytable/issues/539) @micheldpcarlos
+
 V2.21.11
 
 ### Bug Fixes
