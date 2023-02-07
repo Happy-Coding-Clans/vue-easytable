@@ -89,6 +89,7 @@ export default {
                     this.hooks.addHook(
                         HOOKS_NAME.HEADER_CELL_MOUSEMOVE,
                         ({ event, column }) => {
+                            if (column.disableResizing) return;
                             this.initColumnResizerPosition({ event, column });
                         },
                     );
