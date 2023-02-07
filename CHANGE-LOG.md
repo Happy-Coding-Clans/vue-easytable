@@ -17,7 +17,7 @@ V2.22.0
 
 ### Feature
 
-支持禁用列宽拖动配置化 [#539](https://github.com/Happy-Coding-Clans/vue-easytable/issues/539) @micheldpcarlos
+-   支持禁用列宽拖动配置化 [#539](https://github.com/Happy-Coding-Clans/vue-easytable/issues/539) @micheldpcarlos
 
 V2.21.11
 
