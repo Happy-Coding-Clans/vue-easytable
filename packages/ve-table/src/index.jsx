@@ -2054,12 +2054,11 @@ export default {
 
         // set scrolling
         setScrolling(tableContainerRef) {
-          const { scrollWidth, clientWidth, scrollLeft, scrollTop } =
-          tableContainerRef;
-
             if (this.hasFixedColumn) {
-                const { previewTableContainerScrollLeft: previewScrollLeft } =
-                    this;
+              const { scrollWidth, clientWidth, scrollLeft } =
+                  tableContainerRef;
+              const { previewTableContainerScrollLeft: previewScrollLeft } =
+                  this;
 
                 // 仅横向滚动需要处理
                 if (
@@ -2077,6 +2076,7 @@ export default {
             }
 
             if (this.fixedHeader) {
+              const { scrollTop } = tableContainerRef;
               this.isVerticalScrolling = scrollTop > 0;
             }
         },
