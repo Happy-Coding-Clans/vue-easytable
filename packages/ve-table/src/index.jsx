@@ -360,6 +360,8 @@ export default {
             isLeftScrolling: false,
             // is scrolling right
             isRightScrolling: false,
+            // is scrolling vertically
+            isVerticalScrolling: false,
             // has horizontal scroll bar
             hasXScrollBar: false,
             // has vertical scroll bar
@@ -588,6 +590,7 @@ export default {
                 isVirtualScroll,
                 isLeftScrolling,
                 isRightScrolling,
+                isVerticalScrolling,
                 isCellEditing,
                 isAutofillStarting,
                 enableCellSelection,
@@ -598,6 +601,7 @@ export default {
                 [clsName("virtual-scroll")]: isVirtualScroll,
                 [clsName("container-left-scrolling")]: isLeftScrolling,
                 [clsName("container-right-scrolling")]: isRightScrolling,
+                [clsName("container-vertical-scrolling")]: isVerticalScrolling,
                 [clsName("is-cell-editing")]: isCellEditing,
                 [clsName("autofilling")]: isAutofillStarting,
                 // 如果开启单元格选择，则关闭 user-select
@@ -2050,10 +2054,10 @@ export default {
 
         // set scrolling
         setScrolling(tableContainerRef) {
-            if (this.hasFixedColumn) {
-                const { scrollWidth, clientWidth, scrollLeft } =
-                    tableContainerRef;
+          const { scrollWidth, clientWidth, scrollLeft, scrollTop } =
+          tableContainerRef;
 
+            if (this.hasFixedColumn) {
                 const { previewTableContainerScrollLeft: previewScrollLeft } =
                     this;
 
@@ -2070,6 +2074,10 @@ export default {
                 }
                 this.isLeftScrolling = scrollLeft > 0;
                 this.isRightScrolling = scrollWidth - clientWidth > scrollLeft;
+            }
+
+            if (this.fixedHeader) {
+              this.isVerticalScrolling = scrollTop > 0;
             }
         },
 
