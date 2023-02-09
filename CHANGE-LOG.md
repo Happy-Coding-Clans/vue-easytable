@@ -7,6 +7,18 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.23.0
+
+### Feature
+
+-   add container scrolling class `ve-table-container-vertical-scrolling` When the table has vertical scrolling distance [#544](https://github.com/Happy-Coding-Clans/vue-easytable/pull/544) @looeyf @micheldpcarlos
+
+---
+
+### Feature
+
+-   表格有垂直滚动距离时，添加容器滚动样式 `ve-table-container-vertical-scrolling`
+
 V2.22.0
 
 ### Feature
