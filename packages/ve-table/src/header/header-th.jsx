@@ -604,7 +604,10 @@ export default {
             click: (e) => {
                 this.cellClick(e, click);
 
-                if (this.isSortableCloumn) {
+                if (
+                    this.isSortableCloumn &&
+                    e.target instanceof HTMLTableCellElement
+                ) {
                     this.sortChange();
                 }
             },

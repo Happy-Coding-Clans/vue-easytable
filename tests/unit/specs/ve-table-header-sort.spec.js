@@ -217,7 +217,7 @@ describe("veTable header sort", () => {
                 .exists(),
         ).toBe(true);
 
-        thEls.at(1).find(".ve-table-sort").trigger("click");
+        thEls.at(1).find(".ve-table-sortable-column").trigger("click");
 
         await later();
 
@@ -361,7 +361,7 @@ describe("veTable header sort", () => {
                 .exists(),
         ).toBe(true);
 
-        thEls.at(1).find(".ve-table-sort").trigger("click");
+        thEls.at(1).find(".ve-table-sortable-column").trigger("click");
 
         await later();
 
@@ -425,7 +425,7 @@ describe("veTable header sort", () => {
 
         const thEls = wrapper.findAll(".ve-table-header-tr th");
 
-        thEls.at(1).find(".ve-table-sort").trigger("click");
+        thEls.at(1).find(".ve-table-sortable-column").trigger("click");
 
         await later();
 
@@ -434,7 +434,7 @@ describe("veTable header sort", () => {
             weight: "",
         });
 
-        thEls.at(1).find(".ve-table-sort").trigger("click");
+        thEls.at(1).find(".ve-table-sortable-column").trigger("click");
 
         await later();
 

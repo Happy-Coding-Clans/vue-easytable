@@ -89,7 +89,7 @@
                                 height: 16px;
                                 margin-left: 5px;
                                 color: @ve-table-sort-icon-default-color;
-                                cursor: pointer;
+                                pointer-events: none;
                                 .ve-table-sort-icon {
                                     position: absolute;
                                     display: block;
@@ -106,6 +106,10 @@
                                         color: @ve-table-sort-icon-active-color;
                                     }
                                 }
+                            }
+
+                            &.ve-table-sortable-column {
+                                cursor: pointer;
                             }
 
                             /* filter */
