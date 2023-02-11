@@ -167,6 +167,19 @@ export default {
 
             return result;
         },
+        // is sortable column
+        isSortableCloumn() {
+            let result = false;
+
+            const { sortColumns, groupColumnItem } = this;
+            const currentField = groupColumnItem.field;
+
+            if (Object.keys(sortColumns).includes(currentField)) {
+                result = true;
+            }
+
+            return result;
+        },
     },
     methods: {
         /*
@@ -183,6 +196,7 @@ export default {
                 [clsName("first-right-fixed-column")]:
                     this.isfirstRightFixedColumn,
                 [clsName("last-column")]: this.isLastCloumn,
+                [clsName("sortable-column")]: this.isSortableCloumn,
             };
 
             const {
@@ -378,9 +392,6 @@ export default {
 
                 const props = {
                     class: clsName("sort"),
-                    on: {
-                        click: () => this.sortChange(),
-                    },
                 };
 
                 result = (
@@ -592,6 +603,13 @@ export default {
         const events = {
             click: (e) => {
                 this.cellClick(e, click);
+
+                if (
+                    this.isSortableCloumn &&
+                    e.target instanceof HTMLTableCellElement
+                ) {
+                    this.sortChange();
+                }
             },
             dblclick: (e) => {
                 this.cellDblclick(e, dblclick);
