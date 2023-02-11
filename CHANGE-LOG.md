@@ -7,6 +7,18 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.24.0
+
+### Breaking Changes
+
+-   The sorting click area is changed from 'icon' click area to the whole 'th' click area [407](https://github.com/Happy-Coding-Clans/vue-easytable/pull/407) @timefordroids
+
+---
+
+### Breaking Changes
+
+-   排序的点击区域调整，从 `icon` 点击变更为整个 `th` 点击 [407](https://github.com/Happy-Coding-Clans/vue-easytable/pull/407) @timefordroids
+
 V2.23.0
 
 ### Feature
