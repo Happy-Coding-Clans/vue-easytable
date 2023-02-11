@@ -4,7 +4,7 @@
 
 ```html
 <template>
-    <ve-table :columns="columns" :table-data="tableData" :sort-option="sortOption" />
+    <ve-table :columns="columns" :table-data="tableData" :sort-option="sortOption" border-y />
 </template>
 
 <script>
