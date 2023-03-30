@@ -169,8 +169,8 @@ export default {
         };
     },
     computed: {
-        /* 
-        column collenction info 
+        /*
+        column collenction info
         1、style of each column
         2、class of each column
         */
@@ -825,13 +825,6 @@ export default {
                 this.sendToCheckboxAll();
             });
         }
-
-        // add key down event listener
-        document.addEventListener("keydown", this.dealKeydownEvent);
-    },
-    destroyed() {
-        // remove key down event listener
-        document.removeEventListener("keydown", this.dealKeydownEvent);
     },
     render() {
         const {
