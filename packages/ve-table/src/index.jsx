@@ -3601,6 +3601,21 @@ export default {
                 return false;
             }
 
+            const { beforeStartCellEditing } = editOption;
+
+            if (isFunction(beforeStartCellEditing)) {
+                const allowContinue = beforeStartCellEditing({
+                    row: cloneDeep(currentRow),
+                    column: currentColumn,
+                    cellValue: isDefined(defaultValue)
+                        ? defaultValue
+                        : currentRow[currentColumn.field],
+                });
+                if (isBoolean(allowContinue) && !allowContinue) {
+                    return false;
+                }
+            }
+
             // 给当前列赋默认值
             if (isDefined(defaultValue)) {
                 this.editorInputStartValue = defaultValue;

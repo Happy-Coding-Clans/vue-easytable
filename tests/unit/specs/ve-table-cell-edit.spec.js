@@ -232,6 +232,79 @@ describe("veTable cell edit", () => {
         ).toBe(false);
     });
 
+    it("beforeStartCellEditing callback", async () => {
+        const beforeStartCellEditingMockFn = jest.fn();
+        const beforeCellValueChangeMockFn = jest.fn();
+
+        const wrapper = mount(veTable, {
+            propsData: {
+                columns: COLUMNS,
+                tableData: cloneDeep(TABLE_DATA),
+                editOption: {
+                    beforeStartCellEditing: ({ row, column, cellValue }) => {
+                        beforeStartCellEditingMockFn(row, column, cellValue);
+                        if (cellValue === "AAA") {
+                            return false;
+                        }
+                    },
+                    beforeCellValueChange: ({ row, column, changeValue }) => {
+                        beforeCellValueChangeMockFn(row, column, changeValue);
+                    },
+                },
+                rowKeyFieldName: "rowKey",
+            },
+        });
+
+        wrapper.vm.startEditingCell({
+            rowKey: 0,
+            colKey: "name",
+            defaultValue: "AAA",
+        });
+
+        await later();
+        wrapper.vm.stopEditingCell();
+        await later();
+
+        expect(beforeStartCellEditingMockFn).toHaveBeenCalledWith(
+            {
+                address: "No.1 Century Avenue, Shanghai",
+                date: "1900-05-20",
+                hobby: "coding and coding repeat",
+                name: "John",
+                rowKey: 0,
+            },
+            {
+                _colspan: 1,
+                _keys: "name",
+                _level: 1,
+                _realTimeWidth: "15%",
+                _rowspan: 1,
+                align: "left",
+                edit: true,
+                field: "name",
+                key: "name",
+                title: "Name",
+                width: "15%",
+            },
+            "AAA",
+        );
+        expect(beforeStartCellEditingMockFn).toBeCalledTimes(1);
+        expect(beforeCellValueChangeMockFn).toBeCalledTimes(0);
+
+        wrapper.vm.startEditingCell({
+            rowKey: 0,
+            colKey: "name",
+            defaultValue: "BBB",
+        });
+
+        await later();
+        wrapper.vm.stopEditingCell();
+        await later();
+
+        expect(beforeStartCellEditingMockFn).toBeCalledTimes(2);
+        expect(beforeCellValueChangeMockFn).toBeCalledTimes(1);
+    });
+
     it("beforeCellValueChange and afterCellValueChange callback", async () => {
         const beforeCellValueChangeMockFn = jest.fn();
         const afterCellValueChangeMockFn = jest.fn();
@@ -303,7 +376,6 @@ describe("veTable cell edit", () => {
         await later();
 
         wrapper.vm.stopEditingCell();
-
         await later();
 
         expect(beforeCellValueChangeMockFn).toHaveBeenCalledWith(
