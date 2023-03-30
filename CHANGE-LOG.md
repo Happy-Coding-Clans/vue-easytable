@@ -7,6 +7,26 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.25.0
+
+### Feature
+
+-   New `beforeStartCellEditing` callback method for cell editing function
+
+### Bug Fixes
+
+-   Fix the bug that the addEventListener event handler function is empty #557 @Alfred-Skyblue
+
+---
+
+### Feature
+
+-   单元格编辑功能新增`beforeStartCellEditing`回调方法
+
+### Bug Fixes
+
+-   修复 addEventListener 事件处理函数为空的问题 #557 @Alfred-Skyblue
+
 V2.24.0
 
 ### Breaking Changes
