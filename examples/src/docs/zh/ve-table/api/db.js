@@ -955,6 +955,13 @@ export const db = {
     editOption: {
         data: [
             {
+                param: "beforeStartCellEditing",
+                desc: `单元格进入编辑状态前的回调方法。<code>row</code>当前行数据，<code>column</code>当前列信息，<code>cellValue</code>当前单元格的值。如果返回false，将则会阻止单元格进入编辑状态`,
+                type: `<code>Function({ row, column,cellValue })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
                 param: "beforeCellValueChange",
                 desc: `单元格内容改变前的回调方法。<code>row</code>当前行数据，<code>column</code>当前列信息，<code>changeValue</code>单元格改变的值。如果返回false，将会阻止编辑，单元格还原为编辑前状态`,
                 type: `<code>Function({ row, column,changeValue })</code>`,
@@ -970,7 +977,7 @@ export const db = {
             },
             {
                 param: "cellValueChange",
-                desc: `将被移除`,
+                desc: `即将废弃的方法`,
                 type: `<code>Function({ row, column })</code>`,
                 optionalVal: "-",
                 default: "-",

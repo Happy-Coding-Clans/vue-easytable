@@ -962,6 +962,13 @@ export const db = {
     editOption: {
         data: [
             {
+                param: "beforeStartCellEditing",
+                desc: `before start editing cell callback method.<code>row</code>Current row data,<code>column</code>Current column,<code>cellValue</code>Current cell value.If false is returned,Will prevent the cell from starting the editing state`,
+                type: `<code>Function({ row, column,cellValue })</code>`,
+                optionalVal: "-",
+                default: "-",
+            },
+            {
                 param: "beforeCellValueChange",
                 desc: `before cell value change callback method. <code>row</code>Current row data,<code>column</code>Current column,<code>changeValue</code>change value. If false is returned, cell editing will be blocked, the cell will back to the state before editing`,
                 type: `<code>Function({ row, column,changeValue  })</code>`,

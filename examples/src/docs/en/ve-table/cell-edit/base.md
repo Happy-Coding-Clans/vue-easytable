@@ -2,7 +2,7 @@
 
 Trying to change the value of the 'Number' column to a non number
 
-:::demo 1.After the cell stops editing, the `beforeCellValueChange` callback is triggered first. If false is returned, the editing will be blocked and the cell will be restored to the state before editing. If the editing is successful, the `afterCellValueChange` method will be triggered<br>2.You can use beforecellvaluechange to verify the contents of cell editing
+:::demo 1.Before a cell enters the editing state, the `beforeStartCellEditing` callback is first triggered. If false is returned, it will prevent the cell from entering the editing state<br>2.After the cell stops editing, the `beforeCellValueChange` callback is triggered first. If false is returned, the editing will be blocked and the cell will be restored to the state before editing. If the editing is successful, the `afterCellValueChange` method will be triggered<br>3.You can use beforecellvaluechange to verify the contents of cell editing
 
 ```html
 <template>
@@ -29,6 +29,18 @@ Trying to change the value of the 'Number' column to a non number
                 },
                 // edit option
                 editOption: {
+                    beforeStartCellEditing: ({ row, column, cellValue }) => {
+                        console.log("beforeStartCellEditing");
+                        console.log("row::", row);
+                        console.log("column::", column);
+                        console.log("cellValue::", cellValue);
+                        console.log("---");
+
+                        if (row.rowKey === 0 && column.field === "name") {
+                            alert("You can't edit this cell.");
+                            return false;
+                        }
+                    },
                     beforeCellValueChange: ({ row, column, changeValue }) => {
                         console.log("beforeCellValueChange");
                         console.log("row::", row);
@@ -98,7 +110,7 @@ Trying to change the value of the 'Number' column to a non number
                 // table data
                 tableData: [
                     {
-                        name: "John",
+                        name: "You can't edit",
                         date: "1900-05-20",
                         number: "32",
                         address: "No.1 Century Avenue, Shanghai",
