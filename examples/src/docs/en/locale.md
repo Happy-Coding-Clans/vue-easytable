@@ -61,8 +61,9 @@ The following languages are currently supported：
 | Traditional Chinese (Traditional) | zh-TW |
 | English | en-US |
 | South Africa (Afrikaans) | af-ZA |
-| South Africa (Zulu) | zu-ZA |
-| French（fr） | fr-FR |
+| South Africa (ZA) | zu-ZA |
+| French(FR) | fr-FR |
 | Brazilian Portuguese | pt-BR |
+| Korean(KR) | ko-KR |
 
 If you need to use other languages, you are welcome to contribute PR: just add a language configuration file in [here](https://github.com/huangshuwei/vue-easytable/tree/master/packages/src/locale/lang).

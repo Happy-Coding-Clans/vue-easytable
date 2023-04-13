@@ -62,8 +62,9 @@ VeLocale.update(lang);
 | 繁體中文（中国台湾） | zh-TW |
 | 英语（en） | en-US |
 | 南非（荷兰语） | af-ZA |
-| 南非（Zulu） | zu-ZA |
-| 法语（fr） | fr-FR |
+| 南非（ZA） | zu-ZA |
+| 法语（FR） | fr-FR |
 | 巴西葡萄牙语 | pt-BR |
+| 韩文(KR) | ko-KR |
 
 如果你需要使用其他的语言，欢迎贡献 PR：只需在 [这里](https://github.com/huangshuwei/vue-easytable/tree/master/packages/src/locale/lang) 添加一个语言配置文件即可。

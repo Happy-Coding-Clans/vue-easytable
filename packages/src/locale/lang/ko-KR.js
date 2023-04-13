@@ -21,7 +21,7 @@ export default {
         emptyColumn: "$1 열 비우기",
         //hideColumn: "열 숨기기",
         emptyCell: "셀을 비우다",
-        leftFixedColumnTo: "왼쪽 고정 열을
+        leftFixedColumnTo: "왼쪽 고정 열을",
         cancelLeftFixedColumnTo: "왼쪽 고정 열 취소",
         rightFixedColumnTo: "오른쪽 고정 열",
         cancelRightFixedColumnTo: "오른쪽 고정 열 취소",
