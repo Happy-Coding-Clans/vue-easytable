@@ -7,6 +7,18 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.26.0
+
+### Feature
+
+-   Add Korean language ko-KR （by @ClemOz-Dev ）
+
+---
+
+### Feature
+
+-   新增韩语 ko-KR （by @ClemOz-Dev ）
+
 V2.25.0
 
 ### Feature
