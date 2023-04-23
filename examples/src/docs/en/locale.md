@@ -65,5 +65,6 @@ The following languages are currently supported：
 | French(FR) | fr-FR |
 | Brazilian Portuguese | pt-BR |
 | Korean(KR) | ko-KR |
+| Russian (RU) | ru-RU |
 
 If you need to use other languages, you are welcome to contribute PR: just add a language configuration file in [here](https://github.com/huangshuwei/vue-easytable/tree/master/packages/src/locale/lang).

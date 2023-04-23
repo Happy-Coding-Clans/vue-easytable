@@ -7,6 +7,18 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.27.0
+
+### Feature
+
+-   Add russian language ru-RU （by @NeonGC ）
+
+---
+
+### Feature
+
+-   新增俄语 ru-RU （by @NeonGC ）
+
 V2.26.0
 
 ### Feature
