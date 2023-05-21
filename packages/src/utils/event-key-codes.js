@@ -2,10 +2,10 @@
 export function isInputKeyCode(event) {
     let result = false;
 
-    const { keyCode, altKey, ctrlKey, shiftKey } = event;
+    const { keyCode, altKey, ctrlKey, shiftKey, metaKey } = event;
 
     // exclude keys
-    if (altKey || ctrlKey || shiftKey) {
+    if (altKey || ctrlKey || shiftKey || metaKey) {
         return result;
     }
 
