@@ -7,6 +7,18 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.27.1
+
+### Bug Fixes
+
+-   Fix the problem of copy failure on macOs （by @xdbobname ）
+
+---
+
+### Bug Fixes
+
+-   修复单元格复制功能在 macOs 系统中失败的问题 （by @xdbobname ）
+
 V2.27.0
 
 ### Feature
