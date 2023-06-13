@@ -1196,7 +1196,7 @@ export const db = {
                 default: "-",
             },
             {
-                param: "beforeCut",
+                param: "beforeDelete",
                 desc: `The callback method before cell delete. If false is returned, the copy will be canceled. Parameter Description:\r1、<code>data</code>delete data\r2、<code>selectionRangeIndexes</code>The indexs information of delete area\r3、<code>selectionRangeKeys</code>The keys information of delete paste`,
                 type: `<code>Function({
                     data, selectionRangeIndexes, selectionRangeKeys
@@ -1205,7 +1205,7 @@ export const db = {
                 default: "-",
             },
             {
-                param: "afterCut",
+                param: "afterDelete",
                 desc: `The callback method after cell delete. Parameter Description:\r1、<code>data</code>delete data\r2、<code>selectionRangeIndexes</code>The indexs information of delete area\r3、<code>selectionRangeKeys</code>The keys information of delete paste`,
                 type: `<code>Function({
                     data, selectionRangeIndexes, selectionRangeKeys
