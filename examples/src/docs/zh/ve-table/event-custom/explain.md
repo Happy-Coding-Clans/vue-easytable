@@ -55,7 +55,7 @@ eventCustomOption: {
       contextmenu: (event) => {},
       mouseenter: (event) => {},
       mouseleave: (event) => {},
-       mousemove: (event) => {},
+      mousemove: (event) => {},
       mouseover: (event) => {},
       mousedown: (event) => {},
       mouseup: (event) => {},
