@@ -33,7 +33,7 @@
             class="demo-block-control"
             :style="{ width: getDemoBlockControlWidth }"
             :class="{ 'is-fixed': fixedControl }"
-            @click="isExpanded = !isExpanded"
+            @click="handleChangeExpand"
         >
             <i
                 :class="['arraw-slide-icon', iconClass, { hovering: hovering }]"
@@ -170,6 +170,16 @@ export default {
             // visibility
             if (isIntersecting) {
                 this.isDemoRendered = true;
+            }
+        },
+        handleChangeExpand() {
+            this.isExpanded = !this.isExpanded
+            if (!this.isExpanded && this.$refs.meta) {
+                const height = this.$refs.meta.getBoundingClientRect().height
+                window.scrollTo({
+                  top: window.scrollY - height,
+                  behavior: 'instant',
+                })
             }
         },
         // scroll handler
