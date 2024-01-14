@@ -175,7 +175,13 @@ export default {
         handleChangeExpand() {
             this.isExpanded = !this.isExpanded
             if (!this.isExpanded && this.$refs.meta) {
-                const height = this.$refs.meta.getBoundingClientRect().height
+                let height = 0
+
+                if (this.fixedControl)
+                    height = window.innerHeight - (this.$refs.meta.getBoundingClientRect().top ?? 0) - 44 - 40
+                else
+                    height = this.$refs.meta.getBoundingClientRect().height
+
                 window.scrollTo({
                   top: window.scrollY - height,
                   behavior: 'instant',
